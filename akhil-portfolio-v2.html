@@ -1,0 +1,1521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Akhil Male — Product Designer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0a;
+  --bg-soft: #131313;
+  --bg-card: #161616;
+  --line: #1f1f1f;
+  --line-soft: #181818;
+  --text: #ededed;
+  --text-soft: #8a8a8a;
+  --text-muted: #555555;
+  --accent: #d4ff5e;
+  --warm: #e8c598;
+  --glow: rgba(212, 255, 94, 0.15);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Geist', sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  font-weight: 400;
+  overflow-x: hidden;
+  letter-spacing: -0.005em;
+}
+
+/* Subtle film grain */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.06 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 999;
+  opacity: 0.6;
+}
+
+/* Vignette */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.5) 100%);
+  pointer-events: none;
+  z-index: 998;
+}
+
+/* Spotlight cursor */
+.spotlight {
+  position: fixed;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--glow) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 1;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.3s;
+  mix-blend-mode: screen;
+}
+
+/* === NAV === */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 24px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Geist Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  background: linear-gradient(to bottom, var(--bg) 0%, transparent 100%);
+  padding-bottom: 40px;
+}
+
+nav .logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text);
+}
+nav .logo .mark {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--accent);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Instrument Serif', serif;
+  color: var(--bg);
+  font-size: 14px;
+  font-style: italic;
+}
+nav .logo .name { font-weight: 500; }
+nav .logo .role { color: var(--text-muted); margin-left: 4px; }
+
+nav .links { display: flex; gap: 32px; }
+nav .links a {
+  color: var(--text-soft);
+  text-decoration: none;
+  transition: color 0.2s;
+  position: relative;
+}
+nav .links a:hover { color: var(--text); }
+nav .links a::before {
+  content: '';
+  position: absolute;
+  left: -10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--accent);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+nav .links a:hover::before { opacity: 1; }
+
+nav .status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-soft);
+}
+nav .status .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 12px var(--accent);
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+/* === HERO === */
+.hero {
+  min-height: 100vh;
+  padding: 160px 40px 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.hero-eyebrow {
+  font-family: 'Geist Mono', monospace;
+  font-size: 12px;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 60px;
+  opacity: 0;
+  animation: fadeUp 1s 0.2s forwards;
+}
+.hero-eyebrow .line {
+  width: 40px;
+  height: 1px;
+  background: var(--text-muted);
+}
+
+.hero-title {
+  font-family: 'Instrument Serif', serif;
+  font-weight: 400;
+  font-size: clamp(56px, 9vw, 140px);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  max-width: 1200px;
+  margin-bottom: 60px;
+}
+.hero-title .line {
+  display: block;
+  opacity: 0;
+  animation: fadeUp 1.2s forwards;
+}
+.hero-title .line:nth-child(1) { animation-delay: 0.4s; }
+.hero-title .line:nth-child(2) { animation-delay: 0.6s; }
+.hero-title .line:nth-child(3) { animation-delay: 0.8s; }
+.hero-title .italic { font-style: italic; color: var(--warm); }
+.hero-title .quiet { color: var(--text-muted); }
+.hero-title .accent {
+  position: relative;
+  font-style: italic;
+}
+.hero-title .accent::after {
+  content: '';
+  position: absolute;
+  bottom: 8px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: drawLine 0.8s 1.4s forwards;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes drawLine {
+  to { transform: scaleX(1); }
+}
+
+.hero-foot {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 60px;
+  align-items: end;
+  opacity: 0;
+  animation: fadeUp 1s 1.2s forwards;
+}
+
+.hero-bio {
+  font-family: 'Geist', sans-serif;
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--text-soft);
+  max-width: 480px;
+  font-weight: 400;
+}
+.hero-bio .em { color: var(--text); font-weight: 500; }
+.hero-bio .ital { font-family: 'Instrument Serif', serif; font-style: italic; color: var(--warm); font-size: 19px; }
+
+.hero-meta {
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  color: var(--text-muted);
+}
+.hero-meta .label {
+  display: block;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.hero-meta .val {
+  color: var(--text-soft);
+  font-size: 13px;
+  line-height: 1.5;
+}
+.hero-meta .val .highlight { color: var(--accent); }
+
+/* === SCROLL HINT === */
+.scroll-hint {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Geist Mono', monospace;
+  font-size: 10px;
+  color: var(--text-muted);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  opacity: 0;
+  animation: fadeUp 1s 1.6s forwards;
+}
+.scroll-hint .arrow {
+  width: 1px;
+  height: 32px;
+  background: linear-gradient(to bottom, transparent, var(--text-soft));
+  animation: scrollDown 2s ease-in-out infinite;
+}
+@keyframes scrollDown {
+  0%, 100% { transform: scaleY(1); transform-origin: top; }
+  50% { transform: scaleY(0.4); transform-origin: top; }
+}
+
+/* === MARQUEE === */
+.marquee {
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  padding: 20px 0;
+  overflow: hidden;
+  background: var(--bg);
+  position: relative;
+}
+.marquee-track {
+  display: flex;
+  white-space: nowrap;
+  animation: scroll 50s linear infinite;
+  font-family: 'Instrument Serif', serif;
+  font-size: 24px;
+  font-style: italic;
+  color: var(--text-soft);
+}
+.marquee-track span {
+  margin: 0 40px;
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+.marquee-track .dot { color: var(--accent); font-style: normal; font-size: 8px; }
+@keyframes scroll {
+  to { transform: translateX(-50%); }
+}
+
+/* === SECTION === */
+.section {
+  padding: 140px 40px;
+  max-width: 1400px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.section-head {
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: 60px;
+  align-items: end;
+  margin-bottom: 80px;
+}
+
+.section-head-main {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.section-meta {
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.section-meta .num { color: var(--accent); }
+
+.section-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(32px, 4.4vw, 64px);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  font-weight: 400;
+}
+.section-title .italic { font-style: italic; color: var(--warm); }
+.section-title .quiet { color: var(--text-muted); font-style: italic; }
+
+.section-aside {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.5;
+  text-align: right;
+}
+
+/* === ABOUT === */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 100px;
+  align-items: start;
+}
+
+.about-prose {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(22px, 2.2vw, 30px);
+  line-height: 1.4;
+  color: var(--text);
+  font-weight: 400;
+}
+.about-prose p { margin-bottom: 28px; }
+.about-prose p:last-child { margin-bottom: 0; }
+.about-prose .accent { color: var(--accent); font-style: italic; }
+.about-prose .warm { color: var(--warm); }
+.about-prose .muted { color: var(--text-muted); font-style: italic; }
+.about-prose .em { font-weight: 500; }
+
+.about-card {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 32px;
+  font-family: 'Geist Mono', monospace;
+  font-size: 12px;
+  position: relative;
+}
+.about-card .card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 16px;
+}
+.about-card .card-head .title {
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.about-card .card-head .dots { display: flex; gap: 6px; }
+.about-card .card-head .dots span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--line);
+}
+.about-card .card-head .dots span:first-child { background: var(--accent); }
+
+.spec {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: 16px;
+  padding: 10px 0;
+  border-bottom: 1px dashed var(--line);
+  font-size: 12px;
+}
+.spec:last-child { border-bottom: none; }
+.spec .k {
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.spec .v { color: var(--text-soft); }
+.spec .v .accent { color: var(--accent); }
+
+/* === WORK · HOVER GALLERY === */
+.work-gallery {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+  position: relative;
+}
+
+.work-titles {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--line);
+}
+
+.work-link {
+  display: grid;
+  grid-template-columns: 50px 1fr auto;
+  gap: 24px;
+  align-items: center;
+  padding: 28px 0;
+  border-bottom: 1px solid var(--line);
+  text-decoration: none;
+  color: var(--text);
+  cursor: pointer;
+  transition: padding-left 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+}
+
+.work-link::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--accent);
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.work-link:hover { padding-left: 20px; }
+.work-link:hover::before { transform: scaleY(1); }
+
+.work-num {
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+  transition: color 0.4s;
+}
+.work-link:hover .work-num { color: var(--accent); }
+
+.work-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(28px, 3.4vw, 44px);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  font-weight: 400;
+  color: var(--text);
+  transition: color 0.4s;
+}
+.work-title .italic { font-style: italic; color: var(--warm); }
+.work-link:hover .work-title { color: var(--accent); }
+.work-link:hover .work-title .italic { color: var(--accent); }
+
+.work-year {
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+  transition: color 0.4s, transform 0.4s;
+}
+.work-link:hover .work-year { color: var(--text-soft); transform: translateX(-4px); }
+
+/* Preview pane */
+.work-preview-wrap {
+  position: sticky;
+  top: 120px;
+  aspect-ratio: 4 / 5;
+  background: var(--bg-soft);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  overflow: hidden;
+  position: -webkit-sticky;
+  position: sticky;
+}
+
+.work-preview {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 32px;
+}
+.work-preview.active { opacity: 1; }
+
+.work-preview-art {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.work-preview-meta {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.work-preview-meta .left { display: flex; flex-direction: column; gap: 4px; }
+.work-preview-meta .left .role { color: var(--accent); }
+.work-preview-meta .right { text-align: right; color: var(--text-soft); }
+
+.work-preview-foot {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+.work-preview-foot .desc {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-size: 18px;
+  line-height: 1.4;
+  color: var(--text-soft);
+  max-width: 70%;
+  font-weight: 400;
+}
+.work-preview-foot .arrow {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-size: 28px;
+  color: var(--accent);
+}
+
+/* Per-preview gradient backdrops */
+.work-preview[data-bg="1"] .work-preview-art {
+  background: radial-gradient(circle at 30% 40%, rgba(212, 255, 94, 0.12), transparent 60%),
+              radial-gradient(circle at 70% 70%, rgba(232, 197, 152, 0.08), transparent 60%);
+}
+.work-preview[data-bg="2"] .work-preview-art {
+  background: radial-gradient(circle at 70% 30%, rgba(232, 197, 152, 0.15), transparent 60%),
+              radial-gradient(circle at 30% 80%, rgba(212, 255, 94, 0.06), transparent 60%);
+}
+.work-preview[data-bg="3"] .work-preview-art {
+  background: linear-gradient(135deg, rgba(212, 255, 94, 0.08), transparent 50%),
+              radial-gradient(circle at 80% 20%, rgba(232, 197, 152, 0.1), transparent 50%);
+}
+.work-preview[data-bg="4"] .work-preview-art {
+  background: conic-gradient(from 180deg at 50% 50%, rgba(212, 255, 94, 0.1), transparent 30%, rgba(232, 197, 152, 0.08), transparent 70%);
+}
+.work-preview[data-bg="5"] .work-preview-art {
+  background: radial-gradient(ellipse at center, rgba(232, 197, 152, 0.18), transparent 70%);
+}
+.work-preview[data-bg="6"] .work-preview-art {
+  background: linear-gradient(180deg, transparent 0%, rgba(212, 255, 94, 0.08) 50%, transparent 100%),
+              radial-gradient(circle at 50% 50%, rgba(232, 197, 152, 0.08), transparent 60%);
+}
+
+/* Big serif numeral floating in preview */
+.work-preview-numeral {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-size: 320px;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.04);
+  letter-spacing: -0.05em;
+  font-weight: 400;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* === PROCESS === */
+.process-section { background: var(--bg-soft); margin: 0; max-width: 100%; padding-left: 0; padding-right: 0; }
+.process-inner { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
+
+.process-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  border-top: 1px solid var(--line);
+  border-left: 1px solid var(--line);
+}
+.process-card {
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  padding: 36px 28px;
+  position: relative;
+  min-height: 280px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: background 0.4s;
+}
+.process-card:hover { background: var(--bg-card); }
+
+.process-card .step {
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  color: var(--accent);
+  letter-spacing: 0.08em;
+}
+.process-card h3 {
+  font-family: 'Instrument Serif', serif;
+  font-size: 32px;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  font-weight: 400;
+  margin-top: 24px;
+}
+.process-card h3 .italic { font-style: italic; color: var(--warm); }
+.process-card p {
+  font-size: 13px;
+  color: var(--text-soft);
+  line-height: 1.5;
+  margin-top: 16px;
+}
+
+/* === MANIFESTO === */
+.manifesto {
+  padding: 160px 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: left;
+  position: relative;
+}
+.manifesto-eyebrow {
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 32px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.manifesto-eyebrow .line {
+  width: 40px;
+  height: 1px;
+  background: var(--text-muted);
+}
+.manifesto-text {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(28px, 4vw, 56px);
+  line-height: 1.2;
+  color: var(--text);
+  font-weight: 400;
+  font-style: italic;
+  letter-spacing: -0.01em;
+}
+.manifesto-text .accent {
+  color: var(--accent);
+  font-style: italic;
+}
+.manifesto-text .quiet {
+  color: var(--text-muted);
+  font-style: normal;
+  font-family: 'Geist', sans-serif;
+  font-size: 0.5em;
+  vertical-align: middle;
+  margin-left: 12px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.manifesto-sig {
+  font-family: 'Geist Mono', monospace;
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 48px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.manifesto-sig .dash {
+  width: 24px;
+  height: 1px;
+  background: var(--text-muted);
+}
+
+/* === STACK === */
+.stack-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.stack-card {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 24px;
+  transition: border-color 0.3s, transform 0.3s;
+  cursor: default;
+}
+.stack-card:hover {
+  border-color: var(--text-muted);
+  transform: translateY(-2px);
+}
+.stack-card .head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 12px;
+}
+.stack-card .name {
+  font-family: 'Instrument Serif', serif;
+  font-size: 24px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+.stack-card .name .italic { font-style: italic; color: var(--warm); }
+.stack-card .stars {
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  color: var(--accent);
+  letter-spacing: 0.1em;
+}
+.stack-card .desc {
+  font-size: 13px;
+  color: var(--text-soft);
+  line-height: 1.5;
+}
+.stack-card .tag {
+  font-family: 'Geist Mono', monospace;
+  font-size: 10px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px dashed var(--line);
+}
+
+/* === FAQ === */
+.faq {
+  max-width: 1000px;
+  margin: 0 auto;
+  border-top: 1px solid var(--line);
+}
+.faq-item {
+  border-bottom: 1px solid var(--line);
+  padding: 28px 0;
+  cursor: pointer;
+  transition: padding 0.3s;
+}
+.faq-item:hover { padding-left: 12px; }
+.faq-row {
+  display: grid;
+  grid-template-columns: 60px 1fr 32px;
+  gap: 24px;
+  align-items: start;
+}
+.faq-num {
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  color: var(--text-muted);
+  padding-top: 8px;
+}
+.faq-q {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(22px, 2.6vw, 32px);
+  line-height: 1.2;
+  font-weight: 400;
+  color: var(--text);
+  letter-spacing: -0.01em;
+}
+.faq-q .italic { font-style: italic; color: var(--warm); }
+.faq-toggle {
+  font-family: 'Instrument Serif', serif;
+  font-size: 28px;
+  color: var(--text-muted);
+  text-align: right;
+  transition: transform 0.3s, color 0.3s;
+  font-style: italic;
+  padding-top: 4px;
+}
+.faq-item.open .faq-toggle { transform: rotate(45deg); color: var(--accent); }
+.faq-a {
+  margin-top: 0;
+  margin-left: 84px;
+  margin-right: 56px;
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--text-soft);
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, margin-top 0.4s ease;
+}
+.faq-item.open .faq-a { max-height: 400px; margin-top: 16px; }
+
+/* === CONTACT === */
+.contact {
+  padding: 200px 40px 100px;
+  text-align: center;
+  max-width: 1400px;
+  margin: 0 auto;
+  position: relative;
+}
+.contact-eyebrow {
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 40px;
+}
+.contact-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(56px, 11vw, 160px);
+  line-height: 0.92;
+  letter-spacing: -0.025em;
+  font-weight: 400;
+  margin-bottom: 56px;
+  color: var(--text);
+}
+.contact-title .italic { font-style: italic; color: var(--warm); }
+.contact-title .accent {
+  font-style: italic;
+  color: var(--accent);
+  position: relative;
+  display: inline-block;
+}
+
+.contact-email {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(20px, 2.4vw, 28px);
+  font-style: italic;
+  color: var(--text);
+  text-decoration: none;
+  padding: 16px 32px;
+  border: 1px solid var(--text-muted);
+  border-radius: 100px;
+  transition: all 0.3s;
+  background: transparent;
+}
+.contact-email:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(212, 255, 94, 0.05);
+}
+.contact-email .arr { transition: transform 0.3s; }
+.contact-email:hover .arr { transform: translate(4px, -4px); }
+
+.contact-socials {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  margin-top: 60px;
+  font-family: 'Geist Mono', monospace;
+  font-size: 12px;
+}
+.contact-socials a {
+  color: var(--text-soft);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.2s;
+}
+.contact-socials a:hover { color: var(--accent); }
+.contact-socials a .arr { font-style: italic; font-family: 'Instrument Serif', serif; font-size: 14px; }
+
+/* === FOOTER === */
+footer {
+  border-top: 1px solid var(--line);
+  padding: 32px 40px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 24px;
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  color: var(--text-muted);
+  max-width: 1400px;
+  margin: 0 auto;
+}
+footer .center { text-align: center; }
+footer .right { text-align: right; }
+footer .right a { color: var(--text-soft); text-decoration: none; }
+footer .right a:hover { color: var(--accent); }
+
+/* === RESPONSIVE === */
+@media (max-width: 900px) {
+  .spotlight { display: none; }
+  nav { padding: 16px 20px; font-size: 11px; }
+  nav .links { display: none; }
+  nav .logo .role { display: none; }
+  .hero { padding: 120px 20px 60px; }
+  .hero-foot { grid-template-columns: 1fr; gap: 32px; }
+  .section { padding: 80px 20px; }
+  .section-head { grid-template-columns: 1fr; gap: 24px; align-items: start; }
+  .section-aside { text-align: left; }
+  .about-grid { grid-template-columns: 1fr; gap: 60px; }
+  .work-gallery { grid-template-columns: 1fr; gap: 32px; }
+  .work-preview-wrap { display: none; }
+  .work-link { grid-template-columns: 32px 1fr auto; gap: 16px; padding: 20px 0; }
+  .work-link:hover { padding-left: 8px; }
+  .work-preview-numeral { font-size: 200px; }
+  .process-grid { grid-template-columns: 1fr 1fr; }
+  .process-card { min-height: 220px; padding: 24px 20px; }
+  .process-card h3 { font-size: 24px; }
+  .stack-grid { grid-template-columns: 1fr; }
+  .manifesto { padding: 100px 20px; }
+  .faq-row { grid-template-columns: 32px 1fr 24px; gap: 12px; }
+  .faq-a { margin-left: 44px; margin-right: 32px; }
+  .contact { padding: 120px 20px 60px; }
+  .contact-socials { flex-wrap: wrap; gap: 16px; }
+  footer { grid-template-columns: 1fr; text-align: center; }
+  footer .center, footer .right { text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<div class="spotlight"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">
+    <span class="mark">a</span>
+    <span class="name">Akhil Male</span>
+    <span class="role">— product designer</span>
+  </div>
+  <div class="links">
+    <a href="#work">Work</a>
+    <a href="#about">About</a>
+    <a href="#process">Process</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <div class="status"><span class="dot"></span>available for select work</div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">
+    <span class="line"></span>
+    <span>Portfolio · 2026 — vol. 02</span>
+  </div>
+
+  <h1 class="hero-title">
+    <span class="line">Designing <span class="italic">quietly</span> useful</span>
+    <span class="line">products for the <span class="accent">loud</span></span>
+    <span class="line quiet">world of fintech.</span>
+  </h1>
+
+  <div class="hero-foot">
+    <p class="hero-bio">
+      I'm Akhil — a <span class="em">product designer</span> at <span class="em">JUSPAY</span>, working on payment platforms that millions of businesses run on. I care about <span class="ital">clarity</span>, considered systems, and the kind of details people don't notice until they're missing.
+    </p>
+
+    <div class="hero-meta">
+      <span class="label">Based in</span>
+      <span class="val">Bengaluru, India<br/><span style="opacity: 0.5;">UTC +5:30</span></span>
+    </div>
+
+    <div class="hero-meta">
+      <span class="label">Currently</span>
+      <span class="val">Crafting payment intelligence at <span class="highlight">JUSPAY</span></span>
+    </div>
+  </div>
+
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <span class="arrow"></span>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee">
+  <div class="marquee-track">
+    <span>Product Design <i class="dot">●</i></span>
+    <span>Design Systems <i class="dot">●</i></span>
+    <span>Payment Experiences <i class="dot">●</i></span>
+    <span>Enterprise SaaS <i class="dot">●</i></span>
+    <span>UX Writing <i class="dot">●</i></span>
+    <span>Editorial Sensibility <i class="dot">●</i></span>
+    <span>Product Design <i class="dot">●</i></span>
+    <span>Design Systems <i class="dot">●</i></span>
+    <span>Payment Experiences <i class="dot">●</i></span>
+    <span>Enterprise SaaS <i class="dot">●</i></span>
+    <span>UX Writing <i class="dot">●</i></span>
+    <span>Editorial Sensibility <i class="dot">●</i></span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="section" id="about">
+  <div class="section-head">
+    <div class="section-head-main">
+      <div class="section-meta"><span class="num">/01</span> About</div>
+      <h2 class="section-title">A short <span class="italic">introduction</span>, mostly true.</h2>
+    </div>
+    <div class="section-aside">designer, occasional astrologer, full-time chai drinker.</div>
+  </div>
+
+  <div class="about-grid">
+    <div class="about-prose">
+      <p>
+        I design at the intersection of <span class="warm">payments</span>, <span class="warm">data</span>, and the <span class="muted">people who'd rather not think about either.</span>
+      </p>
+      <p>
+        Most of my work lives inside dashboards — the kind that finance teams stare at for hours. My job is to make those hours feel <span class="accent">a little less hostile</span>.
+      </p>
+      <p>
+        Outside of work I'm building <span class="em">NutriVed</span> (a small app about food and Ayurveda), reading about Vedic systems, and slowly learning that <span class="muted">good design takes longer than you think</span>.
+      </p>
+    </div>
+
+    <div class="about-card">
+      <div class="card-head">
+        <span class="title">// about.md</span>
+        <span class="dots"><span></span><span></span><span></span></span>
+      </div>
+      <div class="spec"><span class="k">Role</span><span class="v">Product Designer</span></div>
+      <div class="spec"><span class="k">At</span><span class="v"><span class="accent">JUSPAY</span> · since '24</span></div>
+      <div class="spec"><span class="k">Before</span><span class="v">BetterPlace</span></div>
+      <div class="spec"><span class="k">Focus</span><span class="v">Payments / SaaS / Systems</span></div>
+      <div class="spec"><span class="k">Tools</span><span class="v">Figma, Framer, Cursor</span></div>
+      <div class="spec"><span class="k">City</span><span class="v">Bengaluru, IN</span></div>
+      <div class="spec"><span class="k">Languages</span><span class="v">EN · TE · HI</span></div>
+      <div class="spec"><span class="k">Currently</span><span class="v">A 4K monitor away from peace</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- WORK -->
+<section class="section" id="work">
+  <div class="section-head">
+    <div class="section-head-main">
+      <div class="section-meta"><span class="num">/02</span> Selected Work</div>
+      <h2 class="section-title">Things I've <span class="italic">made</span><br/>that <span class="quiet">shipped.</span></h2>
+    </div>
+    <div class="section-aside">case studies arriving soon. each one written, not assembled.</div>
+  </div>
+
+  <div class="work-gallery">
+    <div class="work-titles">
+
+      <a class="work-link" data-preview="1">
+        <span class="work-num">/01</span>
+        <span class="work-title">Hyperswitch <span class="italic">Cost Observability</span></span>
+        <span class="work-year">'25</span>
+      </a>
+
+      <a class="work-link" data-preview="2">
+        <span class="work-num">/02</span>
+        <span class="work-title">Hypersense <span class="italic">Reconciliation</span></span>
+        <span class="work-year">'25</span>
+      </a>
+
+      <a class="work-link" data-preview="3">
+        <span class="work-num">/03</span>
+        <span class="work-title">Kotak FasTAG <span class="italic">Fleet Manager</span></span>
+        <span class="work-year">'26</span>
+      </a>
+
+      <a class="work-link" data-preview="4">
+        <span class="work-num">/04</span>
+        <span class="work-title">Enterprise <span class="italic">Color System</span></span>
+        <span class="work-year">'25</span>
+      </a>
+
+      <a class="work-link" data-preview="5">
+        <span class="work-num">/05</span>
+        <span class="work-title">NutriVed <span class="italic">— a side study</span></span>
+        <span class="work-year">'26</span>
+      </a>
+
+      <a class="work-link" data-preview="6">
+        <span class="work-num">/06</span>
+        <span class="work-title">BetterPlace <span class="italic">Workforce Mobile</span></span>
+        <span class="work-year">'23</span>
+      </a>
+
+    </div>
+
+    <div class="work-preview-wrap">
+
+      <!-- Default / idle preview -->
+      <div class="work-preview active" data-preview-id="0" data-bg="3">
+        <div class="work-preview-art">
+          <div class="work-preview-numeral">06</div>
+        </div>
+        <div class="work-preview-meta">
+          <div class="left">
+            <span>// hover a project</span>
+            <span class="role">to see more</span>
+          </div>
+          <div class="right">six selected · 2023–2026</div>
+        </div>
+        <div class="work-preview-foot">
+          <p class="desc">A small selection of recent work — payments, platforms, and the occasional side study.</p>
+          <span class="arrow">↗</span>
+        </div>
+      </div>
+
+      <div class="work-preview" data-preview-id="1" data-bg="1">
+        <div class="work-preview-art">
+          <div class="work-preview-numeral">01</div>
+        </div>
+        <div class="work-preview-meta">
+          <div class="left">
+            <span>Hyperswitch · 2025</span>
+            <span class="role">Lead Designer</span>
+          </div>
+          <div class="right">JUSPAY<br/>Enterprise Dashboard</div>
+        </div>
+        <div class="work-preview-foot">
+          <p class="desc">Where every paisa goes — a cost observability platform for enterprise payments.</p>
+          <span class="arrow">↗</span>
+        </div>
+      </div>
+
+      <div class="work-preview" data-preview-id="2" data-bg="2">
+        <div class="work-preview-art">
+          <div class="work-preview-numeral">02</div>
+        </div>
+        <div class="work-preview-meta">
+          <div class="left">
+            <span>Hypersense · 2025</span>
+            <span class="role">Product Designer</span>
+          </div>
+          <div class="right">JUSPAY<br/>Finance & Ops</div>
+        </div>
+        <div class="work-preview-foot">
+          <p class="desc">A reconciliation platform built for finance teams — turning chaos into clarity.</p>
+          <span class="arrow">↗</span>
+        </div>
+      </div>
+
+      <div class="work-preview" data-preview-id="3" data-bg="3">
+        <div class="work-preview-art">
+          <div class="work-preview-numeral">03</div>
+        </div>
+        <div class="work-preview-meta">
+          <div class="left">
+            <span>Kotak FasTAG · 2026</span>
+            <span class="role">Product Designer</span>
+          </div>
+          <div class="right">JUSPAY × Kotak<br/>Fleet Management</div>
+        </div>
+        <div class="work-preview-foot">
+          <p class="desc">A wallet card that earned its keep in a very crowded dashboard row.</p>
+          <span class="arrow">↗</span>
+        </div>
+      </div>
+
+      <div class="work-preview" data-preview-id="4" data-bg="4">
+        <div class="work-preview-art">
+          <div class="work-preview-numeral">04</div>
+        </div>
+        <div class="work-preview-meta">
+          <div class="left">
+            <span>Color System · 2025</span>
+            <span class="role">Systems Lead</span>
+          </div>
+          <div class="right">JUSPAY<br/>Design System</div>
+        </div>
+        <div class="work-preview-foot">
+          <p class="desc">A data-viz palette designed to survive every kind of chart — and every kind of PM.</p>
+          <span class="arrow">↗</span>
+        </div>
+      </div>
+
+      <div class="work-preview" data-preview-id="5" data-bg="5">
+        <div class="work-preview-art">
+          <div class="work-preview-numeral">05</div>
+        </div>
+        <div class="work-preview-meta">
+          <div class="left">
+            <span>NutriVed · 2026</span>
+            <span class="role">Solo · Personal</span>
+          </div>
+          <div class="right">In progress<br/>Mobile App</div>
+        </div>
+        <div class="work-preview-foot">
+          <p class="desc">A vegetarian food app rooted in Ayurveda — forest greens, warm saffron, real care.</p>
+          <span class="arrow">↗</span>
+        </div>
+      </div>
+
+      <div class="work-preview" data-preview-id="6" data-bg="6">
+        <div class="work-preview-art">
+          <div class="work-preview-numeral">06</div>
+        </div>
+        <div class="work-preview-meta">
+          <div class="left">
+            <span>BetterPlace · 2023</span>
+            <span class="role">Product Designer</span>
+          </div>
+          <div class="right">BetterPlace<br/>Workforce Mobile</div>
+        </div>
+        <div class="work-preview-foot">
+          <p class="desc">Mobile workforce tools designed for thumbs, low bandwidth, and zero ambiguity.</p>
+          <span class="arrow">↗</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process-section">
+  <div class="process-inner">
+    <div class="section-head" style="padding-top: 140px;">
+      <div class="section-head-main">
+        <div class="section-meta"><span class="num">/03</span> How I Work</div>
+        <h2 class="section-title">A <span class="italic">working method</span>, in five movements.</h2>
+      </div>
+      <div class="section-aside">no double diamonds. just listening, sketching, shipping.</div>
+    </div>
+
+    <div class="process-grid">
+      <div class="process-card">
+        <span class="step">/01 — Listen</span>
+        <div>
+          <h3>Find the <span class="italic">real</span> problem.</h3>
+          <p>The brief is usually the symptom. The truth is buried in support tickets and a Slack thread from Q3.</p>
+        </div>
+      </div>
+      <div class="process-card">
+        <span class="step">/02 — Frame</span>
+        <div>
+          <h3>Write before <span class="italic">drawing.</span></h3>
+          <p>If I can't explain it in two sentences, I haven't understood it. The pen comes after the paragraph.</p>
+        </div>
+      </div>
+      <div class="process-card">
+        <span class="step">/03 — Sketch</span>
+        <div>
+          <h3>Make a <span class="italic">lot.</span> Keep little.</h3>
+          <p>I'd rather throw away thirty versions than ship the first one that's "fine." Most of design is editing.</p>
+        </div>
+      </div>
+      <div class="process-card">
+        <span class="step">/04 — Build</span>
+        <div>
+          <h3>Refine like it's a <span class="italic">song.</span></h3>
+          <p>Spacing, copy, motion, type. Each pass tightens the composition. The fourth one is usually the last.</p>
+        </div>
+      </div>
+    </div>
+
+    <div style="padding-bottom: 140px;"></div>
+  </div>
+</section>
+
+<!-- MANIFESTO -->
+<section class="manifesto">
+  <div class="manifesto-eyebrow">
+    <span class="line"></span>
+    <span>A small belief · /04</span>
+  </div>
+  <div class="manifesto-text">
+    Most fintech UI is afraid of having a personality. It hides behind grids and grey rectangles, as if seriousness and <span class="accent">soul</span> can't share a screen. <br/><br/>
+    Money <em>is</em> emotional. Bills are emotional. Refunds are <em>extremely</em> emotional. So I design with that in mind — the form should feel as considered as the function.
+  </div>
+  <div class="manifesto-sig">
+    <span class="dash"></span>
+    <span>A.M., somewhere between two coffees</span>
+  </div>
+</section>
+
+<!-- STACK -->
+<section class="section">
+  <div class="section-head">
+    <div class="section-head-main">
+      <div class="section-meta"><span class="num">/05</span> Stack</div>
+      <h2 class="section-title">The <span class="italic">tools</span> I rely on.</h2>
+    </div>
+    <div class="section-aside">small kit. used often. occasionally upgraded.</div>
+  </div>
+
+  <div class="stack-grid">
+    <div class="stack-card">
+      <div class="head"><span class="name"><span class="italic">Figma</span></span><span class="stars">·····</span></div>
+      <p class="desc">The home base. Variables, components, plugins — the whole orchestra.</p>
+      <div class="tag">Design</div>
+    </div>
+    <div class="stack-card">
+      <div class="head"><span class="name">Framer</span><span class="stars">·····</span></div>
+      <p class="desc">For when a static mock won't do. Prototypes that behave like the real thing.</p>
+      <div class="tag">Prototype</div>
+    </div>
+    <div class="stack-card">
+      <div class="head"><span class="name">Notion</span><span class="stars">····</span></div>
+      <p class="desc">Specs, briefs, half-finished essays. Single source of mostly-truth.</p>
+      <div class="tag">Docs</div>
+    </div>
+    <div class="stack-card">
+      <div class="head"><span class="name"><span class="italic">Cursor</span></span><span class="stars">····</span></div>
+      <p class="desc">Building little tools and prototypes faster than I can sketch them.</p>
+      <div class="tag">Code</div>
+    </div>
+    <div class="stack-card">
+      <div class="head"><span class="name">Linear</span><span class="stars">····</span></div>
+      <p class="desc">Tickets that don't make me want to throw the laptop. Genuinely rare.</p>
+      <div class="tag">Plan</div>
+    </div>
+    <div class="stack-card">
+      <div class="head"><span class="name">Pen + paper</span><span class="stars">·····</span></div>
+      <p class="desc">Still the fastest tool ever made. Always within reach.</p>
+      <div class="tag">Think</div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section">
+  <div class="section-head">
+    <div class="section-head-main">
+      <div class="section-meta"><span class="num">/06</span> Q&amp;A</div>
+      <h2 class="section-title">Questions, <span class="italic">answered</span> honestly.</h2>
+    </div>
+    <div class="section-aside">tap to open.</div>
+  </div>
+
+  <div class="faq">
+    <div class="faq-item">
+      <div class="faq-row">
+        <div class="faq-num">/01</div>
+        <div class="faq-q">Are you <span class="italic">open</span> to new opportunities?</div>
+        <div class="faq-toggle">+</div>
+      </div>
+      <div class="faq-a">Open to thoughtful conversations. I lean toward senior IC or design lead roles in fintech, SaaS, or health-tech — teams that ship steadily and iterate. Bengaluru-based, hybrid friendly.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-row">
+        <div class="faq-num">/02</div>
+        <div class="faq-q">Do you take on <span class="italic">freelance</span>?</div>
+        <div class="faq-toggle">+</div>
+      </div>
+      <div class="faq-a">Selectively. I work best on focused projects — a payment flow, a system overhaul, a portfolio audit — over open-ended retainers.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-row">
+        <div class="faq-num">/03</div>
+        <div class="faq-q">Why so much <span class="italic">serif</span>?</div>
+        <div class="faq-toggle">+</div>
+      </div>
+      <div class="faq-a">Most product sites look the same — same sans, same blue, same hero. Serifs feel like writing, not templating. They give the work a voice. That matters.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-row">
+        <div class="faq-num">/04</div>
+        <div class="faq-q">Where are the <span class="italic">case studies</span>?</div>
+        <div class="faq-toggle">+</div>
+      </div>
+      <div class="faq-a">Being written. Long-form, with the messy parts left in — context, constraints, the trade-offs, what I'd do differently. Drop a note and I'll send the first one when it's live.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-row">
+        <div class="faq-num">/05</div>
+        <div class="faq-q">What are you <span class="italic">currently</span> reading?</div>
+        <div class="faq-toggle">+</div>
+      </div>
+      <div class="faq-a">A bit of design writing (Frank Chimero, Jenny Holzer), some Vedic philosophy, and the back of supplement bottles. The last one is a long story.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="contact-eyebrow">/// 07 — Get in touch</div>
+  <h2 class="contact-title">
+    Let's make something<br/>
+    <span class="italic">considered</span> <span class="accent">together</span>.
+  </h2>
+  <a href="mailto:hello@akhilmale.com" class="contact-email">
+    hello@akhilmale.com <span class="arr">↗</span>
+  </a>
+  <div class="contact-socials">
+    <a href="#">LinkedIn <span class="arr">↗</span></a>
+    <a href="#">Twitter <span class="arr">↗</span></a>
+    <a href="#">Read.cv <span class="arr">↗</span></a>
+    <a href="#">Dribbble <span class="arr">↗</span></a>
+    <a href="#">Are.na <span class="arr">↗</span></a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>© 2026 Akhil Male</div>
+  <div class="center">Designed in Figma. Built with care.</div>
+  <div class="right"><a href="#">Back to top ↑</a></div>
+</footer>
+
+<script>
+// Spotlight follow
+const spotlight = document.querySelector('.spotlight');
+let mx = window.innerWidth / 2, my = window.innerHeight / 2;
+let sx = mx, sy = my;
+
+document.addEventListener('mousemove', (e) => {
+  mx = e.clientX;
+  my = e.clientY;
+});
+
+function loop() {
+  sx += (mx - sx) * 0.08;
+  sy += (my - sy) * 0.08;
+  spotlight.style.left = sx + 'px';
+  spotlight.style.top = sy + 'px';
+  requestAnimationFrame(loop);
+}
+loop();
+
+// FAQ toggles
+document.querySelectorAll('.faq-item').forEach(item => {
+  item.addEventListener('click', () => item.classList.toggle('open'));
+});
+
+// Work hover preview swap
+const workLinks = document.querySelectorAll('.work-link');
+const previews = document.querySelectorAll('.work-preview');
+
+workLinks.forEach(link => {
+  link.addEventListener('mouseenter', () => {
+    const id = link.dataset.preview;
+    previews.forEach(p => {
+      p.classList.toggle('active', p.dataset.previewId === id);
+    });
+  });
+});
+
+const workTitles = document.querySelector('.work-titles');
+if (workTitles) {
+  workTitles.addEventListener('mouseleave', () => {
+    previews.forEach(p => {
+      p.classList.toggle('active', p.dataset.previewId === '0');
+    });
+  });
+}
+
+// Smooth scroll
+document.querySelectorAll('nav a, footer a').forEach(link => {
+  link.addEventListener('click', (e) => {
+    const href = link.getAttribute('href');
+    if (href && href.startsWith('#')) {
+      e.preventDefault();
+      document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
+    }
+  });
+});
+
+// Console easter egg
+console.log('%cHi.', 'font-family: "Instrument Serif", serif; font-size: 32px; font-style: italic; color: #d4ff5e;');
+console.log('%cIf you got this far, you\'re probably my kind of person. → hello@akhilmale.com', 'font-family: monospace; font-size: 12px; color: #8a8a8a;');
+</script>
+
+</body>
+</html>
