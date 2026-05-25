@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Akhil Male — Contact</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="spotlight"></div>
+
+<nav>
+  <div class="logo">
+    <a href="index.html">
+      <span class="mark">a</span>
+      <span class="name">Akhil Male</span>
+      <span class="role">— product designer</span>
+    </a>
+  </div>
+  <div class="links">
+    <a href="work.html">Work</a>
+    <a href="about.html">About</a>
+    <a href="process.html">Process</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  <div class="status"><span class="dot"></span>available for select work</div>
+</nav>
+
+<section class="section" style="padding-top: 160px;">
+  <div class="section-head">
+    <div class="section-head-main">
+      <div class="section-meta"><span class="num">/06</span> Q&amp;A</div>
+      <h2 class="section-title">Questions, <span class="italic">answered</span> honestly.</h2>
+    </div>
+    <div class="section-aside">tap to open.</div>
+  </div>
+
+  <div class="faq">
+    <div class="faq-item">
+      <div class="faq-row">
+        <div class="faq-num">/01</div>
+        <div class="faq-q">Are you <span class="italic">open</span> to new opportunities?</div>
+        <div class="faq-toggle">+</div>
+      </div>
+      <div class="faq-a">Open to thoughtful conversations. I lean toward senior IC or design lead roles in fintech, SaaS, or health-tech — teams that ship steadily and iterate. Bengaluru-based, hybrid friendly.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-row">
+        <div class="faq-num">/02</div>
+        <div class="faq-q">Do you take on <span class="italic">freelance</span>?</div>
+        <div class="faq-toggle">+</div>
+      </div>
+      <div class="faq-a">Selectively. I work best on focused projects — a payment flow, a system overhaul, a portfolio audit — over open-ended retainers.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-row">
+        <div class="faq-num">/03</div>
+        <div class="faq-q">Why so much <span class="italic">serif</span>?</div>
+        <div class="faq-toggle">+</div>
+      </div>
+      <div class="faq-a">Most product sites look the same — same sans, same blue, same hero. Serifs feel like writing, not templating. They give the work a voice. That matters.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-row">
+        <div class="faq-num">/04</div>
+        <div class="faq-q">Where are the <span class="italic">case studies</span>?</div>
+        <div class="faq-toggle">+</div>
+      </div>
+      <div class="faq-a">Being written. Long-form, with the messy parts left in — context, constraints, the trade-offs, what I'd do differently. Drop a note and I'll send the first one when it's live.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-row">
+        <div class="faq-num">/05</div>
+        <div class="faq-q">What are you <span class="italic">currently</span> reading?</div>
+        <div class="faq-toggle">+</div>
+      </div>
+      <div class="faq-a">A bit of design writing (Frank Chimero, Jenny Holzer), some Vedic philosophy, and the back of supplement bottles. The last one is a long story.</div>
+    </div>
+  </div>
+</section>
+
+<section class="contact">
+  <div class="contact-eyebrow">/// 07 — Get in touch</div>
+  <h2 class="contact-title">
+    Let's make something<br/>
+    <span class="italic">considered</span> <span class="accent">together</span>.
+  </h2>
+  <a href="mailto:hello@akhilmale.com" class="contact-email">
+    hello@akhilmale.com <span class="arr">↗</span>
+  </a>
+  <div class="contact-socials">
+    <a href="#">LinkedIn <span class="arr">↗</span></a>
+    <a href="#">Twitter <span class="arr">↗</span></a>
+    <a href="#">Read.cv <span class="arr">↗</span></a>
+    <a href="#">Dribbble <span class="arr">↗</span></a>
+    <a href="#">Are.na <span class="arr">↗</span></a>
+  </div>
+</section>
+
+<footer>
+  <div>© 2026 Akhil Male</div>
+  <div class="center">Designed in Figma. Built with care.</div>
+  <div class="right"><a href="#">Back to top ↑</a></div>
+</footer>
+
+<script>
+const spotlight = document.querySelector('.spotlight');
+let mx = window.innerWidth/2, my = window.innerHeight/2, sx = mx, sy = my;
+document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; });
+(function loop(){ sx+=(mx-sx)*0.08; sy+=(my-sy)*0.08; spotlight.style.left=sx+'px'; spotlight.style.top=sy+'px'; requestAnimationFrame(loop); })();
+
+const page = location.pathname.split('/').pop() || 'index.html';
+document.querySelectorAll('nav .links a').forEach(a => { if(a.getAttribute('href')===page) a.classList.add('active'); });
+
+document.querySelectorAll('.faq-item').forEach(item => {
+  item.addEventListener('click', () => item.classList.toggle('open'));
+});
+
+console.log('%cHi.','font-family:"Instrument Serif",serif;font-size:32px;font-style:italic;color:#d4ff5e;');
+console.log('%cIf you got this far, you\'re probably my kind of person. → hello@akhilmale.com','font-family:monospace;font-size:12px;color:#8a8a8a;');
+</script>
+</body>
+</html>

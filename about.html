@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Akhil Male — About</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="spotlight"></div>
+
+<nav>
+  <div class="logo">
+    <a href="index.html">
+      <span class="mark">a</span>
+      <span class="name">Akhil Male</span>
+      <span class="role">— product designer</span>
+    </a>
+  </div>
+  <div class="links">
+    <a href="work.html">Work</a>
+    <a href="about.html">About</a>
+    <a href="process.html">Process</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  <div class="status"><span class="dot"></span>available for select work</div>
+</nav>
+
+<section class="section" style="padding-top: 160px;">
+  <div class="section-head">
+    <div class="section-head-main">
+      <div class="section-meta"><span class="num">/01</span> About</div>
+      <h2 class="section-title">A short <span class="italic">introduction</span>, mostly true.</h2>
+    </div>
+    <div class="section-aside">designer, occasional astrologer, full-time chai drinker.</div>
+  </div>
+
+  <div class="about-grid">
+    <div class="about-prose">
+      <p>I design at the intersection of <span class="warm">payments</span>, <span class="warm">data</span>, and the <span class="muted">people who'd rather not think about either.</span></p>
+      <p>Most of my work lives inside dashboards — the kind that finance teams stare at for hours. My job is to make those hours feel <span class="accent">a little less hostile</span>.</p>
+      <p>Outside of work I'm building <span class="em">NutriVed</span> (a small app about food and Ayurveda), reading about Vedic systems, and slowly learning that <span class="muted">good design takes longer than you think</span>.</p>
+    </div>
+
+    <div class="about-card">
+      <div class="card-head">
+        <span class="title">// about.md</span>
+        <span class="dots"><span></span><span></span><span></span></span>
+      </div>
+      <div class="spec"><span class="k">Role</span><span class="v">Product Designer</span></div>
+      <div class="spec"><span class="k">At</span><span class="v"><span class="accent">JUSPAY</span> · since '24</span></div>
+      <div class="spec"><span class="k">Before</span><span class="v">BetterPlace</span></div>
+      <div class="spec"><span class="k">Focus</span><span class="v">Payments / SaaS / Systems</span></div>
+      <div class="spec"><span class="k">Tools</span><span class="v">Figma, Framer, Cursor</span></div>
+      <div class="spec"><span class="k">City</span><span class="v">Bengaluru, IN</span></div>
+      <div class="spec"><span class="k">Languages</span><span class="v">EN · TE · HI</span></div>
+      <div class="spec"><span class="k">Currently</span><span class="v">A 4K monitor away from peace</span></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div>© 2026 Akhil Male</div>
+  <div class="center">Designed in Figma. Built with care.</div>
+  <div class="right"><a href="#">Back to top ↑</a></div>
+</footer>
+
+<script>
+const spotlight = document.querySelector('.spotlight');
+let mx = window.innerWidth/2, my = window.innerHeight/2, sx = mx, sy = my;
+document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; });
+(function loop(){ sx+=(mx-sx)*0.08; sy+=(my-sy)*0.08; spotlight.style.left=sx+'px'; spotlight.style.top=sy+'px'; requestAnimationFrame(loop); })();
+
+const page = location.pathname.split('/').pop() || 'index.html';
+document.querySelectorAll('nav .links a').forEach(a => { if(a.getAttribute('href')===page) a.classList.add('active'); });
+
+console.log('%cHi.','font-family:"Instrument Serif",serif;font-size:32px;font-style:italic;color:#d4ff5e;');
+console.log('%cIf you got this far, you\'re probably my kind of person. → hello@akhilmale.com','font-family:monospace;font-size:12px;color:#8a8a8a;');
+</script>
+</body>
+</html>
