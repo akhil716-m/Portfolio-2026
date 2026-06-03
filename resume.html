@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Akhil Male — Resume</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+
+.resume-wrap {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 140px 40px 100px;
+}
+
+/* ── Document frame ── */
+.resume-doc {
+  background: var(--bg-soft);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 48px 52px;
+  position: relative;
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.03), inset 0 1px 0 rgba(255,255,255,0.04);
+}
+/* Corner accents */
+.resume-doc::before,
+.resume-doc::after {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border-color: var(--accent);
+  border-style: solid;
+  opacity: 0.4;
+}
+.resume-doc::before { top: -1px; left: -1px; border-width: 2px 0 0 2px; border-radius: 6px 0 0 0; }
+.resume-doc::after  { bottom: -1px; right: -1px; border-width: 0 2px 2px 0; border-radius: 0 0 6px 0; }
+
+/* ── Top bar ── */
+.resume-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 48px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--line);
+}
+.resume-topbar-label {
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  color: var(--text-muted);
+  letter-spacing: 0.06em;
+}
+.resume-dl-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  color: #000;
+  background: var(--accent);
+  border-radius: 100px;
+  padding: 9px 20px;
+  text-decoration: none;
+  transition: opacity 0.2s, transform 0.2s;
+}
+.resume-dl-btn:hover { opacity: 0.85; transform: translateY(-1px); }
+
+/* ── Header ── */
+.resume-header {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 24px;
+  align-items: center;
+  padding-bottom: 32px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 40px;
+}
+.resume-photo {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: top center;
+  border: 1px solid var(--line);
+  filter: grayscale(100%);
+  transition: filter 0.5s;
+  flex-shrink: 0;
+  align-self: center;
+}
+.resume-photo:hover { filter: grayscale(0%); }
+.resume-name-block { display: flex; flex-direction: column; gap: 8px; }
+.resume-name {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(26px, 3vw, 36px);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  color: var(--text);
+}
+.resume-summary {
+  font-family: 'Geist', sans-serif;
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--text-soft);
+  line-height: 1.65;
+  max-width: 520px;
+}
+.resume-contacts {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-end;
+  align-self: center;
+}
+.resume-contact {
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  color: var(--text-muted);
+  text-decoration: none;
+  letter-spacing: 0.01em;
+  transition: color 0.2s;
+}
+.resume-contact:hover { color: var(--accent); }
+
+/* ── Body ── */
+.resume-body {
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: 60px;
+  align-items: start;
+}
+
+/* ── Section heading ── */
+.r-head {
+  font-family: 'Geist Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.r-head::after { content: ''; flex: 1; height: 1px; background: var(--line); }
+
+/* ── Experience ── */
+.exp-block { margin-bottom: 36px; }
+.exp-block:last-child { margin-bottom: 0; }
+
+.exp-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 2px;
+}
+.exp-company {
+  font-family: 'Instrument Serif', serif;
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--text);
+  letter-spacing: -0.01em;
+}
+.exp-company .hi { color: var(--accent); }
+.exp-period {
+  font-family: 'Geist Mono', monospace;
+  font-size: 10px;
+  color: var(--text-muted);
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+.exp-role {
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-bottom: 18px;
+  letter-spacing: 0.03em;
+}
+.exp-project { margin-bottom: 18px; }
+.exp-project:last-child { margin-bottom: 0; }
+.exp-project-name {
+  font-family: 'Geist', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--warm);
+  letter-spacing: 0.03em;
+  margin-bottom: 8px;
+}
+.exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+.exp-bullets li {
+  font-family: 'Geist', sans-serif;
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--text-soft);
+  line-height: 1.65;
+  padding-left: 16px;
+  position: relative;
+}
+.exp-bullets li::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  color: var(--text-muted);
+  font-size: 10px;
+  top: 4px;
+}
+.exp-bullets li b { font-weight: 500; color: var(--text); }
+
+.exp-rule {
+  border: none;
+  border-top: 1px dashed var(--line);
+  margin: 28px 0;
+}
+
+/* ── Right cards ── */
+.r-card {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 20px 22px;
+  margin-bottom: 16px;
+}
+.r-card:last-child { margin-bottom: 0; }
+.r-card-head {
+  font-family: 'Geist Mono', monospace;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 16px;
+}
+
+/* Education */
+.edu-school {
+  font-family: 'Instrument Serif', serif;
+  font-size: 15px;
+  color: var(--text);
+  margin-bottom: 3px;
+}
+.edu-degree {
+  font-family: 'Geist', sans-serif;
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--text-soft);
+  margin-bottom: 3px;
+}
+.edu-period {
+  font-family: 'Geist Mono', monospace;
+  font-size: 10px;
+  color: var(--text-muted);
+}
+
+/* Skill groups */
+.skill-group { margin-bottom: 14px; }
+.skill-group:last-child { margin-bottom: 0; }
+.skill-cat {
+  font-family: 'Geist Mono', monospace;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  margin-bottom: 7px;
+}
+.skill-pills { display: flex; flex-wrap: wrap; gap: 5px; }
+.skill-pill {
+  font-family: 'Geist', sans-serif;
+  font-size: 11px;
+  font-weight: 300;
+  border-radius: 4px;
+  padding: 3px 9px;
+}
+/* Colour groups — muted site palette */
+.pill-design   { background: rgba(212,255,94,0.08);  color: rgba(212,255,94,0.75);  border: 1px solid rgba(212,255,94,0.15); }
+.pill-research { background: rgba(232,197,152,0.08); color: rgba(232,197,152,0.75); border: 1px solid rgba(232,197,152,0.15); }
+.pill-tools    { background: rgba(140,200,255,0.08); color: rgba(140,200,255,0.75); border: 1px solid rgba(140,200,255,0.15); }
+.pill-ai       { background: rgba(180,140,255,0.08); color: rgba(180,140,255,0.75); border: 1px solid rgba(180,140,255,0.15); }
+
+/* Certifications */
+.cert-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+  padding: 6px 0;
+  border-bottom: 1px dashed var(--line);
+}
+.cert-item:last-child { border-bottom: none; padding-bottom: 0; }
+.cert-name {
+  font-family: 'Geist', sans-serif;
+  font-size: 11px;
+  font-weight: 300;
+  color: var(--text-soft);
+  line-height: 1.4;
+}
+.cert-issuer {
+  font-family: 'Geist Mono', monospace;
+  font-size: 9px;
+  color: var(--text-muted);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* Hobbies */
+.hobby-row {
+  font-family: 'Geist', sans-serif;
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--text-muted);
+  line-height: 1.9;
+}
+
+</style>
+</head>
+<body>
+
+<div class="spotlight"></div>
+
+<nav>
+  <div class="logo">
+    <a href="index.html">
+      <span class="mark">a</span>
+      <span class="name">Akhil Male</span>
+      <span class="role">— product designer</span>
+    </a>
+  </div>
+  <div class="links">
+    <a href="index.html">Home</a>
+    <a href="process.html">Process</a>
+    <a href="resume.html">Resume</a>
+  </div>
+  <div class="status"><span class="dot"></span>available for select work</div>
+</nav>
+
+<div class="resume-wrap">
+
+  <!-- Top bar -->
+  <div class="resume-topbar">
+    <span class="resume-topbar-label">// M. Akhil · Resume · 2026</span>
+    <a href="resume-print.html" target="_blank" class="resume-dl-btn">↓ Download PDF</a>
+  </div>
+
+  <div class="resume-doc">
+
+  <!-- Header -->
+  <div class="resume-header">
+    <img src="assets/akhil.jpg" alt="M. Akhil" class="resume-photo" />
+    <div class="resume-name-block">
+      <div class="resume-name">M. Akhil</div>
+      <div class="resume-summary">Product designer with 3+ years of experience, currently at Juspay building enterprise payment products. Focus on translating technically dense systems into experiences that feel effortless.</div>
+    </div>
+    <div class="resume-contacts">
+      <a href="mailto:helloakhil.m@gmail.com" class="resume-contact">helloakhil.m@gmail.com</a>
+      <a href="https://www.linkedin.com/in/male-akhil/" target="_blank" class="resume-contact">linkedin.com/in/male-akhil</a>
+      <a href="tel:6300067716" class="resume-contact">+91 6300067716</a>
+    </div>
+  </div>
+
+  <!-- Body -->
+  <div class="resume-body">
+
+    <!-- Left: Experience -->
+    <div>
+      <div class="r-head">Work Experience</div>
+
+      <!-- Juspay -->
+      <div class="exp-block">
+        <div class="exp-row">
+          <div class="exp-company"><span class="hi">Juspay</span> · Hyperswitch</div>
+          <div class="exp-period">Jun 2024 — Present</div>
+        </div>
+        <div class="exp-role">Product Designer</div>
+
+        <div class="exp-project">
+          <div class="exp-project-name">HyperSense — Cost Observability Tool</div>
+          <ul class="exp-bullets">
+            <li>Built HyperSense from zero, consolidating a fragmented IC++ fee structure across issuers, acquirers, and PSPs into a cost observability dashboard for enterprise merchants.</li>
+            <li>Secured <b>4 enterprise pilots</b> including a demo to Apple; merchants progressed from demo to testing with live cost data.</li>
+          </ul>
+        </div>
+
+        <div class="exp-project">
+          <div class="exp-project-name">Revenue Recovery — LLM Powered Recovery Engine</div>
+          <ul class="exp-bullets">
+            <li>Designed a dashboard that helps subscription businesses recover lost revenue from failed recurring payments using an LLM-powered retry engine.</li>
+            <li>Translated complex LLM-driven logic into a clear, actionable interface that reduces involuntary churn.</li>
+            <li>Closed first pilot with <b>$500K recovered</b>; 3 additional merchant pilots actively in progress.</li>
+          </ul>
+        </div>
+      </div>
+
+      <hr class="exp-rule" />
+
+      <!-- BetterPlace -->
+      <div class="exp-block">
+        <div class="exp-row">
+          <div class="exp-company">Go Better (Betterplace)</div>
+          <div class="exp-period">Dec 2022 — Mar 2024</div>
+        </div>
+        <div class="exp-role">Associate Product Designer</div>
+
+        <div class="exp-project">
+          <div class="exp-project-name">Oust App — Up-skilling Platform for Frontline Workers</div>
+          <ul class="exp-bullets">
+            <li>Redesigned the end-to-end learning experience for blue-collar workers with low digital literacy and limited smartphone familiarity.</li>
+            <li>Rebuilt IA and visual language from scratch to support a scalable, role-based content structure.</li>
+          </ul>
+        </div>
+
+        <div class="exp-project">
+          <div class="exp-project-name">Attendance Management System</div>
+          <ul class="exp-bullets">
+            <li>Simplified a friction-heavy attendance flow for frontline workers into a faster, more reliable experience under operational pressure.</li>
+            <li>Shipped a solution grounded in real field behaviour through close collaboration with product and engineering.</li>
+          </ul>
+        </div>
+      </div>
+
+      <hr class="exp-rule" />
+
+      <!-- Inkprog -->
+      <div class="exp-block">
+        <div class="exp-row">
+          <div class="exp-company">Inkprog Technologies Pvt Ltd</div>
+          <div class="exp-period">Mar 2022 — May 2022</div>
+        </div>
+        <div class="exp-role">UX Designer · Apprenticeship · Hyderabad</div>
+        <ul class="exp-bullets">
+          <li>Gained hands-on experience in UX fundamentals — wireframing, competitive analysis, and user flows — working on early-stage product problems.</li>
+          <li>A foundational stint that shaped a practical understanding of design process and cross-functional collaboration.</li>
+        </ul>
+      </div>
+
+      <div style="margin-top: 40px;">
+        <div class="r-head">Personal Projects</div>
+        <div class="exp-block" style="margin-bottom:0;">
+          <div class="exp-row">
+            <div class="exp-company">Growth School</div>
+            <div class="exp-period">Sept 2021 — Aug 2022</div>
+          </div>
+          <div class="exp-role">Personal Projects · Hackathons</div>
+          <ul class="exp-bullets">
+            <li>Worked on 3 individual UX case studies covering domains like personal finance, career guidance, and civic design.</li>
+            <li>Participated in 2 hackathons — each project followed a full design process from research and ideation through to user-tested UI.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Right column -->
+    <div>
+
+      <div class="r-card">
+        <div class="r-card-head">// Education</div>
+        <div class="edu-school">Avanthi Degree & PG College</div>
+        <div class="edu-degree">B.Sc Computer Science</div>
+        <div class="edu-period">July 2018 — Aug 2021</div>
+      </div>
+
+      <div class="r-card">
+        <div class="r-card-head">// Skills</div>
+
+        <div class="skill-group">
+          <div class="skill-cat">Design</div>
+          <div class="skill-pills">
+            <span class="skill-pill pill-design">Product Design</span>
+            <span class="skill-pill pill-design">Interaction Design</span>
+            <span class="skill-pill pill-design">Visual Design</span>
+            <span class="skill-pill pill-design">Mobile Design</span>
+            <span class="skill-pill pill-design">Dashboard Design</span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <div class="skill-cat">Research</div>
+          <div class="skill-pills">
+            <span class="skill-pill pill-research">UX Research</span>
+            <span class="skill-pill pill-research">Systems Thinking</span>
+            <span class="skill-pill pill-research">Stakeholder Mgmt</span>
+            <span class="skill-pill pill-research">Usability Testing</span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <div class="skill-cat">Tools</div>
+          <div class="skill-pills">
+            <span class="skill-pill pill-tools">Figma</span>
+            <span class="skill-pill pill-tools">Figma Make</span>
+            <span class="skill-pill pill-tools">Mixpanel</span>
+            <span class="skill-pill pill-tools">Mouseflow</span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <div class="skill-cat">AI & Emerging</div>
+          <div class="skill-pills">
+            <span class="skill-pill pill-ai">Claude Code</span>
+            <span class="skill-pill pill-ai">ChatGPT</span>
+            <span class="skill-pill pill-ai">Google AI Studio</span>
+            <span class="skill-pill pill-ai">Lovable</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="r-card">
+        <div class="r-card-head">// Courses</div>
+        <div class="cert-item">
+          <div class="cert-name">Growth School</div>
+          <div class="cert-issuer">UX Design · '22</div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-name">Gamification In UIUX</div>
+          <div class="cert-issuer">UIUX Global · '23</div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-name">Graduation of UI & UX</div>
+          <div class="cert-issuer">Skillto · '21</div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-name">UX Design College Class</div>
+          <div class="cert-issuer">Udemy · '22</div>
+        </div>
+      </div>
+
+      <div class="r-card">
+        <div class="r-card-head">// Hobbies</div>
+        <div class="hobby-row">Cooking · Travel · Driving · Playing games · Drawing · Listening to music · Watching Movies</div>
+      </div>
+
+    </div>
+  </div>
+
+  </div><!-- /resume-doc -->
+
+</div>
+
+<footer>
+  <div>© 2026 Akhil Male</div>
+  <div class="center">Designed in Figma. Built with care.</div>
+  <div class="right"><a href="#">Back to top ↑</a></div>
+</footer>
+
+<script>
+const spotlight = document.querySelector('.spotlight');
+let mx = window.innerWidth/2, my = window.innerHeight/2, sx = mx, sy = my;
+document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; });
+(function loop(){ sx+=(mx-sx)*0.08; sy+=(my-sy)*0.08; spotlight.style.left=sx+'px'; spotlight.style.top=sy+'px'; requestAnimationFrame(loop); })();
+
+const page = location.pathname.split('/').pop() || 'index.html';
+document.querySelectorAll('nav .links a').forEach(a => { if(a.getAttribute('href')===page) a.classList.add('active'); });
+
+console.log('%cHi.','font-family:"Instrument Serif",serif;font-size:32px;font-style:italic;color:#d4ff5e;');
+console.log('%cIf you got this far, you\'re probably my kind of person. → hello@akhilmale.com','font-family:monospace;font-size:12px;color:#8a8a8a;');
+</script>
+</body>
+</html>
