@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Akhil Male — Resume</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { background: #e8e5df; }
+body {
+  background: #e8e5df;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 24px 60px;
+  font-family: 'Geist', sans-serif;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+/* Print hint */
+.print-bar {
+  width: 100%;
+  max-width: 800px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  color: #888;
+}
+.print-btn {
+  background: #1a1a1a;
+  color: #fff;
+  border: none;
+  border-radius: 100px;
+  padding: 8px 20px;
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  cursor: pointer;
+  letter-spacing: 0.04em;
+}
+.print-btn:hover { background: #333; }
+@media print { .print-bar { display: none; } }
+
+/* Paper */
+.paper {
+  width: 100%;
+  max-width: 800px;
+  background: #faf8f4;
+  border-radius: 3px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12), 0 16px 48px rgba(0,0,0,0.18);
+  padding: 52px 56px;
+  color: #1a1a1a;
+}
+@media print {
+  html, body { background: white; padding: 0; }
+  .paper { box-shadow: none; border-radius: 0; padding: 40px 48px; }
+}
+
+/* Header */
+.p-header {
+  display: grid;
+  grid-template-columns: 64px 1fr auto;
+  gap: 20px;
+  align-items: center;
+  padding-bottom: 20px;
+  border-bottom: 1.5px solid #1a1a1a;
+  margin-bottom: 18px;
+}
+.p-photo {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: top center;
+  filter: grayscale(100%);
+  border: 1px solid #ccc;
+}
+.p-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 36px;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  color: #1a1a1a;
+  margin-bottom: 4px;
+}
+.p-role { font-size: 12px; font-weight: 300; color: #666; }
+.p-contacts { display: flex; flex-direction: column; gap: 4px; align-items: flex-end; }
+.p-contact {
+  font-family: 'Geist Mono', monospace;
+  font-size: 10px;
+  color: #666;
+  text-decoration: none;
+}
+
+/* Summary */
+.p-summary {
+  font-size: 12px;
+  font-weight: 300;
+  color: #444;
+  line-height: 1.65;
+  padding-bottom: 18px;
+  border-bottom: 1px solid #d8d4cc;
+  margin-bottom: 24px;
+}
+
+/* Body */
+.p-body {
+  display: grid;
+  grid-template-columns: 1fr 200px;
+  gap: 40px;
+  align-items: start;
+}
+
+/* Section */
+.p-section {
+  font-family: 'Geist Mono', monospace;
+  font-size: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: #999;
+  border-bottom: 1px solid #d8d4cc;
+  padding-bottom: 6px;
+  margin-bottom: 16px;
+}
+
+/* Exp */
+.p-exp { margin-bottom: 20px; }
+.p-exp:last-child { margin-bottom: 0; }
+.p-exp-row { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 1px; }
+.p-company { font-size: 13px; font-weight: 600; color: #1a1a1a; }
+.p-period { font-family: 'Geist Mono', monospace; font-size: 9px; color: #999; }
+.p-exp-role { font-family: 'Geist Mono', monospace; font-size: 10px; color: #888; margin-bottom: 10px; }
+.p-project { margin-bottom: 12px; }
+.p-project-name { font-size: 11px; font-weight: 500; color: #333; margin-bottom: 5px; letter-spacing: 0.01em; }
+.p-bullets { list-style: none; display: flex; flex-direction: column; gap: 4px; }
+.p-bullets li {
+  font-size: 11px; font-weight: 300; color: #444; line-height: 1.55;
+  padding-left: 12px; position: relative;
+}
+.p-bullets li::before { content: '·'; position: absolute; left: 2px; color: #bbb; font-size: 13px; line-height: 1.3; }
+.p-bullets li b { font-weight: 600; color: #1a1a1a; }
+.p-exp-rule { border: none; border-top: 1px dashed #d8d4cc; margin: 16px 0; }
+
+/* Right */
+.p-card { margin-bottom: 20px; }
+.p-card:last-child { margin-bottom: 0; }
+.p-card-head {
+  font-family: 'Geist Mono', monospace;
+  font-size: 8px; text-transform: uppercase; letter-spacing: 0.1em;
+  color: #999; padding-bottom: 8px; border-bottom: 1px solid #d8d4cc; margin-bottom: 12px;
+}
+.p-edu-school { font-size: 12px; font-weight: 500; color: #1a1a1a; margin-bottom: 2px; }
+.p-edu-degree { font-size: 11px; font-weight: 300; color: #555; margin-bottom: 2px; }
+.p-edu-period { font-family: 'Geist Mono', monospace; font-size: 9px; color: #999; }
+
+.p-skill-group { margin-bottom: 10px; }
+.p-skill-group:last-child { margin-bottom: 0; }
+.p-skill-cat { font-family: 'Geist Mono', monospace; font-size: 8px; text-transform: uppercase; letter-spacing: 0.08em; color: #aaa; margin-bottom: 5px; }
+.p-skill-pills { display: flex; flex-wrap: wrap; gap: 3px; }
+.p-skill-pill { font-size: 10px; font-weight: 300; background: #f0ede8; color: #444; border-radius: 3px; padding: 2px 7px; }
+
+.p-hobbies { font-size: 11px; font-weight: 300; color: #666; line-height: 1.9; }
+</style>
+</head>
+<body>
+
+<div class="print-bar">
+  <span>// resume · M. Akhil · 2026 — Print or Save as PDF (Ctrl+P)</span>
+  <button class="print-btn" onclick="window.print()">⎙ Print / Save PDF</button>
+</div>
+
+<div class="paper">
+
+  <div class="p-header">
+    <img src="assets/akhil.jpg" alt="M. Akhil" class="p-photo" />
+    <div>
+      <div class="p-name">M. Akhil</div>
+      <div class="p-role">Product Designer · 3+ years</div>
+    </div>
+    <div class="p-contacts">
+      <a href="mailto:helloakhil.m@gmail.com" class="p-contact">helloakhil.m@gmail.com</a>
+      <a href="https://www.linkedin.com/in/male-akhil/" class="p-contact">linkedin.com/in/male-akhil</a>
+      <span class="p-contact">+91 6300067716</span>
+    </div>
+  </div>
+
+  <div class="p-summary">
+    Product designer with 3+ years of experience, currently at Juspay building enterprise payment products. Focus on translating technically dense systems into experiences that feel effortless.
+  </div>
+
+  <div class="p-body">
+
+    <div>
+      <div class="p-section">Work Experience</div>
+
+      <div class="p-exp">
+        <div class="p-exp-row">
+          <div class="p-company">Juspay · Hyperswitch</div>
+          <div class="p-period">Jun 2024 — Present</div>
+        </div>
+        <div class="p-exp-role">Product Designer</div>
+        <div class="p-project">
+          <div class="p-project-name">HyperSense — Cost Observability Tool</div>
+          <ul class="p-bullets">
+            <li>Built HyperSense from zero, consolidating a fragmented IC++ fee structure across issuers, acquirers, and PSPs into a cost observability dashboard for enterprise merchants.</li>
+            <li>Secured <b>4 enterprise pilots</b> including a demo to Apple; merchants progressed from demo to live cost data.</li>
+          </ul>
+        </div>
+        <div class="p-project">
+          <div class="p-project-name">Revenue Recovery — LLM Powered Recovery Engine</div>
+          <ul class="p-bullets">
+            <li>Designed a dashboard helping subscription businesses recover failed recurring payments via an LLM-powered retry engine.</li>
+            <li>Closed first pilot with <b>$500K recovered</b>; 3 additional merchant pilots in progress.</li>
+          </ul>
+        </div>
+      </div>
+
+      <hr class="p-exp-rule" />
+
+      <div class="p-exp">
+        <div class="p-exp-row">
+          <div class="p-company">Go Better (Betterplace)</div>
+          <div class="p-period">Dec 2022 — Mar 2024</div>
+        </div>
+        <div class="p-exp-role">Associate Product Designer</div>
+        <div class="p-project">
+          <div class="p-project-name">Oust App — Up-skilling for Frontline Workers</div>
+          <ul class="p-bullets">
+            <li>Redesigned end-to-end learning experience for blue-collar workers with low digital literacy.</li>
+            <li>Rebuilt IA and visual language to support a scalable, role-based content structure.</li>
+          </ul>
+        </div>
+        <div class="p-project">
+          <div class="p-project-name">Attendance Management System</div>
+          <ul class="p-bullets">
+            <li>Simplified a friction-heavy attendance flow into a faster, frontline-friendly experience.</li>
+            <li>Shipped grounded in real field behaviour through close PM & engineering collaboration.</li>
+          </ul>
+        </div>
+      </div>
+
+      <hr class="p-exp-rule" />
+
+      <div class="p-exp">
+        <div class="p-exp-row">
+          <div class="p-company">Inkprog Technologies Pvt Ltd</div>
+          <div class="p-period">Mar 2022 — May 2022</div>
+        </div>
+        <div class="p-exp-role">UX Designer · Apprenticeship · Hyderabad</div>
+        <ul class="p-bullets">
+          <li>Gained hands-on experience in wireframing, competitive analysis, and user flows on early-stage product problems.</li>
+          <li>A foundational stint that shaped a practical understanding of design process and collaboration.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div>
+      <div class="p-card">
+        <div class="p-card-head">Education</div>
+        <div class="p-edu-school">Avanthi Degree & PG College</div>
+        <div class="p-edu-degree">B.Sc Computer Science</div>
+        <div class="p-edu-period">July 2018 — Aug 2021</div>
+      </div>
+
+      <div class="p-card">
+        <div class="p-card-head">Skills</div>
+        <div class="p-skill-group">
+          <div class="p-skill-cat">Design</div>
+          <div class="p-skill-pills">
+            <span class="p-skill-pill">Product Design</span>
+            <span class="p-skill-pill">Interaction</span>
+            <span class="p-skill-pill">Visual Design</span>
+            <span class="p-skill-pill">Mobile</span>
+            <span class="p-skill-pill">Dashboard</span>
+          </div>
+        </div>
+        <div class="p-skill-group">
+          <div class="p-skill-cat">Research</div>
+          <div class="p-skill-pills">
+            <span class="p-skill-pill">UX Research</span>
+            <span class="p-skill-pill">Systems Thinking</span>
+            <span class="p-skill-pill">Usability Testing</span>
+          </div>
+        </div>
+        <div class="p-skill-group">
+          <div class="p-skill-cat">Tools</div>
+          <div class="p-skill-pills">
+            <span class="p-skill-pill">Figma</span>
+            <span class="p-skill-pill">Figma Make</span>
+            <span class="p-skill-pill">Mixpanel</span>
+            <span class="p-skill-pill">Mouseflow</span>
+          </div>
+        </div>
+        <div class="p-skill-group">
+          <div class="p-skill-cat">AI & Emerging</div>
+          <div class="p-skill-pills">
+            <span class="p-skill-pill">Claude Code</span>
+            <span class="p-skill-pill">ChatGPT</span>
+            <span class="p-skill-pill">Google AI Studio</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-card">
+        <div class="p-card-head">Courses</div>
+        <div style="display:flex;flex-direction:column;gap:6px;">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px dashed #e0ddd8;padding-bottom:5px;">
+            <span style="font-size:10px;font-weight:300;color:#444;">Growth School</span>
+            <span style="font-family:'Geist Mono',monospace;font-size:9px;color:#aaa;">UX Design · '22</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px dashed #e0ddd8;padding-bottom:5px;">
+            <span style="font-size:10px;font-weight:300;color:#444;">Gamification In UIUX</span>
+            <span style="font-family:'Geist Mono',monospace;font-size:9px;color:#aaa;">UIUX Global · '23</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px dashed #e0ddd8;padding-bottom:5px;">
+            <span style="font-size:10px;font-weight:300;color:#444;">Graduation of UI & UX</span>
+            <span style="font-family:'Geist Mono',monospace;font-size:9px;color:#aaa;">Skillto · '21</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:baseline;">
+            <span style="font-size:10px;font-weight:300;color:#444;">UX Design College Class</span>
+            <span style="font-family:'Geist Mono',monospace;font-size:9px;color:#aaa;">Udemy</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-card">
+        <div class="p-card-head">Hobbies</div>
+        <div class="p-hobbies">Cooking · Travel · Driving · Playing games · Drawing · Music · Movies</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>
