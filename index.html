@@ -23,6 +23,7 @@
   </div>
   <div class="links">
     <a href="index.html">Home</a>
+    <a href="about.html">About</a>
     <a href="process.html">Process</a>
     <a href="resume.html">Resume</a>
   </div>
@@ -351,13 +352,20 @@
 
   <div class="about-grid">
 
-    <div class="about-prose">
-      <p>I'm a product designer who enjoys making <span class="accent">complex things feel simple.</span></p>
-      <p>Coming from a Computer Science background, I didn't originally see myself becoming a designer. During the COVID years, while exploring paths beyond what I was studying, I discovered design and found myself drawn to the unique blend of <span class="warm">creativity</span>, <span class="warm">problem-solving</span>, and human understanding it offered.</p>
-      <p>What began as curiosity soon became a space to explore new ideas, think differently, and build things with intention. Over time, that curiosity grew into a passion, and eventually a career. Since then, I've been learning, building, and refining my craft as a <span class="em">self-taught designer.</span></p>
-      <p>What excites me most about design is the process of understanding. I enjoy breaking things down, questioning assumptions, and getting to the core of what truly matters before exploring solutions. Over time, this approach has shaped a belief I return to often: <span class="muted">simplicity is earned through understanding.</span></p>
-      <p>Today, I focus on creating experiences that balance simplicity, empathy, and thoughtful decision-making — products that not only work well, but feel intuitive and considerate to the people using them.</p>
-      <p>Outside of work, I enjoy travelling, playing badminton and cricket, and exploring new places. I've covered much of South India so far and am looking forward to my <span class="warm">first international trip.</span></p>
+    <div class="about-prose about-teaser">
+      <p class="reveal-line" style="--d: 0"><span>I'm a product designer who enjoys making <span class="accent">complex things feel simple.</span></span></p>
+      <p class="reveal-line" style="--d: 1"><span>Computer science brought me here. Curiosity kept me. Somewhere between the two, design became the thing I couldn't stop doing — and <span class="warm">still can't.</span></span></p>
+
+      <div class="about-cycle reveal-line" style="--d: 2">
+        <span class="cycle-label">currently —</span>
+        <span class="cycle-words">
+          <span>designing at Juspay.</span>
+          <span>building NutriVed on the side.</span>
+          <span>three cups of chai deep.</span>
+        </span>
+      </div>
+
+      <a class="about-more reveal-line" href="about.html" style="--d: 3">Read the full story <span class="arrow">→</span></a>
     </div>
 
     <div class="about-profile">
@@ -414,6 +422,24 @@ if (workGallery) {
     previews.forEach(p => p.classList.toggle('active', p.dataset.previewId === '0'));
   });
 }
+
+// About teaser — reveal lines as they scroll into view
+(function() {
+  const lines = document.querySelectorAll('.reveal-line');
+  if (!lines.length || !('IntersectionObserver' in window)) {
+    lines.forEach(l => l.classList.add('is-visible'));
+    return;
+  }
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.25 });
+  lines.forEach(l => io.observe(l));
+})();
 
 // Active nav — index has no active link since it's home
 const page = location.pathname.split('/').pop() || 'index.html';
