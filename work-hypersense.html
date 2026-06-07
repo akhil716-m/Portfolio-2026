@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Akhil Male — HyperSense, a Case Study</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+/* ============================================================
+   CASE STUDY — HYPERSENSE
+   Re-themed translation of the external case-study microsite
+   into Akhil's lime / cream / dark, Playfair / Geist language.
+   All page-specific rules are namespaced with `.cs-` to stay
+   isolated from the shared stylesheet.
+   ============================================================ */
+
+#cs-progress {
+  position: fixed; top: 0; left: 0; height: 2px; background: var(--accent);
+  width: 0%; z-index: 1000; transition: width 0.12s linear;
+  box-shadow: 0 0 12px rgba(212,255,94,0.4);
+}
+
+@keyframes csFadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes csScrollPulse {
+  0%, 100% { opacity: 0.25; transform: scaleY(0.6); }
+  50% { opacity: 1; transform: scaleY(1); }
+}
+
+/* ---------- HERO ---------- */
+.cs-hero {
+  min-height: 100vh; display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 140px clamp(24px, 6vw, 80px) 100px; position: relative; overflow: hidden;
+}
+.cs-hero::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none; z-index: -1;
+  background:
+    radial-gradient(ellipse 60% 50% at 80% 10%, rgba(212,255,94,0.07), transparent 70%),
+    radial-gradient(ellipse 50% 40% at 10% 90%, rgba(232,197,152,0.05), transparent 70%);
+}
+.cs-back {
+  display: inline-flex; align-items: center; gap: 8px; margin-bottom: 32px; width: fit-content;
+  font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--text-muted); text-decoration: none; transition: color 0.2s ease, gap 0.2s ease;
+  opacity: 0; animation: csFadeUp 0.7s ease forwards 0.05s;
+}
+.cs-back:hover { color: var(--accent); gap: 13px; }
+.cs-back .arr { display: inline-block; transition: transform 0.2s ease; }
+.cs-back:hover .arr { transform: translateX(-3px); }
+
+.cs-hero-eyebrow {
+  font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 26px;
+  opacity: 0; animation: csFadeUp 0.8s ease forwards 0.2s;
+}
+.cs-hero-eyebrow .sep { color: var(--text-muted); margin: 0 10px; letter-spacing: 0; }
+.cs-hero-title {
+  font-family: 'Playfair Display', serif; font-size: clamp(60px, 11vw, 130px); font-weight: 500;
+  line-height: 0.96; letter-spacing: -0.02em; color: var(--text); max-width: 920px;
+  opacity: 0; animation: csFadeUp 0.9s ease forwards 0.35s;
+}
+.cs-hero-title em {
+  font-style: italic; font-family: 'Instrument Serif', serif; font-weight: 400; color: var(--warm);
+}
+.cs-hero-meta {
+  display: flex; flex-wrap: wrap; gap: 48px; margin-top: 58px; padding-top: 32px;
+  border-top: 1px solid var(--line);
+  opacity: 0; animation: csFadeUp 0.8s ease forwards 0.55s;
+}
+.cs-hero-meta-item label {
+  display: block; font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--text-muted); margin-bottom: 9px;
+}
+.cs-hero-meta-item span { font-family: 'Geist', sans-serif; font-size: 14px; font-weight: 300; color: var(--text-soft); }
+.cs-hero-meta-item .accent { color: var(--accent); }
+
+.cs-hero-scroll {
+  position: absolute; bottom: 40px; right: clamp(24px, 6vw, 80px);
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+  opacity: 0; animation: csFadeUp 0.8s ease forwards 1s;
+}
+.cs-hero-scroll span {
+  font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--text-muted); writing-mode: vertical-rl;
+}
+.cs-hero-scroll-line {
+  width: 1px; height: 58px;
+  background: linear-gradient(to bottom, var(--accent) 0%, transparent 100%);
+  animation: csScrollPulse 2.2s ease-in-out infinite;
+}
+
+/* ---------- SECTION SCAFFOLD ---------- */
+.cs-section { padding: clamp(80px, 12vw, 140px) 0; border-top: 1px solid var(--line); }
+.cs-wrap { max-width: 760px; margin: 0 auto; padding: 0 clamp(24px, 6vw, 48px); }
+
+.cs-label {
+  display: flex; align-items: center; gap: 16px; margin-bottom: 46px;
+  font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--accent);
+}
+.cs-label::after { content: ''; flex: 1; max-width: 44px; height: 1px; background: var(--line); }
+
+.cs-display {
+  font-family: 'Playfair Display', serif; font-size: clamp(32px, 4.6vw, 52px); font-weight: 500;
+  line-height: 1.18; letter-spacing: -0.015em; color: var(--text); margin: 0 0 30px; max-width: 17ch;
+}
+.cs-display em {
+  font-style: italic; font-family: 'Instrument Serif', serif; font-weight: 400; color: var(--warm);
+}
+.cs-lead {
+  font-family: 'Geist', sans-serif; font-size: 19px; font-weight: 300; line-height: 1.75;
+  color: var(--text-soft); margin: 0 0 28px; max-width: 620px;
+}
+.cs-p {
+  font-family: 'Geist', sans-serif; font-size: 16px; font-weight: 300; line-height: 1.85;
+  color: var(--text-soft); margin: 0 0 26px; max-width: 620px;
+}
+.cs-p:last-child { margin-bottom: 0; }
+.cs-h3 {
+  font-family: 'Playfair Display', serif; font-size: clamp(22px, 3.2vw, 32px); font-weight: 500;
+  color: var(--text); margin: 0 0 16px;
+}
+.cs-list { list-style: none; padding: 0; margin: 0 0 48px; display: flex; flex-direction: column; gap: 11px; }
+.cs-list li {
+  position: relative; padding-left: 24px;
+  font-family: 'Geist', sans-serif; font-size: 16px; font-weight: 300; line-height: 1.7; color: var(--text-soft);
+}
+.cs-list li::before { content: '—'; position: absolute; left: 0; color: var(--accent); }
+
+/* ---------- GLOSSARY LINKS + TOOLTIP ---------- */
+.cs-gloss {
+  color: inherit; text-decoration: none; cursor: help;
+  border-bottom: 1px dotted rgba(212,255,94,0.42); padding-bottom: 1px;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+.cs-gloss:hover, .cs-gloss:focus-visible { color: var(--accent); border-bottom-color: var(--accent); outline: none; }
+
+.cs-tip {
+  position: fixed; z-index: 2000; max-width: 320px; padding: 16px 18px;
+  background: var(--bg-card); border: 1px solid var(--line); border-radius: 8px;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.55), 0 0 0 1px rgba(212,255,94,0.05);
+  font-family: 'Geist', sans-serif; font-size: 13px; font-weight: 300; line-height: 1.65; color: var(--text);
+  opacity: 0; transform: translateY(4px); pointer-events: none;
+  transition: opacity 0.18s ease, transform 0.18s ease;
+}
+.cs-tip.is-visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
+.cs-tip-term {
+  display: block; margin-bottom: 8px; font-family: 'Geist Mono', monospace; font-size: 11px;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent);
+}
+.cs-tip-def { color: var(--text-soft); }
+
+/* ---------- VIS BLOCK (diagram container) ---------- */
+.cs-vis { margin: 50px 0; background: var(--bg-card); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+.cs-vis-label {
+  padding: 16px 24px; border-bottom: 1px solid var(--line);
+  font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted);
+}
+.cs-vis-body { padding: 32px 28px; }
+
+/* IC++ stacked bar */
+.cs-stack-bar { display: flex; height: 40px; border-radius: 6px; overflow: hidden; margin-bottom: 32px; }
+.cs-stack-seg { border-right: 1px solid rgba(0,0,0,0.35); }
+.cs-stack-seg:last-child { border-right: none; }
+.cs-stack-seg--a { flex: 6;   background: rgba(212,255,94,0.15); }
+.cs-stack-seg--b { flex: 1.5; background: rgba(232,197,152,0.16); }
+.cs-stack-seg--c { flex: 1.5; background: rgba(138,138,138,0.18); }
+
+/* IC++ three-column breakdown */
+.cs-fee-cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 28px; }
+.cs-fee-col + .cs-fee-col { border-left: 1px solid var(--line); padding-left: 24px; }
+.cs-fee-head { display: flex; align-items: center; flex-wrap: wrap; row-gap: 4px; gap: 7px; margin-bottom: 9px; }
+.cs-fee-head .cs-fee-name { white-space: nowrap; }
+.cs-fee-dot { width: 3px; height: 13px; border-radius: 2px; flex-shrink: 0; }
+.cs-fee-dot--a { background: var(--accent); }
+.cs-fee-dot--b { background: var(--warm); }
+.cs-fee-dot--c { background: var(--text-soft); }
+.cs-fee-name { font-family: 'Geist', sans-serif; font-size: 13px; font-weight: 500; color: var(--text); }
+.cs-fee-name .cs-gloss { border-bottom-color: rgba(255,255,255,0.18); }
+.cs-fee-sep { color: var(--text-muted); font-size: 11px; }
+.cs-fee-pct { font-family: 'Geist Mono', monospace; font-size: 11px; }
+.cs-fee-pct--a { color: rgba(212,255,94,0.65); }
+.cs-fee-pct--b { color: rgba(232,197,152,0.7); }
+.cs-fee-pct--c { color: var(--text-muted); }
+.cs-fee-desc {
+  font-family: 'Geist', sans-serif; font-size: 12.5px; font-weight: 300; color: var(--text-soft);
+  line-height: 1.7; margin-bottom: 10px;
+}
+.cs-fee-tag {
+  font-family: 'Geist Mono', monospace; font-size: 9.5px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
+}
+.cs-fee-tag--a { color: rgba(212,255,94,0.55); }
+.cs-fee-tag--b { color: rgba(232,197,152,0.6); }
+.cs-fee-tag--c { color: var(--text-muted); }
+
+.cs-fee-divider { height: 1px; background: var(--line); margin-bottom: 24px; }
+.cs-fee-bottom { display: grid; grid-template-columns: 1fr 1fr; }
+.cs-fee-bottom-col { padding-right: 24px; border-right: 1px solid var(--line); }
+.cs-fee-bottom-col:last-child { border-right: none; padding-right: 0; padding-left: 24px; }
+.cs-fee-bottom-label {
+  font-family: 'Geist Mono', monospace; font-size: 9.5px; font-weight: 600; letter-spacing: 0.13em;
+  text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px;
+}
+.cs-fee-bottom-label--warn { color: rgba(232,197,152,0.78); }
+.cs-fee-bottom-sub { font-family: 'Geist', sans-serif; font-size: 11px; color: var(--text-muted); margin-bottom: 14px; }
+.cs-fee-rate { font-family: 'Geist Mono', monospace; font-size: 30px; font-weight: 300; color: var(--text); }
+.cs-fee-warn-text {
+  font-family: 'Geist', sans-serif; font-size: 12.5px; font-weight: 300; color: var(--text-soft); line-height: 1.7;
+}
+
+/* ---------- PRODUCT SHOT ---------- */
+.cs-shot {
+  margin: 8px 0 48px; border-radius: 8px; overflow: hidden; border: 1px solid var(--line);
+  box-shadow: 0 32px 80px rgba(0,0,0,0.5);
+}
+.cs-shot img { width: 100%; display: block; }
+
+/* ---------- TEAM GRID (bento) ---------- */
+.cs-team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line); }
+.cs-team-col { padding: 22px 18px; background: var(--bg-card); }
+.cs-team-role {
+  font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.13em; text-transform: uppercase;
+  color: var(--text-muted); margin-bottom: 12px;
+}
+.cs-team-role--mine { color: var(--accent); }
+.cs-team-name { font-family: 'Geist', sans-serif; font-size: 14px; font-weight: 500; color: var(--text); margin-bottom: 10px; line-height: 1.3; }
+.cs-team-desc { font-family: 'Geist', sans-serif; font-size: 12px; font-weight: 300; color: var(--text-soft); line-height: 1.65; }
+.cs-team-tag { margin-top: 14px; font-family: 'Geist', sans-serif; font-size: 12px; color: var(--accent); }
+
+/* ---------- REVEAL-ON-SCROLL ---------- */
+.reveal { opacity: 0; transform: translateY(26px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.is-visible { opacity: 1; transform: translateY(0); }
+
+/* ---------- "MORE TO COME" CLOSER ---------- */
+.cs-more-section { padding: clamp(70px, 10vw, 120px) 0; border-top: 1px solid var(--line); text-align: center; }
+.cs-more-tag {
+  display: inline-block; font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--text-muted); margin-bottom: 18px;
+}
+.cs-more-title {
+  font-family: 'Playfair Display', serif; font-size: clamp(24px, 3.4vw, 36px); font-weight: 500;
+  color: var(--text); margin: 0 0 14px;
+}
+.cs-more-title em { font-style: italic; font-family: 'Instrument Serif', serif; font-weight: 400; color: var(--warm); }
+.cs-more-desc {
+  font-family: 'Geist', sans-serif; font-size: 15px; font-weight: 300; color: var(--text-soft);
+  max-width: 480px; margin: 0 auto 36px; line-height: 1.7;
+}
+.cs-cta {
+  display: inline-flex; align-items: center; gap: 10px; font-family: 'Geist Mono', monospace; font-size: 12px;
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--text); text-decoration: none;
+  padding: 14px 26px; border: 1px solid var(--line); border-radius: 100px;
+  transition: gap 0.2s ease, color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+.cs-cta:hover { color: var(--bg); background: var(--accent); border-color: var(--accent); gap: 14px; }
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 760px) {
+  .cs-fee-cols { grid-template-columns: 1fr; gap: 28px; }
+  .cs-fee-col + .cs-fee-col { border-left: none; padding-left: 0; border-top: 1px solid var(--line); padding-top: 22px; }
+  .cs-fee-bottom { grid-template-columns: 1fr; gap: 26px; }
+  .cs-fee-bottom-col { border-right: none; padding-right: 0; }
+  .cs-fee-bottom-col:last-child { padding-left: 0; }
+  .cs-team-grid { grid-template-columns: 1fr 1fr; }
+  .cs-hero-meta { gap: 30px; }
+  .cs-hero { padding-top: 120px; }
+}
+@media (max-width: 540px) {
+  .cs-team-grid { grid-template-columns: 1fr; }
+  .cs-vis-body { padding: 26px 20px; }
+}
+</style>
+</head>
+<body>
+
+<div class="spotlight"></div>
+<div id="cs-progress"></div>
+
+<nav>
+  <div class="logo">
+    <a href="index.html">
+      <span class="mark">a</span>
+      <span class="name">Akhil Male</span>
+      <span class="role">— product designer</span>
+    </a>
+  </div>
+  <div class="links">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="process.html">Process</a>
+    <a href="resume.html">Resume</a>
+  </div>
+  <div class="status"><span class="dot"></span>available for select work</div>
+</nav>
+
+<!-- ═══════════════════════ HERO ═══════════════════════ -->
+<header class="cs-hero">
+  <a class="cs-back" href="index.html"><span class="arr">←</span> Back to selected work</a>
+  <div class="cs-hero-eyebrow">Case Study<span class="sep">·</span>B2B SaaS<span class="sep">·</span>2026</div>
+  <h1 class="cs-hero-title">Hyper<em>Sense</em></h1>
+  <div class="cs-hero-meta">
+    <div class="cs-hero-meta-item"><label>Role</label><span>Solo Product Designer</span></div>
+    <div class="cs-hero-meta-item"><label>Company</label><span>Juspay <span class="accent">·</span> Hyperswitch</span></div>
+    <div class="cs-hero-meta-item"><label>Timeline</label><span>5 months, 0→1</span></div>
+    <div class="cs-hero-meta-item"><label>Outcome</label><span class="accent">4 Enterprise Pilots</span></div>
+  </div>
+  <div class="cs-hero-scroll">
+    <span>Scroll</span>
+    <div class="cs-hero-scroll-line"></div>
+  </div>
+</header>
+
+<!-- ═══════════════════════ 01 — THE WORLD BEFORE ═══════════════════════ -->
+<section class="cs-section" id="cs-problem">
+<div class="cs-wrap">
+
+  <div class="cs-label reveal"><span class="num">/01</span> The World Before</div>
+  <h2 class="cs-display reveal">Every time a card payment is triggered, <em>a silent negotiation happens in milliseconds.</em></h2>
+
+  <p class="cs-p reveal">Every card payment looks simple from the outside — tap, approve, done. But beneath that tap, invisible decisions determine what the merchant ultimately pays. Card type, settlement timing, data quality — each variable quietly shifts the fee tier. Most merchants never see this happen.</p>
+  <p class="cs-p reveal">Most enterprises on <span class="cs-gloss" tabindex="0" data-gloss="ic-plus-plus">IC++</span> pricing consistently pay more than they should. The gap between what they should pay and what they actually pay sits at <span class="warm">7–10% of total payment costs</span>. The system wasn't built to be readable — it was designed to settle transactions silently.</p>
+
+  <!-- IC++ VISUAL — stacked bar + breakdown -->
+  <div class="cs-vis reveal">
+    <div class="cs-vis-label">IC++ fee structure — what a merchant actually pays per transaction</div>
+    <div class="cs-vis-body">
+
+      <div class="cs-stack-bar">
+        <div class="cs-stack-seg cs-stack-seg--a"></div>
+        <div class="cs-stack-seg cs-stack-seg--b"></div>
+        <div class="cs-stack-seg cs-stack-seg--c"></div>
+      </div>
+
+      <div class="cs-fee-cols">
+        <div class="cs-fee-col">
+          <div class="cs-fee-head">
+            <i class="cs-fee-dot cs-fee-dot--a"></i>
+            <span class="cs-fee-name"><span class="cs-gloss" tabindex="0" data-gloss="interchange">Interchange</span></span>
+            <span class="cs-fee-sep">·</span>
+            <span class="cs-fee-pct cs-fee-pct--a">~1.5–2.0%</span>
+          </div>
+          <div class="cs-fee-desc">Goes to the issuing bank. Set by Visa / Mastercard. Largest component — varies across 100+ programs depending on merchant type, card type, and 7–10 qualifying criteria per transaction.</div>
+          <div class="cs-fee-tag cs-fee-tag--a">VARIES BY: card type · method · data quality</div>
+        </div>
+
+        <div class="cs-fee-col">
+          <div class="cs-fee-head">
+            <i class="cs-fee-dot cs-fee-dot--b"></i>
+            <span class="cs-fee-name"><span class="cs-gloss" tabindex="0" data-gloss="scheme-fees">Scheme Fees</span></span>
+            <span class="cs-fee-sep">·</span>
+            <span class="cs-fee-pct cs-fee-pct--b">~0.2%</span>
+          </div>
+          <div class="cs-fee-desc">50+ categories — mandatory, international, feature-driven, and penalty fees. A single transaction can incur 3 to 10 of these simultaneously. Rules are updated twice a year in 900-page network rulebooks.</div>
+          <div class="cs-fee-tag cs-fee-tag--b">VARIES BY: card origin · transaction type</div>
+        </div>
+
+        <div class="cs-fee-col">
+          <div class="cs-fee-head">
+            <i class="cs-fee-dot cs-fee-dot--c"></i>
+            <span class="cs-fee-name"><span class="cs-gloss" tabindex="0" data-gloss="processor-markup">Processor Markup</span></span>
+            <span class="cs-fee-sep">·</span>
+            <span class="cs-fee-pct cs-fee-pct--c">~0.3%</span>
+          </div>
+          <div class="cs-fee-desc">The <span class="cs-gloss" tabindex="0" data-gloss="psp">PSP</span> or <span class="cs-gloss" tabindex="0" data-gloss="acquirer">acquirer</span>'s margin. Usually negotiated upfront — the most transparent layer. But when a merchant has multiple PSPs, even this becomes hard to reconcile across different report formats.</div>
+          <div class="cs-fee-tag cs-fee-tag--c">NEGOTIATED: at contract time</div>
+        </div>
+      </div>
+
+      <div class="cs-fee-divider"></div>
+
+      <div class="cs-fee-bottom">
+        <div class="cs-fee-bottom-col">
+          <div class="cs-fee-bottom-label">Total effective rate</div>
+          <div class="cs-fee-bottom-sub">What the merchant pays per transaction</div>
+          <div class="cs-fee-rate">1.7–2.8%</div>
+        </div>
+        <div class="cs-fee-bottom-col">
+          <div class="cs-fee-bottom-label cs-fee-bottom-label--warn">The <span class="cs-gloss" tabindex="0" data-gloss="downgrade">downgrade</span> problem</div>
+          <div class="cs-fee-warn-text">When a transaction doesn't meet the conditions for a preferred interchange tier, it's automatically bumped to a higher rate. No alert. No explanation. Just a larger bill at month end.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <p class="cs-p reveal">This was the context we walked into. No existing product in this space. No shared vocabulary. Opaque systems. Fragmented data. No clear mental model. Before we could design the product, we had to decode the ecosystem itself — we had to <span class="warm">build the mental model by understanding the domain.</span></p>
+
+</div>
+</section>
+
+<!-- ═══════════════════════ 02 — THIS IS WHERE HYPERSENSE BEGINS ═══════════════════════ -->
+<section class="cs-section" id="cs-begins">
+<div class="cs-wrap">
+
+  <div class="cs-label reveal"><span class="num">/02</span> This is where Hypersense begins</div>
+  <h2 class="cs-display reveal">We built the intelligence layer that <em>payment data never had.</em></h2>
+
+  <p class="cs-p reveal">Every payment leaves behind signals. But those signals are scattered across processor statements, settlement reports, and transaction logs — fragmented, inconsistently labelled, and impossible to connect at scale.</p>
+  <p class="cs-p reveal">The system was never designed to explain costs. It was designed to settle transactions — silently, instantly, and at scale. So when costs drifted or margins leaked, merchants rarely knew why.</p>
+
+  <div class="cs-shot reveal">
+    <img src="assets/hypersense-behance.png" alt="HyperSense — payment cost observability dashboard" loading="lazy" />
+  </div>
+
+  <p class="cs-p reveal">Hypersense connects transaction behaviour to financial impact, making payment costs <span class="accent">observable, easily</span>. Teams can finally trace every downgrade back to its source, detect abnormal cost spikes before they become quarterly surprises, and understand exactly where fees originated — issuer, network, or PSP — down to the transaction level.</p>
+
+  <h3 class="cs-h3 reveal">What We Built</h3>
+  <p class="cs-p reveal" style="margin-bottom: 16px;">We designed an interconnected system of workflows — each helping payment operations teams answer a different layer of the cost problem.</p>
+  <ul class="cs-list reveal">
+    <li>What changed?</li>
+    <li>Why did it happen?</li>
+    <li>What's driving cost leakage?</li>
+    <li>What should we fix first?</li>
+    <li>What is the projected impact?</li>
+  </ul>
+
+  <h3 class="cs-h3 reveal">What We Achieved</h3>
+  <p class="cs-p reveal" style="margin-bottom: 6px;"><span class="warm">6 enterprise pilots secured</span>, including a live demo with Apple.</p>
+  <p class="cs-p reveal">Merchants moved from static demos to testing with real transaction cost data.</p>
+
+</div>
+</section>
+
+<!-- ═══════════════════════ 03 — MY ROLE ═══════════════════════ -->
+<section class="cs-section" id="cs-role">
+<div class="cs-wrap">
+
+  <div class="cs-label reveal"><span class="num">/03</span> My Role</div>
+  <h2 class="cs-display reveal">One designer. A team of seven. <em>Building inside ambiguity.</em></h2>
+
+  <div class="cs-vis reveal">
+    <div class="cs-vis-label">The team — 7 people, one shared hypothesis</div>
+    <div class="cs-team-grid">
+      <div class="cs-team-col">
+        <div class="cs-team-role cs-team-role--mine">Design</div>
+        <div class="cs-team-name">Solo Product Designer</div>
+        <div class="cs-team-desc">Research, IA, interaction, visual system, component spec. Greenfield — no system to inherit.</div>
+        <div class="cs-team-tag">:) That's me</div>
+      </div>
+      <div class="cs-team-col">
+        <div class="cs-team-role">Engineering</div>
+        <div class="cs-team-name">2 × Backend Engineers</div>
+        <div class="cs-team-desc">Built the intelligence infrastructure powering classification, root-cause analysis, anomaly detection, &amp; transaction-level cost tracing.</div>
+      </div>
+      <div class="cs-team-col">
+        <div class="cs-team-role">Product + Growth</div>
+        <div class="cs-team-name">1 × PM · 1 × BD Lead · 1 × Growth</div>
+        <div class="cs-team-desc">Product strategy, enterprise discovery, GTM experiments, and customer conversations shaping early product direction.</div>
+      </div>
+      <div class="cs-team-col">
+        <div class="cs-team-role">Data</div>
+        <div class="cs-team-name">1 × Data Engineer</div>
+        <div class="cs-team-desc">Normalised processor statements, scheme classifications, and fee structures powering transaction-level cost analysis.</div>
+      </div>
+    </div>
+  </div>
+
+  <p class="cs-p reveal" style="font-size: 13px; color: var(--text-muted);">Designed the pipelines and decisioning systems behind cost classification, downgrade detection, and transaction-level analysis.</p>
+
+  <p class="cs-p reveal">I was the solo designer on the team. The domain was unfamiliar, the users were sceptical, and the product was evolving in real time — sometimes being discovered in the same room where it was being pitched.</p>
+  <p class="cs-p reveal">My role wasn't just designing interfaces. It was shaping how the system would ultimately be understood. Every workflow had to reduce ambiguity, explain discrepancies, and make complex cost behaviour feel trustworthy.</p>
+  <p class="cs-p reveal" style="margin-bottom: 4px;">The hardest part wasn't handling complexity.</p>
+  <p class="cs-p reveal"><span class="italic" style="font-style: italic; font-family: 'Instrument Serif', serif; color: var(--warm); font-size: 18px;">It was deciding what deserved clarity.</span></p>
+  <p class="cs-p reveal">My role was to continuously bridge the gap between how payment systems behave internally, and how operational teams reason about them externally.</p>
+
+</div>
+</section>
+
+<!-- ═══════════════════════ MORE TO COME ═══════════════════════ -->
+<section class="cs-more-section">
+  <div class="cs-wrap">
+    <div class="cs-more-tag">/04 — 09 · in progress</div>
+    <h3 class="cs-more-title">The deep dive — IC++ mechanics, <em>users, strategy &amp; UI</em> — is being rebuilt next.</h3>
+    <p class="cs-more-desc">This case study is being translated section by section, in the same hand-written style as the rest of this site. Come back soon for the fee simulator, the three personas, the design challenge, and the full UI walkthrough.</p>
+    <a class="cs-cta" href="index.html"><span class="arr">←</span> Back to selected work</a>
+  </div>
+</section>
+
+<footer>
+  <div>© 2026 Akhil Male</div>
+  <div class="center">Designed in Figma. Built with care.</div>
+  <div class="right"><a href="#">Back to top ↑</a></div>
+</footer>
+
+<script>
+/* Spotlight cursor-follow (shared pattern) */
+const spotlight = document.querySelector('.spotlight');
+let mx = window.innerWidth/2, my = window.innerHeight/2, sx = mx, sy = my;
+document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; });
+(function loop(){ sx+=(mx-sx)*0.08; sy+=(my-sy)*0.08; spotlight.style.left=sx+'px'; spotlight.style.top=sy+'px'; requestAnimationFrame(loop); })();
+
+/* Nav active-link state — keeps "Home" highlighted since this is a work sub-page */
+document.querySelectorAll('nav .links a').forEach(a => { if (a.getAttribute('href') === 'index.html') a.classList.add('active'); });
+
+/* Scroll progress bar */
+(function() {
+  const bar = document.getElementById('cs-progress');
+  if (!bar) return;
+  function update() {
+    const h = document.documentElement;
+    const pct = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
+    bar.style.width = (isFinite(pct) ? pct : 0) + '%';
+  }
+  window.addEventListener('scroll', update, { passive: true });
+  update();
+})();
+
+/* Reveal-on-scroll choreography */
+(function() {
+  const items = document.querySelectorAll('.reveal');
+  if (!items.length) return;
+  if ('IntersectionObserver' in window) {
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('is-visible'); obs.unobserve(e.target); }
+      });
+    }, { threshold: 0.08 });
+    items.forEach(el => obs.observe(el));
+    setTimeout(() => items.forEach(el => el.classList.add('is-visible')), 2500);
+  } else {
+    items.forEach(el => el.classList.add('is-visible'));
+  }
+})();
+
+/* Glossary tooltips — full interactive parity with the source case study */
+(function() {
+  const GLOSSARY = {
+    'ic-plus-plus': {
+      term: 'IC++',
+      def: 'A pricing model where merchants pay the actual interchange cost set by card networks, plus a fixed processor markup. Every fee component is itemised — unlike blended rates.'
+    },
+    'interchange': {
+      term: 'Interchange',
+      def: 'Fee paid to the card-issuing bank on every transaction. Set by Visa and Mastercard across 500+ rate categories — varying by card type, merchant category, transaction method, and data quality.'
+    },
+    'scheme-fees': {
+      term: 'Scheme Fees',
+      def: 'Fees charged by card networks (Visa, Mastercard) for using their payment infrastructure — covering authorisation, fraud screening, and routing. Updated twice yearly in 900-page rulebooks.'
+    },
+    'processor-markup': {
+      term: 'Processor Markup',
+      def: 'The fee a PSP or acquirer adds on top of interchange and scheme fees. Negotiated at contract time — the most transparent layer of IC++ pricing.'
+    },
+    'psp': {
+      term: 'PSP',
+      def: 'Payment Service Provider. A company (e.g. Adyen, Stripe, Worldpay) that enables merchants to accept card payments by connecting them to card networks and banks.'
+    },
+    'acquirer': {
+      term: 'Acquirer',
+      def: 'The acquiring bank that processes card payments on behalf of the merchant and settles funds into their account. Often bundled with a PSP.'
+    },
+    'downgrade': {
+      term: 'Downgrade',
+      def: "When a transaction fails to qualify for its expected (lower-cost) interchange tier and is reclassified to a higher rate. Causes include late settlement, missing authentication data, or incorrect merchant classification."
+    }
+  };
+
+  const tip = document.createElement('div');
+  tip.className = 'cs-tip';
+  tip.innerHTML = '<span class="cs-tip-term"></span><span class="cs-tip-def"></span>';
+  document.body.appendChild(tip);
+  const termEl = tip.querySelector('.cs-tip-term');
+  const defEl  = tip.querySelector('.cs-tip-def');
+  let hideTO = null;
+
+  function positionTip(anchor) {
+    const rect = anchor.getBoundingClientRect();
+    const cx = rect.left + rect.width / 2;
+    tip.style.left = '0px';
+    tip.style.top  = '0px';
+    requestAnimationFrame(() => {
+      const tw = tip.offsetWidth, th = tip.offsetHeight;
+      const vw = window.innerWidth;
+      let left = cx - tw / 2;
+      if (left < 12) left = 12;
+      if (left + tw > vw - 12) left = vw - tw - 12;
+      let top = rect.top - th - 10;
+      if (top < 12) top = rect.bottom + 10;
+      tip.style.left = left + 'px';
+      tip.style.top  = top + 'px';
+    });
+  }
+  function showTip() {
+    const entry = GLOSSARY[this.dataset.gloss];
+    if (!entry) return;
+    clearTimeout(hideTO);
+    termEl.textContent = entry.term;
+    defEl.textContent  = entry.def;
+    positionTip(this);
+    tip.classList.add('is-visible');
+  }
+  function hideTip() { hideTO = setTimeout(() => tip.classList.remove('is-visible'), 160); }
+
+  document.querySelectorAll('.cs-gloss[data-gloss]').forEach(el => {
+    el.addEventListener('mouseenter', showTip);
+    el.addEventListener('mouseleave', hideTip);
+    el.addEventListener('focus', showTip);
+    el.addEventListener('blur', hideTip);
+  });
+  tip.addEventListener('mouseenter', () => clearTimeout(hideTO));
+  tip.addEventListener('mouseleave', hideTip);
+})();
+
+console.log('%cHi.','font-family:"Instrument Serif",serif;font-size:32px;font-style:italic;color:#d4ff5e;');
+console.log('%cYou found the HyperSense rebuild. Sections 04–09 are coming. → hello@akhilmale.com','font-family:monospace;font-size:12px;color:#8a8a8a;');
+</script>
+</body>
+</html>
