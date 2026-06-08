@@ -217,6 +217,72 @@
 }
 .cs-shot img { width: 100%; display: block; }
 
+/* ---------- PRODUCT SCREENSHOT FRAME (browser chrome) ---------- */
+.cs-shot-frame {
+  margin: 30px 0 14px; border-radius: 12px; overflow: hidden; border: 1px solid var(--line);
+  background: var(--bg-card); box-shadow: 0 36px 90px rgba(0,0,0,0.45);
+}
+.cs-shot-bar {
+  display: flex; align-items: center; gap: 18px; padding: 13px 18px;
+  background: var(--bg-soft); border-bottom: 1px solid var(--line);
+}
+.cs-shot-dots { display: flex; gap: 6px; flex-shrink: 0; }
+.cs-shot-dots i { width: 9px; height: 9px; border-radius: 50%; display: block; background: var(--line); border: 1px solid rgba(237,237,237,0.05); }
+.cs-shot-url {
+  flex: 1; display: flex; align-items: center; gap: 8px; min-width: 0;
+  font-family: 'Geist Mono', monospace; font-size: 11px; color: var(--text-muted);
+  background: var(--bg); border: 1px solid var(--line); border-radius: 100px; padding: 7px 16px;
+}
+.cs-shot-url svg { flex-shrink: 0; opacity: 0.45; }
+.cs-shot-url span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--text-soft); }
+.cs-shot-url span em { font-style: normal; color: var(--accent); }
+.cs-shot-frame-body { position: relative; max-height: 460px; overflow: hidden; }
+.cs-shot-frame-body img { width: 100%; display: block; }
+.cs-shot-frame-body::after {
+  content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 130px; pointer-events: none;
+  background: linear-gradient(to bottom, rgba(22,22,22,0), var(--bg-card) 94%);
+}
+.cs-shot-cap {
+  font-family: 'Geist Mono', monospace; font-size: 10.5px; letter-spacing: 0.05em; color: var(--text-muted);
+  padding: 14px 18px; border-top: 1px solid var(--line);
+}
+.cs-shot-cap em { font-style: normal; color: var(--text-soft); }
+
+/* ---------- OVERVIEW — INTERACTIVE PRODUCT FRAME (chrome bar + segmented setup-switcher + scrollable body + live caption) ---------- */
+.cs-ov { margin: 32px 0 14px; }
+.cs-ov-frame {
+  border-radius: 12px; overflow: hidden; border: 1px solid var(--line);
+  background: var(--bg-card); box-shadow: 0 36px 90px rgba(0,0,0,0.45);
+}
+.cs-ov-tabbar {
+  display: flex; align-items: center; gap: 14px; padding: 14px 20px;
+  background: var(--bg-soft); border-bottom: 1px solid var(--line); overflow-x: auto;
+}
+.cs-ov-tabbar-label {
+  flex-shrink: 0; font-family: 'Geist Mono', monospace; font-size: 9px; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--text-muted);
+}
+.cs-ov-segs { display: flex; gap: 6px; flex-shrink: 0; }
+.cs-ov-seg {
+  flex-shrink: 0; padding: 7px 16px; border-radius: 100px; border: 1px solid var(--line);
+  background: transparent; color: var(--text-soft); font-family: 'Geist', sans-serif; font-size: 12px;
+  cursor: pointer; transition: background 0.18s ease, border-color 0.18s ease, color 0.18s ease; white-space: nowrap;
+}
+.cs-ov-seg:hover { color: var(--text); border-color: var(--text-muted); }
+.cs-ov-seg.is-active { background: var(--accent); border-color: var(--accent); color: var(--bg); font-weight: 500; }
+.cs-ov-body { position: relative; height: 460px; overflow-y: auto; background: #fff; }
+.cs-ov-body img { width: 100%; display: block; opacity: 1; transition: opacity 0.22s ease; }
+.cs-ov-caption {
+  display: flex; flex-wrap: wrap; align-items: baseline; column-gap: 12px; row-gap: 5px;
+  padding: 16px 20px; border-top: 1px solid var(--line);
+}
+.cs-ov-cap-tag {
+  font-family: 'Geist Mono', monospace; font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--text-muted);
+}
+.cs-ov-cap-title { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 500; color: var(--accent); transition: color 0.18s ease; }
+.cs-ov-cap-desc { font-family: 'Geist', sans-serif; font-size: 12px; font-weight: 300; color: var(--text-soft); line-height: 1.6; flex-basis: 100%; }
+
 /* ---------- TEAM GRID (bento) ---------- */
 .cs-team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line); }
 .cs-team-col { padding: 22px 18px; background: var(--bg-card); }
@@ -255,6 +321,223 @@
   transition: gap 0.2s ease, color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
 }
 .cs-cta:hover { color: var(--bg); background: var(--accent); border-color: var(--accent); gap: 14px; }
+a.cs-cta { margin-top: 28px; }
+
+/* ---------- STAT CALLOUTS ---------- */
+.cs-stats { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; margin: 12px 0 0; }
+.cs-stat { padding: 30px 26px; }
+.cs-stat + .cs-stat { border-left: 1px solid var(--line); }
+.cs-stat-num { display: block; font-family: 'Geist Mono', monospace; font-size: 25px; font-weight: 500; color: var(--accent); letter-spacing: 0.02em; margin-bottom: 14px; }
+.cs-stat-desc { font-family: 'Geist', sans-serif; font-size: 12.5px; font-weight: 300; line-height: 1.7; color: var(--text-soft); }
+
+/* ---------- RAW DOCUMENTS BENTO ---------- */
+.cs-docs {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center;
+  margin: 50px 0; padding: 36px; background: var(--bg-card); border: 1px solid var(--line); border-radius: 10px;
+}
+.cs-docs-tag { font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 16px; }
+.cs-docs-title { font-family: 'Playfair Display', serif; font-size: clamp(20px, 2.6vw, 27px); font-weight: 400; line-height: 1.32; color: var(--text); margin: 0 0 18px; }
+.cs-docs-title em { font-style: italic; font-family: 'Instrument Serif', serif; font-weight: 400; color: var(--warm); }
+.cs-docs-text p { font-family: 'Geist', sans-serif; font-size: 14px; font-weight: 300; line-height: 1.8; color: var(--text-soft); margin: 0 0 12px; }
+.cs-docs-text p:last-child { margin-bottom: 0; }
+.cs-docs-shot {
+  border-radius: 8px; overflow: hidden; border: 1px solid var(--line); transform: rotate(-1deg);
+  box-shadow: 0 28px 70px rgba(0,0,0,0.45);
+}
+.cs-docs-shot img { width: 100%; display: block; }
+.cs-docs-shot-cap {
+  margin-top: 14px; font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.06em;
+  color: var(--text-muted); text-align: center;
+}
+
+/* ---------- IC++ FEE SIMULATOR ---------- */
+.cs-sim-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 28px; padding-bottom: 28px; border-bottom: 1px solid var(--line); }
+.cs-sim-amt-block { display: flex; flex-direction: column; gap: 8px; }
+.cs-sim-amt-block label { font-family: 'Geist Mono', monospace; font-size: 9.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-muted); }
+.cs-sim-amt { font-family: 'Geist Mono', monospace; font-size: clamp(20px, 2.6vw, 26px); font-weight: 500; color: var(--text); }
+.cs-sim-amt--neg { color: var(--warm); }
+.cs-sim-amt--pos { color: var(--accent); }
+
+.cs-sim-switch { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px; }
+.cs-sim-switch button {
+  font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.04em; padding: 9px 16px; border-radius: 100px;
+  background: transparent; border: 1px solid var(--line); color: var(--text-soft); cursor: pointer;
+  transition: border-color 0.18s ease, color 0.18s ease, background 0.18s ease;
+}
+.cs-sim-switch button:hover { color: var(--text); border-color: var(--text-muted); }
+.cs-sim-switch button.on { color: var(--bg); background: var(--accent); border-color: var(--accent); }
+
+.cs-sim-stages { display: flex; flex-direction: column; gap: 0; }
+.cs-sim-stage {
+  display: grid; grid-template-columns: 1fr auto; gap: 16px; align-items: flex-start;
+  padding: 20px 22px; border-radius: 8px; border: 1px solid var(--line);
+  background: var(--bg-soft); margin-bottom: 14px;
+  opacity: 0.4; transform: translateX(-6px);
+  transition: opacity 0.45s ease, transform 0.45s ease, border-color 0.3s ease;
+}
+.cs-sim-stage.is-active { opacity: 1; transform: translateX(0); }
+.cs-sim-stage-entity { font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 6px; }
+.cs-sim-stage-name { font-family: 'Geist', sans-serif; font-size: 15px; font-weight: 500; color: var(--text); margin-bottom: 6px; }
+.cs-sim-stage-role { font-family: 'Geist', sans-serif; font-size: 12.5px; font-weight: 300; line-height: 1.65; color: var(--text-soft); max-width: 52ch; }
+.cs-sim-stage-amt { font-family: 'Geist Mono', monospace; font-size: 19px; font-weight: 500; text-align: right; white-space: nowrap; }
+.cs-sim-stage-fees { grid-column: 1 / -1; margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--line); display: flex; flex-direction: column; gap: 8px; }
+.cs-sim-fee-row { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; font-family: 'Geist', sans-serif; font-size: 12.5px; color: var(--text-soft); }
+.cs-sim-fee-row .fr-rate { font-family: 'Geist Mono', monospace; font-size: 11px; color: var(--text-muted); }
+.cs-sim-fee-row .fr-amt { font-family: 'Geist Mono', monospace; font-size: 12px; }
+.cs-sim-dg {
+  grid-column: 1 / -1; margin-top: 14px; padding: 14px 16px; border-radius: 0 6px 6px 0;
+  background: rgba(232,197,152,0.05); border-left: 2px solid rgba(232,197,152,0.35);
+  font-family: 'Geist', sans-serif; font-size: 12px; line-height: 1.7; color: var(--text-soft);
+  display: none;
+}
+.cs-sim-dg.is-revealed { display: block; }
+.cs-sim-dg strong { color: var(--warm); font-weight: 500; }
+.cs-sim-callout {
+  margin-top: 18px; padding: 18px 20px; border-radius: 0 8px 8px 0;
+  background: rgba(212,255,94,0.05); border-left: 2px solid rgba(212,255,94,0.35);
+  font-family: 'Geist', sans-serif; font-size: 13px; line-height: 1.75; color: var(--text-soft);
+  opacity: 0; transform: translateY(8px); transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.cs-sim-callout.is-visible { opacity: 1; transform: translateY(0); }
+.cs-sim-callout strong { color: var(--accent); font-weight: 500; }
+.cs-sim-final {
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  padding: 20px 22px; border-radius: 8px; border: 1px solid rgba(212,255,94,0.25);
+  background: rgba(212,255,94,0.04); margin-top: 4px;
+  opacity: 0.4; transform: translateX(-6px); transition: opacity 0.45s ease, transform 0.45s ease;
+}
+.cs-sim-final.is-active { opacity: 1; transform: translateX(0); }
+.cs-sim-final-label { font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); }
+.cs-sim-final-amt { font-family: 'Geist Mono', monospace; font-size: 22px; font-weight: 500; color: var(--accent); }
+
+.cs-sim-btn {
+  display: inline-flex; align-items: center; gap: 10px; margin-top: 22px;
+  font-family: 'Geist Mono', monospace; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--bg); background: var(--accent); border: none; border-radius: 100px; padding: 14px 28px; cursor: pointer;
+  transition: gap 0.2s ease, opacity 0.2s ease, transform 0.15s ease;
+}
+.cs-sim-btn:hover { gap: 14px; }
+.cs-sim-btn:active { transform: scale(0.97); }
+.cs-sim-btn:disabled { opacity: 0.4; cursor: default; }
+.cs-sim-btn .play { display: inline-block; width: 0; height: 0; border-top: 5px solid transparent; border-bottom: 5px solid transparent; border-left: 8px solid var(--bg); }
+.cs-sim-btn.is-hidden { display: none; }
+
+/* ---------- MARKET GLOBE ---------- */
+.cs-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; }
+.cs-dot--a { background: var(--accent); box-shadow: 0 0 8px rgba(212,255,94,0.5); }
+.cs-dot--b { background: var(--text-muted); border: 1px solid var(--line); }
+.cs-globe-stage { position: relative; display: flex; justify-content: center; align-items: center; padding: 16px 0 30px; }
+.cs-globe-wrap { position: relative; width: 360px; max-width: 100%; }
+.cs-globe-wrap canvas {
+  width: 100%; display: block; border-radius: 50%; cursor: grab;
+  box-shadow: 0 0 90px rgba(212,255,94,0.07), 0 0 1px rgba(255,255,255,0.06);
+}
+.cs-globe-wrap canvas:active { cursor: grabbing; }
+.cs-globe-tip {
+  position: absolute; pointer-events: none; opacity: 0; transition: opacity 0.15s ease;
+  background: rgba(10,10,10,0.95); border: 1px solid var(--line); border-radius: 6px;
+  padding: 9px 13px; font-family: 'Geist', sans-serif; font-size: 11.5px; color: var(--text);
+  white-space: nowrap; z-index: 10; top: 0; left: 0; line-height: 1.7;
+}
+.cs-globe-tip-badge {
+  display: inline-block; font-family: 'Geist Mono', monospace; font-size: 8px; font-weight: 500;
+  border-radius: 3px; padding: 2px 6px; margin-left: 6px; letter-spacing: 0.07em; text-transform: uppercase;
+  vertical-align: middle;
+}
+.cs-globe-legend {
+  position: absolute; top: 14px; right: 16px; display: flex; flex-direction: column; gap: 7px; align-items: flex-end;
+}
+.cs-globe-legend-row {
+  display: flex; align-items: center; gap: 7px;
+  font-family: 'Geist Mono', monospace; font-size: 8px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted);
+}
+.cs-globe-hint {
+  text-align: center; font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--text-muted); margin-top: -8px;
+}
+
+/* ---------- PERSONAS ---------- */
+.cs-persona { margin: 56px 0; padding: 36px; background: var(--bg-card); border: 1px solid var(--line); border-radius: 10px; }
+.cs-persona + .cs-persona { margin-top: 32px; }
+.cs-persona-head { display: flex; gap: 20px; margin-bottom: 32px; }
+.cs-persona-icon {
+  flex-shrink: 0; width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  background: rgba(212,255,94,0.07); border: 1px solid rgba(212,255,94,0.25); color: var(--accent);
+}
+.cs-persona-icon svg { width: 17px; height: 17px; }
+.cs-persona-name { font-family: 'Geist', sans-serif; font-size: 16px; font-weight: 500; color: var(--text); margin-bottom: 8px; line-height: 1.4; }
+.cs-persona-name .dash { color: var(--text-muted); }
+.cs-persona-name em { font-style: italic; font-family: 'Instrument Serif', serif; font-weight: 400; color: var(--warm); font-size: 17px; }
+.cs-persona-desc { font-family: 'Geist', sans-serif; font-size: 13px; font-weight: 300; line-height: 1.75; color: var(--text-soft); margin: 0; max-width: 64ch; }
+
+.cs-story { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line); border-radius: 8px; overflow: hidden; margin-bottom: 28px; }
+.cs-story-step { padding: 22px 20px; background: var(--bg-soft); display: flex; flex-direction: column; gap: 10px; }
+.cs-story-num { font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.1em; color: var(--accent); }
+.cs-story-title { font-family: 'Geist', sans-serif; font-size: 13.5px; font-weight: 500; color: var(--text); line-height: 1.35; }
+.cs-story-cap { font-family: 'Geist', sans-serif; font-size: 12px; font-weight: 300; line-height: 1.65; color: var(--text-soft); }
+
+.cs-persona-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; padding-top: 26px; border-top: 1px solid var(--line); }
+.cs-persona-meta-label { display: block; font-family: 'Geist Mono', monospace; font-size: 9.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; }
+.cs-persona-meta p { font-family: 'Geist', sans-serif; font-size: 13px; font-weight: 300; line-height: 1.7; color: var(--text-soft); margin: 0; }
+.cs-persona-meta p em { font-style: italic; font-family: 'Instrument Serif', serif; color: var(--warm); font-size: 14px; }
+
+/* ---------- DESIGN CHALLENGE CALLOUT ---------- */
+.cs-challenge {
+  margin-top: 22px; padding: 18px 22px; border-radius: 0 8px 8px 0;
+  background: rgba(212,255,94,0.045); border-left: 2px solid rgba(212,255,94,0.35);
+}
+.cs-challenge-tag { font-family: 'Geist Mono', monospace; font-size: 9.5px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+.cs-challenge p { font-family: 'Geist', sans-serif; font-size: 14.5px; font-weight: 300; line-height: 1.8; color: var(--text-soft); margin: 0; }
+
+/* ---------- KNOWLEDGE GRAPH ---------- */
+.cs-graph-wrap { margin-top: 56px; }
+.cs-graph-wrap canvas { width: 100%; height: auto; display: block; border-radius: 16px; background: var(--bg-card); border: 1px solid var(--line); }
+.cs-graph-hint { font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.1em; color: var(--text-muted); opacity: 0.6; text-align: center; margin: 16px 0 0; }
+
+/* ---------- UI WALKTHROUGH BITS ---------- */
+.cs-ui-tag {
+  display: inline-block; margin: 4px 0 26px; padding: 9px 16px; border-radius: 100px;
+  font-family: 'Geist Mono', monospace; font-size: 10.5px; letter-spacing: 0.05em; color: var(--text-soft);
+  background: var(--bg-card); border: 1px solid var(--line);
+}
+.cs-scenarios { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border-radius: 10px; overflow: hidden; margin: 24px 0 8px; }
+.cs-scenario { padding: 26px 24px; background: var(--bg-card); }
+.cs-scenario-shot { margin: 0 0 18px; border-radius: 6px; overflow: hidden; border: 1px solid var(--line); max-height: 132px; }
+.cs-scenario-shot img { width: 100%; display: block; }
+.cs-scenario-tag { font-family: 'Geist Mono', monospace; font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--warm); margin-bottom: 10px; }
+.cs-scenario-title { font-family: 'Playfair Display', serif; font-size: 19px; font-weight: 500; color: var(--text); margin-bottom: 10px; }
+.cs-scenario p { font-family: 'Geist', sans-serif; font-size: 12.5px; font-weight: 300; line-height: 1.7; color: var(--text-soft); margin: 0; }
+
+/* ---------- PRODUCT ITERATIONS ---------- */
+.cs-iter { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line); border-radius: 8px; overflow: hidden; }
+.cs-iter-step { padding: 24px 20px; background: var(--bg-soft); display: flex; flex-direction: column; gap: 6px; }
+.cs-iter-step--active { background: rgba(212,255,94,0.05); }
+.cs-iter-tag { font-family: 'Geist Mono', monospace; font-size: 9.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); }
+.cs-iter-step--active .cs-iter-tag { color: var(--accent); }
+.cs-iter-title { font-family: 'Geist', sans-serif; font-size: 14px; font-weight: 500; color: var(--text); margin-top: 4px; }
+.cs-iter-sub { font-family: 'Geist Mono', monospace; font-size: 11px; color: var(--text-muted); }
+.cs-iter-goal { font-family: 'Geist', sans-serif; font-size: 11.5px; font-weight: 300; color: var(--text-soft); margin-top: 8px; line-height: 1.6; }
+
+/* ---------- MILESTONE TIMELINE ---------- */
+.cs-timeline { display: flex; flex-direction: column; }
+.cs-tl-item { display: grid; grid-template-columns: 84px 20px 1fr; gap: 20px; padding: 18px 0; }
+.cs-tl-item:not(:last-child) { position: relative; }
+.cs-tl-item:not(:last-child)::after {
+  content: ''; position: absolute; left: 93px; top: 38px; bottom: -18px; width: 1px; background: var(--line);
+}
+.cs-tl-month { font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); padding-top: 3px; }
+.cs-tl-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--text-muted); margin-top: 5px; position: relative; z-index: 1; }
+.cs-tl-dot--active { background: var(--accent); box-shadow: 0 0 0 4px rgba(212,255,94,0.12); }
+.cs-tl-text { font-family: 'Geist', sans-serif; font-size: 13.5px; font-weight: 300; line-height: 1.75; color: var(--text-soft); }
+.cs-tl-text strong { color: var(--text); font-weight: 500; }
+
+/* ---------- CLOSING QUOTE ---------- */
+.cs-quote {
+  margin: 64px 0 22px; padding: 0 0 0 24px; border-left: 2px solid var(--accent);
+  font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(18px, 2.4vw, 23px);
+  font-weight: 400; line-height: 1.6; color: var(--text); max-width: 640px;
+}
+.cs-thanks { font-size: 15px; color: var(--text-soft); }
 
 /* ---------- RESPONSIVE ---------- */
 @media (max-width: 760px) {
@@ -266,16 +549,43 @@
   .cs-team-grid { grid-template-columns: 1fr 1fr; }
   .cs-hero-meta { gap: 30px; }
   .cs-hero { padding-top: 120px; }
+  .cs-stats { grid-template-columns: 1fr; }
+  .cs-stat + .cs-stat { border-left: none; border-top: 1px solid var(--line); }
+  .cs-docs { grid-template-columns: 1fr; gap: 30px; padding: 26px; }
+  .cs-sim-strip { grid-template-columns: 1fr; gap: 16px; }
+  .cs-sim-stage { grid-template-columns: 1fr; }
+  .cs-sim-stage-amt { text-align: left; }
+  .cs-globe-wrap { width: 300px; }
+  .cs-story { grid-template-columns: 1fr 1fr; }
+  .cs-persona-meta { grid-template-columns: 1fr; gap: 20px; }
+  .cs-persona { padding: 26px; }
+  .cs-scenarios { grid-template-columns: 1fr; }
+  .cs-iter { grid-template-columns: 1fr 1fr; }
+  .cs-shot-frame-body { max-height: 360px; }
+  .cs-ov-body { height: 380px; }
 }
 @media (max-width: 540px) {
   .cs-team-grid { grid-template-columns: 1fr; }
   .cs-vis-body { padding: 26px 20px; }
+  .cs-globe-stage { flex-direction: column; gap: 18px; }
+  .cs-globe-wrap { width: 250px; }
+  .cs-globe-legend { position: static; align-items: flex-start; }
+  .cs-story { grid-template-columns: 1fr; }
+  .cs-iter { grid-template-columns: 1fr; }
+  .cs-persona-head { flex-direction: column; gap: 14px; }
+  .cs-tl-item { grid-template-columns: 64px 16px 1fr; gap: 14px; }
+  .cs-tl-item:not(:last-child)::after { left: 71px; }
+  .cs-shot-frame-body { max-height: 280px; }
+  .cs-shot-bar { gap: 12px; padding: 11px 14px; }
+  .cs-ov-body { height: 320px; }
+  .cs-ov-tabbar { padding: 12px 16px; gap: 10px; }
+  .cs-ov-seg { padding: 6px 13px; font-size: 11.5px; }
+  .cs-ov-caption { padding: 14px 16px; }
 }
 </style>
 </head>
 <body>
 
-<div class="spotlight"></div>
 <div id="cs-progress"></div>
 
 <nav>
@@ -468,14 +778,573 @@
 </div>
 </section>
 
-<!-- ═══════════════════════ MORE TO COME ═══════════════════════ -->
-<section class="cs-more-section">
-  <div class="cs-wrap">
-    <div class="cs-more-tag">/04 — 09 · in progress</div>
-    <h3 class="cs-more-title">The deep dive — IC++ mechanics, <em>users, strategy &amp; UI</em> — is being rebuilt next.</h3>
-    <p class="cs-more-desc">This case study is being translated section by section, in the same hand-written style as the rest of this site. Come back soon for the fee simulator, the three personas, the design challenge, and the full UI walkthrough.</p>
-    <a class="cs-cta" href="index.html"><span class="arr">←</span> Back to selected work</a>
+<!-- ═══════════════════════ 04 — UNDERSTANDING THE TERRAIN ═══════════════════════ -->
+<section class="cs-section" id="cs-terrain">
+<div class="cs-wrap">
+
+  <div class="cs-label reveal"><span class="num">/04</span> Understanding the terrain</div>
+  <h2 class="cs-display reveal">The industry's most transparent pricing model is also its <em>most complex.</em></h2>
+
+  <p class="cs-lead reveal">IC++ pricing was designed for large-scale merchants processing enough volume to benefit from true pass-through pricing.</p>
+  <p class="cs-p reveal">Instead of paying a single <span class="cs-gloss" tabindex="0" data-gloss="blended-pricing">blended rate</span>, merchants are charged the actual cost of processing each transaction. That cost varies based on factors such as card type, authentication method, settlement timing, data quality, and geography.</p>
+  <p class="cs-p reveal">For high-volume merchants, this model often results in lower costs compared to blended pricing. But those savings come with complexity.</p>
+  <p class="cs-p reveal">IC++ exposes every component of cost, giving merchants full visibility into interchange, scheme fees, and processor markup. However, understanding what was charged and why requires reconciling fragmented data spread across multiple reports that arrive in their inbox at the end of each billing cycle.</p>
+
+  <!-- THE RAW DOCUMENTS -->
+  <div class="cs-docs reveal">
+    <div class="cs-docs-text">
+      <div class="cs-docs-tag">The raw documents</div>
+      <h3 class="cs-docs-title">Every month, a different set of documents.<br><em>No common format. No shared language.</em></h3>
+      <p>The exact reports vary by processor and pricing model, but the challenge is always the same: each source explains only part of the cost story.</p>
+      <p>Teams manually reconcile invoices, settlement files, and network rate tables to understand what they were charged and why.</p>
+    </div>
+    <div>
+      <div class="cs-docs-shot">
+        <img src="assets/hypersense/raw-documents.jpg" alt="Real merchant fee documents — IC++ billing statement, card scheme report, and blended billing statement, each arriving in its own format" loading="lazy" />
+      </div>
+      <div class="cs-docs-shot-cap">IC++ statement · scheme report · blended statement — three formats, one cost story</div>
+    </div>
   </div>
+
+  <!-- IC++ FEE SIMULATOR -->
+  <div class="cs-vis reveal">
+    <div class="cs-vis-label">IC++ fee simulation — select a card type, then run the transaction</div>
+    <div class="cs-vis-body">
+      <div class="cs-sim-strip">
+        <div class="cs-sim-amt-block"><label>Customer pays</label><span class="cs-sim-amt">$1,000.00</span></div>
+        <div class="cs-sim-amt-block"><label>Total deducted</label><span class="cs-sim-amt cs-sim-amt--neg" id="cs-sim-ded">—</span></div>
+        <div class="cs-sim-amt-block"><label>Merchant receives</label><span class="cs-sim-amt cs-sim-amt--pos" id="cs-sim-net">—</span></div>
+      </div>
+      <div class="cs-sim-switch" id="cs-sim-switch"></div>
+      <div class="cs-sim-stages" id="cs-sim-stages"></div>
+      <button class="cs-sim-btn" id="cs-sim-btn"><span class="play"></span> Simulate transaction</button>
+    </div>
+  </div>
+
+  <h3 class="cs-h3 reveal" style="margin-top: 8px;">The cost of invisibility</h3>
+  <p class="cs-p reveal">A transaction expected to qualify for a lower interchange rate like 1.5% could silently downgrade &amp; ends up 2.4% because of something as small as delayed settlement, missing authentication, or incorrect merchant classification.</p>
+  <p class="cs-p reveal">For an enterprise merchant processing $500 million, this is millions slipping through the cracks of every billing cycle, every quarter, every year.</p>
+  <p class="cs-p reveal">Downgrade reasons are in the dozens: missing <span class="cs-gloss" tabindex="0" data-gloss="avs">AVS</span> data, late settlement, missing CVV, batch timing errors, incorrect <span class="cs-gloss" tabindex="0" data-gloss="mcc">MCC</span> classification, <span class="cs-gloss" tabindex="0" data-gloss="emv">EMV</span> chip fallback routing. For each reason, there's a corresponding cost. And a corresponding fix. Neither is visible without something that can read the data, trace the cause, and surface it in plain language.</p>
+
+  <div class="cs-stats reveal">
+    <div class="cs-stat"><span class="cs-stat-num">$200B+</span><span class="cs-stat-desc">Spent annually by merchants across the U.S. and Europe to accept card payments — with significant opportunity to reduce avoidable costs.</span></div>
+    <div class="cs-stat"><span class="cs-stat-num">500+</span><span class="cs-stat-desc">Interchange rate categories and qualification rules across Visa and Mastercard.</span></div>
+    <div class="cs-stat"><span class="cs-stat-num">3–5 days</span><span class="cs-stat-desc">Average time finance teams spend reconciling monthly PSP fee reports. Often without a clear explanation of where costs changed.</span></div>
+  </div>
+
+</div>
+</section>
+
+<!-- ═══════════════════════ 05 — WHERE THIS PROBLEM EXISTS ═══════════════════════ -->
+<section class="cs-section" id="cs-markets">
+<div class="cs-wrap">
+
+  <div class="cs-label reveal"><span class="num">/05</span> Where This Problem Exists</div>
+  <h2 class="cs-display reveal">Why only <em>certain markets?</em></h2>
+
+  <p class="cs-p reveal">The challenge of understanding and optimising payment costs exists primarily in markets, where merchants are directly exposed to interchange and scheme fees for every transaction.</p>
+  <p class="cs-p reveal">In India, domestic payments run largely on UPI, where transaction costs are close to zero. In much of Southeast Asia and Latin America, merchants often pay flat or blended rates that hide underlying fee complexity.</p>
+  <p class="cs-p reveal">The downgrade problem primarily emerges in markets where interchange-based pricing is passed directly to merchants, such as the United States, Europe etc.</p>
+
+  <div class="cs-vis reveal">
+    <div class="cs-vis-label">Markets where IC++ pricing applies — drag to rotate, hover a country for context</div>
+    <div class="cs-vis-body">
+      <div class="cs-globe-stage">
+        <div class="cs-globe-wrap" id="cs-globe-wrap">
+          <canvas id="cs-globe-canvas" width="380" height="380"></canvas>
+          <div class="cs-globe-tip" id="cs-globe-tip"></div>
+        </div>
+        <div class="cs-globe-legend">
+          <div class="cs-globe-legend-row"><i class="cs-dot cs-dot--a"></i> IC++ markets</div>
+          <div class="cs-globe-legend-row"><i class="cs-dot cs-dot--b"></i> Simplified pricing</div>
+        </div>
+      </div>
+      <div class="cs-globe-hint">drag the globe — hover any country</div>
+    </div>
+  </div>
+
+</div>
+</section>
+
+<!-- ═══════════════════════ 06 — USERS ═══════════════════════ -->
+<section class="cs-section" id="cs-users">
+<div class="cs-wrap">
+
+  <div class="cs-label reveal"><span class="num">/06</span> Users</div>
+  <h2 class="cs-display reveal">Three users. One blind spot. <em>Different stakes.</em></h2>
+  <p class="cs-lead reveal">Although payment cost is a shared business concern, the problem surfaced differently for each stakeholder. Through research, three primary user groups emerged — each responsible for a different part of the cost story.</p>
+
+  <!-- Persona 1 — Payment Analyst -->
+  <div class="cs-persona reveal">
+    <div class="cs-persona-head">
+      <div class="cs-persona-icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><circle cx="10" cy="7" r="3.5"/><path d="M3 18c0-3.9 3.1-7 7-7s7 3.1 7 7"/></svg></div>
+      <div>
+        <div class="cs-persona-name">The Payment Analyst <span class="dash">–</span> <em>Owns the monthly fee audit.</em></div>
+        <p class="cs-persona-desc">Every month, processor invoices arrive with hundreds of opaque line items that need to be reconciled and explained.</p>
+      </div>
+    </div>
+    <div class="cs-story">
+      <div class="cs-story-step">
+        <div class="cs-story-num">01</div>
+        <div class="cs-story-title">The invoice arrives</div>
+        <div class="cs-story-cap">114 line items. Costs up 18%. One row reads <span class="cs-gloss" tabindex="0" data-gloss="eirf">EIRF</span> Downgrade — $47,219. No transaction IDs, no reason codes, no explanation.</div>
+      </div>
+      <div class="cs-story-step">
+        <div class="cs-story-num">02</div>
+        <div class="cs-story-title">The manual hunt</div>
+        <div class="cs-story-cap">She cross-references invoice exports and processor dashboards. Hours of filtering. She knows the amount — but not the cause.</div>
+      </div>
+      <div class="cs-story-step">
+        <div class="cs-story-num">03</div>
+        <div class="cs-story-title">Hypersense surfaces the root cause</div>
+        <div class="cs-story-cap">Fee Spikes traces the $47K increase to card-not-present transactions processed without <span class="cs-gloss" tabindex="0" data-gloss="3ds2">3DS2</span> — causing them to downgrade to EIRF.</div>
+      </div>
+      <div class="cs-story-step">
+        <div class="cs-story-num">04</div>
+        <div class="cs-story-title">Dispute filed. Fix documented.</div>
+        <div class="cs-story-cap">She exports transaction-level evidence, files the dispute, and shares the required technical fix — 3DS2 on <span class="cs-gloss" tabindex="0" data-gloss="cnp">CNP</span> — with the payments team.</div>
+      </div>
+    </div>
+    <div class="cs-persona-meta">
+      <div><span class="cs-persona-meta-label">Job to be done</span><p>Identify which charges are incorrect, understand why fees increased, and prepare a dispute before the billing window closes.</p></div>
+      <div><span class="cs-persona-meta-label">Pain</span><p>48-page invoice. One line item. No explanation. <em>"EIRF Downgrade — $47,219."</em> A large charge with no transaction trail, no reason code, and no explanation.</p></div>
+    </div>
+  </div>
+
+  <!-- Persona 2 — Treasury / Finance Lead -->
+  <div class="cs-persona reveal">
+    <div class="cs-persona-head">
+      <div class="cs-persona-icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><rect x="3" y="8" width="3" height="9" rx="0.5"/><rect x="8.5" y="4" width="3" height="13" rx="0.5"/><rect x="14" y="11" width="3" height="6" rx="0.5"/></svg></div>
+      <div>
+        <div class="cs-persona-name">The Treasury / Finance Lead <span class="dash">–</span> <em>Owns forecasting and budget accountability.</em></div>
+        <p class="cs-persona-desc">Payment costs are one of the largest variable expenses in the business, often representing 1.5–2.2% of revenue. When costs move, finance is expected to explain why.</p>
+      </div>
+    </div>
+    <div class="cs-story">
+      <div class="cs-story-step">
+        <div class="cs-story-num">01</div>
+        <div class="cs-story-title">Board prep</div>
+        <div class="cs-story-cap">Payment cost rises from 1.61% to 1.82% of revenue. A 13% relative increase on $40M. The CFO will ask why.</div>
+      </div>
+      <div class="cs-story-step">
+        <div class="cs-story-num">02</div>
+        <div class="cs-story-title">Invoice archaeology</div>
+        <div class="cs-story-cap">He compares three months of invoices. Costs are higher, but he can't tell how much came from growth, rate changes, or avoidable issues.</div>
+      </div>
+      <div class="cs-story-step">
+        <div class="cs-story-num">03</div>
+        <div class="cs-story-title">Hypersense separates the signal</div>
+        <div class="cs-story-cap">Variance analysis shows the increase broke down: volume growth, a Mastercard rate update, and a smaller set of avoidable fee spikes.</div>
+      </div>
+      <div class="cs-story-step">
+        <div class="cs-story-num">04</div>
+        <div class="cs-story-title">Forecast built in</div>
+        <div class="cs-story-cap">Upcoming network changes are projected forward. He incorporates a Visa rate change into Q4 guidance before the quarter begins.</div>
+      </div>
+    </div>
+    <div class="cs-persona-meta">
+      <div><span class="cs-persona-meta-label">Job to be done</span><p>Understand where payment costs are heading, forecast their impact, and distinguish between expected growth, processor errors, and upcoming network changes.</p></div>
+      <div><span class="cs-persona-meta-label">Pain</span><p>Costs went up. <em>The invoice arrived after the month closed.</em></p></div>
+    </div>
+  </div>
+
+  <!-- Persona 3 — Payment Operations Head -->
+  <div class="cs-persona reveal">
+    <div class="cs-persona-head">
+      <div class="cs-persona-icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><circle cx="10" cy="10" r="7"/><path d="M10 6.5v3.8l2.6 1.5"/></svg></div>
+      <div>
+        <div class="cs-persona-name">The Payment Operations Head <span class="dash">–</span> <em>Owns the operational decisions that influence payment costs.</em></div>
+        <p class="cs-persona-desc">Routing logic, authentication settings, and data quality directly affect interchange qualification, but the cost impact of these decisions is rarely visible in real time.</p>
+      </div>
+    </div>
+    <div class="cs-story">
+      <div class="cs-story-step">
+        <div class="cs-story-num">01</div>
+        <div class="cs-story-title">A new flow goes live</div>
+        <div class="cs-story-cap">The team ships a redesigned web checkout. Conversion improves, and no cost issues are visible at launch.</div>
+      </div>
+      <div class="cs-story-step">
+        <div class="cs-story-num">02</div>
+        <div class="cs-story-title">The cost appears later</div>
+        <div class="cs-story-cap">Two billing cycles later, interchange on mobile transactions is up 22%. No other variables changed. Can't trace without processor exports that don't map to the new flow.</div>
+      </div>
+      <div class="cs-story-step">
+        <div class="cs-story-num">03</div>
+        <div class="cs-story-title">Hypersense traces the impact</div>
+        <div class="cs-story-cap">Fee Spikes links the increase to missing <span class="cs-gloss" tabindex="0" data-gloss="level2">Level 2 data</span> in the new flow, which caused transactions to downgrade for eight weeks.</div>
+      </div>
+      <div class="cs-story-step">
+        <div class="cs-story-num">04</div>
+        <div class="cs-story-title">Fix deployed. Guardrail added.</div>
+        <div class="cs-story-cap">Engineering restores the missing Level 2 field. Costs normalise within the next billing cycle. A cost-qualification check is added permanently to the release checklist.</div>
+      </div>
+    </div>
+    <div class="cs-persona-meta">
+      <div><span class="cs-persona-meta-label">Job to be done</span><p>Identify which operational decisions are causing downgrades and get feedback quickly enough to take corrective action.</p></div>
+      <div><span class="cs-persona-meta-label">Pain</span><p>"We changed routing in May. <em>The cost impact showed up two billing cycles later.</em>"</p></div>
+    </div>
+  </div>
+
+</div>
+</section>
+
+<!-- ═══════════════════════ 07 — DESIGN CHALLENGE ═══════════════════════ -->
+<section class="cs-section" id="cs-challenge">
+<div class="cs-wrap">
+
+  <div class="cs-label reveal"><span class="num">/07</span> Design Challenge</div>
+  <h2 class="cs-display reveal">Four tensions that shaped <em>every design decision.</em></h2>
+  <p class="cs-lead reveal">Payment cost data is dense, technical, and inherently difficult to trust. Every design decision had to help users move from interpretation to confidence to action.</p>
+
+  <h3 class="cs-h3 reveal" style="margin-top: 52px;">Making complex cost data trustworthy</h3>
+  <p class="cs-p reveal">Payment cost data is dense, technical, and often opaque. Before users act on it, they need to trust what they're seeing.</p>
+  <p class="cs-p reveal">The challenge wasn't just clarity, it was credibility through design. How do you present complex, multi-layered financial data in a way that feels reliable enough for teams to make real operational decisions on?</p>
+  <div class="cs-challenge reveal">
+    <div class="cs-challenge-tag">Design Challenge</div>
+    <p>Create interfaces that move users from interpretation → confidence → action, without requiring a second source to validate the data.</p>
+  </div>
+
+  <h3 class="cs-h3 reveal" style="margin-top: 52px;">One interface for fundamentally different pricing models</h3>
+  <p class="cs-p reveal">IC++ exposes a detailed breakdown of interchange, scheme fees, and processor markups. Blended pricing compresses all of that into a single effective rate.</p>
+  <p class="cs-p reveal">These aren't just different pricing models. They represent fundamentally different levels of visibility.</p>
+  <div class="cs-challenge reveal">
+    <div class="cs-challenge-tag">Design Challenge</div>
+    <p>Create a unified experience that adapts to both granular IC++ data and simplified blended pricing.</p>
+  </div>
+
+  <h3 class="cs-h3 reveal" style="margin-top: 52px;">Distinguishing actionable costs from expected ones</h3>
+  <p class="cs-p reveal">Not every increase in payment cost is a problem. Some are expected. Some are strategic. Some require immediate attention.</p>
+  <p class="cs-p reveal">The same number can mean <em style="font-style: italic; font-family: 'Instrument Serif', serif; color: var(--warm);">"nothing to do"</em> or <em style="font-style: italic; font-family: 'Instrument Serif', serif; color: var(--warm);">"fix this today."</em></p>
+  <div class="cs-challenge reveal">
+    <div class="cs-challenge-tag">Design Challenge</div>
+    <p>Help users distinguish normal cost movement from preventable leakage that requires action.</p>
+  </div>
+
+  <h3 class="cs-h3 reveal" style="margin-top: 52px;">Balancing different user depths on the same surface</h3>
+  <p class="cs-p reveal">Finance leaders need a clear cost story in seconds. Analysts need transaction-level detail to investigate root causes.</p>
+  <p class="cs-p reveal">Both users start from the same interface, but arrive with very different goals.</p>
+  <div class="cs-challenge reveal">
+    <div class="cs-challenge-tag">Design Challenge</div>
+    <p>Deliver executive clarity at a glance and transaction-level depth on demand.</p>
+  </div>
+
+</div>
+</section>
+
+<!-- ═══════════════════════ 08 — PRODUCT STRATEGY AND DESIGN ═══════════════════════ -->
+<section class="cs-section" id="cs-strategy">
+<div class="cs-wrap">
+
+  <div class="cs-label reveal"><span class="num">/08</span> Product Strategy and Design</div>
+  <h2 class="cs-display reveal">The principles that shaped <em>every decision.</em></h2>
+  <p class="cs-lead reveal">IC++ pricing is layered, contextual, and difficult to reason about. Simplifying it by hiding detail would only obscure the truth. Our goal was not to reduce complexity, but to shape it into clarity.</p>
+
+  <h3 class="cs-h3 reveal" style="margin-top: 48px;">We anchored the entire product around a simple principle:</h3>
+  <p class="cs-p reveal">Every screen should answer the next question the user naturally arrives at.</p>
+  <p class="cs-p reveal">The product was structured to mirror how payment teams naturally investigate cost — moving from understanding what changed, to identifying why it happened, to deciding what to do next.</p>
+
+  <div class="cs-graph-wrap reveal">
+    <canvas id="cs-graph" aria-label="HyperSense knowledge graph — five modules and their sub-questions"></canvas>
+    <p class="cs-graph-hint">hover to explore connections</p>
+  </div>
+  <p class="cs-p reveal">Every node represented a question payment teams needed answered. HyperSense connected those questions into a single coherent narrative.</p>
+
+</div>
+</section>
+
+<!-- ═══════════════════════ 09 — UI DESIGN ═══════════════════════ -->
+<section class="cs-section" id="cs-ui">
+<div class="cs-wrap">
+
+  <div class="cs-label reveal"><span class="num">/09</span> UI Design</div>
+  <h2 class="cs-display reveal">Overview — <em>What's my cost story at a glance?</em></h2>
+  <p class="cs-lead reveal">Payment cost data is fragmented across processors, pricing models, and invoice structures. Before teams can investigate anomalies or optimise fees, they first need a clear understanding of where they stand.</p>
+  <p class="cs-p reveal" style="margin-bottom: 14px;">Our goal was to design a unified overview experience that could accommodate fundamentally different merchant realities:</p>
+  <ul class="cs-list reveal">
+    <li>Single Processor and multi-PSP setups</li>
+    <li>IC++ and blended pricing models, that give fundamentally different levels of fee visibility</li>
+    <li>Growing operational complexity as merchants scaled</li>
+  </ul>
+  <h3 class="cs-h3 reveal">The Solution</h3>
+  <p class="cs-p reveal" style="margin-bottom: 14px;">We built the Overview as a normalisation layer that consolidates all cost signals into a single, coherent snapshot, answering three essential questions:</p>
+  <ul class="cs-list reveal">
+    <li>What am I paying?</li>
+    <li>What is driving those costs?</li>
+    <li>Where should I investigate next?</li>
+  </ul>
+  <div class="cs-ui-tag reveal">Multiple Processors · IC++ only — granular fee category breakdown per processor</div>
+  <p class="cs-p reveal">Regardless of how a merchant's payment stack was structured, the experience adapted to their data reality while preserving the same mental model.</p>
+
+  <div class="cs-ov reveal">
+    <div class="cs-ov-frame">
+      <div class="cs-shot-bar">
+        <div class="cs-shot-dots"><i></i><i></i><i></i></div>
+        <div class="cs-shot-url">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <span>hyperswitch.io/cost-observability<em>/overview</em></span>
+        </div>
+      </div>
+      <div class="cs-ov-tabbar">
+        <span class="cs-ov-tabbar-label">Merchant setup</span>
+        <div class="cs-ov-segs" id="cs-ov-switch">
+          <button class="cs-ov-seg is-active" data-index="0" data-img="assets/hypersense/ov-icpp-only.jpg" data-alt="HyperSense Overview — multi-processor setup with IC++ pricing only, showing a granular fee category breakdown per processor" data-tag="Multi-processor" data-title="IC++ only" data-desc="Full per-processor fee breakdown — every cost component stays visible.">IC++ only</button>
+          <button class="cs-ov-seg" data-index="1" data-img="assets/hypersense/ov-icpp-blended.jpg" data-alt="HyperSense Overview — multi-processor setup combining IC++ and blended pricing models" data-tag="Multi-processor" data-title="IC++ & Blended" data-desc="Two pricing models on one stack — the view reconciles both at once.">IC++ &amp; Blended</button>
+          <button class="cs-ov-seg" data-index="2" data-img="assets/hypersense/ov-blended-only.jpg" data-alt="HyperSense Overview — multi-processor setup with a blended pricing model only" data-tag="Multi-processor" data-title="Blended only" data-desc="Adapted to flat-rate pricing, where fee-level detail is naturally limited.">Blended only</button>
+          <button class="cs-ov-seg" data-index="3" data-img="assets/hypersense/ov-single-psp.jpg" data-alt="HyperSense Overview — single processor setup, a simplified version of the same overview" data-tag="Single processor" data-title="Simplified setup" data-desc="Same mental model, scaled down for a single-processor operation.">Single PSP</button>
+        </div>
+      </div>
+      <div class="cs-ov-body" id="cs-ov-body">
+        <img id="cs-ov-shot" src="assets/hypersense/ov-icpp-only.jpg" alt="HyperSense Overview — multi-processor setup with IC++ pricing only, showing a granular fee category breakdown per processor" loading="lazy" />
+      </div>
+      <div class="cs-ov-caption">
+        <span class="cs-ov-cap-tag" id="cs-ov-cap-tag">Multi-processor</span>
+        <span class="cs-ov-cap-title" id="cs-ov-cap-title">IC++ only</span>
+        <span class="cs-ov-cap-desc" id="cs-ov-cap-desc">Full per-processor fee breakdown — every cost component stays visible.</span>
+      </div>
+    </div>
+  </div>
+  <script>
+  (function(){
+    var body = document.getElementById('cs-ov-body');
+    var shot = document.getElementById('cs-ov-shot');
+    var capTag = document.getElementById('cs-ov-cap-tag');
+    var capTitle = document.getElementById('cs-ov-cap-title');
+    var capDesc = document.getElementById('cs-ov-cap-desc');
+    var tabs = document.querySelectorAll('#cs-ov-switch .cs-ov-seg');
+    var cur = 0;
+    tabs.forEach(function(tab){
+      tab.addEventListener('click', function(){
+        var idx = parseInt(tab.dataset.index, 10);
+        if (idx === cur) return;
+        tabs[cur].classList.remove('is-active');
+        tab.classList.add('is-active');
+        cur = idx;
+        shot.style.opacity = '0';
+        setTimeout(function(){
+          shot.src = tab.dataset.img;
+          shot.alt = tab.dataset.alt;
+          capTag.textContent = tab.dataset.tag;
+          capTitle.textContent = tab.dataset.title;
+          capDesc.textContent = tab.dataset.desc;
+          body.scrollTop = 0;
+          shot.style.opacity = '1';
+        }, 200);
+      });
+    });
+  })();
+  </script>
+
+  <h2 class="cs-display reveal" style="margin-top: 80px;">Drill-Down — <em>How is cost distributed across my business?</em></h2>
+  <p class="cs-lead reveal">The Overview answered what the cost story looks like at a glance. Drill-Down answered the next question analysts naturally ask.</p>
+  <p class="cs-p reveal">For payment analysts, understanding total cost is only the starting point. To identify where inefficiencies are concentrated, they need to break costs across the dimensions that shape them — processors, regions, corridors, fee types, currencies.</p>
+  <p class="cs-p reveal" style="margin-bottom: 14px;">Our goal was to create a flexible analytical workspace that let users explore cost across multiple dimensions without overwhelming them with raw data or constraining them to rigid analysis paths.</p>
+  <h3 class="cs-h3 reveal">The Solution</h3>
+  <p class="cs-p reveal" style="margin-bottom: 14px;">We designed Drill-Down as a focused analytical workspace for decomposing payment cost. It helped analysts answer questions such as:</p>
+  <ul class="cs-list reveal">
+    <li>Which processor is driving costs?</li>
+    <li>Which regions are increasing spend?</li>
+    <li>Which fee categories changed most?</li>
+  </ul>
+  <p class="cs-p reveal">Built primarily for IC++ pricing, the module separated drillable costs from blended fees, taxes, and other non-attributable charges — making the analytical scope explicit and reinforcing trust in the numbers.</p>
+
+  <div class="cs-shot-frame reveal">
+    <div class="cs-shot-bar">
+      <div class="cs-shot-dots"><i></i><i></i><i></i></div>
+      <div class="cs-shot-url">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        <span>hyperswitch.io/cost-observability<em>/drill-down</em></span>
+      </div>
+    </div>
+    <div class="cs-shot-frame-body">
+      <img src="assets/hypersense/ui-drilldown.jpg" alt="HyperSense Drill-Down screen — decomposing payment cost across processors, regions, corridors, fee types and currencies" loading="lazy" />
+    </div>
+    <div class="cs-shot-cap">Drill-Down — <em>a focused workspace for decomposing cost across every dimension that shapes it</em></div>
+  </div>
+
+  <h2 class="cs-display reveal" style="margin-top: 80px;">Fee Spikes — <em>Turning unexpected cost increases into actionable signals</em></h2>
+  <p class="cs-lead reveal">Payment costs can rise for many reasons: healthy sales growth, recurring downgrades, shifts in card mix, or expansion into new markets.</p>
+  <p class="cs-p reveal">Our goal was to help teams quickly determine whether a spike was expected or required action — distinguishing actionable anomalies from normal business movement, and guiding users from detection to root cause without spreadsheets or invoices.</p>
+  <p class="cs-p reveal" style="margin-bottom: 14px;">Fee Spikes became the anomaly intelligence layer of Hypersense — built to answer:</p>
+  <ul class="cs-list reveal">
+    <li>What caused the spike?</li>
+    <li>Is this expected or avoidable?</li>
+    <li>Which fees changed unexpectedly?</li>
+    <li>Is this growth, leakage, or penalties?</li>
+  </ul>
+  <p class="cs-p reveal">This framing helped teams immediately understand whether they were looking at normal growth or preventable leakage.</p>
+
+  <div class="cs-shot-frame reveal">
+    <div class="cs-shot-bar">
+      <div class="cs-shot-dots"><i></i><i></i><i></i></div>
+      <div class="cs-shot-url">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        <span>hyperswitch.io/cost-observability<em>/fee-spikes</em></span>
+      </div>
+    </div>
+    <div class="cs-shot-frame-body">
+      <img src="assets/hypersense/ui-feespikes.jpg" alt="HyperSense Fee Spikes screen — surfacing unexpected cost increases and tracing them back to a root cause" loading="lazy" />
+    </div>
+    <div class="cs-shot-cap">Fee Spikes — <em>from a detected anomaly to a plain-language root cause, without spreadsheets</em></div>
+  </div>
+
+  <h3 class="cs-h3 reveal">Three scenarios. Three distinct cost stories.</h3>
+  <div class="cs-scenarios reveal">
+    <div class="cs-scenario">
+      <div class="cs-scenario-shot"><img src="assets/hypersense/scn-quarterly-shock.jpg" alt="Fee Spikes — Quarterly Shock scenario showing downgrade and penalty cost trace" loading="lazy" /></div>
+      <div class="cs-scenario-tag">Downgrades &amp; Penalties</div>
+      <div class="cs-scenario-title">Quarterly Shock</div>
+      <p>2,847 transactions were downgraded to EIRF, creating $1,847 in avoidable cost over three consecutive months.</p>
+    </div>
+    <div class="cs-scenario">
+      <div class="cs-scenario-shot"><img src="assets/hypersense/scn-false-alarm.jpg" alt="Fee Spikes — False Alarm scenario showing cost growth explained by organic sales growth" loading="lazy" /></div>
+      <div class="cs-scenario-tag">Organic Growth</div>
+      <div class="cs-scenario-title">False Alarm</div>
+      <p>Costs rose 65% while sales grew 60% — the increase was largely explained by healthy business growth.</p>
+    </div>
+    <div class="cs-scenario">
+      <div class="cs-scenario-shot"><img src="assets/hypersense/scn-tier-jump.jpg" alt="Fee Spikes — Tier Jump scenario showing a non-transactional fee crossing a volume threshold" loading="lazy" /></div>
+      <div class="cs-scenario-tag">Non-Transactional Fees</div>
+      <div class="cs-scenario-title">Tier Jump</div>
+      <p>CNP volume crossed Visa's Tier 3 threshold, increasing <span class="cs-gloss" tabindex="0" data-gloss="fanf">FANF</span> from $1,200 to $4,800 for the month.</p>
+    </div>
+  </div>
+
+  <h2 class="cs-display reveal" style="margin-top: 80px;">Audit — <em>Verifying every fee charged</em></h2>
+  <p class="cs-lead reveal">Processor invoices show what was charged — but not whether those charges were correct.</p>
+  <p class="cs-p reveal">A line item like "<span class="cs-gloss" tabindex="0" data-gloss="cps">CPS Retail</span>" or "EIRF" offers little insight into whether the right rate was applied, which transactions were downgraded, or how much the discrepancy cost.</p>
+  <p class="cs-p reveal">The question Audit answered was: <em style="font-style: italic; font-family: 'Instrument Serif', serif; color: var(--warm);">Did we pay what we were supposed to pay?</em></p>
+  <h3 class="cs-h3 reveal">The Design Challenge</h3>
+  <p class="cs-p reveal" style="margin-bottom: 14px;">Audit had to reconcile three layers of information simultaneously:</p>
+  <ul class="cs-list reveal">
+    <li>Contracted vs applied rates</li>
+    <li>Expected vs actual costs</li>
+    <li>Fee variance and financial impact</li>
+    <li>Transaction-level evidence</li>
+  </ul>
+  <h3 class="cs-h3 reveal">The Solution</h3>
+  <p class="cs-p reveal" style="margin-bottom: 14px;">We designed Audit as a structured verification workflow that progressively moves users from summary to evidence — answering four critical questions:</p>
+  <ul class="cs-list reveal">
+    <li>What should I have been charged?</li>
+    <li>Which fees appear incorrect?</li>
+    <li>How large is the variance?</li>
+    <li>Which transactions caused it?</li>
+  </ul>
+  <p class="cs-p reveal">Each layer revealed more detail only when needed — from total overcharges, down to fee categories, card programs, and transaction-level evidence. Audit turned opaque invoices into a clear, defensible audit trail.</p>
+
+  <div class="cs-shot-frame reveal">
+    <div class="cs-shot-bar">
+      <div class="cs-shot-dots"><i></i><i></i><i></i></div>
+      <div class="cs-shot-url">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        <span>hyperswitch.io/cost-observability<em>/audit</em></span>
+      </div>
+    </div>
+    <div class="cs-shot-frame-body">
+      <img src="assets/hypersense/ui-audit.jpg" alt="HyperSense Audit screen — reconciling contracted vs applied rates and surfacing transaction-level evidence of overcharges" loading="lazy" />
+    </div>
+    <div class="cs-shot-cap">Audit — <em>progressively moving from summary to evidence: did we pay what we were supposed to pay?</em></div>
+  </div>
+
+  <h2 class="cs-display reveal" style="margin-top: 80px;">Forecast — <em>Turning network updates into cost foresight</em></h2>
+  <p class="cs-lead reveal">Card networks like Visa and Mastercard regularly introduce new fees, revise existing programs, and change qualification rules. These updates are published weeks in advance — but buried in dense technical documents that are difficult to interpret.</p>
+  <p class="cs-p reveal">For merchants, the challenge isn't access to the information. It's understanding what will actually affect their business — and how much it will cost.</p>
+  <p class="cs-p reveal">Without that visibility, most teams only discover the impact after it appears on the next invoice. Our goal was to translate dense network bulletins into a merchant-specific forecast that highlights only the changes relevant to their business.</p>
+  <h3 class="cs-h3 reveal">The Solution</h3>
+  <p class="cs-p reveal" style="margin-bottom: 14px;">We designed Forecast to model upcoming network changes against each merchant's transaction mix and estimate the financial impact before the changes went live. The experience was structured to answer four progressively deeper questions:</p>
+  <ul class="cs-list reveal">
+    <li>What changes are coming?</li>
+    <li>Which updates affect us?</li>
+    <li>What is the projected impact?</li>
+    <li>What should we prepare for?</li>
+  </ul>
+  <p class="cs-p reveal">Most published network updates are irrelevant to a given merchant. To reduce cognitive overload, Forecast prioritised only the changes that matched the merchant's actual transaction behaviour and surfaced the estimated monthly impact in real currency terms.</p>
+
+  <div class="cs-shot-frame reveal">
+    <div class="cs-shot-bar">
+      <div class="cs-shot-dots"><i></i><i></i><i></i></div>
+      <div class="cs-shot-url">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        <span>hyperswitch.io/cost-observability<em>/network-updates</em></span>
+      </div>
+    </div>
+    <div class="cs-shot-frame-body">
+      <img src="assets/hypersense/ui-forecast.jpg" alt="HyperSense Forecast screen — translating upcoming card network fee changes into a merchant-specific cost impact estimate" loading="lazy" />
+    </div>
+    <div class="cs-shot-cap">Forecast — <em>dense network bulletins, translated into a merchant-specific cost forecast</em></div>
+  </div>
+
+  <!-- PRODUCT ITERATIONS -->
+  <div class="cs-vis reveal" style="margin-top: 64px;">
+    <div class="cs-vis-label">Product iterations — how it evolved to earn trust, one step at a time</div>
+    <div class="cs-vis-body">
+      <div class="cs-iter">
+        <div class="cs-iter-step">
+          <div class="cs-iter-tag">V0 — Experiment</div>
+          <div class="cs-iter-title">Manual cost report</div>
+          <div class="cs-iter-sub">cost_report.xlsx</div>
+          <div class="cs-iter-goal">Goal: get first merchant to share fee data</div>
+        </div>
+        <div class="cs-iter-step">
+          <div class="cs-iter-tag">V1 — MVP</div>
+          <div class="cs-iter-title">Observe + Audit</div>
+          <div class="cs-iter-sub">v1 dashboard</div>
+          <div class="cs-iter-goal">Goal: enterprise demos</div>
+        </div>
+        <div class="cs-iter-step">
+          <div class="cs-iter-tag">V2 — Pilot</div>
+          <div class="cs-iter-title">Full platform + AI</div>
+          <div class="cs-iter-sub">v2 platform</div>
+          <div class="cs-iter-goal">Goal: pilot with live data</div>
+        </div>
+        <div class="cs-iter-step cs-iter-step--active">
+          <div class="cs-iter-tag">Active — Now</div>
+          <div class="cs-iter-title">Optimisation + scale</div>
+          <div class="cs-iter-sub">current</div>
+          <div class="cs-iter-goal">Goal: PSP + acquirer partnerships</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5-MONTH MILESTONE TIMELINE -->
+  <div class="cs-vis reveal">
+    <div class="cs-vis-label">From first wireframe to Apple and Spotify — 5 months</div>
+    <div class="cs-vis-body">
+      <div class="cs-timeline">
+        <div class="cs-tl-item">
+          <div class="cs-tl-dot cs-tl-dot--active"></div>
+          <div class="cs-tl-month">Week 1</div>
+          <div class="cs-tl-text"><strong>Product direction set.</strong> First wireframes for a cost observability layer. IC++ billing defined as the core domain. Team of seven, no design headcount yet.</div>
+        </div>
+        <div class="cs-tl-item">
+          <div class="cs-tl-dot"></div>
+          <div class="cs-tl-month">Month 2</div>
+          <div class="cs-tl-text"><strong>MVP built.</strong> Observe + Audit flows live. First internal demo. Data ingestion pipeline proven against real fee invoices.</div>
+        </div>
+        <div class="cs-tl-item">
+          <div class="cs-tl-dot"></div>
+          <div class="cs-tl-month">Month 3</div>
+          <div class="cs-tl-text"><strong>First merchant shares data.</strong> The hardest milestone in a compliance-heavy domain. One merchant trusts the platform enough to connect live transaction feeds.</div>
+        </div>
+        <div class="cs-tl-item">
+          <div class="cs-tl-dot"></div>
+          <div class="cs-tl-month">Month 4</div>
+          <div class="cs-tl-text"><strong>Enterprise demos begin.</strong> Wayfair, Apple, Google, Spotify. Strong interest across the board. Compliance and data-trust gap blocking conversion.</div>
+        </div>
+        <div class="cs-tl-item">
+          <div class="cs-tl-dot"></div>
+          <div class="cs-tl-month">Month 5</div>
+          <div class="cs-tl-text"><strong>Apple progresses to live data testing.</strong> Spotify pitch deck delivered to payments team. Highest trust threshold reached. Pipeline to acquirers and PSPs opens.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <blockquote class="cs-quote reveal">"The product went through multiple iterations specifically to build merchant trust — starting with a simple cost report, progressing to a full self-serve platform. Each iteration earned a little more data access. The design was a trust-building instrument, not just a UI."</blockquote>
+  <p class="cs-p reveal cs-thanks">Thank you for taking the time to go through this case study. If you'd like to discuss the work or the thinking behind it, I'd love to connect.</p>
+  <a class="cs-cta reveal" href="index.html"><span class="arr">←</span> Back to selected work</a>
+
+</div>
 </section>
 
 <footer>
@@ -484,13 +1353,9 @@
   <div class="right"><a href="#">Back to top ↑</a></div>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js"></script>
 <script>
-/* Spotlight cursor-follow (shared pattern) */
-const spotlight = document.querySelector('.spotlight');
-let mx = window.innerWidth/2, my = window.innerHeight/2, sx = mx, sy = my;
-document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; });
-(function loop(){ sx+=(mx-sx)*0.08; sy+=(my-sy)*0.08; spotlight.style.left=sx+'px'; spotlight.style.top=sy+'px'; requestAnimationFrame(loop); })();
-
 /* Nav active-link state — keeps "Home" highlighted since this is a work sub-page */
 document.querySelectorAll('nav .links a').forEach(a => { if (a.getAttribute('href') === 'index.html') a.classList.add('active'); });
 
@@ -554,6 +1419,46 @@ document.querySelectorAll('nav .links a').forEach(a => { if (a.getAttribute('hre
     'downgrade': {
       term: 'Downgrade',
       def: "When a transaction fails to qualify for its expected (lower-cost) interchange tier and is reclassified to a higher rate. Causes include late settlement, missing authentication data, or incorrect merchant classification."
+    },
+    'blended-pricing': {
+      term: 'Blended Pricing',
+      def: 'A pricing model where all fees — interchange, scheme fees, and processor markup — are rolled into a single percentage rate. Simpler than IC++, but hides cost detail and makes it impossible to trace where fees originate.'
+    },
+    'avs': {
+      term: 'AVS',
+      def: 'Address Verification Service. A fraud-prevention check that compares the billing address a cardholder enters against the issuing bank’s records. Missing AVS data is a common cause of interchange downgrades.'
+    },
+    'mcc': {
+      term: 'MCC',
+      def: 'Merchant Category Code. A 4-digit code assigned by card networks classifying a business by its goods or services. Incorrect MCC classification can land transactions on the wrong — and more expensive — interchange tier.'
+    },
+    'emv': {
+      term: 'EMV',
+      def: 'The global chip card standard (Europay, Mastercard, Visa). When a chip transaction falls back to magnetic stripe processing, it triggers an interchange downgrade due to higher assumed fraud risk.'
+    },
+    'eirf': {
+      term: 'EIRF',
+      def: 'Electronic Interchange Reimbursement Fee. A Visa downgrade category applied when a transaction fails preferred rate qualifications. Typically 0.5–1% higher than the expected interchange rate.'
+    },
+    '3ds2': {
+      term: '3DS2',
+      def: '3D Secure 2. An authentication protocol that adds identity verification for card-not-present transactions. Required by card networks to qualify for preferred interchange rates on online and mobile payments.'
+    },
+    'cnp': {
+      term: 'CNP',
+      def: 'Card Not Present. Transactions where the physical card isn’t used at a terminal — e-commerce and mobile payments. CNP carries higher fraud risk and is subject to stricter interchange qualification rules.'
+    },
+    'level2': {
+      term: 'Level 2 Data',
+      def: 'Enhanced transaction data required for commercial card interchange qualification. Includes tax amount, customer code, and purchase order number. Missing it causes corporate card transactions to downgrade to a higher rate.'
+    },
+    'fanf': {
+      term: 'FANF',
+      def: 'Fixed Acquirer Network Fee. A monthly Visa fee tied to transaction volume and card-present vs. card-not-present mix. As volume crosses certain thresholds, the fee steps up to a higher tier — a non-obvious cost driver.'
+    },
+    'cps': {
+      term: 'CPS',
+      def: 'Custom Payment Service. A family of Visa interchange programs for merchants meeting specific data quality and processing requirements. Failing to qualify for CPS/Retail triggers a downgrade to EIRF or a similar higher-cost category.'
     }
   };
 
@@ -603,8 +1508,494 @@ document.querySelectorAll('nav .links a').forEach(a => { if (a.getAttribute('hre
   tip.addEventListener('mouseleave', hideTip);
 })();
 
+/* ================================================================
+   IC++ FEE SIMULATOR — full interactive parity with the source,
+   re-themed: lime for interchange, warm cream for the downgrade
+   reveal, soft greys for gateway/acquirer.
+   ================================================================ */
+(function() {
+  const sw = document.getElementById('cs-sim-switch');
+  const stagesEl = document.getElementById('cs-sim-stages');
+  const btn = document.getElementById('cs-sim-btn');
+  const dedEl = document.getElementById('cs-sim-ded');
+  const netEl = document.getElementById('cs-sim-net');
+  if (!sw || !stagesEl || !btn) return;
+
+  const TXN = 1000;
+  const CARDS = [
+    { id: 'debit',  label: 'Domestic debit' },
+    { id: 'credit', label: 'Consumer credit' },
+    { id: 'corp',   label: 'Corporate card' },
+    { id: 'intl',   label: 'International' }
+  ];
+  const STAGES = [
+    { id: 'gw', entity: 'Payment Gateway', name: 'Processing', color: 'var(--text-soft)',
+      role: "Securely captures the customer's payment details and routes the transaction to the card network for authorisation.",
+      fees: {
+        debit:  [{ n: 'Processing fee', flat: 0.15 }, { n: 'Tokenisation', flat: 0.05 }, { n: '3DS initiation', flat: 0.05 }],
+        credit: [{ n: 'Processing fee', flat: 0.15 }, { n: 'Tokenisation', flat: 0.05 }, { n: '3DS initiation', flat: 0.05 }],
+        corp:   [{ n: 'Processing fee', flat: 0.15 }, { n: 'Tokenisation', flat: 0.05 }, { n: '3DS initiation', flat: 0.08 }],
+        intl:   [{ n: 'Processing fee', flat: 0.15 }, { n: 'Tokenisation', flat: 0.05 }, { n: '3DS initiation', flat: 0.1 }, { n: 'International surcharge', pct: 0.15 }]
+      } },
+    { id: 'net', entity: 'Card Network', name: 'Authorisation & scheme fees', color: 'var(--warm)',
+      role: 'Routes the transaction between banks and charges fees for processing it.',
+      fees: {
+        debit:  [{ n: 'Per-authorisation fee', flat: 0.03 }, { n: 'Scheme fee', pct: 0.04 }],
+        credit: [{ n: 'Per-authorisation fee', flat: 0.03 }, { n: 'Scheme fee', pct: 0.08 }],
+        corp:   [{ n: 'Per-authorisation fee', flat: 0.05 }, { n: 'Scheme fee', pct: 0.12 }],
+        intl:   [{ n: 'Per-authorisation fee', flat: 0.05 }, { n: 'Scheme fee (base + cross-border + FX)', pct: 0.4 }]
+      } },
+    { id: 'iss', entity: 'Issuing Bank', name: 'Interchange', color: 'var(--accent)',
+      role: "The customer's bank funds the transaction, absorbs credit risk and potential fraud liability, and earns interchange in return — the single largest variable in IC++ pricing.",
+      fees: {
+        debit:  [{ n: 'Interchange', pct: 0.95 }],
+        credit: [{ n: 'Interchange', pct: 2.4 }],
+        corp:   [{ n: 'Interchange', pct: 2.95 }],
+        intl:   [{ n: 'Interchange — cross-border corridor rate', pct: 2.5 }]
+      } },
+    { id: 'acq', entity: 'Acquirer + PSP', name: 'Markup, settlement & payout', color: 'var(--text)',
+      role: "The acquiring bank and payment processor handle settlement, disputes, and transfer funds to the merchant's bank account.",
+      fees: {
+        debit:  [{ n: 'Acquirer markup', pct: 0.1 },  { n: 'Settlement fee — ACH/SEPA', flat: 0.08 }, { n: 'Payout fee', flat: 0.12 }],
+        credit: [{ n: 'Acquirer markup', pct: 0.15 }, { n: 'Settlement fee — ACH/SEPA', flat: 0.08 }, { n: 'Payout fee', flat: 0.12 }],
+        corp:   [{ n: 'Acquirer markup', pct: 0.2 },  { n: 'Settlement fee — ACH/SEPA', flat: 0.08 }, { n: 'Payout fee', flat: 0.12 }],
+        intl:   [{ n: 'Acquirer markup — FX risk', pct: 0.25 }, { n: 'Settlement fee — ACH/SEPA', flat: 0.08 }, { n: 'Payout fee', flat: 0.15 }]
+      } }
+  ];
+  const DOWNGRADE = {
+    debit:  { expected: 0.8, actual: 0.95, trigger: 'Settlement submitted 48hrs post-authorisation. Visa requires under 24hrs for this card type to qualify for the standard debit tier.' },
+    credit: { expected: 1.5, actual: 2.4,  trigger: 'Settlement submitted 72hrs post-authorisation. Visa requires under 24hrs for this card type to qualify for the standard tier.' },
+    corp:   { expected: 2.2, actual: 2.95, trigger: 'Missing Level II purchase data. Corporate card programmes require enhanced transaction data to qualify for the standard commercial rate.' },
+    intl:   { expected: 1.8, actual: 2.5,  trigger: 'Cross-border corridor rate applied. Authentication method did not meet strong customer authentication threshold for the standard tier.' }
+  };
+
+  let card = 'debit', timeouts = [];
+  const amt = f => f.flat !== undefined ? f.flat : (f.pct / 100) * TXN;
+  const rateLbl = f => f.flat !== undefined ? `$${f.flat.toFixed(2)} flat` : `${f.pct.toFixed(2)}%`;
+  const stageTotal = s => s.fees[card].reduce((sum, f) => sum + amt(f), 0);
+  const grandTotal = () => STAGES.reduce((sum, s) => sum + stageTotal(s), 0);
+
+  function easeOutCubic(p) { return 1 - Math.pow(1 - p, 3); }
+  function countUp(el, dur) {
+    if (!el || el.dataset.target === undefined) return;
+    const target = parseFloat(el.dataset.target);
+    const neg = target < 0, abs = Math.abs(target), pre = neg ? '−$' : '$', t0 = performance.now();
+    (function step(now) {
+      const p = Math.min((now - t0) / dur, 1), e = easeOutCubic(p);
+      el.textContent = pre + (abs * e).toFixed(2);
+      if (p < 1) requestAnimationFrame(step); else el.textContent = pre + abs.toFixed(2);
+    })(t0);
+  }
+  function countUpRate(el, dur) {
+    const tgt = el.dataset.rate; if (!tgt) return;
+    const isFlat = tgt.includes('flat'), num = parseFloat(tgt.replace(/[^0-9.]/g, '')), t0 = performance.now();
+    (function step(now) {
+      const p = Math.min((now - t0) / dur, 1), e = easeOutCubic(p), v = num * e;
+      el.textContent = isFlat ? `$${v.toFixed(2)} flat` : `${v.toFixed(2)}%`;
+      if (p < 1) requestAnimationFrame(step); else el.textContent = tgt;
+    })(t0);
+  }
+  function animateAmt(el, target, dur) {
+    if (!el) return;
+    const neg = target < 0, abs = Math.abs(target), pre = neg ? '−$' : '$', t0 = performance.now();
+    (function step(now) {
+      const p = Math.min((now - t0) / dur, 1), e = easeOutCubic(p);
+      el.textContent = pre + (abs * e).toFixed(2);
+      if (p < 1) requestAnimationFrame(step); else el.textContent = pre + abs.toFixed(2);
+    })(t0);
+  }
+
+  function render() {
+    timeouts.forEach(clearTimeout); timeouts = [];
+    sw.innerHTML = CARDS.map(c => `<button class="${c.id === card ? 'on' : ''}" data-card="${c.id}">${c.label}</button>`).join('');
+    sw.querySelectorAll('button').forEach(b => b.addEventListener('click', () => { card = b.dataset.card; render(); }));
+
+    let html = '';
+    STAGES.forEach((s, si) => {
+      const total = stageTotal(s), dg = DOWNGRADE[card], isIss = s.id === 'iss';
+      const feesHtml = isIss
+        ? `<div class="cs-sim-fee-row"><span class="fr-name" id="cs-sim-iss-name">Interchange</span><span class="fr-rate" id="cs-sim-iss-rate">0.00%</span><span class="fr-amt" style="color:${s.color}" data-target="-${amt(s.fees[card][0]).toFixed(2)}" id="cs-sim-iss-amt">−$0.00</span></div>
+           <div class="cs-sim-dg" id="cs-sim-dg-detail">
+             <div class="cs-sim-fee-row"><span class="fr-name">Expected rate</span><span class="fr-rate">${dg.expected.toFixed(2)}%</span><span class="fr-amt" style="color:${s.color}">−$${((dg.expected/100)*TXN).toFixed(2)}</span></div>
+             <div class="cs-sim-fee-row" style="border-top:1px solid var(--line);margin-top:6px;padding-top:8px;"><span class="fr-name" style="font-style:italic;">Avoidable cost</span><span></span><span class="fr-amt" style="color:var(--accent);font-weight:600;">+$${(((dg.actual-dg.expected)/100)*TXN).toFixed(2)}</span></div>
+             <div style="margin-top:10px;font-style:italic;">${dg.trigger}</div>
+           </div>`
+        : s.fees[card].map(f => `<div class="cs-sim-fee-row"><span class="fr-name">${f.n}</span><span class="fr-rate" data-rate="${rateLbl(f)}">${f.flat !== undefined ? '$0.00 flat' : '0.00%'}</span><span class="fr-amt" style="color:${s.color}" data-target="-${amt(f).toFixed(2)}">−$0.00</span></div>`).join('');
+
+      html += `<div class="cs-sim-stage" id="cs-sim-stage-${si}">
+        <div>
+          <div class="cs-sim-stage-entity" style="color:${s.color}">${s.entity}</div>
+          <div class="cs-sim-stage-name">${s.name}</div>
+          <div class="cs-sim-stage-role">${s.role}</div>
+          <div class="cs-sim-stage-fees">${feesHtml}</div>
+        </div>
+        <div class="cs-sim-stage-amt" style="color:${s.color}" data-target="-${total.toFixed(2)}">−$0.00</div>
+      </div>`;
+    });
+    const net = TXN - grandTotal();
+    html += `<div class="cs-sim-final" id="cs-sim-final">
+      <div class="cs-sim-final-label">Merchant's bank account receives</div>
+      <div class="cs-sim-final-amt" data-target="${net.toFixed(2)}" id="cs-sim-final-amt">$0.00</div>
+    </div>`;
+    const dgDelta = ((DOWNGRADE[card].actual - DOWNGRADE[card].expected) / 100) * TXN;
+    const annualRaw = 500000000 * (DOWNGRADE[card].actual - DOWNGRADE[card].expected) / 100;
+    const annualFmt = annualRaw >= 1e6 ? `$${(annualRaw/1e6).toFixed(1)}M` : `$${(annualRaw/1e3).toFixed(0)}K`;
+    html += `<div class="cs-sim-callout" id="cs-sim-callout">This transaction lost <strong>$${dgDelta.toFixed(2)}</strong> to a downgrade. At $500M annual volume, that rate of avoidable loss accounts for <strong>${annualFmt}</strong> per year — across dozens of reasons, none of them visible on the invoice.</div>`;
+
+    stagesEl.innerHTML = html;
+    dedEl.textContent = '—';
+    netEl.textContent = '—';
+    btn.disabled = false;
+  }
+
+  function activateStage(idx) {
+    const stage = document.getElementById(`cs-sim-stage-${idx}`);
+    if (!stage) return;
+    stage.classList.add('is-active');
+    stage.querySelectorAll('[data-target]').forEach(el => countUp(el, 700));
+    stage.querySelectorAll('[data-rate]').forEach(el => countUpRate(el, 700));
+  }
+
+  function runSimulation() {
+    if (btn.disabled) return;
+    btn.disabled = true;
+    timeouts.forEach(clearTimeout); timeouts = [];
+    let t = 120;
+    const STEP = 820, GAP = 260;
+    STAGES.forEach((s, si) => {
+      timeouts.push(setTimeout(() => activateStage(si), t));
+      if (s.id === 'iss') {
+        timeouts.push(setTimeout(() => {
+          const dd = document.getElementById('cs-sim-dg-detail');
+          if (dd) dd.classList.add('is-revealed');
+          const nm = document.getElementById('cs-sim-iss-name');
+          if (nm) { nm.style.transition = 'color .3s ease'; nm.style.color = 'var(--warm)'; nm.textContent = 'Actual rate'; }
+          const am = document.getElementById('cs-sim-iss-amt');
+          if (am) { am.style.transition = 'color .3s ease'; am.style.color = 'var(--warm)'; }
+          const rl = document.getElementById('cs-sim-iss-rate');
+          if (rl) {
+            const dg = DOWNGRADE[card];
+            rl.innerHTML = `<span style="color:var(--warm);font-family:'Geist Mono',monospace;">${dg.actual.toFixed(2)}%</span> <span style="background:rgba(232,197,152,0.14);color:var(--warm);padding:2px 8px;border-radius:4px;font-size:9.5px;letter-spacing:0.06em;text-transform:uppercase;white-space:nowrap;">↑ downgraded</span>`;
+          }
+        }, t + 520));
+      }
+      t += STEP + GAP;
+    });
+    timeouts.push(setTimeout(() => {
+      const final = document.getElementById('cs-sim-final');
+      if (final) final.classList.add('is-active');
+      countUp(document.getElementById('cs-sim-final-amt'), 900);
+      const tot = grandTotal();
+      animateAmt(dedEl, -tot, 900);
+      animateAmt(netEl, TXN - tot, 900);
+      timeouts.push(setTimeout(() => {
+        const callout = document.getElementById('cs-sim-callout');
+        if (callout) callout.classList.add('is-visible');
+      }, 500));
+    }, t));
+  }
+
+  btn.addEventListener('click', runSimulation);
+  render();
+})();
+
+/* ================================================================
+   KNOWLEDGE GRAPH — hub-and-spoke node graph re-themed in lime,
+   full interactive parity: hover a node to trace its connections.
+   ================================================================ */
+(function() {
+  const canvas = document.getElementById('cs-graph');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const W = 1120, H = 760;
+  canvas.width = W; canvas.height = H;
+  const CX = W / 2, CY = H / 2 + 16;
+  const R_MOD = 182, R_Q = 305;
+  const LIME = '#d4ff5e';
+
+  const mods = [
+    { id: 'overview',  label: 'Overview',   angle: -Math.PI/2,
+      subs: ['What am I paying?', 'What is driving those costs?', 'Where should I investigate?'] },
+    { id: 'drilldown', label: 'Drill-down', angle: -Math.PI/2 + 2*Math.PI/5,
+      subs: ['Which processor is driving costs?', 'Which regions are increasing spend?', 'Which fee categories changed most?'] },
+    { id: 'feespikes', label: 'Fee Spikes', angle: -Math.PI/2 + 4*Math.PI/5 + 0.12, qBias: -0.32,
+      subs: ['What caused the spike?', 'Is this expected or avoidable?', 'Which fees changed unexpectedly?', 'Is this growth, leakage, or penalties?'] },
+    { id: 'audit',     label: 'Audit',      angle: -Math.PI/2 + 6*Math.PI/5 - 0.12, qBias: 0.32,
+      subs: ['What should I have been charged?', 'Which fees appear incorrect?', 'How large is the variance?', 'Which transactions caused it?'] },
+    { id: 'forecast',  label: 'Forecast',   angle: -Math.PI/2 + 8*Math.PI/5,
+      subs: ['What changes are coming?', 'Which updates affect us?', 'What is the projected impact?', 'What should we prepare for?'] }
+  ];
+
+  const nodes = [], edges = [], nodeMap = {};
+  const center = { id: 'center', label: 'HyperSense', x: CX, y: CY, bx: CX, by: CY, r: 14, type: 'center' };
+  nodes.push(center); nodeMap.center = center;
+
+  mods.forEach((mod) => {
+    const mx = CX + R_MOD * Math.cos(mod.angle), my = CY + R_MOD * Math.sin(mod.angle);
+    const mn = { id: mod.id, label: mod.label, x: mx, y: my, bx: mx, by: my, r: 8, type: 'module' };
+    nodes.push(mn); nodeMap[mod.id] = mn;
+    edges.push({ from: 'center', to: mod.id, type: 'module' });
+    const nq = mod.subs.length, spread = nq <= 2 ? 0.30 : nq <= 3 ? 0.38 : 0.52, bias = mod.qBias || 0;
+    mod.subs.forEach((sub, qi) => {
+      const qa = nq === 1 ? mod.angle : mod.angle + bias - spread + (qi/(nq-1)) * spread * 2;
+      const qx = CX + R_Q * Math.cos(qa), qy = CY + R_Q * Math.sin(qa);
+      const qid = mod.id + '_q' + qi;
+      const qn = { id: qid, label: sub, x: qx, y: qy, bx: qx, by: qy, r: 3.5, type: 'question' };
+      nodes.push(qn); nodeMap[qid] = qn;
+      edges.push({ from: mod.id, to: qid, type: 'question' });
+    });
+  });
+
+  let hovId = null, t = 0;
+  function getConn(id) {
+    const s = new Set([id]);
+    edges.forEach(e => { if (e.from === id) s.add(e.to); if (e.to === id) s.add(e.from); });
+    return s;
+  }
+  canvas.addEventListener('mousemove', (e) => {
+    const rect = canvas.getBoundingClientRect();
+    const sx = canvas.width / rect.width, sy = canvas.height / rect.height;
+    const mx = (e.clientX - rect.left) * sx, my = (e.clientY - rect.top) * sy;
+    hovId = null;
+    for (let i = 0; i < nodes.length; i++) {
+      const n = nodes[i], dx = mx - n.x, dy = my - n.y;
+      const hit = n.type === 'question' ? 14 : n.r + 10;
+      if (dx*dx + dy*dy < hit*hit) { hovId = n.id; break; }
+    }
+    canvas.style.cursor = hovId ? 'pointer' : 'default';
+  });
+  canvas.addEventListener('mouseleave', () => { hovId = null; canvas.style.cursor = 'default'; });
+
+  function lpos(n) {
+    const dx = n.bx - CX, dy = n.by - CY, d = Math.sqrt(dx*dx + dy*dy) || 1;
+    const nx = dx / d, ny = dy / d;
+    if (n.type === 'center') return { x: n.x, y: n.y + n.r + 17, align: 'center', base: 'top' };
+    const pad = n.type === 'module' ? 17 : 10;
+    return { x: n.x + nx*pad, y: n.y + ny*pad, align: nx > 0.22 ? 'left' : nx < -0.22 ? 'right' : 'center', base: ny > 0.3 ? 'top' : ny < -0.3 ? 'bottom' : 'middle' };
+  }
+
+  function frame() {
+    t += 0.006;
+    ctx.clearRect(0, 0, W, H);
+    ctx.save();
+    ctx.beginPath(); ctx.rect(8, 8, W - 16, H - 16); ctx.clip();
+    nodes.forEach((n, i) => {
+      const f = 0.22 + i*0.045, amp = n.type === 'center' ? 1.2 : n.type === 'module' ? 2.5 : 2.2;
+      n.x = n.bx + Math.sin(t*f + i) * amp;
+      n.y = n.by + Math.cos(t*f*0.85 + i*1.3) * amp;
+    });
+    const conn = hovId ? getConn(hovId) : null;
+
+    edges.forEach(e => {
+      const fn = nodeMap[e.from], tn = nodeMap[e.to]; if (!fn || !tn) return;
+      const act = !conn || (conn.has(e.from) && conn.has(e.to));
+      ctx.beginPath(); ctx.moveTo(fn.x, fn.y); ctx.lineTo(tn.x, tn.y);
+      if (e.type === 'module') { ctx.strokeStyle = act ? 'rgba(212,255,94,0.4)' : 'rgba(212,255,94,0.06)'; ctx.lineWidth = 1.2; }
+      else { ctx.strokeStyle = act ? 'rgba(255,255,255,0.16)' : 'rgba(255,255,255,0.04)'; ctx.lineWidth = 0.6; }
+      ctx.stroke();
+    });
+
+    nodes.forEach(n => {
+      const dim = conn && !conn.has(n.id), a = dim ? 0.12 : 1;
+      if (n.type === 'center') {
+        const g1 = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, 55);
+        g1.addColorStop(0, 'rgba(212,255,94,0.16)'); g1.addColorStop(1, 'rgba(212,255,94,0)');
+        ctx.beginPath(); ctx.arc(n.x, n.y, 55, 0, Math.PI*2); ctx.fillStyle = g1; ctx.fill();
+        const g2 = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, 24);
+        g2.addColorStop(0, 'rgba(212,255,94,0.5)'); g2.addColorStop(1, 'rgba(212,255,94,0)');
+        ctx.beginPath(); ctx.arc(n.x, n.y, 24, 0, Math.PI*2); ctx.fillStyle = g2; ctx.fill();
+        ctx.beginPath(); ctx.arc(n.x, n.y, n.r, 0, Math.PI*2); ctx.fillStyle = LIME; ctx.fill();
+        ctx.font = '500 14px "Geist", system-ui, sans-serif';
+        ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+        ctx.fillStyle = 'rgba(237,237,237,0.85)';
+        ctx.fillText('HyperSense', n.x, n.y + n.r + 14);
+        ctx.textBaseline = 'alphabetic';
+      } else if (n.type === 'module') {
+        const gm = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, 30);
+        gm.addColorStop(0, `rgba(212,255,94,${0.2*a})`); gm.addColorStop(1, 'rgba(212,255,94,0)');
+        ctx.beginPath(); ctx.arc(n.x, n.y, 30, 0, Math.PI*2); ctx.fillStyle = gm; ctx.fill();
+        ctx.beginPath(); ctx.arc(n.x, n.y, n.r, 0, Math.PI*2);
+        ctx.fillStyle = `rgba(212,255,94,${a})`; ctx.fill();
+        const lp = lpos(n);
+        ctx.font = '500 13px "Geist", system-ui, sans-serif';
+        ctx.textAlign = lp.align; ctx.textBaseline = lp.base;
+        ctx.fillStyle = `rgba(237,237,237,${0.9*a})`;
+        ctx.fillText(n.label, lp.x, lp.y);
+        ctx.textBaseline = 'alphabetic';
+      } else {
+        ctx.beginPath(); ctx.arc(n.x, n.y, n.r, 0, Math.PI*2);
+        ctx.fillStyle = `rgba(180,180,180,${0.45*a})`; ctx.fill();
+        const lp2 = lpos(n);
+        ctx.font = '13px "Geist", system-ui, sans-serif';
+        ctx.textAlign = lp2.align; ctx.textBaseline = lp2.base;
+        ctx.fillStyle = `rgba(170,170,170,${0.7*a})`;
+        ctx.fillText(n.label, lp2.x, lp2.y);
+        ctx.textBaseline = 'alphabetic';
+      }
+    });
+    ctx.restore();
+    requestAnimationFrame(frame);
+  }
+  frame();
+})();
+
+/* ================================================================
+   MARKET GLOBE — orthographic D3 projection rendered to canvas,
+   re-themed in lime. Auto-rotates; drag to spin; hover a country
+   for an IC++ / Simplified-pricing context tooltip.
+   Full interactive parity with the source's globe, just re-skinned.
+   ================================================================ */
+(function() {
+  const canvas = document.getElementById('cs-globe-canvas');
+  const tip = document.getElementById('cs-globe-tip');
+  if (!canvas || !tip || typeof d3 === 'undefined' || typeof topojson === 'undefined') return;
+  const ctx = canvas.getContext('2d');
+  const S = 380;
+
+  const ICPP = new Set([840,124,826,276,250,528,724,380,372,752,208,578,246,56,40,756,300,620,203,348,616,233,428,440,703,705,191,642,100,792,36,710]);
+  const INFO = {
+    840:{name:'United States',note:'Highest interchange variability and downgrade exposure'},
+    124:{name:'Canada',note:'IC++ with cross-border complexity'},
+    826:{name:'United Kingdom',note:'Commercial card and cross-border complexity'},
+    276:{name:'Germany',note:'Commercial card interchange'},
+    250:{name:'France',note:'Cross-border and commercial card complexity'},
+    528:{name:'Netherlands',note:'IC++ four-party network'},
+    724:{name:'Spain',note:'IC++ pricing model'},
+    380:{name:'Italy',note:'IC++ pricing model'},
+    372:{name:'Ireland',note:'Major European payment hub'},
+    752:{name:'Sweden',note:'IC++ with strong card adoption'},
+    208:{name:'Denmark',note:'IC++ four-party card network'},
+    578:{name:'Norway',note:'IC++ with cross-border complexity'},
+    246:{name:'Finland',note:'IC++ four-party card network'},
+    56:{name:'Belgium',note:'IC++ pricing model'},
+    40:{name:'Austria',note:'IC++ four-party network'},
+    756:{name:'Switzerland',note:'IC++ with scheme complexity'},
+    300:{name:'Greece',note:'IC++ pricing model'},
+    620:{name:'Portugal',note:'IC++ pricing model'},
+    203:{name:'Czech Republic',note:'IC++ four-party card network'},
+    348:{name:'Hungary',note:'IC++ pricing model'},
+    616:{name:'Poland',note:'IC++ with growing card volume'},
+    233:{name:'Estonia',note:'IC++ four-party network'},
+    428:{name:'Latvia',note:'IC++ four-party network'},
+    440:{name:'Lithuania',note:'IC++ four-party network'},
+    703:{name:'Slovakia',note:'IC++ pricing model'},
+    705:{name:'Slovenia',note:'IC++ pricing model'},
+    191:{name:'Croatia',note:'IC++ pricing model'},
+    642:{name:'Romania',note:'IC++ four-party network'},
+    100:{name:'Bulgaria',note:'IC++ pricing model'},
+    792:{name:'Turkey',note:'IC++ with local scheme complexity'},
+    36:{name:'Australia',note:'Four-party card network model'},
+    710:{name:'South Africa',note:'Visa/Mastercard interchange model'},
+    356:{name:'India',note:'UPI-dominant — near-zero transaction cost'},
+    360:{name:'Indonesia',note:'Domestic rails, flat pricing'},
+    76:{name:'Brazil',note:'Blended rates dominate'},
+    156:{name:'China',note:'UnionPay domestic pricing'},
+    458:{name:'Malaysia',note:'Flat-rate and blended pricing'},
+    764:{name:'Thailand',note:'Simplified pricing model'},
+    484:{name:'Mexico',note:'Blended pricing dominant'},
+    32:{name:'Argentina',note:'Flat-rate pricing'}
+  };
+  const NAMES = {4:'Afghanistan',8:'Albania',12:'Algeria',24:'Angola',50:'Bangladesh',64:'Bhutan',68:'Bolivia',70:'Bosnia & Herz.',72:'Botswana',96:'Brunei',104:'Myanmar',108:'Burundi',116:'Cambodia',120:'Cameroon',132:'Cape Verde',140:'Central African Rep.',144:'Sri Lanka',152:'Chile',158:'Taiwan',170:'Colombia',174:'Comoros',178:'Congo',180:'DR Congo',184:'Cook Islands',188:'Costa Rica',192:'Cuba',196:'Cyprus',204:'Benin',214:'Dominican Rep.',218:'Ecuador',818:'Egypt',222:'El Salvador',231:'Ethiopia',238:'Falkland Islands',242:'Fiji',266:'Gabon',270:'Gambia',288:'Ghana',308:'Grenada',320:'Guatemala',324:'Guinea',328:'Guyana',332:'Haiti',340:'Honduras',364:'Iran',368:'Iraq',376:'Israel',388:'Jamaica',392:'Japan',400:'Jordan',398:'Kazakhstan',404:'Kenya',408:'North Korea',410:'South Korea',414:'Kuwait',418:'Laos',422:'Lebanon',426:'Lesotho',430:'Liberia',434:'Libya',450:'Madagascar',454:'Malawi',462:'Maldives',466:'Mali',478:'Mauritania',480:'Mauritius',496:'Mongolia',504:'Morocco',508:'Mozambique',516:'Namibia',524:'Nepal',562:'Niger',566:'Nigeria',586:'Pakistan',591:'Panama',598:'Papua New Guinea',600:'Paraguay',604:'Peru',608:'Philippines',630:'Puerto Rico',634:'Qatar',646:'Rwanda',682:'Saudi Arabia',686:'Senegal',694:'Sierra Leone',706:'Somalia',729:'Sudan',740:'Suriname',760:'Syria',762:'Tajikistan',834:'Tanzania',800:'Uganda',804:'Ukraine',784:'UAE',860:'Uzbekistan',704:'Vietnam',887:'Yemen',894:'Zambia',716:'Zimbabwe',566:'Nigeria',818:'Egypt',410:'South Korea',392:'Japan',682:'Saudi Arabia',784:'UAE',704:'Vietnam',604:'Peru',170:'Colombia',152:'Chile',12:'Algeria',504:'Morocco'};
+
+  const FILL_ICPP = 'rgba(212,255,94,0.34)';
+  const FILL_ICPP_HOVER = 'rgba(212,255,94,0.66)';
+  const FILL_OTHER = '#1c1c1c';
+  const FILL_OTHER_HOVER = '#2e2e2e';
+
+  let drag = false, lastX = 0, lastY = 0, paused = false;
+  let targetRot = [-20, 0], animRot = [-20, 0];
+  const proj = d3.geoOrthographic().scale(S/2 - 2).translate([S/2, S/2]).clipAngle(90).rotate(animRot.slice());
+  const path = d3.geoPath().projection(proj).context(ctx);
+  let countries = null, hoverId = null;
+
+  function draw() {
+    proj.rotate(animRot);
+    ctx.clearRect(0, 0, S, S);
+    ctx.beginPath(); path({ type: 'Sphere' });
+    ctx.fillStyle = '#0c0c0c'; ctx.fill();
+    const grat = d3.geoGraticule().step([30, 30])();
+    ctx.beginPath(); path(grat);
+    ctx.strokeStyle = 'rgba(255,255,255,.045)'; ctx.lineWidth = .5; ctx.stroke();
+    if (countries) {
+      countries.features.forEach(f => {
+        const id = +f.id;
+        const isIcpp = ICPP.has(id);
+        const isHover = id === hoverId;
+        ctx.beginPath(); path(f);
+        ctx.fillStyle = isHover ? (isIcpp ? FILL_ICPP_HOVER : FILL_OTHER_HOVER) : (isIcpp ? FILL_ICPP : FILL_OTHER);
+        ctx.fill();
+        ctx.strokeStyle = 'rgba(0,0,0,.4)'; ctx.lineWidth = .4; ctx.stroke();
+      });
+    }
+    ctx.beginPath(); path({ type: 'Sphere' });
+    ctx.strokeStyle = 'rgba(255,255,255,.09)'; ctx.lineWidth = 1; ctx.stroke();
+  }
+
+  function animate() {
+    if (!paused) {
+      targetRot[0] -= 0.12;
+      animRot[0] += (targetRot[0] - animRot[0]) * 0.06;
+      animRot[1] += (targetRot[1] - animRot[1]) * 0.06;
+    }
+    draw();
+    requestAnimationFrame(animate);
+  }
+
+  canvas.addEventListener('mousedown', e => { drag = true; paused = true; lastX = e.clientX; lastY = e.clientY; canvas.style.cursor = 'grabbing'; });
+  window.addEventListener('mouseup', () => { if (!drag) return; drag = false; canvas.style.cursor = 'grab'; setTimeout(() => paused = false, 1200); });
+  window.addEventListener('mousemove', e => {
+    if (drag) {
+      const dx = e.clientX - lastX, dy = e.clientY - lastY;
+      targetRot[0] += dx * 0.4; targetRot[1] -= dy * 0.4;
+      lastX = e.clientX; lastY = e.clientY;
+    }
+  });
+
+  canvas.addEventListener('mousemove', function(e) {
+    if (drag || !countries) return;
+    const rect = canvas.getBoundingClientRect();
+    const scale = S / rect.width;
+    const x = (e.clientX - rect.left) * scale, y = (e.clientY - rect.top) * scale;
+    proj.rotate(animRot);
+    const cx = x - S/2, cy = y - S/2;
+    if (cx*cx + cy*cy > (S/2 - 2) * (S/2 - 2)) {
+      hoverId = null; tip.style.opacity = '0'; canvas.style.cursor = drag ? 'grabbing' : 'grab'; return;
+    }
+    const coords = proj.invert([x, y]);
+    let found = null;
+    if (coords) { countries.features.forEach(f => { if (d3.geoContains(f, coords)) found = f; }); }
+    if (found) {
+      const id = +found.id;
+      const info = INFO[id];
+      const ic = ICPP.has(id);
+      hoverId = id;
+      canvas.style.cursor = 'pointer';
+      tip.style.opacity = '1';
+      tip.style.left = Math.min(e.clientX - rect.left + 14, rect.width - 200) + 'px';
+      tip.style.top = Math.max(e.clientY - rect.top - 54, 8) + 'px';
+      const name = info ? info.name : (NAMES[id] || 'Unknown');
+      const note = info ? info.note : (ic ? 'IC++ pricing market' : 'Limited IC++ exposure');
+      const accent = ic ? 'var(--accent)' : 'var(--text-soft)';
+      const badgeBg = ic ? 'rgba(212,255,94,0.18)' : 'rgba(138,138,138,0.18)';
+      tip.innerHTML = '<strong style="color:' + accent + ';font-weight:500">' + name + '</strong>'
+        + '<span class="cs-globe-tip-badge" style="background:' + badgeBg + ';color:' + accent + '">' + (ic ? 'IC++' : 'Simplified') + '</span>'
+        + '<br><span style="color:var(--text-muted);font-size:10px">' + note + '</span>';
+    } else {
+      hoverId = null;
+      canvas.style.cursor = 'grab';
+      tip.style.opacity = '0';
+    }
+  });
+  canvas.addEventListener('mouseleave', () => { if (!drag) { hoverId = null; tip.style.opacity = '0'; canvas.style.cursor = 'grab'; } });
+
+  fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')
+    .then(r => r.json())
+    .then(world => { countries = topojson.feature(world, world.objects.countries); animate(); })
+    .catch(() => { draw(); });
+})();
+
 console.log('%cHi.','font-family:"Instrument Serif",serif;font-size:32px;font-style:italic;color:#d4ff5e;');
-console.log('%cYou found the HyperSense rebuild. Sections 04–09 are coming. → hello@akhilmale.com','font-family:monospace;font-size:12px;color:#8a8a8a;');
+console.log('%cYou found the HyperSense rebuild — full case study, sections 01–09. → hello@akhilmale.com','font-family:monospace;font-size:12px;color:#8a8a8a;');
 </script>
 </body>
 </html>
