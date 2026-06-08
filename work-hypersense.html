@@ -240,9 +240,13 @@
 .cs-shot-scroll img { width: 100%; display: block; }
 .cs-shot-navbar {
   flex: 0 0 48px; position: sticky; top: 0; align-self: flex-start;
-  height: 460px; overflow: hidden; border-right: 1px solid rgba(20,20,20,0.06);
+  height: 460px; overflow: hidden;
 }
-.cs-shot-navbar img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
+.cs-shot-navbar > img:first-child { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
+.cs-shot-navbar-avatar {
+  position: absolute; left: 50%; bottom: 16px; transform: translateX(-50%);
+  width: 26px; height: 26px; border-radius: 8px; object-fit: cover; display: block;
+}
 .cs-shot-img-wrap { flex: 1; min-width: 0; }
 .cs-shot-cap {
   font-family: 'Geist Mono', monospace; font-size: 10.5px; letter-spacing: 0.05em; color: var(--text-muted);
@@ -278,9 +282,13 @@
 .cs-ov-body { position: relative; height: 504px; overflow-y: auto; background: #fff; display: flex; align-items: stretch; }
 .cs-ov-navbar {
   flex: 0 0 48px; position: sticky; top: 0; align-self: flex-start;
-  height: 504px; overflow: hidden; border-right: 1px solid rgba(20,20,20,0.06);
+  height: 504px; overflow: hidden;
 }
-.cs-ov-navbar img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
+.cs-ov-navbar > img:first-child { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
+.cs-ov-navbar-avatar {
+  position: absolute; left: 50%; bottom: 16px; transform: translateX(-50%);
+  width: 26px; height: 26px; border-radius: 8px; object-fit: cover; display: block;
+}
 .cs-ov-shot-wrap { flex: 1; min-width: 0; }
 #cs-ov-shot { width: 100%; display: block; opacity: 1; transition: opacity 0.22s ease; }
 .cs-ov-caption {
@@ -1110,7 +1118,10 @@ a.cs-cta { margin-top: 28px; }
         </div>
       </div>
       <div class="cs-ov-body" id="cs-ov-body">
-        <div class="cs-ov-navbar"><img src="assets/hypersense/ov-nav-overview.png" alt="" aria-hidden="true" /></div>
+        <div class="cs-ov-navbar">
+          <img src="assets/hypersense/ov-nav-overview.png" alt="" aria-hidden="true" />
+          <img class="cs-ov-navbar-avatar" src="assets/hypersense/ov-nav-avatar.png" alt="" aria-hidden="true" />
+        </div>
         <div class="cs-ov-shot-wrap">
           <img id="cs-ov-shot" src="assets/hypersense/ov-icpp-only.jpg" alt="HyperSense Overview — multi-processor setup with IC++ pricing only, showing a granular fee category breakdown per processor" loading="lazy" />
         </div>
@@ -1175,7 +1186,10 @@ a.cs-cta { margin-top: 28px; }
       </div>
     </div>
     <div class="cs-shot-scroll">
-      <div class="cs-shot-navbar"><img src="assets/hypersense/ov-nav-drilldown.png" alt="" aria-hidden="true" /></div>
+      <div class="cs-shot-navbar">
+        <img src="assets/hypersense/ov-nav-drilldown.png" alt="" aria-hidden="true" />
+        <img class="cs-shot-navbar-avatar" src="assets/hypersense/ov-nav-avatar.png" alt="" aria-hidden="true" />
+      </div>
       <div class="cs-shot-img-wrap">
         <img src="assets/hypersense/ui-drilldown.jpg" alt="HyperSense Drill-Down screen — decomposing payment cost across processors, regions, corridors, fee types and currencies" loading="lazy" />
       </div>
@@ -1204,7 +1218,10 @@ a.cs-cta { margin-top: 28px; }
       </div>
     </div>
     <div class="cs-shot-scroll">
-      <div class="cs-shot-navbar"><img src="assets/hypersense/ov-nav-feespikes.png" alt="" aria-hidden="true" /></div>
+      <div class="cs-shot-navbar">
+        <img src="assets/hypersense/ov-nav-feespikes.png" alt="" aria-hidden="true" />
+        <img class="cs-shot-navbar-avatar" src="assets/hypersense/ov-nav-avatar.png" alt="" aria-hidden="true" />
+      </div>
       <div class="cs-shot-img-wrap">
         <img src="assets/hypersense/ui-feespikes.jpg" alt="HyperSense Fee Spikes screen — surfacing unexpected cost increases and tracing them back to a root cause" loading="lazy" />
       </div>
@@ -1265,7 +1282,10 @@ a.cs-cta { margin-top: 28px; }
       </div>
     </div>
     <div class="cs-shot-scroll">
-      <div class="cs-shot-navbar"><img src="assets/hypersense/ov-nav-audit.png" alt="" aria-hidden="true" /></div>
+      <div class="cs-shot-navbar">
+        <img src="assets/hypersense/ov-nav-audit.png" alt="" aria-hidden="true" />
+        <img class="cs-shot-navbar-avatar" src="assets/hypersense/ov-nav-avatar.png" alt="" aria-hidden="true" />
+      </div>
       <div class="cs-shot-img-wrap">
         <img src="assets/hypersense/ui-audit.jpg" alt="HyperSense Audit screen — reconciling contracted vs applied rates and surfacing transaction-level evidence of overcharges" loading="lazy" />
       </div>
@@ -1296,7 +1316,10 @@ a.cs-cta { margin-top: 28px; }
       </div>
     </div>
     <div class="cs-shot-scroll">
-      <div class="cs-shot-navbar"><img src="assets/hypersense/ov-nav-forecast.png" alt="" aria-hidden="true" /></div>
+      <div class="cs-shot-navbar">
+        <img src="assets/hypersense/ov-nav-forecast.png" alt="" aria-hidden="true" />
+        <img class="cs-shot-navbar-avatar" src="assets/hypersense/ov-nav-avatar.png" alt="" aria-hidden="true" />
+      </div>
       <div class="cs-shot-img-wrap">
         <img src="assets/hypersense/ui-forecast.jpg" alt="HyperSense Forecast screen — translating upcoming card network fee changes into a merchant-specific cost impact estimate" loading="lazy" />
       </div>
