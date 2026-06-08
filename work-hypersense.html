@@ -550,6 +550,13 @@ a.cs-cta { margin-top: 28px; }
 .cs-tl-text { font-family: 'Geist', sans-serif; font-size: 13.5px; font-weight: 300; line-height: 1.75; color: var(--text-soft); }
 .cs-tl-text strong { color: var(--text); font-weight: 500; }
 
+/* ---------- PROTOTYPE — MACBOOK MOCKUP ---------- */
+.cs-mb-scene { padding: 48px 0 8px; display: flex; justify-content: center; }
+.cs-mb-wrap { width: 900px; max-width: 92vw; }
+.cs-mb-wrap svg { width: 100%; height: auto; display: block; }
+.cs-mbpro-screen { width: 100%; height: 100%; background: #000; position: relative; overflow: hidden; display: block; }
+@media (max-width: 640px) { .cs-mb-wrap { width: 100%; } }
+
 /* ---------- CLOSING QUOTE ---------- */
 .cs-quote {
   margin: 64px 0 22px; padding: 0 0 0 24px; border-left: 2px solid var(--accent);
@@ -1391,6 +1398,227 @@ a.cs-cta { margin-top: 28px; }
           <div class="cs-tl-text"><strong>Apple progresses to live data testing.</strong> Spotify pitch deck delivered to payments team. Highest trust threshold reached. Pipeline to acquirers and PSPs opens.</div>
         </div>
       </div>
+    </div>
+  </div>
+
+  <!-- PROTOTYPE — LIVE WALKTHROUGH (MacBook Pro 14 inline-SVG mockup) -->
+  <div class="cs-mb-scene reveal" id="cs-mb-scene">
+    <div class="cs-mb-wrap">
+      <svg viewBox="0 0 1216 735" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <clipPath id="cs-mb-screen-clip">
+            <path d="M124.5 32C124.5 24.268 130.768 18 138.5 18H1077.5C1085.23 18 1091.5 24.268 1091.5 32V646H124.5V32Z"/>
+          </clipPath>
+          <linearGradient id="cs-mb-g0" x1="608" y1="685" x2="608" y2="713" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#AEAFB4"/><stop offset="0.193" stop-color="#AFB0B5"/><stop offset="0.376" stop-color="#AFB0B5"/>
+            <stop offset="0.599" stop-color="#7D7E82"/><stop offset="0.714" stop-color="#696A6F"/>
+            <stop offset="0.852" stop-color="#838489"/><stop offset="0.931" stop-color="#ABACB0"/>
+          </linearGradient>
+          <linearGradient id="cs-mb-g1" x1="1069.5" y1="717.25" x2="1149" y2="717.25" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#8C8D91"/><stop offset="0.173" stop-color="#525358"/><stop offset="0.318" stop-color="#78797D"/>
+            <stop offset="0.465" stop-color="#A0A0A2"/><stop offset="0.691" stop-color="#9A9A9C"/>
+            <stop offset="0.826" stop-color="#4F5055"/><stop offset="0.941" stop-color="#9E9EA0"/><stop offset="1" stop-color="#848589"/>
+          </linearGradient>
+          <linearGradient id="cs-mb-g2" x1="1072.54" y1="718.875" x2="1145.93" y2="718.875" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#575757"/><stop offset="0.083" stop-color="#2D2D2D"/><stop offset="0.490" stop-color="#4E4E4E"/>
+            <stop offset="0.825" stop-color="#2A2A2A"/><stop offset="1" stop-color="#5C5C5C"/>
+          </linearGradient>
+          <linearGradient id="cs-mb-g3" x1="66" y1="717.25" x2="145.5" y2="717.25" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#8C8D91"/><stop offset="0.173" stop-color="#525358"/><stop offset="0.318" stop-color="#78797D"/>
+            <stop offset="0.465" stop-color="#A0A0A2"/><stop offset="0.691" stop-color="#9A9A9C"/>
+            <stop offset="0.826" stop-color="#4F5055"/><stop offset="0.941" stop-color="#9E9EA0"/><stop offset="1" stop-color="#848589"/>
+          </linearGradient>
+          <linearGradient id="cs-mb-g4" x1="69.04" y1="718.875" x2="142.43" y2="718.875" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#575757"/><stop offset="0.083" stop-color="#2D2D2D"/><stop offset="0.490" stop-color="#4E4E4E"/>
+            <stop offset="0.825" stop-color="#2A2A2A"/><stop offset="1" stop-color="#5C5C5C"/>
+          </linearGradient>
+          <linearGradient id="cs-mb-g5" x1="502.5" y1="690.333" x2="713" y2="690.333" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#25262B"/><stop offset="0.016" stop-color="#606166"/><stop offset="0.036" stop-color="#9FA0A4"/>
+            <stop offset="0.050" stop-color="#C8C8CE"/><stop offset="0.479" stop-color="#D7D8DD"/>
+            <stop offset="0.941" stop-color="#CBCBD3"/><stop offset="0.970" stop-color="#A7A8AC"/>
+            <stop offset="0.980" stop-color="#595A5E"/><stop offset="1" stop-color="#27282C"/>
+          </linearGradient>
+          <linearGradient id="cs-mb-g6" x1="607.5" y1="657" x2="607.5" y2="680" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#222222"/><stop offset="0.085" stop-color="#242424"/>
+            <stop offset="0.830" stop-color="#242424"/><stop offset="1" stop-color="#201F24"/>
+          </linearGradient>
+        </defs>
+        <!-- Base / palm rest -->
+        <path d="M1216 687.995V685H0V687.995C0 696.748 0 701.124 2.61584 704.467C4.91681 707.408 8.58832 709.798 13.1042 711.297C18.2381 713 24.9587 713 38.4 713H1177.6C1191.04 713 1197.76 713 1202.9 711.297C1207.41 709.798 1211.08 707.408 1213.38 704.467C1216 701.124 1216 696.748 1216 687.995Z" fill="url(#cs-mb-g0)"/>
+        <!-- Right foot -->
+        <path d="M1146 717C1147.6 716.6 1148.67 714.833 1149 714H1069.5C1069.83 714.833 1070.9 716.6 1072.5 717C1072.67 718.167 1073.4 720.5 1075 720.5H1143.5C1145.1 720.5 1145.83 718.167 1146 717Z" fill="url(#cs-mb-g1)"/>
+        <path d="M1145.93 717.403C1145.67 718.632 1144.93 720.5 1143.5 720.5H1075C1073.51 720.5 1072.77 718.47 1072.54 717.25H1145.93V717.403Z" fill="url(#cs-mb-g2)"/>
+        <path d="M1145.93 717.403C1145.85 717.752 1145.74 718.151 1145.59 718.545H1072.91C1072.73 718.092 1072.61 717.631 1072.54 717.25H1145.93V717.403Z" fill="#383838"/>
+        <!-- Left foot -->
+        <path d="M142.5 717C144.1 716.6 145.167 714.833 145.5 714H66C66.3333 714.833 67.4 716.6 69 717C69.1667 718.167 69.9 720.5 71.5 720.5H140C141.6 720.5 142.333 718.167 142.5 717Z" fill="url(#cs-mb-g3)"/>
+        <path d="M142.427 717.403C142.168 718.632 141.431 720.5 140 720.5H71.5002C70.0079 720.5 69.2701 718.47 69.0422 717.25H142.427V717.403Z" fill="url(#cs-mb-g4)"/>
+        <path d="M142.427 717.403C142.354 717.752 142.241 718.151 142.085 718.545H69.4126C69.2342 718.092 69.1137 717.631 69.0425 717.25H142.427V717.403Z" fill="#383838"/>
+        <!-- Hinge notch -->
+        <path d="M502 685H713C713 691.075 708.075 696 702 696H513C506.925 696 502 691.075 502 685Z" fill="url(#cs-mb-g5)"/>
+        <path d="M712.487 685.5C712.226 691.067 707.631 695.5 702 695.5H513C507.369 695.5 502.774 691.067 502.513 685.5H712.487Z" stroke="white" stroke-opacity="0.1"/>
+        <!-- Display outer fill -->
+        <path d="M608.5 2H1078.5C1093.96 2 1106.5 14.536 1106.5 30V683H608.5H608H110V30C110 14.536 122.536 2 138 2H608H608.5Z" fill="black"/>
+        <!-- Bezel inner border -->
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M1078.5 4H138C123.641 4 112 15.6406 112 30V681H1104.5V30C1104.5 15.6406 1092.86 4 1078.5 4ZM1078.5 2H138C122.536 2 110 14.536 110 30V683H1106.5V30C1106.5 14.536 1093.96 2 1078.5 2Z" fill="#201F24"/>
+        <!-- Bezel outer ring -->
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M1108.5 685H108V30C108 13.4315 121.431 0 138 0H1078.5C1095.07 0 1108.5 13.4315 1108.5 30V685ZM1078.5 2H138C122.536 2 110 14.536 110 30V683H1106.5V30C1106.5 14.536 1093.96 2 1078.5 2Z" fill="#7D7D7F"/>
+        <!-- Bottom chin bar -->
+        <path d="M112.846 657H1103.5V676C1103.5 678.209 1101.71 680 1099.5 680H116.846C114.637 680 112.846 678.209 112.846 676V657Z" fill="url(#cs-mb-g6)"/>
+        <!-- Screen area fill -->
+        <path d="M124.5 32C124.5 24.268 130.768 18 138.5 18H1077.5C1085.23 18 1091.5 24.268 1091.5 32V646H124.5V32Z" fill="#050505"/>
+        <!-- ↓ SCREEN CONTENT -->
+        <foreignObject x="124.5" y="18" width="967" height="628" clip-path="url(#cs-mb-screen-clip)">
+          <div xmlns="http://www.w3.org/1999/xhtml" class="cs-mbpro-screen" style="background:#000;overflow:hidden;padding:0;margin:0;position:relative;" id="cs-proto-wrap">
+
+            <video id="cs-proto-vid" playsinline style="width:100%;height:100%;object-fit:cover;display:block;border:none;background:#000;" preload="auto">
+              <source src="assets/hypersense/proto.mp4" type="video/mp4">
+            </video>
+
+            <!-- centre controls -->
+            <div id="cs-proto-ctrl" style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;opacity:0;transition:opacity .25s;pointer-events:none;">
+              <div style="display:flex;align-items:center;justify-content:center;gap:28px;">
+
+                <!-- rewind 5s -->
+                <button id="cs-proto-rw" style="background:none;border:none;cursor:pointer;padding:0;width:56px;height:56px;display:flex;align-items:center;justify-content:center;">
+                  <svg width="56" height="56" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="12" r="12" transform="matrix(-1 0 0 1 24 0)" fill="#D9D9D9"/>
+                    <path d="M10.5 15.5L6 12L10.5 8.5V15.5Z" stroke="#1E1E1E" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M16 15.5L11.5 12L16 8.5V15.5Z" stroke="#1E1E1E" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </button>
+
+                <!-- play / pause -->
+                <button id="cs-proto-pp" style="background:none;border:none;cursor:pointer;padding:0;width:70px;height:70px;display:flex;align-items:center;justify-content:center;">
+                  <!-- pause icon (shown while playing) -->
+                  <svg id="cs-proto-pause-icon" width="70" height="70" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="12" r="12" fill="#D9D9D9"/>
+                    <rect x="7" y="7" width="3.2" height="10" rx="1.2" fill="#1D1B20"/>
+                    <rect x="13.8" y="7" width="3.2" height="10" rx="1.2" fill="#1D1B20"/>
+                  </svg>
+                  <!-- play icon (shown while paused) -->
+                  <svg id="cs-proto-play-icon" width="70" height="70" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:none;">
+                    <circle cx="12" cy="12" r="12" fill="#D9D9D9"/>
+                    <path d="M10.2039 16.8553C9.53814 17.2789 8.66699 16.8007 8.66699 16.0116V7.9883C8.66699 7.19921 9.53814 6.72099 10.2039 7.14464L16.5079 11.1563C17.1254 11.5493 17.1254 12.4507 16.5079 12.8436L10.2039 16.8553Z" fill="#1D1B20"/>
+                  </svg>
+                </button>
+
+                <!-- forward 5s -->
+                <button id="cs-proto-fw" style="background:none;border:none;cursor:pointer;padding:0;width:56px;height:56px;display:flex;align-items:center;justify-content:center;">
+                  <svg width="56" height="56" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="12" r="12" fill="#D9D9D9"/>
+                    <path d="M13.5 15.5L18 12L13.5 8.5V15.5Z" stroke="#1E1E1E" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M8 15.5L12.5 12L8 8.5V15.5Z" stroke="#1E1E1E" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </button>
+
+              </div>
+            </div>
+
+            <!-- progress bar — always at bottom -->
+            <div id="cs-proto-prog-wrap" style="position:absolute;bottom:0;left:0;right:0;padding:52px 0 16px;background:linear-gradient(to top,rgba(0,0,0,.72) 0%,rgba(0,0,0,.3) 55%,transparent 100%);opacity:0;transition:opacity .25s;pointer-events:none;">
+              <div id="cs-proto-prog-track" style="margin:0 20px;height:4px;background:rgba(255,255,255,.28);border-radius:4px;cursor:pointer;position:relative;">
+                <div id="cs-proto-prog-fill" style="height:100%;width:0%;background:#c9952a;border-radius:4px;pointer-events:none;transition:width .1s linear;"></div>
+                <div id="cs-proto-prog-thumb" style="position:absolute;top:50%;right:auto;width:10px;height:10px;border-radius:50%;background:#c9952a;transform:translate(-50%,-50%);left:0%;pointer-events:none;box-shadow:0 0 6px rgba(201,149,42,.6);"></div>
+              </div>
+            </div>
+
+            <script>
+            (function(){
+              var vid=document.getElementById('cs-proto-vid');
+              var ctrl=document.getElementById('cs-proto-ctrl');
+              var progWrap=document.getElementById('cs-proto-prog-wrap');
+              var wrap=document.getElementById('cs-proto-wrap');
+              var fill=document.getElementById('cs-proto-prog-fill');
+              var thumb=document.getElementById('cs-proto-prog-thumb');
+              var track=document.getElementById('cs-proto-prog-track');
+              var ppBtn=document.getElementById('cs-proto-pp');
+              var pauseIcon=document.getElementById('cs-proto-pause-icon');
+              var playIcon=document.getElementById('cs-proto-play-icon');
+              var hideTimer;
+
+              vid.play().catch(function(){});
+
+              function showCtrl(){
+                ctrl.style.opacity='1'; ctrl.style.pointerEvents='auto';
+                progWrap.style.opacity='1'; progWrap.style.pointerEvents='auto';
+                clearTimeout(hideTimer);
+                hideTimer=setTimeout(function(){
+                  if(!vid.paused){
+                    ctrl.style.opacity='0'; ctrl.style.pointerEvents='none';
+                    progWrap.style.opacity='0'; progWrap.style.pointerEvents='none';
+                  }
+                },2500);
+              }
+
+              // Use cs-mb-wrap (tight 900px MacBook container) as hover zone so
+              // bottom bezel SVG paths also trigger controls, without activating
+              // outside the mockup bounds
+              var mbWrap = document.querySelector('#cs-mb-scene .cs-mb-wrap');
+              var hoverTarget = mbWrap || wrap;
+
+              hoverTarget.addEventListener('mousemove', showCtrl);
+              hoverTarget.addEventListener('mouseenter', showCtrl);
+              hoverTarget.addEventListener('mouseleave', function(){
+                clearTimeout(hideTimer);
+                ctrl.style.opacity='0'; ctrl.style.pointerEvents='none';
+                progWrap.style.opacity='0'; progWrap.style.pointerEvents='none';
+              });
+
+              // Keep controls visible while paused
+              vid.addEventListener('pause', function(){
+                clearTimeout(hideTimer);
+                ctrl.style.opacity='1'; ctrl.style.pointerEvents='auto';
+                progWrap.style.opacity='1'; progWrap.style.pointerEvents='auto';
+                pauseIcon.style.display='none'; playIcon.style.display='';
+              });
+              vid.addEventListener('play', function(){
+                pauseIcon.style.display=''; playIcon.style.display='none';
+              });
+
+              // Click anywhere on the video screen to toggle play/pause
+              wrap.addEventListener('click', function(e){
+                // Don't fire if the click was on a control button or progress bar
+                if(e.target.closest('#cs-proto-ctrl,#cs-proto-prog-wrap')) return;
+                if(vid.paused){ vid.play(); } else { vid.pause(); }
+              });
+
+              ppBtn.addEventListener('click', function(e){
+                e.stopPropagation();
+                if(vid.paused){ vid.play(); } else { vid.pause(); }
+              });
+
+              document.getElementById('cs-proto-rw').addEventListener('click',function(){
+                vid.currentTime=Math.max(0,vid.currentTime-5);
+              });
+              document.getElementById('cs-proto-fw').addEventListener('click',function(){
+                vid.currentTime=Math.min(vid.duration||Infinity,vid.currentTime+5);
+              });
+
+              // Progress + thumb
+              vid.addEventListener('timeupdate',function(){
+                if(!vid.duration) return;
+                var pct=vid.currentTime/vid.duration*100;
+                fill.style.width=pct+'%';
+                thumb.style.left=pct+'%';
+              });
+              track.addEventListener('click',function(e){
+                var rect=track.getBoundingClientRect();
+                var pct=Math.max(0,Math.min(1,(e.clientX-rect.left)/rect.width));
+                if(vid.duration) vid.currentTime=pct*vid.duration;
+              });
+            })();
+            </script>
+
+          </div>
+        </foreignObject>
+        <!-- Notch pill -->
+        <path d="M667 20.5C667 18 670 18 671.5 18H544.5C546 18 549 18 549 20.5V30C549 34.4183 552.582 38 557 38H659C663.418 38 667 34.4183 667 30V20.5Z" fill="black"/>
+        <!-- Camera -->
+        <circle cx="608" cy="24.0907" r="3.77901" fill="#0F0F0F" stroke="#151515" stroke-width="0.260621"/>
+        <circle cx="607.609" cy="25.0029" r="0.912175" fill="#16181E"/>
+        <circle cx="607.609" cy="23.6998" r="0.912175" fill="#0A0B0D"/>
+        <circle opacity="0.6" cx="608" cy="24.0907" r="1.30311" fill="#1F2531"/>
+      </svg>
     </div>
   </div>
 
