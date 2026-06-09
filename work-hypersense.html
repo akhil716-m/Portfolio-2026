@@ -396,9 +396,21 @@ a.cs-cta { margin-top: 28px; }
 
 /* ---------- RAW DOCUMENTS BENTO ---------- */
 .cs-docs {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center;
+  display: block;
   margin: 50px 0; padding: 36px; background: var(--bg-card); border: 1px solid var(--line); border-radius: 10px;
 }
+.cs-docs-header { margin-bottom: 28px; }
+.cs-docs-body { display: grid; grid-template-columns: 1fr 1.4fr; gap: 40px; align-items: start; }
+.cs-docs-trio { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.cs-doc-frame {
+  aspect-ratio: 3 / 4; overflow: hidden;
+  border-radius: 5px;
+  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: 0 10px 32px rgba(0,0,0,0.45);
+}
+.cs-doc-frame img { width: 100%; height: 100%; display: block; object-fit: cover; object-position: top center; }
+.cs-docs-trio .cs-doc-frame:nth-child(2) img,
+.cs-docs-trio .cs-doc-frame:nth-child(3) img { object-position: top left; }
 .cs-docs-tag { font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 16px; }
 .cs-docs-title { font-family: 'Playfair Display', serif; font-size: clamp(20px, 2.6vw, 27px); font-weight: 400; line-height: 1.32; color: var(--text); margin: 0 0 18px; }
 .cs-docs-title em { font-style: italic; font-family: 'Instrument Serif', serif; font-weight: 400; color: var(--warm); }
@@ -958,17 +970,23 @@ a.cs-cta { margin-top: 28px; }
 
   <!-- THE RAW DOCUMENTS -->
   <div class="cs-docs reveal">
-    <div class="cs-docs-text">
+    <div class="cs-docs-header">
       <div class="cs-docs-tag">The raw documents</div>
       <h3 class="cs-docs-title">Every month, a different set of documents.<br><em>No common format. No shared language.</em></h3>
-      <p>The exact reports vary by processor and pricing model, but the challenge is always the same: each source explains only part of the cost story.</p>
-      <p>Teams manually reconcile invoices, settlement files, and network rate tables to understand what they were charged and why.</p>
     </div>
-    <div>
-      <div class="cs-docs-shot">
-        <img src="assets/hypersense/raw-documents.jpg" alt="Real merchant fee documents — IC++ billing statement, card scheme report, and blended billing statement, each arriving in its own format" loading="lazy" />
+    <div class="cs-docs-body">
+      <div class="cs-docs-text">
+        <p>The exact reports vary by processor and pricing model, but the challenge is always the same: each source explains only part of the cost story.</p>
+        <p>Teams manually reconcile invoices, settlement files, and network rate tables to understand what they were charged and why.</p>
       </div>
-      <div class="cs-docs-shot-cap">IC++ statement · scheme report · blended statement — three formats, one cost story</div>
+      <div>
+        <div class="cs-docs-trio">
+          <div class="cs-doc-frame"><img src="assets/hypersense/doc-statement.png" alt="IC++ merchant billing statement — 200+ fee line items per billing cycle" loading="lazy" /></div>
+          <div class="cs-doc-frame"><img src="assets/hypersense/doc-scheme.png" alt="Card scheme rate table — dozens of fee categories across card programs and regions" loading="lazy" /></div>
+          <div class="cs-doc-frame"><img src="assets/hypersense/doc-invoice.png" alt="Blended-rate billing statement — one total fee, no line-item breakdown" loading="lazy" /></div>
+        </div>
+        <div class="cs-docs-shot-cap">IC++ statement · scheme report · blended statement — three formats, one cost story</div>
+      </div>
     </div>
   </div>
 
