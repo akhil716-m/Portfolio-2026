@@ -707,8 +707,8 @@ a.cs-cta { margin-top: 28px; }
 .cs-tl-text strong { color: var(--text); font-weight: 500; }
 
 /* ---------- PROTOTYPE — MACBOOK MOCKUP ---------- */
-.cs-mb-scene { padding: 48px 0 8px; display: flex; justify-content: center; }
-.cs-mb-wrap { width: 900px; max-width: 92vw; }
+.cs-mb-scene { padding: 0 0 8px; display: flex; justify-content: center; width: 100vw; margin-left: calc(50% - 50vw); }
+.cs-mb-wrap { width: 1050px; max-width: 96vw; }
 .cs-mb-wrap svg { width: 100%; height: auto; display: block; }
 .cs-mbpro-screen { width: 100%; height: 100%; background: #000; position: relative; overflow: hidden; display: block; }
 @media (max-width: 640px) { .cs-mb-wrap { width: 100%; } }
@@ -1282,9 +1282,6 @@ a.cs-cta { margin-top: 28px; }
     <li>What is driving those costs?</li>
     <li>Where should I investigate next?</li>
   </ul>
-  <div class="cs-ui-tag reveal">Multiple Processors · IC++ only — granular fee category breakdown per processor</div>
-  <p class="cs-p reveal">Regardless of how a merchant's payment stack was structured, the experience adapted to their data reality while preserving the same mental model.</p>
-
   <div class="cs-ov reveal">
     <div class="cs-ov-frame">
       <div class="cs-shot-bar">
@@ -1349,6 +1346,8 @@ a.cs-cta { margin-top: 28px; }
     });
   })();
   </script>
+
+  <p class="cs-p reveal">Regardless of how a merchant's payment stack was structured, the experience adapted to their data reality while preserving the same mental model.</p>
 
   <h2 class="cs-display reveal" style="margin-top: 80px;">Drill-Down — <em>How is cost distributed across my business?</em></h2>
   <p class="cs-lead reveal">The Overview answered what the cost story looks like at a glance. Drill-Down answered the next question analysts naturally ask.</p>
@@ -1514,7 +1513,11 @@ a.cs-cta { margin-top: 28px; }
   </div>
 
   <!-- PROTOTYPE — LIVE WALKTHROUGH (MacBook Pro 14 inline-SVG mockup) -->
-  <div class="cs-mb-scene reveal" id="cs-mb-scene">
+  <hr style="border:none; border-top:1px solid var(--line); margin: 64px 0 40px;" />
+  <div class="cs-proto-intro reveal" style="text-align: center; margin-bottom: 24px;">
+    <div style="font-family:'Geist Mono',monospace; font-size:10px; letter-spacing:0.18em; text-transform:uppercase; color:var(--text-muted);">HyperSense — Full product prototype</div>
+  </div>
+  <div class="cs-mb-scene reveal" id="cs-mb-scene" style="padding-top: 0;">
     <div class="cs-mb-wrap">
       <svg viewBox="0 0 1216 735" fill="none" xmlns="http://www.w3.org/2000/svg">
         <defs>
