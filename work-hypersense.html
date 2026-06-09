@@ -502,12 +502,13 @@ a.cs-cta { margin-top: 28px; }
 .cs-sim-dg.is-revealed { display: block; }
 .cs-sim-dg strong { color: var(--error); font-weight: 500; }
 .cs-sim-callout {
-  margin-top: 18px; padding: 18px 20px; border-radius: 0 8px 8px 0;
+  padding: 18px 20px; border-radius: 0 8px 8px 0;
   background: rgba(212,255,94,0.05); border-left: 2px solid rgba(212,255,94,0.35);
   font-family: 'Geist', sans-serif; font-size: 13px; line-height: 1.75; color: var(--text-soft);
-  opacity: 0; transform: translateY(8px); transition: opacity 0.5s ease, transform 0.5s ease;
+  opacity: 0; max-height: 0; overflow: hidden; margin-top: 0;
+  transition: opacity 0.5s ease, max-height 0.5s ease, margin-top 0.3s ease;
 }
-.cs-sim-callout.is-visible { opacity: 1; transform: translateY(0); }
+.cs-sim-callout.is-visible { opacity: 1; max-height: 200px; margin-top: 18px; }
 .cs-sim-callout strong { color: var(--error); font-weight: 500; }
 .cs-sim-final {
   position: relative;
