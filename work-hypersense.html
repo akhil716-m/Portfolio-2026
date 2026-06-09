@@ -660,8 +660,25 @@ a.cs-cta { margin-top: 28px; }
 }
 .cs-scenarios { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border-radius: 10px; overflow: hidden; margin: 24px 0 8px; }
 .cs-scenario { padding: 26px 24px; background: var(--bg-card); }
-.cs-scenario-shot { margin: 0 0 18px; border-radius: 6px; overflow: hidden; border: 1px solid var(--line); max-height: 132px; }
-.cs-scenario-shot img { width: 100%; display: block; }
+.cs-scenario-shot { position: relative; margin: 0 0 18px; border-radius: 6px; overflow: hidden; border: 1px solid var(--line); max-height: 132px; cursor: pointer; }
+.cs-scenario-shot img { width: 100%; display: block; transition: transform 0.35s cubic-bezier(.22,.8,.25,1); }
+.cs-scenario-shot::after { content: ''; position: absolute; inset: 0; background: rgba(0,0,0,0); transition: background 0.25s ease; }
+.cs-scenario-shot:hover img { transform: scale(1.04); }
+.cs-scenario-shot:hover::after { background: rgba(0,0,0,0.2); }
+
+/* Scenario lightbox */
+.cs-scn-modal { position: fixed; inset: 0; z-index: 2000; display: flex; align-items: center; justify-content: center; padding: 24px; background: rgba(0,0,0,0.82); backdrop-filter: blur(10px); opacity: 0; pointer-events: none; transition: opacity 0.25s ease; }
+.cs-scn-modal.is-open { opacity: 1; pointer-events: all; }
+.cs-scn-modal-box { width: min(640px, 100%); background: var(--bg-card); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; transform: translateY(16px) scale(0.98); transition: transform 0.32s cubic-bezier(.22,.8,.25,1); }
+.cs-scn-modal.is-open .cs-scn-modal-box { transform: translateY(0) scale(1); }
+.cs-scn-modal-img { height: 400px; overflow-y: auto; border-bottom: 1px solid var(--line); scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.12) transparent; }
+.cs-scn-modal-img img { width: 100%; display: block; }
+.cs-scn-modal-body { padding: 24px 28px 28px; position: relative; }
+.cs-scn-modal-tag { font-family: 'Geist Mono', monospace; font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--warm); margin-bottom: 10px; }
+.cs-scn-modal-title { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 500; color: var(--text); margin-bottom: 10px; }
+.cs-scn-modal-desc { font-family: 'Geist', sans-serif; font-size: 13.5px; font-weight: 300; line-height: 1.7; color: var(--text-soft); margin: 0; }
+.cs-scn-modal-close { display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; margin: 0 auto 12px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.14); border-radius: 50%; cursor: pointer; color: var(--text-muted); font-size: 13px; transition: background 0.2s ease; flex-shrink: 0; }
+.cs-scn-modal-close:hover { background: rgba(255,255,255,0.16); }
 .cs-scenario-tag { font-family: 'Geist Mono', monospace; font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--warm); margin-bottom: 10px; }
 .cs-scenario-title { font-family: 'Playfair Display', serif; font-size: 19px; font-weight: 500; color: var(--text); margin-bottom: 10px; }
 .cs-scenario p { font-family: 'Geist', sans-serif; font-size: 12.5px; font-weight: 300; line-height: 1.7; color: var(--text-soft); margin: 0; }
@@ -1398,22 +1415,22 @@ a.cs-cta { margin-top: 28px; }
     <div class="cs-shot-cap">Fee Spikes — <em>from a detected anomaly to a plain-language root cause, without spreadsheets</em></div>
   </div>
 
-  <h3 class="cs-h3 reveal">Three scenarios. Three distinct cost stories.</h3>
+  <h3 class="cs-h3 reveal" style="margin-top: 40px;">Three scenarios. Three distinct cost stories.</h3>
   <div class="cs-scenarios reveal">
     <div class="cs-scenario">
-      <div class="cs-scenario-shot"><img src="assets/hypersense/scn-quarterly-shock.jpg" alt="Fee Spikes — Quarterly Shock scenario showing downgrade and penalty cost trace" loading="lazy" /></div>
+      <div class="cs-scenario-shot"><img src="assets/hypersense/scn-quarterly-shock.png" alt="Fee Spikes — Quarterly Shock scenario showing downgrade and penalty cost trace" loading="lazy" /></div>
       <div class="cs-scenario-tag">Downgrades &amp; Penalties</div>
       <div class="cs-scenario-title">Quarterly Shock</div>
       <p>2,847 transactions were downgraded to EIRF, creating $1,847 in avoidable cost over three consecutive months.</p>
     </div>
     <div class="cs-scenario">
-      <div class="cs-scenario-shot"><img src="assets/hypersense/scn-false-alarm.jpg" alt="Fee Spikes — False Alarm scenario showing cost growth explained by organic sales growth" loading="lazy" /></div>
+      <div class="cs-scenario-shot"><img src="assets/hypersense/scn-false-alarm.png" alt="Fee Spikes — False Alarm scenario showing cost growth explained by organic sales growth" loading="lazy" /></div>
       <div class="cs-scenario-tag">Organic Growth</div>
       <div class="cs-scenario-title">False Alarm</div>
       <p>Costs rose 65% while sales grew 60% — the increase was largely explained by healthy business growth.</p>
     </div>
     <div class="cs-scenario">
-      <div class="cs-scenario-shot"><img src="assets/hypersense/scn-tier-jump.jpg" alt="Fee Spikes — Tier Jump scenario showing a non-transactional fee crossing a volume threshold" loading="lazy" /></div>
+      <div class="cs-scenario-shot"><img src="assets/hypersense/scn-tier-jump.png" alt="Fee Spikes — Tier Jump scenario showing a non-transactional fee crossing a volume threshold" loading="lazy" /></div>
       <div class="cs-scenario-tag">Non-Transactional Fees</div>
       <div class="cs-scenario-title">Tier Jump</div>
       <p>CNP volume crossed Visa's Tier 3 threshold, increasing <span class="cs-gloss" tabindex="0" data-gloss="fanf">FANF</span> from $1,200 to $4,800 for the month.</p>
@@ -1494,73 +1511,6 @@ a.cs-cta { margin-top: 28px; }
       </div>
     </div>
     <div class="cs-shot-cap">Forecast — <em>dense network bulletins, translated into a merchant-specific cost forecast</em></div>
-  </div>
-
-  <!-- PRODUCT ITERATIONS -->
-  <div class="cs-vis reveal" style="margin-top: 64px;">
-    <div class="cs-vis-label">Product iterations — how it evolved to earn trust, one step at a time</div>
-    <div class="cs-vis-body">
-      <div class="cs-iter">
-        <div class="cs-iter-step">
-          <div class="cs-iter-tag">V0 — Experiment</div>
-          <div class="cs-iter-title">Manual cost report</div>
-          <div class="cs-iter-sub">cost_report.xlsx</div>
-          <div class="cs-iter-goal">Goal: get first merchant to share fee data</div>
-        </div>
-        <div class="cs-iter-step">
-          <div class="cs-iter-tag">V1 — MVP</div>
-          <div class="cs-iter-title">Observe + Audit</div>
-          <div class="cs-iter-sub">v1 dashboard</div>
-          <div class="cs-iter-goal">Goal: enterprise demos</div>
-        </div>
-        <div class="cs-iter-step">
-          <div class="cs-iter-tag">V2 — Pilot</div>
-          <div class="cs-iter-title">Full platform + AI</div>
-          <div class="cs-iter-sub">v2 platform</div>
-          <div class="cs-iter-goal">Goal: pilot with live data</div>
-        </div>
-        <div class="cs-iter-step cs-iter-step--active">
-          <div class="cs-iter-tag">Active — Now</div>
-          <div class="cs-iter-title">Optimisation + scale</div>
-          <div class="cs-iter-sub">current</div>
-          <div class="cs-iter-goal">Goal: PSP + acquirer partnerships</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 5-MONTH MILESTONE TIMELINE -->
-  <div class="cs-vis reveal">
-    <div class="cs-vis-label">From first wireframe to Apple and Spotify — 5 months</div>
-    <div class="cs-vis-body">
-      <div class="cs-timeline">
-        <div class="cs-tl-item">
-          <div class="cs-tl-dot cs-tl-dot--active"></div>
-          <div class="cs-tl-month">Week 1</div>
-          <div class="cs-tl-text"><strong>Product direction set.</strong> First wireframes for a cost observability layer. IC++ billing defined as the core domain. Team of seven, no design headcount yet.</div>
-        </div>
-        <div class="cs-tl-item">
-          <div class="cs-tl-dot"></div>
-          <div class="cs-tl-month">Month 2</div>
-          <div class="cs-tl-text"><strong>MVP built.</strong> Observe + Audit flows live. First internal demo. Data ingestion pipeline proven against real fee invoices.</div>
-        </div>
-        <div class="cs-tl-item">
-          <div class="cs-tl-dot"></div>
-          <div class="cs-tl-month">Month 3</div>
-          <div class="cs-tl-text"><strong>First merchant shares data.</strong> The hardest milestone in a compliance-heavy domain. One merchant trusts the platform enough to connect live transaction feeds.</div>
-        </div>
-        <div class="cs-tl-item">
-          <div class="cs-tl-dot"></div>
-          <div class="cs-tl-month">Month 4</div>
-          <div class="cs-tl-text"><strong>Enterprise demos begin.</strong> Wayfair, Apple, Google, Spotify. Strong interest across the board. Compliance and data-trust gap blocking conversion.</div>
-        </div>
-        <div class="cs-tl-item">
-          <div class="cs-tl-dot"></div>
-          <div class="cs-tl-month">Month 5</div>
-          <div class="cs-tl-text"><strong>Apple progresses to live data testing.</strong> Spotify pitch deck delivered to payments team. Highest trust threshold reached. Pipeline to acquirers and PSPs opens.</div>
-        </div>
-      </div>
-    </div>
   </div>
 
   <!-- PROTOTYPE — LIVE WALKTHROUGH (MacBook Pro 14 inline-SVG mockup) -->
@@ -2628,6 +2578,52 @@ document.querySelectorAll('nav .links a').forEach(a => { if (a.getAttribute('hre
 
 console.log('%cHi.','font-family:"Instrument Serif",serif;font-size:32px;font-style:italic;color:#d4ff5e;');
 console.log('%cYou found the HyperSense rebuild — full case study, sections 01–09. → hello@akhilmale.com','font-family:monospace;font-size:12px;color:#8a8a8a;');
+</script>
+
+<div class="cs-scn-modal" id="cs-scn-modal" role="dialog" aria-modal="true">
+  <div style="display:flex;flex-direction:column;align-items:center;width:min(640px,100%);">
+    <button class="cs-scn-modal-close" id="cs-scn-modal-close" aria-label="Close">✕</button>
+    <div class="cs-scn-modal-box" style="width:100%;">
+      <div class="cs-scn-modal-img" id="cs-scn-modal-imgwrap">
+        <img id="cs-scn-modal-img" src="" alt="" />
+      </div>
+      <div class="cs-scn-modal-body">
+        <div class="cs-scn-modal-tag"   id="cs-scn-modal-tag"></div>
+        <div class="cs-scn-modal-title" id="cs-scn-modal-title"></div>
+        <p   class="cs-scn-modal-desc"  id="cs-scn-modal-desc"></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Scenario lightbox
+(function() {
+  const modal    = document.getElementById('cs-scn-modal');
+  const mImg     = document.getElementById('cs-scn-modal-img');
+  const mTag     = document.getElementById('cs-scn-modal-tag');
+  const mTitle   = document.getElementById('cs-scn-modal-title');
+  const mDesc    = document.getElementById('cs-scn-modal-desc');
+  const mImgWrap = document.getElementById('cs-scn-modal-imgwrap');
+
+  document.querySelectorAll('.cs-scenario-shot').forEach(shot => {
+    shot.addEventListener('click', () => {
+      const card = shot.closest('.cs-scenario');
+      const img  = shot.querySelector('img');
+      mImg.src = img.src; mImg.alt = img.alt;
+      mTag.textContent   = card.querySelector('.cs-scenario-tag').textContent;
+      mTitle.textContent = card.querySelector('.cs-scenario-title').textContent;
+      mDesc.textContent  = card.querySelector('p').textContent;
+      mImgWrap.scrollTop = 0;
+      modal.classList.add('is-open');
+    });
+  });
+
+  function closeModal() { modal.classList.remove('is-open'); }
+  document.getElementById('cs-scn-modal-close').addEventListener('click', closeModal);
+  modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+})();
 </script>
 </body>
 </html>
