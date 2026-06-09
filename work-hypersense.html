@@ -9,6 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 <style>
+:root { --error: #e06060; }
 /* ============================================================
    CASE STUDY — HYPERSENSE
    Re-themed translation of the external case-study microsite
@@ -191,7 +192,13 @@
 .cs-tip-def { color: var(--text-soft); }
 
 /* ---------- VIS BLOCK (diagram container) ---------- */
-.cs-vis { margin: 50px 0; background: var(--bg-card); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+.cs-vis { position: relative; z-index: 501; margin: 50px 0; background: var(--bg-card); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+/* Re-add grain texture to the outer container only — inner cards sit above this layer */
+.cs-vis::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none; z-index: -1; border-radius: inherit;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.06 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.6;
+}
 .cs-vis-label {
   padding: 16px 24px; border-bottom: 1px solid var(--line);
   font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted);
@@ -408,14 +415,18 @@ a.cs-cta { margin-top: 28px; }
 }
 
 /* ---------- IC++ FEE SIMULATOR ---------- */
-.cs-sim-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 28px; padding-bottom: 28px; border-bottom: 1px solid var(--line); }
-.cs-sim-amt-block { display: flex; flex-direction: column; gap: 8px; }
+.cs-sim-strip { display: flex; flex-wrap: wrap; gap: 40px; margin-top: 28px; padding-top: 28px; border-top: 1px solid var(--line); }
+.cs-sim-amt-block { display: flex; flex-direction: column; gap: 8px; flex: 1; }
 .cs-sim-amt-block label { font-family: 'Geist Mono', monospace; font-size: 9.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-muted); }
 .cs-sim-amt { font-family: 'Geist Mono', monospace; font-size: clamp(20px, 2.6vw, 26px); font-weight: 500; color: var(--text); }
 .cs-sim-amt--neg { color: var(--warm); }
 .cs-sim-amt--pos { color: var(--accent); }
 
-.cs-sim-switch { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px; }
+/* Small uppercase hint that crowns the card-type switcher — the very first
+   thing the eye should land on, per the new top-to-bottom hierarchy. */
+.cs-sim-hint { font-family: 'Geist Mono', monospace; font-size: 9.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 10px; }
+
+.cs-sim-switch { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 38px; }
 .cs-sim-switch button {
   font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.04em; padding: 9px 16px; border-radius: 100px;
   background: transparent; border: 1px solid var(--line); color: var(--text-soft); cursor: pointer;
@@ -424,23 +435,52 @@ a.cs-cta { margin-top: 28px; }
 .cs-sim-switch button:hover { color: var(--text); border-color: var(--text-muted); }
 .cs-sim-switch button.on { color: var(--bg); background: var(--accent); border-color: var(--accent); }
 
+/* Source node — "Customer pays $1,000.00" sits right where the transaction
+   actually originates, with the (compact) CTA anchored beside it. This is
+   also where the rail's glow now lifts off from — see .cs-sim-rail below.
+   Deliberately NOT styled as a card like the stages below it: it's a beat of
+   its own (shorter, open, just a baseline rule) so the eye reads it as the
+   "before" moment rather than another step in the same sequence. */
+.cs-sim-source {
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;
+  padding-bottom: 20px; margin-bottom: 30px; border-bottom: 1px solid var(--line);
+}
+.cs-sim-source-cap { font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 7px; }
+.cs-sim-source-amt { font-family: 'Geist Mono', monospace; font-size: clamp(19px, 2.4vw, 23px); font-weight: 500; color: var(--text); letter-spacing: 0.01em; }
+
 .cs-sim-stages { display: flex; flex-direction: column; gap: 0; }
 .cs-sim-stage {
+  position: relative;
   display: grid; grid-template-columns: 1fr auto; gap: 16px; align-items: flex-start;
   padding: 20px 22px; border-radius: 8px; border: 1px solid var(--line);
-  background: var(--bg-soft); margin-bottom: 14px;
-  opacity: 0.4; transform: translateX(-6px);
-  transition: opacity 0.45s ease, transform 0.45s ease, border-color 0.3s ease;
+  background: var(--bg-soft); margin-bottom: 14px; z-index: 501;
+  opacity: 0.6; transform: translateX(-6px) translateY(0); box-shadow: none;
+  transition: opacity 0.45s ease, transform 0.45s cubic-bezier(.22,.8,.25,1), border-color 0.4s ease, box-shadow 0.4s ease;
 }
-.cs-sim-stage.is-active { opacity: 1; transform: translateX(0); }
-.cs-sim-stage-entity { font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 6px; }
+/* A small stub — like a hyphen — bridges the dotted rail in the gutter to the
+   top of each card it passes, so the flow reads as one connected chain rather
+   than a line running past a stack of separate boxes. */
+.cs-sim-stage::before, .cs-sim-final::before {
+  /* Same reasoning as the rail itself — a background dash instead of a
+     border-style dotted line, so the gap between marks can be opened up
+     to roughly match the rail's own rhythm. */
+  content: ''; position: absolute; left: -22px; top: 27px; width: 22px; height: 1px;
+  background-image: repeating-linear-gradient(to right, rgba(255,255,255,0.2) 0 2px, transparent 2px 6px);
+  pointer-events: none;
+}
+.cs-sim-stage.is-active {
+  opacity: 1; transform: translateX(0);
+  border-color: rgba(212,255,94,0.2);
+}
+.cs-sim-stage-entity { font-family: 'Geist Mono', monospace; font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 6px; }
 .cs-sim-stage-name { font-family: 'Geist', sans-serif; font-size: 15px; font-weight: 500; color: var(--text); margin-bottom: 6px; }
 .cs-sim-stage-role { font-family: 'Geist', sans-serif; font-size: 12.5px; font-weight: 300; line-height: 1.65; color: var(--text-soft); max-width: 52ch; }
 .cs-sim-stage-amt { font-family: 'Geist Mono', monospace; font-size: 19px; font-weight: 500; text-align: right; white-space: nowrap; }
 .cs-sim-stage-fees { grid-column: 1 / -1; margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--line); display: flex; flex-direction: column; gap: 8px; }
-.cs-sim-fee-row { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; font-family: 'Geist', sans-serif; font-size: 12.5px; color: var(--text-soft); }
-.cs-sim-fee-row .fr-rate { font-family: 'Geist Mono', monospace; font-size: 11px; color: var(--text-muted); }
-.cs-sim-fee-row .fr-amt { font-family: 'Geist Mono', monospace; font-size: 12px; }
+.cs-sim-fee-row { display: flex; align-items: baseline; gap: 12px; font-family: 'Geist', sans-serif; font-size: 12.5px; color: var(--text-soft); }
+.cs-sim-fee-row .fr-name { flex: 1 1 0; min-width: 0; }
+.cs-sim-fee-row .fr-rate { flex: 0 0 auto; white-space: nowrap; text-align: right; font-family: 'Geist Mono', monospace; font-size: 11px; color: var(--text-muted); }
+.cs-sim-fee-row .fr-amt { flex: 0 0 60px; text-align: right; font-family: 'Geist Mono', monospace; font-size: 12px; }
 .cs-sim-dg {
   grid-column: 1 / -1; margin-top: 14px; padding: 14px 16px; border-radius: 0 6px 6px 0;
   background: rgba(232,197,152,0.05); border-left: 2px solid rgba(232,197,152,0.35);
@@ -448,7 +488,7 @@ a.cs-cta { margin-top: 28px; }
   display: none;
 }
 .cs-sim-dg.is-revealed { display: block; }
-.cs-sim-dg strong { color: var(--warm); font-weight: 500; }
+.cs-sim-dg strong { color: var(--error); font-weight: 500; }
 .cs-sim-callout {
   margin-top: 18px; padding: 18px 20px; border-radius: 0 8px 8px 0;
   background: rgba(212,255,94,0.05); border-left: 2px solid rgba(212,255,94,0.35);
@@ -456,28 +496,77 @@ a.cs-cta { margin-top: 28px; }
   opacity: 0; transform: translateY(8px); transition: opacity 0.5s ease, transform 0.5s ease;
 }
 .cs-sim-callout.is-visible { opacity: 1; transform: translateY(0); }
-.cs-sim-callout strong { color: var(--accent); font-weight: 500; }
+.cs-sim-callout strong { color: var(--error); font-weight: 500; }
 .cs-sim-final {
+  position: relative;
   display: flex; align-items: center; justify-content: space-between; gap: 16px;
   padding: 20px 22px; border-radius: 8px; border: 1px solid rgba(212,255,94,0.25);
-  background: rgba(212,255,94,0.04); margin-top: 4px;
-  opacity: 0.4; transform: translateX(-6px); transition: opacity 0.45s ease, transform 0.45s ease;
+  background: rgba(212,255,94,0.04); margin-top: 4px; z-index: 501;
+  opacity: 0.6; transform: translateX(-6px); transition: opacity 0.45s ease, transform 0.45s ease;
 }
 .cs-sim-final.is-active { opacity: 1; transform: translateX(0); }
 .cs-sim-final-label { font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); }
 .cs-sim-final-amt { font-family: 'Geist Mono', monospace; font-size: 22px; font-weight: 500; color: var(--accent); }
 
 .cs-sim-btn {
-  display: inline-flex; align-items: center; gap: 10px; margin-top: 22px;
-  font-family: 'Geist Mono', monospace; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase;
-  color: var(--bg); background: var(--accent); border: none; border-radius: 100px; padding: 14px 28px; cursor: pointer;
+  display: inline-flex; align-items: center; gap: 7px; margin: 0; flex-shrink: 0;
+  font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--bg); background: var(--accent); border: none; border-radius: 100px; padding: 9px 18px; cursor: pointer;
+  position: relative; z-index: 2;
   transition: gap 0.2s ease, opacity 0.2s ease, transform 0.15s ease;
 }
-.cs-sim-btn:hover { gap: 14px; }
+.cs-sim-btn:hover { gap: 11px; }
 .cs-sim-btn:active { transform: scale(0.97); }
 .cs-sim-btn:disabled { opacity: 0.4; cursor: default; }
-.cs-sim-btn .play { display: inline-block; width: 0; height: 0; border-top: 5px solid transparent; border-bottom: 5px solid transparent; border-left: 8px solid var(--bg); }
+.cs-sim-btn .play { display: inline-block; width: 0; height: 0; border-top: 3.5px solid transparent; border-bottom: 3.5px solid transparent; border-left: 6px solid var(--bg); }
 .cs-sim-btn.is-hidden { display: none; }
+/* Once the transaction launches, the CTA's job is done — it dissolves away and the glow takes over */
+.cs-sim-btn.is-dissolved { opacity: 0; transform: translateY(-6px) scale(0.94); pointer-events: none; transition-duration: 0.5s; }
+
+/* Transaction-flow rail — a muted dotted track, left-aligned, running from the
+   "Customer pays $1,000" source amount straight down through every stage to the
+   settlement row. A glowing pulse lifts off from that amount as the simulation
+   runs, and a lime trail lights up the rail behind it — so the whole path
+   "fills in" as the transaction passes through, start to end. */
+.cs-sim-flow { position: relative; padding-left: 32px; }
+.cs-sim-rail {
+  /* A border-style dotted line can't have its gap tuned, so the track is drawn
+     as a repeating dash instead — a short mark with an easy gap between, for a
+     relaxed (not too sparse, not too busy) rhythm down the gutter. Sized to
+     1.5px so the static track reads as a guide, not a bold stroke. */
+  position: absolute; left: 10px; width: 1.2px; height: 0;
+  background-image: repeating-linear-gradient(to bottom, rgba(255,255,255,0.16) 0 3px, transparent 3px 10px);
+  z-index: 1; pointer-events: none;
+}
+.cs-sim-rail-progress {
+  /* The "lit" trail — kept thin and a touch translucent so it glows without
+     overpowering the cards it runs beside. */
+  position: absolute; left: 10px; top: 0; width: 0; height: 0;
+  border-left: 1.2px solid rgba(212,255,94,0.75);
+  box-shadow: 0 0 11px -2px rgba(212,255,94,0.36);
+  opacity: 0;
+  transition: height 0.6s cubic-bezier(0.4,0,0.6,1), opacity 0.3s ease;
+  z-index: 2; pointer-events: none;
+}
+.cs-sim-rail-bubble {
+  /* Centred on the 1.2px stroke (left: 10px + 0.6px half-width = 10.6px):
+     margin-left shifts the 10px-wide circle so its own centre lands there. */
+  position: absolute; left: 10px; top: 0; width: 10px; height: 10px; margin-left: -4.4px; margin-top: -5px;
+  border-radius: 50%; background: var(--accent);
+  box-shadow: 0 0 0 5px rgba(212,255,94,0.14), 0 0 20px 2px rgba(212,255,94,0.55);
+  opacity: 0; transform: translateY(0px);
+  transition-property: transform, opacity, background, box-shadow;
+  /* A gentler, more symmetric ease — softens both the lift-off from one card
+     and the settle into the next, so the hand-off between stages feels like
+     one continuous glide rather than a stop-start snap. */
+  transition-timing-function: cubic-bezier(0.4,0,0.6,1), ease, ease, ease;
+  transition-duration: 0ms, 320ms, 300ms, 300ms;
+  z-index: 3; pointer-events: none;
+}
+.cs-sim-rail-bubble.is-idle {
+  background: rgba(255,255,255,0.22);
+  box-shadow: 0 0 0 5px rgba(255,255,255,0.05), 0 0 10px 2px rgba(255,255,255,0.08);
+}
 
 /* ---------- MARKET GLOBE ---------- */
 .cs-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; }
@@ -616,7 +705,7 @@ a.cs-cta { margin-top: 28px; }
   .cs-stats { grid-template-columns: 1fr; }
   .cs-stat + .cs-stat { border-left: none; border-top: 1px solid var(--line); }
   .cs-docs { grid-template-columns: 1fr; gap: 30px; padding: 26px; }
-  .cs-sim-strip { grid-template-columns: 1fr; gap: 16px; }
+  .cs-sim-strip { flex-direction: column; gap: 16px; }
   .cs-sim-stage { grid-template-columns: 1fr; }
   .cs-sim-stage-amt { text-align: left; }
   .cs-globe-wrap { width: 300px; }
@@ -887,14 +976,25 @@ a.cs-cta { margin-top: 28px; }
   <div class="cs-vis reveal">
     <div class="cs-vis-label">IC++ fee simulation — select a card type, then run the transaction</div>
     <div class="cs-vis-body">
+      <div class="cs-sim-hint">Card type</div>
+      <div class="cs-sim-switch" id="cs-sim-switch"></div>
+      <div class="cs-sim-flow" id="cs-sim-flow">
+        <div class="cs-sim-rail" id="cs-sim-rail" aria-hidden="true"></div>
+        <div class="cs-sim-rail-progress" id="cs-sim-rail-progress" aria-hidden="true"></div>
+        <div class="cs-sim-rail-bubble" id="cs-sim-bubble" aria-hidden="true"></div>
+        <div class="cs-sim-source">
+          <div class="cs-sim-source-info">
+            <div class="cs-sim-source-cap">Customer pays</div>
+            <div class="cs-sim-source-amt" id="cs-sim-source-amt">$1,000.00</div>
+          </div>
+          <button class="cs-sim-btn" id="cs-sim-btn"><span class="play"></span> Simulate transaction</button>
+        </div>
+        <div class="cs-sim-stages" id="cs-sim-stages"></div>
+      </div>
       <div class="cs-sim-strip">
-        <div class="cs-sim-amt-block"><label>Customer pays</label><span class="cs-sim-amt">$1,000.00</span></div>
         <div class="cs-sim-amt-block"><label>Total deducted</label><span class="cs-sim-amt cs-sim-amt--neg" id="cs-sim-ded">—</span></div>
         <div class="cs-sim-amt-block"><label>Merchant receives</label><span class="cs-sim-amt cs-sim-amt--pos" id="cs-sim-net">—</span></div>
       </div>
-      <div class="cs-sim-switch" id="cs-sim-switch"></div>
-      <div class="cs-sim-stages" id="cs-sim-stages"></div>
-      <button class="cs-sim-btn" id="cs-sim-btn"><span class="play"></span> Simulate transaction</button>
     </div>
   </div>
 
@@ -1929,7 +2029,66 @@ document.querySelectorAll('nav .links a').forEach(a => { if (a.getAttribute('hre
   const btn = document.getElementById('cs-sim-btn');
   const dedEl = document.getElementById('cs-sim-ded');
   const netEl = document.getElementById('cs-sim-net');
+  const flow = document.getElementById('cs-sim-flow');
+  const rail = document.getElementById('cs-sim-rail');
+  const progress = document.getElementById('cs-sim-rail-progress');
+  const bubble = document.getElementById('cs-sim-bubble');
   if (!sw || !stagesEl || !btn) return;
+
+  // The rail is anchored at the "Customer pays $1,000" source amount's vertical
+  // centre and spans down to the settlement row's centre — the glow lifts off
+  // from where the transaction actually originates and rides to "the end".
+  // Recomputed whenever layout shifts (render, the downgrade-detail reveal,
+  // viewport resize, fonts loading) so it always lines up with where those two
+  // elements actually sit.
+  // Each card has a small connector stub bridging it to the rail (see
+  // .cs-sim-stage::before / .cs-sim-final::before) — that joint is the visual
+  // "attachment point" between card and spine, and it's where the bubble
+  // should glide to a stop, not the card's vertical middle. Keep this in sync
+  // with that rule's `top` value so the pause always lands exactly on the joint.
+  const NODE_OFFSET = 27;
+  let railTop = null;
+  function layoutRail() {
+    if (!rail || !flow) return;
+    const sourceAmt = document.getElementById('cs-sim-source-amt');
+    const finalEl = document.getElementById('cs-sim-final');
+    if (!sourceAmt || !finalEl) return;
+    const fr = flow.getBoundingClientRect();
+    const br = sourceAmt.getBoundingClientRect();
+    const er = finalEl.getBoundingClientRect();
+    const top = br.top - fr.top + br.height / 2;
+    const bottom = er.top - fr.top + NODE_OFFSET;
+    railTop = top;
+    rail.style.top = `${top}px`;
+    rail.style.height = `${Math.max(bottom - top, 0)}px`;
+    if (progress) progress.style.top = `${top}px`;
+    if (bubble) bubble.style.top = `${top}px`;
+  }
+  let railResizeTO;
+  window.addEventListener('resize', () => { clearTimeout(railResizeTO); railResizeTO = setTimeout(layoutRail, 150); });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => layoutRail());
+
+  // Moves the glowing pulse to vertically align with `el`'s connector joint
+  // (NODE_OFFSET down from its top — see above), measured from the rail's
+  // anchor point, animating the trip over `dur` ms (0 = snap instantly, e.g.
+  // to park it at the source amount). The lit trail behind it grows to match —
+  // so the rail visibly "fills in" with lime as the transaction passes through,
+  // and the bubble's resting point always reads as "attached" to the card via
+  // that little stub, never drifting past it toward the card's middle.
+  function placeBubble(el, dur) {
+    if (!bubble || !flow || !el || railTop === null) return;
+    const fr = flow.getBoundingClientRect();
+    const er = el.getBoundingClientRect();
+    const y = Math.max((er.top - fr.top + NODE_OFFSET) - railTop, 0);
+    bubble.style.transitionDuration = `${dur}ms, 320ms`;
+    bubble.style.transform = `translateY(${y}px)`;
+    if (progress) {
+      progress.style.transitionDuration = `${dur}ms, 300ms`;
+      progress.style.opacity = '1';
+      progress.style.height = `${y}px`;
+    }
+  }
+  function showBubble(visible) { if (bubble) bubble.style.opacity = visible ? '1' : '0'; }
 
   const TXN = 1000;
   const CARDS = [
@@ -1939,7 +2098,7 @@ document.querySelectorAll('nav .links a').forEach(a => { if (a.getAttribute('hre
     { id: 'intl',   label: 'International' }
   ];
   const STAGES = [
-    { id: 'gw', entity: 'Payment Gateway', name: 'Processing', color: 'var(--text-soft)',
+    { id: 'gw', entity: 'Payment Gateway', name: 'Processing', color: 'var(--warm)',
       role: "Securely captures the customer's payment details and routes the transaction to the card network for authorisation.",
       fees: {
         debit:  [{ n: 'Processing fee', flat: 0.15 }, { n: 'Tokenisation', flat: 0.05 }, { n: '3DS initiation', flat: 0.05 }],
@@ -1955,7 +2114,7 @@ document.querySelectorAll('nav .links a').forEach(a => { if (a.getAttribute('hre
         corp:   [{ n: 'Per-authorisation fee', flat: 0.05 }, { n: 'Scheme fee', pct: 0.12 }],
         intl:   [{ n: 'Per-authorisation fee', flat: 0.05 }, { n: 'Scheme fee (base + cross-border + FX)', pct: 0.4 }]
       } },
-    { id: 'iss', entity: 'Issuing Bank', name: 'Interchange', color: 'var(--accent)',
+    { id: 'iss', entity: 'Issuing Bank', name: 'Interchange', color: 'var(--warm)',
       role: "The customer's bank funds the transaction, absorbs credit risk and potential fraud liability, and earns interchange in return — the single largest variable in IC++ pricing.",
       fees: {
         debit:  [{ n: 'Interchange', pct: 0.95 }],
@@ -1963,7 +2122,7 @@ document.querySelectorAll('nav .links a').forEach(a => { if (a.getAttribute('hre
         corp:   [{ n: 'Interchange', pct: 2.95 }],
         intl:   [{ n: 'Interchange — cross-border corridor rate', pct: 2.5 }]
       } },
-    { id: 'acq', entity: 'Acquirer + PSP', name: 'Markup, settlement & payout', color: 'var(--text)',
+    { id: 'acq', entity: 'Acquirer + PSP', name: 'Markup, settlement & payout', color: 'var(--warm)',
       role: "The acquiring bank and payment processor handle settlement, disputes, and transfer funds to the merchant's bank account.",
       fees: {
         debit:  [{ n: 'Acquirer markup', pct: 0.1 },  { n: 'Settlement fee — ACH/SEPA', flat: 0.08 }, { n: 'Payout fee', flat: 0.12 }],
@@ -2027,7 +2186,7 @@ document.querySelectorAll('nav .links a').forEach(a => { if (a.getAttribute('hre
         ? `<div class="cs-sim-fee-row"><span class="fr-name" id="cs-sim-iss-name">Interchange</span><span class="fr-rate" id="cs-sim-iss-rate">0.00%</span><span class="fr-amt" style="color:${s.color}" data-target="-${amt(s.fees[card][0]).toFixed(2)}" id="cs-sim-iss-amt">−$0.00</span></div>
            <div class="cs-sim-dg" id="cs-sim-dg-detail">
              <div class="cs-sim-fee-row"><span class="fr-name">Expected rate</span><span class="fr-rate">${dg.expected.toFixed(2)}%</span><span class="fr-amt" style="color:${s.color}">−$${((dg.expected/100)*TXN).toFixed(2)}</span></div>
-             <div class="cs-sim-fee-row" style="border-top:1px solid var(--line);margin-top:6px;padding-top:8px;"><span class="fr-name" style="font-style:italic;">Avoidable cost</span><span></span><span class="fr-amt" style="color:var(--accent);font-weight:600;">+$${(((dg.actual-dg.expected)/100)*TXN).toFixed(2)}</span></div>
+             <div class="cs-sim-fee-row" style="border-top:1px solid var(--line);margin-top:6px;padding-top:8px;"><span class="fr-name" style="font-style:italic;">Avoidable cost</span><span></span><span class="fr-amt" style="color:var(--error);font-weight:600;">+$${(((dg.actual-dg.expected)/100)*TXN).toFixed(2)}</span></div>
              <div style="margin-top:10px;font-style:italic;">${dg.trigger}</div>
            </div>`
         : s.fees[card].map(f => `<div class="cs-sim-fee-row"><span class="fr-name">${f.n}</span><span class="fr-rate" data-rate="${rateLbl(f)}">${f.flat !== undefined ? '$0.00 flat' : '0.00%'}</span><span class="fr-amt" style="color:${s.color}" data-target="-${amt(f).toFixed(2)}">−$0.00</span></div>`).join('');
@@ -2056,6 +2215,19 @@ document.querySelectorAll('nav .links a').forEach(a => { if (a.getAttribute('hre
     dedEl.textContent = '—';
     netEl.textContent = '—';
     btn.disabled = false;
+    btn.classList.remove('is-dissolved');
+    layoutRail();
+    if (bubble) {
+      bubble.style.transitionDuration = '0ms, 0ms, 0ms, 0ms';
+      bubble.style.opacity = '0.6';
+      bubble.style.transform = 'translateY(0px)';
+      bubble.classList.add('is-idle');
+    }
+    if (progress) {
+      progress.style.transitionDuration = '0ms, 0ms';
+      progress.style.opacity = '0';
+      progress.style.height = '0px';
+    }
   }
 
   function activateStage(idx) {
@@ -2069,28 +2241,61 @@ document.querySelectorAll('nav .links a').forEach(a => { if (a.getAttribute('hre
   function runSimulation() {
     if (btn.disabled) return;
     btn.disabled = true;
+    btn.classList.add('is-dissolved');
     timeouts.forEach(clearTimeout); timeouts = [];
-    let t = 120;
-    const STEP = 820, GAP = 260;
+
+    // The bubble is the visual stand-in for the transaction itself: it lifts off
+    // the "$1,000" source amount — where the money actually starts — travels to
+    // each entity in turn, and only once it *arrives* does that stage light up —
+    // elevated, glowing, active. TRAVEL + DWELL together match the previous
+    // per-stage cadence (STEP+GAP = 1080ms) so the overall pacing of the
+    // sequence feels the same as before.
+    const TRAVEL = 720, DWELL = 520;
+    let t = 60;
+
+    // Lift off: snap the bubble onto the source amount, then fade it in.
+    timeouts.push(setTimeout(() => {
+      placeBubble(document.getElementById('cs-sim-source-amt'), 0);
+      bubble.classList.remove('is-idle');
+      showBubble(true);
+    }, t));
+    t += 180;
+
     STAGES.forEach((s, si) => {
-      timeouts.push(setTimeout(() => activateStage(si), t));
+      timeouts.push(setTimeout(() => {
+        placeBubble(document.getElementById(`cs-sim-stage-${si}`), TRAVEL);
+      }, t));
+      t += TRAVEL;
+      const arriveAt = t;
+      timeouts.push(setTimeout(() => activateStage(si), arriveAt));
       if (s.id === 'iss') {
         timeouts.push(setTimeout(() => {
           const dd = document.getElementById('cs-sim-dg-detail');
           if (dd) dd.classList.add('is-revealed');
+          // The downgrade detail expands the Issuing Bank card, pushing the
+          // settlement row further down — re-measure so the rail's far end
+          // still lands exactly on it.
+          layoutRail();
           const nm = document.getElementById('cs-sim-iss-name');
-          if (nm) { nm.style.transition = 'color .3s ease'; nm.style.color = 'var(--warm)'; nm.textContent = 'Actual rate'; }
+          if (nm) { nm.style.transition = 'color .3s ease'; nm.style.color = 'var(--error)'; nm.textContent = 'Actual rate'; }
           const am = document.getElementById('cs-sim-iss-amt');
-          if (am) { am.style.transition = 'color .3s ease'; am.style.color = 'var(--warm)'; }
+          if (am) { am.style.transition = 'color .3s ease'; am.style.color = 'var(--error)'; }
           const rl = document.getElementById('cs-sim-iss-rate');
           if (rl) {
             const dg = DOWNGRADE[card];
-            rl.innerHTML = `<span style="color:var(--warm);font-family:'Geist Mono',monospace;">${dg.actual.toFixed(2)}%</span> <span style="background:rgba(232,197,152,0.14);color:var(--warm);padding:2px 8px;border-radius:4px;font-size:9.5px;letter-spacing:0.06em;text-transform:uppercase;white-space:nowrap;">↑ downgraded</span>`;
+            rl.innerHTML = `<span style="color:var(--error);font-family:'Geist Mono',monospace;">${dg.actual.toFixed(2)}%</span> <span style="background:rgba(224,96,96,0.12);color:var(--error);padding:2px 8px;border-radius:4px;font-size:9.5px;letter-spacing:0.06em;text-transform:uppercase;white-space:nowrap;">↑ downgraded</span>`;
           }
-        }, t + 520));
+        }, arriveAt + 340));
       }
-      t += STEP + GAP;
+      t += DWELL;
     });
+
+    // Final leg: the bubble settles into the merchant payout row, then dissolves
+    // as the receipt totals count up.
+    timeouts.push(setTimeout(() => {
+      placeBubble(document.getElementById('cs-sim-final'), TRAVEL);
+    }, t));
+    t += TRAVEL;
     timeouts.push(setTimeout(() => {
       const final = document.getElementById('cs-sim-final');
       if (final) final.classList.add('is-active');
@@ -2098,6 +2303,7 @@ document.querySelectorAll('nav .links a').forEach(a => { if (a.getAttribute('hre
       const tot = grandTotal();
       animateAmt(dedEl, -tot, 900);
       animateAmt(netEl, TXN - tot, 900);
+      showBubble(false);
       timeouts.push(setTimeout(() => {
         const callout = document.getElementById('cs-sim-callout');
         if (callout) callout.classList.add('is-visible');
