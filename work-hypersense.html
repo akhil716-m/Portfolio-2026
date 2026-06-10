@@ -635,33 +635,29 @@ a.cs-cta { margin-top: 28px; }
   content: ''; position: absolute;
   top: 8px; left: 0; right: 0; height: 1px;
   background: linear-gradient(90deg,
-    rgba(255,255,255,0.07) 0%, rgba(255,255,255,0.1) 40%,
-    rgba(212,255,94,0.7) 50%, rgba(212,255,94,0.12) 65%,
-    rgba(255,255,255,0.06) 100%);
+    rgba(255,255,255,0.07) 0%, rgba(255,255,255,0.12) 40%,
+    rgba(255,255,255,0.12) 60%, rgba(255,255,255,0.06) 100%);
   pointer-events: none;
 }
 .cs-journey-step { flex: 1; display: flex; flex-direction: column; align-items: flex-start; padding-right: 16px; position: relative; }
 .cs-journey-step:last-child { padding-right: 0; }
-.cs-journey-step--before { opacity: 0.42; }
 .cs-journey-dot {
   width: 8px; height: 8px; border-radius: 50%;
   border: 1px solid rgba(255,255,255,0.2); background: var(--bg);
   position: relative; z-index: 1; flex-shrink: 0; margin-bottom: 13px;
 }
-.cs-journey-step--hs .cs-journey-dot {
-  width: 10px; height: 10px; margin-top: -1px;
-  background: var(--accent); border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(212,255,94,0.13), 0 0 14px rgba(212,255,94,0.5);
-}
 .cs-journey-num   { font-family: 'Geist Mono', monospace; font-size: 9px; letter-spacing: 0.13em; color: var(--text-muted); margin-bottom: 5px; }
-.cs-journey-step--hs .cs-journey-num { color: var(--accent); opacity: 0.8; }
 .cs-journey-title { font-family: 'Geist', sans-serif; font-size: 12.5px; font-weight: 500; color: var(--text); line-height: 1.3; margin-bottom: 4px; }
 .cs-journey-note  { font-family: 'Geist', sans-serif; font-size: 11px; font-weight: 300; color: var(--text-muted); line-height: 1.5; }
 
 .cs-persona-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; padding-top: 26px; border-top: 1px solid var(--line); }
 .cs-persona-meta-label { display: block; font-family: 'Geist Mono', monospace; font-size: 9.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; }
 .cs-persona-meta p { font-family: 'Geist', sans-serif; font-size: 13px; font-weight: 300; line-height: 1.7; color: var(--text-soft); margin: 0; }
+.cs-persona-meta p + p { margin-top: 10px; }
 .cs-persona-meta p em { font-style: italic; font-family: 'Instrument Serif', serif; color: var(--warm); font-size: 14px; }
+.cs-persona-meta ul { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.cs-persona-meta ul li { font-family: 'Geist', sans-serif; font-size: 13px; font-weight: 300; line-height: 1.5; color: var(--text-soft); padding-left: 14px; position: relative; }
+.cs-persona-meta ul li::before { content: '–'; position: absolute; left: 0; color: var(--text-muted); }
 
 /* ---------- DESIGN CHALLENGE CALLOUT ---------- */
 .cs-challenge {
@@ -1118,38 +1114,43 @@ a.cs-cta { margin-top: 28px; }
       <div class="cs-persona-icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><circle cx="10" cy="7" r="3.5"/><path d="M3 18c0-3.9 3.1-7 7-7s7 3.1 7 7"/></svg></div>
       <div>
         <div class="cs-persona-name">The Payment Analyst <span class="dash">–</span> <em>Owns the monthly fee audit.</em></div>
-        <p class="cs-persona-desc">Every month, processor invoices arrive with hundreds of opaque line items that need to be reconciled and explained.</p>
+        <p class="cs-persona-desc">Every month, processor invoices arrive with hundreds of fee line items that need to be reconciled, explained, and defended before the billing cycle closes.</p>
       </div>
     </div>
     <div class="cs-journey">
-      <div class="cs-journey-step cs-journey-step--before">
+      <div class="cs-journey-step">
         <div class="cs-journey-dot"></div>
         <div class="cs-journey-num">01</div>
         <div class="cs-journey-title">Invoice arrives</div>
-        <div class="cs-journey-note">114 items. $47K flagged. No reason codes.</div>
+        <div class="cs-journey-note">A $47K cost increase appears on the monthly invoice.</div>
       </div>
-      <div class="cs-journey-step cs-journey-step--before">
+      <div class="cs-journey-step">
         <div class="cs-journey-dot"></div>
         <div class="cs-journey-num">02</div>
-        <div class="cs-journey-title">Hours of hunting</div>
-        <div class="cs-journey-note">Amount known. Cause — unknown.</div>
+        <div class="cs-journey-title">Manual investigation</div>
+        <div class="cs-journey-note">The amount is clear. The cause is buried across invoices and exports.</div>
       </div>
-      <div class="cs-journey-step cs-journey-step--hs">
+      <div class="cs-journey-step">
         <div class="cs-journey-dot"></div>
-        <div class="cs-journey-num">03 · Hypersense</div>
-        <div class="cs-journey-title">Root cause found</div>
-        <div class="cs-journey-note">CNP + no 3DS2 → EIRF downgrade.</div>
+        <div class="cs-journey-num">03</div>
+        <div class="cs-journey-title">The trail goes cold</div>
+        <div class="cs-journey-note">Thousands of transactions. Dozens of fee programs. The increase is visible. The cause isn't.</div>
       </div>
       <div class="cs-journey-step">
         <div class="cs-journey-dot"></div>
         <div class="cs-journey-num">04</div>
-        <div class="cs-journey-title">Dispute filed</div>
-        <div class="cs-journey-note">Evidence exported. Fix shared.</div>
+        <div class="cs-journey-title">The cost becomes permanent</div>
+        <div class="cs-journey-note">The cycle closes before the answer arrives. The leakage continues next month.</div>
       </div>
     </div>
     <div class="cs-persona-meta">
-      <div><span class="cs-persona-meta-label">Job to be done</span><p>Identify which charges are incorrect, understand why fees increased, and prepare a dispute before the billing window closes.</p></div>
-      <div><span class="cs-persona-meta-label">Pain</span><p>48-page invoice. One line item. No explanation. <em>"EIRF Downgrade — $47,219."</em> A large charge with no transaction trail, no reason code, and no explanation.</p></div>
+      <div><span class="cs-persona-meta-label">Questions they need answers</span><ul>
+        <li>Why did costs increase this month?</li>
+        <li>Which transactions caused it?</li>
+        <li>Is this charge valid?</li>
+        <li>Can we reduce the cost?</li>
+      </ul></div>
+      <div><span class="cs-persona-meta-label">Why it matters</span><p>Every unexplained fee becomes accepted cost. Without evidence, recovery isn't possible.</p></div>
     </div>
   </div>
 
@@ -1159,38 +1160,43 @@ a.cs-cta { margin-top: 28px; }
       <div class="cs-persona-icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><rect x="3" y="8" width="3" height="9" rx="0.5"/><rect x="8.5" y="4" width="3" height="13" rx="0.5"/><rect x="14" y="11" width="3" height="6" rx="0.5"/></svg></div>
       <div>
         <div class="cs-persona-name">The Treasury / Finance Lead <span class="dash">–</span> <em>Owns forecasting and budget accountability.</em></div>
-        <p class="cs-persona-desc">Payment costs are one of the largest variable expenses in the business, often representing 1.5–2.2% of revenue. When costs move, finance is expected to explain why.</p>
+        <p class="cs-persona-desc">Payment costs are one of the largest variable expenses in the business, often representing 1.5–2.2% of revenue. When that number moves, finance is expected to explain why—and forecast what happens next.</p>
       </div>
     </div>
     <div class="cs-journey">
-      <div class="cs-journey-step cs-journey-step--before">
+      <div class="cs-journey-step">
         <div class="cs-journey-dot"></div>
         <div class="cs-journey-num">01</div>
-        <div class="cs-journey-title">Board prep</div>
-        <div class="cs-journey-note">Costs up 13% on $40M. CFO will ask why.</div>
+        <div class="cs-journey-title">Variance detected</div>
+        <div class="cs-journey-note">Payment costs increased 13% quarter-over-quarter. The CFO wants an explanation.</div>
       </div>
-      <div class="cs-journey-step cs-journey-step--before">
+      <div class="cs-journey-step">
         <div class="cs-journey-dot"></div>
         <div class="cs-journey-num">02</div>
-        <div class="cs-journey-title">Invoice archaeology</div>
-        <div class="cs-journey-note">Growth or error? Can't distinguish.</div>
+        <div class="cs-journey-title">Manual investigation</div>
+        <div class="cs-journey-note">The increase is visible. The cause is scattered across invoices, reports, and rate updates.</div>
       </div>
-      <div class="cs-journey-step cs-journey-step--hs">
+      <div class="cs-journey-step">
         <div class="cs-journey-dot"></div>
-        <div class="cs-journey-num">03 · Hypersense</div>
-        <div class="cs-journey-title">Signal separated</div>
-        <div class="cs-journey-note">Volume, rate, avoidable spikes — isolated.</div>
+        <div class="cs-journey-num">03</div>
+        <div class="cs-journey-title">Too many possibilities</div>
+        <div class="cs-journey-note">Growth, network changes, processor errors, or avoidable fees. No clear way to separate signal from noise.</div>
       </div>
       <div class="cs-journey-step">
         <div class="cs-journey-dot"></div>
         <div class="cs-journey-num">04</div>
-        <div class="cs-journey-title">Forecast built</div>
-        <div class="cs-journey-note">Visa rate change in Q4 guidance — done.</div>
+        <div class="cs-journey-title">Decisions without certainty</div>
+        <div class="cs-journey-note">Planning the next quarter without understanding what drove the last one.</div>
       </div>
     </div>
     <div class="cs-persona-meta">
-      <div><span class="cs-persona-meta-label">Job to be done</span><p>Understand where payment costs are heading, forecast their impact, and distinguish between expected growth, processor errors, and upcoming network changes.</p></div>
-      <div><span class="cs-persona-meta-label">Pain</span><p>Costs went up. <em>The invoice arrived after the month closed.</em></p></div>
+      <div><span class="cs-persona-meta-label">Questions they need answered</span><ul>
+        <li>What's driving the increase?</li>
+        <li>Is it volume, rates, or an anomaly?</li>
+        <li>Which costs are expected versus avoidable?</li>
+        <li>What should we plan for next quarter?</li>
+      </ul></div>
+      <div><span class="cs-persona-meta-label">Why it matters</span><p>When cost increases can't be explained, finance can't tell the difference between growth, leakage, and operational issues.</p></div>
     </div>
   </div>
 
@@ -1200,38 +1206,43 @@ a.cs-cta { margin-top: 28px; }
       <div class="cs-persona-icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><circle cx="10" cy="10" r="7"/><path d="M10 6.5v3.8l2.6 1.5"/></svg></div>
       <div>
         <div class="cs-persona-name">The Payment Operations Head <span class="dash">–</span> <em>Owns the operational decisions that influence payment costs.</em></div>
-        <p class="cs-persona-desc">Routing logic, authentication settings, and data quality directly affect interchange qualification, but the cost impact of these decisions is rarely visible in real time.</p>
+        <p class="cs-persona-desc">Every routing rule, authentication setting, and processor configuration influences payment costs. The challenge is that the impact often appears weeks later—long after the decision was made.</p>
       </div>
     </div>
     <div class="cs-journey">
-      <div class="cs-journey-step cs-journey-step--before">
+      <div class="cs-journey-step">
         <div class="cs-journey-dot"></div>
         <div class="cs-journey-num">01</div>
-        <div class="cs-journey-title">New flow ships</div>
-        <div class="cs-journey-note">Conversion up. No cost flags at launch.</div>
+        <div class="cs-journey-title">An optimisation ships</div>
+        <div class="cs-journey-note">A new routing strategy, authentication flow, or checkout update goes live to improve conversion, acceptance, or reliability.</div>
       </div>
-      <div class="cs-journey-step cs-journey-step--before">
+      <div class="cs-journey-step">
         <div class="cs-journey-dot"></div>
         <div class="cs-journey-num">02</div>
-        <div class="cs-journey-title">Cost appears later</div>
-        <div class="cs-journey-note">Interchange +22%. Two billing cycles later.</div>
+        <div class="cs-journey-title">The signal arrives late</div>
+        <div class="cs-journey-note">The operational change succeeds. The cost impact doesn't appear until transactions settle and invoices arrive weeks later.</div>
       </div>
-      <div class="cs-journey-step cs-journey-step--hs">
+      <div class="cs-journey-step">
         <div class="cs-journey-dot"></div>
-        <div class="cs-journey-num">03 · Hypersense</div>
-        <div class="cs-journey-title">Cause traced</div>
-        <div class="cs-journey-note">Missing Level 2 data → downgrade, 8 weeks.</div>
+        <div class="cs-journey-num">03</div>
+        <div class="cs-journey-title">Cause and effect break apart</div>
+        <div class="cs-journey-note">Multiple releases, processor updates, and network changes happen in between. Costs moved, but no one knows which decision caused it.</div>
       </div>
       <div class="cs-journey-step">
         <div class="cs-journey-dot"></div>
         <div class="cs-journey-num">04</div>
-        <div class="cs-journey-title">Fix deployed</div>
-        <div class="cs-journey-note">Field restored. Guardrail added to checklist.</div>
+        <div class="cs-journey-title">The next change ships anyway</div>
+        <div class="cs-journey-note">Without a clear feedback loop, teams keep optimising while the previous cost impact remains unresolved.</div>
       </div>
     </div>
     <div class="cs-persona-meta">
-      <div><span class="cs-persona-meta-label">Job to be done</span><p>Identify which operational decisions are causing downgrades and get feedback quickly enough to take corrective action.</p></div>
-      <div><span class="cs-persona-meta-label">Pain</span><p>"We changed routing in May. <em>The cost impact showed up two billing cycles later.</em>"</p></div>
+      <div><span class="cs-persona-meta-label">Questions they need answered</span><ul>
+        <li>Which operational decisions changed payment costs?</li>
+        <li>What impact did those changes have?</li>
+        <li>Which costs are expected versus avoidable?</li>
+        <li>What should be corrected before the next release?</li>
+      </ul></div>
+      <div><span class="cs-persona-meta-label">Why it matters</span><p>Payment costs are shaped by operational decisions made weeks earlier.</p><p>Without a feedback loop between actions and outcomes, avoidable cost becomes part of business as usual.</p></div>
     </div>
   </div>
 
