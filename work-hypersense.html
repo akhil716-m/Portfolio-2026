@@ -1656,67 +1656,45 @@ a.cs-cta { margin-top: 28px; }
               <source src="assets/hypersense/proto.mp4" type="video/mp4">
             </video>
 
-            <!-- dim overlay, shown alongside controls -->
+            <!-- dim overlay, shown alongside the control bar -->
             <div id="cs-proto-dim" style="position:absolute;inset:0;background:rgba(0,0,0,.32);opacity:0;transition:opacity .25s;pointer-events:none;"></div>
 
-            <!-- centre controls -->
-            <div id="cs-proto-ctrl" style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;opacity:0;transition:opacity .25s;pointer-events:none;">
-              <div style="display:flex;align-items:center;justify-content:center;gap:28px;">
+            <!-- bottom control bar -->
+            <div id="cs-proto-bar" style="position:absolute;bottom:0;left:0;right:0;display:flex;align-items:center;gap:12px;padding:9px 14px;background:linear-gradient(to top,rgba(0,0,0,.55) 0%,transparent 100%);opacity:0;transition:opacity .25s;pointer-events:none;">
 
-                <!-- rewind 5s -->
-                <button id="cs-proto-rw" style="background:none;border:none;cursor:pointer;padding:0;width:52px;height:52px;display:flex;align-items:center;justify-content:center;">
-                  <svg width="52" height="52" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="12" cy="12" r="11.5" transform="matrix(-1 0 0 1 24 0)" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.14)"/>
-                    <path d="M10.5 15.5L6 12L10.5 8.5V15.5Z" stroke="#ededed" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M16 15.5L11.5 12L16 8.5V15.5Z" stroke="#ededed" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </button>
+              <!-- play / pause -->
+              <button id="cs-proto-pp" style="background:none;border:none;cursor:pointer;padding:0;width:16px;height:16px;display:flex;align-items:center;justify-content:center;flex:none;">
+                <svg id="cs-proto-pause-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="5" y="3" width="5" height="18" rx="1.5" fill="#d4ff5e"/>
+                  <rect x="14" y="3" width="5" height="18" rx="1.5" fill="#d4ff5e"/>
+                </svg>
+                <svg id="cs-proto-play-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:none;">
+                  <path d="M5 3.5V20.5C5 21.27 5.86 21.74 6.51 21.32L19.51 12.82C20.1 12.44 20.1 11.56 19.51 11.18L6.51 2.68C5.86 2.26 5 2.73 5 3.5Z" fill="#d4ff5e"/>
+                </svg>
+              </button>
 
-                <!-- play / pause -->
-                <button id="cs-proto-pp" style="background:none;border:none;cursor:pointer;padding:0;width:68px;height:68px;display:flex;align-items:center;justify-content:center;">
-                  <!-- pause icon (shown while playing) -->
-                  <svg id="cs-proto-pause-icon" width="68" height="68" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="12" cy="12" r="12" fill="#d4ff5e"/>
-                    <rect x="7" y="7" width="3.2" height="10" rx="1.2" fill="#0a0a0a"/>
-                    <rect x="13.8" y="7" width="3.2" height="10" rx="1.2" fill="#0a0a0a"/>
-                  </svg>
-                  <!-- play icon (shown while paused) -->
-                  <svg id="cs-proto-play-icon" width="68" height="68" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:none;">
-                    <circle cx="12" cy="12" r="12" fill="#d4ff5e"/>
-                    <path d="M10.2039 16.8553C9.53814 17.2789 8.66699 16.8007 8.66699 16.0116V7.9883C8.66699 7.19921 9.53814 6.72099 10.2039 7.14464L16.5079 11.1563C17.1254 11.5493 17.1254 12.4507 16.5079 12.8436L10.2039 16.8553Z" fill="#0a0a0a"/>
-                  </svg>
-                </button>
-
-                <!-- forward 5s -->
-                <button id="cs-proto-fw" style="background:none;border:none;cursor:pointer;padding:0;width:52px;height:52px;display:flex;align-items:center;justify-content:center;">
-                  <svg width="52" height="52" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="12" cy="12" r="11.5" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.14)"/>
-                    <path d="M13.5 15.5L18 12L13.5 8.5V15.5Z" stroke="#ededed" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M8 15.5L12.5 12L8 8.5V15.5Z" stroke="#ededed" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </button>
-
-              </div>
-            </div>
-
-            <!-- progress bar — always at bottom -->
-            <div id="cs-proto-prog-wrap" style="position:absolute;bottom:0;left:0;right:0;padding:52px 0 16px;background:linear-gradient(to top,rgba(0,0,0,.72) 0%,rgba(0,0,0,.3) 55%,transparent 100%);opacity:0;transition:opacity .25s;pointer-events:none;">
-              <div id="cs-proto-prog-track" style="margin:0 20px;height:3px;background:rgba(255,255,255,.18);border-radius:4px;cursor:pointer;position:relative;">
+              <!-- progress -->
+              <div id="cs-proto-prog-track" style="flex:1;height:3px;background:rgba(255,255,255,.18);border-radius:4px;cursor:pointer;position:relative;">
                 <div id="cs-proto-prog-fill" style="height:100%;width:0%;background:#d4ff5e;border-radius:4px;pointer-events:none;transition:width .1s linear;"></div>
-                <div id="cs-proto-prog-thumb" style="position:absolute;top:50%;right:auto;width:10px;height:10px;border-radius:50%;background:#d4ff5e;transform:translate(-50%,-50%);left:0%;pointer-events:none;box-shadow:0 0 8px rgba(212,255,94,.6);"></div>
+                <div id="cs-proto-prog-thumb" style="position:absolute;top:50%;right:auto;width:8px;height:8px;border-radius:50%;background:#d4ff5e;transform:translate(-50%,-50%);left:0%;pointer-events:none;box-shadow:0 0 6px rgba(212,255,94,.6);"></div>
               </div>
+
+              <!-- time -->
+              <div id="cs-proto-time" style="font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:0.04em;color:rgba(255,255,255,.55);flex:none;white-space:nowrap;">0:00 / 0:00</div>
+
             </div>
 
             <script>
             (function(){
               var vid=document.getElementById('cs-proto-vid');
               var dim=document.getElementById('cs-proto-dim');
-              var ctrl=document.getElementById('cs-proto-ctrl');
-              var progWrap=document.getElementById('cs-proto-prog-wrap');
+              var bar=document.getElementById('cs-proto-bar');
               var wrap=document.getElementById('cs-proto-wrap');
               var fill=document.getElementById('cs-proto-prog-fill');
               var thumb=document.getElementById('cs-proto-prog-thumb');
               var track=document.getElementById('cs-proto-prog-track');
+              var time=document.getElementById('cs-proto-time');
+              var ppBtn=document.getElementById('cs-proto-pp');
               var pauseIcon=document.getElementById('cs-proto-pause-icon');
               var playIcon=document.getElementById('cs-proto-play-icon');
               var hideTimer;
@@ -1725,75 +1703,112 @@ a.cs-cta { margin-top: 28px; }
                 if(vid.paused){ pauseIcon.style.display='none'; playIcon.style.display=''; }
                 else { pauseIcon.style.display=''; playIcon.style.display='none'; }
               }
-              syncIcon();
-              vid.play().then(syncIcon).catch(syncIcon);
+              function setOverlay(show){
+                dim.style.opacity = show ? '1':'0';
+                bar.style.opacity = show ? '1':'0';
+                bar.style.pointerEvents = show ? 'auto':'none';
+              }
+              function syncState(){
+                syncIcon();
+                if(vid.paused) setOverlay(true);
+              }
+              syncState();
+              vid.play().then(syncState).catch(syncState);
 
-              function showCtrl(){
-                dim.style.opacity='1';
-                ctrl.style.opacity='1'; ctrl.style.pointerEvents='auto';
-                progWrap.style.opacity='1'; progWrap.style.pointerEvents='auto';
+              function fmt(s){
+                if(!isFinite(s)) return '0:00';
+                var m=Math.floor(s/60), sec=Math.floor(s%60);
+                return m+':'+(sec<10?'0':'')+sec;
+              }
+              function updateTime(){
+                time.textContent=fmt(vid.currentTime)+' / '+fmt(vid.duration);
+              }
+
+              function showBar(){
+                setOverlay(true);
                 clearTimeout(hideTimer);
                 hideTimer=setTimeout(function(){
-                  if(!vid.paused){
-                    dim.style.opacity='0';
-                    ctrl.style.opacity='0'; ctrl.style.pointerEvents='none';
-                    progWrap.style.opacity='0'; progWrap.style.pointerEvents='none';
-                  }
+                  if(!vid.paused) setOverlay(false);
                 },2500);
               }
 
-              // Use cs-mb-wrap (tight 900px MacBook container) as hover zone so
-              // bottom bezel SVG paths also trigger controls, without activating
-              // outside the mockup bounds
-              var mbWrap = document.querySelector('#cs-mb-scene .cs-mb-wrap');
-              var hoverTarget = mbWrap || wrap;
+              // Track the cursor against the screen's actual rect so hover
+              // controls cover the whole screen with no dead zones and never
+              // trigger outside it (mouseenter/leave on foreignObject content
+              // can be unreliable across browsers)
+              var hovering = false;
 
-              hoverTarget.addEventListener('mousemove', showCtrl);
-              hoverTarget.addEventListener('mouseenter', showCtrl);
-              hoverTarget.addEventListener('mouseleave', function(){
-                clearTimeout(hideTimer);
-                if(!vid.paused){
-                  dim.style.opacity='0';
-                  ctrl.style.opacity='0'; ctrl.style.pointerEvents='none';
-                  progWrap.style.opacity='0'; progWrap.style.pointerEvents='none';
+              document.addEventListener('mousemove', function(e){
+                var r = wrap.getBoundingClientRect();
+                var inside = e.clientX >= r.left && e.clientX <= r.right && e.clientY >= r.top && e.clientY <= r.bottom;
+                if(inside){
+                  hovering = true;
+                  showBar();
+                } else if(hovering){
+                  hovering = false;
+                  clearTimeout(hideTimer);
+                  if(!vid.paused) setOverlay(false);
                 }
               });
 
-              // Keep controls visible while paused
+              // Keep the overlay visible while paused
               vid.addEventListener('pause', function(){
                 clearTimeout(hideTimer);
-                dim.style.opacity='1';
-                ctrl.style.opacity='1'; ctrl.style.pointerEvents='auto';
-                progWrap.style.opacity='1'; progWrap.style.pointerEvents='auto';
+                setOverlay(true);
                 syncIcon();
               });
               vid.addEventListener('play', syncIcon);
 
-              // Click anywhere on the video screen (outside the seek/progress
-              // controls) toggles play/pause, not just the play/pause button
-              wrap.addEventListener('click', function(e){
-                if(e.target.closest('#cs-proto-rw,#cs-proto-fw,#cs-proto-prog-wrap')) return;
+              // Left/right arrow keys seek 5s back/forward while hovering the player
+              document.addEventListener('keydown', function(e){
+                if(!hovering) return;
+                if(e.key === 'ArrowLeft'){
+                  e.preventDefault();
+                  vid.currentTime = Math.max(0, vid.currentTime - 5);
+                  showBar();
+                } else if(e.key === 'ArrowRight'){
+                  e.preventDefault();
+                  vid.currentTime = Math.min(vid.duration || Infinity, vid.currentTime + 5);
+                  showBar();
+                }
+              });
+
+              ppBtn.addEventListener('click', function(e){
+                e.stopPropagation();
                 if(vid.paused){ vid.play(); } else { vid.pause(); }
               });
 
-              document.getElementById('cs-proto-rw').addEventListener('click',function(){
-                vid.currentTime=Math.max(0,vid.currentTime-5);
-              });
-              document.getElementById('cs-proto-fw').addEventListener('click',function(){
-                vid.currentTime=Math.min(vid.duration||Infinity,vid.currentTime+5);
+              // Click anywhere on the video screen (outside the bar) toggles play/pause
+              wrap.addEventListener('click', function(e){
+                if(e.target.closest('#cs-proto-bar')) return;
+                if(vid.paused){ vid.play(); } else { vid.pause(); }
               });
 
-              // Progress + thumb
-              vid.addEventListener('timeupdate',function(){
+              // Progress + thumb + time
+              vid.addEventListener('loadedmetadata', updateTime);
+              vid.addEventListener('timeupdate', function(){
+                updateTime();
                 if(!vid.duration) return;
                 var pct=vid.currentTime/vid.duration*100;
                 fill.style.width=pct+'%';
                 thumb.style.left=pct+'%';
               });
-              track.addEventListener('click',function(e){
+              function seekToEvent(e){
                 var rect=track.getBoundingClientRect();
                 var pct=Math.max(0,Math.min(1,(e.clientX-rect.left)/rect.width));
                 if(vid.duration) vid.currentTime=pct*vid.duration;
+              }
+              track.addEventListener('mousedown', function(e){
+                e.preventDefault();
+                e.stopPropagation();
+                seekToEvent(e);
+                function onMove(ev){ seekToEvent(ev); }
+                function onUp(){
+                  document.removeEventListener('mousemove', onMove);
+                  document.removeEventListener('mouseup', onUp);
+                }
+                document.addEventListener('mousemove', onMove);
+                document.addEventListener('mouseup', onUp);
               });
             })();
             </script>
