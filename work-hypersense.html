@@ -157,6 +157,7 @@
   color: var(--text-soft); margin: 0 0 26px; max-width: 620px;
 }
 .cs-p:last-child { margin-bottom: 0; }
+.cs-p strong { color: var(--text); font-weight: 600; }
 .cs-h3 {
   font-family: 'Playfair Display', serif; font-size: clamp(22px, 3.2vw, 32px); font-weight: 500;
   color: var(--text); margin: 0 0 16px;
@@ -668,8 +669,7 @@ a.cs-cta { margin-top: 28px; }
 .cs-challenge p { font-family: 'Geist', sans-serif; font-size: 14.5px; font-weight: 300; line-height: 1.8; color: var(--text-soft); margin: 0; }
 
 /* ---------- KNOWLEDGE GRAPH ---------- */
-.cs-graph-wrap { margin-top: 56px; margin-bottom: 24px; }
-.cs-graph-wrap canvas { width: 100%; height: auto; display: block; border-radius: 16px; background: var(--bg-card); border: 1px solid var(--line); }
+#cs-graph { width: 100%; height: auto; display: block; }
 .cs-graph-hint { font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.1em; color: var(--text-muted); opacity: 0.6; text-align: center; margin: 16px 0 0; }
 
 /* ---------- UI WALKTHROUGH BITS ---------- */
@@ -1317,16 +1317,21 @@ a.cs-cta { margin-top: 28px; }
 
   <div class="cs-label reveal"><span class="num">/08</span> Product Strategy and Design</div>
   <h2 class="cs-display reveal">The principles that shaped <em>every decision.</em></h2>
-  <p class="cs-lead reveal">IC++ pricing is layered, contextual, and difficult to reason about. Simplifying it by hiding detail would only obscure the truth. Our goal was not to reduce complexity, but to shape it into clarity.</p>
+  <p class="cs-lead reveal">IC++ pricing is layered, contextual, and difficult to reason about. Simplifying it by hiding detail would only obscure the truth — our goal wasn't to reduce complexity, but to shape it into clarity.</p>
 
-  <h3 class="cs-h3 reveal" style="margin-top: 48px;">We anchored the entire product around a simple principle:</h3>
-  <p class="cs-p reveal">Every screen should answer the next question the user naturally arrives at.</p>
-  <p class="cs-p reveal">The product was structured to mirror how payment teams naturally investigate cost — moving from understanding what changed, to identifying why it happened, to deciding what to do next.</p>
+  <h3 class="cs-h3 reveal" style="margin-top: 48px;">A pattern emerged across every user.</h3>
+  <p class="cs-p reveal">The Payment Analyst, Finance Lead, and Operations Head appeared to have different problems. But underneath, they were all trying to answer the same thing: <strong>why did payment costs change, and what should we do next?</strong> Each investigation simply started from a different point.</p>
 
-  <div class="cs-graph-wrap reveal">
-    <canvas id="cs-graph" aria-label="HyperSense knowledge graph — five modules and their sub-questions"></canvas>
+  <h3 class="cs-h3 reveal" style="margin-top: 48px;">We anchored the product around a simple principle.</h3>
+  <p class="cs-p reveal"><strong>Every screen should answer the next question in the investigation.</strong> Instead of organizing the product around reports, fee types, or processor structures, we organized it around how payment teams naturally think — from understanding what changed, to identifying why it happened, to deciding what action to take next.</p>
+
+  <div class="cs-vis reveal" style="margin: 48px 0 24px;">
+    <div class="cs-vis-label">One investigation. Multiple questions.</div>
+    <div class="cs-vis-body">
+      <canvas id="cs-graph" aria-label="HyperSense knowledge graph — five modules and their sub-questions"></canvas>
+    </div>
   </div>
-  <p class="cs-p reveal">Every node represented a question payment teams needed answered. HyperSense connected those questions into a single coherent narrative.</p>
+  <p class="cs-p reveal">Every node represented a question payment teams needed answered. HyperSense connected those questions into a single investigation flow — turning fragmented cost data into a coherent narrative.</p>
 
 </div>
 </section>
@@ -1348,8 +1353,8 @@ a.cs-cta { margin-top: 28px; }
   <p class="cs-p reveal" style="margin-bottom: 14px;">We built the Overview as a normalisation layer that consolidates all cost signals into a single, coherent snapshot, answering three essential questions:</p>
   <ul class="cs-list reveal">
     <li>What am I paying?</li>
-    <li>What is driving those costs?</li>
-    <li>Where should I investigate next?</li>
+    <li>What's driving my costs?</li>
+    <li>Where should I investigate first?</li>
   </ul>
   <div class="cs-ov reveal">
     <div class="cs-ov-frame">
@@ -1425,9 +1430,9 @@ a.cs-cta { margin-top: 28px; }
   <h3 class="cs-h3 reveal">The Solution</h3>
   <p class="cs-p reveal" style="margin-bottom: 14px;">We designed Drill-Down as a focused analytical workspace for decomposing payment cost. It helped analysts answer questions such as:</p>
   <ul class="cs-list reveal">
-    <li>Which processor is driving costs?</li>
-    <li>Which regions are increasing spend?</li>
-    <li>Which fee categories changed most?</li>
+    <li>Where are my costs coming from?</li>
+    <li>Which processor, region, or segment is driving them?</li>
+    <li>How do costs vary across my business?</li>
   </ul>
   <p class="cs-p reveal">Built primarily for IC++ pricing, the module separated drillable costs from blended fees, taxes, and other non-attributable charges — making the analytical scope explicit and reinforcing trust in the numbers.</p>
 
@@ -1448,7 +1453,6 @@ a.cs-cta { margin-top: 28px; }
         <img src="assets/hypersense/ui-drilldown.jpg" alt="HyperSense Drill-Down screen — decomposing payment cost across processors, regions, corridors, fee types and currencies" loading="lazy" />
       </div>
     </div>
-    <div class="cs-shot-cap">Drill-Down — <em>a focused workspace for decomposing cost across every dimension that shapes it</em></div>
   </div>
 
   <h2 class="cs-display reveal" style="margin-top: 80px;">Fee Spikes — <em>Turning unexpected cost increases into actionable signals</em></h2>
@@ -1456,10 +1460,9 @@ a.cs-cta { margin-top: 28px; }
   <p class="cs-p reveal">Our goal was to help teams quickly determine whether a spike was expected or required action — distinguishing actionable anomalies from normal business movement, and guiding users from detection to root cause without spreadsheets or invoices.</p>
   <p class="cs-p reveal" style="margin-bottom: 14px;">Fee Spikes became the anomaly intelligence layer of Hypersense — built to answer:</p>
   <ul class="cs-list reveal">
-    <li>What caused the spike?</li>
-    <li>Is this expected or avoidable?</li>
-    <li>Which fees changed unexpectedly?</li>
-    <li>Is this growth, leakage, or penalties?</li>
+    <li>What changed?</li>
+    <li>Is it expected or avoidable?</li>
+    <li>Is it growth, leakage, or penalties?</li>
   </ul>
   <p class="cs-p reveal">This framing helped teams immediately understand whether they were looking at normal growth or preventable leakage.</p>
 
@@ -1480,7 +1483,6 @@ a.cs-cta { margin-top: 28px; }
         <img src="assets/hypersense/ui-feespikes.jpg" alt="HyperSense Fee Spikes screen — surfacing unexpected cost increases and tracing them back to a root cause" loading="lazy" />
       </div>
     </div>
-    <div class="cs-shot-cap">Fee Spikes — <em>from a detected anomaly to a plain-language root cause, without spreadsheets</em></div>
   </div>
 
   <h3 class="cs-h3 reveal" style="margin-top: 40px;">Three scenarios. Three distinct cost stories.</h3>
@@ -1518,12 +1520,11 @@ a.cs-cta { margin-top: 28px; }
     <li>Transaction-level evidence</li>
   </ul>
   <h3 class="cs-h3 reveal">The Solution</h3>
-  <p class="cs-p reveal" style="margin-bottom: 14px;">We designed Audit as a structured verification workflow that progressively moves users from summary to evidence — answering four critical questions:</p>
+  <p class="cs-p reveal" style="margin-bottom: 14px;">We designed Audit as a structured verification workflow that progressively moves users from summary to evidence — answering three critical questions:</p>
   <ul class="cs-list reveal">
     <li>What should I have been charged?</li>
-    <li>Which fees appear incorrect?</li>
+    <li>What was actually charged?</li>
     <li>How large is the variance?</li>
-    <li>Which transactions caused it?</li>
   </ul>
   <p class="cs-p reveal">Each layer revealed more detail only when needed — from total overcharges, down to fee categories, card programs, and transaction-level evidence. Audit turned opaque invoices into a clear, defensible audit trail.</p>
 
@@ -1544,7 +1545,6 @@ a.cs-cta { margin-top: 28px; }
         <img src="assets/hypersense/ui-audit.jpg" alt="HyperSense Audit screen — reconciling contracted vs applied rates and surfacing transaction-level evidence of overcharges" loading="lazy" />
       </div>
     </div>
-    <div class="cs-shot-cap">Audit — <em>progressively moving from summary to evidence: did we pay what we were supposed to pay?</em></div>
   </div>
 
   <h2 class="cs-display reveal" style="margin-top: 80px;">Forecast — <em>Turning network updates into cost foresight</em></h2>
@@ -1552,12 +1552,11 @@ a.cs-cta { margin-top: 28px; }
   <p class="cs-p reveal">For merchants, the challenge isn't access to the information. It's understanding what will actually affect their business — and how much it will cost.</p>
   <p class="cs-p reveal">Without that visibility, most teams only discover the impact after it appears on the next invoice. Our goal was to translate dense network bulletins into a merchant-specific forecast that highlights only the changes relevant to their business.</p>
   <h3 class="cs-h3 reveal">The Solution</h3>
-  <p class="cs-p reveal" style="margin-bottom: 14px;">We designed Forecast to model upcoming network changes against each merchant's transaction mix and estimate the financial impact before the changes went live. The experience was structured to answer four progressively deeper questions:</p>
+  <p class="cs-p reveal" style="margin-bottom: 14px;">We designed Forecast to model upcoming network changes against each merchant's transaction mix and estimate the financial impact before the changes went live. The experience was structured to answer three progressively deeper questions:</p>
   <ul class="cs-list reveal">
     <li>What changes are coming?</li>
-    <li>Which updates affect us?</li>
+    <li>Which costs will be affected?</li>
     <li>What is the projected impact?</li>
-    <li>What should we prepare for?</li>
   </ul>
   <p class="cs-p reveal">Most published network updates are irrelevant to a given merchant. To reduce cognitive overload, Forecast prioritised only the changes that matched the merchant's actual transaction behaviour and surfaced the estimated monthly impact in real currency terms.</p>
 
@@ -1578,7 +1577,6 @@ a.cs-cta { margin-top: 28px; }
         <img src="assets/hypersense/ui-forecast.jpg" alt="HyperSense Forecast screen — translating upcoming card network fee changes into a merchant-specific cost impact estimate" loading="lazy" />
       </div>
     </div>
-    <div class="cs-shot-cap">Forecast — <em>dense network bulletins, translated into a merchant-specific cost forecast</em></div>
   </div>
 
   <!-- PROTOTYPE — LIVE WALKTHROUGH (MacBook Pro 14 inline-SVG mockup) -->
@@ -2369,15 +2367,15 @@ document.querySelectorAll('nav .links a').forEach(a => { if (a.getAttribute('hre
 
   const mods = [
     { id: 'overview',  label: 'Overview',   angle: -Math.PI/2,
-      subs: ['What am I paying?', 'What is driving those costs?', 'Where should I investigate?'] },
+      subs: ['What am I paying?', "What's driving my costs?", 'Where should I investigate first?'] },
     { id: 'drilldown', label: 'Drill-down', angle: -Math.PI/2 + 2*Math.PI/5,
-      subs: ['Which processor is driving costs?', 'Which regions are increasing spend?', 'Which fee categories changed most?'] },
+      subs: ['Where are my costs coming from?', 'Which processor, region, or segment is driving them?', 'How do costs vary across my business?'] },
     { id: 'feespikes', label: 'Fee Spikes', angle: -Math.PI/2 + 4*Math.PI/5 + 0.12, qBias: -0.32,
-      subs: ['What caused the spike?', 'Is this expected or avoidable?', 'Which fees changed unexpectedly?', 'Is this growth, leakage, or penalties?'] },
+      subs: ['What changed?', 'Is it expected or avoidable?', 'Is it growth, leakage, or penalties?'] },
     { id: 'audit',     label: 'Audit',      angle: -Math.PI/2 + 6*Math.PI/5 - 0.12, qBias: 0.10,
-      subs: ['What should I have been charged?', 'Which fees appear incorrect?', 'How large is the variance?', 'Which transactions caused it?'] },
+      subs: ['What should I have been charged?', 'What was actually charged?', 'How large is the variance?'] },
     { id: 'forecast',  label: 'Forecast',   angle: -Math.PI/2 + 8*Math.PI/5, qBias: 0.20,
-      subs: ['What changes are coming?', 'Which updates affect us?', 'What is the projected impact?', 'What should we prepare for?'] }
+      subs: ['What changes are coming?', 'Which costs will be affected?', 'What is the projected impact?'] }
   ];
 
   const nodes = [], edges = [], nodeMap = {};
