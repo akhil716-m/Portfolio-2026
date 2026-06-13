@@ -192,7 +192,9 @@
 .cs-tip-def { color: var(--text-soft); }
 
 /* ---------- VIS BLOCK (diagram container) ---------- */
+.cs-vis-group { display: flex; flex-direction: column; gap: 14px; margin: 50px 0; }
 .cs-vis { position: relative; z-index: 501; margin: 50px 0; background: var(--bg-card); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+.cs-vis-group .cs-vis { margin: 0; }
 /* Re-add grain texture to the outer container only — inner cards sit above this layer */
 .cs-vis::before {
   content: ''; position: absolute; inset: 0; pointer-events: none; z-index: -1; border-radius: inherit;
@@ -215,6 +217,7 @@
 
 /* IC++ three-column breakdown */
 .cs-fee-cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 28px; }
+.cs-fee-cols:last-child { margin-bottom: 0; }
 .cs-fee-col + .cs-fee-col { border-left: 1px solid var(--line); padding-left: 24px; }
 .cs-fee-head { display: flex; align-items: center; flex-wrap: wrap; row-gap: 4px; gap: 7px; margin-bottom: 9px; }
 .cs-fee-head .cs-fee-name { white-space: nowrap; }
@@ -233,26 +236,23 @@
   font-family: 'Geist', sans-serif; font-size: 12.5px; font-weight: 300; color: var(--text-soft);
   line-height: 1.7; margin-bottom: 10px;
 }
-.cs-fee-tag {
-  font-family: 'Geist Mono', monospace; font-size: 9.5px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
-}
-.cs-fee-tag--a { color: rgba(212,255,94,0.55); }
-.cs-fee-tag--b { color: rgba(232,197,152,0.6); }
-.cs-fee-tag--c { color: var(--text-muted); }
 
 .cs-fee-divider { height: 1px; background: var(--line); margin-bottom: 24px; }
-.cs-fee-bottom { display: grid; grid-template-columns: 1fr 1fr; }
-.cs-fee-bottom-col { padding-right: 24px; border-right: 1px solid var(--line); }
-.cs-fee-bottom-col:last-child { border-right: none; padding-right: 0; padding-left: 24px; }
+
+.cs-fee-rate-row { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: 24px; }
 .cs-fee-bottom-label {
   font-family: 'Geist Mono', monospace; font-size: 9.5px; font-weight: 600; letter-spacing: 0.13em;
   text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px;
 }
-.cs-fee-bottom-label--warn { color: rgba(232,197,152,0.78); }
-.cs-fee-bottom-sub { font-family: 'Geist', sans-serif; font-size: 11px; color: var(--text-muted); margin-bottom: 14px; }
-.cs-fee-rate { font-family: 'Geist Mono', monospace; font-size: 30px; font-weight: 300; color: var(--text); }
-.cs-fee-warn-text {
-  font-family: 'Geist', sans-serif; font-size: 12.5px; font-weight: 300; color: var(--text-soft); line-height: 1.7;
+.cs-fee-bottom-sub { font-family: 'Geist', sans-serif; font-size: 11px; color: var(--text-muted); }
+.cs-fee-rate { font-family: 'Geist Mono', monospace; font-size: 32px; font-weight: 500; color: var(--accent); white-space: nowrap; }
+
+.cs-fee-why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 14px; }
+.cs-fee-why-item + .cs-fee-why-item { border-left: 1px solid var(--line); padding-left: 24px; }
+.cs-fee-why-num { font-family: 'Geist Mono', monospace; font-size: 11px; color: var(--accent); margin-bottom: 8px; }
+.cs-fee-why-title { font-family: 'Geist', sans-serif; font-size: 12.5px; font-weight: 500; color: var(--text); margin-bottom: 5px; }
+.cs-fee-why-desc {
+  font-family: 'Geist', sans-serif; font-size: 12px; font-weight: 300; color: var(--text-soft); line-height: 1.6;
 }
 
 /* ---------- PRODUCT SHOT ---------- */
@@ -745,9 +745,9 @@ a.cs-cta { margin-top: 28px; }
 @media (max-width: 760px) {
   .cs-fee-cols { grid-template-columns: 1fr; gap: 28px; }
   .cs-fee-col + .cs-fee-col { border-left: none; padding-left: 0; border-top: 1px solid var(--line); padding-top: 22px; }
-  .cs-fee-bottom { grid-template-columns: 1fr; gap: 26px; }
-  .cs-fee-bottom-col { border-right: none; padding-right: 0; }
-  .cs-fee-bottom-col:last-child { padding-left: 0; }
+  .cs-fee-rate-row { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .cs-fee-why-grid { grid-template-columns: 1fr; gap: 20px; }
+  .cs-fee-why-item + .cs-fee-why-item { border-left: none; padding-left: 0; border-top: 1px solid var(--line); padding-top: 18px; }
   .cs-team-grid { grid-template-columns: 1fr 1fr; }
   .cs-hero-meta { gap: 30px; }
   .cs-hero { padding-top: 120px; }
@@ -851,65 +851,87 @@ a.cs-cta { margin-top: 28px; }
   <p class="cs-p reveal">Most enterprises on <span class="cs-gloss" tabindex="0" data-gloss="ic-plus-plus">IC++</span> pricing consistently pay more than they should. The gap between what they should pay and what they actually pay sits at <span class="warm">7–10% of total payment costs</span>. The system wasn't built to be readable — it was designed to settle transactions silently.</p>
 
   <!-- IC++ VISUAL — stacked bar + breakdown -->
-  <div class="cs-vis reveal">
-    <div class="cs-vis-label">IC++ fee structure — what a merchant actually pays per transaction</div>
-    <div class="cs-vis-body">
+  <div class="cs-vis-group reveal">
+    <div class="cs-vis">
+      <div class="cs-vis-label">What makes up the cost of a card payment?</div>
+      <div class="cs-vis-body">
 
-      <div class="cs-stack-bar">
-        <div class="cs-stack-seg cs-stack-seg--a"></div>
-        <div class="cs-stack-seg cs-stack-seg--b"></div>
-        <div class="cs-stack-seg cs-stack-seg--c"></div>
+        <div class="cs-stack-bar">
+          <div class="cs-stack-seg cs-stack-seg--a"></div>
+          <div class="cs-stack-seg cs-stack-seg--b"></div>
+          <div class="cs-stack-seg cs-stack-seg--c"></div>
+        </div>
+
+        <div class="cs-fee-cols">
+          <div class="cs-fee-col">
+            <div class="cs-fee-head">
+              <i class="cs-fee-dot cs-fee-dot--a"></i>
+              <span class="cs-fee-name"><span class="cs-gloss" tabindex="0" data-gloss="interchange">Interchange</span></span>
+              <span class="cs-fee-sep">·</span>
+              <span class="cs-fee-pct cs-fee-pct--a">~1.5–2.0%</span>
+            </div>
+            <div class="cs-fee-desc">Paid to the issuing bank. Varies based on card type, transaction details, and qualification criteria.</div>
+          </div>
+
+          <div class="cs-fee-col">
+            <div class="cs-fee-head">
+              <i class="cs-fee-dot cs-fee-dot--b"></i>
+              <span class="cs-fee-name"><span class="cs-gloss" tabindex="0" data-gloss="scheme-fees">Scheme Fees</span></span>
+              <span class="cs-fee-sep">·</span>
+              <span class="cs-fee-pct cs-fee-pct--b">~0.2%</span>
+            </div>
+            <div class="cs-fee-desc">Network fees charged by Visa and Mastercard. Rules vary across programs, regions, and transaction types.</div>
+          </div>
+
+          <div class="cs-fee-col">
+            <div class="cs-fee-head">
+              <i class="cs-fee-dot cs-fee-dot--c"></i>
+              <span class="cs-fee-name"><span class="cs-gloss" tabindex="0" data-gloss="processor-markup">Processor Markup</span></span>
+              <span class="cs-fee-sep">·</span>
+              <span class="cs-fee-pct cs-fee-pct--c">~0.3%</span>
+            </div>
+            <div class="cs-fee-desc">The processor's margin for handling payments.</div>
+          </div>
+        </div>
+
       </div>
+    </div>
 
-      <div class="cs-fee-cols">
-        <div class="cs-fee-col">
-          <div class="cs-fee-head">
-            <i class="cs-fee-dot cs-fee-dot--a"></i>
-            <span class="cs-fee-name"><span class="cs-gloss" tabindex="0" data-gloss="interchange">Interchange</span></span>
-            <span class="cs-fee-sep">·</span>
-            <span class="cs-fee-pct cs-fee-pct--a">~1.5–2.0%</span>
+    <div class="cs-vis">
+      <div class="cs-vis-body">
+
+        <div class="cs-fee-rate-row">
+          <div>
+            <div class="cs-fee-bottom-label">Total effective rate</div>
+            <div class="cs-fee-bottom-sub">What the merchant ultimately pays per transaction.</div>
           </div>
-          <div class="cs-fee-desc">Goes to the issuing bank. Set by Visa / Mastercard. Largest component — varies across 100+ programs depending on merchant type, card type, and 7–10 qualifying criteria per transaction.</div>
-          <div class="cs-fee-tag cs-fee-tag--a">VARIES BY: card type · method · data quality</div>
-        </div>
-
-        <div class="cs-fee-col">
-          <div class="cs-fee-head">
-            <i class="cs-fee-dot cs-fee-dot--b"></i>
-            <span class="cs-fee-name"><span class="cs-gloss" tabindex="0" data-gloss="scheme-fees">Scheme Fees</span></span>
-            <span class="cs-fee-sep">·</span>
-            <span class="cs-fee-pct cs-fee-pct--b">~0.2%</span>
-          </div>
-          <div class="cs-fee-desc">50+ categories — mandatory, international, feature-driven, and penalty fees. A single transaction can incur 3 to 10 of these simultaneously. Rules are updated twice a year in 900-page network rulebooks.</div>
-          <div class="cs-fee-tag cs-fee-tag--b">VARIES BY: card origin · transaction type</div>
-        </div>
-
-        <div class="cs-fee-col">
-          <div class="cs-fee-head">
-            <i class="cs-fee-dot cs-fee-dot--c"></i>
-            <span class="cs-fee-name"><span class="cs-gloss" tabindex="0" data-gloss="processor-markup">Processor Markup</span></span>
-            <span class="cs-fee-sep">·</span>
-            <span class="cs-fee-pct cs-fee-pct--c">~0.3%</span>
-          </div>
-          <div class="cs-fee-desc">The <span class="cs-gloss" tabindex="0" data-gloss="psp">PSP</span> or <span class="cs-gloss" tabindex="0" data-gloss="acquirer">acquirer</span>'s margin. Usually negotiated upfront — the most transparent layer. But when a merchant has multiple PSPs, even this becomes hard to reconcile across different report formats.</div>
-          <div class="cs-fee-tag cs-fee-tag--c">NEGOTIATED: at contract time</div>
-        </div>
-      </div>
-
-      <div class="cs-fee-divider"></div>
-
-      <div class="cs-fee-bottom">
-        <div class="cs-fee-bottom-col">
-          <div class="cs-fee-bottom-label">Total effective rate</div>
-          <div class="cs-fee-bottom-sub">What the merchant pays per transaction</div>
           <div class="cs-fee-rate">1.7–2.8%</div>
         </div>
-        <div class="cs-fee-bottom-col">
-          <div class="cs-fee-bottom-label cs-fee-bottom-label--warn">The <span class="cs-gloss" tabindex="0" data-gloss="downgrade">downgrade</span> problem</div>
-          <div class="cs-fee-warn-text">When a transaction doesn't meet the conditions for a preferred interchange tier, it's automatically bumped to a higher rate. No alert. No explanation. Just a larger bill at month end.</div>
-        </div>
-      </div>
 
+        <div class="cs-fee-divider"></div>
+
+        <div class="cs-fee-why">
+          <div class="cs-fee-bottom-label">Why payment costs are hard to understand</div>
+          <div class="cs-fee-why-grid">
+            <div class="cs-fee-why-item">
+              <div class="cs-fee-why-num">01</div>
+              <div class="cs-fee-why-title">Not one fee</div>
+              <div class="cs-fee-why-desc">Three separate cost layers combine into a single effective rate.</div>
+            </div>
+            <div class="cs-fee-why-item">
+              <div class="cs-fee-why-num">02</div>
+              <div class="cs-fee-why-title">Mostly variable</div>
+              <div class="cs-fee-why-desc">Interchange and network fees change based on transaction behaviour.</div>
+            </div>
+            <div class="cs-fee-why-item">
+              <div class="cs-fee-why-num">03</div>
+              <div class="cs-fee-why-title">Operations affect cost</div>
+              <div class="cs-fee-why-desc">Routing, authentication, settlement timing, and data quality influence qualification.</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
     </div>
   </div>
 
@@ -1111,7 +1133,7 @@ a.cs-cta { margin-top: 28px; }
   <!-- Persona 1 — Payment Analyst -->
   <div class="cs-persona reveal">
     <div class="cs-persona-head">
-      <div class="cs-persona-icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><circle cx="10" cy="7" r="3.5"/><path d="M3 18c0-3.9 3.1-7 7-7s7 3.1 7 7"/></svg></div>
+      <div class="cs-persona-icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="8.5" cy="6.5" r="3"/><path d="M3 17c0-3.6 2.5-6.2 5.5-6.2"/><circle cx="14.5" cy="14.5" r="2.3"/><path d="M16.2 16.2l1.6 1.6"/></svg></div>
       <div>
         <div class="cs-persona-name">The Payment Analyst <span class="dash">–</span> <em>Owns the monthly fee audit.</em></div>
         <p class="cs-persona-desc">Every month, processor invoices arrive with hundreds of fee line items that need to be reconciled, explained, and defended before the billing cycle closes.</p>
@@ -1133,22 +1155,21 @@ a.cs-cta { margin-top: 28px; }
       <div class="cs-journey-step">
         <div class="cs-journey-dot"></div>
         <div class="cs-journey-num">03</div>
-        <div class="cs-journey-title">The trail goes cold</div>
+        <div class="cs-journey-title">Trail goes cold</div>
         <div class="cs-journey-note">Thousands of transactions. Dozens of fee programs. The increase is visible. The cause isn't.</div>
       </div>
       <div class="cs-journey-step">
         <div class="cs-journey-dot"></div>
         <div class="cs-journey-num">04</div>
-        <div class="cs-journey-title">The cost becomes permanent</div>
+        <div class="cs-journey-title">Cost becomes permanent</div>
         <div class="cs-journey-note">The cycle closes before the answer arrives. The leakage continues next month.</div>
       </div>
     </div>
     <div class="cs-persona-meta">
       <div><span class="cs-persona-meta-label">Questions they need answers</span><ul>
-        <li>Why did costs increase this month?</li>
-        <li>Which transactions caused it?</li>
-        <li>Is this charge valid?</li>
-        <li>Can we reduce the cost?</li>
+        <li>Which charges increased and why?</li>
+        <li>Are these fees valid?</li>
+        <li>What action should be taken before the billing cycle closes?</li>
       </ul></div>
       <div><span class="cs-persona-meta-label">Why it matters</span><p>Every unexplained fee becomes accepted cost. Without evidence, recovery isn't possible.</p></div>
     </div>
@@ -1157,7 +1178,7 @@ a.cs-cta { margin-top: 28px; }
   <!-- Persona 2 — Treasury / Finance Lead -->
   <div class="cs-persona reveal">
     <div class="cs-persona-head">
-      <div class="cs-persona-icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><rect x="3" y="8" width="3" height="9" rx="0.5"/><rect x="8.5" y="4" width="3" height="13" rx="0.5"/><rect x="14" y="11" width="3" height="6" rx="0.5"/></svg></div>
+      <div class="cs-persona-icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="8.5" cy="6.5" r="3"/><path d="M3 17c0-3.6 2.5-6.2 5.5-6.2"/><path d="M11.3 16.3l1.7-2 1.3 1.3 2.5-2.8"/><path d="M15.3 11.8h1.5v1.5"/></svg></div>
       <div>
         <div class="cs-persona-name">The Treasury / Finance Lead <span class="dash">–</span> <em>Owns forecasting and budget accountability.</em></div>
         <p class="cs-persona-desc">Payment costs are one of the largest variable expenses in the business, often representing 1.5–2.2% of revenue. When that number moves, finance is expected to explain why—and forecast what happens next.</p>
@@ -1185,15 +1206,14 @@ a.cs-cta { margin-top: 28px; }
       <div class="cs-journey-step">
         <div class="cs-journey-dot"></div>
         <div class="cs-journey-num">04</div>
-        <div class="cs-journey-title">Decisions without certainty</div>
+        <div class="cs-journey-title">Planning in the dark</div>
         <div class="cs-journey-note">Planning the next quarter without understanding what drove the last one.</div>
       </div>
     </div>
     <div class="cs-persona-meta">
       <div><span class="cs-persona-meta-label">Questions they need answered</span><ul>
         <li>What's driving the increase?</li>
-        <li>Is it volume, rates, or an anomaly?</li>
-        <li>Which costs are expected versus avoidable?</li>
+        <li>Which costs are expected vs avoidable?</li>
         <li>What should we plan for next quarter?</li>
       </ul></div>
       <div><span class="cs-persona-meta-label">Why it matters</span><p>When cost increases can't be explained, finance can't tell the difference between growth, leakage, and operational issues.</p></div>
@@ -1203,10 +1223,10 @@ a.cs-cta { margin-top: 28px; }
   <!-- Persona 3 — Payment Operations Head -->
   <div class="cs-persona reveal">
     <div class="cs-persona-head">
-      <div class="cs-persona-icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><circle cx="10" cy="10" r="7"/><path d="M10 6.5v3.8l2.6 1.5"/></svg></div>
+      <div class="cs-persona-icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="8.5" cy="6.5" r="3"/><path d="M3 17c0-3.6 2.5-6.2 5.5-6.2"/><circle cx="14.5" cy="14.5" r="2.2"/><path d="M14.5 11.3v1M14.5 16.7v1M11.3 14.5h1M16.7 14.5h1M12.4 12.4l.7.7M16.3 12.4l-.7.7M12.4 16.6l.7-.7M16.3 16.6l-.7-.7"/></svg></div>
       <div>
         <div class="cs-persona-name">The Payment Operations Head <span class="dash">–</span> <em>Owns the operational decisions that influence payment costs.</em></div>
-        <p class="cs-persona-desc">Every routing rule, authentication setting, and processor configuration influences payment costs. The challenge is that the impact often appears weeks later—long after the decision was made.</p>
+        <p class="cs-persona-desc">Routing rules, authentication settings, and processor configurations all influence payment costs. Their impact often appears weeks later—long after the decision was made.</p>
       </div>
     </div>
     <div class="cs-journey">
@@ -1214,35 +1234,34 @@ a.cs-cta { margin-top: 28px; }
         <div class="cs-journey-dot"></div>
         <div class="cs-journey-num">01</div>
         <div class="cs-journey-title">An optimisation ships</div>
-        <div class="cs-journey-note">A new routing strategy, authentication flow, or checkout update goes live to improve conversion, acceptance, or reliability.</div>
+        <div class="cs-journey-note">A routing, authentication, or checkout change ships to improve conversion, acceptance, or reliability.</div>
       </div>
       <div class="cs-journey-step">
         <div class="cs-journey-dot"></div>
         <div class="cs-journey-num">02</div>
         <div class="cs-journey-title">The signal arrives late</div>
-        <div class="cs-journey-note">The operational change succeeds. The cost impact doesn't appear until transactions settle and invoices arrive weeks later.</div>
+        <div class="cs-journey-note">The change succeeds. The cost impact appears weeks later through settlement and billing.</div>
       </div>
       <div class="cs-journey-step">
         <div class="cs-journey-dot"></div>
         <div class="cs-journey-num">03</div>
-        <div class="cs-journey-title">Cause and effect break apart</div>
-        <div class="cs-journey-note">Multiple releases, processor updates, and network changes happen in between. Costs moved, but no one knows which decision caused it.</div>
+        <div class="cs-journey-title">Cause becomes unclear</div>
+        <div class="cs-journey-note">Multiple releases, processor changes, and network updates happened in between.</div>
       </div>
       <div class="cs-journey-step">
         <div class="cs-journey-dot"></div>
         <div class="cs-journey-num">04</div>
-        <div class="cs-journey-title">The next change ships anyway</div>
-        <div class="cs-journey-note">Without a clear feedback loop, teams keep optimising while the previous cost impact remains unresolved.</div>
+        <div class="cs-journey-title">The next release ships</div>
+        <div class="cs-journey-note">Teams keep optimising while the previous cost impact remains unresolved.</div>
       </div>
     </div>
     <div class="cs-persona-meta">
       <div><span class="cs-persona-meta-label">Questions they need answered</span><ul>
-        <li>Which operational decisions changed payment costs?</li>
-        <li>What impact did those changes have?</li>
-        <li>Which costs are expected versus avoidable?</li>
+        <li>Which decisions affected payment costs?</li>
+        <li>Are those costs expected or avoidable?</li>
         <li>What should be corrected before the next release?</li>
       </ul></div>
-      <div><span class="cs-persona-meta-label">Why it matters</span><p>Payment costs are shaped by operational decisions made weeks earlier.</p><p>Without a feedback loop between actions and outcomes, avoidable cost becomes part of business as usual.</p></div>
+      <div><span class="cs-persona-meta-label">Why it matters</span><p>Without a clear feedback loop, teams keep optimising while every unexplained cost increase becomes recurring spend.</p></div>
     </div>
   </div>
 
