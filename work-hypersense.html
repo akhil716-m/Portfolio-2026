@@ -467,8 +467,8 @@ a.cs-cta { margin-top: 28px; }
   display: grid; grid-template-columns: 1fr auto; gap: 16px; align-items: flex-start;
   padding: 20px 22px; border-radius: 8px; border: 1px solid var(--line);
   background: var(--bg-soft); margin-bottom: 14px; z-index: 501;
-  opacity: 0.6; transform: translateX(-6px) translateY(0); box-shadow: none;
-  transition: opacity 0.45s ease, transform 0.45s cubic-bezier(.22,.8,.25,1), border-color 0.4s ease, box-shadow 0.4s ease;
+  opacity: 0.6; box-shadow: none;
+  transition: opacity 0.45s ease, border-color 0.4s ease, box-shadow 0.4s ease;
 }
 /* A small stub — like a hyphen — bridges the dotted rail in the gutter to the
    top of each card it passes, so the flow reads as one connected chain rather
@@ -482,7 +482,7 @@ a.cs-cta { margin-top: 28px; }
   pointer-events: none;
 }
 .cs-sim-stage.is-active {
-  opacity: 1; transform: translateX(0);
+  opacity: 1;
   border-color: rgba(212,255,94,0.2);
 }
 .cs-sim-stage-entity { font-family: 'Geist Mono', monospace; font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 6px; }
@@ -516,9 +516,9 @@ a.cs-cta { margin-top: 28px; }
   display: flex; align-items: center; justify-content: space-between; gap: 16px;
   padding: 20px 22px; border-radius: 8px; border: 1px solid rgba(212,255,94,0.25);
   background: rgba(212,255,94,0.04); margin-top: 4px; z-index: 501;
-  opacity: 0.6; transform: translateX(-6px); transition: opacity 0.45s ease, transform 0.45s ease;
+  opacity: 0.6; transition: opacity 0.45s ease;
 }
-.cs-sim-final.is-active { opacity: 1; transform: translateX(0); }
+.cs-sim-final.is-active { opacity: 1; }
 .cs-sim-final-label { font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); }
 .cs-sim-final-amt { font-family: 'Geist Mono', monospace; font-size: 22px; font-weight: 500; color: var(--accent); }
 
@@ -2222,6 +2222,12 @@ document.querySelectorAll('nav .links a').forEach(a => { if (a.getAttribute('hre
   }
   function showBubble(visible) { if (bubble) bubble.style.opacity = visible ? '1' : '0'; }
 
+  // Inside the modal, taller stage stacks can overflow the visible area —
+  // keep the card the bubble is travelling to in view as the trace runs.
+  function scrollStageIntoView(el) {
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
   const TXN = 1000;
   const CARDS = [
     { id: 'debit',  label: 'Domestic debit' },
@@ -2395,7 +2401,9 @@ document.querySelectorAll('nav .links a').forEach(a => { if (a.getAttribute('hre
 
     STAGES.forEach((s, si) => {
       timeouts.push(setTimeout(() => {
-        placeBubble(document.getElementById(`cs-sim-stage-${si}`), TRAVEL);
+        const stageEl = document.getElementById(`cs-sim-stage-${si}`);
+        placeBubble(stageEl, TRAVEL);
+        scrollStageIntoView(stageEl);
       }, t));
       t += TRAVEL;
       const arriveAt = t;
@@ -2425,7 +2433,9 @@ document.querySelectorAll('nav .links a').forEach(a => { if (a.getAttribute('hre
     // Final leg: the bubble settles into the merchant payout row, then dissolves
     // as the receipt totals count up.
     timeouts.push(setTimeout(() => {
-      placeBubble(document.getElementById('cs-sim-final'), TRAVEL);
+      const finalEl = document.getElementById('cs-sim-final');
+      placeBubble(finalEl, TRAVEL);
+      scrollStageIntoView(finalEl);
     }, t));
     t += TRAVEL;
     timeouts.push(setTimeout(() => {
