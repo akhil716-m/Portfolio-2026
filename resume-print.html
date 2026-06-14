@@ -146,6 +146,13 @@ body {
 }
 .p-bullets li::before { content: '·'; position: absolute; left: 2px; color: #bbb; font-size: 13px; line-height: 1.3; }
 .p-bullets li b { font-weight: 600; color: #1a1a1a; }
+.p-exp-summary { font-size: 11px; font-weight: 300; color: #444; line-height: 1.55; margin-bottom: 10px; }
+.p-exp-initiatives-label {
+  font-family: 'Geist Mono', monospace; font-size: 9px; text-transform: uppercase;
+  letter-spacing: 0.1em; color: #999; margin-bottom: 5px;
+}
+.p-bullets--init li { padding-left: 0; }
+.p-bullets--init li::before { content: none; }
 .p-exp-rule { border: none; border-top: 1px dashed #d8d4cc; margin: 16px 0; }
 
 /* Right */
@@ -207,17 +214,12 @@ body {
         </div>
         <div class="p-exp-role">Product Designer</div>
         <div class="p-project">
-          <div class="p-project-name">HyperSense — Cost Observability Tool</div>
-          <ul class="p-bullets">
-            <li>Built HyperSense from zero, consolidating a fragmented IC++ fee structure across issuers, acquirers, and PSPs into a cost observability dashboard for enterprise merchants.</li>
-            <li>Secured <b>4 enterprise pilots</b> including a demo to Apple; merchants progressed from demo to live cost data.</li>
-          </ul>
-        </div>
-        <div class="p-project">
-          <div class="p-project-name">Revenue Recovery — LLM Powered Recovery Engine</div>
-          <ul class="p-bullets">
-            <li>Designed a dashboard helping subscription businesses recover failed recurring payments via an LLM-powered retry engine.</li>
-            <li>Closed first pilot with <b>$500K recovered</b>; 3 additional merchant pilots in progress.</li>
+          <div class="p-exp-summary">Designed enterprise payment products across the Hyperswitch suite and domestic payment ecosystems. Led multiple 0→1 initiatives from discovery to pilot adoption, translating complex payment systems into intuitive merchant experiences.</div>
+          <div class="p-exp-initiatives-label">Selected Initiatives</div>
+          <ul class="p-bullets p-bullets--init">
+            <li><b>HyperSense</b> — Built the cost observability experience that helps enterprise merchants understand and optimize payment processing costs.</li>
+            <li><b>Revenue Recovery</b> — Designed the product experience for revenue recovery, helping businesses understand recovery performance and act on opportunities to recover lost revenue.</li>
+            <li><b>Reconciliation</b> — Simplified complex financial exception and reconciliation processes into intuitive operational experiences.</li>
           </ul>
         </div>
       </div>
@@ -231,17 +233,11 @@ body {
         </div>
         <div class="p-exp-role">Associate Product Designer</div>
         <div class="p-project">
-          <div class="p-project-name">Oust App — Up-skilling for Frontline Workers</div>
-          <ul class="p-bullets">
-            <li>Redesigned end-to-end learning experience for blue-collar workers with low digital literacy.</li>
-            <li>Rebuilt IA and visual language to support a scalable, role-based content structure.</li>
-          </ul>
-        </div>
-        <div class="p-project">
-          <div class="p-project-name">Attendance Management System</div>
-          <ul class="p-bullets">
-            <li>Simplified a friction-heavy attendance flow into a faster, frontline-friendly experience.</li>
-            <li>Shipped grounded in real field behaviour through close PM & engineering collaboration.</li>
+          <div class="p-exp-summary">Designed experiences for frontline workers across Betterplace's HRMS product suite. Simplified complex workflows for users with low digital literacy, partnering closely with product and engineering teams to improve usability at scale.</div>
+          <div class="p-exp-initiatives-label">Selected Initiatives</div>
+          <ul class="p-bullets p-bullets--init">
+            <li><b>Oust</b> — Redesigned the workforce learning experience for frontline workers, simplifying content discovery and enabling scalable, role-based learning journeys.</li>
+            <li><b>Attendance Management System</b> — Simplified attendance and workforce tracking workflows for frontline workers operating in fast-paced, field-based environments.</li>
           </ul>
         </div>
       </div>
@@ -314,10 +310,6 @@ body {
           <div style="display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px dashed #e0ddd8;padding-bottom:5px;">
             <span style="font-size:10px;font-weight:300;color:#444;">Growth School</span>
             <span style="font-family:'Geist Mono',monospace;font-size:9px;color:#aaa;">UX Design · '22</span>
-          </div>
-          <div style="display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px dashed #e0ddd8;padding-bottom:5px;">
-            <span style="font-size:10px;font-weight:300;color:#444;">Gamification In UIUX</span>
-            <span style="font-family:'Geist Mono',monospace;font-size:9px;color:#aaa;">UIUX Global · '23</span>
           </div>
           <div style="display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px dashed #e0ddd8;padding-bottom:5px;">
             <span style="font-size:10px;font-weight:300;color:#444;">Graduation of UI & UX</span>
