@@ -208,44 +208,13 @@
 }
 .cs-vis-body { padding: 32px 28px; }
 
-/* IC++ stacked bar */
-.cs-stack-bar { display: flex; height: 40px; border-radius: 6px; overflow: hidden; margin-bottom: 32px; }
-.cs-stack-seg { border-right: 1px solid rgba(0,0,0,0.35); }
-.cs-stack-seg:last-child { border-right: none; }
-.cs-stack-seg--a { flex: 6;   background: rgba(212,255,94,0.15); }
-.cs-stack-seg--b { flex: 1.5; background: rgba(232,197,152,0.16); }
-.cs-stack-seg--c { flex: 1.5; background: rgba(138,138,138,0.18); }
 
-/* IC++ three-column breakdown */
-.cs-fee-cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 28px; }
-.cs-fee-cols:last-child { margin-bottom: 0; }
-.cs-fee-col + .cs-fee-col { border-left: 1px solid var(--line); padding-left: 24px; }
-.cs-fee-head { display: flex; align-items: center; flex-wrap: wrap; row-gap: 4px; gap: 7px; margin-bottom: 9px; }
-.cs-fee-head .cs-fee-name { white-space: nowrap; }
-.cs-fee-dot { width: 3px; height: 13px; border-radius: 2px; flex-shrink: 0; }
-.cs-fee-dot--a { background: var(--accent); }
-.cs-fee-dot--b { background: var(--warm); }
-.cs-fee-dot--c { background: var(--text-soft); }
-.cs-fee-name { font-family: 'Geist', sans-serif; font-size: 13px; font-weight: 500; color: var(--text); }
-.cs-fee-name .cs-gloss { border-bottom-color: rgba(255,255,255,0.18); }
-.cs-fee-sep { color: var(--text-muted); font-size: 11px; }
-.cs-fee-pct { font-family: 'Geist Mono', monospace; font-size: 11px; }
-.cs-fee-pct--a { color: rgba(212,255,94,0.65); }
-.cs-fee-pct--b { color: rgba(232,197,152,0.7); }
-.cs-fee-pct--c { color: var(--text-muted); }
-.cs-fee-desc {
-  font-family: 'Geist', sans-serif; font-size: 12.5px; font-weight: 300; color: var(--text-soft);
-  line-height: 1.7; margin-bottom: 10px;
-}
-
-.cs-fee-divider { height: 1px; background: var(--line); margin-bottom: 24px; }
-
-.cs-fee-rate-row { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: 24px; }
+.cs-fee-rate-row { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; }
 .cs-fee-bottom-label {
   font-family: 'Geist Mono', monospace; font-size: 9.5px; font-weight: 600; letter-spacing: 0.13em;
   text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px;
 }
-.cs-fee-bottom-sub { font-family: 'Geist', sans-serif; font-size: 11px; color: var(--text-muted); }
+.cs-fee-bottom-sub { font-family: 'Geist', sans-serif; font-size: 12px; font-weight: 300; color: var(--text-soft); line-height: 1.6; }
 .cs-fee-rate { font-family: 'Geist Mono', monospace; font-size: 32px; font-weight: 500; color: var(--accent); white-space: nowrap; }
 
 .cs-fee-why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 14px; }
@@ -798,8 +767,6 @@ a.cs-cta { margin-top: 28px; }
 
 /* ---------- RESPONSIVE ---------- */
 @media (max-width: 760px) {
-  .cs-fee-cols { grid-template-columns: 1fr; gap: 28px; }
-  .cs-fee-col + .cs-fee-col { border-left: none; padding-left: 0; border-top: 1px solid var(--line); padding-top: 22px; }
   .cs-fee-rate-row { flex-direction: column; align-items: flex-start; gap: 12px; }
   .cs-fee-why-grid { grid-template-columns: 1fr; gap: 20px; }
   .cs-fee-why-item + .cs-fee-why-item { border-left: none; padding-left: 0; border-top: 1px solid var(--line); padding-top: 18px; }
@@ -905,56 +872,10 @@ a.cs-cta { margin-top: 28px; }
   <p class="cs-p reveal">Every card payment looks simple from the outside — tap, approve, done. But beneath that tap, invisible decisions determine what the merchant ultimately pays. Card type, settlement timing, data quality — each variable quietly shifts the fee tier. Most merchants never see this happen.</p>
   <p class="cs-p reveal">Most enterprises on <span class="cs-gloss" tabindex="0" data-gloss="ic-plus-plus">IC++</span> pricing consistently pay more than they should. The gap between what they should pay and what they actually pay sits at <span class="warm">7–10% of total payment costs</span>. The system wasn't built to be readable — it was designed to settle transactions silently.</p>
 
-  <!-- IC++ VISUAL — stacked bar + breakdown -->
-  <div class="cs-vis-group reveal">
-    <div class="cs-vis">
-      <div class="cs-vis-label">What makes up the cost of a card payment?</div>
-      <div class="cs-vis-body">
-
-        <div class="cs-stack-bar">
-          <div class="cs-stack-seg cs-stack-seg--a"></div>
-          <div class="cs-stack-seg cs-stack-seg--b"></div>
-          <div class="cs-stack-seg cs-stack-seg--c"></div>
-        </div>
-
-        <div class="cs-fee-cols">
-          <div class="cs-fee-col">
-            <div class="cs-fee-head">
-              <i class="cs-fee-dot cs-fee-dot--a"></i>
-              <span class="cs-fee-name"><span class="cs-gloss" tabindex="0" data-gloss="interchange">Interchange</span></span>
-              <span class="cs-fee-sep">·</span>
-              <span class="cs-fee-pct cs-fee-pct--a">~1.5–2.0%</span>
-            </div>
-            <div class="cs-fee-desc">Paid to the issuing bank. Varies based on card type, transaction details, and qualification criteria.</div>
-          </div>
-
-          <div class="cs-fee-col">
-            <div class="cs-fee-head">
-              <i class="cs-fee-dot cs-fee-dot--b"></i>
-              <span class="cs-fee-name"><span class="cs-gloss" tabindex="0" data-gloss="scheme-fees">Scheme Fees</span></span>
-              <span class="cs-fee-sep">·</span>
-              <span class="cs-fee-pct cs-fee-pct--b">~0.2%</span>
-            </div>
-            <div class="cs-fee-desc">Network fees charged by Visa and Mastercard. Rules vary across programs, regions, and transaction types.</div>
-          </div>
-
-          <div class="cs-fee-col">
-            <div class="cs-fee-head">
-              <i class="cs-fee-dot cs-fee-dot--c"></i>
-              <span class="cs-fee-name"><span class="cs-gloss" tabindex="0" data-gloss="processor-markup">Processor Markup</span></span>
-              <span class="cs-fee-sep">·</span>
-              <span class="cs-fee-pct cs-fee-pct--c">~0.3%</span>
-            </div>
-            <div class="cs-fee-desc">The processor's margin for handling payments.</div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
+  <!-- IC++ VISUAL — total effective rate breakdown -->
+  <div class="cs-vis-group reveal" style="margin-top: 24px;">
     <div class="cs-vis">
       <div class="cs-vis-body">
-
         <div class="cs-fee-rate-row">
           <div>
             <div class="cs-fee-bottom-label">Total effective rate</div>
@@ -962,9 +883,11 @@ a.cs-cta { margin-top: 28px; }
           </div>
           <div class="cs-fee-rate">1.7–2.8%</div>
         </div>
+      </div>
+    </div>
 
-        <div class="cs-fee-divider"></div>
-
+    <div class="cs-vis">
+      <div class="cs-vis-body">
         <div class="cs-fee-why">
           <div class="cs-fee-bottom-label">Why payment costs are hard to understand</div>
           <div class="cs-fee-why-grid">
@@ -985,12 +908,9 @@ a.cs-cta { margin-top: 28px; }
             </div>
           </div>
         </div>
-
       </div>
     </div>
   </div>
-
-  <p class="cs-p reveal">This was the context we walked into. No existing product in this space. No shared vocabulary. Opaque systems. Fragmented data. No clear mental model. Before we could design the product, we had to decode the ecosystem itself — we had to <span class="warm">build the mental model by understanding the domain.</span></p>
 
 </div>
 </section>
@@ -1102,8 +1022,10 @@ a.cs-cta { margin-top: 28px; }
 
   <h3 class="cs-h3 reveal" style="margin-top: 8px;">The cost of invisibility</h3>
 
+  <p class="cs-p reveal">A transaction expected to qualify for a lower interchange rate like 1.5% could silently downgrade &amp; ends up 2.4% because of something as small as delayed settlement, missing authentication, or incorrect merchant classification.</p>
+
   <!-- IC++ FEE SIMULATOR — teaser -->
-  <div class="cs-vis reveal cs-sim-teaser">
+  <div class="cs-vis reveal cs-sim-teaser" style="margin: 24px 0;">
     <div class="cs-vis-label">IC++ fee simulation</div>
     <div class="cs-vis-body cs-sim-teaser-body">
       <div class="cs-sim-teaser-title">See where a $1,000 payment actually goes.</div>
@@ -1118,7 +1040,6 @@ a.cs-cta { margin-top: 28px; }
     </div>
   </div>
 
-  <p class="cs-p reveal">A transaction expected to qualify for a lower interchange rate like 1.5% could silently downgrade &amp; ends up 2.4% because of something as small as delayed settlement, missing authentication, or incorrect merchant classification.</p>
   <p class="cs-p reveal">For an enterprise merchant processing $500 million, this is millions slipping through the cracks of every billing cycle, every quarter, every year.</p>
   <p class="cs-p reveal">Downgrade reasons are in the dozens: missing <span class="cs-gloss" tabindex="0" data-gloss="avs">AVS</span> data, late settlement, missing CVV, batch timing errors, incorrect <span class="cs-gloss" tabindex="0" data-gloss="mcc">MCC</span> classification, <span class="cs-gloss" tabindex="0" data-gloss="emv">EMV</span> chip fallback routing. For each reason, there's a corresponding cost. And a corresponding fix. Neither is visible without something that can read the data, trace the cause, and surface it in plain language.</p>
 
