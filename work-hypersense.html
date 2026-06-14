@@ -624,6 +624,10 @@ a.cs-cta { margin-top: 28px; }
 }
 .cs-sim-modal.is-open .cs-sim-modal-panel { transform: translateY(0) scale(1); opacity: 1; }
 .cs-sim-modal .cs-vis { margin: 0; }
+/* The grain overlay is meant to peek through gaps between inner cards —
+   in the modal those gaps run to the panel's own edges, exposing raw
+   noise. Drop it here so the panel reads as a clean solid surface. */
+.cs-sim-modal .cs-vis::before { display: none; }
 .cs-sim-modal-close {
   position: absolute; top: 16px; right: 16px; z-index: 2;
   width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;
