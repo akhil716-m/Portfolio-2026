@@ -825,13 +825,6 @@ nav .status .dot {
 .social-strip-link:hover .arr { transform: translate(3px, -3px); }
 
 /* === ABOUT === */
-.about-grid {
-  display: grid;
-  grid-template-columns: 1.4fr 1fr;
-  gap: 80px;
-  align-items: stretch;
-}
-
 /* Unified profile block — photo + card as one */
 .about-profile {
   border: 1px solid var(--line);
@@ -1070,140 +1063,6 @@ nav .status .dot {
   background: var(--accent);
   border-color: var(--accent);
   font-weight: 500;
-}
-
-/* --- Act 03: "headed towards" list + generative signal field --- */
-.headed-list {
-  margin-top: 38px;
-  display: flex;
-  flex-direction: column;
-  gap: 22px;
-}
-.headed-label {
-  font-family: 'Geist Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  padding-bottom: 16px;
-  border-bottom: 1px solid var(--line);
-}
-.headed-item { display: flex; gap: 14px; align-items: flex-start; }
-.headed-dot {
-  display: block;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  margin-top: 6px;
-  flex-shrink: 0;
-}
-.headed-dot--accent { background: var(--accent); box-shadow: 0 0 12px rgba(212, 255, 94, 0.5); }
-.headed-dot--warm { background: var(--warm); box-shadow: 0 0 12px rgba(232, 197, 152, 0.45); }
-.headed-name {
-  font-family: 'Geist', sans-serif;
-  font-size: 15px;
-  font-weight: 500;
-  color: var(--text);
-  margin-bottom: 4px;
-}
-.headed-desc {
-  font-family: 'Geist', sans-serif;
-  font-size: 13px;
-  font-weight: 300;
-  line-height: 1.65;
-  color: var(--text-soft);
-}
-
-.field-wrap {
-  position: relative;
-  aspect-ratio: 4 / 5;
-  border: 1px solid var(--line);
-  border-radius: 6px;
-  background: var(--bg-card);
-  overflow: hidden;
-}
-.field-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
-.field-label {
-  position: absolute;
-  bottom: 18px;
-  left: 22px;
-  font-family: 'Geist Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 0.06em;
-  color: var(--text-muted);
-}
-
-/* === ABOUT TEASER — reveal-on-scroll, CTA, kinetic word-cycle === */
-.about-teaser .reveal-line {
-  opacity: 0;
-  transform: translateY(16px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
-  transition-delay: calc(var(--d, 0) * 0.12s);
-}
-.about-teaser .reveal-line.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-.about-teaser .reveal-line span { display: inline; }
-
-.about-more {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 12px;
-  font-family: 'Geist Mono', monospace;
-  font-size: 12px;
-  letter-spacing: 0.04em;
-  color: var(--accent);
-  text-decoration: none;
-  border-bottom: 1px solid rgba(212, 255, 94, 0.28);
-  padding-bottom: 4px;
-  transition: border-color 0.3s ease, gap 0.3s ease;
-}
-.about-more:hover {
-  border-color: var(--accent);
-  gap: 14px;
-}
-.about-more .arrow { display: inline-block; transition: transform 0.3s ease; }
-.about-more:hover .arrow { transform: translateX(4px); }
-
-.about-cycle {
-  display: flex;
-  align-items: baseline;
-  gap: 8px;
-  margin: 8px 0 28px;
-  font-family: 'Geist Mono', monospace;
-  font-size: 13px;
-  letter-spacing: 0.02em;
-}
-.about-cycle .cycle-label {
-  color: var(--text-muted);
-}
-.about-cycle .cycle-words {
-  position: relative;
-  display: inline-block;
-  height: 1.3em;
-  min-width: 235px;
-  overflow: hidden;
-}
-.about-cycle .cycle-words span {
-  position: absolute;
-  left: 0;
-  top: 0;
-  white-space: nowrap;
-  color: var(--warm);
-  opacity: 0;
-  transform: translateY(8px);
-  animation: cycleFade 9s infinite;
-}
-.about-cycle .cycle-words span:nth-child(1) { animation-delay: 0s; }
-.about-cycle .cycle-words span:nth-child(2) { animation-delay: 3s; }
-.about-cycle .cycle-words span:nth-child(3) { animation-delay: 6s; }
-
-@keyframes cycleFade {
-  0%, 6%   { opacity: 0; transform: translateY(8px); }
-  12%, 28% { opacity: 1; transform: translateY(0); }
-  34%, 100% { opacity: 0; transform: translateY(-8px); }
 }
 
 /* === WORK · HOVER GALLERY === */
@@ -1868,7 +1727,6 @@ footer .right a:hover { color: var(--accent); }
   .section { padding: 80px 20px; }
   .section-head { grid-template-columns: 1fr; gap: 24px; align-items: start; }
   .section-aside { text-align: left; }
-  .about-grid { grid-template-columns: 1fr; gap: 60px; }
   .about-acts { gap: 110px; margin-top: 60px; }
   .about-act { grid-template-columns: 1fr; gap: 36px; }
   .about-act--reverse .act-copy,
@@ -1876,7 +1734,6 @@ footer .right a:hover { color: var(--accent); }
   .act-title { max-width: none; }
   .think-panel { padding: 26px; }
   .think-step { flex: 1 1 calc(50% - 8px); font-size: 10px; padding: 10px; }
-  .field-wrap { aspect-ratio: 16 / 10; }
   .work-gallery { grid-template-columns: 1fr; gap: 32px; }
   .hero-right { display: none; }
   .hero-body { grid-template-columns: 1fr; }

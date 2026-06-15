@@ -22,8 +22,6 @@
   </div>
   <div class="links">
     <a href="index.html">Home</a>
-    <a href="about.html">About</a>
-    <a href="process.html">Process</a>
     <a href="resume.html">Resume</a>
   </div>
   <div class="status"><span class="dot"></span>available for select work</div>
@@ -349,27 +347,65 @@
     <div class="section-aside">designer, occasional astrologer, full-time chai drinker.</div>
   </div>
 
-  <div class="about-grid">
+  <div class="about-acts">
 
-    <div class="about-prose about-teaser">
-      <p class="reveal-line" style="--d: 0"><span>I'm a product designer who enjoys making <span class="accent">complex things feel simple.</span></span></p>
-      <p class="reveal-line" style="--d: 1"><span>Computer science brought me here. Curiosity kept me. Somewhere between the two, design became the thing I couldn't stop doing — and <span class="warm">still can't.</span></span></p>
-
-      <div class="about-cycle reveal-line" style="--d: 2">
-        <span class="cycle-label">currently —</span>
-        <span class="cycle-words">
-          <span>designing at Juspay.</span>
-          <span>building NutriVed on the side.</span>
-          <span>three cups of chai deep.</span>
-        </span>
+    <!-- ACT 01 — How it started -->
+    <div class="about-act">
+      <div class="act-copy about-prose">
+        <div class="act-num"><span>01</span><i></i> How it started</div>
+        <h3 class="act-title">It started with <span class="italic">curiosity</span>, not a plan.</h3>
+        <p>Growing up, technology was always around me, so Computer Science felt like the obvious next step — but I was always more interested in <span class="warm">understanding people</span> than writing code.</p>
+        <p>During the COVID years, I stumbled onto design — a field that blended creativity, technology, and human understanding. What started as curiosity slowly became <span class="accent">a passion, and eventually, a career.</span></p>
       </div>
-
-      <a class="about-more reveal-line" href="about.html" style="--d: 3">Read the full story <span class="arrow">→</span></a>
+      <div class="act-visual">
+        <div class="about-profile">
+          <div class="about-photo-wrap">
+            <img class="about-photo" src="assets/akhil.jpg" alt="Akhil Male" />
+          </div>
+          <div class="about-card">
+            <div class="card-head">
+              <span class="title">// about.md</span>
+              <span class="dots"><span></span><span></span><span></span></span>
+            </div>
+            <div class="spec"><span class="k">Role</span><span class="v">Product Designer</span></div>
+            <div class="spec"><span class="k">At</span><span class="v"><span class="accent">JUSPAY</span> · since '24</span></div>
+            <div class="spec"><span class="k">Before</span><span class="v">BetterPlace</span></div>
+            <div class="spec"><span class="k">Focus</span><span class="v">Payments / SaaS / Systems</span></div>
+            <div class="spec"><span class="k">Tools</span><span class="v">Figma, Framer, Cursor</span></div>
+            <div class="spec"><span class="k">City</span><span class="v">Bengaluru, IN</span></div>
+            <div class="spec"><span class="k">Languages</span><span class="v">EN · TE · HI</span></div>
+            <div class="spec"><span class="k">Currently</span><span class="v">A 4K monitor away from peace</span></div>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <div class="about-profile">
-      <div class="about-photo-wrap">
-        <img class="about-photo" src="assets/akhil.jpg" alt="Akhil Male" />
+    <!-- ACT 02 — How I think -->
+    <div class="about-act about-act--reverse">
+      <div class="act-visual">
+        <div class="think-panel">
+          <div class="think-head">
+            <span class="think-tag">// how-i-think.run</span>
+            <span class="think-progress"><span class="cur">01</span> / 04</span>
+          </div>
+          <div class="think-display">
+            <h4 class="think-stage-title">Break it down</h4>
+            <p class="think-stage-desc">Whether it's a product, a workflow, or a messy problem — I start by taking it apart, piece by piece.</p>
+          </div>
+          <div class="think-steps">
+            <button class="think-step is-active" data-desc="Whether it's a product, a workflow, or a messy problem — I start by taking it apart, piece by piece.">Break it down</button>
+            <button class="think-step" data-desc="I question every assumption — including my own — before I let it shape a decision.">Question it</button>
+            <button class="think-step" data-desc="Understanding what's really happening beneath the surface — that's where clarity actually starts.">Find what's real</button>
+            <button class="think-step" data-desc="The best solutions rarely come from adding more. They come from understanding more.">Simplify</button>
+          </div>
+        </div>
+      </div>
+      <div class="act-copy about-prose">
+        <div class="act-num"><span>02</span><i></i> How I think</div>
+        <h3 class="act-title">I take things <span class="italic">apart</span> before I put them back together.</h3>
+        <p>I've always enjoyed making sense of things. Whether it's a product, a workflow, or a messy problem, my instinct is to <span class="warm">break it down, question assumptions,</span> and understand what's really happening beneath the surface.</p>
+        <p>Over time, this became the foundation of how I design. <span class="accent">The best solutions rarely come from adding more. They come from understanding more.</span></p>
+        <div class="act-hint">try clicking through the steps, alongside</div>
       </div>
     </div>
 
@@ -421,22 +457,37 @@ if (workGallery) {
   });
 }
 
-// About teaser — reveal lines as they scroll into view
+// About Act 02 — "how I think" interactive stepper, auto-advances + click-through
 (function() {
-  const lines = document.querySelectorAll('.reveal-line');
-  if (!lines.length || !('IntersectionObserver' in window)) {
-    lines.forEach(l => l.classList.add('is-visible'));
-    return;
+  const panel = document.querySelector('.think-panel');
+  if (!panel) return;
+  const steps = panel.querySelectorAll('.think-step');
+  const display = panel.querySelector('.think-display');
+  const titleEl = panel.querySelector('.think-stage-title');
+  const descEl = panel.querySelector('.think-stage-desc');
+  const counter = panel.querySelector('.think-progress .cur');
+  let active = 0;
+  let timer;
+
+  function show(i) {
+    if (i === active && display.classList.contains('is-active-set')) return;
+    active = i;
+    steps.forEach((s, idx) => s.classList.toggle('is-active', idx === i));
+    display.classList.add('is-fading');
+    setTimeout(() => {
+      titleEl.textContent = steps[i].textContent;
+      descEl.textContent = steps[i].dataset.desc;
+      counter.textContent = String(i + 1).padStart(2, '0');
+      display.classList.remove('is-fading');
+      display.classList.add('is-active-set');
+    }, 220);
   }
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('is-visible');
-        io.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.25 });
-  lines.forEach(l => io.observe(l));
+
+  function next() { show((active + 1) % steps.length); }
+  function restart() { clearInterval(timer); timer = setInterval(next, 6000); }
+
+  steps.forEach((s, i) => s.addEventListener('click', () => { show(i); restart(); }));
+  restart();
 })();
 
 // Active nav — index has no active link since it's home
