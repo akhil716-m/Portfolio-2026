@@ -1151,8 +1151,31 @@ nav .status .dot {
 .work-cards {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 56px;
   margin-top: 60px;
+}
+
+.wc-group {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.wc-group-label {
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.wc-group-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--line);
 }
 
 .wc-item {
@@ -1172,6 +1195,38 @@ nav .status .dot {
 .wc-item:hover {
   border-color: rgba(255,255,255,0.1);
   box-shadow: 0 8px 40px rgba(0,0,0,0.4);
+}
+
+/* Lighter, supporting projects — sit side by side, smaller than the flagship card */
+.wc-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+.wc-item--light {
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr auto;
+  height: 560px;
+}
+.wc-item--light .wc-visual {
+  order: -1;
+  border-bottom: 1px solid var(--line);
+}
+.wc-item--light .wc-meta {
+  border-right: none;
+  padding: 24px 28px;
+}
+.wc-item--light .wc-title {
+  font-size: clamp(20px, 1.8vw, 26px);
+}
+.wc-item--light .wc-title-group {
+  margin-bottom: 10px;
+}
+.wc-item--light .wc-num {
+  margin-bottom: 12px;
+}
+.wc-item--light .wc-brief {
+  font-size: 11px;
 }
 
 /* Left metadata */
@@ -1251,6 +1306,10 @@ nav .status .dot {
   border-radius: 100px;
   padding: 3px 10px;
 }
+.wc-tags .tag-highlight {
+  color: var(--accent);
+  border-color: rgba(212,255,94,0.25);
+}
 
 /* Brief — label + text tightly paired */
 .wc-brief-field {
@@ -1295,6 +1354,29 @@ nav .status .dot {
 }
 .wc-item:hover .wc-visual img {
   transform: scale(1.02);
+}
+
+/* Placeholder card — case study not yet written */
+.wc-item--soon { cursor: default; }
+.wc-item--soon:hover {
+  border-color: var(--line);
+  box-shadow: none;
+}
+.wc-visual--placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: repeating-linear-gradient(135deg, var(--bg-soft) 0px, var(--bg-soft) 14px, var(--bg-card) 14px, var(--bg-card) 28px);
+}
+.wc-placeholder-label {
+  font-family: 'Geist Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 100px;
+  padding: 8px 18px;
 }
 
 /* === PROCESS === */
@@ -1616,6 +1698,12 @@ footer .right a:hover { color: var(--accent); }
   .about-act { grid-template-columns: 1fr; gap: 36px; }
   .act-title { max-width: none; }
   .work-gallery { grid-template-columns: 1fr; gap: 32px; }
+  .wc-item { grid-template-columns: 1fr; height: auto; }
+  .wc-item .wc-meta { border-right: none; border-bottom: 1px solid var(--line); }
+  .wc-item .wc-visual { height: 280px; }
+  .wc-row { grid-template-columns: 1fr; gap: 24px; }
+  .wc-item--light { height: auto; }
+  .wc-item--light .wc-visual { height: 220px; }
   .hero-right { display: none; }
   .hero-body { grid-template-columns: 1fr; }
   .work-preview-wrap { display: none; }

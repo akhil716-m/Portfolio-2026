@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Akhil Male — Reconciliation, a Case Study</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+/* ============================================================
+   CASE STUDY — RECONCILIATION (concept draft)
+   Shares the lime / cream / dark, Playfair / Geist language
+   established in the HyperSense case study. All page-specific
+   rules are namespaced with `.cs-` to stay isolated from the
+   shared stylesheet.
+   ============================================================ */
+
+#cs-progress {
+  position: fixed; top: 0; left: 0; height: 2px; background: var(--accent);
+  width: 0%; z-index: 1000; transition: width 0.12s linear;
+  box-shadow: 0 0 12px rgba(212,255,94,0.4);
+}
+
+@keyframes csFadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes csScrollPulse {
+  0%, 100% { opacity: 0.25; transform: scaleY(0.6); }
+  50% { opacity: 1; transform: scaleY(1); }
+}
+
+/* ---------- CONTEXT RAIL — sticky scroll-spy nav (section thesis + jump list) ---------- */
+.cs-rail {
+  position: fixed; left: clamp(20px, 2.5vw, 40px); top: 50%;
+  transform: translateY(-50%); width: 200px; z-index: 60;
+  opacity: 0; pointer-events: none; transition: opacity 0.5s ease;
+}
+.cs-rail.is-visible { opacity: 1; pointer-events: auto; }
+.cs-rail-inner { padding-left: 18px; border-left: 1px solid var(--line); }
+.cs-rail-num {
+  display: block; font-family: 'Geist Mono', monospace; font-size: 9px;
+  letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent);
+  font-weight: 400; margin-bottom: 12px;
+}
+.cs-rail-thesis {
+  font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 300;
+  font-style: italic; line-height: 1.45; color: var(--text-soft); margin: 0;
+}
+.cs-rail-thesis em { color: var(--text); font-style: italic; }
+.cs-rail-others {
+  list-style: none; margin: 20px 0 0; padding: 18px 0 0;
+  border-top: 1px solid var(--line); display: flex; flex-direction: column; gap: 2px;
+}
+.cs-rail-others li button {
+  display: flex; align-items: center; gap: 10px; width: 100%;
+  background: none; border: none; cursor: pointer; padding: 5px 0; text-align: left;
+}
+.cs-rail-others-num {
+  font-family: 'Geist Mono', monospace; font-size: 9px; letter-spacing: 0.12em;
+  color: var(--text-muted); flex-shrink: 0; transition: color 0.15s;
+}
+.cs-rail-others-name {
+  font-family: 'Geist', sans-serif; font-size: 11px; color: var(--text-muted);
+  line-height: 1.3; white-space: nowrap; transition: color 0.15s;
+}
+.cs-rail-others li button:hover .cs-rail-others-name,
+.cs-rail-others li button:hover .cs-rail-others-num { color: var(--text-soft); }
+@media(max-width: 1280px) { .cs-rail { display: none; } }
+
+/* ---------- HERO ---------- */
+.cs-hero {
+  min-height: 100vh; display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 140px clamp(24px, 6vw, 80px) 100px; position: relative; overflow: hidden;
+}
+.cs-hero::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none; z-index: -1;
+  background:
+    radial-gradient(ellipse 60% 50% at 80% 10%, rgba(212,255,94,0.07), transparent 70%),
+    radial-gradient(ellipse 50% 40% at 10% 90%, rgba(232,197,152,0.05), transparent 70%);
+}
+.cs-back {
+  display: inline-flex; align-items: center; gap: 8px; margin-bottom: 32px; width: fit-content;
+  font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--text-muted); text-decoration: none; transition: color 0.2s ease, gap 0.2s ease;
+  opacity: 0; animation: csFadeUp 0.7s ease forwards 0.05s;
+}
+.cs-back:hover { color: var(--accent); gap: 13px; }
+.cs-back .arr { display: inline-block; transition: transform 0.2s ease; }
+.cs-back:hover .arr { transform: translateX(-3px); }
+
+.cs-hero-eyebrow {
+  font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 26px;
+  opacity: 0; animation: csFadeUp 0.8s ease forwards 0.2s;
+}
+.cs-hero-eyebrow .sep { color: var(--text-muted); margin: 0 10px; letter-spacing: 0; }
+.cs-hero-title {
+  font-family: 'Playfair Display', serif; font-size: clamp(60px, 11vw, 130px); font-weight: 500;
+  line-height: 0.96; letter-spacing: -0.02em; color: var(--text); max-width: 920px;
+  opacity: 0; animation: csFadeUp 0.9s ease forwards 0.35s;
+}
+.cs-hero-title em {
+  font-style: italic; font-family: 'Instrument Serif', serif; font-weight: 400; color: var(--warm);
+}
+.cs-hero-meta {
+  display: flex; flex-wrap: wrap; gap: 48px; margin-top: 58px; padding-top: 32px;
+  border-top: 1px solid var(--line);
+  opacity: 0; animation: csFadeUp 0.8s ease forwards 0.55s;
+}
+.cs-hero-meta-item label {
+  display: block; font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--text-muted); margin-bottom: 9px;
+}
+.cs-hero-meta-item span { font-family: 'Geist', sans-serif; font-size: 14px; font-weight: 300; color: var(--text-soft); }
+.cs-hero-meta-item .accent { color: var(--accent); }
+
+.cs-hero-scroll {
+  position: absolute; bottom: 40px; right: clamp(24px, 6vw, 80px);
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+  opacity: 0; animation: csFadeUp 0.8s ease forwards 1s;
+}
+.cs-hero-scroll span {
+  font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--text-muted); writing-mode: vertical-rl;
+}
+.cs-hero-scroll-line {
+  width: 1px; height: 58px;
+  background: linear-gradient(to bottom, var(--accent) 0%, transparent 100%);
+  animation: csScrollPulse 2.2s ease-in-out infinite;
+}
+
+/* ---------- SECTION SCAFFOLD ---------- */
+.cs-section { padding: clamp(80px, 12vw, 140px) 0; border-top: 1px solid var(--line); }
+.cs-wrap { max-width: 760px; margin: 0 auto; padding: 0 clamp(24px, 6vw, 48px); }
+.cs-wrap--wide { max-width: 1140px; }
+
+.cs-label {
+  display: flex; align-items: center; gap: 16px; margin-bottom: 46px;
+  font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--accent);
+}
+.cs-label::after { content: ''; flex: 1; max-width: 44px; height: 1px; background: var(--line); }
+
+.cs-display {
+  font-family: 'Playfair Display', serif; font-size: clamp(32px, 4.6vw, 52px); font-weight: 500;
+  line-height: 1.18; letter-spacing: -0.015em; color: var(--text); margin: 0 0 30px; max-width: 17ch;
+}
+.cs-display em {
+  font-style: italic; font-family: 'Instrument Serif', serif; font-weight: 400; color: var(--warm);
+}
+.cs-lead {
+  font-family: 'Geist', sans-serif; font-size: 19px; font-weight: 300; line-height: 1.75;
+  color: var(--text-soft); margin: 0 0 28px; max-width: 620px;
+}
+.cs-p {
+  font-family: 'Geist', sans-serif; font-size: 16px; font-weight: 300; line-height: 1.85;
+  color: var(--text-soft); margin: 0 0 26px; max-width: 620px;
+}
+.cs-p:last-child { margin-bottom: 0; }
+.cs-p strong { color: var(--text); font-weight: 600; }
+.cs-em { font-style: italic; font-family: 'Instrument Serif', serif; color: var(--warm); }
+.cs-h3 {
+  font-family: 'Playfair Display', serif; font-size: clamp(22px, 3.2vw, 32px); font-weight: 500;
+  color: var(--text); margin: 0 0 16px;
+}
+.cs-list { list-style: none; padding: 0; margin: 0 0 48px; display: flex; flex-direction: column; gap: 11px; }
+.cs-list li {
+  position: relative; padding-left: 24px;
+  font-family: 'Geist', sans-serif; font-size: 16px; font-weight: 300; line-height: 1.7; color: var(--text-soft);
+}
+.cs-list li::before { content: '—'; position: absolute; left: 0; color: var(--accent); }
+
+/* ---------- DESIGN CHALLENGE CALLOUT ---------- */
+.cs-challenge {
+  margin-top: 22px; padding: 18px 22px; border-radius: 0 8px 8px 0;
+  background: rgba(212,255,94,0.045); border-left: 2px solid rgba(212,255,94,0.35);
+}
+.cs-challenge-tag { font-family: 'Geist Mono', monospace; font-size: 9.5px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+.cs-challenge p { font-family: 'Geist', sans-serif; font-size: 14.5px; font-weight: 300; line-height: 1.8; color: var(--text-soft); margin: 0; }
+
+/* ---------- FLOW — where reconciliation sits in the payment lifecycle ---------- */
+.cs-flow { margin: 44px 0 8px; }
+.cs-flow-row { display: flex; align-items: stretch; gap: 14px; }
+.cs-flow-node {
+  flex: 1; padding: 22px 18px; border: 1px solid var(--line); border-radius: 8px;
+  background: var(--bg-card); text-align: center;
+}
+.cs-flow-node-title { font-family: 'Geist', sans-serif; font-size: 14px; font-weight: 500; color: var(--text); }
+.cs-flow-node-sub {
+  display: block; margin-top: 6px; font-family: 'Geist Mono', monospace; font-size: 9.5px;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted);
+}
+.cs-flow-arrow { display: flex; align-items: center; font-family: 'Geist Mono', monospace; font-size: 14px; color: var(--text-muted); flex-shrink: 0; }
+.cs-flow-result { display: flex; gap: 14px; margin-top: 14px; }
+.cs-flow-branch {
+  flex: 1; padding: 16px 20px; border-radius: 0 8px 8px 0; border-left: 2px solid;
+  font-family: 'Geist', sans-serif; font-size: 13px; font-weight: 300; line-height: 1.7; color: var(--text-soft);
+}
+.cs-flow-branch strong { color: var(--text); font-weight: 500; }
+.cs-flow-branch--match { border-color: rgba(212,255,94,0.35); background: rgba(212,255,94,0.04); }
+.cs-flow-branch--exception { border-color: rgba(232,197,152,0.35); background: rgba(232,197,152,0.05); }
+
+/* ---------- MATCH GRID — the four record shapes an exception can take ---------- */
+.cs-match-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--line); border-radius: 10px; overflow: hidden; margin: 40px 0 8px; }
+.cs-match-cell { padding: 28px 26px; background: var(--bg-card); }
+.cs-match-diagram { display: flex; align-items: center; justify-content: center; gap: 22px; height: 56px; margin-bottom: 20px; }
+.cs-match-col { display: flex; flex-direction: column; gap: 5px; justify-content: center; }
+.cs-match-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--text-muted); }
+.cs-match-dot--accent { background: var(--accent); }
+.cs-match-arrow { font-family: 'Geist Mono', monospace; font-size: 13px; color: var(--text-muted); }
+.cs-match-title { font-family: 'Geist', sans-serif; font-size: 14px; font-weight: 500; color: var(--text); margin-bottom: 8px; }
+.cs-match-desc { font-family: 'Geist', sans-serif; font-size: 12.5px; font-weight: 300; line-height: 1.7; color: var(--text-soft); }
+
+/* ---------- TAG PILL ---------- */
+.cs-tag-pill {
+  display: inline-block; margin: 4px 0 24px; padding: 9px 16px; border-radius: 100px;
+  font-family: 'Geist Mono', monospace; font-size: 10.5px; letter-spacing: 0.05em; color: var(--text-soft);
+  background: var(--bg-card); border: 1px solid var(--line);
+}
+
+/* ---------- ANCHOR GRID — context / delta / action ---------- */
+.cs-anchor-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin: 40px 0 8px; }
+.cs-anchor { padding-top: 18px; border-top: 2px solid var(--accent); }
+.cs-anchor-num { font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; }
+.cs-anchor-title { font-family: 'Playfair Display', serif; font-size: 19px; font-weight: 500; color: var(--text); margin-bottom: 8px; }
+.cs-anchor-desc { font-family: 'Geist', sans-serif; font-size: 12.5px; font-weight: 300; line-height: 1.75; color: var(--text-soft); }
+
+/* ---------- UI GALLERY — placeholders, large real estate ---------- */
+.cs-ui-gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 8px; }
+.cs-ui-card { display: flex; flex-direction: column; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: var(--bg-card); }
+.cs-ui-card--feature { grid-column: 1 / -1; }
+.cs-ui-visual {
+  position: relative; aspect-ratio: 16 / 10;
+  display: flex; align-items: center; justify-content: center;
+  background: repeating-linear-gradient(135deg, var(--bg-soft) 0px, var(--bg-soft) 14px, var(--bg-card) 14px, var(--bg-card) 28px);
+  border-bottom: 1px solid var(--line);
+}
+.cs-ui-card--feature .cs-ui-visual { aspect-ratio: 21 / 9; }
+.cs-ui-visual-label {
+  font-family: 'Geist Mono', monospace; font-size: 12px; letter-spacing: 0.06em; color: var(--text-muted);
+  background: var(--bg); border: 1px solid var(--line); border-radius: 100px; padding: 8px 18px;
+}
+.cs-ui-cap { padding: 22px 24px; }
+.cs-ui-cap-tag {
+  display: block; font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 10px;
+}
+.cs-ui-cap-title { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 500; color: var(--text); margin-bottom: 8px; }
+.cs-ui-cap-desc { font-family: 'Geist', sans-serif; font-size: 13px; font-weight: 300; line-height: 1.7; color: var(--text-soft); margin: 0; }
+
+/* Standalone "first glimpse" teaser — same card, sits in the narrow column */
+.cs-ui-teaser { margin: 8px 0 0; }
+
+/* ---------- CLOSING QUOTE ---------- */
+.cs-quote {
+  margin: 64px 0 22px; padding: 0 0 0 24px; border-left: 2px solid var(--accent);
+  font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(18px, 2.4vw, 23px);
+  font-weight: 400; line-height: 1.6; color: var(--text); max-width: 640px;
+}
+.cs-thanks { font-size: 15px; color: var(--text-soft); }
+
+/* ---------- CTA ---------- */
+.cs-cta {
+  display: inline-flex; align-items: center; gap: 10px; font-family: 'Geist Mono', monospace; font-size: 12px;
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--text); text-decoration: none;
+  padding: 14px 26px; border: 1px solid var(--line); border-radius: 100px;
+  transition: gap 0.2s ease, color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+.cs-cta:hover { color: var(--bg); background: var(--accent); border-color: var(--accent); gap: 14px; }
+a.cs-cta { margin-top: 28px; }
+
+/* ---------- REVEAL-ON-SCROLL ---------- */
+.reveal { opacity: 0; transform: translateY(26px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.is-visible { opacity: 1; transform: translateY(0); }
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 760px) {
+  .cs-hero-meta { gap: 30px; }
+  .cs-hero { padding-top: 120px; }
+  .cs-flow-row { flex-direction: column; }
+  .cs-flow-arrow { transform: rotate(90deg); justify-content: center; padding: 2px 0; }
+  .cs-flow-result { flex-direction: column; }
+  .cs-match-grid { grid-template-columns: 1fr; }
+  .cs-anchor-grid { grid-template-columns: 1fr; gap: 32px; }
+  .cs-ui-gallery { grid-template-columns: 1fr; }
+  .cs-ui-card--feature .cs-ui-visual { aspect-ratio: 16 / 10; }
+}
+</style>
+</head>
+<body>
+
+<div id="cs-progress"></div>
+
+<!-- CONTEXT RAIL — sticky scroll-spy: active section thesis + jump list -->
+<aside class="cs-rail" id="cs-rail" aria-hidden="true" aria-label="Section context">
+  <div class="cs-rail-inner">
+    <div id="cs-rail-active"></div>
+    <ul class="cs-rail-others" id="cs-rail-others"></ul>
+  </div>
+</aside>
+
+<nav>
+  <div class="logo">
+    <a href="index.html">
+      <img src="assets/akhil.jpg" alt="" class="mark" style="width: 22px; height: 22px; object-fit: cover; object-position: top center; filter: grayscale(100%);">
+      <span class="name">Akhil Male</span>
+    </a>
+  </div>
+</nav>
+
+<!-- ═══════════════════════ HERO ═══════════════════════ -->
+<header class="cs-hero">
+  <a class="cs-back" href="index.html"><span class="arr">←</span> Back to selected work</a>
+  <div class="cs-hero-eyebrow">Case Study<span class="sep">·</span>Concept Draft<span class="sep">·</span>2025</div>
+  <h1 class="cs-hero-title">Recon<em>ciliation</em></h1>
+  <div class="cs-hero-meta">
+    <div class="cs-hero-meta-item"><label>Role</label><span>Product Designer</span></div>
+    <div class="cs-hero-meta-item"><label>Company</label><span>Juspay <span class="accent">·</span> Hyperswitch</span></div>
+    <div class="cs-hero-meta-item"><label>Focus</label><span>UI Simplification <span class="accent">·</span> Exception Handling</span></div>
+    <div class="cs-hero-meta-item"><label>Status</label><span class="accent">Concept Draft, in progress</span></div>
+  </div>
+  <div class="cs-hero-scroll">
+    <span>Scroll</span>
+    <div class="cs-hero-scroll-line"></div>
+  </div>
+</header>
+
+<!-- ═══════════════════════ 01 — SETTING THE STAGE ═══════════════════════ -->
+<section class="cs-section" id="cs-stage">
+<div class="cs-wrap">
+
+  <div class="cs-label reveal"><span class="num">/01</span> Setting the Stage</div>
+  <h2 class="cs-display reveal">Every payment leaves <em>more than one trail.</em></h2>
+
+  <p class="cs-p reveal">A payment is never written down just once. The merchant's system logs an order. The payment processor logs a transaction. The bank or card network logs a settlement. Reconciliation is the quiet, ongoing process of lining these records up and confirming they tell the same story.</p>
+  <p class="cs-p reveal">Most of the time, they do — automatically, in the background, without anyone noticing. Reconciliation only becomes visible when something doesn't line up: an amount off by a few cents, a transaction that appears in one record but not the other, a refund that settles a day later than expected. Those mismatches are <strong>exceptions</strong> — and this case study is about the workspace built for the people who resolve them.</p>
+
+  <div class="cs-flow reveal">
+    <div class="cs-flow-row">
+      <div class="cs-flow-node">
+        <div class="cs-flow-node-title">Order</div>
+        <span class="cs-flow-node-sub">Merchant</span>
+      </div>
+      <div class="cs-flow-arrow">→</div>
+      <div class="cs-flow-node">
+        <div class="cs-flow-node-title">Transaction</div>
+        <span class="cs-flow-node-sub">Payment Processor</span>
+      </div>
+      <div class="cs-flow-arrow">→</div>
+      <div class="cs-flow-node">
+        <div class="cs-flow-node-title">Settlement</div>
+        <span class="cs-flow-node-sub">Bank · Card Network</span>
+      </div>
+    </div>
+    <div class="cs-flow-result">
+      <div class="cs-flow-branch cs-flow-branch--match">Records agree → <strong>Reconciled</strong>, automatically.</div>
+      <div class="cs-flow-branch cs-flow-branch--exception">Records disagree → <strong>Exception</strong>, for someone to resolve.</div>
+    </div>
+  </div>
+
+</div>
+</section>
+
+<!-- ═══════════════════════ 02 — WHAT'S AN EXCEPTION ═══════════════════════ -->
+<section class="cs-section" id="cs-exception">
+<div class="cs-wrap">
+
+  <div class="cs-label reveal"><span class="num">/02</span> What's an Exception</div>
+  <h2 class="cs-display reveal">One mismatch can hide <em>sixteen different stories.</em></h2>
+  <p class="cs-lead reveal">An exception isn't one thing. It's a mismatch — and both the <em class="cs-em">reason</em> for it and the <em class="cs-em">shape</em> of the records involved can vary independently of each other.</p>
+
+  <p class="cs-p reveal">On one axis, there's the reason something didn't match — a difference in amount, a record missing on one side, a duplicate entry, a status conflict between a refund and a capture, or simply a timing gap where settlement hasn't caught up yet.</p>
+  <p class="cs-p reveal">On the other axis, there's the shape of the records themselves. Transactions don't always map one-to-one — a single order can split into several settlement lines for captures, fees and refunds, while a batch settlement can bundle dozens of orders into a single bank entry.</p>
+
+  <div class="cs-match-grid reveal">
+    <div class="cs-match-cell">
+      <div class="cs-match-diagram">
+        <div class="cs-match-col"><span class="cs-match-dot cs-match-dot--accent"></span></div>
+        <div class="cs-match-arrow">→</div>
+        <div class="cs-match-col"><span class="cs-match-dot"></span></div>
+      </div>
+      <div class="cs-match-title">One-to-one</div>
+      <div class="cs-match-desc">A single order, a single settlement line. The expected case — and the one most tools assume by default.</div>
+    </div>
+    <div class="cs-match-cell">
+      <div class="cs-match-diagram">
+        <div class="cs-match-col"><span class="cs-match-dot cs-match-dot--accent"></span></div>
+        <div class="cs-match-arrow">→</div>
+        <div class="cs-match-col">
+          <span class="cs-match-dot"></span><span class="cs-match-dot"></span><span class="cs-match-dot"></span>
+        </div>
+      </div>
+      <div class="cs-match-title">One-to-many</div>
+      <div class="cs-match-desc">One order splits into several settlement entries — a capture, a fee, a refund — each landing separately.</div>
+    </div>
+    <div class="cs-match-cell">
+      <div class="cs-match-diagram">
+        <div class="cs-match-col">
+          <span class="cs-match-dot cs-match-dot--accent"></span><span class="cs-match-dot cs-match-dot--accent"></span><span class="cs-match-dot cs-match-dot--accent"></span>
+        </div>
+        <div class="cs-match-arrow">→</div>
+        <div class="cs-match-col"><span class="cs-match-dot"></span></div>
+      </div>
+      <div class="cs-match-title">Many-to-one</div>
+      <div class="cs-match-desc">Several orders settle together as a single bank entry — typically from end-of-day batching.</div>
+    </div>
+    <div class="cs-match-cell">
+      <div class="cs-match-diagram">
+        <div class="cs-match-col">
+          <span class="cs-match-dot cs-match-dot--accent"></span><span class="cs-match-dot cs-match-dot--accent"></span><span class="cs-match-dot cs-match-dot--accent"></span>
+        </div>
+        <div class="cs-match-arrow">→</div>
+        <div class="cs-match-col">
+          <span class="cs-match-dot"></span><span class="cs-match-dot"></span><span class="cs-match-dot"></span>
+        </div>
+      </div>
+      <div class="cs-match-title">Many-to-many</div>
+      <div class="cs-match-desc">A batch of orders settles against a batch of bank entries, with no fixed pairing between them.</div>
+    </div>
+  </div>
+
+  <p class="cs-p reveal" style="margin-top: 30px;">Pair four record shapes with four-plus mismatch reasons, and an analyst is effectively triaging more than a dozen distinct situations — every one of them initially presented the same way: <span class="cs-em">"this didn't match."</span></p>
+
+  <div class="cs-ui-teaser reveal">
+    <span class="cs-tag-pill">First glimpse — the exception queue</span>
+    <div class="cs-ui-card">
+      <div class="cs-ui-visual">
+        <span class="cs-ui-visual-label">// UI in progress</span>
+      </div>
+      <div class="cs-ui-cap">
+        <span class="cs-ui-cap-tag">01 / Exception Queue</span>
+        <h3 class="cs-ui-cap-title">Every mismatch, one queue</h3>
+        <p class="cs-ui-cap-desc">Regardless of its shape or reason, every exception lands in a single queue — tagged so the pattern is visible before the analyst opens a single record.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+</section>
+
+<!-- ═══════════════════════ 03 — WHERE ANALYSTS GET STUCK ═══════════════════════ -->
+<section class="cs-section" id="cs-struggle">
+<div class="cs-wrap">
+
+  <div class="cs-label reveal"><span class="num">/03</span> Where Analysts Get Stuck</div>
+  <h2 class="cs-display reveal">The data lines up. The workflow <em>doesn't.</em></h2>
+
+  <p class="cs-p reveal">Today, resolving one exception means moving across tools — exporting a report from the payments dashboard, pulling a settlement file from the bank portal, cross-referencing transaction IDs in a spreadsheet, and writing the outcome back somewhere else entirely.</p>
+  <p class="cs-p reveal">None of these steps are hard on their own. Repeated dozens of times a day, across exceptions that all look identical at a glance, the problem isn't difficulty — it's <strong>friction</strong>.</p>
+
+  <ul class="cs-list reveal">
+    <li>No single view of what's broken, why, or how many</li>
+    <li>Every exception type implies a different resolution — but the spreadsheet doesn't know that</li>
+    <li>Context — the original order, the settlement line, the customer — sits in three different systems</li>
+    <li>Decisions and reasoning are recorded manually, if at all, with no audit trail</li>
+  </ul>
+
+  <div class="cs-challenge reveal">
+    <div class="cs-challenge-tag">Design Challenge</div>
+    <p>Give every exception — whatever its shape or reason — the same starting point: what was expected, what's different, and what can be done about it.</p>
+  </div>
+
+</div>
+</section>
+
+<!-- ═══════════════════════ 04 — DESIGNING THE STRUCTURE ═══════════════════════ -->
+<section class="cs-section" id="cs-structure">
+<div class="cs-wrap">
+
+  <div class="cs-label reveal"><span class="num">/04</span> Designing the Structure</div>
+  <h2 class="cs-display reveal">One structure, <em>however the transaction splits.</em></h2>
+
+  <p class="cs-p reveal">Designing a separate screen for every combination of mismatch reason and record shape would mean designing for all of the permutations above — and then some. Instead, we anchored the design around three things that hold true for every exception, no matter how many records sit on either side.</p>
+
+  <div class="cs-anchor-grid reveal">
+    <div class="cs-anchor">
+      <div class="cs-anchor-num">01</div>
+      <div class="cs-anchor-title">Context</div>
+      <div class="cs-anchor-desc">What was expected — pulled straight from the original transaction: order, amount, parties, timestamps.</div>
+    </div>
+    <div class="cs-anchor">
+      <div class="cs-anchor-num">02</div>
+      <div class="cs-anchor-title">Delta</div>
+      <div class="cs-anchor-desc">What's actually different — the one thing the analyst needs to see first, however many records it spans.</div>
+    </div>
+    <div class="cs-anchor">
+      <div class="cs-anchor-num">03</div>
+      <div class="cs-anchor-title">Action</div>
+      <div class="cs-anchor-desc">The resolution options valid for this exception's type — never a generic "edit" button.</div>
+    </div>
+  </div>
+
+  <p class="cs-p reveal" style="margin-top: 30px;">With this anchor in place, a one-to-many exception — one order, three settlement lines — and a many-to-many exception — fifty orders settling against one bank entry — can share the same screen. Only the Context and Delta panels resize to fit; the structure around them stays exactly where the analyst learned to expect it.</p>
+
+</div>
+</section>
+
+<!-- ═══════════════════════ 05 — UI DESIGN ═══════════════════════ -->
+<section class="cs-section" id="cs-showcase">
+<div class="cs-wrap cs-wrap--wide">
+
+  <div class="cs-label reveal"><span class="num">/05</span> UI Design</div>
+  <h2 class="cs-display reveal">From here, <em>the UI does the talking.</em></h2>
+  <p class="cs-lead reveal">The structure above becomes a small set of screens — each one built on the same Context / Delta / Action anchor, adapted to a different moment in the resolution flow.</p>
+
+  <div class="cs-ui-gallery">
+    <div class="cs-ui-card cs-ui-card--feature reveal">
+      <div class="cs-ui-visual">
+        <span class="cs-ui-visual-label">// UI in progress</span>
+      </div>
+      <div class="cs-ui-cap">
+        <span class="cs-ui-cap-tag">02 / Exception Workspace</span>
+        <h3 class="cs-ui-cap-title">Queue and detail, side by side</h3>
+        <p class="cs-ui-cap-desc">The full workspace — a filterable queue on the left, and the Context / Delta / Action detail view on the right, open to whichever exception is selected.</p>
+      </div>
+    </div>
+
+    <div class="cs-ui-card reveal">
+      <div class="cs-ui-visual">
+        <span class="cs-ui-visual-label">// UI in progress</span>
+      </div>
+      <div class="cs-ui-cap">
+        <span class="cs-ui-cap-tag">03 / Match Suggestions</span>
+        <h3 class="cs-ui-cap-title">Where many meets many</h3>
+        <p class="cs-ui-cap-desc">For many-to-many exceptions, the system proposes likely pairings between order-side and settlement-side records, ranked by confidence — the analyst confirms rather than searches.</p>
+      </div>
+    </div>
+
+    <div class="cs-ui-card reveal">
+      <div class="cs-ui-visual">
+        <span class="cs-ui-visual-label">// UI in progress</span>
+      </div>
+      <div class="cs-ui-cap">
+        <span class="cs-ui-cap-tag">04 / Bulk Resolution</span>
+        <h3 class="cs-ui-cap-title">Resolve the pattern, not the instance</h3>
+        <p class="cs-ui-cap-desc">When dozens of exceptions share the same root cause, group them and apply one resolution — with the audit trail recorded per transaction automatically.</p>
+      </div>
+    </div>
+
+    <div class="cs-ui-card reveal">
+      <div class="cs-ui-visual">
+        <span class="cs-ui-visual-label">// UI in progress</span>
+      </div>
+      <div class="cs-ui-cap">
+        <span class="cs-ui-cap-tag">05 / Resolution Actions</span>
+        <h3 class="cs-ui-cap-title">Actions that match the exception</h3>
+        <p class="cs-ui-cap-desc">The action panel only ever shows what's valid for this exception's type and shape — approve, write off, escalate, or request re-settlement.</p>
+      </div>
+    </div>
+
+    <div class="cs-ui-card reveal">
+      <div class="cs-ui-visual">
+        <span class="cs-ui-visual-label">// UI in progress</span>
+      </div>
+      <div class="cs-ui-cap">
+        <span class="cs-ui-cap-tag">06 / Audit Trail</span>
+        <h3 class="cs-ui-cap-title">Every decision, traceable</h3>
+        <p class="cs-ui-cap-desc">A running history of resolved exceptions — what was decided, by whom, and why — replacing the manual log analysts kept before.</p>
+      </div>
+    </div>
+  </div>
+
+  <blockquote class="cs-quote reveal">
+    <p style="margin: 0 0 14px;">"Complexity in payments doesn't disappear by hiding it. It disappears once it has one consistent shape to resolve against."</p>
+    <p class="cs-thanks" style="font-style: italic; margin: 0;">Thank you for following along — this one's still taking shape, and I'd love to hear how you'd approach it.</p>
+  </blockquote>
+  <a class="cs-cta reveal" href="index.html"><span class="arr">←</span> Back to selected work</a>
+
+</div>
+</section>
+
+<footer>
+  <div>© 2026 Akhil Male</div>
+  <div class="right"><a href="#">Back to top ↑</a></div>
+</footer>
+
+<script>
+
+/* Scroll progress bar */
+(function() {
+  const bar = document.getElementById('cs-progress');
+  if (!bar) return;
+  function update() {
+    const h = document.documentElement;
+    const pct = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
+    bar.style.width = (isFinite(pct) ? pct : 0) + '%';
+  }
+  window.addEventListener('scroll', update, { passive: true });
+  update();
+})();
+
+/* Context rail — scroll-spy: active section thesis + jump list to the rest */
+(function() {
+  var rail   = document.getElementById('cs-rail');
+  var active = document.getElementById('cs-rail-active');
+  var others = document.getElementById('cs-rail-others');
+  if (!rail || !active || !others) return;
+
+  var SECTIONS = [
+    { id: 'cs-stage',     label: '01 — Setting the Stage',       thesis: 'Every payment leaves <em>more than one trail.</em>' },
+    { id: 'cs-exception', label: '02 — What&rsquo;s an Exception', thesis: 'One mismatch can hide <em>sixteen different stories.</em>' },
+    { id: 'cs-struggle',  label: '03 — Where Analysts Get Stuck', thesis: 'The data lines up. The workflow <em>doesn&rsquo;t.</em>' },
+    { id: 'cs-structure', label: '04 — Designing the Structure',  thesis: 'One structure, <em>however the transaction splits.</em>' },
+    { id: 'cs-showcase',  label: '05 — UI Design',                thesis: 'From here, <em>the UI does the talking.</em>' }
+  ];
+
+  var activeId = null;
+  var heroGone = false;
+
+  function scrollToSection(id) {
+    var el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  function render(sec) {
+    active.innerHTML = '<span class="cs-rail-num">' + sec.label + '</span><p class="cs-rail-thesis">' + sec.thesis + '</p>';
+    others.innerHTML = SECTIONS
+      .filter(function(s){ return s.id !== sec.id; })
+      .map(function(s){
+        var parts = s.label.split(' — ');
+        return '<li><button type="button" data-target="' + s.id + '">' +
+               '<span class="cs-rail-others-num">' + parts[0] + '</span>' +
+               '<span class="cs-rail-others-name">' + parts[1] + '</span>' +
+               '</button></li>';
+      })
+      .join('');
+    others.querySelectorAll('button').forEach(function(btn) {
+      btn.addEventListener('click', function(){ scrollToSection(this.getAttribute('data-target')); });
+    });
+  }
+
+  /* Hide the rail while the hero is in view; reveal once scrolled past it */
+  var hero = document.querySelector('.cs-hero');
+  if (hero) {
+    var heroObs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (!e.isIntersecting) {
+          heroGone = true;
+          if (activeId) { rail.classList.add('is-visible'); rail.removeAttribute('aria-hidden'); }
+        } else {
+          heroGone = false;
+          rail.classList.remove('is-visible');
+          rail.setAttribute('aria-hidden', 'true');
+        }
+      });
+    }, { threshold: 0.05 });
+    heroObs.observe(hero);
+  } else {
+    heroGone = true;
+  }
+
+  function updateActiveSection() {
+    var triggerY = window.scrollY + window.innerHeight * 0.35;
+    var current = null;
+    SECTIONS.forEach(function(s) {
+      var el = document.getElementById(s.id);
+      if (el && el.offsetTop <= triggerY) current = s;
+    });
+    if (current && current.id !== activeId) {
+      activeId = current.id;
+      render(current);
+      if (heroGone) { rail.classList.add('is-visible'); rail.removeAttribute('aria-hidden'); }
+    }
+  }
+
+  window.addEventListener('scroll', updateActiveSection, { passive: true });
+  updateActiveSection();
+})();
+
+/* Reveal-on-scroll choreography */
+(function() {
+  const items = document.querySelectorAll('.reveal');
+  if (!items.length) return;
+  if ('IntersectionObserver' in window) {
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('is-visible'); obs.unobserve(e.target); }
+      });
+    }, { threshold: 0.08 });
+    items.forEach(el => obs.observe(el));
+    setTimeout(() => items.forEach(el => el.classList.add('is-visible')), 2500);
+  } else {
+    items.forEach(el => el.classList.add('is-visible'));
+  }
+})();
+
+</script>
+</body>
+</html>
