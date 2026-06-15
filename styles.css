@@ -126,7 +126,6 @@ nav .links a:hover::before { opacity: 1; }
 nav .links a.active { color: var(--text); }
 nav .links a.active::before { opacity: 1; }
 nav .logo a { display: flex; align-items: center; gap: 10px; text-decoration: none; color: inherit; }
-body.home nav .logo .mark { box-shadow: 0 0 0 2px var(--accent); }
 
 nav .status {
   display: flex;
