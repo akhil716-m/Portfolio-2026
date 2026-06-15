@@ -825,6 +825,20 @@ nav .status .dot {
 .social-strip-link:hover .arr { transform: translate(3px, -3px); }
 
 /* === ABOUT === */
+.about-prose {
+  font-family: 'Geist', sans-serif;
+  font-size: 17px;
+  line-height: 1.75;
+  color: var(--text-soft);
+  font-weight: 300;
+}
+.about-prose p { margin-bottom: 28px; }
+.about-prose p:last-child { margin-bottom: 0; }
+.about-prose .accent { color: var(--accent); font-style: italic; }
+.about-prose .warm { color: var(--warm); }
+.about-prose .muted { color: var(--text-muted); font-style: italic; }
+.about-prose .em { font-weight: 500; }
+
 /* Unified profile block — photo + card as one */
 .about-profile {
   border: 1px solid var(--line);
@@ -833,14 +847,12 @@ nav .status .dot {
   background: var(--bg-card);
   display: flex;
   flex-direction: column;
-  height: 100%;
 }
 
 .about-photo-wrap {
   position: relative;
   overflow: hidden;
-  flex: 1;
-  min-height: 0;
+  aspect-ratio: 4 / 5;
 }
 .about-photo-wrap::after {
   content: '';
@@ -869,20 +881,6 @@ nav .status .dot {
   background: transparent;
   border-top: 1px solid var(--line);
 }
-
-.about-prose {
-  font-family: 'Geist', sans-serif;
-  font-size: 17px;
-  line-height: 1.75;
-  color: var(--text-soft);
-  font-weight: 300;
-}
-.about-prose p { margin-bottom: 28px; }
-.about-prose p:last-child { margin-bottom: 0; }
-.about-prose .accent { color: var(--accent); font-style: italic; }
-.about-prose .warm { color: var(--warm); }
-.about-prose .muted { color: var(--text-muted); font-style: italic; }
-.about-prose .em { font-weight: 500; }
 
 .about-card {
   background: var(--bg-card);
@@ -932,7 +930,7 @@ nav .status .dot {
 .spec .v { color: var(--text-soft); }
 .spec .v .accent { color: var(--accent); }
 
-/* === ABOUT ACTS — three-part narrative, alternating layout, interactive companions === */
+/* === ABOUT ACTS — narrative + photo/spec card === */
 .about-acts {
   display: flex;
   flex-direction: column;
@@ -943,31 +941,9 @@ nav .status .dot {
   display: grid;
   grid-template-columns: 1fr 0.92fr;
   gap: 90px;
-  align-items: center;
+  align-items: start;
 }
-.about-act--reverse .act-copy { order: 2; }
-.about-act--reverse .act-visual { order: 1; }
-
 .act-copy { display: flex; flex-direction: column; }
-.act-num {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  margin-bottom: 20px;
-  font-family: 'Geist Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-}
-.act-num span { color: var(--accent); font-size: 12px; letter-spacing: 0.06em; }
-.act-num i {
-  display: block;
-  width: 28px;
-  height: 1px;
-  background: var(--line);
-  font-style: normal;
-}
 .act-title {
   font-family: 'Playfair Display', serif;
   font-size: clamp(28px, 3.2vw, 42px);
@@ -979,91 +955,6 @@ nav .status .dot {
   max-width: 13ch;
 }
 .act-title .italic { font-style: italic; color: var(--warm); }
-
-.act-hint {
-  margin-top: 8px;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-family: 'Geist Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 0.04em;
-  color: var(--text-muted);
-}
-.act-hint::before { content: '→'; color: var(--accent); }
-
-/* --- Act 02: "how I think" interactive stepper panel --- */
-.think-panel {
-  background: var(--bg-card);
-  border: 1px solid var(--line);
-  border-radius: 6px;
-  padding: 36px;
-  display: flex;
-  flex-direction: column;
-  gap: 26px;
-}
-.think-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-family: 'Geist Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 0.06em;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  padding-bottom: 18px;
-  border-bottom: 1px solid var(--line);
-}
-.think-progress .cur { color: var(--accent); }
-.think-display { min-height: 132px; }
-.think-stage-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 26px;
-  font-weight: 400;
-  letter-spacing: -0.01em;
-  color: var(--text);
-  margin-bottom: 12px;
-  transition: opacity 0.25s ease, transform 0.25s ease;
-}
-.think-stage-desc {
-  font-family: 'Geist', sans-serif;
-  font-size: 14px;
-  font-weight: 300;
-  line-height: 1.7;
-  color: var(--text-soft);
-  transition: opacity 0.25s ease, transform 0.25s ease;
-}
-.think-display.is-fading .think-stage-title,
-.think-display.is-fading .think-stage-desc {
-  opacity: 0;
-  transform: translateY(6px);
-}
-.think-steps {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-.think-step {
-  flex: 1 1 calc(50% - 8px);
-  font-family: 'Geist Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 0.03em;
-  color: var(--text-muted);
-  background: transparent;
-  border: 1px solid var(--line);
-  border-radius: 100px;
-  padding: 11px 14px;
-  cursor: pointer;
-  text-align: center;
-  transition: color 0.3s ease, border-color 0.3s ease, background 0.3s ease;
-}
-.think-step:hover { color: var(--text-soft); border-color: rgba(255,255,255,0.2); }
-.think-step.is-active {
-  color: var(--bg);
-  background: var(--accent);
-  border-color: var(--accent);
-  font-weight: 500;
-}
 
 /* === WORK · HOVER GALLERY === */
 .work-gallery {
@@ -1729,11 +1620,7 @@ footer .right a:hover { color: var(--accent); }
   .section-aside { text-align: left; }
   .about-acts { gap: 110px; margin-top: 60px; }
   .about-act { grid-template-columns: 1fr; gap: 36px; }
-  .about-act--reverse .act-copy,
-  .about-act--reverse .act-visual { order: initial; }
   .act-title { max-width: none; }
-  .think-panel { padding: 26px; }
-  .think-step { flex: 1 1 calc(50% - 8px); font-size: 10px; padding: 10px; }
   .work-gallery { grid-template-columns: 1fr; gap: 32px; }
   .hero-right { display: none; }
   .hero-body { grid-template-columns: 1fr; }

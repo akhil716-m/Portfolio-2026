@@ -349,13 +349,14 @@
 
   <div class="about-acts">
 
-    <!-- ACT 01 — How it started -->
     <div class="about-act">
       <div class="act-copy about-prose">
-        <div class="act-num"><span>01</span><i></i> How it started</div>
-        <h3 class="act-title">It started with <span class="italic">curiosity</span>, not a plan.</h3>
-        <p>Growing up, technology was always around me, so Computer Science felt like the obvious next step — but I was always more interested in <span class="warm">understanding people</span> than writing code.</p>
-        <p>During the COVID years, I stumbled onto design — a field that blended creativity, technology, and human understanding. What started as curiosity slowly became <span class="accent">a passion, and eventually, a career.</span></p>
+        <h3 class="act-title">It all started with <span class="italic">curiosity</span>,</h3>
+        <p>Growing up around technology, Computer Science felt like the obvious path. But I was always more interested in <span class="warm">understanding people</span> and how they interact with the world around them than writing code itself.</p>
+        <p>Somewhere along the way, I discovered design. What drew me in wasn't the visual side of it, but the idea of <span class="warm">making sense of complexity</span> and turning it into something people could easily understand and trust.</p>
+        <p>Today, I work on products in the world of payments and fintech, designing experiences that sit at the intersection of business, technology, and human behaviour. I enjoy <span class="accent">untangling messy systems, finding patterns,</span> and making things feel simpler than they are.</p>
+        <p>Outside of work, that same curiosity shows up in different ways — exploring new places, experimenting with recipes, building small side projects, or disappearing into rabbit holes about how products and systems work.</p>
+        <p>I don't always have a plan, but <span class="accent">curiosity has been a pretty reliable compass</span> so far.</p>
       </div>
       <div class="act-visual">
         <div class="about-profile">
@@ -371,41 +372,10 @@
             <div class="spec"><span class="k">At</span><span class="v"><span class="accent">JUSPAY</span> · since '24</span></div>
             <div class="spec"><span class="k">Before</span><span class="v">BetterPlace</span></div>
             <div class="spec"><span class="k">Focus</span><span class="v">Payments / SaaS / Systems</span></div>
-            <div class="spec"><span class="k">Tools</span><span class="v">Figma, Framer, Cursor</span></div>
             <div class="spec"><span class="k">City</span><span class="v">Bengaluru, IN</span></div>
             <div class="spec"><span class="k">Languages</span><span class="v">EN · TE · HI</span></div>
-            <div class="spec"><span class="k">Currently</span><span class="v">A 4K monitor away from peace</span></div>
           </div>
         </div>
-      </div>
-    </div>
-
-    <!-- ACT 02 — How I think -->
-    <div class="about-act about-act--reverse">
-      <div class="act-visual">
-        <div class="think-panel">
-          <div class="think-head">
-            <span class="think-tag">// how-i-think.run</span>
-            <span class="think-progress"><span class="cur">01</span> / 04</span>
-          </div>
-          <div class="think-display">
-            <h4 class="think-stage-title">Break it down</h4>
-            <p class="think-stage-desc">Whether it's a product, a workflow, or a messy problem — I start by taking it apart, piece by piece.</p>
-          </div>
-          <div class="think-steps">
-            <button class="think-step is-active" data-desc="Whether it's a product, a workflow, or a messy problem — I start by taking it apart, piece by piece.">Break it down</button>
-            <button class="think-step" data-desc="I question every assumption — including my own — before I let it shape a decision.">Question it</button>
-            <button class="think-step" data-desc="Understanding what's really happening beneath the surface — that's where clarity actually starts.">Find what's real</button>
-            <button class="think-step" data-desc="The best solutions rarely come from adding more. They come from understanding more.">Simplify</button>
-          </div>
-        </div>
-      </div>
-      <div class="act-copy about-prose">
-        <div class="act-num"><span>02</span><i></i> How I think</div>
-        <h3 class="act-title">I take things <span class="italic">apart</span> before I put them back together.</h3>
-        <p>I've always enjoyed making sense of things. Whether it's a product, a workflow, or a messy problem, my instinct is to <span class="warm">break it down, question assumptions,</span> and understand what's really happening beneath the surface.</p>
-        <p>Over time, this became the foundation of how I design. <span class="accent">The best solutions rarely come from adding more. They come from understanding more.</span></p>
-        <div class="act-hint">try clicking through the steps, alongside</div>
       </div>
     </div>
 
@@ -456,39 +426,6 @@ if (workGallery) {
     previews.forEach(p => p.classList.toggle('active', p.dataset.previewId === '0'));
   });
 }
-
-// About Act 02 — "how I think" interactive stepper, auto-advances + click-through
-(function() {
-  const panel = document.querySelector('.think-panel');
-  if (!panel) return;
-  const steps = panel.querySelectorAll('.think-step');
-  const display = panel.querySelector('.think-display');
-  const titleEl = panel.querySelector('.think-stage-title');
-  const descEl = panel.querySelector('.think-stage-desc');
-  const counter = panel.querySelector('.think-progress .cur');
-  let active = 0;
-  let timer;
-
-  function show(i) {
-    if (i === active && display.classList.contains('is-active-set')) return;
-    active = i;
-    steps.forEach((s, idx) => s.classList.toggle('is-active', idx === i));
-    display.classList.add('is-fading');
-    setTimeout(() => {
-      titleEl.textContent = steps[i].textContent;
-      descEl.textContent = steps[i].dataset.desc;
-      counter.textContent = String(i + 1).padStart(2, '0');
-      display.classList.remove('is-fading');
-      display.classList.add('is-active-set');
-    }, 220);
-  }
-
-  function next() { show((active + 1) % steps.length); }
-  function restart() { clearInterval(timer); timer = setInterval(next, 6000); }
-
-  steps.forEach((s, i) => s.addEventListener('click', () => { show(i); restart(); }));
-  restart();
-})();
 
 // Active nav — index has no active link since it's home
 const page = location.pathname.split('/').pop() || 'index.html';
