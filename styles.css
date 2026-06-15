@@ -1517,65 +1517,59 @@ nav .status .dot {
 
 /* === CONTACT === */
 .contact {
-  padding: 200px 40px 100px;
-  text-align: center;
+  padding: 140px 40px 120px;
   max-width: 1400px;
   margin: 0 auto;
   position: relative;
 }
-.contact-eyebrow {
-  font-family: 'Geist Mono', monospace;
-  font-size: 11px;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  margin-bottom: 40px;
-}
-.contact-title {
-  font-family: 'Instrument Serif', serif;
-  font-size: clamp(56px, 11vw, 160px);
-  line-height: 0.92;
-  letter-spacing: -0.025em;
-  font-weight: 400;
-  margin-bottom: 56px;
-  color: var(--text);
-}
-.contact-title .italic { font-style: italic; color: var(--warm); }
-.contact-title .accent {
-  font-style: italic;
-  color: var(--accent);
-  position: relative;
-  display: inline-block;
-}
 
 .contact-email {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  align-items: center;
+  gap: 16px;
+  padding: 48px 0;
+  border-bottom: 1px solid var(--line);
+  text-decoration: none;
+  color: var(--text);
+  transition: padding-left 0.5s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s;
+}
+.contact-email-label {
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.contact-email-address {
+  font-family: 'Playfair Display', serif;
+  font-weight: 400;
+  font-size: clamp(20px, 2.6vw, 36px);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
   display: inline-flex;
   align-items: center;
-  gap: 12px;
-  font-family: 'Instrument Serif', serif;
-  font-size: clamp(20px, 2.4vw, 28px);
+  gap: 14px;
+}
+.contact-email .arr {
+  font-family: 'Playfair Display', serif;
   font-style: italic;
-  color: var(--text);
-  text-decoration: none;
-  padding: 16px 32px;
-  border: 1px solid var(--text-muted);
-  border-radius: 100px;
-  transition: all 0.3s;
-  background: transparent;
+  color: var(--warm);
+  font-size: clamp(16px, 1.6vw, 26px);
+  display: inline-block;
+  transition: transform 0.3s;
 }
 .contact-email:hover {
-  border-color: var(--accent);
+  padding-left: 24px;
   color: var(--accent);
-  background: rgba(212, 255, 94, 0.05);
 }
-.contact-email .arr { transition: transform 0.3s; }
-.contact-email:hover .arr { transform: translate(4px, -4px); }
+.contact-email:hover .arr { transform: translate(6px, -6px); }
 
 .contact-socials {
   display: flex;
-  justify-content: center;
+  flex-wrap: wrap;
   gap: 32px;
-  margin-top: 60px;
+  margin-top: 40px;
   font-family: 'Geist Mono', monospace;
   font-size: 12px;
 }
@@ -1636,6 +1630,9 @@ footer .right a:hover { color: var(--accent); }
   .faq-row { grid-template-columns: 32px 1fr 24px; gap: 12px; }
   .faq-a { margin-left: 44px; margin-right: 32px; }
   .contact { padding: 120px 20px 60px; }
+  .contact-email { grid-template-columns: 1fr; gap: 12px; padding: 28px 0; }
+  .contact-email:hover { padding-left: 0; }
+  .contact-email-address { gap: 12px; }
   .contact-socials { flex-wrap: wrap; gap: 16px; }
   footer { grid-template-columns: 1fr; text-align: center; }
   footer .right { text-align: center; }
