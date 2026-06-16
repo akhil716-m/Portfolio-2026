@@ -200,6 +200,67 @@
 .cs-flow-branch--match { border-color: rgba(212,255,94,0.35); background: rgba(212,255,94,0.04); }
 .cs-flow-branch--exception { border-color: rgba(232,197,152,0.35); background: rgba(232,197,152,0.05); }
 
+/* ---------- RECON LAYERS — two-source reconciliation flow ---------- */
+.cs-recon-layers { margin: 44px 0 8px; display: flex; flex-direction: column; gap: 12px; }
+.cs-recon-layer { display: grid; grid-template-columns: 56px 1fr; gap: 16px; align-items: center; }
+.cs-recon-layer-lbl {
+  font-family: 'Geist Mono', monospace; font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--text-muted); writing-mode: vertical-rl; transform: rotate(180deg); text-align: center;
+}
+.cs-recon-layer-flow { display: flex; align-items: center; gap: 10px; }
+.cs-recon-node {
+  flex: 1; padding: 16px 14px; border: 1px solid var(--line); border-radius: 8px;
+  background: var(--bg-card); text-align: center;
+}
+.cs-recon-node-title { font-family: 'Geist', sans-serif; font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+.cs-recon-node-sub { font-family: 'Geist', sans-serif; font-size: 11px; font-weight: 300; color: var(--text-muted); }
+.cs-recon-node--oms { border-color: rgba(212,255,94,0.22); background: rgba(212,255,94,0.04); }
+.cs-recon-node--oms .cs-recon-node-title { color: var(--accent); }
+.cs-recon-node--psp { border-color: rgba(232,197,152,0.28); background: rgba(232,197,152,0.05); }
+.cs-recon-node--psp .cs-recon-node-title { color: var(--warm); }
+.cs-recon-node--bank { border-color: var(--line); background: var(--bg-card); }
+.cs-recon-node--bank .cs-recon-node-title { color: var(--text); }
+.cs-recon-node--result { border-color: var(--line); background: var(--bg-soft); flex: 0 0 auto; min-width: 150px; }
+.cs-recon-node--result .cs-recon-node-title { font-weight: 500; color: var(--text-soft); }
+.cs-recon-cmp {
+  font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.06em; color: var(--text-muted);
+  flex-shrink: 0; white-space: nowrap;
+}
+.cs-recon-arr { font-family: 'Geist Mono', monospace; font-size: 13px; color: var(--text-muted); flex-shrink: 0; }
+
+/* ---------- EXCEPTION TYPES GRID ---------- */
+.cs-exc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 28px 0 10px; }
+.cs-exc-tile { padding: 20px 18px; border-radius: 8px; border: 1px solid var(--line); background: var(--bg-card); }
+.cs-exc-visual {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  height: 72px; margin-bottom: 18px; font-family: 'Geist Mono', monospace;
+}
+.cs-exc-v-box {
+  padding: 5px 10px; border: 1px solid var(--line); border-radius: 4px;
+  background: var(--bg-soft); color: var(--text-soft); font-size: 11px;
+  font-family: 'Geist Mono', monospace; white-space: nowrap;
+}
+.cs-exc-v-box--diff { border-color: rgba(232,197,152,0.35); color: var(--warm); background: rgba(232,197,152,0.07); }
+.cs-exc-v-box--empty { border-style: dashed; color: var(--text-muted); }
+.cs-exc-v-op { color: var(--warm); font-size: 14px; }
+.cs-exc-v-sep { color: var(--text-muted); font-size: 10px; letter-spacing: 0.05em; }
+.cs-exc-v-col { display: flex; flex-direction: column; gap: 4px; }
+.cs-exc-v-arrow { font-size: 18px; line-height: 1; }
+.cs-exc-v-arrow--up { color: var(--accent); }
+.cs-exc-v-arrow--down { color: var(--warm); }
+.cs-exc-v-unknown { font-size: 24px; color: var(--text-muted); font-family: 'Geist Mono', monospace; }
+.cs-exc-title { font-family: 'Geist', sans-serif; font-size: 13px; font-weight: 500; margin-bottom: 4px; color: var(--text); }
+.cs-exc-sub { font-family: 'Geist', sans-serif; font-size: 11.5px; font-weight: 300; line-height: 1.5; color: var(--text-muted); }
+
+/* ---------- RESOLUTION BLOCK ---------- */
+.cs-resolution {
+  margin-top: 32px; padding: 20px 24px; border: 1px solid var(--line); border-radius: 8px;
+  background: var(--bg-card); text-align: center;
+}
+.cs-resolution-lbl { font-family: 'Geist', sans-serif; font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 8px; }
+.cs-resolution-lead { font-family: 'Geist', sans-serif; font-size: 13px; font-weight: 300; color: var(--text-soft); margin: 0 0 10px; }
+.cs-resolution-actions { font-family: 'Geist Mono', monospace; font-size: 11.5px; color: var(--text-muted); letter-spacing: 0.02em; }
+
 /* ---------- MATCH GRID — the four record shapes an exception can take ---------- */
 .cs-match-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--line); border-radius: 10px; overflow: hidden; margin: 40px 0 8px; }
 .cs-match-cell { padding: 28px 26px; background: var(--bg-card); }
@@ -284,6 +345,12 @@ a.cs-cta { margin-top: 28px; }
   .cs-anchor-grid { grid-template-columns: 1fr; gap: 32px; }
   .cs-ui-gallery { grid-template-columns: 1fr; }
   .cs-ui-card--feature .cs-ui-visual { aspect-ratio: 16 / 10; }
+  .cs-recon-layer { grid-template-columns: 1fr; }
+  .cs-recon-layer-lbl { writing-mode: horizontal-tb; transform: none; margin-bottom: 4px; font-size: 10px; }
+  .cs-recon-layer-flow { flex-direction: column; }
+  .cs-recon-cmp { transform: rotate(90deg); }
+  .cs-recon-node--result { min-width: unset; width: 100%; }
+  .cs-exc-grid { grid-template-columns: 1fr 1fr; }
 }
 </style>
 </head>
@@ -332,29 +399,47 @@ a.cs-cta { margin-top: 28px; }
   <div class="cs-label reveal"><span class="num">/01</span> Setting the Stage</div>
   <h2 class="cs-display reveal">Every payment leaves <em>more than one trail.</em></h2>
 
-  <p class="cs-p reveal">A payment is never written down just once. The merchant's system logs an order. The payment processor logs a transaction. The bank or card network logs a settlement. Reconciliation is the quiet, ongoing process of lining these records up and confirming they tell the same story.</p>
-  <p class="cs-p reveal">Most of the time, they do — automatically, in the background, without anyone noticing. Reconciliation only becomes visible when something doesn't line up: an amount off by a few cents, a transaction that appears in one record but not the other, a refund that settles a day later than expected. Those mismatches are <strong>exceptions</strong> — and this case study is about the workspace built for the people who resolve them.</p>
+  <p class="cs-p reveal"><strong>Reconciliation is cross-checking two ledgers to make sure they agree.</strong> It runs in two layers — each comparing exactly two sources at a time, not all four together.</p>
+  <p class="cs-p reveal">Layer 1 asks: does what we recorded in OMS match what Adyen actually settled? Layer 2 asks: does what Adyen sent match what the bank received? When a layer finds a gap, an <strong>exception</strong> is raised — and this case study is about the workspace built for the people who resolve them.</p>
 
-  <div class="cs-flow reveal">
-    <div class="cs-flow-row">
-      <div class="cs-flow-node">
-        <div class="cs-flow-node-title">Order</div>
-        <span class="cs-flow-node-sub">Merchant</span>
-      </div>
-      <div class="cs-flow-arrow">→</div>
-      <div class="cs-flow-node">
-        <div class="cs-flow-node-title">Transaction</div>
-        <span class="cs-flow-node-sub">Payment Processor</span>
-      </div>
-      <div class="cs-flow-arrow">→</div>
-      <div class="cs-flow-node">
-        <div class="cs-flow-node-title">Settlement</div>
-        <span class="cs-flow-node-sub">Bank · Card Network</span>
+  <div class="cs-recon-layers reveal">
+    <div class="cs-recon-layer">
+      <div class="cs-recon-layer-lbl">Layer 1</div>
+      <div class="cs-recon-layer-flow">
+        <div class="cs-recon-node cs-recon-node--oms">
+          <div class="cs-recon-node-title">OMS</div>
+          <div class="cs-recon-node-sub">What we recorded</div>
+        </div>
+        <div class="cs-recon-cmp">compare →</div>
+        <div class="cs-recon-node cs-recon-node--psp">
+          <div class="cs-recon-node-title">PSP (Adyen)</div>
+          <div class="cs-recon-node-sub">What Adyen settled</div>
+        </div>
+        <div class="cs-recon-arr">→</div>
+        <div class="cs-recon-node cs-recon-node--result">
+          <div class="cs-recon-node-title">Match or Exception</div>
+          <div class="cs-recon-node-sub">If they agree → matched ✓</div>
+        </div>
       </div>
     </div>
-    <div class="cs-flow-result">
-      <div class="cs-flow-branch cs-flow-branch--match">Records agree → <strong>Reconciled</strong>, automatically.</div>
-      <div class="cs-flow-branch cs-flow-branch--exception">Records disagree → <strong>Exception</strong>, for someone to resolve.</div>
+    <div class="cs-recon-layer">
+      <div class="cs-recon-layer-lbl">Layer 2</div>
+      <div class="cs-recon-layer-flow">
+        <div class="cs-recon-node cs-recon-node--psp">
+          <div class="cs-recon-node-title">PSP (Adyen)</div>
+          <div class="cs-recon-node-sub">What Adyen sent</div>
+        </div>
+        <div class="cs-recon-cmp">compare →</div>
+        <div class="cs-recon-node cs-recon-node--bank">
+          <div class="cs-recon-node-title">Bank</div>
+          <div class="cs-recon-node-sub">What bank received</div>
+        </div>
+        <div class="cs-recon-arr">→</div>
+        <div class="cs-recon-node cs-recon-node--result">
+          <div class="cs-recon-node-title">Match or Exception</div>
+          <div class="cs-recon-node-sub">If they agree → matched ✓</div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -367,10 +452,67 @@ a.cs-cta { margin-top: 28px; }
 
   <div class="cs-label reveal"><span class="num">/02</span> What's an Exception</div>
   <h2 class="cs-display reveal">One mismatch can hide <em>sixteen different stories.</em></h2>
-  <p class="cs-lead reveal">An exception isn't one thing. It's a mismatch — and both the <em class="cs-em">reason</em> for it and the <em class="cs-em">shape</em> of the records involved can vary independently of each other.</p>
+  <p class="cs-lead reveal">When the two sides don't agree, it becomes an exception that needs manual review. There are six ways that can happen — and each one implies a different resolution.</p>
 
-  <p class="cs-p reveal">On one axis, there's the reason something didn't match — a difference in amount, a record missing on one side, a duplicate entry, a status conflict between a refund and a capture, or simply a timing gap where settlement hasn't caught up yet.</p>
-  <p class="cs-p reveal">On the other axis, there's the shape of the records themselves. Transactions don't always map one-to-one — a single order can split into several settlement lines for captures, fees and refunds, while a batch settlement can bundle dozens of orders into a single bank entry.</p>
+  <div class="cs-exc-grid reveal">
+    <div class="cs-exc-tile">
+      <div class="cs-exc-visual">
+        <span class="cs-exc-v-box">₹ 1,000</span>
+        <span class="cs-exc-v-op">≠</span>
+        <span class="cs-exc-v-box cs-exc-v-box--diff">₹ 999</span>
+      </div>
+      <div class="cs-exc-title">Amount mismatch</div>
+      <div class="cs-exc-sub">Numbers don't match</div>
+    </div>
+    <div class="cs-exc-tile">
+      <div class="cs-exc-visual">
+        <span class="cs-exc-v-box">USD</span>
+        <span class="cs-exc-v-op">≠</span>
+        <span class="cs-exc-v-box cs-exc-v-box--diff">EUR</span>
+      </div>
+      <div class="cs-exc-title">Currency mismatch</div>
+      <div class="cs-exc-sub">Different currencies</div>
+    </div>
+    <div class="cs-exc-tile">
+      <div class="cs-exc-visual">
+        <span class="cs-exc-v-arrow cs-exc-v-arrow--up">↑</span>
+        <span class="cs-exc-v-box">Debit</span>
+        <span class="cs-exc-v-sep">→</span>
+        <span class="cs-exc-v-box cs-exc-v-box--diff">Credit</span>
+        <span class="cs-exc-v-arrow cs-exc-v-arrow--down">↓</span>
+      </div>
+      <div class="cs-exc-title">Balance direction</div>
+      <div class="cs-exc-sub">Debit vs credit flipped</div>
+    </div>
+    <div class="cs-exc-tile">
+      <div class="cs-exc-visual">
+        <div class="cs-exc-v-col">
+          <span class="cs-exc-v-box" style="font-size:10px;">REF: ORD-001</span>
+          <span class="cs-exc-v-box cs-exc-v-box--diff" style="font-size:10px;">REF: ORD-01</span>
+        </div>
+      </div>
+      <div class="cs-exc-title">Metadata mismatch</div>
+      <div class="cs-exc-sub">Reference fields differ</div>
+    </div>
+    <div class="cs-exc-tile">
+      <div class="cs-exc-visual">
+        <span class="cs-exc-v-box">entry</span>
+        <span class="cs-exc-v-sep">vs</span>
+        <span class="cs-exc-v-box cs-exc-v-box--empty">—</span>
+      </div>
+      <div class="cs-exc-title">Missing entry</div>
+      <div class="cs-exc-sub">One side has no record</div>
+    </div>
+    <div class="cs-exc-tile">
+      <div class="cs-exc-visual">
+        <span class="cs-exc-v-unknown">?</span>
+      </div>
+      <div class="cs-exc-title">Unknown</div>
+      <div class="cs-exc-sub">Can't be categorised</div>
+    </div>
+  </div>
+
+  <p class="cs-p reveal" style="margin-top: 8px;">On top of the reason, the <em class="cs-em">shape</em> of the records involved varies too. Transactions don't always map one-to-one — a single order can split into several settlement lines, or a batch settlement can bundle dozens of orders into one bank entry.</p>
 
   <div class="cs-match-grid reveal">
     <div class="cs-match-cell">
@@ -419,7 +561,13 @@ a.cs-cta { margin-top: 28px; }
     </div>
   </div>
 
-  <p class="cs-p reveal" style="margin-top: 30px;">Pair four record shapes with four-plus mismatch reasons, and an analyst is effectively triaging more than a dozen distinct situations — every one of them initially presented the same way: <span class="cs-em">"this didn't match."</span></p>
+  <p class="cs-p reveal" style="margin-top: 30px;">Pair six mismatch types with four record shapes, and an analyst is effectively triaging across sixteen distinct situations — every one of them initially presented the same way: <span class="cs-em">"this didn't match."</span></p>
+
+  <div class="cs-resolution reveal">
+    <div class="cs-resolution-lbl">What happens next?</div>
+    <p class="cs-resolution-lead">A finance ops user reviews the exception and takes a resolution action:</p>
+    <div class="cs-resolution-actions">Edit entry &nbsp;·&nbsp; Add entry &nbsp;·&nbsp; Swap entry &nbsp;·&nbsp; Delete entry &nbsp;·&nbsp; Mark as expected</div>
+  </div>
 
   <div class="cs-ui-teaser reveal">
     <span class="cs-tag-pill">First glimpse — the exception queue</span>
