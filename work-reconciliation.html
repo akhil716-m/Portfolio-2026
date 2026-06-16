@@ -286,17 +286,15 @@
 .cs-anchor-title { font-family: 'Playfair Display', serif; font-size: 19px; font-weight: 500; color: var(--text); margin-bottom: 8px; }
 .cs-anchor-desc { font-family: 'Geist', sans-serif; font-size: 12.5px; font-weight: 300; line-height: 1.75; color: var(--text-soft); }
 
-/* ---------- UI GALLERY — placeholders, large real estate ---------- */
-.cs-ui-gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 8px; }
+/* ---------- UI TEASER — first glimpse card in section 02 ---------- */
+.cs-ui-teaser { margin: 8px 0 0; }
 .cs-ui-card { display: flex; flex-direction: column; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: var(--bg-card); }
-.cs-ui-card--feature { grid-column: 1 / -1; }
 .cs-ui-visual {
   position: relative; aspect-ratio: 16 / 10;
   display: flex; align-items: center; justify-content: center;
   background: repeating-linear-gradient(135deg, var(--bg-soft) 0px, var(--bg-soft) 14px, var(--bg-card) 14px, var(--bg-card) 28px);
   border-bottom: 1px solid var(--line);
 }
-.cs-ui-card--feature .cs-ui-visual { aspect-ratio: 21 / 9; }
 .cs-ui-visual-label {
   font-family: 'Geist Mono', monospace; font-size: 12px; letter-spacing: 0.06em; color: var(--text-muted);
   background: var(--bg); border: 1px solid var(--line); border-radius: 100px; padding: 8px 18px;
@@ -309,8 +307,34 @@
 .cs-ui-cap-title { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 500; color: var(--text); margin-bottom: 8px; }
 .cs-ui-cap-desc { font-family: 'Geist', sans-serif; font-size: 13px; font-weight: 300; line-height: 1.7; color: var(--text-soft); margin: 0; }
 
-/* Standalone "first glimpse" teaser — same card, sits in the narrow column */
-.cs-ui-teaser { margin: 8px 0 0; }
+/* ---------- UI SEQUENCE — editorial numbered panels ---------- */
+.cs-ui-seq { display: flex; flex-direction: column; gap: 56px; margin-top: 8px; }
+.cs-ui-panel-hd {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: start;
+  border-top: 1px solid var(--line); padding-top: 18px; margin-bottom: 22px;
+}
+.cs-ui-panel-tag {
+  display: block; font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 10px;
+}
+.cs-ui-panel-title {
+  font-family: 'Playfair Display', serif; font-size: clamp(18px, 2.2vw, 24px); font-weight: 500;
+  color: var(--text); margin: 0;
+}
+.cs-ui-panel-desc {
+  font-family: 'Geist', sans-serif; font-size: 14px; font-weight: 300; line-height: 1.8;
+  color: var(--text-soft); margin: 0; padding-top: 2px;
+}
+.cs-ui-panel-visual {
+  aspect-ratio: 16 / 9; border-radius: 8px; overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+  background: repeating-linear-gradient(135deg, var(--bg-soft) 0px, var(--bg-soft) 14px, var(--bg-card) 14px, var(--bg-card) 28px);
+  border: 1px solid var(--line);
+}
+.cs-ui-panel-visual-lbl {
+  font-family: 'Geist Mono', monospace; font-size: 12px; letter-spacing: 0.06em; color: var(--text-muted);
+  background: var(--bg); border: 1px solid var(--line); border-radius: 100px; padding: 8px 18px;
+}
 
 /* ---------- CLOSING QUOTE ---------- */
 .cs-quote {
@@ -351,6 +375,7 @@ a.cs-cta { margin-top: 28px; }
   .cs-recon-cmp { transform: rotate(90deg); }
   .cs-recon-node--result { min-width: unset; width: 100%; }
   .cs-exc-grid { grid-template-columns: 1fr 1fr; }
+  .cs-ui-panel-hd { grid-template-columns: 1fr; gap: 12px; }
 }
 </style>
 </head>
@@ -651,61 +676,73 @@ a.cs-cta { margin-top: 28px; }
   <h2 class="cs-display reveal">From here, <em>the UI does the talking.</em></h2>
   <p class="cs-lead reveal">The structure above becomes a small set of screens — each one built on the same Context / Delta / Action anchor, adapted to a different moment in the resolution flow.</p>
 
-  <div class="cs-ui-gallery">
-    <div class="cs-ui-card cs-ui-card--feature reveal">
-      <div class="cs-ui-visual">
-        <span class="cs-ui-visual-label">// UI in progress</span>
+  <div class="cs-ui-seq">
+
+    <div class="reveal">
+      <div class="cs-ui-panel-hd">
+        <div>
+          <span class="cs-ui-panel-tag">02 / Exception Workspace</span>
+          <h3 class="cs-ui-panel-title">Queue and detail, side by side</h3>
+        </div>
+        <p class="cs-ui-panel-desc">The full workspace — a filterable queue on the left, and the Context / Delta / Action detail view on the right, open to whichever exception is selected.</p>
       </div>
-      <div class="cs-ui-cap">
-        <span class="cs-ui-cap-tag">02 / Exception Workspace</span>
-        <h3 class="cs-ui-cap-title">Queue and detail, side by side</h3>
-        <p class="cs-ui-cap-desc">The full workspace — a filterable queue on the left, and the Context / Delta / Action detail view on the right, open to whichever exception is selected.</p>
+      <div class="cs-ui-panel-visual">
+        <span class="cs-ui-panel-visual-lbl">// UI in progress</span>
       </div>
     </div>
 
-    <div class="cs-ui-card reveal">
-      <div class="cs-ui-visual">
-        <span class="cs-ui-visual-label">// UI in progress</span>
+    <div class="reveal">
+      <div class="cs-ui-panel-hd">
+        <div>
+          <span class="cs-ui-panel-tag">03 / Match Suggestions</span>
+          <h3 class="cs-ui-panel-title">Where many meets many</h3>
+        </div>
+        <p class="cs-ui-panel-desc">For many-to-many exceptions, the system proposes likely pairings between order-side and settlement-side records, ranked by confidence — the analyst confirms rather than searches.</p>
       </div>
-      <div class="cs-ui-cap">
-        <span class="cs-ui-cap-tag">03 / Match Suggestions</span>
-        <h3 class="cs-ui-cap-title">Where many meets many</h3>
-        <p class="cs-ui-cap-desc">For many-to-many exceptions, the system proposes likely pairings between order-side and settlement-side records, ranked by confidence — the analyst confirms rather than searches.</p>
-      </div>
-    </div>
-
-    <div class="cs-ui-card reveal">
-      <div class="cs-ui-visual">
-        <span class="cs-ui-visual-label">// UI in progress</span>
-      </div>
-      <div class="cs-ui-cap">
-        <span class="cs-ui-cap-tag">04 / Bulk Resolution</span>
-        <h3 class="cs-ui-cap-title">Resolve the pattern, not the instance</h3>
-        <p class="cs-ui-cap-desc">When dozens of exceptions share the same root cause, group them and apply one resolution — with the audit trail recorded per transaction automatically.</p>
+      <div class="cs-ui-panel-visual">
+        <span class="cs-ui-panel-visual-lbl">// UI in progress</span>
       </div>
     </div>
 
-    <div class="cs-ui-card reveal">
-      <div class="cs-ui-visual">
-        <span class="cs-ui-visual-label">// UI in progress</span>
+    <div class="reveal">
+      <div class="cs-ui-panel-hd">
+        <div>
+          <span class="cs-ui-panel-tag">04 / Bulk Resolution</span>
+          <h3 class="cs-ui-panel-title">Resolve the pattern, not the instance</h3>
+        </div>
+        <p class="cs-ui-panel-desc">When dozens of exceptions share the same root cause, group them and apply one resolution — with the audit trail recorded per transaction automatically.</p>
       </div>
-      <div class="cs-ui-cap">
-        <span class="cs-ui-cap-tag">05 / Resolution Actions</span>
-        <h3 class="cs-ui-cap-title">Actions that match the exception</h3>
-        <p class="cs-ui-cap-desc">The action panel only ever shows what's valid for this exception's type and shape — approve, write off, escalate, or request re-settlement.</p>
+      <div class="cs-ui-panel-visual">
+        <span class="cs-ui-panel-visual-lbl">// UI in progress</span>
       </div>
     </div>
 
-    <div class="cs-ui-card reveal">
-      <div class="cs-ui-visual">
-        <span class="cs-ui-visual-label">// UI in progress</span>
+    <div class="reveal">
+      <div class="cs-ui-panel-hd">
+        <div>
+          <span class="cs-ui-panel-tag">05 / Resolution Actions</span>
+          <h3 class="cs-ui-panel-title">Actions that match the exception</h3>
+        </div>
+        <p class="cs-ui-panel-desc">The action panel only ever shows what's valid for this exception's type and shape — approve, write off, escalate, or request re-settlement.</p>
       </div>
-      <div class="cs-ui-cap">
-        <span class="cs-ui-cap-tag">06 / Audit Trail</span>
-        <h3 class="cs-ui-cap-title">Every decision, traceable</h3>
-        <p class="cs-ui-cap-desc">A running history of resolved exceptions — what was decided, by whom, and why — replacing the manual log analysts kept before.</p>
+      <div class="cs-ui-panel-visual">
+        <span class="cs-ui-panel-visual-lbl">// UI in progress</span>
       </div>
     </div>
+
+    <div class="reveal">
+      <div class="cs-ui-panel-hd">
+        <div>
+          <span class="cs-ui-panel-tag">06 / Audit Trail</span>
+          <h3 class="cs-ui-panel-title">Every decision, traceable</h3>
+        </div>
+        <p class="cs-ui-panel-desc">A running history of resolved exceptions — what was decided, by whom, and why — replacing the manual log analysts kept before.</p>
+      </div>
+      <div class="cs-ui-panel-visual">
+        <span class="cs-ui-panel-visual-lbl">// UI in progress</span>
+      </div>
+    </div>
+
   </div>
 
   <blockquote class="cs-quote reveal">
