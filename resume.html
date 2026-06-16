@@ -44,7 +44,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 48px;
+  margin-bottom: 24px;
   padding-bottom: 24px;
   border-bottom: 1px solid var(--line);
 }
@@ -211,6 +211,18 @@
 }
 .exp-bullets li b { font-weight: 500; color: var(--text); }
 
+.exp-summary {
+  font-family: 'Geist', sans-serif; font-size: 13px; font-weight: 300; color: var(--text-soft);
+  line-height: 1.65; margin-bottom: 14px;
+}
+.exp-initiatives-label {
+  font-family: 'Geist Mono', monospace; font-size: 10px; text-transform: uppercase;
+  letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 8px;
+}
+.exp-initiatives .exp-bullets li b { color: var(--warm); font-weight: 500; }
+.exp-initiatives .exp-bullets li { padding-left: 0; }
+.exp-initiatives .exp-bullets li::before { content: none; }
+
 .exp-rule {
   border: none;
   border-top: 1px dashed var(--line);
@@ -325,14 +337,12 @@
 <nav>
   <div class="logo">
     <a href="index.html">
-      <span class="mark">a</span>
+      <img src="assets/akhil.jpg" alt="" class="mark" style="width: 22px; height: 22px; object-fit: cover; object-position: top center; filter: grayscale(100%);">
       <span class="name">Akhil Male</span>
-      <span class="role">— product designer</span>
     </a>
   </div>
   <div class="links">
     <a href="index.html">Home</a>
-    <a href="process.html">Process</a>
     <a href="resume.html">Resume</a>
   </div>
   <div class="status"><span class="dot"></span>available for select work</div>
@@ -356,7 +366,7 @@
       <div class="resume-summary">Product designer with 3+ years of experience, currently at Juspay building enterprise payment products. Focus on translating technically dense systems into experiences that feel effortless.</div>
     </div>
     <div class="resume-contacts">
-      <a href="mailto:helloakhil.m@gmail.com" class="resume-contact">helloakhil.m@gmail.com</a>
+      <a href="mailto:akhilmale.ux@gmail.com" class="resume-contact">akhilmale.ux@gmail.com</a>
       <a href="https://www.linkedin.com/in/male-akhil/" target="_blank" class="resume-contact">linkedin.com/in/male-akhil</a>
       <a href="tel:6300067716" class="resume-contact">+91 6300067716</a>
     </div>
@@ -378,20 +388,15 @@
         <div class="exp-role">Product Designer</div>
 
         <div class="exp-project">
-          <div class="exp-project-name">HyperSense — Cost Observability Tool</div>
-          <ul class="exp-bullets">
-            <li>Built HyperSense from zero, consolidating a fragmented IC++ fee structure across issuers, acquirers, and PSPs into a cost observability dashboard for enterprise merchants.</li>
-            <li>Secured <b>4 enterprise pilots</b> including a demo to Apple; merchants progressed from demo to testing with live cost data.</li>
-          </ul>
-        </div>
-
-        <div class="exp-project">
-          <div class="exp-project-name">Revenue Recovery — LLM Powered Recovery Engine</div>
-          <ul class="exp-bullets">
-            <li>Designed a dashboard that helps subscription businesses recover lost revenue from failed recurring payments using an LLM-powered retry engine.</li>
-            <li>Translated complex LLM-driven logic into a clear, actionable interface that reduces involuntary churn.</li>
-            <li>Closed first pilot with <b>$500K recovered</b>; 3 additional merchant pilots actively in progress.</li>
-          </ul>
+          <p class="exp-summary">Designed enterprise payment products across the Hyperswitch suite and domestic payment ecosystems. Led multiple 0→1 initiatives from discovery to pilot adoption, translating complex payment systems into intuitive merchant experiences.</p>
+          <div class="exp-initiatives">
+            <div class="exp-initiatives-label">Selected Initiatives</div>
+            <ul class="exp-bullets">
+              <li><b>HyperSense</b> — Built the cost observability experience that helps enterprise merchants understand and optimize payment processing costs.</li>
+              <li><b>Revenue Recovery</b> — Designed the product experience for revenue recovery, helping businesses understand recovery performance and act on opportunities to recover lost revenue.</li>
+              <li><b>Reconciliation</b> — Simplified complex financial exception and reconciliation processes into intuitive operational experiences.</li>
+            </ul>
+          </div>
         </div>
       </div>
 
@@ -406,19 +411,14 @@
         <div class="exp-role">Associate Product Designer</div>
 
         <div class="exp-project">
-          <div class="exp-project-name">Oust App — Up-skilling Platform for Frontline Workers</div>
-          <ul class="exp-bullets">
-            <li>Redesigned the end-to-end learning experience for blue-collar workers with low digital literacy and limited smartphone familiarity.</li>
-            <li>Rebuilt IA and visual language from scratch to support a scalable, role-based content structure.</li>
-          </ul>
-        </div>
-
-        <div class="exp-project">
-          <div class="exp-project-name">Attendance Management System</div>
-          <ul class="exp-bullets">
-            <li>Simplified a friction-heavy attendance flow for frontline workers into a faster, more reliable experience under operational pressure.</li>
-            <li>Shipped a solution grounded in real field behaviour through close collaboration with product and engineering.</li>
-          </ul>
+          <p class="exp-summary">Designed experiences for frontline workers across Betterplace's HRMS product suite. Simplified complex workflows for users with low digital literacy, partnering closely with product and engineering teams to improve usability at scale.</p>
+          <div class="exp-initiatives">
+            <div class="exp-initiatives-label">Selected Initiatives</div>
+            <ul class="exp-bullets">
+              <li><b>Oust</b> — Redesigned the workforce learning experience for frontline workers, simplifying content discovery and enabling scalable, role-based learning journeys.</li>
+              <li><b>Attendance Management System</b> — Simplified attendance and workforce tracking workflows for frontline workers operating in fast-paced, field-based environments.</li>
+            </ul>
+          </div>
         </div>
       </div>
 
@@ -435,21 +435,6 @@
           <li>Gained hands-on experience in UX fundamentals — wireframing, competitive analysis, and user flows — working on early-stage product problems.</li>
           <li>A foundational stint that shaped a practical understanding of design process and cross-functional collaboration.</li>
         </ul>
-      </div>
-
-      <div style="margin-top: 40px;">
-        <div class="r-head">Personal Projects</div>
-        <div class="exp-block" style="margin-bottom:0;">
-          <div class="exp-row">
-            <div class="exp-company">Growth School</div>
-            <div class="exp-period">Sept 2021 — Aug 2022</div>
-          </div>
-          <div class="exp-role">Personal Projects · Hackathons</div>
-          <ul class="exp-bullets">
-            <li>Worked on 3 individual UX case studies covering domains like personal finance, career guidance, and civic design.</li>
-            <li>Participated in 2 hackathons — each project followed a full design process from research and ideation through to user-tested UI.</li>
-          </ul>
-        </div>
       </div>
 
     </div>
@@ -516,10 +501,6 @@
           <div class="cert-issuer">UX Design · '22</div>
         </div>
         <div class="cert-item">
-          <div class="cert-name">Gamification In UIUX</div>
-          <div class="cert-issuer">UIUX Global · '23</div>
-        </div>
-        <div class="cert-item">
           <div class="cert-name">Graduation of UI & UX</div>
           <div class="cert-issuer">Skillto · '21</div>
         </div>
@@ -543,7 +524,6 @@
 
 <footer>
   <div>© 2026 Akhil Male</div>
-  <div class="center">Designed in Figma. Built with care.</div>
   <div class="right"><a href="#">Back to top ↑</a></div>
 </footer>
 
@@ -557,7 +537,7 @@ const page = location.pathname.split('/').pop() || 'index.html';
 document.querySelectorAll('nav .links a').forEach(a => { if(a.getAttribute('href')===page) a.classList.add('active'); });
 
 console.log('%cHi.','font-family:"Instrument Serif",serif;font-size:32px;font-style:italic;color:#d4ff5e;');
-console.log('%cIf you got this far, you\'re probably my kind of person. → hello@akhilmale.com','font-family:monospace;font-size:12px;color:#8a8a8a;');
+console.log('%cIf you got this far, you\'re probably my kind of person. → akhilmale.ux@gmail.com','font-family:monospace;font-size:12px;color:#8a8a8a;');
 </script>
 </body>
 </html>
