@@ -222,6 +222,10 @@
 .cs-recon-node--bank .cs-recon-node-title { color: var(--text); }
 .cs-recon-node--result { border-color: var(--line); background: var(--bg-soft); flex: 0 0 auto; min-width: 150px; }
 .cs-recon-node--result .cs-recon-node-title { font-weight: 500; color: var(--text-soft); }
+.cs-recon-node--exception { border-color: rgba(220,70,60,0.35); background: rgba(220,70,60,0.06); }
+.cs-recon-node--exception .cs-recon-node-title { color: #e05858; }
+.cs-recon-node--matched { border-color: rgba(212,255,94,0.28); background: rgba(212,255,94,0.05); }
+.cs-recon-node--matched .cs-recon-node-title { color: var(--accent); }
 .cs-recon-cmp {
   font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.06em; color: var(--text-muted);
   flex-shrink: 0; white-space: nowrap;
@@ -278,6 +282,15 @@
   font-family: 'Geist Mono', monospace; font-size: 10.5px; letter-spacing: 0.05em; color: var(--text-soft);
   background: var(--bg-card); border: 1px solid var(--line);
 }
+
+/* ---------- TOPOLOGY LEVELS — account + entry nesting diagram ---------- */
+.cs-topology { margin: 36px 0 8px; display: flex; flex-direction: column; gap: 0; }
+.cs-topo-level { padding: 20px 22px; border: 1px solid var(--line); border-radius: 8px; background: var(--bg-card); }
+.cs-topo-level--inner { margin: 8px 0 0 32px; border-color: rgba(212,255,94,0.2); border-style: dashed; }
+.cs-topo-lbl { font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; }
+.cs-topo-desc { font-family: 'Geist', sans-serif; font-size: 12.5px; font-weight: 300; line-height: 1.65; color: var(--text-muted); margin-bottom: 14px; }
+.cs-topo-chips { display: flex; gap: 8px; flex-wrap: wrap; }
+.cs-topo-chip { font-family: 'Geist Mono', monospace; font-size: 11px; padding: 5px 12px; border-radius: 100px; border: 1px solid var(--line); background: var(--bg-soft); color: var(--text-soft); }
 
 /* ---------- ANCHOR GRID — context / delta / action ---------- */
 .cs-anchor-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin: 40px 0 8px; }
@@ -424,9 +437,8 @@ a.cs-cta { margin-top: 28px; }
   <div class="cs-label reveal"><span class="num">/01</span> Setting the Stage</div>
   <h2 class="cs-display reveal">Every payment leaves <em>more than one trail.</em></h2>
 
-  <p class="cs-p reveal"><strong>Reconciliation is cross-checking two ledgers to make sure they agree.</strong> It runs in two layers — each comparing exactly two sources at a time, not all four together.</p>
-  <p class="cs-p reveal">Layer 1 asks: does what we recorded in OMS match what Adyen actually settled? Layer 2 asks: does what Adyen sent match what the bank received? When a layer finds a gap, an <strong>exception</strong> is raised — and this case study is about the workspace built for the people who resolve them.</p>
-
+  <p class="cs-p reveal">Reconciliation ensures these records stay in sync as money moves across systems.</p>
+  <p class="cs-p reveal">A single payment creates multiple records — what we recorded internally, what the payment provider settled, and what the bank ultimately received.</p>
   <div class="cs-recon-layers reveal">
     <div class="cs-recon-layer">
       <div class="cs-recon-layer-lbl">Layer 1</div>
@@ -468,6 +480,9 @@ a.cs-cta { margin-top: 28px; }
     </div>
   </div>
 
+  <p class="cs-p reveal" style="margin-top: 24px;">Rather than comparing everything at once, the system validates these records layer by layer. Whenever two records disagree, an <strong>exception</strong> is created for investigation.</p>
+  <p class="cs-p reveal">Exceptions are the starting point of the investigation experience designed for finance operations teams to identify, understand, and resolve them.</p>
+
 </div>
 </section>
 
@@ -476,8 +491,31 @@ a.cs-cta { margin-top: 28px; }
 <div class="cs-wrap">
 
   <div class="cs-label reveal"><span class="num">/02</span> What's an Exception</div>
-  <h2 class="cs-display reveal">One mismatch can hide <em>sixteen different stories.</em></h2>
-  <p class="cs-lead reveal">When the two sides don't agree, it becomes an exception that needs manual review. There are six ways that can happen — and each one implies a different resolution.</p>
+  <h2 class="cs-display reveal">Sometimes those trails don't agree.</h2>
+  <p class="reveal" style="font-family: 'Instrument Serif', serif; font-style: italic; font-size: clamp(22px, 3vw, 34px); color: var(--warm); margin: 10px 0 0; line-height: 1.3;">And that's where investigation begins.</p>
+  <p class="cs-lead reveal">An exception is created whenever two records disagree. While the issue may look similar at first glance, the underlying reason can vary significantly — and each one requires a different way of investigating and resolving it.</p>
+
+  <div class="cs-recon-layers reveal" style="margin: 32px 0 8px;">
+    <div class="cs-recon-layer">
+      <div class="cs-recon-layer-lbl">Layer 1</div>
+      <div class="cs-recon-layer-flow">
+        <div class="cs-recon-node cs-recon-node--oms">
+          <div class="cs-recon-node-title">OMS</div>
+          <div class="cs-recon-node-sub">What we recorded</div>
+        </div>
+        <div class="cs-recon-cmp">compare →</div>
+        <div class="cs-recon-node cs-recon-node--psp">
+          <div class="cs-recon-node-title">PSP (Adyen)</div>
+          <div class="cs-recon-node-sub">What Adyen settled</div>
+        </div>
+        <div class="cs-recon-arr">→</div>
+        <div class="cs-recon-node cs-recon-node--result cs-recon-node--exception">
+          <div class="cs-recon-node-title">Exception</div>
+          <div class="cs-recon-node-sub">Records don't agree</div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <div class="cs-exc-grid reveal">
     <div class="cs-exc-tile">
@@ -537,6 +575,18 @@ a.cs-cta { margin-top: 28px; }
     </div>
   </div>
 
+</div>
+</section>
+
+<!-- ═══════════════════════ 03 — THE MANY SHAPES OF A MISMATCH ═══════════════════════ -->
+<section class="cs-section" id="cs-shapes">
+<div class="cs-wrap">
+
+  <div class="cs-label reveal"><span class="num">/03</span> The Many Shapes of a Mismatch</div>
+  <h2 class="cs-display reveal">One mismatch can hide <em>sixteen different stories.</em></h2>
+
+  <p class="cs-p reveal" style="margin-top: 8px;">The reason behind an exception is only part of the picture. Transactions don't always map one-to-one. A single order can split into multiple settlement lines, while multiple orders can eventually settle into a single bank entry.</p>
+
   <p class="cs-p reveal" style="margin-top: 8px;">On top of the reason, the <em class="cs-em">shape</em> of the records involved varies too. Transactions don't always map one-to-one — a single order can split into several settlement lines, or a batch settlement can bundle dozens of orders into one bank entry.</p>
 
   <div class="cs-match-grid reveal">
@@ -586,7 +636,7 @@ a.cs-cta { margin-top: 28px; }
     </div>
   </div>
 
-  <p class="cs-p reveal" style="margin-top: 30px;">Pair six mismatch types with four record shapes, and an analyst is effectively triaging across sixteen distinct situations — every one of them initially presented the same way: <span class="cs-em">"this didn't match."</span></p>
+  <p class="cs-p reveal" style="margin-top: 30px;">An analyst isn't simply fixing mismatches—they're first reconstructing how records relate to one another.</p>
 
   <div class="cs-resolution reveal">
     <div class="cs-resolution-lbl">What happens next?</div>
@@ -611,36 +661,62 @@ a.cs-cta { margin-top: 28px; }
 </div>
 </section>
 
-<!-- ═══════════════════════ 03 — WHERE ANALYSTS GET STUCK ═══════════════════════ -->
+<!-- ═══════════════════════ 04 — WHERE ANALYSTS GET STUCK ═══════════════════════ -->
 <section class="cs-section" id="cs-struggle">
 <div class="cs-wrap">
 
-  <div class="cs-label reveal"><span class="num">/03</span> Where Analysts Get Stuck</div>
-  <h2 class="cs-display reveal">The data lines up. The workflow <em>doesn't.</em></h2>
+  <div class="cs-label reveal"><span class="num">/04</span> Where Analysts Get Stuck</div>
+  <h2 class="cs-display reveal">The exception label is only <em>half the story.</em></h2>
 
-  <p class="cs-p reveal">Today, resolving one exception means moving across tools — exporting a report from the payments dashboard, pulling a settlement file from the bank portal, cross-referencing transaction IDs in a spreadsheet, and writing the outcome back somewhere else entirely.</p>
-  <p class="cs-p reveal">None of these steps are hard on their own. Repeated dozens of times a day, across exceptions that all look identical at a glance, the problem isn't difficulty — it's <strong>friction</strong>.</p>
+  <p class="cs-p reveal">An exception comes with a topology label such as OneToOne or OneToMany. But that label only describes who is being compared, not what is actually happening underneath.</p>
 
+  <div class="cs-topology reveal">
+    <div class="cs-topo-level">
+      <div class="cs-topo-lbl">Account-level topology — outer grouping</div>
+      <div class="cs-topo-desc">Which OMS account(s) are being compared against which Adyen account(s). Tells you <em>who's being compared</em> — and determines how the system groups records before it can compare anything.</div>
+      <div class="cs-topo-chips">
+        <span class="cs-topo-chip">OneToOne</span>
+        <span class="cs-topo-chip">OneToMany</span>
+        <span class="cs-topo-chip">ManyToOne</span>
+        <span class="cs-topo-chip">ManyToMany</span>
+      </div>
+    </div>
+    <div class="cs-topo-level cs-topo-level--inner">
+      <div class="cs-topo-lbl">Entry-level topology — nested inside</div>
+      <div class="cs-topo-desc">Within that account pairing, how many individual transactions or entries exist on each side. Tells you <em>what's being compared</em> — and determines where the actual amount mismatch lives. Can vary independently of the account level above.</div>
+      <div class="cs-topo-chips">
+        <span class="cs-topo-chip">OneToOne</span>
+        <span class="cs-topo-chip">OneToMany</span>
+        <span class="cs-topo-chip">ManyToOne</span>
+        <span class="cs-topo-chip">ManyToMany</span>
+      </div>
+    </div>
+  </div>
+
+  <p class="cs-p reveal" style="margin-top: 30px;">Both layers can have completely different shapes, making the same exception appear deceptively simple.</p>
+
+  <p class="cs-p reveal" style="margin-top: 32px; font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted);">Why analysts get stuck</p>
   <ul class="cs-list reveal">
-    <li>No single view of what's broken, why, or how many</li>
-    <li>Every exception type implies a different resolution — but the spreadsheet doesn't know that</li>
-    <li>Context — the original order, the settlement line, the customer — sits in three different systems</li>
-    <li>Decisions and reasoning are recorded manually, if at all, with no audit trail</li>
+    <li>The exception label hides what's happening underneath.</li>
+    <li>Resolution depends on entry-level relationships, not account-level labels.</li>
+    <li>Analysts must reconstruct missing context manually.</li>
+    <li>The same mismatch can require entirely different actions.</li>
   </ul>
 
   <div class="cs-challenge reveal">
     <div class="cs-challenge-tag">Design Challenge</div>
-    <p>Give every exception — whatever its shape or reason — the same starting point: what was expected, what's different, and what can be done about it.</p>
+    <p style="font-weight: 600; color: var(--text); margin-bottom: 8px;">Make the hidden structure visible before investigation begins.</p>
+    <p>The label alone isn't enough. The interface needs to reveal both who is being compared and what is actually being compared underneath.</p>
   </div>
 
 </div>
 </section>
 
-<!-- ═══════════════════════ 04 — DESIGNING THE STRUCTURE ═══════════════════════ -->
+<!-- ═══════════════════════ 05 — DESIGNING THE STRUCTURE ═══════════════════════ -->
 <section class="cs-section" id="cs-structure">
 <div class="cs-wrap">
 
-  <div class="cs-label reveal"><span class="num">/04</span> Designing the Structure</div>
+  <div class="cs-label reveal"><span class="num">/05</span> Designing the Structure</div>
   <h2 class="cs-display reveal">One structure, <em>however the transaction splits.</em></h2>
 
   <p class="cs-p reveal">Designing a separate screen for every combination of mismatch reason and record shape would mean designing for all of the permutations above — and then some. Instead, we anchored the design around three things that hold true for every exception, no matter how many records sit on either side.</p>
@@ -668,11 +744,11 @@ a.cs-cta { margin-top: 28px; }
 </div>
 </section>
 
-<!-- ═══════════════════════ 05 — UI DESIGN ═══════════════════════ -->
+<!-- ═══════════════════════ 06 — UI DESIGN ═══════════════════════ -->
 <section class="cs-section" id="cs-showcase">
 <div class="cs-wrap cs-wrap--wide">
 
-  <div class="cs-label reveal"><span class="num">/05</span> UI Design</div>
+  <div class="cs-label reveal"><span class="num">/06</span> UI Design</div>
   <h2 class="cs-display reveal">From here, <em>the UI does the talking.</em></h2>
   <p class="cs-lead reveal">The structure above becomes a small set of screens — each one built on the same Context / Delta / Action anchor, adapted to a different moment in the resolution flow.</p>
 
@@ -782,11 +858,12 @@ a.cs-cta { margin-top: 28px; }
   if (!rail || !active || !others) return;
 
   var SECTIONS = [
-    { id: 'cs-stage',     label: '01 — Setting the Stage',       thesis: 'Every payment leaves <em>more than one trail.</em>' },
-    { id: 'cs-exception', label: '02 — What&rsquo;s an Exception', thesis: 'One mismatch can hide <em>sixteen different stories.</em>' },
-    { id: 'cs-struggle',  label: '03 — Where Analysts Get Stuck', thesis: 'The data lines up. The workflow <em>doesn&rsquo;t.</em>' },
-    { id: 'cs-structure', label: '04 — Designing the Structure',  thesis: 'One structure, <em>however the transaction splits.</em>' },
-    { id: 'cs-showcase',  label: '05 — UI Design',                thesis: 'From here, <em>the UI does the talking.</em>' }
+    { id: 'cs-stage',     label: '01 — Setting the Stage',              thesis: 'Every payment leaves <em>more than one trail.</em>' },
+    { id: 'cs-exception', label: '02 — What&rsquo;s an Exception',       thesis: 'Sometimes those trails don\'t agree. <em>And that\'s where investigation begins.</em>' },
+    { id: 'cs-shapes',    label: '03 — The Many Shapes of a Mismatch',  thesis: 'One mismatch can hide <em>sixteen different stories.</em>' },
+    { id: 'cs-struggle',  label: '04 — Where Analysts Get Stuck',        thesis: 'The exception label is only <em>half the story.</em>' },
+    { id: 'cs-structure', label: '05 — Designing the Structure',         thesis: 'One structure, <em>however the transaction splits.</em>' },
+    { id: 'cs-showcase',  label: '06 — UI Design',                       thesis: 'From here, <em>the UI does the talking.</em>' }
   ];
 
   var activeId = null;
