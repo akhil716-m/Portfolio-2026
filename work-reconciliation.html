@@ -171,6 +171,10 @@
 .cs-list li::before { content: '—'; position: absolute; left: 0; color: var(--accent); }
 
 /* ---------- DESIGN CHALLENGE CALLOUT ---------- */
+.cs-section-sub {
+  font-family: 'Geist', sans-serif; font-size: 15px; font-weight: 600;
+  color: var(--text); margin: 0 0 14px; letter-spacing: -0.01em;
+}
 .cs-pullquote {
   margin: 40px 0 0; padding: 18px 24px; border-radius: 0 8px 8px 0;
   border-left: 2px solid var(--warm); background: rgba(232,197,152,0.05);
@@ -289,14 +293,20 @@
   background: var(--bg-card); border: 1px solid var(--line);
 }
 
-/* ---------- TOPOLOGY LEVELS — account + entry nesting diagram ---------- */
-.cs-topology { margin: 36px 0 8px; display: flex; flex-direction: column; gap: 0; }
-.cs-topo-level { padding: 20px 22px; border: 1px solid var(--line); border-radius: 8px; background: var(--bg-card); }
-.cs-topo-level--inner { margin: 8px 0 0 32px; border-color: rgba(212,255,94,0.2); border-style: dashed; }
-.cs-topo-lbl { font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; }
-.cs-topo-desc { font-family: 'Geist', sans-serif; font-size: 12.5px; font-weight: 300; line-height: 1.65; color: var(--text-muted); margin-bottom: 14px; }
-.cs-topo-chips { display: flex; gap: 8px; flex-wrap: wrap; }
-.cs-topo-chip { font-family: 'Geist Mono', monospace; font-size: 11px; padding: 5px 12px; border-radius: 100px; border: 1px solid var(--line); background: var(--bg-soft); color: var(--text-soft); }
+/* ---------- TOPOLOGY — nested card diagram ---------- */
+.cs-topo-v2 { margin: 36px 0 8px; }
+.cs-topo-outer { padding: 20px; border: 1px solid var(--line); border-radius: 10px; background: var(--bg-card); }
+.cs-topo-inner { margin-top: 16px; padding: 16px; border: 1px dashed rgba(212,255,94,0.22); border-radius: 8px; background: rgba(212,255,94,0.03); }
+.cs-topo-badge { font-family: 'Geist Mono', monospace; font-size: 9.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 3px; }
+.cs-topo-tag { font-size: 12.5px; font-weight: 300; color: var(--text-soft); margin-bottom: 14px; }
+.cs-topo-row { display: flex; gap: 8px; flex-wrap: wrap; }
+.cs-topo-card { flex: 1; min-width: 64px; display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 12px 10px 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--bg-soft); }
+.cs-topo-mini { display: flex; align-items: center; gap: 5px; }
+.cs-topo-mini-col { display: flex; flex-direction: column; gap: 3px; }
+.cs-topo-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--text-muted); }
+.cs-topo-dot--l { background: var(--accent); }
+.cs-topo-mini-arr { font-size: 9px; color: var(--text-muted); }
+.cs-topo-card-lbl { font-family: 'Geist Mono', monospace; font-size: 9px; letter-spacing: 0.04em; color: var(--text-muted); white-space: nowrap; text-align: center; }
 
 /* ---------- ANCHOR GRID — context / delta / action ---------- */
 .cs-anchor-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin: 40px 0 8px; }
@@ -362,6 +372,30 @@
   font-weight: 400; line-height: 1.6; color: var(--text); max-width: 640px;
 }
 .cs-thanks { font-size: 15px; color: var(--text-soft); }
+
+/* ---------- BROWSER MOCKUP ---------- */
+.cs-mock-browser {
+  margin: 48px 0 0; border-radius: 10px; overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.06);
+  box-shadow: 0 40px 100px rgba(0,0,0,0.55);
+  background: #fff; display: flex; flex-direction: column;
+}
+.cs-mock-chrome { flex-shrink: 0; }
+.cs-mock-chrome img { width: 100%; display: block; }
+.cs-mock-window { display: flex; height: 720px; overflow: hidden; }
+.cs-mock-nav { flex-shrink: 0; width: 220px; overflow: hidden; }
+.cs-mock-nav img { width: 100%; height: auto; display: block; }
+.cs-mock-body {
+  flex: 1; overflow-y: auto; background: #fff;
+  scrollbar-width: thin; scrollbar-color: #ddd transparent;
+}
+.cs-mock-body img { width: 100%; display: block; height: auto; }
+.cs-mock-cap {
+  margin-top: 14px; padding-left: 4px;
+  display: flex; align-items: baseline; gap: 12px;
+}
+.cs-mock-cap-num { font-family: 'Geist Mono', monospace; font-size: 10px; color: var(--text-muted); letter-spacing: 0.08em; }
+.cs-mock-cap-title { font-family: 'Geist', sans-serif; font-size: 13px; color: var(--text-soft); font-weight: 300; }
 
 /* ---------- CTA ---------- */
 .cs-cta {
@@ -649,37 +683,126 @@ a.cs-cta { margin-top: 28px; }
 <section class="cs-section" id="cs-struggle">
 <div class="cs-wrap">
 
-  <div class="cs-label reveal"><span class="num">/04</span> Where Analysts Get Stuck</div>
-  <h2 class="cs-display reveal">The exception label is only <em>half the story.</em></h2>
+  <div class="cs-label reveal"><span class="num">/04</span> Design Challenge</div>
+  <h2 class="cs-display reveal">Analysts needed more than <em>an exception label.</em></h2>
 
-  <p class="cs-p reveal">An exception comes with a topology label such as OneToOne or OneToMany. But that label only describes who is being compared, not what is actually happening underneath.</p>
+  <p class="cs-p reveal" style="margin-top: 24px;">An exception already tells analysts that something is wrong. But taking action requires much more context.</p>
+  <p class="cs-p reveal">They need to understand <strong>who is being compared</strong> and <strong>what is actually being compared underneath</strong>. The two can vary independently, making the same exception appear deceptively simple.</p>
+  <p class="cs-p reveal">Without that visibility, analysts are forced to manually reconstruct relationships before they can confidently act.</p>
 
-  <div class="cs-topology reveal">
-    <div class="cs-topo-level">
-      <div class="cs-topo-lbl">Account-level topology — outer grouping</div>
-      <div class="cs-topo-desc">Which OMS account(s) are being compared against which Adyen account(s). Tells you <em>who's being compared</em> — and determines how the system groups records before it can compare anything.</div>
-      <div class="cs-topo-chips">
-        <span class="cs-topo-chip">OneToOne</span>
-        <span class="cs-topo-chip">OneToMany</span>
-        <span class="cs-topo-chip">ManyToOne</span>
-        <span class="cs-topo-chip">ManyToMany</span>
+  <div class="cs-topo-v2 reveal">
+    <div class="cs-topo-outer">
+      <div class="cs-topo-badge">Account level</div>
+      <div class="cs-topo-tag">Reveals who is being compared.</div>
+      <div class="cs-topo-row">
+        <div class="cs-topo-card">
+          <div class="cs-topo-mini">
+            <span class="cs-topo-dot cs-topo-dot--l"></span>
+            <span class="cs-topo-mini-arr">→</span>
+            <span class="cs-topo-dot"></span>
+          </div>
+          <span class="cs-topo-card-lbl">One-to-one</span>
+        </div>
+        <div class="cs-topo-card">
+          <div class="cs-topo-mini">
+            <span class="cs-topo-dot cs-topo-dot--l"></span>
+            <span class="cs-topo-mini-arr">→</span>
+            <div class="cs-topo-mini-col">
+              <span class="cs-topo-dot"></span>
+              <span class="cs-topo-dot"></span>
+              <span class="cs-topo-dot"></span>
+            </div>
+          </div>
+          <span class="cs-topo-card-lbl">One-to-many</span>
+        </div>
+        <div class="cs-topo-card">
+          <div class="cs-topo-mini">
+            <div class="cs-topo-mini-col">
+              <span class="cs-topo-dot cs-topo-dot--l"></span>
+              <span class="cs-topo-dot cs-topo-dot--l"></span>
+              <span class="cs-topo-dot cs-topo-dot--l"></span>
+            </div>
+            <span class="cs-topo-mini-arr">→</span>
+            <span class="cs-topo-dot"></span>
+          </div>
+          <span class="cs-topo-card-lbl">Many-to-one</span>
+        </div>
+        <div class="cs-topo-card">
+          <div class="cs-topo-mini">
+            <div class="cs-topo-mini-col">
+              <span class="cs-topo-dot cs-topo-dot--l"></span>
+              <span class="cs-topo-dot cs-topo-dot--l"></span>
+              <span class="cs-topo-dot cs-topo-dot--l"></span>
+            </div>
+            <span class="cs-topo-mini-arr">→</span>
+            <div class="cs-topo-mini-col">
+              <span class="cs-topo-dot"></span>
+              <span class="cs-topo-dot"></span>
+              <span class="cs-topo-dot"></span>
+            </div>
+          </div>
+          <span class="cs-topo-card-lbl">Many-to-many</span>
+        </div>
       </div>
-    </div>
-    <div class="cs-topo-level cs-topo-level--inner">
-      <div class="cs-topo-lbl">Entry-level topology — nested inside</div>
-      <div class="cs-topo-desc">Within that account pairing, how many individual transactions or entries exist on each side. Tells you <em>what's being compared</em> — and determines where the actual amount mismatch lives. Can vary independently of the account level above.</div>
-      <div class="cs-topo-chips">
-        <span class="cs-topo-chip">OneToOne</span>
-        <span class="cs-topo-chip">OneToMany</span>
-        <span class="cs-topo-chip">ManyToOne</span>
-        <span class="cs-topo-chip">ManyToMany</span>
+
+      <div class="cs-topo-inner">
+        <div class="cs-topo-badge">Entry level</div>
+        <div class="cs-topo-tag">Reveals what is being compared underneath.</div>
+        <div class="cs-topo-row">
+          <div class="cs-topo-card">
+            <div class="cs-topo-mini">
+              <span class="cs-topo-dot cs-topo-dot--l"></span>
+              <span class="cs-topo-mini-arr">→</span>
+              <span class="cs-topo-dot"></span>
+            </div>
+            <span class="cs-topo-card-lbl">One-to-one</span>
+          </div>
+          <div class="cs-topo-card">
+            <div class="cs-topo-mini">
+              <span class="cs-topo-dot cs-topo-dot--l"></span>
+              <span class="cs-topo-mini-arr">→</span>
+              <div class="cs-topo-mini-col">
+                <span class="cs-topo-dot"></span>
+                <span class="cs-topo-dot"></span>
+                <span class="cs-topo-dot"></span>
+              </div>
+            </div>
+            <span class="cs-topo-card-lbl">One-to-many</span>
+          </div>
+          <div class="cs-topo-card">
+            <div class="cs-topo-mini">
+              <div class="cs-topo-mini-col">
+                <span class="cs-topo-dot cs-topo-dot--l"></span>
+                <span class="cs-topo-dot cs-topo-dot--l"></span>
+                <span class="cs-topo-dot cs-topo-dot--l"></span>
+              </div>
+              <span class="cs-topo-mini-arr">→</span>
+              <span class="cs-topo-dot"></span>
+            </div>
+            <span class="cs-topo-card-lbl">Many-to-one</span>
+          </div>
+          <div class="cs-topo-card">
+            <div class="cs-topo-mini">
+              <div class="cs-topo-mini-col">
+                <span class="cs-topo-dot cs-topo-dot--l"></span>
+                <span class="cs-topo-dot cs-topo-dot--l"></span>
+                <span class="cs-topo-dot cs-topo-dot--l"></span>
+              </div>
+              <span class="cs-topo-mini-arr">→</span>
+              <div class="cs-topo-mini-col">
+                <span class="cs-topo-dot"></span>
+                <span class="cs-topo-dot"></span>
+                <span class="cs-topo-dot"></span>
+              </div>
+            </div>
+            <span class="cs-topo-card-lbl">Many-to-many</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 
-  <p class="cs-p reveal" style="margin-top: 30px;">Both layers can have completely different shapes, making the same exception appear deceptively simple.</p>
-
-  <p class="cs-p reveal" style="margin-top: 32px; font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted);">Why analysts get stuck</p>
+  <p class="cs-section-sub reveal" style="margin-top: 40px;">Why analysts get stuck</p>
   <ul class="cs-list reveal">
     <li>The exception label hides what's happening underneath.</li>
     <li>Resolution depends on entry-level relationships, not account-level labels.</li>
@@ -687,11 +810,9 @@ a.cs-cta { margin-top: 28px; }
     <li>The same mismatch can require entirely different actions.</li>
   </ul>
 
-  <div class="cs-challenge reveal">
-    <div class="cs-challenge-tag">Design Challenge</div>
-    <p style="font-weight: 600; color: var(--text); margin-bottom: 8px;">Make the hidden structure visible before investigation begins.</p>
-    <p>The label alone isn't enough. The interface needs to reveal both who is being compared and what is actually being compared underneath.</p>
-  </div>
+  <p class="cs-section-sub reveal">Design challenge</p>
+  <blockquote class="cs-pullquote reveal" style="margin-top: 12px;">Make the hidden structure visible before investigation begins.</blockquote>
+  <p class="cs-p reveal" style="margin-top: 16px;">The interface needed to reveal both who was being compared and what was actually being compared underneath.</p>
 
 </div>
 </section>
@@ -700,30 +821,32 @@ a.cs-cta { margin-top: 28px; }
 <section class="cs-section" id="cs-structure">
 <div class="cs-wrap">
 
-  <div class="cs-label reveal"><span class="num">/05</span> Designing the Structure</div>
-  <h2 class="cs-display reveal">One structure, <em>however the transaction splits.</em></h2>
+  <div class="cs-label reveal"><span class="num">/05</span> Designing the Investigation</div>
+  <h2 class="cs-display reveal">Every exception needed the same <em>questions answered.</em></h2>
 
-  <p class="cs-p reveal">Designing a separate screen for every combination of mismatch reason and record shape would mean designing for all of the permutations above — and then some. Instead, we anchored the design around three things that hold true for every exception, no matter how many records sit on either side.</p>
+  <p class="cs-p reveal" style="margin-top: 24px;">Designing a separate experience for every mismatch type and transaction shape would quickly become unmanageable.</p>
+  <p class="cs-p reveal">Instead, we identified the few questions analysts always needed answered, regardless of whether an exception involved one record or fifty.</p>
+  <p class="cs-p reveal">Rather than adapting the interface to every scenario, we kept the investigation structure consistent and allowed the information inside it to adapt to the complexity.</p>
 
   <div class="cs-anchor-grid reveal">
     <div class="cs-anchor">
       <div class="cs-anchor-num">01</div>
-      <div class="cs-anchor-title">Context</div>
-      <div class="cs-anchor-desc">What was expected?</div>
+      <div class="cs-anchor-title">What happened?</div>
+      <div class="cs-anchor-desc">Surface the discrepancy in plain language before exposing raw records.</div>
     </div>
     <div class="cs-anchor">
       <div class="cs-anchor-num">02</div>
-      <div class="cs-anchor-title">Difference</div>
-      <div class="cs-anchor-desc">What actually changed?</div>
+      <div class="cs-anchor-title">Where is the difference?</div>
+      <div class="cs-anchor-desc">Highlight exactly what's missing, extra, or mismatched.</div>
     </div>
     <div class="cs-anchor">
       <div class="cs-anchor-num">03</div>
-      <div class="cs-anchor-title">Resolution</div>
-      <div class="cs-anchor-desc">What can be done next?</div>
+      <div class="cs-anchor-title">What can I do next?</div>
+      <div class="cs-anchor-desc">Offer only the actions that are valid for this exception.</div>
     </div>
   </div>
 
-  <p class="cs-p reveal" style="margin-top: 30px;">Regardless of whether an exception involved one record or fifty, the surrounding structure remained unchanged. Only the information inside adapted to the complexity.</p>
+  <blockquote class="cs-pullquote reveal">Regardless of how many records were involved, analysts always returned to the same investigation flow. The information adapted to the complexity—not the interface.</blockquote>
 
 </div>
 </section>
@@ -736,73 +859,22 @@ a.cs-cta { margin-top: 28px; }
   <h2 class="cs-display reveal">From here, <em>the UI does the talking.</em></h2>
   <p class="cs-lead reveal">The structure above becomes a small set of screens — each one built on the same Context / Delta / Action anchor, adapted to a different moment in the resolution flow.</p>
 
-  <div class="cs-ui-seq">
-
-    <div class="reveal">
-      <div class="cs-ui-panel-hd">
-        <div>
-          <span class="cs-ui-panel-tag">02 / Exception Workspace</span>
-          <h3 class="cs-ui-panel-title">Queue and detail, side by side</h3>
-        </div>
-        <p class="cs-ui-panel-desc">The full workspace — a filterable queue on the left, and the Context / Delta / Action detail view on the right, open to whichever exception is selected.</p>
+  <div class="cs-mock-browser reveal">
+    <div class="cs-mock-chrome">
+      <img src="assets/recon/chrome-bar.png" alt="Browser chrome">
+    </div>
+    <div class="cs-mock-window">
+      <div class="cs-mock-nav">
+        <img src="assets/recon/nav.png" alt="Navigation sidebar">
       </div>
-      <div class="cs-ui-panel-visual">
-        <span class="cs-ui-panel-visual-lbl">// UI in progress</span>
+      <div class="cs-mock-body">
+        <img src="assets/recon/exception-1to1.png" alt="Exception detail — one-to-one">
       </div>
     </div>
-
-    <div class="reveal">
-      <div class="cs-ui-panel-hd">
-        <div>
-          <span class="cs-ui-panel-tag">03 / Match Suggestions</span>
-          <h3 class="cs-ui-panel-title">Where many meets many</h3>
-        </div>
-        <p class="cs-ui-panel-desc">For many-to-many exceptions, the system proposes likely pairings between order-side and settlement-side records, ranked by confidence — the analyst confirms rather than searches.</p>
-      </div>
-      <div class="cs-ui-panel-visual">
-        <span class="cs-ui-panel-visual-lbl">// UI in progress</span>
-      </div>
-    </div>
-
-    <div class="reveal">
-      <div class="cs-ui-panel-hd">
-        <div>
-          <span class="cs-ui-panel-tag">04 / Bulk Resolution</span>
-          <h3 class="cs-ui-panel-title">Resolve the pattern, not the instance</h3>
-        </div>
-        <p class="cs-ui-panel-desc">When dozens of exceptions share the same root cause, group them and apply one resolution — with the audit trail recorded per transaction automatically.</p>
-      </div>
-      <div class="cs-ui-panel-visual">
-        <span class="cs-ui-panel-visual-lbl">// UI in progress</span>
-      </div>
-    </div>
-
-    <div class="reveal">
-      <div class="cs-ui-panel-hd">
-        <div>
-          <span class="cs-ui-panel-tag">05 / Resolution Actions</span>
-          <h3 class="cs-ui-panel-title">Actions that match the exception</h3>
-        </div>
-        <p class="cs-ui-panel-desc">The action panel only ever shows what's valid for this exception's type and shape — approve, write off, escalate, or request re-settlement.</p>
-      </div>
-      <div class="cs-ui-panel-visual">
-        <span class="cs-ui-panel-visual-lbl">// UI in progress</span>
-      </div>
-    </div>
-
-    <div class="reveal">
-      <div class="cs-ui-panel-hd">
-        <div>
-          <span class="cs-ui-panel-tag">06 / Audit Trail</span>
-          <h3 class="cs-ui-panel-title">Every decision, traceable</h3>
-        </div>
-        <p class="cs-ui-panel-desc">A running history of resolved exceptions — what was decided, by whom, and why — replacing the manual log analysts kept before.</p>
-      </div>
-      <div class="cs-ui-panel-visual">
-        <span class="cs-ui-panel-visual-lbl">// UI in progress</span>
-      </div>
-    </div>
-
+  </div>
+  <div class="cs-mock-cap reveal">
+    <span class="cs-mock-cap-num">01 / Exception Detail</span>
+    <span class="cs-mock-cap-title">One-to-one — Adyen settled less than expected. Left nav stays fixed; scroll the detail to see the full record.</span>
   </div>
 
   <blockquote class="cs-quote reveal">
