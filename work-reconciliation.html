@@ -171,6 +171,12 @@
 .cs-list li::before { content: '—'; position: absolute; left: 0; color: var(--accent); }
 
 /* ---------- DESIGN CHALLENGE CALLOUT ---------- */
+.cs-pullquote {
+  margin: 40px 0 0; padding: 18px 24px; border-radius: 0 8px 8px 0;
+  border-left: 2px solid var(--warm); background: rgba(232,197,152,0.05);
+  font-family: 'Instrument Serif', serif; font-style: italic;
+  font-size: clamp(17px, 2vw, 21px); line-height: 1.6; color: var(--warm);
+}
 .cs-challenge {
   margin-top: 22px; padding: 18px 22px; border-radius: 0 8px 8px 0;
   background: rgba(212,255,94,0.045); border-left: 2px solid rgba(212,255,94,0.35);
@@ -435,11 +441,31 @@ a.cs-cta { margin-top: 28px; }
 <div class="cs-wrap">
 
   <div class="cs-label reveal"><span class="num">/01</span> Setting the Stage</div>
-  <h2 class="cs-display reveal">Every payment leaves <em>more than one trail.</em></h2>
+  <h2 class="cs-display reveal">Every movement of money leaves <em>more than one trail.</em></h2>
 
-  <p class="cs-p reveal">Reconciliation ensures these records stay in sync as money moves across systems.</p>
-  <p class="cs-p reveal">A single payment creates multiple records — what we recorded internally, what the payment provider settled, and what the bank ultimately received.</p>
-  <div class="cs-recon-layers reveal">
+  <p class="cs-p reveal">As money moves through different systems, each one independently records its own version of the same event.</p>
+
+  <div class="cs-recon-layer-flow reveal" style="margin: 32px 0 8px;">
+    <div class="cs-recon-node cs-recon-node--oms">
+      <div class="cs-recon-node-title">OMS</div>
+      <div class="cs-recon-node-sub">Merchant records it</div>
+    </div>
+    <div class="cs-recon-arr">→</div>
+    <div class="cs-recon-node cs-recon-node--psp">
+      <div class="cs-recon-node-title">PSP (Adyen)</div>
+      <div class="cs-recon-node-sub">Provider settles it</div>
+    </div>
+    <div class="cs-recon-arr">→</div>
+    <div class="cs-recon-node cs-recon-node--bank">
+      <div class="cs-recon-node-title">Bank</div>
+      <div class="cs-recon-node-sub">Bank receives it</div>
+    </div>
+  </div>
+
+  <p class="cs-p reveal" style="margin-top: 24px;">A merchant records what was initiated, a payment provider records what was settled, and a bank records what was eventually received.</p>
+  <p class="cs-p reveal">Reconciliation is the process of verifying that these records stay in sync. When they do, money moves quietly through the system. When they don't, an exception is created for investigation.</p>
+
+  <div class="cs-recon-layers reveal" style="margin: 32px 0 8px;">
     <div class="cs-recon-layer">
       <div class="cs-recon-layer-lbl">Layer 1</div>
       <div class="cs-recon-layer-flow">
@@ -480,9 +506,6 @@ a.cs-cta { margin-top: 28px; }
     </div>
   </div>
 
-  <p class="cs-p reveal" style="margin-top: 24px;">Rather than comparing everything at once, the system validates these records layer by layer. Whenever two records disagree, an <strong>exception</strong> is created for investigation.</p>
-  <p class="cs-p reveal">Exceptions are the starting point of the investigation experience designed for finance operations teams to identify, understand, and resolve them.</p>
-
 </div>
 </section>
 
@@ -490,32 +513,12 @@ a.cs-cta { margin-top: 28px; }
 <section class="cs-section" id="cs-exception">
 <div class="cs-wrap">
 
-  <div class="cs-label reveal"><span class="num">/02</span> What's an Exception</div>
-  <h2 class="cs-display reveal">Sometimes those trails don't agree.</h2>
-  <p class="reveal" style="font-family: 'Instrument Serif', serif; font-style: italic; font-size: clamp(22px, 3vw, 34px); color: var(--warm); margin: 10px 0 0; line-height: 1.3;">And that's where investigation begins.</p>
-  <p class="cs-lead reveal">An exception is created whenever two records disagree. While the issue may look similar at first glance, the underlying reason can vary significantly — and each one requires a different way of investigating and resolving it.</p>
+  <div class="cs-label reveal"><span class="num">/02</span> What Makes Exceptions Difficult</div>
+  <h2 class="cs-display reveal">An exception is only a signal, <em>not the answer.</em></h2>
 
-  <div class="cs-recon-layers reveal" style="margin: 32px 0 8px;">
-    <div class="cs-recon-layer">
-      <div class="cs-recon-layer-lbl">Layer 1</div>
-      <div class="cs-recon-layer-flow">
-        <div class="cs-recon-node cs-recon-node--oms">
-          <div class="cs-recon-node-title">OMS</div>
-          <div class="cs-recon-node-sub">What we recorded</div>
-        </div>
-        <div class="cs-recon-cmp">compare →</div>
-        <div class="cs-recon-node cs-recon-node--psp">
-          <div class="cs-recon-node-title">PSP (Adyen)</div>
-          <div class="cs-recon-node-sub">What Adyen settled</div>
-        </div>
-        <div class="cs-recon-arr">→</div>
-        <div class="cs-recon-node cs-recon-node--result cs-recon-node--exception">
-          <div class="cs-recon-node-title">Exception</div>
-          <div class="cs-recon-node-sub">Records don't agree</div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <p class="cs-p reveal" style="margin-top: 24px;">The system can tell when two records disagree, but it can't immediately explain why. The same exception can represent entirely different problems, and each one requires a different way of investigating and resolving it.</p>
+  <p class="cs-p reveal">Some mismatches are straightforward — a number doesn't match. Others are more nuanced, like a missing record, flipped balance directions, or inconsistent metadata.</p>
+  <p class="cs-p reveal">Before an analyst can fix anything, they first need to understand <strong>what exactly went wrong</strong>.</p>
 
   <div class="cs-exc-grid reveal">
     <div class="cs-exc-tile">
@@ -582,12 +585,13 @@ a.cs-cta { margin-top: 28px; }
 <section class="cs-section" id="cs-shapes">
 <div class="cs-wrap">
 
-  <div class="cs-label reveal"><span class="num">/03</span> The Many Shapes of a Mismatch</div>
-  <h2 class="cs-display reveal">One mismatch can hide <em>sixteen different stories.</em></h2>
+  <div class="cs-label reveal"><span class="num">/03</span> Why Investigation Becomes Difficult</div>
+  <h2 class="cs-display reveal">One mismatch can hide <em>many different stories.</em></h2>
 
-  <p class="cs-p reveal" style="margin-top: 8px;">The reason behind an exception is only part of the picture. Transactions don't always map one-to-one. A single order can split into multiple settlement lines, while multiple orders can eventually settle into a single bank entry.</p>
-
-  <p class="cs-p reveal" style="margin-top: 8px;">On top of the reason, the <em class="cs-em">shape</em> of the records involved varies too. Transactions don't always map one-to-one — a single order can split into several settlement lines, or a batch settlement can bundle dozens of orders into one bank entry.</p>
+  <p class="cs-p reveal" style="margin-top: 24px;">Knowing why two records disagree is only part of the picture. Analysts also need to understand how those records relate to each other.</p>
+  <p class="cs-p reveal">Transactions don't always map one-to-one. A single order can split into multiple settlement lines, while multiple orders can eventually settle into a single bank entry.</p>
+  <p class="cs-p reveal">That means two exceptions with the same mismatch reason can have completely different structures underneath.</p>
+  <p class="cs-p reveal">Before taking any action, analysts first need to reconstruct how records are connected.</p>
 
   <div class="cs-match-grid reveal">
     <div class="cs-match-cell">
@@ -636,27 +640,7 @@ a.cs-cta { margin-top: 28px; }
     </div>
   </div>
 
-  <p class="cs-p reveal" style="margin-top: 30px;">An analyst isn't simply fixing mismatches—they're first reconstructing how records relate to one another.</p>
-
-  <div class="cs-resolution reveal">
-    <div class="cs-resolution-lbl">What happens next?</div>
-    <p class="cs-resolution-lead">A finance ops user reviews the exception and takes a resolution action:</p>
-    <div class="cs-resolution-actions">Edit entry &nbsp;·&nbsp; Add entry &nbsp;·&nbsp; Swap entry &nbsp;·&nbsp; Delete entry &nbsp;·&nbsp; Mark as expected</div>
-  </div>
-
-  <div class="cs-ui-teaser reveal">
-    <span class="cs-tag-pill">First glimpse — the exception queue</span>
-    <div class="cs-ui-card">
-      <div class="cs-ui-visual">
-        <span class="cs-ui-visual-label">// UI in progress</span>
-      </div>
-      <div class="cs-ui-cap">
-        <span class="cs-ui-cap-tag">01 / Exception Queue</span>
-        <h3 class="cs-ui-cap-title">Every mismatch, one queue</h3>
-        <p class="cs-ui-cap-desc">Regardless of its shape or reason, every exception lands in a single queue — tagged so the pattern is visible before the analyst opens a single record.</p>
-      </div>
-    </div>
-  </div>
+  <blockquote class="cs-pullquote reveal">An analyst isn't simply fixing mismatches—they're rebuilding the story behind how records relate to one another.</blockquote>
 
 </div>
 </section>
@@ -725,21 +709,21 @@ a.cs-cta { margin-top: 28px; }
     <div class="cs-anchor">
       <div class="cs-anchor-num">01</div>
       <div class="cs-anchor-title">Context</div>
-      <div class="cs-anchor-desc">What was expected — pulled straight from the original transaction: order, amount, parties, timestamps.</div>
+      <div class="cs-anchor-desc">What was expected?</div>
     </div>
     <div class="cs-anchor">
       <div class="cs-anchor-num">02</div>
-      <div class="cs-anchor-title">Delta</div>
-      <div class="cs-anchor-desc">What's actually different — the one thing the analyst needs to see first, however many records it spans.</div>
+      <div class="cs-anchor-title">Difference</div>
+      <div class="cs-anchor-desc">What actually changed?</div>
     </div>
     <div class="cs-anchor">
       <div class="cs-anchor-num">03</div>
-      <div class="cs-anchor-title">Action</div>
-      <div class="cs-anchor-desc">The resolution options valid for this exception's type — never a generic "edit" button.</div>
+      <div class="cs-anchor-title">Resolution</div>
+      <div class="cs-anchor-desc">What can be done next?</div>
     </div>
   </div>
 
-  <p class="cs-p reveal" style="margin-top: 30px;">With this anchor in place, a one-to-many exception — one order, three settlement lines — and a many-to-many exception — fifty orders settling against one bank entry — can share the same screen. Only the Context and Delta panels resize to fit; the structure around them stays exactly where the analyst learned to expect it.</p>
+  <p class="cs-p reveal" style="margin-top: 30px;">Regardless of whether an exception involved one record or fifty, the surrounding structure remained unchanged. Only the information inside adapted to the complexity.</p>
 
 </div>
 </section>
