@@ -412,6 +412,14 @@
 }
 .cs-cta:hover { color: var(--bg); background: var(--accent); border-color: var(--accent); gap: 14px; }
 a.cs-cta { margin-top: 28px; }
+.cs-list { margin: 0 0 28px; padding-left: 22px; display: flex; flex-direction: column; gap: 5px; }
+.cs-list li { font-family: 'Geist', sans-serif; font-size: 17px; font-weight: 300; line-height: 1.75; color: var(--text-soft); }
+.cs-divider { border: none; border-top: 1px solid var(--line); margin: clamp(48px, 5vw, 64px) auto; max-width: 760px; }
+.cs-matrix { width: 100%; border-collapse: collapse; margin: 28px 0; }
+.cs-matrix th { padding: 10px 16px; text-align: left; border-bottom: 1px solid var(--line); font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); font-weight: 400; }
+.cs-matrix td { padding: 14px 16px; text-align: left; border-bottom: 1px solid var(--line); font-family: 'Geist', sans-serif; font-size: 14px; font-weight: 300; color: var(--text-soft); }
+.cs-matrix td:first-child { color: var(--text); font-weight: 400; }
+.cs-sub-num { font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); margin: 0 0 20px; }
 
 /* ---------- REVEAL-ON-SCROLL ---------- */
 .reveal { opacity: 0; transform: translateY(26px); transition: opacity 0.7s ease, transform 0.7s ease; }
@@ -859,40 +867,120 @@ a.cs-cta { margin-top: 28px; }
 
 <!-- ═══════════════════════ 06 — UI DESIGN ═══════════════════════ -->
 <section class="cs-section" id="cs-showcase">
+
+<!-- Intro -->
 <div class="cs-wrap">
   <div class="cs-label reveal"><span class="num">/06</span> UI Design</div>
-  <h2 class="cs-display reveal">From here, <em>the UI does the talking.</em></h2>
-  <p class="cs-lead reveal">The structure above becomes a small set of screens — each one built on the same Context / Delta / Action anchor, adapted to a different moment in the resolution flow.</p>
+  <h2 class="cs-display reveal">The Investigation Experience</h2>
+  <p class="cs-lead reveal">The interface was designed around a simple idea:</p>
+  <p class="cs-lead reveal" style="color: var(--text);">Bring forward everything analysts need to make a decision, before they have to make one.</p>
+  <p class="cs-p reveal">An exception already tells analysts that something is wrong. But resolving it requires answering several questions first.</p>
+  <ul class="cs-list reveal">
+    <li>Which accounts are involved?</li>
+    <li>Which entries are involved underneath?</li>
+    <li>Why did this exception happen?</li>
+    <li>What exactly doesn't match?</li>
+    <li>And finally, what action should be taken?</li>
+  </ul>
+  <p class="cs-p reveal">None of this information was unavailable. It already existed within the system. It was simply buried across multiple layers of the reconciliation process.</p>
+  <p class="cs-p reveal">For analysts handling dozens of exceptions every day, repeatedly reconstructing this context became the most expensive part of the workflow.</p>
+  <p class="cs-p reveal">The goal wasn't to simplify reconciliation itself.</p>
+  <p class="cs-p reveal">It was to eliminate the effort required to understand an exception.</p>
+  <p class="cs-p reveal">So the interface was designed to progressively surface the information analysts need to move from understanding to action.</p>
 </div>
+<!-- Hero mockup -->
 <div class="cs-wrap cs-wrap--showcase">
-
   <div class="cs-mock-browser reveal">
-    <div class="cs-mock-chrome">
-      <img src="assets/recon/chrome-bar.png" alt="Browser chrome">
-    </div>
+    <div class="cs-mock-chrome"><img src="assets/recon/chrome-bar.png" alt="Browser chrome"></div>
     <div class="cs-mock-window">
-      <div class="cs-mock-nav">
-        <img src="assets/recon/nav.png" alt="Navigation sidebar">
-      </div>
-      <div class="cs-mock-body">
-        <img src="assets/recon/exception-1to1.png" alt="Exception detail — one-to-one">
-      </div>
+      <div class="cs-mock-nav"><img src="assets/recon/nav.png" alt="Navigation sidebar"></div>
+      <div class="cs-mock-body"><img src="assets/recon/exception-1to1.png" alt="Exception detail"></div>
     </div>
   </div>
   <div class="cs-mock-cap reveal">
-    <span class="cs-mock-cap-num">01 / Exception Detail</span>
-    <span class="cs-mock-cap-title">One-to-one — Adyen settled less than expected. Left nav stays fixed; scroll the detail to see the full record.</span>
+    <span class="cs-mock-cap-num">Hero / Exception Detail</span>
+    <span class="cs-mock-cap-title">The investigation workspace brings together context, discrepancies, and resolution paths into a single place, allowing analysts to understand an exception before taking action.</span>
   </div>
-
-
 </div>
+
+<hr class="cs-divider">
+
+<!-- 01 / Establish context -->
 <div class="cs-wrap">
+  <p class="cs-sub-num reveal">01 / Establish context</p>
+  <p class="cs-p reveal">The first priority is helping analysts understand what this exception is about.</p>
+  <p class="cs-p reveal">The interface surfaces the participating accounts, underlying entries, topology, timestamps, and matching rules upfront so analysts don't have to reconstruct them manually.</p>
+</div>
+<div class="cs-wrap cs-wrap--showcase">
+  <div class="cs-mock-browser reveal">
+    <div class="cs-mock-chrome"><img src="assets/recon/chrome-bar.png" alt="Browser chrome"></div>
+    <div class="cs-mock-window">
+      <div class="cs-mock-nav"><img src="assets/recon/nav.png" alt="Navigation sidebar"></div>
+      <div class="cs-mock-body"><img src="assets/recon/exception-1to1.png" alt="Account and entry level context"></div>
+    </div>
+  </div>
+  <div class="cs-mock-cap reveal">
+    <span class="cs-mock-cap-num">01 / Account + Entry Level</span>
+    <span class="cs-mock-cap-title">Placeholder — show how account-level and entry-level relationships are visualised: One-to-One, One-to-Many, Many-to-One, Many-to-Many.</span>
+  </div>
+</div>
+
+<hr class="cs-divider">
+
+<!-- 02 / Surface the discrepancy -->
+<div class="cs-wrap">
+  <p class="cs-sub-num reveal">02 / Surface the discrepancy</p>
+  <p class="cs-p reveal">Once the context is established, attention shifts to the disagreement itself.</p>
+  <p class="cs-p reveal">Instead of asking analysts to compare raw records, the interface highlights what changed and where it changed. Whether it's an amount mismatch, metadata discrepancy, missing entry, or balance direction issue, the difference becomes immediately visible.</p>
+</div>
+<div class="cs-wrap cs-wrap--showcase">
+  <div class="cs-mock-browser reveal">
+    <div class="cs-mock-chrome"><img src="assets/recon/chrome-bar.png" alt="Browser chrome"></div>
+    <div class="cs-mock-window">
+      <div class="cs-mock-nav"><img src="assets/recon/nav.png" alt="Navigation sidebar"></div>
+      <div class="cs-mock-body"><img src="assets/recon/exception-1to1.png" alt="Mismatch examples"></div>
+    </div>
+  </div>
+  <div class="cs-mock-cap reveal">
+    <span class="cs-mock-cap-num">02 / Mismatch Types</span>
+    <span class="cs-mock-cap-title">Placeholder — amount mismatch, metadata mismatch, currency mismatch, missing entry, balance direction.</span>
+  </div>
+</div>
+
+<hr class="cs-divider">
+
+<!-- 03 / Guide the resolution -->
+<div class="cs-wrap">
+  <p class="cs-sub-num reveal">03 / Guide the resolution</p>
+  <p class="cs-p reveal">Understanding the exception should naturally lead to the appropriate action.</p>
+  <p class="cs-p reveal">The system surfaces only the actions that are valid for that exception, helping analysts resolve issues with confidence rather than exposing generic controls.</p>
+</div>
+<div class="cs-wrap cs-wrap--showcase">
+  <div class="cs-mock-browser reveal">
+    <div class="cs-mock-chrome"><img src="assets/recon/chrome-bar.png" alt="Browser chrome"></div>
+    <div class="cs-mock-window">
+      <div class="cs-mock-nav"><img src="assets/recon/nav.png" alt="Navigation sidebar"></div>
+      <div class="cs-mock-body"><img src="assets/recon/exception-1to1.png" alt="Resolution actions"></div>
+    </div>
+  </div>
+  <div class="cs-mock-cap reveal">
+    <span class="cs-mock-cap-num">03 / Resolution Actions</span>
+    <span class="cs-mock-cap-title">Placeholder — edit entry, add entry, swap entry, delete entry, mark as expected.</span>
+  </div>
+</div>
+
+<!-- Closing -->
+<div class="cs-wrap">
+  <p class="cs-p reveal">The challenge was never identifying exceptions.</p>
+  <p class="cs-p reveal">It was reducing the effort required to understand them.</p>
+  <p class="cs-p reveal">By surfacing hidden context and guiding analysts toward the appropriate resolution, the interface transforms exceptions from a manual investigation exercise into a clear and repeatable workflow.</p>
   <blockquote class="cs-quote reveal">
     <p style="margin: 0 0 14px;">"Complexity in payments doesn't disappear by hiding it. It disappears once it has one consistent shape to resolve against."</p>
     <p class="cs-thanks" style="font-style: italic; margin: 0;">Thank you for following along — this one's still taking shape, and I'd love to hear how you'd approach it.</p>
   </blockquote>
   <a class="cs-cta reveal" href="index.html"><span class="arr">←</span> Back to selected work</a>
 </div>
+
 </section>
 
 <footer>
