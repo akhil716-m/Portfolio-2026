@@ -391,10 +391,15 @@
   scrollbar-width: thin; scrollbar-color: #ddd transparent;
 }
 .cs-mock-body img { width: 100%; display: block; height: auto; }
+/* Cropped variant — no nav, window clipped to the top (Exception Detail only) */
+.cs-mock--context .cs-mock-nav { flex: 0 0 0; }
+.cs-mock--context .cs-mock-window { height: min(30vw, 520px); overflow: hidden; }
+.cs-mock--context .cs-mock-body { overflow: hidden; }
 @media (max-width: 768px) {
   .cs-wrap--showcase { max-width: 90vw; }
   .cs-mock-nav { flex: 0 0 0; }
   .cs-mock-window { height: 55vw; }
+  .cs-mock--context .cs-mock-window { height: 45vw; }
 }
 .cs-mock-cap {
   margin-top: 14px; padding-left: 4px;
@@ -912,7 +917,7 @@ a.cs-cta { margin-top: 28px; }
   <p class="cs-p reveal">Instead of rebuilding context manually, they can immediately understand what this exception is about.</p>
 </div>
 <div class="cs-wrap cs-wrap--showcase">
-  <div class="cs-mock-browser reveal">
+  <div class="cs-mock-browser cs-mock--context reveal">
     <div class="cs-mock-chrome"><img src="assets/recon/chrome-bar.png" alt="Browser chrome"></div>
     <div class="cs-mock-window">
       <div class="cs-mock-nav"><img src="assets/recon/nav.png" alt="Navigation sidebar"></div>
