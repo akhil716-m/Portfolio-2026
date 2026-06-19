@@ -393,8 +393,8 @@
 .cs-mock-body img { width: 100%; display: block; height: auto; }
 /* Cropped variant — no nav, window clipped to the top (Exception Detail only) */
 .cs-mock--context .cs-mock-nav { flex: 0 0 0; }
-.cs-mock--context .cs-mock-window { height: min(30vw, 520px); overflow: hidden; }
-.cs-mock--context .cs-mock-body { overflow: hidden; }
+.cs-mock--context .cs-mock-window { height: auto; }
+.cs-mock--context .cs-mock-body { overflow: visible; }
 /* Natural-height variant — no nav, no fixed height, image shown at full crop */
 .cs-mock--natural .cs-mock-nav { flex: 0 0 0; }
 .cs-mock--natural .cs-mock-window { height: auto; }
@@ -402,7 +402,7 @@
   .cs-wrap--showcase { max-width: 90vw; }
   .cs-mock-nav { flex: 0 0 0; }
   .cs-mock-window { height: 55vw; }
-  .cs-mock--context .cs-mock-window { height: 45vw; }
+  .cs-mock--context .cs-mock-window { height: auto; }
 }
 .cs-mock-cap {
   margin-top: 14px; padding-left: 4px;
@@ -919,7 +919,7 @@ a.cs-cta { margin-top: 28px; }
   <p class="cs-p reveal">Participating accounts, underlying entries, matching rules, timestamps, topology, and the reason behind the mismatch are all brought forward before analysts interact with the raw records.</p>
   <p class="cs-p reveal">Instead of rebuilding context manually, they can immediately understand what this exception is about.</p>
 </div>
-<div class="cs-wrap cs-wrap--showcase">
+<div class="cs-wrap">
   <div class="cs-mock-browser cs-mock--context reveal">
     <div class="cs-mock-chrome"><img src="assets/recon/chrome-bar.png" alt="Browser chrome"></div>
     <div class="cs-mock-window">
@@ -942,7 +942,7 @@ a.cs-cta { margin-top: 28px; }
   <p class="cs-p reveal">The interface highlights exactly where the disagreement exists and surfaces only the actions that are relevant to that exception.</p>
   <p class="cs-p reveal">Analysts can focus on resolving the issue instead of figuring out how to resolve it.</p>
 </div>
-<div class="cs-wrap cs-wrap--showcase">
+<div class="cs-wrap">
   <div class="cs-mock-browser cs-mock--natural reveal">
     <div class="cs-mock-chrome"><img src="assets/recon/chrome-bar.png" alt="Browser chrome"></div>
     <div class="cs-mock-window">
