@@ -432,16 +432,17 @@
 }
 .cs-deck-hint {
   display: flex; flex-direction: column; align-items: center; gap: 12px;
-  margin-top: -8px; margin-bottom: 24px;
+  margin-top: -16px; margin-bottom: 48px;
   font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.1em;
   text-transform: uppercase; color: var(--text-muted);
 }
-.cs-deck-dots { display: flex; gap: 8px; }
+.cs-deck-dots { display: flex; gap: 6px; align-items: center; }
 .cs-deck-dot {
   width: 8px; height: 8px; border-radius: 50%;
-  background: rgba(255,255,255,0.25); transition: background 0.3s;
+  background: rgba(255,255,255,0.25); transition: all 0.3s;
+  cursor: pointer;
 }
-.cs-deck-dot.is-active { background: var(--accent); }
+.cs-deck-dot.is-active { width: 24px; height: 8px; border-radius: 4px; background: var(--accent); }
 @media (max-width: 768px) {
   .cs-wrap--showcase { max-width: 90vw; }
   .cs-mock-nav { flex: 0 0 0; }
@@ -1073,6 +1074,11 @@ a.cs-cta { margin-top: 28px; }
   cards.forEach(function(_, i) {
     var dot = document.createElement('span');
     dot.className = 'cs-deck-dot' + (i === 0 ? ' is-active' : '');
+    dot.addEventListener('click', function(e) {
+      e.stopPropagation();
+      current = i;
+      layout();
+    });
     dotsWrap.appendChild(dot);
   });
   var dots = Array.from(dotsWrap.querySelectorAll('.cs-deck-dot'));
