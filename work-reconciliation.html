@@ -395,6 +395,9 @@
 .cs-mock--context .cs-mock-nav { flex: 0 0 0; }
 .cs-mock--context .cs-mock-window { height: min(30vw, 520px); overflow: hidden; }
 .cs-mock--context .cs-mock-body { overflow: hidden; }
+/* Natural-height variant — no nav, no fixed height, image shown at full crop */
+.cs-mock--natural .cs-mock-nav { flex: 0 0 0; }
+.cs-mock--natural .cs-mock-window { height: auto; }
 @media (max-width: 768px) {
   .cs-wrap--showcase { max-width: 90vw; }
   .cs-mock-nav { flex: 0 0 0; }
@@ -940,16 +943,16 @@ a.cs-cta { margin-top: 28px; }
   <p class="cs-p reveal">Analysts can focus on resolving the issue instead of figuring out how to resolve it.</p>
 </div>
 <div class="cs-wrap cs-wrap--showcase">
-  <div class="cs-mock-browser reveal">
+  <div class="cs-mock-browser cs-mock--natural reveal">
     <div class="cs-mock-chrome"><img src="assets/recon/chrome-bar.png" alt="Browser chrome"></div>
     <div class="cs-mock-window">
       <div class="cs-mock-nav"><img src="assets/recon/nav.png" alt="Navigation sidebar"></div>
-      <div class="cs-mock-body"><img src="assets/recon/exception-1to1.png" alt="Mismatch and action screens"></div>
+      <div class="cs-mock-body"><img src="assets/recon/oms-entries.png" alt="OMS and PSP account entries with mismatch details and resolution actions"></div>
     </div>
   </div>
   <div class="cs-mock-cap reveal">
-    <span class="cs-mock-cap-num">02 / Mismatch + Actions</span>
-    <span class="cs-mock-cap-title">Placeholder — amount, metadata, missing entry, balance direction, currency mismatch · edit, add, swap, delete entry, mark as expected.</span>
+    <span class="cs-mock-cap-num">02 / Resolve the Exception</span>
+    <span class="cs-mock-cap-title">OMS and PSP account entries side by side — mismatches highlighted, missing entries surfaced, and resolution actions like Match Entry available in context.</span>
   </div>
 </div>
 
