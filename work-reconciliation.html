@@ -409,9 +409,11 @@
 .cs-deck-card {
   position: absolute; top: 0; left: 0; width: 100%;
   background: #fff;
-  border-radius: 12px;
+  border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+  display: flex; flex-direction: column;
+  border: 1px solid rgba(255,255,255,0.06);
+  box-shadow: 0 40px 100px rgba(0,0,0,0.55);
   transition: transform 0.45s cubic-bezier(0.4,0,0.2,1),
               opacity 0.45s cubic-bezier(0.4,0,0.2,1),
               box-shadow 0.35s ease;
@@ -1005,13 +1007,28 @@ a.cs-cta { margin-top: 28px; }
   <p class="cs-p reveal">A single exception type can surface in very different shapes depending on how the transaction was structured.</p>
   <p class="cs-p reveal">One-to-one, one-to-many, many-to-one, many-to-many, missing entries — each permutation demands a different investigation path, yet the interface resolves them all through one consistent structure.</p>
 </div>
-<div class="cs-wrap">
+<div class="cs-wrap cs-wrap--showcase">
   <div class="cs-deck reveal" id="cs-deck">
-    <div class="cs-deck-card" data-label="One to One"><img src="assets/recon/exception-1to1.png" alt="One-to-One exception detail"></div>
-    <div class="cs-deck-card" data-label="One to Many"><img src="assets/recon/exception-1to1.png" alt="One-to-Many exception detail"></div>
-    <div class="cs-deck-card" data-label="Many to One"><img src="assets/recon/exception-1to1.png" alt="Many-to-One exception detail"></div>
-    <div class="cs-deck-card" data-label="Many to Many"><img src="assets/recon/exception-1to1.png" alt="Many-to-Many exception detail"></div>
-    <div class="cs-deck-card" data-label="Missing Entry"><img src="assets/recon/exception-1to1.png" alt="Missing Entry exception detail"></div>
+    <div class="cs-deck-card" data-label="One to One">
+      <div class="cs-mock-chrome"><img src="assets/recon/chrome-bar.png" alt="Browser chrome"></div>
+      <div class="cs-mock-window"><div class="cs-mock-nav"><img src="assets/recon/nav.png" alt="Navigation sidebar"></div><div class="cs-mock-body"><img src="assets/recon/exception-1to1.png" alt="One-to-One exception detail"></div></div>
+    </div>
+    <div class="cs-deck-card" data-label="One to Many">
+      <div class="cs-mock-chrome"><img src="assets/recon/chrome-bar.png" alt="Browser chrome"></div>
+      <div class="cs-mock-window"><div class="cs-mock-nav"><img src="assets/recon/nav.png" alt="Navigation sidebar"></div><div class="cs-mock-body"><img src="assets/recon/exception-1to1.png" alt="One-to-Many exception detail"></div></div>
+    </div>
+    <div class="cs-deck-card" data-label="Many to One">
+      <div class="cs-mock-chrome"><img src="assets/recon/chrome-bar.png" alt="Browser chrome"></div>
+      <div class="cs-mock-window"><div class="cs-mock-nav"><img src="assets/recon/nav.png" alt="Navigation sidebar"></div><div class="cs-mock-body"><img src="assets/recon/exception-1to1.png" alt="Many-to-One exception detail"></div></div>
+    </div>
+    <div class="cs-deck-card" data-label="Many to Many">
+      <div class="cs-mock-chrome"><img src="assets/recon/chrome-bar.png" alt="Browser chrome"></div>
+      <div class="cs-mock-window"><div class="cs-mock-nav"><img src="assets/recon/nav.png" alt="Navigation sidebar"></div><div class="cs-mock-body"><img src="assets/recon/exception-1to1.png" alt="Many-to-Many exception detail"></div></div>
+    </div>
+    <div class="cs-deck-card" data-label="Missing Entry">
+      <div class="cs-mock-chrome"><img src="assets/recon/chrome-bar.png" alt="Browser chrome"></div>
+      <div class="cs-mock-window"><div class="cs-mock-nav"><img src="assets/recon/nav.png" alt="Navigation sidebar"></div><div class="cs-mock-body"><img src="assets/recon/exception-1to1.png" alt="Missing Entry exception detail"></div></div>
+    </div>
     <div class="cs-deck-label" id="cs-deck-label">One to One</div>
   </div>
   <div class="cs-deck-hint">
@@ -1069,12 +1086,12 @@ a.cs-cta { margin-top: 28px; }
         card.style.pointerEvents = 'auto';
       } else if (offset <= 3) {
         card.style.zIndex = n - offset;
-        card.style.transform = 'translateY(' + (offset * 24) + 'px) scale(' + (1 - offset * 0.035) + ')';
+        card.style.transform = 'translateY(' + (offset * 20) + 'px) scale(' + (1 - offset * 0.035) + ')';
         card.style.opacity = String(1 - offset * 0.2);
         card.style.pointerEvents = 'none';
       } else {
         card.style.zIndex = 0;
-        card.style.transform = 'translateY(72px) scale(0.895)';
+        card.style.transform = 'translateY(60px) scale(0.895)';
         card.style.opacity = '0';
         card.style.pointerEvents = 'none';
       }
