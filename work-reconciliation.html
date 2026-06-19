@@ -404,6 +404,7 @@
   position: relative;
   width: 100%;
   cursor: pointer;
+  margin: 64px 0 48px;
   padding-bottom: 24px;
 }
 .cs-deck-card {
@@ -422,7 +423,7 @@
 .cs-deck-card:first-child { position: relative; }
 .cs-deck-card img { width: 100%; display: block; height: auto; }
 .cs-deck-label {
-  position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%);
+  position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%);
   font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.12em;
   text-transform: uppercase; color: var(--accent);
   background: var(--bg); padding: 6px 14px; border-radius: 100px;
@@ -430,15 +431,15 @@
   pointer-events: none; z-index: 10;
 }
 .cs-deck-hint {
-  display: flex; align-items: center; justify-content: center; gap: 6px;
-  margin-top: 16px;
+  display: flex; flex-direction: column; align-items: center; gap: 12px;
+  margin-top: -8px; margin-bottom: 24px;
   font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.1em;
   text-transform: uppercase; color: var(--text-muted);
 }
-.cs-deck-dots { display: flex; gap: 5px; }
+.cs-deck-dots { display: flex; gap: 8px; }
 .cs-deck-dot {
-  width: 6px; height: 6px; border-radius: 50%;
-  background: var(--line); transition: background 0.3s;
+  width: 8px; height: 8px; border-radius: 50%;
+  background: rgba(255,255,255,0.25); transition: background 0.3s;
 }
 .cs-deck-dot.is-active { background: var(--accent); }
 @media (max-width: 768px) {
@@ -1032,8 +1033,8 @@ a.cs-cta { margin-top: 28px; }
     <div class="cs-deck-label" id="cs-deck-label">One to One</div>
   </div>
   <div class="cs-deck-hint">
-    <span>Click to flip</span>
     <span class="cs-deck-dots" id="cs-deck-dots"></span>
+    <span>Click to flip</span>
   </div>
 </div>
 
