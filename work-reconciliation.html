@@ -398,6 +398,47 @@
 /* Natural-height variant — no nav, no fixed height, image shown at full crop */
 .cs-mock--natural .cs-mock-nav { flex: 0 0 0; }
 .cs-mock--natural .cs-mock-window { height: auto; }
+
+/* ---------- STACKED CARD DECK ---------- */
+.cs-deck {
+  position: relative;
+  width: 100%;
+  cursor: pointer;
+  padding-bottom: 24px;
+}
+.cs-deck-card {
+  position: absolute; top: 0; left: 0; width: 100%;
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+  transition: transform 0.45s cubic-bezier(0.4,0,0.2,1),
+              opacity 0.45s cubic-bezier(0.4,0,0.2,1),
+              box-shadow 0.35s ease;
+  will-change: transform, opacity;
+}
+.cs-deck-card:first-child { position: relative; }
+.cs-deck-card img { width: 100%; display: block; height: auto; }
+.cs-deck-label {
+  position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%);
+  font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--accent);
+  background: var(--bg); padding: 6px 14px; border-radius: 100px;
+  border: 1px solid var(--line); white-space: nowrap;
+  pointer-events: none; z-index: 10;
+}
+.cs-deck-hint {
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+  margin-top: 16px;
+  font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--text-muted);
+}
+.cs-deck-dots { display: flex; gap: 5px; }
+.cs-deck-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--line); transition: background 0.3s;
+}
+.cs-deck-dot.is-active { background: var(--accent); }
 @media (max-width: 768px) {
   .cs-wrap--showcase { max-width: 90vw; }
   .cs-mock-nav { flex: 0 0 0; }
@@ -956,6 +997,29 @@ a.cs-cta { margin-top: 28px; }
   </div>
 </div>
 
+<hr class="cs-divider">
+
+<!-- 03 / The many faces of an exception -->
+<div class="cs-wrap">
+  <p class="cs-sub-num reveal">03 / The many faces of an exception</p>
+  <p class="cs-p reveal">A single exception type can surface in very different shapes depending on how the transaction was structured.</p>
+  <p class="cs-p reveal">One-to-one, one-to-many, many-to-one, many-to-many, missing entries — each permutation demands a different investigation path, yet the interface resolves them all through one consistent structure.</p>
+</div>
+<div class="cs-wrap">
+  <div class="cs-deck reveal" id="cs-deck">
+    <div class="cs-deck-card" data-label="One to One"><img src="assets/recon/exception-1to1.png" alt="One-to-One exception detail"></div>
+    <div class="cs-deck-card" data-label="One to Many"><img src="assets/recon/exception-1to1.png" alt="One-to-Many exception detail"></div>
+    <div class="cs-deck-card" data-label="Many to One"><img src="assets/recon/exception-1to1.png" alt="Many-to-One exception detail"></div>
+    <div class="cs-deck-card" data-label="Many to Many"><img src="assets/recon/exception-1to1.png" alt="Many-to-Many exception detail"></div>
+    <div class="cs-deck-card" data-label="Missing Entry"><img src="assets/recon/exception-1to1.png" alt="Missing Entry exception detail"></div>
+    <div class="cs-deck-label" id="cs-deck-label">One to One</div>
+  </div>
+  <div class="cs-deck-hint">
+    <span>Click to flip</span>
+    <span class="cs-deck-dots" id="cs-deck-dots"></span>
+  </div>
+</div>
+
 <!-- Closing -->
 <div class="cs-wrap">
   <p class="cs-p reveal">The challenge wasn't identifying exceptions.</p>
@@ -976,6 +1040,58 @@ a.cs-cta { margin-top: 28px; }
 </footer>
 
 <script>
+
+/* Stacked card deck */
+(function() {
+  var deck = document.getElementById('cs-deck');
+  if (!deck) return;
+  var cards = Array.from(deck.querySelectorAll('.cs-deck-card'));
+  var label = document.getElementById('cs-deck-label');
+  var dotsWrap = document.getElementById('cs-deck-dots');
+  var n = cards.length;
+  var current = 0;
+
+  // Build dots
+  cards.forEach(function(_, i) {
+    var dot = document.createElement('span');
+    dot.className = 'cs-deck-dot' + (i === 0 ? ' is-active' : '');
+    dotsWrap.appendChild(dot);
+  });
+  var dots = Array.from(dotsWrap.querySelectorAll('.cs-deck-dot'));
+
+  function layout() {
+    cards.forEach(function(card, i) {
+      var offset = (i - current + n) % n;
+      if (offset === 0) {
+        card.style.zIndex = n;
+        card.style.transform = 'translateY(0) scale(1)';
+        card.style.opacity = '1';
+        card.style.pointerEvents = 'auto';
+      } else if (offset <= 3) {
+        card.style.zIndex = n - offset;
+        card.style.transform = 'translateY(' + (offset * 24) + 'px) scale(' + (1 - offset * 0.035) + ')';
+        card.style.opacity = String(1 - offset * 0.2);
+        card.style.pointerEvents = 'none';
+      } else {
+        card.style.zIndex = 0;
+        card.style.transform = 'translateY(72px) scale(0.895)';
+        card.style.opacity = '0';
+        card.style.pointerEvents = 'none';
+      }
+    });
+    label.textContent = cards[current].getAttribute('data-label');
+    dots.forEach(function(d, i) {
+      d.classList.toggle('is-active', i === current);
+    });
+  }
+
+  layout();
+
+  deck.addEventListener('click', function() {
+    current = (current + 1) % n;
+    layout();
+  });
+})();
 
 /* Scroll progress bar */
 (function() {
