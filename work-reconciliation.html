@@ -444,6 +444,73 @@
   cursor: pointer;
 }
 .cs-deck-dot.is-active { width: 24px; height: 8px; border-radius: 4px; background: var(--accent); }
+
+/* ---------- PROTOTYPE — RESOLUTION ACTIONS ---------- */
+.cs-proto { margin: 64px 0 48px; }
+.cs-proto-tabs {
+  display: flex; gap: 0;
+  background: var(--bg-card);
+  border: 1px solid var(--line); border-bottom: none;
+  border-radius: 12px 12px 0 0;
+  overflow: hidden;
+}
+.cs-proto-tab {
+  flex: 1; display: flex; align-items: center; justify-content: center; gap: 10px;
+  font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--text-muted);
+  background: none; border: none; border-right: 1px solid var(--line);
+  padding: 18px 16px; cursor: pointer;
+  transition: all 0.25s ease; white-space: nowrap;
+  position: relative;
+}
+.cs-proto-tab:last-child { border-right: none; }
+.cs-proto-tab .cs-proto-tab-icon {
+  font-size: 16px; color: var(--text-muted); transition: color 0.25s;
+}
+.cs-proto-tab:hover { color: var(--text-soft); background: rgba(255,255,255,0.02); }
+.cs-proto-tab:hover .cs-proto-tab-icon { color: var(--text-soft); }
+.cs-proto-tab.is-active {
+  color: var(--accent); background: rgba(212,255,94,0.04);
+}
+.cs-proto-tab.is-active::after {
+  content: ''; position: absolute; bottom: 0; left: 20%; right: 20%;
+  height: 2px; background: var(--accent); border-radius: 2px 2px 0 0;
+}
+.cs-proto-tab.is-active .cs-proto-tab-icon { color: var(--accent); }
+.cs-proto-stage {
+  border: 1px solid var(--line); border-top: none;
+  border-radius: 0 0 12px 12px;
+  display: flex;
+  position: relative; overflow: hidden;
+}
+.cs-proto-panel { display: none; width: 100%; }
+.cs-proto-panel.is-active { display: block; }
+.cs-proto-panel .cs-mock-browser { border-radius: 0 0 12px 12px; border: none; box-shadow: none; }
+.cs-proto-panel .cs-mock-window { height: clamp(300px, 45vw, 560px); overflow: hidden; }
+.cs-proto-panel .cs-mock-nav { height: 100%; overflow: hidden; }
+.cs-proto-panel .cs-mock-nav img { height: 100%; width: auto; min-width: 100%; object-fit: cover; object-position: top left; }
+.cs-proto-panel .cs-mock-body { overflow-y: auto; }
+.cs-proto-icon {
+  width: 48px; height: 48px; border-radius: 12px;
+  background: rgba(212,255,94,0.08); border: 1px solid rgba(212,255,94,0.15);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+}
+.cs-proto-panel h3 {
+  font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 500;
+  color: var(--text); margin: 0;
+}
+.cs-proto-panel p {
+  font-family: 'Geist', sans-serif; font-size: 14px; line-height: 1.6;
+  color: var(--text-soft); max-width: 480px; margin: 0;
+}
+.cs-proto-placeholder {
+  font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--text-muted);
+  padding: 8px 16px; border: 1px dashed var(--line); border-radius: 6px;
+  margin-top: 8px;
+}
+
 @media (max-width: 768px) {
   .cs-wrap--showcase { max-width: 90vw; }
   .cs-mock-nav { flex: 0 0 0; }
@@ -1040,6 +1107,50 @@ a.cs-cta { margin-top: 28px; }
   </div>
 </div>
 
+<hr class="cs-divider">
+
+<!-- 04 / Resolution actions prototype -->
+<div class="cs-wrap">
+  <p class="cs-sub-num reveal">04 / Resolving exceptions</p>
+  <p class="cs-p reveal">Once the context is clear, analysts need to act. Every exception resolves through one of four actions — each designed to address a specific kind of mismatch.</p>
+</div>
+<div class="cs-wrap">
+  <div class="cs-proto reveal" id="cs-proto">
+    <div class="cs-proto-tabs">
+      <button class="cs-proto-tab is-active" data-panel="edit"><span class="cs-proto-tab-icon">✎</span>Edit</button>
+      <button class="cs-proto-tab" data-panel="add"><span class="cs-proto-tab-icon">+</span>Add</button>
+      <button class="cs-proto-tab" data-panel="swap"><span class="cs-proto-tab-icon">⇄</span>Swap</button>
+      <button class="cs-proto-tab" data-panel="ignore"><span class="cs-proto-tab-icon">—</span>Ignore</button>
+    </div>
+    <div class="cs-proto-stage">
+      <div class="cs-proto-panel is-active" id="proto-edit">
+        <div class="cs-mock-browser" style="margin:0;">
+          <div class="cs-mock-chrome"><img src="assets/recon/chrome-bar.png" alt="Browser chrome"></div>
+          <div class="cs-mock-window"><div class="cs-mock-nav"><img src="assets/recon/nav.png" alt="Navigation sidebar"></div><div class="cs-mock-body"><img src="assets/recon/exception-1to1.png" alt="Edit entry prototype"></div></div>
+        </div>
+      </div>
+      <div class="cs-proto-panel" id="proto-add">
+        <div class="cs-mock-browser" style="margin:0;">
+          <div class="cs-mock-chrome"><img src="assets/recon/chrome-bar.png" alt="Browser chrome"></div>
+          <div class="cs-mock-window"><div class="cs-mock-nav"><img src="assets/recon/nav.png" alt="Navigation sidebar"></div><div class="cs-mock-body"><img src="assets/recon/exception-1to1.png" alt="Add entry prototype"></div></div>
+        </div>
+      </div>
+      <div class="cs-proto-panel" id="proto-swap">
+        <div class="cs-mock-browser" style="margin:0;">
+          <div class="cs-mock-chrome"><img src="assets/recon/chrome-bar.png" alt="Browser chrome"></div>
+          <div class="cs-mock-window"><div class="cs-mock-nav"><img src="assets/recon/nav.png" alt="Navigation sidebar"></div><div class="cs-mock-body"><img src="assets/recon/exception-1to1.png" alt="Swap entry prototype"></div></div>
+        </div>
+      </div>
+      <div class="cs-proto-panel" id="proto-ignore">
+        <div class="cs-mock-browser" style="margin:0;">
+          <div class="cs-mock-chrome"><img src="assets/recon/chrome-bar.png" alt="Browser chrome"></div>
+          <div class="cs-mock-window"><div class="cs-mock-nav"><img src="assets/recon/nav.png" alt="Navigation sidebar"></div><div class="cs-mock-body"><img src="assets/recon/exception-1to1.png" alt="Ignore exception prototype"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- Closing -->
 <div class="cs-wrap">
   <p class="cs-p reveal">The challenge wasn't identifying exceptions.</p>
@@ -1115,6 +1226,22 @@ a.cs-cta { margin-top: 28px; }
   deck.addEventListener('click', function() {
     current = (current + 1) % n;
     layout();
+  });
+})();
+
+/* Prototype tabs */
+(function() {
+  var proto = document.getElementById('cs-proto');
+  if (!proto) return;
+  var tabs = proto.querySelectorAll('.cs-proto-tab');
+  var panels = proto.querySelectorAll('.cs-proto-panel');
+  tabs.forEach(function(tab) {
+    tab.addEventListener('click', function() {
+      tabs.forEach(function(t) { t.classList.remove('is-active'); });
+      panels.forEach(function(p) { p.classList.remove('is-active'); });
+      tab.classList.add('is-active');
+      document.getElementById('proto-' + tab.getAttribute('data-panel')).classList.add('is-active');
+    });
   });
 })();
 
