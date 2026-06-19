@@ -870,23 +870,22 @@ a.cs-cta { margin-top: 28px; }
 
 <!-- Intro -->
 <div class="cs-wrap">
-  <div class="cs-label reveal"><span class="num">/06</span> UI Design</div>
-  <h2 class="cs-display reveal">The Investigation Experience</h2>
-  <p class="cs-lead reveal">The interface was designed around a simple idea:</p>
-  <p class="cs-lead reveal" style="color: var(--text);">Bring forward everything analysts need to make a decision, before they have to make one.</p>
-  <p class="cs-p reveal">An exception already tells analysts that something is wrong. But resolving it requires answering several questions first.</p>
+  <div class="cs-label reveal"><span class="num">/06</span> From Investigation to Action</div>
+  <h2 class="cs-display reveal">Resolving an exception wasn't the difficult part. <em>Understanding it was.</em></h2>
+  <p class="cs-p reveal">Before analysts could take any action, they first had to answer a series of questions for every exception.</p>
   <ul class="cs-list reveal">
+    <li>What transaction is this about?</li>
     <li>Which accounts are involved?</li>
-    <li>Which entries are involved underneath?</li>
-    <li>Why did this exception happen?</li>
-    <li>What exactly doesn't match?</li>
+    <li>Which entries sit underneath?</li>
+    <li>What exactly went wrong?</li>
     <li>And finally, what action should be taken?</li>
   </ul>
-  <p class="cs-p reveal">None of this information was unavailable. It already existed within the system. It was simply buried across multiple layers of the reconciliation process.</p>
-  <p class="cs-p reveal">For analysts handling dozens of exceptions every day, repeatedly reconstructing this context became the most expensive part of the workflow.</p>
-  <p class="cs-p reveal">The goal wasn't to simplify reconciliation itself.</p>
-  <p class="cs-p reveal">It was to eliminate the effort required to understand an exception.</p>
-  <p class="cs-p reveal">So the interface was designed to progressively surface the information analysts need to move from understanding to action.</p>
+  <p class="cs-p reveal">None of this information was unavailable. It already existed within the reconciliation system. The problem was that analysts had to reconstruct this context manually, every single time.</p>
+  <p class="cs-p reveal">While this effort might seem small for a single exception, it quickly becomes expensive when analysts are reviewing dozens of exceptions every day.</p>
+  <p class="cs-p reveal">The design goal was straightforward: <span class="cs-em">reduce the effort required to understand an exception before asking analysts to resolve it.</span></p>
+  <p class="cs-p reveal">To achieve this, the experience was built around two simple stages.</p>
+  <p class="cs-p reveal"><strong>1. Understand the exception</strong><br>Bring hidden information to the surface so analysts can immediately understand the story behind the exception.</p>
+  <p class="cs-p reveal"><strong>2. Resolve the exception</strong><br>Once the context is clear, guide analysts toward the appropriate action with confidence.</p>
 </div>
 <!-- Hero mockup -->
 <div class="cs-wrap cs-wrap--showcase">
@@ -898,18 +897,19 @@ a.cs-cta { margin-top: 28px; }
     </div>
   </div>
   <div class="cs-mock-cap reveal">
-    <span class="cs-mock-cap-num">Hero / Exception Detail</span>
-    <span class="cs-mock-cap-title">The investigation workspace brings together context, discrepancies, and resolution paths into a single place, allowing analysts to understand an exception before taking action.</span>
+    <span class="cs-mock-cap-num">Hero / The Workspace</span>
+    <span class="cs-mock-cap-title">A single workspace that brings together the information analysts need to move from understanding to resolution.</span>
   </div>
 </div>
 
 <hr class="cs-divider">
 
-<!-- 01 / Establish context -->
+<!-- 01 / Understand the exception -->
 <div class="cs-wrap">
-  <p class="cs-sub-num reveal">01 / Establish context</p>
-  <p class="cs-p reveal">The first priority is helping analysts understand what this exception is about.</p>
-  <p class="cs-p reveal">The interface surfaces the participating accounts, underlying entries, topology, timestamps, and matching rules upfront so analysts don't have to reconstruct them manually.</p>
+  <p class="cs-sub-num reveal">01 / Understand the exception</p>
+  <p class="cs-p reveal">The interface surfaces the information analysts repeatedly searched for during investigations.</p>
+  <p class="cs-p reveal">Participating accounts, underlying entries, matching rules, timestamps, topology, and the reason behind the mismatch are all brought forward before analysts interact with the raw records.</p>
+  <p class="cs-p reveal">Instead of rebuilding context manually, they can immediately understand what this exception is about.</p>
 </div>
 <div class="cs-wrap cs-wrap--showcase">
   <div class="cs-mock-browser reveal">
@@ -921,59 +921,38 @@ a.cs-cta { margin-top: 28px; }
   </div>
   <div class="cs-mock-cap reveal">
     <span class="cs-mock-cap-num">01 / Account + Entry Level</span>
-    <span class="cs-mock-cap-title">Placeholder — show how account-level and entry-level relationships are visualised: One-to-One, One-to-Many, Many-to-One, Many-to-Many.</span>
+    <span class="cs-mock-cap-title">Placeholder — One-to-One, One-to-Many, Many-to-One, Many-to-Many.</span>
   </div>
 </div>
 
 <hr class="cs-divider">
 
-<!-- 02 / Surface the discrepancy -->
+<!-- 02 / Resolve the exception -->
 <div class="cs-wrap">
-  <p class="cs-sub-num reveal">02 / Surface the discrepancy</p>
-  <p class="cs-p reveal">Once the context is established, attention shifts to the disagreement itself.</p>
-  <p class="cs-p reveal">Instead of asking analysts to compare raw records, the interface highlights what changed and where it changed. Whether it's an amount mismatch, metadata discrepancy, missing entry, or balance direction issue, the difference becomes immediately visible.</p>
+  <p class="cs-sub-num reveal">02 / Resolve the exception</p>
+  <p class="cs-p reveal">Once the exception is understood, taking action becomes significantly easier.</p>
+  <p class="cs-p reveal">The interface highlights exactly where the disagreement exists and surfaces only the actions that are relevant to that exception.</p>
+  <p class="cs-p reveal">Analysts can focus on resolving the issue instead of figuring out how to resolve it.</p>
 </div>
 <div class="cs-wrap cs-wrap--showcase">
   <div class="cs-mock-browser reveal">
     <div class="cs-mock-chrome"><img src="assets/recon/chrome-bar.png" alt="Browser chrome"></div>
     <div class="cs-mock-window">
       <div class="cs-mock-nav"><img src="assets/recon/nav.png" alt="Navigation sidebar"></div>
-      <div class="cs-mock-body"><img src="assets/recon/exception-1to1.png" alt="Mismatch examples"></div>
+      <div class="cs-mock-body"><img src="assets/recon/exception-1to1.png" alt="Mismatch and action screens"></div>
     </div>
   </div>
   <div class="cs-mock-cap reveal">
-    <span class="cs-mock-cap-num">02 / Mismatch Types</span>
-    <span class="cs-mock-cap-title">Placeholder — amount mismatch, metadata mismatch, currency mismatch, missing entry, balance direction.</span>
-  </div>
-</div>
-
-<hr class="cs-divider">
-
-<!-- 03 / Guide the resolution -->
-<div class="cs-wrap">
-  <p class="cs-sub-num reveal">03 / Guide the resolution</p>
-  <p class="cs-p reveal">Understanding the exception should naturally lead to the appropriate action.</p>
-  <p class="cs-p reveal">The system surfaces only the actions that are valid for that exception, helping analysts resolve issues with confidence rather than exposing generic controls.</p>
-</div>
-<div class="cs-wrap cs-wrap--showcase">
-  <div class="cs-mock-browser reveal">
-    <div class="cs-mock-chrome"><img src="assets/recon/chrome-bar.png" alt="Browser chrome"></div>
-    <div class="cs-mock-window">
-      <div class="cs-mock-nav"><img src="assets/recon/nav.png" alt="Navigation sidebar"></div>
-      <div class="cs-mock-body"><img src="assets/recon/exception-1to1.png" alt="Resolution actions"></div>
-    </div>
-  </div>
-  <div class="cs-mock-cap reveal">
-    <span class="cs-mock-cap-num">03 / Resolution Actions</span>
-    <span class="cs-mock-cap-title">Placeholder — edit entry, add entry, swap entry, delete entry, mark as expected.</span>
+    <span class="cs-mock-cap-num">02 / Mismatch + Actions</span>
+    <span class="cs-mock-cap-title">Placeholder — amount, metadata, missing entry, balance direction, currency mismatch · edit, add, swap, delete entry, mark as expected.</span>
   </div>
 </div>
 
 <!-- Closing -->
 <div class="cs-wrap">
-  <p class="cs-p reveal">The challenge was never identifying exceptions.</p>
+  <p class="cs-p reveal">The challenge wasn't identifying exceptions.</p>
   <p class="cs-p reveal">It was reducing the effort required to understand them.</p>
-  <p class="cs-p reveal">By surfacing hidden context and guiding analysts toward the appropriate resolution, the interface transforms exceptions from a manual investigation exercise into a clear and repeatable workflow.</p>
+  <p class="cs-p reveal">By surfacing hidden context upfront and guiding analysts toward the appropriate resolution, the experience turns exception handling into a clear and repeatable workflow instead of a manual investigation exercise.</p>
   <blockquote class="cs-quote reveal">
     <p style="margin: 0 0 14px;">"Complexity in payments doesn't disappear by hiding it. It disappears once it has one consistent shape to resolve against."</p>
     <p class="cs-thanks" style="font-style: italic; margin: 0;">Thank you for following along — this one's still taking shape, and I'd love to hear how you'd approach it.</p>
@@ -1016,7 +995,7 @@ a.cs-cta { margin-top: 28px; }
     { id: 'cs-shapes',    label: '03 — The Many Shapes of a Mismatch',  thesis: 'One mismatch can hide <em>sixteen different stories.</em>' },
     { id: 'cs-struggle',  label: '04 — Where Analysts Get Stuck',        thesis: 'The exception label is only <em>half the story.</em>' },
     { id: 'cs-structure', label: '05 — Designing the Structure',         thesis: 'One structure, <em>however the transaction splits.</em>' },
-    { id: 'cs-showcase',  label: '06 — UI Design',                       thesis: 'From here, <em>the UI does the talking.</em>' }
+    { id: 'cs-showcase',  label: '06 — From Investigation to Action',    thesis: 'Resolving an exception wasn&rsquo;t the hard part. <em>Understanding it was.</em>' }
   ];
 
   var activeId = null;
