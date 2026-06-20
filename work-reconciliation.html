@@ -689,12 +689,30 @@ a.cs-cta { margin-top: 28px; }
 <section class="cs-section" id="cs-exception">
 <div class="cs-wrap">
 
-  <div class="cs-label reveal"><span class="num">/02</span> What Makes Exceptions Difficult</div>
-  <h2 class="cs-display reveal">An exception is only a signal, <em>not the answer.</em></h2>
+  <div class="cs-label reveal"><span class="num">/02</span> What's an Exception</div>
+  <h2 class="cs-display reveal">Sometimes the records <em>don't agree.</em></h2>
 
-  <p class="cs-p reveal" style="margin-top: 24px;">The system can tell when two records disagree, but it can't immediately explain why. The same exception can represent entirely different problems, and each one requires a different way of investigating and resolving it.</p>
-  <p class="cs-p reveal">Some mismatches are straightforward — a number doesn't match. Others are more nuanced, like a missing record, flipped balance directions, or inconsistent metadata.</p>
-  <p class="cs-p reveal">Before an analyst can fix anything, they first need to understand <strong>what exactly went wrong</strong>.</p>
+  <p class="cs-p reveal" style="margin-top: 24px;">That's where investigation begins.</p>
+  <p class="cs-p reveal">An exception is created whenever two records disagree.</p>
+
+  <div class="cs-recon-layer-flow reveal" style="margin: 40px 0 40px;">
+    <div class="cs-recon-node cs-recon-node--oms">
+      <div class="cs-recon-node-title">OMS</div>
+      <div class="cs-recon-node-sub">What we recorded</div>
+    </div>
+    <div class="cs-recon-cmp">compare →</div>
+    <div class="cs-recon-node cs-recon-node--psp">
+      <div class="cs-recon-node-title">PSP (Adyen)</div>
+      <div class="cs-recon-node-sub">What Adyen settled</div>
+    </div>
+    <div class="cs-recon-arr">→</div>
+    <div class="cs-recon-node cs-recon-node--exception">
+      <div class="cs-recon-node-title">Exception</div>
+      <div class="cs-recon-node-sub">Records don't agree</div>
+    </div>
+  </div>
+
+  <p class="cs-p reveal">While the issue may look similar at first glance, the underlying reason can vary significantly — and each one requires a different way of investigating and resolving it.</p>
 
   <div class="cs-exc-grid reveal">
     <div class="cs-exc-tile">
