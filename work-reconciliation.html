@@ -976,12 +976,28 @@ a.cs-cta { margin-top: 28px; }
 <section class="cs-section" id="cs-structure">
 <div class="cs-wrap">
 
-  <div class="cs-label reveal"><span class="num">/04</span> Designing the Investigation</div>
-  <h2 class="cs-display reveal">Every exception needed the same <em>questions answered.</em></h2>
+  <div class="cs-label reveal"><span class="num">/04</span> Design Challenge</div>
+  <h2 class="cs-display reveal">Analysts shouldn't have to rebuild the story <em>every time.</em></h2>
 
-  <p class="cs-p reveal" style="margin-top: 24px;">Designing a separate experience for every mismatch type and transaction shape would quickly become unmanageable.</p>
-  <p class="cs-p reveal">Instead, we identified the few questions analysts always needed answered, regardless of whether an exception involved one record or fifty.</p>
-  <p class="cs-p reveal">Rather than adapting the interface to every scenario, we kept the investigation structure consistent and allowed the information inside it to adapt to the complexity.</p>
+  <p class="cs-p reveal" style="margin-top: 24px;">Resolving an exception wasn't the difficult part. Understanding it was.</p>
+  <p class="cs-p reveal">Every exception already carried the information analysts needed to make a decision — but that information was buried across multiple layers of records, relationships, and metadata.</p>
+  <p class="cs-p reveal">Because analysts handle exceptions repeatedly throughout the day, even a small amount of reconstruction effort compounds quickly at scale.</p>
+  <p class="cs-p reveal">Before they could take action, they were spending time answering the same fundamental questions over and over again.</p>
+
+  <p class="cs-section-sub reveal" style="margin-top: 40px;">Analysts first needed to know:</p>
+  <ul class="cs-list reveal">
+    <li>Which accounts are involved?</li>
+    <li>Which entries are being compared?</li>
+    <li>What exactly went wrong?</li>
+    <li>What action is valid for this exception?</li>
+  </ul>
+
+  <hr class="cs-divider">
+
+  <p class="cs-section-sub reveal" style="margin-top: 40px;">Design challenge</p>
+  <div class="cs-challenge reveal" style="margin-top: 12px;">
+    <p>Reduce the effort required to understand an exception before asking analysts to resolve it.</p>
+  </div>
 
   <div class="cs-anchor-grid reveal">
     <div class="cs-anchor">
