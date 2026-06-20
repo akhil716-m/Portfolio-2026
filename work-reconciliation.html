@@ -612,22 +612,8 @@ a.cs-cta { margin-top: 28px; }
   <div class="cs-label reveal"><span class="num">/01</span> One transaction. Multiple versions of the truth.</div>
   <h2 class="cs-display reveal">One transaction. <em>Multiple versions of the truth.</em></h2>
   <p class="cs-p reveal">When a customer makes a payment, the journey doesn't end there. A merchant records the order. A payment provider processes it. A bank eventually receives the money. Each system independently stores its own version of that same event.</p>
-  <p class="cs-p reveal">As businesses grow, thousands of these transactions move every day. Even small discrepancies can lead to reporting errors, delayed investigations, and revenue leakage.</p>
-  <p class="cs-p reveal">Reconciliation exists to verify that every system agrees on where the money went.</p>
 
-</div>
-</section>
-
-<!-- ═══════════════════════ 02 — SETTING THE STAGE ═══════════════════════ -->
-<section class="cs-section" id="cs-stage">
-<div class="cs-wrap">
-
-  <div class="cs-label reveal"><span class="num">/02</span> Setting the Stage</div>
-  <h2 class="cs-display reveal">Every movement of money leaves <em>more than one trail.</em></h2>
-
-  <p class="cs-p reveal">As money moves through different systems, each one independently records its own version of the same event.</p>
-
-  <div class="cs-recon-layer-flow reveal" style="margin: 32px 0 8px;">
+  <div class="cs-recon-layer-flow reveal" style="margin: 40px 0 48px;">
     <div class="cs-recon-node cs-recon-node--oms">
       <div class="cs-recon-node-title">OMS</div>
       <div class="cs-recon-node-sub">Merchant records it</div>
@@ -644,10 +630,12 @@ a.cs-cta { margin-top: 28px; }
     </div>
   </div>
 
-  <p class="cs-p reveal" style="margin-top: 24px;">A merchant records what was initiated, a payment provider records what was settled, and a bank records what was eventually received.</p>
-  <p class="cs-p reveal">Reconciliation is the process of verifying that these records stay in sync. When they do, money moves quietly through the system. When they don't, an exception is created for investigation.</p>
+  <p class="cs-p reveal">As businesses grow, thousands of these transactions move every day. Even small discrepancies can lead to reporting errors, delayed investigations, and revenue leakage.</p>
+  <p class="cs-p reveal" style="margin-top: 8px;">Reconciliation exists to verify that every system agrees on where the money went.</p>
 
-  <div class="cs-recon-layers reveal" style="margin: 32px 0 8px;">
+  <p class="cs-p reveal" style="margin-top: 40px;">Rather than comparing everything at once, reconciliation happens layer by layer. The system compares two parties at a time:</p>
+
+  <div class="cs-recon-layers reveal" style="margin: 40px 0 48px;">
     <div class="cs-recon-layer">
       <div class="cs-recon-layer-lbl">Layer 1</div>
       <div class="cs-recon-layer-flow">
@@ -688,6 +676,12 @@ a.cs-cta { margin-top: 28px; }
     </div>
   </div>
 
+  <p class="cs-p reveal">Records are paired using a common identifier, such as an Order ID, and then validated against a predefined rule set.</p>
+
+  <div class="cs-challenge reveal" style="margin-top: 32px;">
+    <p>If the records agree, the transaction is reconciled. If they don't, an exception is created for investigation.</p>
+  </div>
+
 </div>
 </section>
 
@@ -695,7 +689,7 @@ a.cs-cta { margin-top: 28px; }
 <section class="cs-section" id="cs-exception">
 <div class="cs-wrap">
 
-  <div class="cs-label reveal"><span class="num">/03</span> What Makes Exceptions Difficult</div>
+  <div class="cs-label reveal"><span class="num">/02</span> What Makes Exceptions Difficult</div>
   <h2 class="cs-display reveal">An exception is only a signal, <em>not the answer.</em></h2>
 
   <p class="cs-p reveal" style="margin-top: 24px;">The system can tell when two records disagree, but it can't immediately explain why. The same exception can represent entirely different problems, and each one requires a different way of investigating and resolving it.</p>
@@ -767,7 +761,7 @@ a.cs-cta { margin-top: 28px; }
 <section class="cs-section" id="cs-shapes">
 <div class="cs-wrap">
 
-  <div class="cs-label reveal"><span class="num">/04</span> Why Investigation Becomes Difficult</div>
+  <div class="cs-label reveal"><span class="num">/03</span> Why Investigation Becomes Difficult</div>
   <h2 class="cs-display reveal">One mismatch can hide <em>many different stories.</em></h2>
 
   <p class="cs-p reveal" style="margin-top: 24px;">Knowing why two records disagree is only part of the picture. Analysts also need to understand how those records relate to each other.</p>
@@ -834,7 +828,7 @@ a.cs-cta { margin-top: 28px; }
 <section class="cs-section" id="cs-struggle">
 <div class="cs-wrap">
 
-  <div class="cs-label reveal"><span class="num">/05</span> Design Challenge</div>
+  <div class="cs-label reveal"><span class="num">/04</span> Design Challenge</div>
   <h2 class="cs-display reveal">Analysts needed more than <em>an exception label.</em></h2>
 
   <p class="cs-p reveal" style="margin-top: 24px;">An exception already tells analysts that something is wrong. But taking action requires much more context.</p>
@@ -975,7 +969,7 @@ a.cs-cta { margin-top: 28px; }
 <section class="cs-section" id="cs-structure">
 <div class="cs-wrap">
 
-  <div class="cs-label reveal"><span class="num">/06</span> Designing the Investigation</div>
+  <div class="cs-label reveal"><span class="num">/05</span> Designing the Investigation</div>
   <h2 class="cs-display reveal">Every exception needed the same <em>questions answered.</em></h2>
 
   <p class="cs-p reveal" style="margin-top: 24px;">Designing a separate experience for every mismatch type and transaction shape would quickly become unmanageable.</p>
@@ -1013,7 +1007,7 @@ a.cs-cta { margin-top: 28px; }
 
 <!-- Intro -->
 <div class="cs-wrap">
-  <div class="cs-label reveal"><span class="num">/07</span> From Investigation to Action</div>
+  <div class="cs-label reveal"><span class="num">/06</span> From Investigation to Action</div>
   <h2 class="cs-display reveal">Resolving an exception wasn't the difficult part. <em>Understanding it was.</em></h2>
   <p class="cs-p reveal">Before analysts could take any action, they first had to rebuild the story behind every exception.</p>
   <ul class="cs-list reveal">
@@ -1287,12 +1281,11 @@ a.cs-cta { margin-top: 28px; }
 
   var SECTIONS = [
     { id: 'cs-context',   label: '01 — Multiple Versions of the Truth', thesis: 'One transaction. <em>Multiple versions of the truth.</em>' },
-    { id: 'cs-stage',     label: '02 — Setting the Stage',              thesis: 'Every payment leaves <em>more than one trail.</em>' },
-    { id: 'cs-exception', label: '03 — What&rsquo;s an Exception',       thesis: 'Sometimes those trails don\'t agree. <em>And that\'s where investigation begins.</em>' },
-    { id: 'cs-shapes',    label: '04 — The Many Shapes of a Mismatch',  thesis: 'One mismatch can hide <em>sixteen different stories.</em>' },
-    { id: 'cs-struggle',  label: '05 — Where Analysts Get Stuck',        thesis: 'The exception label is only <em>half the story.</em>' },
-    { id: 'cs-structure', label: '06 — Designing the Structure',         thesis: 'One structure, <em>however the transaction splits.</em>' },
-    { id: 'cs-showcase',  label: '07 — From Investigation to Action',    thesis: 'Resolving an exception wasn&rsquo;t the hard part. <em>Understanding it was.</em>' }
+    { id: 'cs-exception', label: '02 — What&rsquo;s an Exception',       thesis: 'Sometimes those trails don\'t agree. <em>And that\'s where investigation begins.</em>' },
+    { id: 'cs-shapes',    label: '03 — The Many Shapes of a Mismatch',  thesis: 'One mismatch can hide <em>sixteen different stories.</em>' },
+    { id: 'cs-struggle',  label: '04 — Where Analysts Get Stuck',        thesis: 'The exception label is only <em>half the story.</em>' },
+    { id: 'cs-structure', label: '05 — Designing the Structure',         thesis: 'One structure, <em>however the transaction splits.</em>' },
+    { id: 'cs-showcase',  label: '06 — From Investigation to Action',    thesis: 'Resolving an exception wasn&rsquo;t the hard part. <em>Understanding it was.</em>' }
   ];
 
   var activeId = null;
