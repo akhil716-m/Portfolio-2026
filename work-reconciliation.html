@@ -1238,9 +1238,16 @@ a.cs-cta { margin-top: 28px; }
   tabs.forEach(function(tab) {
     tab.addEventListener('click', function() {
       tabs.forEach(function(t) { t.classList.remove('is-active'); });
-      panels.forEach(function(p) { p.classList.remove('is-active'); });
+      panels.forEach(function(p) {
+        p.classList.remove('is-active');
+        var v = p.querySelector('video');
+        if (v) { v.pause(); v.currentTime = 0; }
+      });
       tab.classList.add('is-active');
-      document.getElementById('proto-' + tab.getAttribute('data-panel')).classList.add('is-active');
+      var active = document.getElementById('proto-' + tab.getAttribute('data-panel'));
+      active.classList.add('is-active');
+      var v = active.querySelector('video');
+      if (v) { v.currentTime = 0; v.play(); }
     });
   });
 })();
