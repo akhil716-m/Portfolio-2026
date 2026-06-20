@@ -779,13 +779,14 @@ a.cs-cta { margin-top: 28px; }
 <section class="cs-section" id="cs-shapes">
 <div class="cs-wrap">
 
-  <div class="cs-label reveal"><span class="num">/03</span> Why Investigation Becomes Difficult</div>
+  <div class="cs-label reveal"><span class="num">/03</span> Why Exceptions Are Difficult</div>
   <h2 class="cs-display reveal">One mismatch can hide <em>many different stories.</em></h2>
 
-  <p class="cs-p reveal" style="margin-top: 24px;">Knowing why two records disagree is only part of the picture. Analysts also need to understand how those records relate to each other.</p>
-  <p class="cs-p reveal">Transactions don't always map one-to-one. A single order can split into multiple settlement lines, while multiple orders can eventually settle into a single bank entry.</p>
-  <p class="cs-p reveal">That means two exceptions with the same mismatch reason can have completely different structures underneath.</p>
-  <p class="cs-p reveal">Before taking any action, analysts first need to reconstruct how records are connected.</p>
+  <p class="cs-p reveal" style="margin-top: 24px;">Knowing why two records disagree is only part of the picture.</p>
+  <p class="cs-p reveal">Analysts also need to understand how those records are connected underneath.</p>
+  <p class="cs-p reveal">Transactions don't always map one-to-one. A single order can split into multiple settlement entries, while several orders can eventually settle into one bank record.</p>
+  <p class="cs-p reveal">That means two exceptions with the same mismatch reason can have entirely different structures underneath.</p>
+  <p class="cs-p reveal">Before taking any action, analysts first need to reconstruct how those records relate to one another.</p>
 
   <div class="cs-match-grid reveal">
     <div class="cs-match-cell">
@@ -834,26 +835,15 @@ a.cs-cta { margin-top: 28px; }
     </div>
   </div>
 
-  <div class="cs-challenge reveal">
-    <div class="cs-challenge-tag">Key Insight</div>
-    <p>An analyst isn't simply fixing mismatches — they're rebuilding the story behind how records relate to one another.</p>
-  </div>
+  <p class="cs-p reveal">The challenge became even harder because an exception label only tells part of the story.</p>
 
-</div>
-</section>
+  <p class="cs-section-sub reveal" style="margin-top: 40px;">Analysts need to understand both layers before they can act:</p>
+  <ul class="cs-list reveal">
+    <li>Who is being compared (Account level)</li>
+    <li>What is being compared underneath (Entry level)</li>
+  </ul>
 
-<!-- ═══════════════════════ 04 — WHERE ANALYSTS GET STUCK ═══════════════════════ -->
-<section class="cs-section" id="cs-struggle">
-<div class="cs-wrap">
-
-  <div class="cs-label reveal"><span class="num">/04</span> Design Challenge</div>
-  <h2 class="cs-display reveal">Analysts needed more than <em>an exception label.</em></h2>
-
-  <p class="cs-p reveal" style="margin-top: 24px;">An exception already tells analysts that something is wrong. But taking action requires much more context.</p>
-  <p class="cs-p reveal">They need to understand <strong>who is being compared</strong> and <strong>what is actually being compared underneath</strong>. The two can vary independently, making the same exception appear deceptively simple.</p>
-  <p class="cs-p reveal">Without that visibility, analysts are forced to manually reconstruct relationships before they can confidently act.</p>
-
-  <div class="cs-topo-v2 reveal">
+  <div class="cs-topo-v2 reveal" style="margin-top: 32px;">
     <div class="cs-topo-outer">
       <div class="cs-topo-badge">Account level</div>
       <div class="cs-topo-tag">Reveals who is being compared.</div>
@@ -965,29 +955,28 @@ a.cs-cta { margin-top: 28px; }
     </div>
   </div>
 
-  <p class="cs-section-sub reveal" style="margin-top: 40px;">Why analysts get stuck</p>
+  <p class="cs-section-sub reveal" style="margin-top: 40px;">Key challenges</p>
   <ul class="cs-list reveal">
     <li>The exception label hides what's happening underneath.</li>
     <li>Resolution depends on entry-level relationships, not account-level labels.</li>
-    <li>Analysts must reconstruct missing context manually.</li>
+    <li>Analysts must manually reconstruct missing context.</li>
     <li>The same mismatch can require entirely different actions.</li>
   </ul>
 
   <p class="cs-section-sub reveal">Design challenge</p>
   <div class="cs-challenge reveal" style="margin-top: 12px;">
-    <div class="cs-challenge-tag">Design Challenge</div>
-    <p>Make the hidden structure visible before investigation begins.</p>
+    <div class="cs-challenge-tag">Make the hidden structure visible before investigation begins.</div>
+    <p>The interface needed to reveal both who was being compared and what was actually being compared underneath.</p>
   </div>
-  <p class="cs-p reveal" style="margin-top: 16px;">The interface needed to reveal both who was being compared and what was actually being compared underneath.</p>
 
 </div>
 </section>
 
-<!-- ═══════════════════════ 05 — DESIGNING THE STRUCTURE ═══════════════════════ -->
+<!-- ═══════════════════════ 04 — DESIGNING THE STRUCTURE ═══════════════════════ -->
 <section class="cs-section" id="cs-structure">
 <div class="cs-wrap">
 
-  <div class="cs-label reveal"><span class="num">/05</span> Designing the Investigation</div>
+  <div class="cs-label reveal"><span class="num">/04</span> Designing the Investigation</div>
   <h2 class="cs-display reveal">Every exception needed the same <em>questions answered.</em></h2>
 
   <p class="cs-p reveal" style="margin-top: 24px;">Designing a separate experience for every mismatch type and transaction shape would quickly become unmanageable.</p>
@@ -1025,7 +1014,7 @@ a.cs-cta { margin-top: 28px; }
 
 <!-- Intro -->
 <div class="cs-wrap">
-  <div class="cs-label reveal"><span class="num">/06</span> From Investigation to Action</div>
+  <div class="cs-label reveal"><span class="num">/05</span> From Investigation to Action</div>
   <h2 class="cs-display reveal">Resolving an exception wasn't the difficult part. <em>Understanding it was.</em></h2>
   <p class="cs-p reveal">Before analysts could take any action, they first had to rebuild the story behind every exception.</p>
   <ul class="cs-list reveal">
@@ -1300,10 +1289,9 @@ a.cs-cta { margin-top: 28px; }
   var SECTIONS = [
     { id: 'cs-context',   label: '01 — Multiple Versions of the Truth', thesis: 'One transaction. <em>Multiple versions of the truth.</em>' },
     { id: 'cs-exception', label: '02 — What&rsquo;s an Exception',       thesis: 'Sometimes those trails don\'t agree. <em>And that\'s where investigation begins.</em>' },
-    { id: 'cs-shapes',    label: '03 — The Many Shapes of a Mismatch',  thesis: 'One mismatch can hide <em>sixteen different stories.</em>' },
-    { id: 'cs-struggle',  label: '04 — Where Analysts Get Stuck',        thesis: 'The exception label is only <em>half the story.</em>' },
-    { id: 'cs-structure', label: '05 — Designing the Structure',         thesis: 'One structure, <em>however the transaction splits.</em>' },
-    { id: 'cs-showcase',  label: '06 — From Investigation to Action',    thesis: 'Resolving an exception wasn&rsquo;t the hard part. <em>Understanding it was.</em>' }
+    { id: 'cs-shapes',    label: '03 — Why Exceptions Are Difficult',    thesis: 'One mismatch can hide <em>many different stories.</em>' },
+    { id: 'cs-structure', label: '04 — Designing the Investigation',     thesis: 'One structure, <em>however the transaction splits.</em>' },
+    { id: 'cs-showcase',  label: '05 — From Investigation to Action',    thesis: 'Resolving an exception wasn&rsquo;t the hard part. <em>Understanding it was.</em>' }
   ];
 
   var activeId = null;
