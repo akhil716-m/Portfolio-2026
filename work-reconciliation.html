@@ -963,11 +963,6 @@ a.cs-cta { margin-top: 28px; }
     <li>The same mismatch can require entirely different actions.</li>
   </ul>
 
-  <p class="cs-section-sub reveal">Design challenge</p>
-  <div class="cs-challenge reveal" style="margin-top: 12px;">
-    <div class="cs-challenge-tag">Make the hidden structure visible before investigation begins.</div>
-    <p>The interface needed to reveal both who was being compared and what was actually being compared underneath.</p>
-  </div>
 
 </div>
 </section>
@@ -986,20 +981,36 @@ a.cs-cta { margin-top: 28px; }
 
   <p class="cs-section-sub reveal" style="margin-top: 40px;">Analysts first needed to know:</p>
   <ul class="cs-list reveal">
-    <li>Which accounts are involved?</li>
-    <li>Which entries are being compared?</li>
+    <li>What transaction is this about?</li>
+    <li>Which accounts and entries are involved?</li>
     <li>What exactly went wrong?</li>
-    <li>What action is valid for this exception?</li>
+    <li>And what action should be taken?</li>
   </ul>
 
-  <hr class="cs-divider">
-
-  <p class="cs-section-sub reveal" style="margin-top: 40px;">Design challenge</p>
+  <p class="cs-section-sub reveal">Design challenge</p>
   <div class="cs-challenge reveal" style="margin-top: 12px;">
+    <div class="cs-challenge-tag">Make the hidden structure visible before investigation begins.</div>
+    <p>The interface needed to reveal both who was being compared and what was actually being compared underneath.</p>
+  </div>
+
+  <div class="cs-challenge reveal" style="margin-top: 16px;">
+    <div class="cs-challenge-tag">Design Goal</div>
     <p>Reduce the effort required to understand an exception before asking analysts to resolve it.</p>
   </div>
 
-  <div class="cs-anchor-grid reveal">
+</div>
+</section>
+
+<!-- ═══════════════════════ 06 — UI DESIGN ═══════════════════════ -->
+<section class="cs-section" id="cs-showcase">
+
+<!-- Intro -->
+<div class="cs-wrap">
+  <div class="cs-label reveal"><span class="num">/05</span> From Investigation to Action</div>
+  <h2 class="cs-display reveal">Resolving an exception wasn't the difficult part. <em>Understanding it was.</em></h2>
+  <p class="cs-p reveal">None of this information was unavailable. It already existed within the reconciliation system. But it was scattered across multiple layers, forcing analysts to manually reconstruct context every single time.</p>
+  <p class="cs-p reveal">For someone handling dozens of exceptions every day, this small effort quickly compounds.</p>
+  <div class="cs-anchor-grid reveal" style="margin-top: 48px;">
     <div class="cs-anchor">
       <div class="cs-anchor-num">01</div>
       <div class="cs-anchor-title">What happened?</div>
@@ -1015,35 +1026,6 @@ a.cs-cta { margin-top: 28px; }
       <div class="cs-anchor-title">What can I do next?</div>
       <div class="cs-anchor-desc">Offer only the actions that are valid for this exception.</div>
     </div>
-  </div>
-
-  <div class="cs-challenge reveal">
-    <div class="cs-challenge-tag">Key Insight</div>
-    <p>Regardless of how many records were involved, analysts always returned to the same investigation flow. The information adapted to the complexity — not the interface.</p>
-  </div>
-
-</div>
-</section>
-
-<!-- ═══════════════════════ 06 — UI DESIGN ═══════════════════════ -->
-<section class="cs-section" id="cs-showcase">
-
-<!-- Intro -->
-<div class="cs-wrap">
-  <div class="cs-label reveal"><span class="num">/05</span> From Investigation to Action</div>
-  <h2 class="cs-display reveal">Resolving an exception wasn't the difficult part. <em>Understanding it was.</em></h2>
-  <p class="cs-p reveal">Before analysts could take any action, they first had to rebuild the story behind every exception.</p>
-  <ul class="cs-list reveal">
-    <li>What transaction is this about?</li>
-    <li>Which accounts and entries are involved?</li>
-    <li>What exactly went wrong?</li>
-    <li>And what action should be taken?</li>
-  </ul>
-  <p class="cs-p reveal">None of this information was unavailable. It already existed within the reconciliation system. But it was scattered across multiple layers, forcing analysts to manually reconstruct context every single time.</p>
-  <p class="cs-p reveal">For someone handling dozens of exceptions every day, this small effort quickly compounds.</p>
-  <div class="cs-challenge reveal">
-    <div class="cs-challenge-tag">Design Goal</div>
-    <p>Reduce the effort required to understand an exception before asking analysts to resolve it.</p>
   </div>
 </div>
 <!-- Hero mockup -->
