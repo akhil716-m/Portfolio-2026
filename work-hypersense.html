@@ -854,11 +854,141 @@ a.cs-cta { margin-top: 28px; }
   </div>
 </header>
 
-<!-- ═══════════════════════ 01 — THE WORLD BEFORE ═══════════════════════ -->
+<!-- ═══════════════════════ 01 — WHAT HYPERSENSE IS ═══════════════════════ -->
+<section class="cs-section" id="cs-what">
+<div class="cs-wrap">
+
+  <div class="cs-label reveal"><span class="num">/01</span> The Cost of Invisibility</div>
+  <h2 class="cs-display reveal">Every payment generates revenue. But not every dollar <em>reaches the merchant.</em></h2>
+
+  <p class="cs-p reveal">Juspay builds payment infrastructure for enterprise businesses. Through Hyperswitch, we expanded into the US and European markets to support merchants operating globally.</p>
+  <p class="cs-p reveal">As we started working closely with merchants in these markets, one pattern became impossible to ignore: merchants knew <strong>how much</strong> they were paying, but had very little visibility into <strong>what changed</strong>, <strong>why it changed</strong>, or <strong>where their money was going</strong>.</p>
+  <p class="cs-p reveal">The numbers were too large to ignore, yet investigating them remained a heavily manual process. This pushed us to dig deeper into how payment costs were structured, why they were so difficult to explain, and where visibility was breaking down.</p>
+
+  <p class="cs-p reveal">On the surface, card payments appear simple. A customer pays, and the merchant gets paid.</p>
+  <p class="cs-p reveal">In reality, every transaction passes through multiple participants before the money reaches the merchant's bank account — each introducing its own cost.</p>
+
+  <!-- Payment flow — simplified journey -->
+  <div class="cs-vis reveal" style="margin-top: 48px;">
+    <div class="cs-vis-label">How money flows</div>
+    <div class="cs-vis-body" style="padding: 44px 28px 40px;">
+      <svg viewBox="0 0 700 130" xmlns="http://www.w3.org/2000/svg" role="img" style="width:100%; display:block;">
+        <title>Simplified payment flow — customer pays, costs are extracted invisibly, merchant receives what's left</title>
+
+        <!-- Dashed connecting line -->
+        <line x1="110" y1="48" x2="590" y2="48" stroke="rgba(255,255,255,0.06)" stroke-width="1" stroke-dasharray="4 6" />
+
+        <!-- ══ CUSTOMER PAYS — card icon ══ -->
+        <rect x="56" y="28" width="48" height="32" rx="5" fill="none" stroke="rgba(212,255,94,0.35)" stroke-width="1.2" />
+        <line x1="56" y1="40" x2="104" y2="40" stroke="rgba(212,255,94,0.2)" stroke-width="0.8" />
+        <rect x="62" y="46" width="14" height="4" rx="1" fill="rgba(212,255,94,0.18)" />
+        <circle cx="96" cy="50" r="3.5" fill="rgba(212,255,94,0.12)" />
+        <text x="80" y="82" text-anchor="middle" font-family="'Geist',sans-serif" font-size="11.5" font-weight="500" fill="var(--text)">Customer Pays</text>
+
+        <!-- ══ PAYMENT COSTS — coin/percentage icon ══ -->
+        <circle cx="350" cy="48" r="20" fill="rgba(212,255,94,0.06)" stroke="rgba(212,255,94,0.25)" stroke-width="1.2" />
+        <text x="350" y="53" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="14" font-weight="500" fill="var(--accent)">%</text>
+        <text x="350" y="88" text-anchor="middle" font-family="'Geist',sans-serif" font-size="12" font-weight="600" fill="var(--accent)">Payment Costs</text>
+        <text x="350" y="104" text-anchor="middle" font-family="'Geist',sans-serif" font-size="9.5" fill="rgba(212,255,94,0.4)">Invisible to most merchants</text>
+
+        <!-- ══ MERCHANT RECEIVES — bank icon ══ -->
+        <path d="M 608 34 L 620 26 L 632 34 Z" fill="none" stroke="rgba(212,255,94,0.3)" stroke-width="1.2" stroke-linejoin="round" />
+        <line x1="608" y1="34" x2="632" y2="34" stroke="rgba(212,255,94,0.25)" stroke-width="1.2" />
+        <line x1="612" y1="34" x2="612" y2="48" stroke="rgba(212,255,94,0.15)" stroke-width="1" />
+        <line x1="620" y1="34" x2="620" y2="48" stroke="rgba(212,255,94,0.15)" stroke-width="1" />
+        <line x1="628" y1="34" x2="628" y2="48" stroke="rgba(212,255,94,0.15)" stroke-width="1" />
+        <line x1="606" y1="48" x2="634" y2="48" stroke="rgba(212,255,94,0.25)" stroke-width="1.2" />
+        <text x="620" y="82" text-anchor="middle" font-family="'Geist',sans-serif" font-size="11.5" font-weight="500" fill="var(--text)">Merchant Receives</text>
+      </svg>
+    </div>
+  </div>
+
+  <h3 class="cs-h3 reveal" style="margin-top: 52px;">At scale, small percentages become large numbers.</h3>
+  <p class="cs-p reveal">Payment costs are one of the largest variable expenses for businesses operating at scale. While the percentage may appear small, its impact compounds quickly as payment volume grows.</p>
+  <p class="cs-p reveal">A merchant processing <strong>$500M annually</strong> at an average <strong>2% payment cost</strong> spends nearly <strong>$10M every year</strong> on payment processing alone.</p>
+  <p class="cs-p reveal">At this scale, even marginal inefficiencies can quietly translate into millions of dollars in avoidable spend.</p>
+
+  <!-- Merchant scale tiers -->
+  <div class="cs-vis reveal" style="margin-top: 42px; margin-bottom: 0;">
+    <div class="cs-vis-label">Why costs matter at different scales</div>
+    <div class="cs-vis-body" style="padding: 0;">
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line);">
+        <div style="padding: 28px 24px; background: var(--bg-card);">
+          <div style="font-family: 'Geist Mono', monospace; font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 14px;">Small</div>
+          <div style="font-family: 'Geist Mono', monospace; font-size: 22px; font-weight: 500; color: var(--text-muted); margin-bottom: 14px;">&lt;$10M</div>
+          <div style="font-family: 'Geist', sans-serif; font-size: 12px; font-weight: 300; line-height: 1.6; color: var(--text-muted);">Costs are rarely a priority</div>
+        </div>
+        <div style="padding: 28px 24px; background: var(--bg-card);">
+          <div style="font-family: 'Geist Mono', monospace; font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-soft); margin-bottom: 14px;">Mid-market</div>
+          <div style="font-family: 'Geist Mono', monospace; font-size: 22px; font-weight: 500; color: var(--text-soft); margin-bottom: 14px;">$10M–$100M</div>
+          <div style="font-family: 'Geist', sans-serif; font-size: 12px; font-weight: 300; line-height: 1.6; color: var(--text-soft);">Costs become a business concern</div>
+        </div>
+        <div style="padding: 28px 24px; background: rgba(212,255,94,0.04); border-left: none;">
+          <div style="font-family: 'Geist Mono', monospace; font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px;">Enterprise</div>
+          <div style="font-family: 'Geist Mono', monospace; font-size: 22px; font-weight: 500; color: var(--accent); margin-bottom: 14px;">$100M+</div>
+          <div style="font-family: 'Geist', sans-serif; font-size: 12px; font-weight: 300; line-height: 1.6; color: var(--text-soft);">Every basis point matters</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Actual cost numbers -->
+  <div class="cs-vis reveal" style="margin-top: 24px;">
+    <div class="cs-vis-label">What a 2% payment cost looks like at scale</div>
+    <div class="cs-vis-body" style="display: flex; flex-direction: column; gap: 0;">
+      <!-- Small -->
+      <div style="display: flex; align-items: center; gap: 20px; padding: 18px 0; border-bottom: 1px solid var(--line);">
+        <div style="width: 80px; flex-shrink: 0;">
+          <div style="font-family: 'Geist Mono', monospace; font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted);">Small</div>
+        </div>
+        <div style="flex: 1; display: flex; align-items: center; gap: 14px;">
+          <div style="height: 6px; width: 8%; min-width: 6px; border-radius: 3px; background: rgba(255,255,255,0.1);"></div>
+          <div style="font-family: 'Geist Mono', monospace; font-size: 12px; color: var(--text-muted);">$5M</div>
+        </div>
+        <div style="flex-shrink: 0; text-align: right;">
+          <div style="font-family: 'Geist Mono', monospace; font-size: 18px; font-weight: 500; color: var(--text-muted);">$100K</div>
+        </div>
+      </div>
+      <!-- Mid -->
+      <div style="display: flex; align-items: center; gap: 20px; padding: 18px 0; border-bottom: 1px solid var(--line);">
+        <div style="width: 80px; flex-shrink: 0;">
+          <div style="font-family: 'Geist Mono', monospace; font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-soft);">Mid</div>
+        </div>
+        <div style="flex: 1; display: flex; align-items: center; gap: 14px;">
+          <div style="height: 6px; width: 35%; border-radius: 3px; background: rgba(255,255,255,0.15);"></div>
+          <div style="font-family: 'Geist Mono', monospace; font-size: 12px; color: var(--text-soft);">$50M</div>
+        </div>
+        <div style="flex-shrink: 0; text-align: right;">
+          <div style="font-family: 'Geist Mono', monospace; font-size: 18px; font-weight: 500; color: var(--text-soft);">$1M</div>
+        </div>
+      </div>
+      <!-- Enterprise -->
+      <div style="display: flex; align-items: center; gap: 20px; padding: 18px 0;">
+        <div style="width: 80px; flex-shrink: 0;">
+          <div style="font-family: 'Geist Mono', monospace; font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent);">Enterprise</div>
+        </div>
+        <div style="flex: 1; display: flex; align-items: center; gap: 14px;">
+          <div style="height: 6px; width: 100%; border-radius: 3px; background: linear-gradient(90deg, rgba(212,255,94,0.35), rgba(212,255,94,0.15));"></div>
+          <div style="font-family: 'Geist Mono', monospace; font-size: 12px; color: var(--accent); white-space: nowrap;">$500M</div>
+        </div>
+        <div style="flex-shrink: 0; text-align: right;">
+          <div style="font-family: 'Geist Mono', monospace; font-size: 22px; font-weight: 500; color: var(--accent);">$10M</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="cs-h3 reveal" style="margin-top: 52px;">The problem wasn't the cost itself. It was the lack of visibility.</h3>
+  <p class="cs-p reveal">Merchants could see that costs had increased, but understanding <em style="font-style: italic; font-family: 'Instrument Serif', serif; color: var(--warm);">what changed</em>, <em style="font-style: italic; font-family: 'Instrument Serif', serif; color: var(--warm);">why it changed</em>, and <em style="font-style: italic; font-family: 'Instrument Serif', serif; color: var(--warm);">what to do next</em> often required manually piecing together fragmented reports, invoices, and network documentation.</p>
+  <p class="cs-p reveal" style="margin-top: 8px; font-family: 'Geist Mono', monospace; font-size: 13px; letter-spacing: 0.04em; color: var(--accent);">— This is where HyperSense begins.</p>
+
+</div>
+</section>
+
+<!-- ═══════════════════════ 02 — THE WORLD BEFORE ═══════════════════════ -->
 <section class="cs-section" id="cs-problem">
 <div class="cs-wrap">
 
-  <div class="cs-label reveal"><span class="num">/01</span> The World Before</div>
+  <div class="cs-label reveal"><span class="num">/02</span> The World Before</div>
   <h2 class="cs-display reveal">Every time a card payment is triggered, <em>a silent negotiation happens in milliseconds.</em></h2>
 
   <p class="cs-p reveal">Every card payment looks simple from the outside — tap, approve, done. But beneath that tap, invisible decisions determine what the merchant ultimately pays. Card type, settlement timing, data quality — each variable quietly shifts the fee tier. Most merchants never see this happen.</p>
@@ -907,11 +1037,11 @@ a.cs-cta { margin-top: 28px; }
 </div>
 </section>
 
-<!-- ═══════════════════════ 02 — THIS IS WHERE HYPERSENSE BEGINS ═══════════════════════ -->
+<!-- ═══════════════════════ 03 — THIS IS WHERE HYPERSENSE BEGINS ═══════════════════════ -->
 <section class="cs-section" id="cs-begins">
 <div class="cs-wrap">
 
-  <div class="cs-label reveal"><span class="num">/02</span> This is where Hypersense begins</div>
+  <div class="cs-label reveal"><span class="num">/03</span> This is where Hypersense begins</div>
   <h2 class="cs-display reveal">We built the intelligence layer that <em>payment data never had.</em></h2>
 
   <p class="cs-p reveal">Every payment leaves behind signals. But those signals are scattered across processor statements, settlement reports, and transaction logs — fragmented, inconsistently labelled, and impossible to connect at scale.</p>
@@ -940,11 +1070,11 @@ a.cs-cta { margin-top: 28px; }
 </div>
 </section>
 
-<!-- ═══════════════════════ 03 — MY ROLE ═══════════════════════ -->
+<!-- ═══════════════════════ 04 — MY ROLE ═══════════════════════ -->
 <section class="cs-section" id="cs-role">
 <div class="cs-wrap">
 
-  <div class="cs-label reveal"><span class="num">/03</span> My Role</div>
+  <div class="cs-label reveal"><span class="num">/04</span> My Role</div>
   <h2 class="cs-display reveal">One designer. A team of seven. <em>Building inside ambiguity.</em></h2>
 
   <div class="cs-vis reveal" style="margin-bottom: 26px;">
@@ -978,11 +1108,11 @@ a.cs-cta { margin-top: 28px; }
 </div>
 </section>
 
-<!-- ═══════════════════════ 04 — UNDERSTANDING THE TERRAIN ═══════════════════════ -->
+<!-- ═══════════════════════ 05 — UNDERSTANDING THE TERRAIN ═══════════════════════ -->
 <section class="cs-section" id="cs-terrain">
 <div class="cs-wrap">
 
-  <div class="cs-label reveal"><span class="num">/04</span> Understanding the terrain</div>
+  <div class="cs-label reveal"><span class="num">/05</span> Understanding the terrain</div>
   <h2 class="cs-display reveal">The industry's most transparent pricing model is also its <em>most complex.</em></h2>
 
   <p class="cs-lead reveal">IC++ pricing was designed for large-scale merchants processing enough volume to benefit from true pass-through pricing.</p>
@@ -1074,11 +1204,11 @@ a.cs-cta { margin-top: 28px; }
 </div>
 </section>
 
-<!-- ═══════════════════════ 05 — WHERE THIS PROBLEM EXISTS ═══════════════════════ -->
+<!-- ═══════════════════════ 06 — WHERE THIS PROBLEM EXISTS ═══════════════════════ -->
 <section class="cs-section" id="cs-markets">
 <div class="cs-wrap">
 
-  <div class="cs-label reveal"><span class="num">/05</span> Where This Problem Exists</div>
+  <div class="cs-label reveal"><span class="num">/06</span> Where This Problem Exists</div>
   <h2 class="cs-display reveal">Why only <em>certain markets?</em></h2>
 
   <p class="cs-p reveal">The challenge of understanding and optimising payment costs exists primarily in markets, where merchants are directly exposed to interchange and scheme fees for every transaction.</p>
@@ -1104,11 +1234,11 @@ a.cs-cta { margin-top: 28px; }
 </div>
 </section>
 
-<!-- ═══════════════════════ 06 — USERS ═══════════════════════ -->
+<!-- ═══════════════════════ 07 — USERS ═══════════════════════ -->
 <section class="cs-section" id="cs-users">
 <div class="cs-wrap">
 
-  <div class="cs-label reveal"><span class="num">/06</span> Users</div>
+  <div class="cs-label reveal"><span class="num">/07</span> Users</div>
   <h2 class="cs-display reveal">Three users. One blind spot. <em>Different stakes.</em></h2>
   <p class="cs-lead reveal">Although payment cost is a shared business concern, the problem surfaced differently for each stakeholder. Through research, three primary user groups emerged — each responsible for a different part of the cost story.</p>
 
@@ -1250,11 +1380,11 @@ a.cs-cta { margin-top: 28px; }
 </div>
 </section>
 
-<!-- ═══════════════════════ 07 — DESIGN CHALLENGE ═══════════════════════ -->
+<!-- ═══════════════════════ 08 — DESIGN CHALLENGE ═══════════════════════ -->
 <section class="cs-section" id="cs-challenge">
 <div class="cs-wrap">
 
-  <div class="cs-label reveal"><span class="num">/07</span> Design Challenge</div>
+  <div class="cs-label reveal"><span class="num">/08</span> Design Challenge</div>
   <h2 class="cs-display reveal">Four tensions that shaped <em>every design decision.</em></h2>
   <p class="cs-lead reveal">Payment cost data is dense, technical, and inherently difficult to trust. Every design decision had to help users move from interpretation to confidence to action.</p>
 
@@ -1293,11 +1423,11 @@ a.cs-cta { margin-top: 28px; }
 </div>
 </section>
 
-<!-- ═══════════════════════ 08 — PRODUCT STRATEGY AND DESIGN ═══════════════════════ -->
+<!-- ═══════════════════════ 09 — PRODUCT STRATEGY AND DESIGN ═══════════════════════ -->
 <section class="cs-section" id="cs-strategy">
 <div class="cs-wrap">
 
-  <div class="cs-label reveal"><span class="num">/08</span> Product Strategy and Design</div>
+  <div class="cs-label reveal"><span class="num">/09</span> Product Strategy and Design</div>
   <h2 class="cs-display reveal">The principles that shaped <em>every decision.</em></h2>
   <p class="cs-lead reveal">IC++ pricing is layered, contextual, and difficult to reason about. Simplifying it by hiding detail would only obscure the truth — our goal wasn't to reduce complexity, but to shape it into clarity.</p>
 
@@ -1318,11 +1448,11 @@ a.cs-cta { margin-top: 28px; }
 </div>
 </section>
 
-<!-- ═══════════════════════ 09 — UI DESIGN ═══════════════════════ -->
+<!-- ═══════════════════════ 10 — UI DESIGN ═══════════════════════ -->
 <section class="cs-section" id="cs-ui">
 <div class="cs-wrap">
 
-  <div class="cs-label reveal"><span class="num">/09</span> UI Design</div>
+  <div class="cs-label reveal"><span class="num">/10</span> UI Design</div>
   <h2 class="cs-display reveal">Overview — <em>What's my cost story at a glance?</em></h2>
   <p class="cs-lead reveal">Payment cost data is fragmented across processors, pricing models, and invoice structures. Before teams can investigate anomalies or optimise fees, they first need a clear understanding of where they stand.</p>
   <p class="cs-p reveal" style="margin-bottom: 14px;">Our goal was to design a unified overview experience that could accommodate fundamentally different merchant realities:</p>
