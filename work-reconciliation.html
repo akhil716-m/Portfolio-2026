@@ -782,11 +782,9 @@ a.cs-cta { margin-top: 28px; }
   <div class="cs-label reveal"><span class="num">/03</span> Why Exceptions Are Difficult</div>
   <h2 class="cs-display reveal">One mismatch can hide <em>many different stories.</em></h2>
 
-  <p class="cs-p reveal" style="margin-top: 24px;">Knowing why two records disagree is only part of the picture.</p>
-  <p class="cs-p reveal">Analysts also need to understand how those records are connected underneath.</p>
-  <p class="cs-p reveal">Transactions don't always map one-to-one. A single order can split into multiple settlement entries, while several orders can eventually settle into one bank record.</p>
-  <p class="cs-p reveal">That means two exceptions with the same mismatch reason can have entirely different structures underneath.</p>
-  <p class="cs-p reveal">Before taking any action, analysts first need to reconstruct how those records relate to one another.</p>
+  <p class="cs-p reveal" style="margin-top: 24px;">Knowing why two records disagree is only part of the picture. Analysts also need to understand how those records are connected underneath.</p>
+  <p class="cs-p reveal">Transactions don't always map one-to-one. A single order can split into multiple settlement entries, while several orders can eventually settle into one bank record. That means two exceptions with the same mismatch reason can have entirely different structures underneath.</p>
+  <p class="cs-p reveal">Before taking any action, analysts first need to reconstruct how those accounts &amp; entries relate to one another.</p>
 
   <div class="cs-match-grid reveal">
     <div class="cs-match-cell">
@@ -835,7 +833,7 @@ a.cs-cta { margin-top: 28px; }
     </div>
   </div>
 
-  <p class="cs-p reveal">The challenge became even harder because an exception label only tells part of the story.</p>
+  <p class="cs-p reveal">An exception label only tells part of the story.</p>
 
   <p class="cs-section-sub reveal" style="margin-top: 40px;">Analysts need to understand both layers before they can act:</p>
   <ul class="cs-list reveal">
@@ -955,12 +953,12 @@ a.cs-cta { margin-top: 28px; }
     </div>
   </div>
 
-  <p class="cs-section-sub reveal" style="margin-top: 40px;">Key challenges</p>
+  <p class="cs-section-sub reveal" style="margin-top: 40px;">Why investigation slows down</p>
   <ul class="cs-list reveal">
     <li>The exception label hides what's happening underneath.</li>
     <li>Resolution depends on entry-level relationships, not account-level labels.</li>
     <li>Analysts must manually reconstruct missing context.</li>
-    <li>The same mismatch can require entirely different actions.</li>
+    <li>The same mismatch can require different resolution paths.</li>
   </ul>
 
 
@@ -975,26 +973,20 @@ a.cs-cta { margin-top: 28px; }
   <h2 class="cs-display reveal">Analysts shouldn't have to rebuild the story <em>every time.</em></h2>
 
   <p class="cs-p reveal" style="margin-top: 24px;">Every exception already carried the information analysts needed to make a decision — but that information was buried across multiple layers of records, relationships, and metadata.</p>
-  <p class="cs-p reveal">Because analysts handle exceptions repeatedly throughout the day, even a small amount of reconstruction effort compounds quickly at scale.</p>
-  <p class="cs-p reveal">Before they could take action, they were spending time answering the same fundamental questions over and over again.</p>
+  <p class="cs-p reveal">Because analysts investigate exceptions repeatedly throughout the day, even small amounts of reconstruction effort quickly compound at scale.</p>
+  <p class="cs-p reveal">Before taking action, they were repeatedly answering the same fundamental questions.</p>
 
   <p class="cs-section-sub reveal" style="margin-top: 40px;">Analysts first needed to know:</p>
   <ul class="cs-list reveal">
     <li>What transaction is this about?</li>
     <li>Which accounts and entries are involved?</li>
-    <li>What exactly went wrong?</li>
-    <li>And what action should be taken?</li>
+    <li>What exactly caused the mismatch?</li>
+    <li>What action should be taken?</li>
   </ul>
 
-  <p class="cs-section-sub reveal">Design challenge</p>
-  <div class="cs-challenge reveal" style="margin-top: 12px;">
-    <div class="cs-challenge-tag">Make the hidden structure visible before investigation begins.</div>
-    <p>The interface needed to reveal both who was being compared and what was actually being compared underneath.</p>
-  </div>
-
-  <div class="cs-challenge reveal" style="margin-top: 16px;">
+  <div class="cs-challenge reveal" style="margin-top: 32px;">
     <div class="cs-challenge-tag">Design Goal</div>
-    <p>Reduce the effort required to understand an exception before asking analysts to resolve it.</p>
+    <p>Reduce the effort required to move from investigation to resolution.</p>
   </div>
 
 </div>
@@ -1075,10 +1067,9 @@ a.cs-cta { margin-top: 28px; }
 
 <!-- 03 / The many faces of an exception -->
 <div class="cs-wrap">
-  <p class="cs-sub-num reveal">03 / The many faces of an exception</p>
-  <p class="cs-p reveal">Every exception carries two layers of complexity — why the mismatch happened, and how the records are connected underneath.</p>
-  <p class="cs-p reveal">A single order can split into multiple settlement entries, while several orders can eventually settle into one bank record. The same mismatch can therefore appear in very different shapes.</p>
-  <p class="cs-p reveal">Before taking any action, analysts first need to understand how those records relate to one another.</p>
+  <p class="cs-sub-num reveal">03 / One flow. Many structures</p>
+  <p class="cs-p reveal">The investigation flow remained the same regardless of how accounts and entries were connected underneath.</p>
+  <p class="cs-p reveal">Whether an exception was One-to-One, One-to-Many, Many-to-One...the interface adapted to the topology while preserving a consistent investigation experience.</p>
 </div>
 <div class="cs-wrap cs-wrap--showcase">
   <div class="cs-deck reveal" id="cs-deck">
@@ -1114,9 +1105,9 @@ a.cs-cta { margin-top: 28px; }
 
 <!-- 04 / Resolution actions prototype -->
 <div class="cs-wrap">
-  <p class="cs-sub-num reveal">04 / Make the investigation easy. Make the decision obvious.</p>
-  <p class="cs-p reveal">Every exception can eventually be resolved through one of a few actions — edit, add, swap, or ignore. The challenge wasn't designing those actions. It was helping analysts arrive at the right one with confidence.</p>
-  <p class="cs-p reveal">By bringing hidden context to the surface, the interface reduces the amount of investigation required before action can be taken.</p>
+  <p class="cs-sub-num reveal">04 / Make resolution obvious</p>
+  <p class="cs-p reveal">Once the discrepancy is understood, the remaining task is straightforward.</p>
+  <p class="cs-p reveal">The available actions are simplified and surfaced in context, allowing exceptions to be resolved through a small set of clear, guided steps.</p>
 </div>
 <div class="cs-wrap cs-wrap--showcase">
   <div class="cs-proto reveal" id="cs-proto">
@@ -1157,12 +1148,10 @@ a.cs-cta { margin-top: 28px; }
 
 <!-- Closing -->
 <div class="cs-wrap">
-  <p class="cs-p reveal">Analysts no longer have to piece together disconnected records before making a decision.</p>
-  <p class="cs-p reveal">They understand what happened, why it happened, and what to do next — all within a single flow.</p>
-  <blockquote class="cs-quote reveal">
-    <p style="margin: 0 0 14px;">"Complexity in payments doesn't disappear by hiding it. It disappears once it has one consistent shape to resolve against."</p>
-    <p class="cs-thanks" style="font-style: italic; margin: 0;">Thank you for following along — this one's still taking shape, and I'd love to hear how you'd approach it.</p>
-  </blockquote>
+  <div class="cs-challenge reveal">
+    <div class="cs-challenge-tag">Thanks for reading</div>
+    <p>Making hidden context visible turned exception handling from an investigation exercise into a clear path to resolution.</p>
+  </div>
   <a class="cs-cta reveal" href="index.html"><span class="arr">←</span> Back to selected work</a>
 </div>
 
