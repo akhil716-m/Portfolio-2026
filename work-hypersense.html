@@ -154,7 +154,7 @@
 }
 .cs-p {
   font-family: 'Geist', sans-serif; font-size: 16px; font-weight: 300; line-height: 1.85;
-  color: var(--text-soft); margin: 0 0 26px; max-width: 620px;
+  color: var(--text-soft); margin: 0 0 26px; max-width: 720px;
 }
 .cs-p:last-child { margin-bottom: 0; }
 .cs-p strong { color: var(--text); font-weight: 600; }
@@ -984,101 +984,48 @@ a.cs-cta { margin-top: 28px; }
 </div>
 </section>
 
-<!-- ═══════════════════════ 02 — THE WORLD BEFORE ═══════════════════════ -->
-<section class="cs-section" id="cs-problem">
-<div class="cs-wrap">
-
-  <div class="cs-label reveal"><span class="num">/02</span> The World Before</div>
-  <h2 class="cs-display reveal">Every time a card payment is triggered, <em>a silent negotiation happens in milliseconds.</em></h2>
-
-  <p class="cs-p reveal">Every card payment looks simple from the outside — tap, approve, done. But beneath that tap, invisible decisions determine what the merchant ultimately pays. Card type, settlement timing, data quality — each variable quietly shifts the fee tier. Most merchants never see this happen.</p>
-  <p class="cs-p reveal">Most enterprises on <span class="cs-gloss" tabindex="0" data-gloss="ic-plus-plus">IC++</span> pricing consistently pay more than they should. The gap between what they should pay and what they actually pay sits at <span class="warm">7–10% of total payment costs</span>. The system wasn't built to be readable — it was designed to settle transactions silently.</p>
-
-  <!-- IC++ VISUAL — total effective rate breakdown -->
-  <div class="cs-vis-group reveal" style="margin-top: 24px;">
-    <div class="cs-vis">
-      <div class="cs-vis-body">
-        <div class="cs-fee-rate-row">
-          <div>
-            <div class="cs-fee-bottom-label">Total effective rate</div>
-            <div class="cs-fee-bottom-sub">What the merchant ultimately pays per transaction.</div>
-          </div>
-          <div class="cs-fee-rate">1.7–2.8%</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="cs-vis">
-      <div class="cs-vis-body">
-        <div class="cs-fee-why">
-          <div class="cs-fee-bottom-label">Why payment costs are hard to understand</div>
-          <div class="cs-fee-why-grid">
-            <div class="cs-fee-why-item">
-              <div class="cs-fee-why-num">01</div>
-              <div class="cs-fee-why-title">Not one fee</div>
-              <div class="cs-fee-why-desc">Three separate cost layers combine into a single effective rate.</div>
-            </div>
-            <div class="cs-fee-why-item">
-              <div class="cs-fee-why-num">02</div>
-              <div class="cs-fee-why-title">Mostly variable</div>
-              <div class="cs-fee-why-desc">Interchange and network fees change based on transaction behaviour.</div>
-            </div>
-            <div class="cs-fee-why-item">
-              <div class="cs-fee-why-num">03</div>
-              <div class="cs-fee-why-title">Operations affect cost</div>
-              <div class="cs-fee-why-desc">Routing, authentication, settlement timing, and data quality influence qualification.</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-</div>
-</section>
-
-<!-- ═══════════════════════ 03 — THIS IS WHERE HYPERSENSE BEGINS ═══════════════════════ -->
+<!-- ═══════════════════════ 02 — THIS IS WHERE HYPERSENSE BEGINS ═══════════════════════ -->
 <section class="cs-section" id="cs-begins">
 <div class="cs-wrap">
 
-  <div class="cs-label reveal"><span class="num">/03</span> This is where Hypersense begins</div>
-  <h2 class="cs-display reveal">We built the intelligence layer that <em>payment data never had.</em></h2>
+  <div class="cs-label reveal"><span class="num">/02</span> This is where Hypersense begins</div>
+  <h2 class="cs-display reveal">Making payment costs <em>observable.</em></h2>
 
-  <p class="cs-p reveal">Every payment leaves behind signals. But those signals are scattered across processor statements, settlement reports, and transaction logs — fragmented, inconsistently labelled, and impossible to connect at scale.</p>
-  <p class="cs-p reveal">The system was never designed to explain costs. It was designed to settle transactions — silently, instantly, and at scale. So when costs drifted or margins leaked, merchants rarely knew why.</p>
+  <p class="cs-p reveal">HyperSense is a payment cost observability platform built to help merchants understand where their payment costs come from, why they change, and what actions to take next.</p>
+  <p class="cs-p reveal">It connects fragmented payment data spread across processor invoices, settlement reports, and transaction logs into a single investigation workflow.</p>
 
   <div class="cs-shot reveal">
     <img src="assets/hypersense-behance.png" alt="HyperSense — payment cost observability dashboard" loading="lazy" />
   </div>
 
-  <p class="cs-p reveal">Hypersense connects transaction behaviour to financial impact, making payment costs <span class="accent">observable, easily</span>. Teams can finally trace every downgrade back to its source, detect abnormal cost spikes before they become quarterly surprises, and understand exactly where fees originated — issuer, network, or PSP — down to the transaction level.</p>
+  <p class="cs-p reveal">Payment cost observability was a new problem space for us. Before we could make costs observable, we first had to understand the ecosystem itself, how payment costs were structured, why merchants struggled to investigate them, and where visibility was lacking.</p>
 
-  <h3 class="cs-h3 reveal">What We Built</h3>
-  <p class="cs-p reveal" style="margin-bottom: 16px;">We designed an interconnected system of workflows — each helping payment operations teams answer a different layer of the cost problem.</p>
-  <ul class="cs-list reveal">
-    <li>What changed?</li>
-    <li>Why did it happen?</li>
-    <li>What's driving cost leakage?</li>
-    <li>What should we fix first?</li>
-    <li>What is the projected impact?</li>
-  </ul>
+  <!-- THE RAW DOCUMENTS -->
+  <div class="cs-docs reveal">
+    <div class="cs-docs-header">
+      <div class="cs-docs-tag">The raw documents</div>
+      <h3 class="cs-docs-title">Every month, a different set of documents.<br><em>No common format. No shared language.</em></h3>
+    </div>
+    <div class="cs-docs-body">
+      <div class="cs-docs-text">
+        <p>Every processor describes costs differently. Teams manually piece together invoices, settlement reports, and network documentation to understand what they were charged and why.</p>
+      </div>
+      <div>
+        <div class="cs-docs-trio">
+          <div class="cs-doc-frame"><img src="assets/hypersense/doc-statement.png" alt="IC++ merchant billing statement — 200+ fee line items per billing cycle" loading="lazy" /></div>
+          <div class="cs-doc-frame"><img src="assets/hypersense/doc-scheme.png" alt="Card scheme rate table — dozens of fee categories across card programs and regions" loading="lazy" /></div>
+          <div class="cs-doc-frame"><img src="assets/hypersense/doc-invoice.png" alt="Blended-rate billing statement — one total fee, no line-item breakdown" loading="lazy" /></div>
+        </div>
+        <div class="cs-docs-shot-cap">Different formats. One cost story.</div>
+      </div>
+    </div>
+  </div>
 
-  <h3 class="cs-h3 reveal">What We Achieved</h3>
-  <p class="cs-p reveal" style="margin-bottom: 6px;"><span class="warm">6 enterprise pilots secured</span>, including a live demo with Apple.</p>
-  <p class="cs-p reveal">Merchants moved from static demos to testing with real transaction cost data.</p>
+  <p class="cs-p reveal" style="margin-top: 52px;">As a team of seven, our goal was to understand how payment costs were structured, where merchants lacked visibility, and why investigating cost changes remained a largely manual process. We looked at processor invoices, fee structures, and operational workflows to identify where the biggest gaps existed and where the product could create the most value.</p>
+  <p class="cs-p reveal">As the solo product designer, I worked closely with product, engineering, and data teams to translate that understanding into product experiences that helped merchants move from fragmented data to clear, actionable answers.</p>
 
-</div>
-</section>
-
-<!-- ═══════════════════════ 04 — MY ROLE ═══════════════════════ -->
-<section class="cs-section" id="cs-role">
-<div class="cs-wrap">
-
-  <div class="cs-label reveal"><span class="num">/04</span> My Role</div>
-  <h2 class="cs-display reveal">One designer. A team of seven. <em>Building inside ambiguity.</em></h2>
-
-  <div class="cs-vis reveal" style="margin-bottom: 26px;">
-    <div class="cs-vis-label">The team — 7 people, one shared hypothesis</div>
+  <div class="cs-vis reveal" style="margin-top: 26px;">
+    <div class="cs-vis-label">One designer. A team of seven. One shared problem to solve.</div>
     <div class="cs-team-grid">
       <div class="cs-team-col">
         <div class="cs-team-role cs-team-role--mine">Design</div>
@@ -1103,44 +1050,20 @@ a.cs-cta { margin-top: 28px; }
     </div>
   </div>
 
-  <p class="cs-p reveal">As a team of seven, our goal was to understand how payment costs were structured, where merchants lacked visibility, and why investigating cost changes remained a largely manual process. We studied processor invoices, fee structures, and operational workflows to uncover where the biggest gaps existed and where the product could create the most value.</p>
-
 </div>
 </section>
 
-<!-- ═══════════════════════ 05 — UNDERSTANDING THE TERRAIN ═══════════════════════ -->
+<!-- ═══════════════════════ 03 — UNDERSTANDING THE TERRAIN ═══════════════════════ -->
 <section class="cs-section" id="cs-terrain">
 <div class="cs-wrap">
 
-  <div class="cs-label reveal"><span class="num">/05</span> Understanding the terrain</div>
+  <div class="cs-label reveal"><span class="num">/03</span> Understanding the terrain</div>
   <h2 class="cs-display reveal">The industry's most transparent pricing model is also its <em>most complex.</em></h2>
 
   <p class="cs-lead reveal">IC++ pricing was designed for large-scale merchants processing enough volume to benefit from true pass-through pricing.</p>
   <p class="cs-p reveal">Instead of paying a single <span class="cs-gloss" tabindex="0" data-gloss="blended-pricing">blended rate</span>, merchants are charged the actual cost of processing each transaction. That cost varies based on factors such as card type, authentication method, settlement timing, data quality, and geography.</p>
   <p class="cs-p reveal">For high-volume merchants, this model often results in lower costs compared to blended pricing. But those savings come with complexity.</p>
   <p class="cs-p reveal">IC++ exposes every component of cost, giving merchants full visibility into interchange, scheme fees, and processor markup. However, understanding what was charged and why requires reconciling fragmented data spread across multiple reports that arrive in their inbox at the end of each billing cycle.</p>
-
-  <!-- THE RAW DOCUMENTS -->
-  <div class="cs-docs reveal">
-    <div class="cs-docs-header">
-      <div class="cs-docs-tag">The raw documents</div>
-      <h3 class="cs-docs-title">Every month, a different set of documents.<br><em>No common format. No shared language.</em></h3>
-    </div>
-    <div class="cs-docs-body">
-      <div class="cs-docs-text">
-        <p>The exact reports vary by processor and pricing model, but the challenge is always the same: each source explains only part of the cost story.</p>
-        <p>Teams manually reconcile invoices, settlement files, and network rate tables to understand what they were charged and why.</p>
-      </div>
-      <div>
-        <div class="cs-docs-trio">
-          <div class="cs-doc-frame"><img src="assets/hypersense/doc-statement.png" alt="IC++ merchant billing statement — 200+ fee line items per billing cycle" loading="lazy" /></div>
-          <div class="cs-doc-frame"><img src="assets/hypersense/doc-scheme.png" alt="Card scheme rate table — dozens of fee categories across card programs and regions" loading="lazy" /></div>
-          <div class="cs-doc-frame"><img src="assets/hypersense/doc-invoice.png" alt="Blended-rate billing statement — one total fee, no line-item breakdown" loading="lazy" /></div>
-        </div>
-        <div class="cs-docs-shot-cap">IC++ statement · scheme report · blended statement — three formats, one cost story</div>
-      </div>
-    </div>
-  </div>
 
   <h3 class="cs-h3 reveal" style="margin-top: 8px;">The cost of invisibility</h3>
 
@@ -1201,14 +1124,59 @@ a.cs-cta { margin-top: 28px; }
     </div>
   </div>
 
+  <!-- The World Before (merged from former Section 02) -->
+  <h3 class="cs-h3 reveal" style="margin-top: 64px;">Every time a card payment is triggered, a silent negotiation happens.</h3>
+  <p class="cs-p reveal">Every card payment looks simple from the outside — tap, approve, done. But beneath that tap, invisible decisions determine what the merchant ultimately pays. Card type, settlement timing, data quality — each variable quietly shifts the fee tier. Most merchants never see this happen.</p>
+  <p class="cs-p reveal">Most enterprises on <span class="cs-gloss" tabindex="0" data-gloss="ic-plus-plus">IC++</span> pricing consistently pay more than they should. The gap between what they should pay and what they actually pay sits at <span class="warm">7–10% of total payment costs</span>. The system wasn't built to be readable — it was designed to settle transactions silently.</p>
+
+  <!-- IC++ VISUAL — total effective rate breakdown -->
+  <div class="cs-vis-group reveal" style="margin-top: 24px;">
+    <div class="cs-vis">
+      <div class="cs-vis-body">
+        <div class="cs-fee-rate-row">
+          <div>
+            <div class="cs-fee-bottom-label">Total effective rate</div>
+            <div class="cs-fee-bottom-sub">What the merchant ultimately pays per transaction.</div>
+          </div>
+          <div class="cs-fee-rate">1.7–2.8%</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cs-vis">
+      <div class="cs-vis-body">
+        <div class="cs-fee-why">
+          <div class="cs-fee-bottom-label">Why payment costs are hard to understand</div>
+          <div class="cs-fee-why-grid">
+            <div class="cs-fee-why-item">
+              <div class="cs-fee-why-num">01</div>
+              <div class="cs-fee-why-title">Not one fee</div>
+              <div class="cs-fee-why-desc">Three separate cost layers combine into a single effective rate.</div>
+            </div>
+            <div class="cs-fee-why-item">
+              <div class="cs-fee-why-num">02</div>
+              <div class="cs-fee-why-title">Mostly variable</div>
+              <div class="cs-fee-why-desc">Interchange and network fees change based on transaction behaviour.</div>
+            </div>
+            <div class="cs-fee-why-item">
+              <div class="cs-fee-why-num">03</div>
+              <div class="cs-fee-why-title">Operations affect cost</div>
+              <div class="cs-fee-why-desc">Routing, authentication, settlement timing, and data quality influence qualification.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>
 </section>
 
-<!-- ═══════════════════════ 06 — WHERE THIS PROBLEM EXISTS ═══════════════════════ -->
+<!-- ═══════════════════════ 05 — WHERE THIS PROBLEM EXISTS ═══════════════════════ -->
 <section class="cs-section" id="cs-markets">
 <div class="cs-wrap">
 
-  <div class="cs-label reveal"><span class="num">/06</span> Where This Problem Exists</div>
+  <div class="cs-label reveal"><span class="num">/04</span> Where This Problem Exists</div>
   <h2 class="cs-display reveal">Why only <em>certain markets?</em></h2>
 
   <p class="cs-p reveal">The challenge of understanding and optimising payment costs exists primarily in markets, where merchants are directly exposed to interchange and scheme fees for every transaction.</p>
@@ -1234,11 +1202,11 @@ a.cs-cta { margin-top: 28px; }
 </div>
 </section>
 
-<!-- ═══════════════════════ 07 — USERS ═══════════════════════ -->
+<!-- ═══════════════════════ 06 — USERS ═══════════════════════ -->
 <section class="cs-section" id="cs-users">
 <div class="cs-wrap">
 
-  <div class="cs-label reveal"><span class="num">/07</span> Users</div>
+  <div class="cs-label reveal"><span class="num">/05</span> Users</div>
   <h2 class="cs-display reveal">Three users. One blind spot. <em>Different stakes.</em></h2>
   <p class="cs-lead reveal">Although payment cost is a shared business concern, the problem surfaced differently for each stakeholder. Through research, three primary user groups emerged — each responsible for a different part of the cost story.</p>
 
@@ -1380,11 +1348,11 @@ a.cs-cta { margin-top: 28px; }
 </div>
 </section>
 
-<!-- ═══════════════════════ 08 — DESIGN CHALLENGE ═══════════════════════ -->
+<!-- ═══════════════════════ 07 — DESIGN CHALLENGE ═══════════════════════ -->
 <section class="cs-section" id="cs-challenge">
 <div class="cs-wrap">
 
-  <div class="cs-label reveal"><span class="num">/08</span> Design Challenge</div>
+  <div class="cs-label reveal"><span class="num">/06</span> Design Challenge</div>
   <h2 class="cs-display reveal">Four tensions that shaped <em>every design decision.</em></h2>
   <p class="cs-lead reveal">Payment cost data is dense, technical, and inherently difficult to trust. Every design decision had to help users move from interpretation to confidence to action.</p>
 
@@ -1423,11 +1391,11 @@ a.cs-cta { margin-top: 28px; }
 </div>
 </section>
 
-<!-- ═══════════════════════ 09 — PRODUCT STRATEGY AND DESIGN ═══════════════════════ -->
+<!-- ═══════════════════════ 08 — PRODUCT STRATEGY AND DESIGN ═══════════════════════ -->
 <section class="cs-section" id="cs-strategy">
 <div class="cs-wrap">
 
-  <div class="cs-label reveal"><span class="num">/09</span> Product Strategy and Design</div>
+  <div class="cs-label reveal"><span class="num">/07</span> Product Strategy and Design</div>
   <h2 class="cs-display reveal">The principles that shaped <em>every decision.</em></h2>
   <p class="cs-lead reveal">IC++ pricing is layered, contextual, and difficult to reason about. Simplifying it by hiding detail would only obscure the truth — our goal wasn't to reduce complexity, but to shape it into clarity.</p>
 
@@ -1448,11 +1416,11 @@ a.cs-cta { margin-top: 28px; }
 </div>
 </section>
 
-<!-- ═══════════════════════ 10 — UI DESIGN ═══════════════════════ -->
+<!-- ═══════════════════════ 09 — UI DESIGN ═══════════════════════ -->
 <section class="cs-section" id="cs-ui">
 <div class="cs-wrap">
 
-  <div class="cs-label reveal"><span class="num">/10</span> UI Design</div>
+  <div class="cs-label reveal"><span class="num">/08</span> UI Design</div>
   <h2 class="cs-display reveal">Overview — <em>What's my cost story at a glance?</em></h2>
   <p class="cs-lead reveal">Payment cost data is fragmented across processors, pricing models, and invoice structures. Before teams can investigate anomalies or optimise fees, they first need a clear understanding of where they stand.</p>
   <p class="cs-p reveal" style="margin-bottom: 14px;">Our goal was to design a unified overview experience that could accommodate fundamentally different merchant realities:</p>
@@ -1979,15 +1947,13 @@ a.cs-cta { margin-top: 28px; }
 
   var SECTIONS = [
     { id: 'cs-what',      label: '01 — The Cost of Invisibility',    thesis: 'Every payment generates revenue. But not every dollar <em>reaches the merchant.</em>' },
-    { id: 'cs-problem',   label: '02 — The World Before',            thesis: 'Every time a card payment is triggered, <em>a silent negotiation happens in milliseconds.</em>' },
-    { id: 'cs-begins',    label: '03 — Where Hypersense Begins',     thesis: 'We built the intelligence layer that <em>payment data never had.</em>' },
-    { id: 'cs-role',      label: '04 — My Role',                     thesis: 'One designer. A team of seven. <em>Building inside ambiguity.</em>' },
-    { id: 'cs-terrain',   label: '05 — Understanding the Terrain',   thesis: 'The industry&rsquo;s most transparent pricing model is also its <em>most complex.</em>' },
-    { id: 'cs-markets',   label: '06 — Where This Problem Exists',   thesis: 'Why only <em>certain markets?</em>' },
-    { id: 'cs-users',     label: '07 — Users',                       thesis: 'Three users. One blind spot. <em>Different stakes.</em>' },
-    { id: 'cs-challenge', label: '08 — Design Challenge',            thesis: 'Four tensions that shaped <em>every design decision.</em>' },
-    { id: 'cs-strategy',  label: '09 — Product Strategy and Design', thesis: 'The principles that shaped <em>every decision.</em>' },
-    { id: 'cs-ui',        label: '10 — UI Design',                   thesis: 'What does cost intelligence <em>actually look like to use?</em>' }
+    { id: 'cs-begins',    label: '02 — Where Hypersense Begins',     thesis: 'Making payment costs <em>observable.</em>' },
+    { id: 'cs-terrain',   label: '03 — Understanding the Terrain',   thesis: 'The industry&rsquo;s most transparent pricing model is also its <em>most complex.</em>' },
+    { id: 'cs-markets',   label: '04 — Where This Problem Exists',   thesis: 'Why only <em>certain markets?</em>' },
+    { id: 'cs-users',     label: '05 — Users',                       thesis: 'Three users. One blind spot. <em>Different stakes.</em>' },
+    { id: 'cs-challenge', label: '06 — Design Challenge',            thesis: 'Four tensions that shaped <em>every design decision.</em>' },
+    { id: 'cs-strategy',  label: '07 — Product Strategy and Design', thesis: 'The principles that shaped <em>every decision.</em>' },
+    { id: 'cs-ui',        label: '08 — UI Design',                   thesis: 'What does cost intelligence <em>actually look like to use?</em>' }
   ];
 
   var activeId = null;
