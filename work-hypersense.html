@@ -133,6 +133,17 @@
 /* ---------- SECTION SCAFFOLD ---------- */
 .cs-section { padding: clamp(80px, 12vw, 140px) 0; border-top: 1px solid var(--line); }
 .cs-wrap { max-width: 760px; margin: 0 auto; padding: 0 clamp(24px, 6vw, 48px); }
+.cs-wrap--wide { max-width: 1140px; }
+.cs-breakout {
+  width: calc(100% + 200px); max-width: calc(100vw - 48px);
+  position: relative; left: -100px;
+}
+@media (max-width: 1100px) {
+  .cs-breakout { width: calc(100% + 80px); margin-left: -40px; }
+}
+@media (max-width: 700px) {
+  .cs-breakout { width: 100%; margin-left: 0; }
+}
 
 .cs-label {
   display: flex; align-items: center; gap: 16px; margin-bottom: 46px;
@@ -1479,7 +1490,7 @@ a.cs-cta { margin-top: 28px; }
     <li>What am I paying today?</li>
     <li>Where should I start investigating?</li>
   </ul>
-  <div class="cs-ov reveal">
+  <div class="cs-ov reveal cs-breakout">
     <div class="cs-ov-frame">
       <div class="cs-shot-bar">
         <div class="cs-shot-dots"><i></i><i></i><i></i></div>
@@ -1559,7 +1570,7 @@ a.cs-cta { margin-top: 28px; }
   </ul>
   <p class="cs-p reveal">Built primarily for IC++ pricing, the module separated drillable costs from blended fees, taxes, and other non-attributable charges — making the analytical scope explicit and reinforcing trust in the numbers.</p>
 
-  <div class="cs-shot-frame reveal">
+  <div class="cs-shot-frame reveal cs-breakout">
     <div class="cs-shot-bar">
       <div class="cs-shot-dots"><i></i><i></i><i></i></div>
       <div class="cs-shot-url">
@@ -1589,7 +1600,7 @@ a.cs-cta { margin-top: 28px; }
   </ul>
   <p class="cs-p reveal">This framing helped teams immediately understand whether they were looking at normal growth or preventable leakage.</p>
 
-  <div class="cs-shot-frame reveal">
+  <div class="cs-shot-frame reveal cs-breakout">
     <div class="cs-shot-bar">
       <div class="cs-shot-dots"><i></i><i></i><i></i></div>
       <div class="cs-shot-url">
@@ -1609,7 +1620,7 @@ a.cs-cta { margin-top: 28px; }
   </div>
 
   <h3 class="cs-h3 reveal" style="margin-top: 40px;">Three scenarios. Three distinct cost stories.</h3>
-  <div class="cs-scenarios reveal">
+  <div class="cs-scenarios reveal cs-breakout">
     <div class="cs-scenario">
       <div class="cs-scenario-shot"><img src="assets/hypersense/scn-quarterly-shock.png" alt="Fee Spikes — Quarterly Shock scenario showing downgrade and penalty cost trace" loading="lazy" /></div>
       <div class="cs-scenario-tag">Downgrades &amp; Penalties</div>
@@ -1651,7 +1662,7 @@ a.cs-cta { margin-top: 28px; }
   </ul>
   <p class="cs-p reveal">Each layer revealed more detail only when needed — from total overcharges, down to fee categories, card programs, and transaction-level evidence. Audit turned opaque invoices into a clear, defensible audit trail.</p>
 
-  <div class="cs-shot-frame reveal">
+  <div class="cs-shot-frame reveal cs-breakout">
     <div class="cs-shot-bar">
       <div class="cs-shot-dots"><i></i><i></i><i></i></div>
       <div class="cs-shot-url">
@@ -1683,7 +1694,7 @@ a.cs-cta { margin-top: 28px; }
   </ul>
   <p class="cs-p reveal">Most published network updates are irrelevant to a given merchant. To reduce cognitive overload, Forecast prioritised only the changes that matched the merchant's actual transaction behaviour and surfaced the estimated monthly impact in real currency terms.</p>
 
-  <div class="cs-shot-frame reveal">
+  <div class="cs-shot-frame reveal cs-breakout">
     <div class="cs-shot-bar">
       <div class="cs-shot-dots"><i></i><i></i><i></i></div>
       <div class="cs-shot-url">
