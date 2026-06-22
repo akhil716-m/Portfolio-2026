@@ -551,7 +551,7 @@ a.cs-cta { margin-top: 28px; }
    simulation in a modal so it doesn't add to page scroll by default. */
 .cs-sim-teaser-body { display: flex; flex-direction: column; padding-top: 20px; }
 .cs-sim-teaser-title { font-family: 'Geist', sans-serif; font-size: 16px; font-weight: 500; color: var(--text); }
-.cs-sim-teaser-desc { font-family: 'Geist', sans-serif; font-size: 12.5px; font-weight: 300; line-height: 1.7; color: var(--text-soft); margin-top: 6px; }
+.cs-sim-teaser-desc { font-family: 'Geist', sans-serif; font-size: 12.5px; font-weight: 300; line-height: 1.7; color: var(--text-soft); margin-top: 8px; }
 
 /* Mini "trace" preview — a glimpse of the stage rail the modal animates
    through, without giving away any numbers. The dashed rail runs edge to
@@ -566,9 +566,22 @@ a.cs-cta { margin-top: 28px; }
   font-family: 'Geist Mono', monospace; font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted);
 }
 .cs-sim-teaser-dot {
-  width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.18);
-  box-shadow: 0 0 0 4px var(--bg-card); position: relative; z-index: 1;
+  width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.25);
+  border: 3px solid var(--bg-card);
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.12);
+  position: relative; z-index: 1;
 }
+.cs-sim-teaser-flow { align-items: flex-start; justify-content: space-between; padding-bottom: 20px; }
+.cs-sim-teaser-flow > .cs-sim-teaser-dot { margin: 0 -8px; }
+.cs-sim-teaser-flow::before { top: 3px; }
+.cs-sim-flow-node {
+  display: flex; flex-direction: column; align-items: center; gap: 9px; flex-shrink: 0;
+}
+.cs-sim-flow-label {
+  font-family: 'Geist Mono', monospace; font-size: 9px; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--text-muted); white-space: nowrap;
+}
+.cs-sim-teaser-dot--start, .cs-sim-teaser-dot--end { width: 8px; height: 8px; background: rgba(255,255,255,0.25); }
 .cs-sim-teaser-body .cs-sim-btn { align-self: flex-start; margin-top: 20px; }
 
 /* Modal overlay — hosts the full IC++ fee simulation */
@@ -682,37 +695,35 @@ a.cs-cta { margin-top: 28px; }
 
 /* ---------- COST CALLOUT ---------- */
 .cs-cost-callout {
-  border: 1px solid var(--line); border-radius: 10px;
-  background: var(--bg-card); overflow: hidden;
+  border-left: 2px solid var(--accent);
+  padding: 36px 40px;
+  background: var(--bg-card); border-radius: 10px;
+  border: 1px solid var(--line); border-left: 2px solid var(--accent);
   position: relative; z-index: 501;
 }
-.cs-cost-callout-top {
-  text-align: center; padding: 44px 36px;
-}
-.cs-cost-callout-bottom {
-  text-align: center; padding: 32px 36px;
-  border-top: 1px solid var(--line);
-}
-.cs-cost-callout-label {
-  font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.18em;
-  text-transform: uppercase; color: var(--text-soft); margin-bottom: 12px;
-}
-.cs-cost-callout-rate {
-  font-family: 'Geist Mono', monospace; font-size: 56px; font-weight: 500;
-  color: var(--accent); line-height: 1.1;
+.cs-cost-callout-inner {
+  display: flex; flex-direction: column; gap: 0;
 }
 .cs-cost-callout-context {
-  font-family: 'Geist', sans-serif; font-size: 15px; font-weight: 300;
-  line-height: 1.7; color: var(--text-soft); margin: 0 auto 8px; max-width: 480px;
+  font-family: 'Geist', sans-serif; font-size: 16px; font-weight: 300;
+  line-height: 1.7; color: var(--text-soft); margin: 0; display: inline;
+}
+.cs-cost-callout-rate {
+  font-family: 'Geist Mono', monospace; font-size: 40px; font-weight: 500;
+  color: var(--accent); line-height: 1.2; margin: 0 0 6px;
+}
+.cs-cost-callout-label {
+  font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--text-muted); margin-bottom: 20px;
+  padding-bottom: 20px; border-bottom: 1px solid var(--line);
 }
 .cs-cost-callout-headline {
-  font-family: 'Geist', sans-serif; font-size: 20px; font-weight: 500;
-  line-height: 1.4; color: #fff; margin: 0;
+  font-family: 'Geist', sans-serif; font-size: 18px; font-weight: 400;
+  line-height: 1.7; color: #fff; margin: 0;
 }
 @media (max-width: 700px) {
-  .cs-cost-callout-rate { font-size: 40px; }
-  .cs-cost-callout-top { padding: 36px 24px; }
-  .cs-cost-callout-bottom { padding: 28px 24px; }
+  .cs-cost-callout { padding: 28px 24px; }
+  .cs-cost-callout-rate { font-size: 36px; }
 }
 
 /* ---------- DESIGN CHALLENGE CALLOUT ---------- */
@@ -1070,37 +1081,55 @@ a.cs-cta { margin-top: 28px; }
   <div class="cs-label reveal"><span class="num">/03</span> Understanding the terrain</div>
   <h2 class="cs-display reveal">The industry's most transparent pricing model comes with an <em>invisible tradeoff.</em></h2>
 
-  <p class="cs-p reveal">Every card payment looks simple from the outside — tap, approve, done. But for every transaction a merchant processes comes with a cost, and how that cost is calculated depends on the pricing model they choose.</p>
+  <p class="cs-p reveal">Every card payment looks simple from the outside — tap, approve, done. But every transaction the merchant processes comes with a payment's cost, and how that cost is calculated depends on the pricing model a merchant chooses.</p>
   <p class="cs-p reveal">The industry primarily operates on two models: <span class="cs-gloss" tabindex="0" data-gloss="blended-pricing">Blended pricing</span> and <span class="cs-gloss" tabindex="0" data-gloss="ic-plus-plus">IC++</span> pricing.</p>
   <p class="cs-p reveal">Blended pricing applies a single fixed rate to every transaction. It's simple and predictable, but at high volumes, merchants often end up paying more than necessary.</p>
-  <p class="cs-p reveal"><span class="cs-gloss" tabindex="0" data-gloss="ic-plus-plus">IC++</span> pricing, on the other hand, charges the actual cost of processing for each transaction, creating opportunities to reduce costs at scale. That's why large enterprise merchants prefer IC++. But the same transparency that creates savings also creates complexity.</p>
+  <p class="cs-p reveal"><span class="cs-gloss" tabindex="0" data-gloss="ic-plus-plus">IC++</span> pricing, on the other hand, charges the actual cost of processing for each transaction, creating opportunities to reduce costs at scale. That's why enterprise merchants prefer IC++. But the same transparency that creates savings also introduces a new layer of complexity.</p>
+
+  <!-- IC++ FEE SIMULATOR — teaser -->
+  <div class="cs-vis reveal cs-sim-teaser" style="margin: 48px 0;">
+    <div class="cs-vis-label">IC++ fee simulation</div>
+    <div class="cs-vis-body cs-sim-teaser-body">
+      <div class="cs-sim-teaser-preview cs-sim-teaser-flow" aria-hidden="true">
+        <div class="cs-sim-flow-node">
+          <span class="cs-sim-teaser-dot cs-sim-teaser-dot--start"></span>
+          <span class="cs-sim-flow-label">Customer Pays</span>
+        </div>
+        <span class="cs-sim-teaser-dot"></span>
+        <span class="cs-sim-teaser-dot"></span>
+        <div class="cs-sim-flow-node">
+          <span class="cs-sim-teaser-dot"></span>
+          <span class="cs-sim-flow-label">Payment Costs</span>
+        </div>
+        <span class="cs-sim-teaser-dot"></span>
+        <span class="cs-sim-teaser-dot"></span>
+        <div class="cs-sim-flow-node">
+          <span class="cs-sim-teaser-dot cs-sim-teaser-dot--end"></span>
+          <span class="cs-sim-flow-label">Merchant Receives</span>
+        </div>
+      </div>
+      <p class="cs-sim-teaser-desc">A payment may look like a single event, but it's actually a chain of participants, systems, and decisions — each contributing to the final cost.</p>
+      <button class="cs-sim-btn" id="cs-sim-open"><span class="play"></span> See the Cost Flow</button>
+    </div>
+  </div>
 
   <h3 class="cs-h3 reveal" style="margin-top: 48px;">The same transparency that creates savings also creates complexity.</h3>
 
   <p class="cs-p reveal">Because in <span class="cs-gloss" tabindex="0" data-gloss="ic-plus-plus">IC++</span> pricing happens at a transaction level, no two transactions are guaranteed to cost the same. Each transaction cost is determined by card type, authentication, settlement timing, geography, and data quality — each variable quietly shifts the fee tier. Most merchants never see this happen.</p>
   <p class="cs-p reveal">Most enterprises on <span class="cs-gloss" tabindex="0" data-gloss="ic-plus-plus">IC++</span> pricing consistently pay more than they should. The gap between what they should pay and what they actually pay can quietly reach <span class="warm">7–10% of their total payment costs</span>.</p>
 
-  <!-- COST CALLOUT — rate + challenge -->
-  <div class="cs-cost-callout reveal" style="margin-top: 48px;">
-    <div class="cs-cost-callout-top">
-      <div class="cs-cost-callout-label">Total effective rate per transaction</div>
-      <div class="cs-cost-callout-rate">1.7–2.8%</div>
-    </div>
-    <div class="cs-cost-callout-bottom">
-      <p class="cs-cost-callout-context">For merchants processing hundreds of millions annually, this introduces a new challenge:</p>
-      <h3 class="cs-cost-callout-headline">How do you know if you're paying correctly?</h3>
-    </div>
-  </div>
+
+  <p class="cs-p reveal" style="margin-top: 24px;">Knowing what merchants were charged is rarely straightforward. Finding that answer often means reconciling reports from multiple processors.</p>
 
   <!-- THE RAW DOCUMENTS -->
   <div class="cs-docs reveal">
     <div class="cs-docs-header">
       <div class="cs-docs-tag">The raw documents</div>
-      <h3 class="cs-docs-title">Every billing cycle starts <em>an investigation.</em></h3>
+      <h3 class="cs-docs-title">Every billing cycle becomes <em>an investigation.</em></h3>
     </div>
     <div class="cs-docs-body">
       <div class="cs-docs-text">
-        <p>Every processor describes costs differently. Teams manually piece together invoices, settlement reports, and network documentation to understand what they were charged and why.</p>
+        <p>No single report tells the full story. Teams work across invoices, settlement reports, and network documentation to reconstruct what they were charged and why.</p>
       </div>
       <div>
         <div class="cs-docs-trio">
@@ -1113,32 +1142,18 @@ a.cs-cta { margin-top: 28px; }
     </div>
   </div>
 
-  <h3 class="cs-h3 reveal" style="margin-top: 8px;">Small operational decisions can become expensive mistakes.</h3>
+  <h3 class="cs-h3 reveal" style="margin-top: 48px;">Small operational decisions can become expensive mistakes.</h3>
 
   <p class="cs-p reveal">At the transaction level, small operational decisions can quietly increase costs. Something as simple as delayed settlement, missing authentication data, or incorrect merchant classification can downgrade a transaction and push it into a more expensive fee tier.</p>
   <p class="cs-p reveal">At enterprise scale, these small inefficiencies compound into millions of dollars of avoidable spend every year.</p>
 
-  <!-- IC++ FEE SIMULATOR — teaser -->
-  <div class="cs-vis reveal cs-sim-teaser" style="margin: 24px 0;">
-    <div class="cs-vis-label">IC++ fee simulation</div>
-    <div class="cs-vis-body cs-sim-teaser-body">
-      <div class="cs-sim-teaser-title">See where a $1,000 payment actually goes.</div>
-      <p class="cs-sim-teaser-desc">Explore how each entity in the payment ecosystem contributes to the final processing cost.</p>
-      <div class="cs-sim-teaser-preview" aria-hidden="true">
-        <div class="cs-sim-teaser-node"><span class="cs-sim-teaser-dot"></span>Gateway</div>
-        <div class="cs-sim-teaser-node"><span class="cs-sim-teaser-dot"></span>Network</div>
-        <div class="cs-sim-teaser-node"><span class="cs-sim-teaser-dot"></span>Issuer</div>
-        <div class="cs-sim-teaser-node"><span class="cs-sim-teaser-dot"></span>Acquirer</div>
-      </div>
-      <button class="cs-sim-btn" id="cs-sim-open"><span class="play"></span> Run simulation</button>
+  <!-- COST CALLOUT — rate + challenge -->
+  <div class="cs-cost-callout reveal" style="margin-top: 48px;">
+    <div class="cs-cost-callout-inner">
+      <span class="cs-cost-callout-rate">1.7–2.8%</span>
+      <div class="cs-cost-callout-label">Total effective rate per transaction</div>
+      <p class="cs-cost-callout-context">At enterprise scale, small percentage changes can quietly translate into millions of dollars in avoidable spend every year.</p>
     </div>
-  </div>
-
-
-  <div class="cs-stats reveal">
-    <div class="cs-stat"><span class="cs-stat-num">$200B+</span><span class="cs-stat-desc">Annual card payment spend across US and European merchants.</span></div>
-    <div class="cs-stat"><span class="cs-stat-num">500+</span><span class="cs-stat-desc">Interchange categories and qualification rules.</span></div>
-    <div class="cs-stat"><span class="cs-stat-num">3–5 days</span><span class="cs-stat-desc">Average monthly effort spent reconciling PSP fee reports.</span></div>
   </div>
 
   <!-- IC++ FEE SIMULATOR — modal -->
