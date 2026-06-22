@@ -616,9 +616,9 @@ a.cs-cta { margin-top: 28px; }
 .cs-sim-modal-close:hover { color: var(--text); border-color: var(--text-muted); }
 
 /* ---------- MARKET GLOBE ---------- */
-.cs-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; }
-.cs-dot--a { background: var(--accent); box-shadow: 0 0 8px rgba(212,255,94,0.5); }
-.cs-dot--b { background: var(--text-muted); border: 1px solid var(--line); }
+.cs-dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; }
+.cs-dot--a { background: var(--accent); }
+.cs-dot--b { background: var(--text-muted); }
 .cs-globe-stage { position: relative; display: flex; justify-content: center; align-items: center; padding: 16px 0 30px; }
 .cs-globe-wrap { position: relative; width: 360px; max-width: 100%; }
 .cs-globe-wrap canvas {
@@ -1195,15 +1195,15 @@ a.cs-cta { margin-top: 28px; }
 <section class="cs-section" id="cs-markets">
 <div class="cs-wrap">
 
-  <div class="cs-label reveal"><span class="num">/04</span> Where This Problem Exists</div>
-  <h2 class="cs-display reveal">Why only <em>certain markets?</em></h2>
+  <div class="cs-label reveal"><span class="num">/04</span> Geographic Focus</div>
+  <h2 class="cs-display reveal">Why the US and Europe <em>mattered.</em></h2>
 
-  <p class="cs-p reveal">The challenge of understanding and optimising payment costs exists primarily in markets, where merchants are directly exposed to interchange and scheme fees for every transaction.</p>
-  <p class="cs-p reveal">In India, domestic payments run largely on UPI, where transaction costs are close to zero. In much of Southeast Asia and Latin America, merchants often pay flat or blended rates that hide underlying fee complexity.</p>
-  <p class="cs-p reveal">The downgrade problem primarily emerges in markets where interchange-based pricing is passed directly to merchants, such as the United States, Europe etc.</p>
+  <p class="cs-p reveal">The challenge of understanding payment costs isn't universal. It exists primarily in markets where merchants are directly exposed to the underlying cost of processing for every transaction.</p>
+  <p class="cs-p reveal">In India, domestic payments largely run on UPI, where transaction costs are minimal. In many Southeast Asian and Latin American markets, merchants operate on simplified or blended pricing models that hide much of the underlying complexity.</p>
+  <p class="cs-p reveal">The problem becomes significant in markets such as the United States and Europe, where enterprise merchants commonly operate on <span class="cs-gloss" tabindex="0" data-gloss="ic-plus-plus">IC++</span> pricing and are directly exposed to interchange, scheme fees, and processor markups.</p>
 
   <div class="cs-vis reveal">
-    <div class="cs-vis-label">Markets where IC++ pricing applies</div>
+    <div class="cs-vis-label">Where payment cost visibility matters</div>
     <div class="cs-vis-body">
       <div class="cs-globe-stage">
         <div class="cs-globe-wrap" id="cs-globe-wrap">
@@ -1211,7 +1211,7 @@ a.cs-cta { margin-top: 28px; }
           <div class="cs-globe-tip" id="cs-globe-tip"></div>
         </div>
         <div class="cs-globe-legend">
-          <div class="cs-globe-legend-row"><i class="cs-dot cs-dot--a"></i> IC++ markets</div>
+          <div class="cs-globe-legend-row"><i class="cs-dot cs-dot--a"></i> IC++ dominant</div>
           <div class="cs-globe-legend-row"><i class="cs-dot cs-dot--b"></i> Simplified pricing</div>
         </div>
       </div>
@@ -1968,7 +1968,7 @@ a.cs-cta { margin-top: 28px; }
     { id: 'cs-what',      label: '01 — The Cost of Invisibility',    thesis: 'Every payment generates revenue. But not every dollar <em>reaches the merchant.</em>' },
     { id: 'cs-begins',    label: '02 — Where Hypersense Begins',     thesis: 'Making payment costs <em>observable.</em>' },
     { id: 'cs-terrain',   label: '03 — Understanding the Terrain',   thesis: 'The industry&rsquo;s most transparent pricing model is also its <em>most complex.</em>' },
-    { id: 'cs-markets',   label: '04 — Where This Problem Exists',   thesis: 'Why only <em>certain markets?</em>' },
+    { id: 'cs-markets',   label: '04 — Geographic Focus',   thesis: 'Why the US and Europe <em>mattered.</em>' },
     { id: 'cs-users',     label: '05 — Users',                       thesis: 'Three users. One blind spot. <em>Different stakes.</em>' },
     { id: 'cs-challenge', label: '06 — Design Challenge',            thesis: 'Four tensions that shaped <em>every design decision.</em>' },
     { id: 'cs-strategy',  label: '07 — Product Strategy and Design', thesis: 'The principles that shaped <em>every decision.</em>' },
