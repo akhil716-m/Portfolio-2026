@@ -2711,10 +2711,10 @@ a.cs-cta { margin-top: 28px; }
   };
   const NAMES = {4:'Afghanistan',8:'Albania',12:'Algeria',24:'Angola',50:'Bangladesh',64:'Bhutan',68:'Bolivia',70:'Bosnia & Herz.',72:'Botswana',96:'Brunei',104:'Myanmar',108:'Burundi',116:'Cambodia',120:'Cameroon',132:'Cape Verde',140:'Central African Rep.',144:'Sri Lanka',152:'Chile',158:'Taiwan',170:'Colombia',174:'Comoros',178:'Congo',180:'DR Congo',184:'Cook Islands',188:'Costa Rica',192:'Cuba',196:'Cyprus',204:'Benin',214:'Dominican Rep.',218:'Ecuador',818:'Egypt',222:'El Salvador',231:'Ethiopia',238:'Falkland Islands',242:'Fiji',266:'Gabon',270:'Gambia',288:'Ghana',308:'Grenada',320:'Guatemala',324:'Guinea',328:'Guyana',332:'Haiti',340:'Honduras',364:'Iran',368:'Iraq',376:'Israel',388:'Jamaica',392:'Japan',400:'Jordan',398:'Kazakhstan',404:'Kenya',408:'North Korea',410:'South Korea',414:'Kuwait',418:'Laos',422:'Lebanon',426:'Lesotho',430:'Liberia',434:'Libya',450:'Madagascar',454:'Malawi',462:'Maldives',466:'Mali',478:'Mauritania',480:'Mauritius',496:'Mongolia',504:'Morocco',508:'Mozambique',516:'Namibia',524:'Nepal',562:'Niger',566:'Nigeria',586:'Pakistan',591:'Panama',598:'Papua New Guinea',600:'Paraguay',604:'Peru',608:'Philippines',630:'Puerto Rico',634:'Qatar',646:'Rwanda',682:'Saudi Arabia',686:'Senegal',694:'Sierra Leone',706:'Somalia',729:'Sudan',740:'Suriname',760:'Syria',762:'Tajikistan',834:'Tanzania',800:'Uganda',804:'Ukraine',784:'UAE',860:'Uzbekistan',704:'Vietnam',887:'Yemen',894:'Zambia',716:'Zimbabwe',566:'Nigeria',818:'Egypt',410:'South Korea',392:'Japan',682:'Saudi Arabia',784:'UAE',704:'Vietnam',604:'Peru',170:'Colombia',152:'Chile',12:'Algeria',504:'Morocco'};
 
-  const FILL_ICPP = 'rgba(212,255,94,0.34)';
-  const FILL_ICPP_HOVER = 'rgba(212,255,94,0.66)';
-  const FILL_OTHER = '#1c1c1c';
-  const FILL_OTHER_HOVER = '#2e2e2e';
+  const FILL_ICPP = 'rgba(212,255,94,0.55)';
+  const FILL_ICPP_HOVER = 'rgba(212,255,94,0.8)';
+  const FILL_OTHER = '#282828';
+  const FILL_OTHER_HOVER = '#3a3a3a';
 
   let drag = false, lastX = 0, lastY = 0, paused = false;
   let targetRot = [-20, 0], animRot = [-20, 0];
@@ -2729,7 +2729,7 @@ a.cs-cta { margin-top: 28px; }
     ctx.fillStyle = '#0c0c0c'; ctx.fill();
     const grat = d3.geoGraticule().step([30, 30])();
     ctx.beginPath(); path(grat);
-    ctx.strokeStyle = 'rgba(255,255,255,.045)'; ctx.lineWidth = .5; ctx.stroke();
+    ctx.strokeStyle = 'rgba(255,255,255,.07)'; ctx.lineWidth = .5; ctx.stroke();
     if (countries) {
       countries.features.forEach(f => {
         const id = +f.id;
