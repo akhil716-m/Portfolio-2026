@@ -1000,27 +1000,6 @@ a.cs-cta { margin-top: 28px; }
 
   <p class="cs-p reveal">Payment cost observability was a new problem space for us. Before we could make costs observable, we first had to understand the ecosystem itself, how payment costs were structured, why merchants struggled to investigate them, and where visibility was lacking.</p>
 
-  <!-- THE RAW DOCUMENTS -->
-  <div class="cs-docs reveal">
-    <div class="cs-docs-header">
-      <div class="cs-docs-tag">The raw documents</div>
-      <h3 class="cs-docs-title">Every month, a different set of documents.<br><em>No common format. No shared language.</em></h3>
-    </div>
-    <div class="cs-docs-body">
-      <div class="cs-docs-text">
-        <p>Every processor describes costs differently. Teams manually piece together invoices, settlement reports, and network documentation to understand what they were charged and why.</p>
-      </div>
-      <div>
-        <div class="cs-docs-trio">
-          <div class="cs-doc-frame"><img src="assets/hypersense/doc-statement.png" alt="IC++ merchant billing statement — 200+ fee line items per billing cycle" loading="lazy" /></div>
-          <div class="cs-doc-frame"><img src="assets/hypersense/doc-scheme.png" alt="Card scheme rate table — dozens of fee categories across card programs and regions" loading="lazy" /></div>
-          <div class="cs-doc-frame"><img src="assets/hypersense/doc-invoice.png" alt="Blended-rate billing statement — one total fee, no line-item breakdown" loading="lazy" /></div>
-        </div>
-        <div class="cs-docs-shot-cap">Different formats. One cost story.</div>
-      </div>
-    </div>
-  </div>
-
   <p class="cs-p reveal" style="margin-top: 52px;">As a team of seven, our goal was to understand how payment costs were structured, where merchants lacked visibility, and why investigating cost changes remained a largely manual process. We looked at processor invoices, fee structures, and operational workflows to identify where the biggest gaps existed and where the product could create the most value.</p>
   <p class="cs-p reveal">As the solo product designer, I worked closely with product, engineering, and data teams to translate that understanding into product experiences that helped merchants move from fragmented data to clear, actionable answers.</p>
 
@@ -1060,14 +1039,59 @@ a.cs-cta { margin-top: 28px; }
   <div class="cs-label reveal"><span class="num">/03</span> Understanding the terrain</div>
   <h2 class="cs-display reveal">The industry's most transparent pricing model is also its <em>most complex.</em></h2>
 
-  <p class="cs-lead reveal">IC++ pricing was designed for large-scale merchants processing enough volume to benefit from true pass-through pricing.</p>
-  <p class="cs-p reveal">Instead of paying a single <span class="cs-gloss" tabindex="0" data-gloss="blended-pricing">blended rate</span>, merchants are charged the actual cost of processing each transaction. That cost varies based on factors such as card type, authentication method, settlement timing, data quality, and geography.</p>
-  <p class="cs-p reveal">For high-volume merchants, this model often results in lower costs compared to blended pricing. But those savings come with complexity.</p>
-  <p class="cs-p reveal">IC++ exposes every component of cost, giving merchants full visibility into interchange, scheme fees, and processor markup. However, understanding what was charged and why requires reconciling fragmented data spread across multiple reports that arrive in their inbox at the end of each billing cycle.</p>
+  <p class="cs-p reveal">Enterprise merchants typically choose between two pricing models: <span class="cs-gloss" tabindex="0" data-gloss="blended-pricing">Blended pricing</span> and <span class="cs-gloss" tabindex="0" data-gloss="ic-plus-plus">IC++</span> pricing.</p>
+  <p class="cs-p reveal">Blended pricing applies a single fixed rate to every transaction. It's simple to understand, but at high volumes, merchants often end up paying more than necessary.</p>
+  <p class="cs-p reveal">IC++, on the other hand, charges the actual cost of processing each transaction — interchange, scheme fees, and processor markup — creating opportunities to reduce costs at scale.</p>
 
-  <h3 class="cs-h3 reveal" style="margin-top: 8px;">The cost of invisibility</h3>
+  <h3 class="cs-h3 reveal" style="margin-top: 48px;">The same transparency that creates savings also creates complexity.</h3>
 
-  <p class="cs-p reveal">A transaction expected to qualify for a lower interchange rate like 1.5% could silently downgrade &amp; ends up 2.4% because of something as small as delayed settlement, missing authentication, or incorrect merchant classification.</p>
+  <p class="cs-p reveal">Every card payment looks simple from the outside — tap, approve, done. But beneath that tap, invisible decisions determine what the merchant ultimately pays. Card type, settlement timing, data quality — each variable quietly shifts the fee tier. Most merchants never see this happen.</p>
+  <p class="cs-p reveal">Most enterprises on <span class="cs-gloss" tabindex="0" data-gloss="ic-plus-plus">IC++</span> pricing consistently pay more than they should. The gap between what they should pay and what they actually pay sits at <span class="warm">7–10% of total payment costs</span>. The system wasn't built to be readable — it was designed to settle transactions silently.</p>
+
+  <!-- IC++ VISUAL — total effective rate breakdown -->
+  <div class="cs-vis-group reveal" style="margin-top: 24px;">
+    <div class="cs-vis">
+      <div class="cs-vis-body">
+        <div class="cs-fee-rate-row">
+          <div>
+            <div class="cs-fee-bottom-label">Total effective rate</div>
+            <div class="cs-fee-bottom-sub">What the merchant ultimately pays per transaction.</div>
+          </div>
+          <div class="cs-fee-rate">1.7–2.8%</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <p class="cs-p reveal">Because pricing happens at a transaction level, no two transactions are guaranteed to cost the same. Card type, authentication, settlement timing, geography, and data quality can all influence the final fee.</p>
+  <p class="cs-p reveal">For merchants processing hundreds of millions annually, this tradeoff is worth it. But it introduces a new challenge: <strong>How do you know if you're paying correctly?</strong></p>
+
+  <!-- THE RAW DOCUMENTS -->
+  <div class="cs-docs reveal">
+    <div class="cs-docs-header">
+      <div class="cs-docs-tag">The raw documents</div>
+      <h3 class="cs-docs-title">Every billing cycle becomes <em>an investigation.</em></h3>
+    </div>
+    <div class="cs-docs-body">
+      <div class="cs-docs-text">
+        <p>Every processor describes costs differently. Teams manually piece together invoices, settlement reports, and network documentation to understand what they were charged and why.</p>
+      </div>
+      <div>
+        <div class="cs-docs-trio">
+          <div class="cs-doc-frame"><img src="assets/hypersense/doc-statement.png" alt="IC++ merchant billing statement — 200+ fee line items per billing cycle" loading="lazy" /></div>
+          <div class="cs-doc-frame"><img src="assets/hypersense/doc-scheme.png" alt="Card scheme rate table — dozens of fee categories across card programs and regions" loading="lazy" /></div>
+          <div class="cs-doc-frame"><img src="assets/hypersense/doc-invoice.png" alt="Blended-rate billing statement — one total fee, no line-item breakdown" loading="lazy" /></div>
+        </div>
+        <div class="cs-docs-shot-cap">Different formats. One cost story.</div>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="cs-h3 reveal" style="margin-top: 8px;">Small operational decisions can become expensive mistakes.</h3>
+
+  <p class="cs-p reveal">A transaction expected to qualify for a lower interchange rate can silently be downgraded because of something as small as delayed settlement, missing authentication data, or incorrect merchant classification.</p>
+  <p class="cs-p reveal">At enterprise scale, these small inefficiencies compound into millions of dollars every year.</p>
 
   <!-- IC++ FEE SIMULATOR — teaser -->
   <div class="cs-vis reveal cs-sim-teaser" style="margin: 24px 0;">
@@ -1086,7 +1110,6 @@ a.cs-cta { margin-top: 28px; }
   </div>
 
   <p class="cs-p reveal">For an enterprise merchant processing $500 million, this is millions slipping through the cracks of every billing cycle, every quarter, every year.</p>
-  <p class="cs-p reveal">Downgrade reasons are in the dozens: missing <span class="cs-gloss" tabindex="0" data-gloss="avs">AVS</span> data, late settlement, missing CVV, batch timing errors, incorrect <span class="cs-gloss" tabindex="0" data-gloss="mcc">MCC</span> classification, <span class="cs-gloss" tabindex="0" data-gloss="emv">EMV</span> chip fallback routing. For each reason, there's a corresponding cost. And a corresponding fix. Neither is visible without something that can read the data, trace the cause, and surface it in plain language.</p>
 
   <div class="cs-stats reveal">
     <div class="cs-stat"><span class="cs-stat-num">$200B+</span><span class="cs-stat-desc">Spent annually by merchants across the U.S. and Europe to accept card payments — with significant opportunity to reduce avoidable costs.</span></div>
@@ -1124,45 +1147,30 @@ a.cs-cta { margin-top: 28px; }
     </div>
   </div>
 
-  <!-- The World Before (merged from former Section 02) -->
-  <h3 class="cs-h3 reveal" style="margin-top: 64px;">Every time a card payment is triggered, a silent negotiation happens.</h3>
-  <p class="cs-p reveal">Every card payment looks simple from the outside — tap, approve, done. But beneath that tap, invisible decisions determine what the merchant ultimately pays. Card type, settlement timing, data quality — each variable quietly shifts the fee tier. Most merchants never see this happen.</p>
-  <p class="cs-p reveal">Most enterprises on <span class="cs-gloss" tabindex="0" data-gloss="ic-plus-plus">IC++</span> pricing consistently pay more than they should. The gap between what they should pay and what they actually pay sits at <span class="warm">7–10% of total payment costs</span>. The system wasn't built to be readable — it was designed to settle transactions silently.</p>
+  <h3 class="cs-h3 reveal" style="margin-top: 64px;">The system was built to settle payments, not explain costs.</h3>
+  <p class="cs-p reveal">Every card payment triggers dozens of invisible decisions behind the scenes.</p>
+  <p class="cs-p reveal">Routing choices, authentication methods, settlement timing, and network rules quietly determine what the merchant ultimately pays.</p>
+  <p class="cs-p reveal">The problem wasn't that costs were hidden. <strong>The problem was that they were impossible to reason about.</strong></p>
 
-  <!-- IC++ VISUAL — total effective rate breakdown -->
-  <div class="cs-vis-group reveal" style="margin-top: 24px;">
-    <div class="cs-vis">
-      <div class="cs-vis-body">
-        <div class="cs-fee-rate-row">
-          <div>
-            <div class="cs-fee-bottom-label">Total effective rate</div>
-            <div class="cs-fee-bottom-sub">What the merchant ultimately pays per transaction.</div>
+  <div class="cs-vis reveal" style="margin-top: 36px;">
+    <div class="cs-vis-body">
+      <div class="cs-fee-why">
+        <div class="cs-fee-bottom-label">Why payment costs are hard to understand</div>
+        <div class="cs-fee-why-grid">
+          <div class="cs-fee-why-item">
+            <div class="cs-fee-why-num">01</div>
+            <div class="cs-fee-why-title">Not one fee</div>
+            <div class="cs-fee-why-desc">Three separate cost layers combine into a single effective rate.</div>
           </div>
-          <div class="cs-fee-rate">1.7–2.8%</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="cs-vis">
-      <div class="cs-vis-body">
-        <div class="cs-fee-why">
-          <div class="cs-fee-bottom-label">Why payment costs are hard to understand</div>
-          <div class="cs-fee-why-grid">
-            <div class="cs-fee-why-item">
-              <div class="cs-fee-why-num">01</div>
-              <div class="cs-fee-why-title">Not one fee</div>
-              <div class="cs-fee-why-desc">Three separate cost layers combine into a single effective rate.</div>
-            </div>
-            <div class="cs-fee-why-item">
-              <div class="cs-fee-why-num">02</div>
-              <div class="cs-fee-why-title">Mostly variable</div>
-              <div class="cs-fee-why-desc">Interchange and network fees change based on transaction behaviour.</div>
-            </div>
-            <div class="cs-fee-why-item">
-              <div class="cs-fee-why-num">03</div>
-              <div class="cs-fee-why-title">Operations affect cost</div>
-              <div class="cs-fee-why-desc">Routing, authentication, settlement timing, and data quality influence qualification.</div>
-            </div>
+          <div class="cs-fee-why-item">
+            <div class="cs-fee-why-num">02</div>
+            <div class="cs-fee-why-title">Mostly variable</div>
+            <div class="cs-fee-why-desc">Interchange and network fees change based on transaction behaviour.</div>
+          </div>
+          <div class="cs-fee-why-item">
+            <div class="cs-fee-why-num">03</div>
+            <div class="cs-fee-why-title">Operations affect cost</div>
+            <div class="cs-fee-why-desc">Routing, authentication, settlement timing, and data quality influence qualification.</div>
           </div>
         </div>
       </div>
