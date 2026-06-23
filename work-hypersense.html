@@ -783,6 +783,24 @@ a.cs-cta { margin-top: 28px; }
 }
 .cs-deck-dot.is-active { width: 24px; height: 8px; border-radius: 4px; background: var(--accent); }
 
+/* ---------- OUTCOME CALLOUT ---------- */
+.cs-outcome {
+  margin: 28px 0 8px; padding: 0 0 0 20px;
+  border-left: 2px solid rgba(212,255,94,0.3);
+  display: flex; flex-direction: column; gap: 8px;
+}
+.cs-outcome-tag {
+  font-family: 'Geist Mono', monospace; font-size: 9px;
+  letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-muted);
+}
+.cs-outcome p {
+  margin: 0; font-family: 'Geist', sans-serif; font-size: 14px; font-weight: 300;
+  line-height: 1.7; color: var(--text-soft);
+}
+@media (max-width: 600px) {
+  .cs-outcome { flex-direction: column; gap: 10px; }
+}
+
 /* ---------- OVERVIEW TABS ---------- */
 .cs-ov-tabs-header {
   font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.12em;
@@ -1536,15 +1554,14 @@ a.cs-cta { margin-top: 28px; }
 
   <div class="cs-label reveal"><span class="num">/08</span> Product Experience</div>
   <h2 class="cs-display reveal">From fragmented costs to <em>a single cost story.</em></h2>
-  <p class="cs-p reveal">Once the investigation model was established, the next challenge was turning it into an experience teams could rely on every month.</p>
-  <p class="cs-p reveal">Each module had a clear purpose, but together they needed to feel like one continuous investigation rather than disconnected experiences.</p>
-  <p class="cs-p reveal">We started with the first question teams need answered before any investigation begins.</p>
+  <p class="cs-p reveal">With the investigation flow established, the next challenge was turning it into a cohesive product experience.</p>
+  <p class="cs-p reveal">Each module served a distinct purpose, but together they needed to feel like a single investigation that teams could navigate naturally every month.</p>
 
   <h3 class="cs-h3 reveal" style="margin-top: 56px;">Overview — <em style="font-style: italic; font-family: 'Instrument Serif', serif; color: var(--warm);">What's my cost story at a glance?</em></h3>
-  <p class="cs-p reveal">Before teams investigate anomalies or optimise costs, they first need to understand where they stand today.</p>
-  <p class="cs-p reveal">The challenge was creating a single starting point that could work across different merchant realities — from single processors to multi-PSP setups, and from simplified blended pricing to fully transparent IC++ models.</p>
+  <p class="cs-p reveal">Before teams investigate anomalies or optimize costs, they first need to understand where they stand today.</p>
   <p class="cs-p reveal">We designed Overview as the system's source of truth: a unified cost layer that consolidates fragmented signals into a single cost story.</p>
-  <p class="cs-p reveal" style="margin-bottom: 14px;">It answers three fundamental questions:</p>
+  <p class="cs-p reveal">Creating that experience wasn't straightforward. The same interface needed to work across fundamentally different merchant realities — from single processors to multi-PSP setups, and from simplified blended pricing to fully transparent IC++ models.</p>
+  <p class="cs-p reveal" style="margin-bottom: 14px;">Overview answers three fundamental questions:</p>
   <ul class="cs-list reveal">
     <li>What changed?</li>
     <li>What am I paying today?</li>
@@ -1602,6 +1619,10 @@ a.cs-cta { margin-top: 28px; }
 </div>
 <div class="cs-wrap">
 
+  <div class="cs-outcome reveal">
+    <span class="cs-outcome-tag">Its role in the investigation</span>
+    <p>It became the starting point of every investigation — helping teams establish a shared understanding before moving deeper into root cause analysis.</p>
+  </div>
 
   <h3 class="cs-h3 reveal" style="margin-top: 80px;">Drill-Down — <em style="font-style: italic; font-family: 'Instrument Serif', serif; color: var(--warm);">How is cost distributed across my business?</em></h3>
   <p class="cs-p reveal">Overview answered what the cost story looks like at a glance. The next step was understanding where that story was coming from.</p>
