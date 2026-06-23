@@ -145,15 +145,8 @@
   scrollbar-width: thin; scrollbar-color: #ddd transparent;
 }
 .cs-mock-body img { width: 100%; display: block; height: auto; }
-.cs-breakout {
-  width: calc(100% + 400px); max-width: calc(100vw - 48px);
-  position: relative; left: -200px;
-}
-@media (max-width: 1100px) {
-  .cs-breakout { width: calc(100% + 160px); left: -80px; }
-}
-@media (max-width: 700px) {
-  .cs-breakout { width: 100%; left: 0; }
+@media (max-width: 900px) {
+  .cs-wrap--showcase { max-width: 90vw; }
 }
 
 .cs-label {
@@ -1655,7 +1648,9 @@ a.cs-cta { margin-top: 28px; }
   </ul>
   <p class="cs-p reveal">Built primarily for IC++ pricing, the module separated drillable costs from blended fees, taxes, and other non-attributable charges — making the analytical scope explicit and reinforcing trust in the numbers.</p>
 
-  <div class="cs-shot-frame reveal cs-breakout">
+</div>
+<div class="cs-wrap cs-wrap--showcase">
+  <div class="cs-shot-frame reveal">
     <div class="cs-mock-chrome"><img src="assets/hypersense/chrome-bar.png" alt="Browser chrome"></div>
     <div class="cs-mock-window">
       <div class="cs-mock-nav"><img src="assets/hypersense/nav-drilldown.png" alt="" aria-hidden="true" /></div>
@@ -1664,6 +1659,8 @@ a.cs-cta { margin-top: 28px; }
       </div>
     </div>
   </div>
+</div>
+<div class="cs-wrap">
 
   <h2 class="cs-display reveal" style="margin-top: 80px;">Fee Spikes — <em>Turning unexpected cost increases into actionable signals</em></h2>
   <p class="cs-lead reveal">Payment costs can rise for many reasons: healthy sales growth, recurring downgrades, shifts in card mix, or expansion into new markets.</p>
@@ -1676,7 +1673,9 @@ a.cs-cta { margin-top: 28px; }
   </ul>
   <p class="cs-p reveal">This framing helped teams immediately understand whether they were looking at normal growth or preventable leakage.</p>
 
-  <div class="cs-shot-frame reveal cs-breakout">
+</div>
+<div class="cs-wrap cs-wrap--showcase">
+  <div class="cs-shot-frame reveal">
     <div class="cs-mock-chrome"><img src="assets/hypersense/chrome-bar.png" alt="Browser chrome"></div>
     <div class="cs-mock-window">
       <div class="cs-mock-nav"><img src="assets/hypersense/nav-feespikes.png" alt="" aria-hidden="true" /></div>
@@ -1685,6 +1684,8 @@ a.cs-cta { margin-top: 28px; }
       </div>
     </div>
   </div>
+</div>
+<div class="cs-wrap">
 
   <h3 class="cs-h3 reveal" style="margin-top: 40px;">Three scenarios. Three distinct cost stories.</h3>
   <div class="cs-scenarios reveal cs-breakout">
@@ -1729,7 +1730,9 @@ a.cs-cta { margin-top: 28px; }
   </ul>
   <p class="cs-p reveal">Each layer revealed more detail only when needed — from total overcharges, down to fee categories, card programs, and transaction-level evidence. Audit turned opaque invoices into a clear, defensible audit trail.</p>
 
-  <div class="cs-shot-frame reveal cs-breakout">
+</div>
+<div class="cs-wrap cs-wrap--showcase">
+  <div class="cs-shot-frame reveal">
     <div class="cs-mock-chrome"><img src="assets/hypersense/chrome-bar.png" alt="Browser chrome"></div>
     <div class="cs-mock-window">
       <div class="cs-mock-nav"><img src="assets/hypersense/nav-audit.png" alt="" aria-hidden="true" /></div>
@@ -1738,6 +1741,8 @@ a.cs-cta { margin-top: 28px; }
       </div>
     </div>
   </div>
+</div>
+<div class="cs-wrap">
 
   <h2 class="cs-display reveal" style="margin-top: 80px;">Forecast — <em>Turning network updates into cost foresight</em></h2>
   <p class="cs-lead reveal">Card networks like Visa and Mastercard regularly introduce new fees, revise existing programs, and change qualification rules. These updates are published weeks in advance — but buried in dense technical documents that are difficult to interpret.</p>
@@ -1752,7 +1757,9 @@ a.cs-cta { margin-top: 28px; }
   </ul>
   <p class="cs-p reveal">Most published network updates are irrelevant to a given merchant. To reduce cognitive overload, Forecast prioritised only the changes that matched the merchant's actual transaction behaviour and surfaced the estimated monthly impact in real currency terms.</p>
 
-  <div class="cs-shot-frame reveal cs-breakout">
+</div>
+<div class="cs-wrap cs-wrap--showcase">
+  <div class="cs-shot-frame reveal">
     <div class="cs-mock-chrome"><img src="assets/hypersense/chrome-bar.png" alt="Browser chrome"></div>
     <div class="cs-mock-window">
       <div class="cs-mock-nav"><img src="assets/hypersense/nav-forecast.png" alt="" aria-hidden="true" /></div>
@@ -1761,6 +1768,8 @@ a.cs-cta { margin-top: 28px; }
       </div>
     </div>
   </div>
+</div>
+<div class="cs-wrap">
 
   <!-- PROTOTYPE — LIVE WALKTHROUGH (MacBook Pro 14 inline-SVG mockup) -->
   <hr style="border:none; border-top:1px solid var(--line); margin: 64px 0 40px;" />
