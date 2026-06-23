@@ -134,15 +134,26 @@
 .cs-section { padding: clamp(80px, 12vw, 140px) 0; border-top: 1px solid var(--line); }
 .cs-wrap { max-width: 760px; margin: 0 auto; padding: 0 clamp(24px, 6vw, 48px); }
 .cs-wrap--wide { max-width: 1140px; }
+.cs-wrap--showcase { max-width: min(60vw, 1040px); }
+.cs-mock-chrome { flex-shrink: 0; }
+.cs-mock-chrome img { width: 100%; display: block; }
+.cs-mock-window { display: flex; height: clamp(280px, 42vw, 680px); overflow: hidden; }
+.cs-mock-nav { flex: 0 0 4.5%; overflow: hidden; }
+.cs-mock-nav img { width: 100%; height: auto; display: block; }
+.cs-mock-body {
+  flex: 1; overflow-y: auto; background: #fff;
+  scrollbar-width: thin; scrollbar-color: #ddd transparent;
+}
+.cs-mock-body img { width: 100%; display: block; height: auto; }
 .cs-breakout {
-  width: calc(100% + 200px); max-width: calc(100vw - 48px);
-  position: relative; left: -100px;
+  width: calc(100% + 400px); max-width: calc(100vw - 48px);
+  position: relative; left: -200px;
 }
 @media (max-width: 1100px) {
-  .cs-breakout { width: calc(100% + 80px); margin-left: -40px; }
+  .cs-breakout { width: calc(100% + 160px); left: -80px; }
 }
 @media (max-width: 700px) {
-  .cs-breakout { width: 100%; margin-left: 0; }
+  .cs-breakout { width: 100%; left: 0; }
 }
 
 .cs-label {
@@ -736,6 +747,47 @@ a.cs-cta { margin-top: 28px; }
   .cs-cost-callout { padding: 28px 24px; }
   .cs-cost-callout-rate { font-size: 36px; }
 }
+
+/* ---------- STACKED DECK ---------- */
+.cs-deck {
+  position: relative; width: 100%; cursor: pointer;
+  margin: 48px 0 24px; padding-bottom: 24px;
+}
+.cs-deck-card {
+  position: absolute; top: 0; left: 0; width: 100%;
+  background: #fff; border-radius: 10px; overflow: hidden;
+  display: flex; flex-direction: column;
+  border: 1px solid rgba(255,255,255,0.06);
+  box-shadow: 0 40px 100px rgba(0,0,0,0.55);
+  transition: transform 0.45s cubic-bezier(0.4,0,0.2,1),
+              opacity 0.45s cubic-bezier(0.4,0,0.2,1),
+              box-shadow 0.35s ease;
+  will-change: transform, opacity;
+}
+.cs-deck-card:first-child { position: relative; }
+.cs-deck-card img { width: 100%; display: block; height: auto; }
+.cs-deck-label {
+  position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%);
+  font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--accent);
+  background: var(--bg); padding: 6px 14px; border-radius: 100px;
+  border: 1px solid var(--line); white-space: nowrap;
+  pointer-events: none; z-index: 10;
+}
+.cs-deck-hint {
+  display: flex; flex-direction: column; align-items: center; gap: 12px;
+  margin-top: -16px; margin-bottom: 48px;
+  font-family: 'Geist', sans-serif; font-size: 13px; font-weight: 300;
+  color: var(--text-soft); text-align: center; max-width: 480px; margin-left: auto; margin-right: auto;
+  line-height: 1.6;
+}
+.cs-deck-dots { display: flex; gap: 6px; align-items: center; }
+.cs-deck-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: rgba(255,255,255,0.25); transition: all 0.3s;
+  cursor: pointer;
+}
+.cs-deck-dot.is-active { width: 24px; height: 8px; border-radius: 4px; background: var(--accent); }
 
 /* ---------- PRINCIPLE CALLOUT ---------- */
 .cs-principle-callout {
@@ -1490,70 +1542,103 @@ a.cs-cta { margin-top: 28px; }
     <li>What am I paying today?</li>
     <li>Where should I start investigating?</li>
   </ul>
-  <div class="cs-ov reveal cs-breakout">
-    <div class="cs-ov-frame">
-      <div class="cs-shot-bar">
-        <div class="cs-shot-dots"><i></i><i></i><i></i></div>
-        <div class="cs-shot-url">
-          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-          <span>hyperswitch.io/cost-observability<em>/overview</em></span>
-        </div>
-      </div>
-      <div class="cs-ov-tabbar">
-        <span class="cs-ov-tabbar-label">Merchant setup</span>
-        <div class="cs-ov-segs" id="cs-ov-switch">
-          <button class="cs-ov-seg is-active" data-index="0" data-img="assets/hypersense/ov-icpp-only.jpg" data-alt="HyperSense Overview — multi-processor setup with IC++ pricing only, showing a granular fee category breakdown per processor" data-tag="Multi-processor" data-title="IC++ only" data-desc="Full per-processor fee breakdown — every cost component stays visible.">IC++ only</button>
-          <button class="cs-ov-seg" data-index="1" data-img="assets/hypersense/ov-icpp-blended.jpg" data-alt="HyperSense Overview — multi-processor setup combining IC++ and blended pricing models" data-tag="Multi-processor" data-title="IC++ & Blended" data-desc="Two pricing models on one stack — the view reconciles both at once.">IC++ &amp; Blended</button>
-          <button class="cs-ov-seg" data-index="2" data-img="assets/hypersense/ov-blended-only.jpg" data-alt="HyperSense Overview — multi-processor setup with a blended pricing model only" data-tag="Multi-processor" data-title="Blended only" data-desc="Adapted to flat-rate pricing, where fee-level detail is naturally limited.">Blended only</button>
-          <button class="cs-ov-seg" data-index="3" data-img="assets/hypersense/ov-single-psp.jpg" data-alt="HyperSense Overview — single processor setup, a simplified version of the same overview" data-tag="Single processor" data-title="Simplified setup" data-desc="Same mental model, scaled down for a single-processor operation.">Single PSP</button>
-        </div>
-      </div>
-      <div class="cs-ov-body" id="cs-ov-body">
-        <div class="cs-ov-navbar">
-          <img src="assets/hypersense/ov-nav-overview.png" alt="" aria-hidden="true" />
-          <img class="cs-ov-navbar-avatar" src="assets/hypersense/ov-nav-avatar.png" alt="" aria-hidden="true" />
-        </div>
-        <div class="cs-ov-shot-wrap">
-          <img id="cs-ov-shot" src="assets/hypersense/ov-icpp-only.jpg" alt="HyperSense Overview — multi-processor setup with IC++ pricing only, showing a granular fee category breakdown per processor" loading="lazy" />
-        </div>
-      </div>
-      <div class="cs-ov-caption">
-        <span class="cs-ov-cap-tag" id="cs-ov-cap-tag">Multi-processor</span>
-        <span class="cs-ov-cap-title" id="cs-ov-cap-title">IC++ only</span>
-        <span class="cs-ov-cap-desc" id="cs-ov-cap-desc">Full per-processor fee breakdown — every cost component stays visible.</span>
+</div>
+<div class="cs-wrap cs-wrap--showcase">
+  <div class="cs-deck reveal" id="cs-ov-deck">
+    <div class="cs-deck-card" data-label="IC++ only" data-desc="Full per-processor fee breakdown — every cost component stays visible.">
+      <div class="cs-mock-chrome"><img src="assets/hypersense/chrome-bar.png" alt="Browser chrome"></div>
+      <div class="cs-mock-window">
+        <div class="cs-mock-nav"><img src="assets/hypersense/ov-nav-overview.png" alt="" aria-hidden="true" /></div>
+        <div class="cs-mock-body"><img src="assets/hypersense/ov-icpp-only.jpg" alt="HyperSense Overview — multi-processor IC++ only" loading="lazy" /></div>
       </div>
     </div>
+    <div class="cs-deck-card" data-label="IC++ &amp; Blended" data-desc="Two pricing models on one stack — the view reconciles both at once.">
+      <div class="cs-mock-chrome"><img src="assets/hypersense/chrome-bar.png" alt="Browser chrome"></div>
+      <div class="cs-mock-window">
+        <div class="cs-mock-nav"><img src="assets/hypersense/ov-nav-overview.png" alt="" aria-hidden="true" /></div>
+        <div class="cs-mock-body"><img src="assets/hypersense/ov-icpp-blended.jpg" alt="HyperSense Overview — IC++ and Blended" loading="lazy" /></div>
+      </div>
+    </div>
+    <div class="cs-deck-card" data-label="Blended only" data-desc="Adapted to flat-rate pricing, where fee-level detail is naturally limited.">
+      <div class="cs-mock-chrome"><img src="assets/hypersense/chrome-bar.png" alt="Browser chrome"></div>
+      <div class="cs-mock-window">
+        <div class="cs-mock-nav"><img src="assets/hypersense/ov-nav-overview.png" alt="" aria-hidden="true" /></div>
+        <div class="cs-mock-body"><img src="assets/hypersense/ov-blended-only.jpg" alt="HyperSense Overview — Blended only" loading="lazy" /></div>
+      </div>
+    </div>
+    <div class="cs-deck-card" data-label="Single PSP" data-desc="Same mental model, scaled down for a single-processor operation.">
+      <div class="cs-mock-chrome"><img src="assets/hypersense/chrome-bar.png" alt="Browser chrome"></div>
+      <div class="cs-mock-window">
+        <div class="cs-mock-nav"><img src="assets/hypersense/ov-nav-overview.png" alt="" aria-hidden="true" /></div>
+        <div class="cs-mock-body"><img src="assets/hypersense/ov-single-psp.jpg" alt="HyperSense Overview — Single PSP" loading="lazy" /></div>
+      </div>
+    </div>
+    <div class="cs-deck-label" id="cs-ov-deck-label">IC++ only</div>
+  </div>
+  <div class="cs-deck-hint">
+    <span class="cs-deck-dots" id="cs-ov-deck-dots"></span>
+    <span id="cs-ov-deck-desc">Full per-processor fee breakdown — every cost component stays visible.</span>
   </div>
   <script>
   (function(){
-    var body = document.getElementById('cs-ov-body');
-    var shot = document.getElementById('cs-ov-shot');
-    var capTag = document.getElementById('cs-ov-cap-tag');
-    var capTitle = document.getElementById('cs-ov-cap-title');
-    var capDesc = document.getElementById('cs-ov-cap-desc');
-    var tabs = document.querySelectorAll('#cs-ov-switch .cs-ov-seg');
-    var cur = 0;
-    tabs.forEach(function(tab){
-      tab.addEventListener('click', function(){
-        var idx = parseInt(tab.dataset.index, 10);
-        if (idx === cur) return;
-        tabs[cur].classList.remove('is-active');
-        tab.classList.add('is-active');
-        cur = idx;
-        shot.style.opacity = '0';
-        setTimeout(function(){
-          shot.src = tab.dataset.img;
-          shot.alt = tab.dataset.alt;
-          capTag.textContent = tab.dataset.tag;
-          capTitle.textContent = tab.dataset.title;
-          capDesc.textContent = tab.dataset.desc;
-          body.scrollTop = 0;
-          shot.style.opacity = '1';
-        }, 200);
+    var deck = document.getElementById('cs-ov-deck');
+    if (!deck) return;
+    var cards = Array.from(deck.querySelectorAll('.cs-deck-card'));
+    var label = document.getElementById('cs-ov-deck-label');
+    var desc = document.getElementById('cs-ov-deck-desc');
+    var dotsWrap = document.getElementById('cs-ov-deck-dots');
+    var n = cards.length;
+    var current = 0;
+
+    cards.forEach(function(_, i) {
+      var dot = document.createElement('span');
+      dot.className = 'cs-deck-dot' + (i === 0 ? ' is-active' : '');
+      dot.addEventListener('click', function(e) {
+        e.stopPropagation();
+        current = i;
+        layout();
       });
+      dotsWrap.appendChild(dot);
+    });
+    var dots = Array.from(dotsWrap.querySelectorAll('.cs-deck-dot'));
+
+    function layout() {
+      cards.forEach(function(card, i) {
+        var offset = (i - current + n) % n;
+        if (offset === 0) {
+          card.style.zIndex = n;
+          card.style.transform = 'translateY(0) scale(1)';
+          card.style.opacity = '1';
+          card.style.pointerEvents = 'auto';
+        } else if (offset <= 3) {
+          card.style.zIndex = n - offset;
+          card.style.transform = 'translateY(' + (offset * 20) + 'px) scale(' + (1 - offset * 0.035) + ')';
+          card.style.opacity = String(1 - offset * 0.2);
+          card.style.pointerEvents = 'none';
+        } else {
+          card.style.zIndex = 0;
+          card.style.transform = 'translateY(60px) scale(0.895)';
+          card.style.opacity = '0';
+          card.style.pointerEvents = 'none';
+        }
+      });
+      label.textContent = cards[current].getAttribute('data-label');
+      desc.textContent = cards[current].getAttribute('data-desc');
+      dots.forEach(function(d, i) {
+        d.classList.toggle('is-active', i === current);
+      });
+    }
+
+    layout();
+
+    deck.addEventListener('click', function() {
+      current = (current + 1) % n;
+      layout();
     });
   })();
   </script>
+</div>
+<div class="cs-wrap">
 
   <p class="cs-p reveal">Regardless of how a merchant's payment stack was structured, the experience adapted to their data reality while preserving the same mental model.</p>
 
@@ -1571,13 +1656,7 @@ a.cs-cta { margin-top: 28px; }
   <p class="cs-p reveal">Built primarily for IC++ pricing, the module separated drillable costs from blended fees, taxes, and other non-attributable charges — making the analytical scope explicit and reinforcing trust in the numbers.</p>
 
   <div class="cs-shot-frame reveal cs-breakout">
-    <div class="cs-shot-bar">
-      <div class="cs-shot-dots"><i></i><i></i><i></i></div>
-      <div class="cs-shot-url">
-        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-        <span>hyperswitch.io/cost-observability<em>/drill-down</em></span>
-      </div>
-    </div>
+    <div class="cs-mock-chrome"><img src="assets/hypersense/chrome-bar.png" alt="Browser chrome"></div>
     <div class="cs-shot-scroll">
       <div class="cs-shot-navbar">
         <img src="assets/hypersense/ov-nav-drilldown.png" alt="" aria-hidden="true" />
@@ -1601,13 +1680,7 @@ a.cs-cta { margin-top: 28px; }
   <p class="cs-p reveal">This framing helped teams immediately understand whether they were looking at normal growth or preventable leakage.</p>
 
   <div class="cs-shot-frame reveal cs-breakout">
-    <div class="cs-shot-bar">
-      <div class="cs-shot-dots"><i></i><i></i><i></i></div>
-      <div class="cs-shot-url">
-        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-        <span>hyperswitch.io/cost-observability<em>/fee-spikes</em></span>
-      </div>
-    </div>
+    <div class="cs-mock-chrome"><img src="assets/hypersense/chrome-bar.png" alt="Browser chrome"></div>
     <div class="cs-shot-scroll">
       <div class="cs-shot-navbar">
         <img src="assets/hypersense/ov-nav-feespikes.png" alt="" aria-hidden="true" />
@@ -1663,13 +1736,7 @@ a.cs-cta { margin-top: 28px; }
   <p class="cs-p reveal">Each layer revealed more detail only when needed — from total overcharges, down to fee categories, card programs, and transaction-level evidence. Audit turned opaque invoices into a clear, defensible audit trail.</p>
 
   <div class="cs-shot-frame reveal cs-breakout">
-    <div class="cs-shot-bar">
-      <div class="cs-shot-dots"><i></i><i></i><i></i></div>
-      <div class="cs-shot-url">
-        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-        <span>hyperswitch.io/cost-observability<em>/audit</em></span>
-      </div>
-    </div>
+    <div class="cs-mock-chrome"><img src="assets/hypersense/chrome-bar.png" alt="Browser chrome"></div>
     <div class="cs-shot-scroll">
       <div class="cs-shot-navbar">
         <img src="assets/hypersense/ov-nav-audit.png" alt="" aria-hidden="true" />
@@ -1695,13 +1762,7 @@ a.cs-cta { margin-top: 28px; }
   <p class="cs-p reveal">Most published network updates are irrelevant to a given merchant. To reduce cognitive overload, Forecast prioritised only the changes that matched the merchant's actual transaction behaviour and surfaced the estimated monthly impact in real currency terms.</p>
 
   <div class="cs-shot-frame reveal cs-breakout">
-    <div class="cs-shot-bar">
-      <div class="cs-shot-dots"><i></i><i></i><i></i></div>
-      <div class="cs-shot-url">
-        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-        <span>hyperswitch.io/cost-observability<em>/network-updates</em></span>
-      </div>
-    </div>
+    <div class="cs-mock-chrome"><img src="assets/hypersense/chrome-bar.png" alt="Browser chrome"></div>
     <div class="cs-shot-scroll">
       <div class="cs-shot-navbar">
         <img src="assets/hypersense/ov-nav-forecast.png" alt="" aria-hidden="true" />
