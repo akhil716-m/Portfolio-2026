@@ -139,7 +139,7 @@
 .cs-mock-chrome img { width: 100%; display: block; }
 .cs-mock-window { display: flex; height: clamp(259px, 40.3vw, 676px); overflow: hidden; }
 .cs-mock-nav { flex: 0 0 4.5%; margin-left: -1px; }
-.cs-mock-nav img { width: 100%; height: auto; display: block; }
+.cs-mock-nav img { width: 100%; height: 100%; display: block; object-fit: fill; }
 .cs-mock-body {
   flex: 1; overflow-y: auto; background: #fff;
   scrollbar-width: thin; scrollbar-color: #ddd transparent;
@@ -251,8 +251,8 @@
 
 /* ---------- PRODUCT SCREENSHOT FRAME (browser chrome) ---------- */
 .cs-shot-frame {
-  margin: 30px 0 14px; border-radius: 12px; overflow: hidden; border: 1px solid var(--line);
-  background: var(--bg-card); box-shadow: 0 36px 90px rgba(0,0,0,0.45);
+  margin: 30px 0 14px; border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.06);
+  background: #fff; box-shadow: 0 40px 100px rgba(0,0,0,0.55);
 }
 .cs-shot-bar {
   display: flex; align-items: center; gap: 18px; padding: 13px 18px;
@@ -1657,12 +1657,9 @@ a.cs-cta { margin-top: 28px; }
 
   <div class="cs-shot-frame reveal cs-breakout">
     <div class="cs-mock-chrome"><img src="assets/hypersense/chrome-bar.png" alt="Browser chrome"></div>
-    <div class="cs-shot-scroll">
-      <div class="cs-shot-navbar">
-        <img src="assets/hypersense/ov-nav-drilldown.png" alt="" aria-hidden="true" />
-        <img class="cs-shot-navbar-avatar" src="assets/hypersense/ov-nav-avatar.png" alt="" aria-hidden="true" />
-      </div>
-      <div class="cs-shot-img-wrap">
+    <div class="cs-mock-window">
+      <div class="cs-mock-nav"><img src="assets/hypersense/nav-drilldown.png" alt="" aria-hidden="true" /></div>
+      <div class="cs-mock-body">
         <img src="assets/hypersense/ui-drilldown.jpg" alt="HyperSense Drill-Down screen — decomposing payment cost across processors, regions, corridors, fee types and currencies" loading="lazy" />
       </div>
     </div>
@@ -1681,12 +1678,9 @@ a.cs-cta { margin-top: 28px; }
 
   <div class="cs-shot-frame reveal cs-breakout">
     <div class="cs-mock-chrome"><img src="assets/hypersense/chrome-bar.png" alt="Browser chrome"></div>
-    <div class="cs-shot-scroll">
-      <div class="cs-shot-navbar">
-        <img src="assets/hypersense/ov-nav-feespikes.png" alt="" aria-hidden="true" />
-        <img class="cs-shot-navbar-avatar" src="assets/hypersense/ov-nav-avatar.png" alt="" aria-hidden="true" />
-      </div>
-      <div class="cs-shot-img-wrap">
+    <div class="cs-mock-window">
+      <div class="cs-mock-nav"><img src="assets/hypersense/nav-feespikes.png" alt="" aria-hidden="true" /></div>
+      <div class="cs-mock-body">
         <img src="assets/hypersense/ui-feespikes.jpg" alt="HyperSense Fee Spikes screen — surfacing unexpected cost increases and tracing them back to a root cause" loading="lazy" />
       </div>
     </div>
@@ -1737,12 +1731,9 @@ a.cs-cta { margin-top: 28px; }
 
   <div class="cs-shot-frame reveal cs-breakout">
     <div class="cs-mock-chrome"><img src="assets/hypersense/chrome-bar.png" alt="Browser chrome"></div>
-    <div class="cs-shot-scroll">
-      <div class="cs-shot-navbar">
-        <img src="assets/hypersense/ov-nav-audit.png" alt="" aria-hidden="true" />
-        <img class="cs-shot-navbar-avatar" src="assets/hypersense/ov-nav-avatar.png" alt="" aria-hidden="true" />
-      </div>
-      <div class="cs-shot-img-wrap">
+    <div class="cs-mock-window">
+      <div class="cs-mock-nav"><img src="assets/hypersense/nav-audit.png" alt="" aria-hidden="true" /></div>
+      <div class="cs-mock-body">
         <img src="assets/hypersense/ui-audit.jpg" alt="HyperSense Audit screen — reconciling contracted vs applied rates and surfacing transaction-level evidence of overcharges" loading="lazy" />
       </div>
     </div>
@@ -1763,12 +1754,9 @@ a.cs-cta { margin-top: 28px; }
 
   <div class="cs-shot-frame reveal cs-breakout">
     <div class="cs-mock-chrome"><img src="assets/hypersense/chrome-bar.png" alt="Browser chrome"></div>
-    <div class="cs-shot-scroll">
-      <div class="cs-shot-navbar">
-        <img src="assets/hypersense/ov-nav-forecast.png" alt="" aria-hidden="true" />
-        <img class="cs-shot-navbar-avatar" src="assets/hypersense/ov-nav-avatar.png" alt="" aria-hidden="true" />
-      </div>
-      <div class="cs-shot-img-wrap">
+    <div class="cs-mock-window">
+      <div class="cs-mock-nav"><img src="assets/hypersense/nav-forecast.png" alt="" aria-hidden="true" /></div>
+      <div class="cs-mock-body">
         <img src="assets/hypersense/ui-forecast.jpg" alt="HyperSense Forecast screen — translating upcoming card network fee changes into a merchant-specific cost impact estimate" loading="lazy" />
       </div>
     </div>
