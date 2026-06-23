@@ -803,7 +803,7 @@ a.cs-cta { margin-top: 28px; }
 .cs-ov-tab.is-active { color: var(--accent); background: rgba(212,255,94,0.06); }
 .cs-ov-tab-desc {
   font-family: 'Geist', sans-serif; font-size: 13px; font-weight: 300;
-  color: var(--text-soft); text-align: center; margin: 16px 0 0; line-height: 1.6;
+  color: var(--text-soft); text-align: center; margin: 16px 0 48px; line-height: 1.6;
 }
 
 /* ---------- PRINCIPLE CALLOUT ---------- */
@@ -1465,11 +1465,41 @@ a.cs-cta { margin-top: 28px; }
 </div>
 </section>
 
+<!-- ═══════════════════════ 06 — PRODUCT STRATEGY AND DESIGN ═══════════════════════ -->
+<section class="cs-section" id="cs-strategy">
+<div class="cs-wrap">
+
+  <div class="cs-label reveal"><span class="num">/06</span> Product Strategy and Design</div>
+  <h2 class="cs-display reveal">We designed the product around how teams <em>investigate costs.</em></h2>
+  <p class="cs-p reveal">Payment cost systems are naturally fragmented. Organising the product around processors, fee types, or reports would simply mirror that complexity.</p>
+  <p class="cs-p reveal">Instead, we treated every investigation as a sequence of questions that teams needed answered.</p>
+  <p class="cs-p reveal">That principle became the backbone of Hypersense.</p>
+  <ul class="cs-list reveal">
+    <li>What changed?</li>
+    <li>Why did it change?</li>
+    <li>What should we do next?</li>
+  </ul>
+  <div class="cs-principle-callout reveal">
+    <p class="cs-principle-context">One principle guided every product decision.</p>
+    <p class="cs-principle-statement">Every screen should answer the next question in the investigation.</p>
+  </div>
+
+  <div class="cs-vis reveal" style="margin: 48px 0 24px;">
+    <div class="cs-vis-label">One investigation. Multiple questions.</div>
+    <div class="cs-vis-body">
+      <canvas id="cs-graph" aria-label="HyperSense knowledge graph — five modules and their sub-questions"></canvas>
+    </div>
+  </div>
+  <p class="cs-p reveal">Each module answered a specific question. Together, they formed a connected investigation flow that helped teams move from fragmented signals to a clear cost story.</p>
+
+</div>
+</section>
+
 <!-- ═══════════════════════ 07 — DESIGN CHALLENGE ═══════════════════════ -->
 <section class="cs-section" id="cs-challenge">
 <div class="cs-wrap">
 
-  <div class="cs-label reveal"><span class="num">/06</span> Design Challenge</div>
+  <div class="cs-label reveal"><span class="num">/07</span> Design Challenge</div>
   <h2 class="cs-display reveal">Four tensions that shaped <em>every design decision.</em></h2>
   <p class="cs-p reveal">Payment cost data is dense, technical, and inherently difficult to trust. Every design decision had to help teams move from interpretation → confidence → action.</p>
 
@@ -1504,37 +1534,6 @@ a.cs-cta { margin-top: 28px; }
     <div class="cs-challenge-tag">Design Challenge</div>
     <p>Deliver executive clarity at a glance and transaction-level depth on demand.</p>
   </div>
-
-</div>
-</section>
-
-<!-- ═══════════════════════ 08 — PRODUCT STRATEGY AND DESIGN ═══════════════════════ -->
-<section class="cs-section" id="cs-strategy">
-<div class="cs-wrap">
-
-  <div class="cs-label reveal"><span class="num">/07</span> Product Strategy and Design</div>
-  <h2 class="cs-display reveal">We designed the product around how teams <em>investigate costs.</em></h2>
-  <p class="cs-p reveal">Payment cost systems are naturally fragmented. Organising the product around processors, fee types, or reports would simply mirror that complexity.</p>
-  <p class="cs-p reveal">Instead, we looked at how payments teams actually work &amp; understand their goals.</p>
-
-  <p class="cs-p reveal">Although the Payment Analyst, Finance Lead, and Operations Head appeared to have different problems, they were all trying to answer variations of the same three questions:</p>
-  <ul class="cs-list reveal">
-    <li>What changed?</li>
-    <li>Why did it change?</li>
-    <li>What should we do next?</li>
-  </ul>
-  <div class="cs-principle-callout reveal">
-    <p class="cs-principle-context">The investigation simply started from a different point for each of them. From there, a single principle emerged:</p>
-    <p class="cs-principle-statement">Every screen should answer the next question in the investigation.</p>
-  </div>
-
-  <div class="cs-vis reveal" style="margin: 48px 0 24px;">
-    <div class="cs-vis-label">One investigation. Multiple questions.</div>
-    <div class="cs-vis-body">
-      <canvas id="cs-graph" aria-label="HyperSense knowledge graph — five modules and their sub-questions"></canvas>
-    </div>
-  </div>
-  <p class="cs-p reveal">Each module existed to answer a specific question. Together, they formed a connected investigation flow that helped teams move from fragmented signals to a clear cost story.</p>
 
 </div>
 </section>
@@ -2041,8 +2040,8 @@ a.cs-cta { margin-top: 28px; }
     { id: 'cs-terrain',   label: '03 — Understanding the Terrain',   thesis: 'The industry&rsquo;s most transparent pricing model is also its <em>most complex.</em>' },
     { id: 'cs-markets',   label: '04 — Geographic Focus',   thesis: 'Why the US and Europe <em>mattered.</em>' },
     { id: 'cs-users',     label: '05 — Users',                       thesis: 'Three users. One blind spot. <em>Different stakes.</em>' },
-    { id: 'cs-challenge', label: '06 — Design Challenge',            thesis: 'Four tensions that shaped <em>every design decision.</em>' },
-    { id: 'cs-strategy',  label: '07 — Product Strategy and Design', thesis: 'We designed the product around how teams <em>investigate costs.</em>' },
+    { id: 'cs-strategy',  label: '06 — Product Strategy and Design', thesis: 'We designed the product around how teams <em>investigate costs.</em>' },
+    { id: 'cs-challenge', label: '07 — Design Challenge',            thesis: 'Four tensions that shaped <em>every design decision.</em>' },
     { id: 'cs-ui',        label: '08 — UI Design',                   thesis: 'What does cost intelligence <em>actually look like to use?</em>' }
   ];
 
