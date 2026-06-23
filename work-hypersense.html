@@ -44,10 +44,10 @@
   font-weight: 400; margin-bottom: 12px;
 }
 .cs-rail-thesis {
-  font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 300;
-  font-style: italic; line-height: 1.45; color: var(--text-soft); margin: 0;
+  font-family: 'Geist', sans-serif; font-size: 16px; font-weight: 400;
+  font-style: normal; line-height: 1.45; color: var(--text-soft); margin: 0;
 }
-.cs-rail-thesis em { color: var(--text); font-style: italic; }
+.cs-rail-thesis em { color: var(--text); font-style: normal; font-family: 'Geist', sans-serif; font-weight: 500; }
 .cs-rail-others {
   list-style: none; margin: 20px 0 0; padding: 18px 0 0;
   border-top: 1px solid var(--line); display: flex; flex-direction: column; gap: 2px;
@@ -103,7 +103,7 @@ nav .logo a.cs-back:hover { color: var(--accent); }
   opacity: 0; animation: csFadeUp 0.9s ease forwards 0.35s;
 }
 .cs-hero-title em {
-  font-style: italic; font-family: 'Instrument Serif', serif; font-weight: 400; color: var(--warm);
+  font-style: normal; font-family: 'Geist', sans-serif; font-weight: 500; color: var(--warm);
 }
 .cs-hero-meta {
   display: flex; flex-wrap: wrap; gap: 48px; margin-top: 58px; padding-top: 32px;
@@ -160,11 +160,11 @@ nav .logo a.cs-back:hover { color: var(--accent); }
 .cs-label::after { content: ''; flex: 1; max-width: 44px; height: 1px; background: var(--line); }
 
 .cs-display {
-  font-family: 'Playfair Display', serif; font-size: clamp(32px, 4.6vw, 52px); font-weight: 500;
-  line-height: 1.18; letter-spacing: -0.015em; color: var(--text); margin: 0 0 30px; max-width: 17ch;
+  font-family: 'Geist', sans-serif; font-size: clamp(32px, 4.6vw, 52px); font-weight: 600;
+  line-height: 1.18; letter-spacing: -0.02em; color: var(--text); margin: 0 0 30px; max-width: 17ch;
 }
 .cs-display em {
-  font-style: italic; font-family: 'Instrument Serif', serif; font-weight: 400; color: var(--warm);
+  font-style: normal; font-family: 'Geist', sans-serif; font-weight: 500; color: var(--warm);
 }
 .cs-lead {
   font-family: 'Geist', sans-serif; font-size: 19px; font-weight: 300; line-height: 1.75;
@@ -177,8 +177,8 @@ nav .logo a.cs-back:hover { color: var(--accent); }
 .cs-p:last-child { margin-bottom: 0; }
 .cs-p strong { color: var(--text); font-weight: 600; }
 .cs-h3 {
-  font-family: 'Playfair Display', serif; font-size: clamp(22px, 3.2vw, 32px); font-weight: 500;
-  color: var(--text); margin: 0 0 16px;
+  font-family: 'Geist', sans-serif; font-size: clamp(22px, 3.2vw, 30px); font-weight: 600;
+  letter-spacing: -0.015em; color: var(--text); margin: 0 0 16px;
 }
 .cs-list { list-style: none; padding: 0; margin: 0 0 26px; display: flex; flex-direction: column; gap: 11px; }
 .cs-list li {
@@ -327,7 +327,7 @@ nav .logo a.cs-back:hover { color: var(--accent); }
   font-family: 'Geist Mono', monospace; font-size: 8.5px; letter-spacing: 0.14em; text-transform: uppercase;
   color: var(--text-muted);
 }
-.cs-ov-cap-title { font-family: 'Playfair Display', serif; font-size: 14.5px; font-weight: 500; color: var(--accent); transition: color 0.18s ease; }
+.cs-ov-cap-title { font-family: 'Geist', sans-serif; font-size: 14.5px; font-weight: 600; color: var(--accent); transition: color 0.18s ease; }
 .cs-ov-cap-desc { font-family: 'Geist', sans-serif; font-size: 11.5px; font-weight: 300; color: var(--text-soft); line-height: 1.6; flex-basis: 100%; }
 
 /* ---------- TEAM GRID (bento) ---------- */
@@ -353,10 +353,10 @@ nav .logo a.cs-back:hover { color: var(--accent); }
   text-transform: uppercase; color: var(--text-muted); margin-bottom: 18px;
 }
 .cs-more-title {
-  font-family: 'Playfair Display', serif; font-size: clamp(24px, 3.4vw, 36px); font-weight: 500;
+  font-family: 'Geist', sans-serif; font-size: clamp(24px, 3.4vw, 34px); font-weight: 600; letter-spacing: -0.015em;
   color: var(--text); margin: 0 0 14px;
 }
-.cs-more-title em { font-style: italic; font-family: 'Instrument Serif', serif; font-weight: 400; color: var(--warm); }
+.cs-more-title em { font-style: normal; font-family: 'Geist', sans-serif; font-weight: 500; color: var(--warm); }
 .cs-more-desc {
   font-family: 'Geist', sans-serif; font-size: 15px; font-weight: 300; color: var(--text-soft);
   max-width: 480px; margin: 0 auto 36px; line-height: 1.7;
@@ -396,8 +396,8 @@ a.cs-cta { margin-top: 28px; }
 .cs-docs-trio .cs-doc-frame:nth-child(2) img,
 .cs-docs-trio .cs-doc-frame:nth-child(3) img { object-position: top left; }
 .cs-docs-tag { font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 16px; }
-.cs-docs-title { font-family: 'Playfair Display', serif; font-size: clamp(20px, 2.6vw, 27px); font-weight: 400; line-height: 1.32; color: var(--text); margin: 0 0 18px; }
-.cs-docs-title em { font-style: italic; font-family: 'Instrument Serif', serif; font-weight: 400; color: var(--warm); }
+.cs-docs-title { font-family: 'Geist', sans-serif; font-size: clamp(20px, 2.6vw, 26px); font-weight: 600; letter-spacing: -0.015em; line-height: 1.32; color: var(--text); margin: 0 0 18px; }
+.cs-docs-title em { font-style: normal; font-family: 'Geist', sans-serif; font-weight: 500; color: var(--warm); }
 .cs-docs-text p { font-family: 'Geist', sans-serif; font-size: 14px; font-weight: 300; line-height: 1.8; color: var(--text-soft); margin: 0 0 12px; }
 .cs-docs-text p:last-child { margin-bottom: 0; }
 .cs-docs-shot {
@@ -678,7 +678,7 @@ a.cs-cta { margin-top: 28px; }
 .cs-persona-icon svg { width: 17px; height: 17px; }
 .cs-persona-name { font-family: 'Geist', sans-serif; font-size: 16px; font-weight: 500; color: var(--text); margin-bottom: 8px; line-height: 1.4; }
 .cs-persona-name .dash { color: var(--text-muted); }
-.cs-persona-name em { font-style: italic; font-family: 'Instrument Serif', serif; font-weight: 400; color: var(--warm); font-size: 17px; }
+.cs-persona-name em { font-style: normal; font-family: 'Geist', sans-serif; font-weight: 500; color: var(--warm); font-size: 17px; }
 .cs-persona-desc { font-family: 'Geist', sans-serif; font-size: 13px; font-weight: 300; line-height: 1.75; color: var(--text-soft); margin: 0; max-width: 64ch; }
 
 /* Journey flow — linear gradient rail */
@@ -706,7 +706,7 @@ a.cs-cta { margin-top: 28px; }
 .cs-persona-meta-label { display: block; font-family: 'Geist Mono', monospace; font-size: 9.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; }
 .cs-persona-meta p { font-family: 'Geist', sans-serif; font-size: 13px; font-weight: 300; line-height: 1.7; color: var(--text-soft); margin: 0; }
 .cs-persona-meta p + p { margin-top: 10px; }
-.cs-persona-meta p em { font-style: italic; font-family: 'Instrument Serif', serif; color: var(--warm); font-size: 14px; }
+.cs-persona-meta p em { font-style: normal; font-family: 'Geist', sans-serif; font-weight: 500; color: var(--warm); font-size: 14px; }
 .cs-persona-meta ul { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; }
 .cs-persona-meta ul li { font-family: 'Geist', sans-serif; font-size: 13px; font-weight: 300; line-height: 1.5; color: var(--text-soft); padding-left: 14px; position: relative; }
 .cs-persona-meta ul li::before { content: '–'; position: absolute; left: 0; color: var(--text-muted); }
@@ -877,12 +877,12 @@ a.cs-cta { margin-top: 28px; }
 .cs-scn-modal-img img { width: 100%; display: block; }
 .cs-scn-modal-body { padding: 24px 28px 28px; position: relative; }
 .cs-scn-modal-tag { font-family: 'Geist Mono', monospace; font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--warm); margin-bottom: 10px; }
-.cs-scn-modal-title { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 500; color: var(--text); margin-bottom: 10px; }
+.cs-scn-modal-title { font-family: 'Geist', sans-serif; font-size: 22px; font-weight: 600; letter-spacing: -0.01em; color: var(--text); margin-bottom: 10px; }
 .cs-scn-modal-desc { font-family: 'Geist', sans-serif; font-size: 13.5px; font-weight: 300; line-height: 1.7; color: var(--text-soft); margin: 0; }
 .cs-scn-modal-close { display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; margin: 0 auto 12px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.14); border-radius: 50%; cursor: pointer; color: var(--text-muted); font-size: 13px; transition: background 0.2s ease; flex-shrink: 0; }
 .cs-scn-modal-close:hover { background: rgba(255,255,255,0.16); }
 .cs-scenario-tag { font-family: 'Geist Mono', monospace; font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--warm); margin-bottom: 10px; }
-.cs-scenario-title { font-family: 'Playfair Display', serif; font-size: 19px; font-weight: 500; color: var(--text); margin-bottom: 10px; }
+.cs-scenario-title { font-family: 'Geist', sans-serif; font-size: 19px; font-weight: 600; letter-spacing: -0.01em; color: var(--text); margin-bottom: 10px; }
 .cs-scenario p { font-family: 'Geist', sans-serif; font-size: 12.5px; font-weight: 300; line-height: 1.7; color: var(--text-soft); margin: 0; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 
 /* ---------- PRODUCT ITERATIONS ---------- */
@@ -1131,7 +1131,7 @@ a.cs-cta { margin-top: 28px; }
   </div>
 
   <h3 class="cs-h3 reveal" style="margin-top: 52px;">The problem wasn't the cost itself. It was the lack of visibility.</h3>
-  <p class="cs-p reveal">Merchants could see that costs had increased, but understanding <em style="font-style: italic; font-family: 'Instrument Serif', serif; color: var(--warm);">what changed</em>, <em style="font-style: italic; font-family: 'Instrument Serif', serif; color: var(--warm);">why it changed</em>, and <em style="font-style: italic; font-family: 'Instrument Serif', serif; color: var(--warm);">what to do next</em> often required manually piecing together fragmented reports, invoices, and network documentation.</p>
+  <p class="cs-p reveal">Merchants could see that costs had increased, but understanding <em style="font-style: normal; font-family: 'Geist', sans-serif; font-weight: 500; color: var(--warm);">what changed</em>, <em style="font-style: normal; font-family: 'Geist', sans-serif; font-weight: 500; color: var(--warm);">why it changed</em>, and <em style="font-style: normal; font-family: 'Geist', sans-serif; font-weight: 500; color: var(--warm);">what to do next</em> often required manually piecing together fragmented reports, invoices, and network documentation.</p>
   <p class="cs-p reveal" style="margin-top: 8px; font-family: 'Geist Mono', monospace; font-size: 13px; letter-spacing: 0.04em; color: var(--accent);">— This is where HyperSense begins.</p>
 
 </div>
@@ -1554,7 +1554,7 @@ a.cs-cta { margin-top: 28px; }
   <p class="cs-p reveal">With the investigation flow established, the next challenge was turning it into a cohesive product experience.</p>
   <p class="cs-p reveal">Each module served a distinct purpose, but together they needed to feel like a single investigation that teams could navigate naturally every month.</p>
 
-  <h3 class="cs-h3 reveal" style="margin-top: 56px;">Overview — <em style="font-style: italic; font-family: 'Instrument Serif', serif; color: var(--warm);">What's my cost story at a glance?</em></h3>
+  <h3 class="cs-h3 reveal" style="margin-top: 56px;">Overview — <em style="font-style: normal; font-family: 'Geist', sans-serif; font-weight: 500; color: var(--warm);">What's my cost story at a glance?</em></h3>
   <p class="cs-p reveal">Before teams investigate anomalies or optimize costs, they first need to understand where they stand today.</p>
   <p class="cs-p reveal">We designed Overview as the system's source of truth: a unified cost layer that consolidates fragmented signals into a single cost story.</p>
   <p class="cs-p reveal">Creating that experience wasn't straightforward. The same interface needed to work across fundamentally different merchant realities — from single processors to multi-PSP setups, and from simplified blended pricing to fully transparent IC++ models.</p>
@@ -1616,7 +1616,7 @@ a.cs-cta { margin-top: 28px; }
 </div>
 <div class="cs-wrap">
 
-  <h3 class="cs-h3 reveal" style="margin-top: 80px;">Drill-Down — <em style="font-style: italic; font-family: 'Instrument Serif', serif; color: var(--warm);">How is cost distributed across my business?</em></h3>
+  <h3 class="cs-h3 reveal" style="margin-top: 80px;">Drill-Down — <em style="font-style: normal; font-family: 'Geist', sans-serif; font-weight: 500; color: var(--warm);">How is cost distributed across my business?</em></h3>
   <p class="cs-p reveal">Overview answered what the cost story looks like at a glance. The next step was understanding where that story was coming from.</p>
   <p class="cs-p reveal">A single number rarely explains why costs change. Teams needed the ability to break costs down across the dimensions that shape them — processors, regions, corridors, fee types, and currencies.</p>
   <p class="cs-p reveal">The challenge was balancing analytical depth with usability. We needed to create a flexible investigation surface that supported exploration without overwhelming teams with raw data or forcing them into rigid analysis paths.</p>
@@ -1641,7 +1641,7 @@ a.cs-cta { margin-top: 28px; }
 </div>
 <div class="cs-wrap">
 
-  <h3 class="cs-h3 reveal" style="margin-top: 80px;">Fee Spikes — <em style="font-style: italic; font-family: 'Instrument Serif', serif; color: var(--warm);">Turning unexpected cost increases into actionable signals</em></h3>
+  <h3 class="cs-h3 reveal" style="margin-top: 80px;">Fee Spikes — <em style="font-style: normal; font-family: 'Geist', sans-serif; font-weight: 500; color: var(--warm);">Turning unexpected cost increases into actionable signals</em></h3>
   <p class="cs-p reveal">Drill-Down helped teams understand where costs were coming from. The next challenge was determining whether those changes were expected or required action.</p>
   <p class="cs-p reveal">Not every increase in payment cost is a problem. Costs can rise because of healthy sales growth, expansion into new markets, recurring downgrades, or network-driven changes.</p>
   <p class="cs-p reveal">The challenge was helping teams quickly separate normal business movement from preventable leakage — without requiring them to manually inspect reports or trace every fee line item.</p>
@@ -1688,7 +1688,7 @@ a.cs-cta { margin-top: 28px; }
     </div>
   </div>
 
-  <h3 class="cs-h3 reveal" style="margin-top: 80px;">Audit — <em style="font-style: italic; font-family: 'Instrument Serif', serif; color: var(--warm);">Verifying every fee charged.</em></h3>
+  <h3 class="cs-h3 reveal" style="margin-top: 80px;">Audit — <em style="font-style: normal; font-family: 'Geist', sans-serif; font-weight: 500; color: var(--warm);">Verifying every fee charged.</em></h3>
   <p class="cs-p reveal">Fee Spikes helped teams identify where action was needed. The next step was validating whether they had been charged correctly in the first place.</p>
   <p class="cs-p reveal">Processor invoices show what was charged, but rarely explain whether those charges were accurate.</p>
   <p class="cs-p reveal">A line item such as "<span class="cs-gloss" tabindex="0" data-gloss="cps">CPS Retail</span>" or "EIRF" offers little insight into whether the correct rate was applied, which transactions were downgraded, or how much those discrepancies ultimately cost.</p>
@@ -1715,7 +1715,7 @@ a.cs-cta { margin-top: 28px; }
 </div>
 <div class="cs-wrap">
 
-  <h3 class="cs-h3 reveal" style="margin-top: 80px;">Forecast — <em style="font-style: italic; font-family: 'Instrument Serif', serif; color: var(--warm);">Turning network updates into cost foresight</em></h3>
+  <h3 class="cs-h3 reveal" style="margin-top: 80px;">Forecast — <em style="font-style: normal; font-family: 'Geist', sans-serif; font-weight: 500; color: var(--warm);">Turning network updates into cost foresight</em></h3>
   <p class="cs-p reveal">Card networks like Visa and Mastercard regularly introduce new fees, revise existing programs, and update qualification rules. Although these changes are published weeks in advance, they are often buried inside dense technical documentation.</p>
   <p class="cs-p reveal">For merchants, the challenge wasn't access to information. It was understanding which updates would actually affect their business and what their financial impact would be. Without that visibility, teams often discovered the impact only after it appeared on the following month's invoice.</p>
   <p class="cs-p reveal">We designed Forecast to translate network updates into merchant-specific insights by modelling upcoming changes against each merchant's transaction behaviour.</p>
