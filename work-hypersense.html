@@ -783,6 +783,29 @@ a.cs-cta { margin-top: 28px; }
 }
 .cs-deck-dot.is-active { width: 24px; height: 8px; border-radius: 4px; background: var(--accent); }
 
+/* ---------- OVERVIEW TABS ---------- */
+.cs-ov-tabs-header {
+  font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--text-muted); margin-bottom: 10px; text-align: center;
+}
+.cs-ov-tabs {
+  display: flex; gap: 0; margin-bottom: 16px;
+  background: var(--bg-card); border: 1px solid var(--line); border-radius: 10px; overflow: hidden;
+}
+.cs-ov-tab {
+  flex: 1; padding: 12px 16px; border: none; background: none; cursor: pointer;
+  font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--text-muted); transition: color 0.2s ease, background 0.2s ease;
+  text-align: center;
+}
+.cs-ov-tab + .cs-ov-tab { border-left: 1px solid var(--line); }
+.cs-ov-tab:hover { color: var(--text-soft); }
+.cs-ov-tab.is-active { color: var(--accent); background: rgba(212,255,94,0.06); }
+.cs-ov-tab-desc {
+  font-family: 'Geist', sans-serif; font-size: 13px; font-weight: 300;
+  color: var(--text-soft); text-align: center; margin: 16px 0 0; line-height: 1.6;
+}
+
 /* ---------- PRINCIPLE CALLOUT ---------- */
 .cs-principle-callout {
   margin: 32px 0; padding: 28px 32px;
@@ -1538,96 +1561,50 @@ a.cs-cta { margin-top: 28px; }
   </ul>
 </div>
 <div class="cs-wrap cs-wrap--showcase">
-  <div class="cs-deck reveal" id="cs-ov-deck">
-    <div class="cs-deck-card" data-label="IC++ only" data-desc="Full per-processor fee breakdown — every cost component stays visible.">
-      <div class="cs-mock-chrome"><img src="assets/hypersense/chrome-bar.png" alt="Browser chrome"></div>
-      <div class="cs-mock-window">
-        <div class="cs-mock-nav"><img src="assets/hypersense/ov-nav-full.png" alt="" aria-hidden="true" /></div>
-        <div class="cs-mock-body"><img src="assets/hypersense/ov-icpp-only.jpg" alt="HyperSense Overview — multi-processor IC++ only" loading="lazy" /></div>
-      </div>
-    </div>
-    <div class="cs-deck-card" data-label="IC++ &amp; Blended" data-desc="Two pricing models on one stack — the view reconciles both at once.">
-      <div class="cs-mock-chrome"><img src="assets/hypersense/chrome-bar.png" alt="Browser chrome"></div>
-      <div class="cs-mock-window">
-        <div class="cs-mock-nav"><img src="assets/hypersense/ov-nav-full.png" alt="" aria-hidden="true" /></div>
-        <div class="cs-mock-body"><img src="assets/hypersense/ov-icpp-blended.jpg" alt="HyperSense Overview — IC++ and Blended" loading="lazy" /></div>
-      </div>
-    </div>
-    <div class="cs-deck-card" data-label="Blended only" data-desc="Adapted to flat-rate pricing, where fee-level detail is naturally limited.">
-      <div class="cs-mock-chrome"><img src="assets/hypersense/chrome-bar.png" alt="Browser chrome"></div>
-      <div class="cs-mock-window">
-        <div class="cs-mock-nav"><img src="assets/hypersense/ov-nav-full.png" alt="" aria-hidden="true" /></div>
-        <div class="cs-mock-body"><img src="assets/hypersense/ov-blended-only.jpg" alt="HyperSense Overview — Blended only" loading="lazy" /></div>
-      </div>
-    </div>
-    <div class="cs-deck-card" data-label="Single PSP" data-desc="Same mental model, scaled down for a single-processor operation.">
-      <div class="cs-mock-chrome"><img src="assets/hypersense/chrome-bar.png" alt="Browser chrome"></div>
-      <div class="cs-mock-window">
-        <div class="cs-mock-nav"><img src="assets/hypersense/ov-nav-full.png" alt="" aria-hidden="true" /></div>
-        <div class="cs-mock-body"><img src="assets/hypersense/ov-single-psp.jpg" alt="HyperSense Overview — Single PSP" loading="lazy" /></div>
-      </div>
-    </div>
-    <div class="cs-deck-label" id="cs-ov-deck-label">IC++ only</div>
+  <div class="cs-ov-tabs-header reveal">Switch to different merchant setups</div>
+  <div class="cs-ov-tabs reveal" id="cs-ov-tabs">
+    <button class="cs-ov-tab is-active" data-index="0">IC++ only</button>
+    <button class="cs-ov-tab" data-index="1">IC++ &amp; Blended</button>
+    <button class="cs-ov-tab" data-index="2">Blended only</button>
+    <button class="cs-ov-tab" data-index="3">Single PSP</button>
   </div>
-  <div class="cs-deck-hint">
-    <span class="cs-deck-dots" id="cs-ov-deck-dots"></span>
-    <span id="cs-ov-deck-desc">Full per-processor fee breakdown — every cost component stays visible.</span>
+  <div class="cs-shot-frame reveal" id="cs-ov-frame">
+    <div class="cs-mock-chrome"><img src="assets/hypersense/chrome-bar.png" alt="Browser chrome"></div>
+    <div class="cs-mock-window">
+      <div class="cs-mock-nav"><img src="assets/hypersense/ov-nav-full.png" alt="" aria-hidden="true" /></div>
+      <div class="cs-mock-body"><img id="cs-ov-img" src="assets/hypersense/ov-icpp-only.jpg" alt="HyperSense Overview — IC++ only" loading="lazy" style="transition: opacity 0.2s ease;" /></div>
+    </div>
   </div>
+  <p class="cs-ov-tab-desc" id="cs-ov-tab-desc">Full per-processor fee breakdown — every cost component stays visible.</p>
   <script>
   (function(){
-    var deck = document.getElementById('cs-ov-deck');
-    if (!deck) return;
-    var cards = Array.from(deck.querySelectorAll('.cs-deck-card'));
-    var label = document.getElementById('cs-ov-deck-label');
-    var desc = document.getElementById('cs-ov-deck-desc');
-    var dotsWrap = document.getElementById('cs-ov-deck-dots');
-    var n = cards.length;
-    var current = 0;
-
-    cards.forEach(function(_, i) {
-      var dot = document.createElement('span');
-      dot.className = 'cs-deck-dot' + (i === 0 ? ' is-active' : '');
-      dot.addEventListener('click', function(e) {
-        e.stopPropagation();
-        current = i;
-        layout();
+    var tabs = document.querySelectorAll('#cs-ov-tabs .cs-ov-tab');
+    var img = document.getElementById('cs-ov-img');
+    var desc = document.getElementById('cs-ov-tab-desc');
+    var body = img ? img.closest('.cs-mock-body') : null;
+    var data = [
+      { img: 'assets/hypersense/ov-icpp-only.jpg', alt: 'HyperSense Overview — IC++ only', desc: 'Full per-processor fee breakdown — every cost component stays visible.' },
+      { img: 'assets/hypersense/ov-icpp-blended.jpg', alt: 'HyperSense Overview — IC++ and Blended', desc: 'Two pricing models on one stack — the view reconciles both at once.' },
+      { img: 'assets/hypersense/ov-blended-only.jpg', alt: 'HyperSense Overview — Blended only', desc: 'Adapted to flat-rate pricing, where fee-level detail is naturally limited.' },
+      { img: 'assets/hypersense/ov-single-psp.jpg', alt: 'HyperSense Overview — Single PSP', desc: 'Same mental model, scaled down for a single-processor operation.' }
+    ];
+    var cur = 0;
+    tabs.forEach(function(tab) {
+      tab.addEventListener('click', function() {
+        var idx = parseInt(tab.dataset.index, 10);
+        if (idx === cur) return;
+        tabs[cur].classList.remove('is-active');
+        tab.classList.add('is-active');
+        cur = idx;
+        img.style.opacity = '0';
+        setTimeout(function() {
+          img.src = data[idx].img;
+          img.alt = data[idx].alt;
+          desc.textContent = data[idx].desc;
+          if (body) body.scrollTop = 0;
+          img.style.opacity = '1';
+        }, 200);
       });
-      dotsWrap.appendChild(dot);
-    });
-    var dots = Array.from(dotsWrap.querySelectorAll('.cs-deck-dot'));
-
-    function layout() {
-      cards.forEach(function(card, i) {
-        var offset = (i - current + n) % n;
-        if (offset === 0) {
-          card.style.zIndex = n;
-          card.style.transform = 'translateY(0) scale(1)';
-          card.style.opacity = '1';
-          card.style.pointerEvents = 'auto';
-        } else if (offset <= 3) {
-          card.style.zIndex = n - offset;
-          card.style.transform = 'translateY(' + (offset * 20) + 'px) scale(' + (1 - offset * 0.035) + ')';
-          card.style.opacity = String(1 - offset * 0.2);
-          card.style.pointerEvents = 'none';
-        } else {
-          card.style.zIndex = 0;
-          card.style.transform = 'translateY(60px) scale(0.895)';
-          card.style.opacity = '0';
-          card.style.pointerEvents = 'none';
-        }
-      });
-      label.textContent = cards[current].getAttribute('data-label');
-      desc.textContent = cards[current].getAttribute('data-desc');
-      dots.forEach(function(d, i) {
-        d.classList.toggle('is-active', i === current);
-      });
-    }
-
-    layout();
-
-    deck.addEventListener('click', function() {
-      current = (current + 1) % n;
-      layout();
     });
   })();
   </script>
