@@ -788,6 +788,47 @@ a.cs-cta { margin-top: 28px; }
 }
 .cs-deck-dot.is-active { width: 24px; height: 8px; border-radius: 4px; background: var(--accent); }
 
+/* ---------- OUTCOME FUNNEL ---------- */
+.cs-outcome-funnel {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+  background: var(--line); border: 1px solid var(--line); border-radius: 10px;
+  overflow: hidden; margin: 40px 0 0; position: relative; z-index: 501;
+}
+.cs-outcome-step { background: var(--bg-card); padding: 30px 26px; }
+.cs-outcome-step--win { background: rgba(212,255,94,0.04); }
+.cs-outcome-num {
+  font-family: 'Geist', sans-serif; font-size: 40px; font-weight: 500;
+  letter-spacing: -0.02em; color: var(--text-soft); line-height: 1;
+}
+.cs-outcome-step--win .cs-outcome-num { color: var(--accent); }
+.cs-outcome-step-label {
+  font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--text-muted); margin: 14px 0 10px;
+}
+.cs-outcome-step-desc {
+  font-family: 'Geist', sans-serif; font-size: 12.5px; font-weight: 300;
+  line-height: 1.6; color: var(--text-soft); margin: 0 0 18px;
+}
+.cs-outcome-bar { height: 4px; border-radius: 3px; background: rgba(255,255,255,0.06); overflow: hidden; }
+.cs-outcome-bar span { display: block; height: 100%; border-radius: 3px; background: rgba(255,255,255,0.22); }
+.cs-outcome-step--win .cs-outcome-bar span { background: var(--accent); }
+@media (max-width: 700px) {
+  .cs-outcome-funnel { grid-template-columns: 1fr; }
+}
+.cs-outcome-next {
+  margin: 32px 0 0; padding: 0 0 0 20px;
+  border-left: 2px solid rgba(212,255,94,0.3);
+  display: flex; flex-direction: column; gap: 8px;
+}
+.cs-outcome-next-tag {
+  font-family: 'Geist Mono', monospace; font-size: 9.5px;
+  letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent);
+}
+.cs-outcome-next p {
+  margin: 0; font-family: 'Geist', sans-serif; font-size: 15px; font-weight: 300;
+  line-height: 1.7; color: var(--text);
+}
+
 /* ---------- THANKS NOTE ---------- */
 .cs-thanks-note {
   margin: 72px 0 0; padding: 0; text-align: center;
@@ -2008,6 +2049,41 @@ a.cs-cta { margin-top: 28px; }
     </div>
   </div>
 
+</div>
+</section>
+
+<!-- ═══════════════════════ 09 — OUTCOME ═══════════════════════ -->
+<section class="cs-section" id="cs-outcome">
+<div class="cs-wrap">
+
+  <div class="cs-label reveal"><span class="num">/09</span> Outcome</div>
+  <h2 class="cs-display reveal">From a concept to <em>real merchant traction.</em></h2>
+  <p class="cs-p reveal">HyperSense moved from an early prototype to live conversations with enterprise merchants — validating that cost observability was a problem teams were ready to pay to solve.</p>
+  <p class="cs-p reveal">What started as a demo became a funnel: broad interest, serious pilots, and the first signed customers.</p>
+
+  <div class="cs-outcome-funnel reveal">
+    <div class="cs-outcome-step">
+      <div class="cs-outcome-num">20+</div>
+      <div class="cs-outcome-step-label">Demoed</div>
+      <div class="cs-outcome-step-desc">Walked through with 20+ enterprise merchants — including a demo to Apple.</div>
+    </div>
+    <div class="cs-outcome-step">
+      <div class="cs-outcome-num">6</div>
+      <div class="cs-outcome-step-label">Piloted</div>
+      <div class="cs-outcome-step-desc">Ran active pilots with 6 merchants using their real payment data.</div>
+    </div>
+    <div class="cs-outcome-step cs-outcome-step--win">
+      <div class="cs-outcome-num">2</div>
+      <div class="cs-outcome-step-label">Converted</div>
+      <div class="cs-outcome-step-desc">Converted 2 merchants into paying customers.</div>
+    </div>
+  </div>
+
+  <div class="cs-outcome-next reveal">
+    <span class="cs-outcome-next-tag">What's next</span>
+    <p>The next chapter takes cost observability upstream — we're now working with banks to bring the same clarity to the institutions at the heart of the payment system.</p>
+  </div>
+
   <div class="cs-thanks-note reveal">
     <span class="cs-thanks-mark" aria-hidden="true">
       <span class="cs-thanks-dash"></span>
@@ -2058,7 +2134,8 @@ a.cs-cta { margin-top: 28px; }
     { id: 'cs-users',     label: '05 — Users',                       thesis: 'Three users. One blind spot. <em>Different stakes.</em>' },
     { id: 'cs-strategy',  label: '06 — Product Strategy and Design', thesis: 'From fragmented signals to <em>one investigation.</em>' },
     { id: 'cs-challenge', label: '07 — Design Challenge',            thesis: 'Four tensions that shaped <em>every design decision.</em>' },
-    { id: 'cs-ui',        label: '08 — Product Experience',          thesis: 'From fragmented costs to <em>a single cost story.</em>' }
+    { id: 'cs-ui',        label: '08 — Product Experience',          thesis: 'From fragmented costs to <em>a single cost story.</em>' },
+    { id: 'cs-outcome',   label: '09 — Outcome',                     thesis: 'From a concept to <em>real merchant traction.</em>' }
   ];
 
   var activeId = null;
