@@ -370,6 +370,8 @@ nav .logo a.cs-back:hover { color: var(--accent); }
 }
 .cs-cta:hover { color: var(--bg); background: var(--accent); border-color: var(--accent); gap: 14px; }
 a.cs-cta { margin-top: 28px; }
+.cs-cta-center { display: flex; justify-content: center; margin-top: 32px; }
+.cs-cta-center a.cs-cta { margin-top: 0; }
 
 /* ---------- STAT CALLOUTS ---------- */
 .cs-stats { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; margin: 12px 0 0; background: var(--bg-card); position: relative; z-index: 501; }
@@ -679,7 +681,7 @@ a.cs-cta { margin-top: 28px; }
 .cs-persona-icon svg { width: 17px; height: 17px; }
 .cs-persona-name { font-family: 'Geist', sans-serif; font-size: 16px; font-weight: 500; color: var(--text); margin-bottom: 8px; line-height: 1.4; }
 .cs-persona-name .dash { color: var(--text-muted); }
-.cs-persona-name em { font-style: italic; font-family: 'Geist', sans-serif; font-weight: 400; color: var(--text-soft); font-size: 17px; }
+.cs-persona-name em { font-style: normal; font-family: 'Geist', sans-serif; font-weight: 400; color: var(--text-soft); font-size: 14px; }
 .cs-persona-desc { font-family: 'Geist', sans-serif; font-size: 13px; font-weight: 300; line-height: 1.75; color: var(--text-soft); margin: 0; max-width: 64ch; }
 
 /* Journey flow — linear gradient rail */
@@ -785,6 +787,18 @@ a.cs-cta { margin-top: 28px; }
   cursor: pointer;
 }
 .cs-deck-dot.is-active { width: 24px; height: 8px; border-radius: 4px; background: var(--accent); }
+
+/* ---------- THANKS NOTE ---------- */
+.cs-thanks-note {
+  margin: 72px 0 0; padding: 40px 0 0; text-align: center;
+  border-top: 1px solid var(--line);
+  display: flex; flex-direction: column; align-items: center; gap: 16px;
+}
+.cs-thanks-mark { color: var(--accent); display: inline-flex; }
+.cs-thanks-note p {
+  margin: 0; font-family: 'Geist', sans-serif; font-size: 18px; font-weight: 500;
+  color: var(--text); letter-spacing: -0.01em;
+}
 
 /* ---------- OUTCOME CALLOUT ---------- */
 .cs-outcome {
@@ -1989,12 +2003,13 @@ a.cs-cta { margin-top: 28px; }
     </div>
   </div>
 
-  <p class="cs-p reveal" style="margin: 64px 0 8px; font-size: 14px; color: var(--text-muted);">One thing solving for complex systems taught me:</p>
-  <blockquote class="cs-quote reveal" style="margin-top: 0;">
-    <p style="margin: 0 0 14px;">"Clarity isn't achieved by hiding complexity. It's achieved by making it understandable."</p>
-    <p style="font-size: 14px; font-style: italic; color: var(--text-muted); margin: 0;">Thank you for taking the time to follow the journey.</p>
-  </blockquote>
-  <a class="cs-cta reveal" href="index.html"><span class="arr">←</span> Back to selected work</a>
+  <div class="cs-thanks-note reveal">
+    <span class="cs-thanks-mark" aria-hidden="true">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c.4 5.9 5.7 11.2 11.6 11.6v.8C17.7 12.8 12.4 18.1 12 24h-.8C10.8 18.1 5.5 12.8-.4 12.4v-.8C5.5 11.2 10.8 5.9 11.2 0h.8z"/></svg>
+    </span>
+    <p>Thank you for taking the time to follow the journey.</p>
+  </div>
+  <div class="cs-cta-center reveal"><a class="cs-cta" href="index.html"><span class="arr">←</span> Back to selected work</a></div>
 
 </div>
 </section>
