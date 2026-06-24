@@ -818,11 +818,14 @@ a.cs-cta { margin-top: 28px; }
 }
 .cs-arc-row--win .cs-arc-eyebrow { color: rgba(212,255,94,0.7); }
 .cs-arc-line { font-family: 'Geist', sans-serif; font-size: 13.5px; font-weight: 300; line-height: 1.65; color: var(--text-soft); margin: 0; }
-.cs-arc-line strong { font-weight: 500; color: var(--text); }
+.cs-arc-line strong { font-weight: 500; color: var(--text-soft); }
+.cs-arc-row--win .cs-arc-line strong { color: var(--text); }
 .cs-arc-line em { font-style: normal; font-weight: 500; }
-.cs-arc-num--mute { color: var(--text-muted); }
-.cs-arc-num--soft { color: var(--text); }
+.cs-arc-num--mute { color: var(--text-soft); }
+.cs-arc-num--soft { color: var(--text-soft); }
 .cs-arc-num--win { color: var(--accent); }
+.cs-arc-tag { font-family: 'Geist', sans-serif; font-size: 12px; font-weight: 400; color: var(--text-muted); margin: -4px 0 0; padding-left: 10px; border-left: 1px solid var(--line); }
+.cs-arc-row--win .cs-arc-tag { color: rgba(212,255,94,0.55); border-left-color: rgba(212,255,94,0.3); }
 @media (max-width: 700px) {
   .cs-arcs { grid-template-columns: 1fr; gap: 28px; padding: 28px 24px; }
   .cs-arcs-viz { max-width: 180px; }
@@ -1233,18 +1236,24 @@ a.cs-cta { margin-top: 28px; }
     <div class="cs-arcs-legend">
       <div class="cs-arc-row">
         <span class="cs-arc-eyebrow">Small merchant</span>
-        <p class="cs-arc-line">Grosses around <strong>$5M</strong> a year. At a 2% cost, that's <em class="cs-arc-num--mute">$100K</em> spent every year.</p>
+        <p class="cs-arc-line">Grosses around <strong>$5M</strong>/yr = <em class="cs-arc-num--mute">$100K</em> cost/yr</p>
+        <p class="cs-arc-tag">Costs are rarely a priority.</p>
       </div>
       <div class="cs-arc-row">
         <span class="cs-arc-eyebrow">Mid-sized merchant</span>
-        <p class="cs-arc-line">Grosses around <strong>$50M</strong> a year. At a 2% cost, that's <em class="cs-arc-num--soft">$1M</em> spent every year.</p>
+        <p class="cs-arc-line">Grosses around <strong>$50M</strong>/yr = <em class="cs-arc-num--soft">$1M</em> cost/yr</p>
+        <p class="cs-arc-tag">Costs become a business concern.</p>
       </div>
       <div class="cs-arc-row cs-arc-row--win">
         <span class="cs-arc-eyebrow">Enterprise merchant</span>
-        <p class="cs-arc-line">Grosses around <strong>$500M</strong> a year. At a 2% cost, that's <em class="cs-arc-num--win">$10M</em> spent every year.</p>
+        <p class="cs-arc-line">Grosses around <strong>$500M</strong>/yr = <em class="cs-arc-num--win">$10M</em> cost/yr</p>
+        <p class="cs-arc-tag">Every basis point matters.</p>
       </div>
     </div>
   </div>
+
+  <p class="cs-p reveal" style="margin-top: 28px;">Payment costs are one of the largest variable expenses for businesses operating at scale. While the percentage may appear small, its impact compounds quickly as payment volume grows.</p>
+  <p class="cs-p reveal">At Enterprise scale, even marginal inefficiencies can quietly translate into millions of dollars in avoidable spend.</p>
 
   <h3 class="cs-h3 reveal" style="margin-top: 52px;">The problem wasn't the cost itself. It was the lack of visibility.</h3>
   <p class="cs-p reveal">Merchants could see that costs had increased, but understanding them remained a heavily manual exercise.</p>
