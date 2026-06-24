@@ -966,10 +966,11 @@ a.cs-cta { margin-top: 28px; }
 
 /* ---------- PROTOTYPE — MACBOOK MOCKUP ---------- */
 .cs-mb-scene { padding: 0 0 8px; display: flex; justify-content: center; width: 100vw; margin-left: calc(50% - 50vw); }
-.cs-mb-wrap { width: 1050px; max-width: 96vw; }
+.cs-mb-wrap { width: min(1050px, 92vw); }
 .cs-mb-wrap svg { width: 100%; height: auto; display: block; }
 .cs-mbpro-screen { width: 100%; height: 100%; background: #000; position: relative; overflow: hidden; display: block; }
-@media (max-width: 640px) { .cs-mb-wrap { width: 100%; } }
+@media (min-width: 1281px) { .cs-mb-wrap { width: min(1050px, calc(100vw - 540px)); } }
+@media (max-width: 640px) { .cs-mb-wrap { width: 94vw; } }
 
 /* ---------- CLOSING QUOTE ---------- */
 .cs-quote {
