@@ -2742,10 +2742,10 @@ a.cs-cta { margin-top: 28px; }
   const canvas = document.getElementById('cs-graph');
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
-  const W = 1120, H = 620;
+  const W = 1120, H = 680;
   canvas.width = W; canvas.height = H;
   const CX = W / 2, CY = H / 2;
-  const R_MOD = 150, R_Q = 250;
+  const R_MOD = 178, R_Q = 290;
   const LIME = '#d4ff5e';
 
   const mods = [
@@ -2840,10 +2840,10 @@ a.cs-cta { margin-top: 28px; }
         g2.addColorStop(0, 'rgba(212,255,94,0.5)'); g2.addColorStop(1, 'rgba(212,255,94,0)');
         ctx.beginPath(); ctx.arc(n.x, n.y, 24, 0, Math.PI*2); ctx.fillStyle = g2; ctx.fill();
         ctx.beginPath(); ctx.arc(n.x, n.y, n.r, 0, Math.PI*2); ctx.fillStyle = LIME; ctx.fill();
-        ctx.font = '500 14px "Geist", system-ui, sans-serif';
+        ctx.font = '500 17px "Geist", system-ui, sans-serif';
         ctx.textAlign = 'center'; ctx.textBaseline = 'top';
         ctx.fillStyle = 'rgba(237,237,237,0.85)';
-        ctx.fillText('HyperSense', n.x, n.y + n.r + 14);
+        ctx.fillText('HyperSense', n.x, n.y + n.r + 16);
         ctx.textBaseline = 'alphabetic';
       } else if (n.type === 'module') {
         const gm = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, 30);
@@ -2852,7 +2852,7 @@ a.cs-cta { margin-top: 28px; }
         ctx.beginPath(); ctx.arc(n.x, n.y, n.r, 0, Math.PI*2);
         ctx.fillStyle = `rgba(212,255,94,${a})`; ctx.fill();
         const lp = lpos(n);
-        ctx.font = '500 13px "Geist", system-ui, sans-serif';
+        ctx.font = '500 16px "Geist", system-ui, sans-serif';
         ctx.textAlign = lp.align; ctx.textBaseline = lp.base;
         ctx.fillStyle = `rgba(237,237,237,${0.9*a})`;
         ctx.fillText(n.label, lp.x, lp.y);
@@ -2861,7 +2861,7 @@ a.cs-cta { margin-top: 28px; }
         ctx.beginPath(); ctx.arc(n.x, n.y, n.r, 0, Math.PI*2);
         ctx.fillStyle = `rgba(180,180,180,${0.45*a})`; ctx.fill();
         const lp2 = lpos(n);
-        ctx.font = '13px "Geist", system-ui, sans-serif';
+        ctx.font = '15px "Geist", system-ui, sans-serif';
         ctx.textAlign = lp2.align; ctx.textBaseline = lp2.base;
         ctx.fillStyle = `rgba(170,170,170,${0.7*a})`;
         ctx.fillText(n.label, lp2.x, lp2.y);
