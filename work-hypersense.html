@@ -1040,33 +1040,38 @@ a.cs-cta { margin-top: 28px; }
   <div class="cs-vis reveal" style="margin-top: 48px;">
     <div class="cs-vis-label">How money flows</div>
     <div class="cs-vis-body" style="padding: 44px 28px 40px;">
-      <svg viewBox="0 0 700 130" xmlns="http://www.w3.org/2000/svg" role="img" style="width:100%; display:block;">
+      <svg viewBox="0 0 700 150" xmlns="http://www.w3.org/2000/svg" role="img" style="width:100%; display:block;">
         <title>Simplified payment flow — customer pays, costs are extracted invisibly, merchant receives what's left</title>
 
-        <!-- Dashed connecting line -->
-        <line x1="110" y1="48" x2="590" y2="48" stroke="rgba(255,255,255,0.06)" stroke-width="1" stroke-dasharray="4 6" />
+        <!-- Dashed connecting line (behind nodes) -->
+        <line x1="80" y1="50" x2="350" y2="50" stroke="rgba(255,255,255,0.1)" stroke-width="1" stroke-dasharray="3 6" stroke-linecap="round" />
+        <line x1="350" y1="50" x2="620" y2="50" stroke="rgba(255,255,255,0.1)" stroke-width="1" stroke-dasharray="3 6" stroke-linecap="round" />
 
         <!-- ══ CUSTOMER PAYS — card icon ══ -->
-        <rect x="56" y="28" width="48" height="32" rx="5" fill="none" stroke="rgba(212,255,94,0.35)" stroke-width="1.2" />
-        <line x1="56" y1="40" x2="104" y2="40" stroke="rgba(212,255,94,0.2)" stroke-width="0.8" />
-        <rect x="62" y="46" width="14" height="4" rx="1" fill="rgba(212,255,94,0.18)" />
-        <circle cx="96" cy="50" r="3.5" fill="rgba(212,255,94,0.12)" />
-        <text x="80" y="82" text-anchor="middle" font-family="'Geist',sans-serif" font-size="11.5" font-weight="500" fill="var(--text)">Customer Pays</text>
+        <g stroke="rgba(255,255,255,0.45)" fill="none" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="63" y="36" width="34" height="24" rx="4" />
+          <line x1="63" y1="44" x2="97" y2="44" />
+          <line x1="69" y1="53" x2="77" y2="53" />
+        </g>
+        <text x="80" y="86" text-anchor="middle" font-family="'Geist',sans-serif" font-size="12" font-weight="500" fill="var(--text)">Customer Pays</text>
 
-        <!-- ══ PAYMENT COSTS — coin/percentage icon ══ -->
-        <circle cx="350" cy="48" r="20" fill="rgba(212,255,94,0.06)" stroke="rgba(212,255,94,0.25)" stroke-width="1.2" />
-        <text x="350" y="53" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="14" font-weight="500" fill="var(--accent)">%</text>
-        <text x="350" y="88" text-anchor="middle" font-family="'Geist',sans-serif" font-size="12" font-weight="600" fill="var(--accent)">Payment Costs</text>
-        <text x="350" y="104" text-anchor="middle" font-family="'Geist',sans-serif" font-size="9.5" fill="rgba(212,255,94,0.4)">Invisible to most merchants</text>
+        <!-- ══ PAYMENT COSTS — focal node ══ -->
+        <circle cx="350" cy="50" r="26" fill="var(--bg-card)" />
+        <circle cx="350" cy="50" r="26" fill="rgba(212,255,94,0.07)" stroke="var(--accent)" stroke-width="1.4" />
+        <text x="350" y="56" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="17" font-weight="500" fill="var(--accent)">%</text>
+        <text x="350" y="94" text-anchor="middle" font-family="'Geist',sans-serif" font-size="12.5" font-weight="600" fill="var(--accent)">Payment Costs</text>
+        <text x="350" y="111" text-anchor="middle" font-family="'Geist',sans-serif" font-size="10" fill="rgba(212,255,94,0.45)">Invisible to most merchants</text>
 
         <!-- ══ MERCHANT RECEIVES — bank icon ══ -->
-        <path d="M 600 34 L 620 22 L 640 34 Z" fill="none" stroke="rgba(212,255,94,0.3)" stroke-width="1.2" stroke-linejoin="round" />
-        <line x1="600" y1="34" x2="640" y2="34" stroke="rgba(212,255,94,0.25)" stroke-width="1.2" />
-        <line x1="606" y1="34" x2="606" y2="56" stroke="rgba(212,255,94,0.15)" stroke-width="1" />
-        <line x1="620" y1="34" x2="620" y2="56" stroke="rgba(212,255,94,0.15)" stroke-width="1" />
-        <line x1="634" y1="34" x2="634" y2="56" stroke="rgba(212,255,94,0.15)" stroke-width="1" />
-        <line x1="598" y1="56" x2="642" y2="56" stroke="rgba(212,255,94,0.25)" stroke-width="1.2" />
-        <text x="620" y="82" text-anchor="middle" font-family="'Geist',sans-serif" font-size="11.5" font-weight="500" fill="var(--text)">Merchant Receives</text>
+        <g stroke="rgba(255,255,255,0.45)" fill="none" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M 604 40 L 620 30 L 636 40" />
+          <line x1="601" y1="40" x2="639" y2="40" />
+          <line x1="607" y1="44" x2="607" y2="58" />
+          <line x1="620" y1="44" x2="620" y2="58" />
+          <line x1="633" y1="44" x2="633" y2="58" />
+          <line x1="601" y1="62" x2="639" y2="62" />
+        </g>
+        <text x="620" y="86" text-anchor="middle" font-family="'Geist',sans-serif" font-size="12" font-weight="500" fill="var(--text)">Merchant Receives</text>
       </svg>
     </div>
   </div>
