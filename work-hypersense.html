@@ -811,21 +811,18 @@ a.cs-cta { margin-top: 28px; }
 .cs-arc-row { padding: 18px 0; border-top: 1px solid var(--line); }
 .cs-arc-row:first-child { border-top: none; padding-top: 0; }
 .cs-arc-row:last-child { padding-bottom: 0; }
-.cs-arc-row { display: flex; flex-direction: column; gap: 8px; }
+.cs-arc-row { display: flex; flex-direction: column; gap: 3px; }
 .cs-arc-eyebrow {
   font-family: 'Geist Mono', monospace; font-size: 9.5px; letter-spacing: 0.16em;
   text-transform: uppercase; color: var(--text-muted);
 }
 .cs-arc-row--win .cs-arc-eyebrow { color: rgba(212,255,94,0.7); }
-.cs-arc-line { font-family: 'Geist', sans-serif; font-size: 13.5px; font-weight: 300; line-height: 1.65; color: var(--text-soft); margin: 0; }
-.cs-arc-line strong { font-weight: 500; color: var(--text-soft); }
-.cs-arc-row--win .cs-arc-line strong { color: var(--text); }
-.cs-arc-line em { font-style: normal; font-weight: 500; }
-.cs-arc-num--mute { color: var(--text-soft); }
-.cs-arc-num--soft { color: var(--text-soft); }
-.cs-arc-num--win { color: var(--accent); }
-.cs-arc-tag { font-family: 'Geist', sans-serif; font-size: 12px; font-weight: 400; color: var(--text-muted); margin: -4px 0 0; padding-left: 10px; border-left: 1px solid var(--line); }
-.cs-arc-row--win .cs-arc-tag { color: rgba(212,255,94,0.55); border-left-color: rgba(212,255,94,0.3); }
+.cs-arc-lead { font-family: 'Geist', sans-serif; font-size: 15px; font-weight: 400; line-height: 1.5; color: var(--text); margin: 0; }
+.cs-arc-metric { font-family: 'Geist Mono', monospace; font-size: 12px; font-weight: 400; letter-spacing: 0.02em; color: var(--text-muted); margin: 3px 0 0; }
+.cs-arc-metric strong { font-weight: 500; color: var(--text-soft); }
+.cs-arc-row--win .cs-arc-metric strong { color: var(--text); }
+.cs-arc-metric em { font-style: normal; font-weight: 500; color: var(--text-soft); }
+.cs-arc-row--win .cs-arc-metric em { color: var(--accent); }
 @media (max-width: 700px) {
   .cs-arcs { grid-template-columns: 1fr; gap: 28px; padding: 28px 24px; }
   .cs-arcs-viz { max-width: 180px; }
@@ -1236,18 +1233,18 @@ a.cs-cta { margin-top: 28px; }
     <div class="cs-arcs-legend">
       <div class="cs-arc-row">
         <span class="cs-arc-eyebrow">Small merchant</span>
-        <p class="cs-arc-line">Grosses around <strong>$5M</strong>/yr = <em class="cs-arc-num--mute">$100K</em> cost/yr</p>
-        <p class="cs-arc-tag">Costs are rarely a priority.</p>
+        <p class="cs-arc-lead">Costs are rarely a priority.</p>
+        <p class="cs-arc-metric">Grosses around <strong>$5M</strong>/yr = <em>$100K</em> cost/yr</p>
       </div>
       <div class="cs-arc-row">
         <span class="cs-arc-eyebrow">Mid-sized merchant</span>
-        <p class="cs-arc-line">Grosses around <strong>$50M</strong>/yr = <em class="cs-arc-num--soft">$1M</em> cost/yr</p>
-        <p class="cs-arc-tag">Costs become a business concern.</p>
+        <p class="cs-arc-lead">Costs become noticeable.</p>
+        <p class="cs-arc-metric">Grosses around <strong>$50M</strong>/yr = <em>$1M</em> cost/yr</p>
       </div>
       <div class="cs-arc-row cs-arc-row--win">
         <span class="cs-arc-eyebrow">Enterprise merchant</span>
-        <p class="cs-arc-line">Grosses around <strong>$500M</strong>/yr = <em class="cs-arc-num--win">$10M</em> cost/yr</p>
-        <p class="cs-arc-tag">Every basis point matters.</p>
+        <p class="cs-arc-lead">Every basis point matters.</p>
+        <p class="cs-arc-metric">Grosses around <strong>$500M</strong>/yr = <em>$10M</em> cost/yr</p>
       </div>
     </div>
   </div>
