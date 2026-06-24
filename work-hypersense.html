@@ -788,6 +788,43 @@ a.cs-cta { margin-top: 28px; }
 }
 .cs-deck-dot.is-active { width: 24px; height: 8px; border-radius: 4px; background: var(--accent); }
 
+/* ---------- FROSTED STAT CARD (notch) ---------- */
+.cs-fstat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; position: relative; z-index: 501; }
+.cs-fstat-cell { display: flex; flex-direction: column; }
+.cs-fstat {
+  position: relative; padding: 36px 30px 36px;
+  background: linear-gradient(160deg, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0.02) 70%);
+  border: 1px solid rgba(255,255,255,0.09);
+  border-radius: 16px;
+  display: flex; flex-direction: column; gap: 12px;
+  overflow: hidden;
+}
+.cs-fstat::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent);
+}
+.cs-fstat--win {
+  background: linear-gradient(160deg, rgba(212,255,94,0.12) 0%, rgba(212,255,94,0.02) 70%);
+  border-color: rgba(212,255,94,0.28);
+}
+.cs-fstat--win::before { background: linear-gradient(90deg, transparent, rgba(212,255,94,0.4), transparent); }
+.cs-fstat-num {
+  font-family: 'Geist', sans-serif; font-size: 56px; font-weight: 500;
+  letter-spacing: -0.03em; line-height: 1; color: var(--text);
+}
+.cs-fstat--win .cs-fstat-num { color: var(--accent); }
+.cs-fstat-num .cs-fstat-sym { font-size: 0.48em; vertical-align: 0.36em; font-weight: 400; color: var(--text-muted); margin-left: 2px; }
+.cs-fstat--win .cs-fstat-num .cs-fstat-sym { color: rgba(212,255,94,0.7); }
+.cs-fstat-label {
+  font-family: 'Geist', sans-serif; font-size: 16px; font-weight: 500;
+  letter-spacing: -0.01em; color: var(--text);
+}
+.cs-fstat-desc {
+  font-family: 'Geist', sans-serif; font-size: 13px; font-weight: 300;
+  line-height: 1.65; color: var(--text-soft); margin: 4px 0 0;
+}
+@media (max-width: 700px) { .cs-fstat-grid { grid-template-columns: 1fr; } }
+
 /* ---------- OUTCOME FUNNEL ---------- */
 .cs-outcome-funnel {
   display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
@@ -2062,21 +2099,21 @@ a.cs-cta { margin-top: 28px; }
   <p class="cs-p reveal">HyperSense moved from an early prototype to live conversations with enterprise merchants — validating that cost observability was a problem teams were ready to pay to solve.</p>
   <p class="cs-p reveal">What started as a demo became a funnel: broad interest, serious pilots, and the first signed customers.</p>
 
-  <div class="cs-outcome-funnel reveal">
-    <div class="cs-outcome-step">
-      <div class="cs-outcome-num">20+</div>
-      <div class="cs-outcome-step-label">Demoed</div>
-      <div class="cs-outcome-step-desc">Walked through with 20+ enterprise merchants — including a demo to Apple.</div>
+  <div class="cs-fstat-grid reveal">
+    <div class="cs-fstat">
+      <div class="cs-fstat-num">20<span class="cs-fstat-sym">+</span></div>
+      <div class="cs-fstat-label">Demoed</div>
+      <p class="cs-fstat-desc">Walked through with 20+ enterprise merchants — including a demo to Apple.</p>
     </div>
-    <div class="cs-outcome-step">
-      <div class="cs-outcome-num">6</div>
-      <div class="cs-outcome-step-label">Piloted</div>
-      <div class="cs-outcome-step-desc">Ran active pilots with 6 merchants using their real payment data.</div>
+    <div class="cs-fstat">
+      <div class="cs-fstat-num">6</div>
+      <div class="cs-fstat-label">Piloted</div>
+      <p class="cs-fstat-desc">Ran active pilots with 6 merchants using their real payment data.</p>
     </div>
-    <div class="cs-outcome-step cs-outcome-step--win">
-      <div class="cs-outcome-num">2</div>
-      <div class="cs-outcome-step-label">Converted</div>
-      <div class="cs-outcome-step-desc">Converted 2 merchants into paying customers.</div>
+    <div class="cs-fstat cs-fstat--win">
+      <div class="cs-fstat-num">2</div>
+      <div class="cs-fstat-label">Converted</div>
+      <p class="cs-fstat-desc">Converted 2 merchants into paying customers.</p>
     </div>
   </div>
 
