@@ -804,24 +804,28 @@ a.cs-cta { margin-top: 28px; }
 .cs-arcs-viz { align-self: end; }
 .cs-arcs-viz svg { width: 100%; height: auto; display: block; }
 .cs-arcs-caption {
-  font-family: 'Geist Mono', monospace; font-size: 9px; letter-spacing: 0.14em;
-  text-transform: uppercase; color: var(--text-muted); margin-top: 12px; text-align: left;
+  font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--text-soft); margin-top: 12px; text-align: left;
+}
+.cs-arcs-note {
+  font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.14em;
+  text-transform: uppercase; color: rgba(255,255,255,0.28); margin-top: 5px; text-align: left;
 }
 .cs-arcs-legend { display: flex; flex-direction: column; }
 .cs-arc-row { padding: 18px 0; border-top: 1px solid var(--line); }
 .cs-arc-row:first-child { border-top: none; padding-top: 0; }
 .cs-arc-row:last-child { padding-bottom: 0; }
-.cs-arc-row { display: flex; flex-direction: column; gap: 3px; }
+.cs-arc-row { display: flex; flex-direction: column; gap: 0; }
 .cs-arc-eyebrow {
   font-family: 'Geist Mono', monospace; font-size: 9.5px; letter-spacing: 0.16em;
   text-transform: uppercase; color: var(--text-muted);
 }
 .cs-arc-row--win .cs-arc-eyebrow { color: rgba(212,255,94,0.7); }
-.cs-arc-lead { font-family: 'Geist', sans-serif; font-size: 15px; font-weight: 400; line-height: 1.5; color: var(--text); margin: 0; }
-.cs-arc-metric { font-family: 'Geist Mono', monospace; font-size: 12px; font-weight: 400; letter-spacing: 0.02em; color: var(--text-muted); margin: 3px 0 0; }
-.cs-arc-metric strong { font-weight: 500; color: var(--text-soft); }
+.cs-arc-lead { font-family: 'Geist', sans-serif; font-size: 13px; font-weight: 400; line-height: 1.5; color: var(--text); margin: 12px 0 0; }
+.cs-arc-metric { font-family: 'Geist Mono', monospace; font-size: 12px; font-weight: 400; letter-spacing: 0.02em; color: var(--text-muted); margin: 4px 0 0; }
+.cs-arc-metric strong { font-family: 'Geist', sans-serif; font-weight: 500; color: var(--text-soft); }
 .cs-arc-row--win .cs-arc-metric strong { color: var(--text); }
-.cs-arc-metric em { font-style: normal; font-weight: 500; color: var(--text-soft); }
+.cs-arc-metric em { font-family: 'Geist', sans-serif; font-style: normal; font-weight: 500; color: var(--text-soft); }
 .cs-arc-row--win .cs-arc-metric em { color: var(--accent); }
 @media (max-width: 700px) {
   .cs-arcs { grid-template-columns: 1fr; gap: 28px; padding: 28px 24px; }
@@ -1162,7 +1166,7 @@ a.cs-cta { margin-top: 28px; }
   <p class="cs-p reveal">On the surface, payments appear simple. A customer pays, and the merchant gets paid.</p>
 
   <!-- Payment flow — simplified journey -->
-  <div class="cs-vis reveal" style="margin-top: 48px;">
+  <div class="cs-vis reveal" style="margin: 24px 0;">
     <div class="cs-vis-label">How money flows</div>
     <div class="cs-vis-body" style="padding: 44px 28px 40px;">
       <svg viewBox="0 0 700 132" xmlns="http://www.w3.org/2000/svg" role="img" style="width:100%; display:block;">
@@ -1221,14 +1225,15 @@ a.cs-cta { margin-top: 28px; }
     </div>
   </div>
 
-  <p class="cs-p reveal" style="margin-top: 24px;">In reality, every transaction passes through multiple participants before the money reaches the merchant's bank account — each introducing its own fees, rules, and operational complexity. These processing costs are a necessary part of accepting payments, but at scale they quickly become one of a merchant's largest variable expenses.</p>
+  <p class="cs-p reveal">In reality, every transaction passes through multiple participants before the money reaches the merchant's bank account — each introducing its own fees, rules, and operational complexity. These processing costs are a necessary part of accepting payments, but at scale they quickly become one of a merchant's largest variable expenses.</p>
 
   <h3 class="cs-h3 reveal" style="margin-top: 52px;">What surprised us..</h3>
   <p class="cs-p reveal">Merchants knew <strong>how much</strong> they were paying, but had very little understanding of <strong>what changed</strong>, <strong>why it changed</strong>, or <strong>where their money was going</strong>. The numbers were too large to ignore.</p>
+  <p class="cs-p reveal">Most merchants spend between 1.5–3.5% of their payment volume on processing costs. At scale, even a seemingly small percentage becomes a significant business expense.</p>
 
   <!-- Merchant scale tiers — concentric arcs -->
-  <div class="cs-vis-heading reveal" style="margin-top: 48px;">What a 2% payment cost looks like at scale</div>
-  <div class="cs-arcs reveal" style="margin-top: 20px;">
+  <div class="cs-vis-heading reveal" style="margin-top: 48px;">Why scale changes everything</div>
+  <div class="cs-arcs reveal" style="margin: 16px 0 24px;">
     <div class="cs-arcs-viz">
       <svg viewBox="0 0 220 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Concentric arcs showing payment cost scaling from small to enterprise merchants">
         <defs>
@@ -1249,27 +1254,28 @@ a.cs-cta { margin-top: 28px; }
         <circle cx="26" cy="180" r="4.5" fill="var(--accent)"/>
       </svg>
       <div class="cs-arcs-caption">Merchant scale →</div>
+      <div class="cs-arcs-note">At 2% processing cost</div>
     </div>
     <div class="cs-arcs-legend">
       <div class="cs-arc-row">
         <span class="cs-arc-eyebrow">Small merchant</span>
         <p class="cs-arc-lead">Costs are rarely a priority.</p>
-        <p class="cs-arc-metric">Grosses around <strong>$5M</strong>/yr = <em>$100K</em> cost/yr</p>
+        <p class="cs-arc-metric"><strong>~$5M</strong> processed annually → <em>$100K</em>/yr in payment costs</p>
       </div>
       <div class="cs-arc-row">
         <span class="cs-arc-eyebrow">Mid-sized merchant</span>
         <p class="cs-arc-lead">Costs become noticeable.</p>
-        <p class="cs-arc-metric">Grosses around <strong>$50M</strong>/yr = <em>$1M</em> cost/yr</p>
+        <p class="cs-arc-metric"><strong>~$50M</strong> processed annually → <em>$1M</em>/yr in payment costs</p>
       </div>
       <div class="cs-arc-row cs-arc-row--win">
         <span class="cs-arc-eyebrow">Enterprise merchant</span>
         <p class="cs-arc-lead">Every basis point matters.</p>
-        <p class="cs-arc-metric">Grosses around <strong>$500M</strong>/yr = <em>$10M</em> cost/yr</p>
+        <p class="cs-arc-metric"><strong>~$500M</strong> processed annually → <em>$10M</em>/yr in payment costs</p>
       </div>
     </div>
   </div>
 
-  <p class="cs-p reveal" style="margin-top: 28px;">While payment costs are often expressed as a small percentage, their impact grows rapidly with transaction volume.</p>
+  <p class="cs-p reveal">While payment costs are often expressed as a small percentage, their impact grows rapidly with transaction volume.</p>
   <p class="cs-p reveal">At enterprise scale, even marginal inefficiencies can translate into millions of dollars in avoidable spend.</p>
 
   <h3 class="cs-h3 reveal" style="margin-top: 52px;">The problem wasn't the cost itself. It was the lack of visibility.</h3>
@@ -1289,7 +1295,7 @@ a.cs-cta { margin-top: 28px; }
   <p class="cs-p reveal">HyperSense is a payment cost observability platform built to help merchants understand where their payment costs come from, why they change, and what actions to take next.</p>
   <p class="cs-p reveal">It connects fragmented payment data spread across processor invoices, settlement reports, and transaction logs into a single investigation workflow.</p>
 
-  <div class="cs-shot reveal">
+  <div class="cs-shot reveal" style="margin: 24px 0;">
     <img src="assets/hypersense-hero.png" alt="HyperSense — payment cost observability dashboard" loading="lazy" />
   </div>
 
@@ -1298,7 +1304,7 @@ a.cs-cta { margin-top: 28px; }
   <p class="cs-p reveal" style="margin-top: 52px;">As a team of seven, our goal was to understand how payment costs were structured, where merchants lacked visibility, and why investigating cost changes remained a largely manual process. We looked at processor invoices, fee structures, and operational workflows to identify where the biggest gaps existed and where the product could create the most value.</p>
   <p class="cs-p reveal">As the solo product designer, I worked closely with product, engineering, and data teams to translate that understanding into product experiences that helped merchants move from fragmented data to clear, actionable answers.</p>
 
-  <div class="cs-vis reveal" style="margin-top: 26px;">
+  <div class="cs-vis reveal" style="margin: 24px 0;">
     <div class="cs-vis-label">One designer. A team of seven. One shared problem to solve.</div>
     <div class="cs-team-grid">
       <div class="cs-team-col">
