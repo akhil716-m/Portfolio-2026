@@ -43,10 +43,10 @@
   font-weight: 400; margin-bottom: 12px;
 }
 .cs-rail-thesis {
-  font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 300;
-  font-style: italic; line-height: 1.45; color: var(--text-soft); margin: 0;
+  font-family: 'Geist', sans-serif; font-size: 14px; font-weight: 400;
+  font-style: normal; line-height: 1.45; color: var(--text-soft); margin: 0;
 }
-.cs-rail-thesis em { color: var(--text); font-style: italic; }
+.cs-rail-thesis em { color: var(--text); font-style: normal; font-family: 'Geist', sans-serif; font-weight: 500; }
 .cs-rail-others {
   list-style: none; margin: 20px 0 0; padding: 18px 0 0;
   border-top: 1px solid var(--line); display: flex; flex-direction: column; gap: 2px;
@@ -95,12 +95,12 @@
 }
 .cs-hero-eyebrow .sep { color: var(--text-muted); margin: 0 10px; letter-spacing: 0; }
 .cs-hero-title {
-  font-family: 'Playfair Display', serif; font-size: clamp(60px, 11vw, 130px); font-weight: 500;
-  line-height: 0.96; letter-spacing: -0.02em; color: var(--text); max-width: 920px;
+  font-family: 'Geist', sans-serif; font-size: clamp(60px, 11vw, 130px); font-weight: 500;
+  line-height: 0.96; letter-spacing: -0.03em; color: var(--text); max-width: 920px;
   opacity: 0; animation: csFadeUp 0.9s ease forwards 0.35s;
 }
 .cs-hero-title em {
-  font-style: italic; font-family: 'Instrument Serif', serif; font-weight: 400; color: var(--warm);
+  font-style: normal; font-family: 'Geist', sans-serif; font-weight: 500; color: var(--text-soft);
 }
 .cs-hero-meta {
   display: flex; flex-wrap: wrap; gap: 48px; margin-top: 58px; padding-top: 32px;
@@ -143,11 +143,11 @@
 .cs-label::after { content: ''; flex: 1; max-width: 44px; height: 1px; background: var(--line); }
 
 .cs-display {
-  font-family: 'Playfair Display', serif; font-size: clamp(32px, 4.6vw, 52px); font-weight: 500;
+  font-family: 'Geist', sans-serif; font-size: clamp(32px, 4.6vw, 52px); font-weight: 500;
   line-height: 1.18; letter-spacing: -0.015em; color: var(--text); margin: 0 0 30px; max-width: 17ch;
 }
 .cs-display em {
-  font-style: italic; font-family: 'Instrument Serif', serif; font-weight: 400; color: var(--warm);
+  font-style: normal; font-family: 'Geist', sans-serif; font-weight: 500; color: var(--text-soft);
 }
 .cs-lead {
   font-family: 'Geist', sans-serif; font-size: 19px; font-weight: 300; line-height: 1.75;
@@ -159,9 +159,9 @@
 }
 .cs-p:last-child { margin-bottom: 0; }
 .cs-p strong { color: var(--text); font-weight: 600; }
-.cs-em { font-style: italic; font-family: 'Instrument Serif', serif; color: var(--warm); }
+.cs-em { font-style: normal; font-family: 'Geist', sans-serif; font-weight: 500; color: var(--text); }
 .cs-h3 {
-  font-family: 'Playfair Display', serif; font-size: clamp(22px, 3.2vw, 32px); font-weight: 500;
+  font-family: 'Geist', sans-serif; font-size: clamp(22px, 3.2vw, 30px); font-weight: 600;
   color: var(--text); margin: 0 0 16px;
 }
 .cs-list { list-style: none; padding: 0; margin: 0 0 48px; display: flex; flex-direction: column; gap: 11px; }
@@ -178,9 +178,9 @@
 }
 .cs-pullquote {
   margin: 40px 0 0; padding: 18px 24px; border-radius: 0 8px 8px 0;
-  border-left: 2px solid var(--warm); background: rgba(232,197,152,0.05);
-  font-family: 'Instrument Serif', serif; font-style: italic;
-  font-size: clamp(17px, 2vw, 21px); line-height: 1.6; color: var(--warm);
+  border-left: 2px solid var(--accent); background: rgba(212,255,94,0.045);
+  font-family: 'Geist', sans-serif; font-style: normal;
+  font-size: clamp(17px, 2vw, 21px); line-height: 1.6; color: var(--text-soft);
 }
 .cs-challenge {
   margin-top: 22px; padding: 18px 22px; border-radius: 0 8px 8px 0;
@@ -313,7 +313,7 @@
 .cs-anchor-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin: 40px 0 8px; }
 .cs-anchor { padding-top: 18px; border-top: 2px solid var(--accent); }
 .cs-anchor-num { font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; }
-.cs-anchor-title { font-family: 'Playfair Display', serif; font-size: 19px; font-weight: 500; color: var(--text); margin-bottom: 8px; }
+.cs-anchor-title { font-family: 'Geist', sans-serif; font-size: 19px; font-weight: 600; color: var(--text); margin-bottom: 8px; }
 .cs-anchor-desc { font-family: 'Geist', sans-serif; font-size: 12.5px; font-weight: 300; line-height: 1.75; color: var(--text-soft); }
 
 /* ---------- UI TEASER — first glimpse card in section 02 ---------- */
@@ -334,7 +334,7 @@
   display: block; font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
   color: var(--accent); margin-bottom: 10px;
 }
-.cs-ui-cap-title { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 500; color: var(--text); margin-bottom: 8px; }
+.cs-ui-cap-title { font-family: 'Geist', sans-serif; font-size: 18px; font-weight: 600; color: var(--text); margin-bottom: 8px; }
 .cs-ui-cap-desc { font-family: 'Geist', sans-serif; font-size: 13px; font-weight: 300; line-height: 1.7; color: var(--text-soft); margin: 0; }
 
 /* ---------- UI SEQUENCE — editorial numbered panels ---------- */
@@ -348,7 +348,7 @@
   text-transform: uppercase; color: var(--accent); margin-bottom: 10px;
 }
 .cs-ui-panel-title {
-  font-family: 'Playfair Display', serif; font-size: clamp(18px, 2.2vw, 24px); font-weight: 500;
+  font-family: 'Geist', sans-serif; font-size: clamp(18px, 2.2vw, 24px); font-weight: 600;
   color: var(--text); margin: 0;
 }
 .cs-ui-panel-desc {
@@ -369,7 +369,7 @@
 /* ---------- CLOSING QUOTE ---------- */
 .cs-quote {
   margin: 64px 0 22px; padding: 0 0 0 24px; border-left: 2px solid var(--accent);
-  font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(18px, 2.4vw, 23px);
+  font-family: 'Geist', sans-serif; font-style: normal; font-size: clamp(18px, 2.4vw, 23px);
   font-weight: 400; line-height: 1.6; color: var(--text); max-width: 640px;
 }
 .cs-thanks { font-size: 15px; color: var(--text-soft); }
@@ -497,7 +497,7 @@
   font-size: 20px;
 }
 .cs-proto-panel h3 {
-  font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 500;
+  font-family: 'Geist', sans-serif; font-size: 22px; font-weight: 600;
   color: var(--text); margin: 0;
 }
 .cs-proto-panel p {
@@ -1159,7 +1159,7 @@ a.cs-cta { margin-top: 28px; }
       <line x1="28" y1="38" x2="50" y2="38" stroke="var(--text-muted)" stroke-width="1" opacity="0.3"/>
       <line x1="28" y1="44" x2="42" y2="44" stroke="var(--text-muted)" stroke-width="1" opacity="0.25"/>
     </svg>
-    <p style="font-family: 'Playfair Display', serif; font-size: clamp(26px, 3vw, 34px); font-weight: 400; font-style: italic; color: var(--text); margin: 0; line-height: 1.4;">Thanks for reading.</p>
+    <p style="font-family: 'Geist', sans-serif; font-size: clamp(26px, 3vw, 34px); font-weight: 500; font-style: normal; color: var(--text); margin: 0; line-height: 1.4;">Thanks for reading.</p>
   </div>
   <div style="display: flex; justify-content: center; margin-top: 16px;">
     <a class="cs-cta reveal" href="index.html" style="margin: 0;">
