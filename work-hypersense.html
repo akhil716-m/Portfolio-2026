@@ -672,7 +672,7 @@ a.cs-cta { margin-top: 28px; }
 }
 
 /* ---------- PERSONAS ---------- */
-.cs-persona { margin: 56px 0; padding: 36px; background: var(--bg-card); border: 1px solid var(--line); border-radius: 10px; position: relative; z-index: 501; }
+.cs-persona { margin: 40px 0 0; padding: 36px; background: var(--bg-card); border: 1px solid var(--line); border-radius: 10px; position: relative; z-index: 501; }
 .cs-persona + .cs-persona { margin-top: 32px; }
 .cs-persona-head { display: flex; gap: 20px; margin-bottom: 32px; }
 .cs-persona-icon {
@@ -994,6 +994,36 @@ a.cs-cta { margin-top: 28px; }
 }
 .cs-challenge-tag { font-family: 'Geist Mono', monospace; font-size: 9.5px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
 .cs-challenge p { font-family: 'Geist', sans-serif; font-size: 14.5px; font-weight: 300; line-height: 1.8; color: var(--text-soft); margin: 0; }
+
+/* ---------- DESIGN TENSIONS (editorial list) ---------- */
+.cs-tensions { margin: 36px 0 0; position: relative; z-index: 501; }
+.cs-tension-row {
+  display: grid; grid-template-columns: 40px 1fr;
+  gap: 0 28px; padding: 40px 0; border-top: 1px solid var(--line); align-items: start;
+}
+.cs-tension-row:first-child { border-top: none; padding-top: 8px; }
+.cs-tension-index { grid-column: 1; grid-row: 1; font-family: 'Geist Mono', monospace; font-size: 16px; font-weight: 400; color: var(--text-muted); line-height: 1; padding-top: 3px; }
+.cs-tension-tension { grid-column: 2; }
+.cs-tension-title { font-family: 'Geist', sans-serif; font-size: 17px; font-weight: 500; line-height: 1.35; color: var(--text); margin: 0 0 10px; }
+.cs-tension-friction { font-family: 'Geist', sans-serif; font-size: 13.5px; font-weight: 300; line-height: 1.65; color: var(--text-muted); margin: 0 0 14px; max-width: 62ch; }
+.cs-tension-poles {
+  display: inline-flex; align-items: center; gap: 12px;
+  font-family: 'Geist', sans-serif; font-size: 13px; line-height: 1.3;
+}
+.cs-tension-pole-a { color: var(--text-muted); }
+.cs-tension-pole-b { color: var(--text); font-weight: 500; }
+.cs-tension-vs { font-family: 'Geist Mono', monospace; font-size: 13px; color: var(--accent); opacity: 0.9; }
+.cs-tension-resp {
+  grid-column: 2; margin-top: 20px;
+  padding: 18px 22px; border-radius: 0 10px 10px 0;
+  background: rgba(212,255,94,0.045); border-left: 2px solid rgba(212,255,94,0.5);
+}
+.cs-tension-resp-label { font-family: 'Geist Mono', monospace; font-size: 9.5px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 9px; }
+.cs-tension-resp p { font-family: 'Geist', sans-serif; font-size: 13.5px; font-weight: 300; line-height: 1.65; color: var(--text-soft); margin: 0; max-width: 62ch; }
+@media (max-width: 760px) {
+  .cs-tension-row { grid-template-columns: 28px 1fr; gap: 12px 16px; }
+  .cs-tension-poles { flex-wrap: wrap; }
+}
 
 /* ---------- KNOWLEDGE GRAPH ---------- */
 #cs-graph { width: 100%; height: auto; display: block; }
@@ -1623,9 +1653,8 @@ a.cs-cta { margin-top: 28px; }
     </div>
   </div>
 
-  <p class="cs-p reveal" style="margin-top: 48px;">By this point, we understood the ecosystem. The challenge was turning a fragmented payment system into a coherent cost story that different teams could trust and act on.</p>
-  <p class="cs-p reveal">Although each stakeholder entered the investigation from a different point, every investigation eventually converged on the same set of questions.</p>
-  <p class="cs-p reveal">That became our starting point.</p>
+  <p class="cs-p reveal" style="margin-top: 40px;">By this point, we understood the ecosystem. The challenge was turning a fragmented payment system into a coherent cost story that different teams could trust and act on.</p>
+  <p class="cs-p reveal">Different teams carried different responsibilities, but they were all trying to solve the same problem: understanding where payment costs were coming from and what to do about them.</p>
 
 </div>
 </section>
@@ -1637,9 +1666,10 @@ a.cs-cta { margin-top: 28px; }
   <div class="cs-label reveal"><span class="num">/06</span> Product Strategy and Design</div>
   <h2 class="cs-display reveal">From fragmented signals to <em>one investigation.</em></h2>
   <p class="cs-p reveal">Payment cost systems are naturally fragmented. Organising the product around processors, fee types, or reports would simply mirror that complexity.</p>
-  <p class="cs-p reveal">Instead, we looked at how investigations actually unfolded. Although teams entered from different starting points, they were all trying to answer the same underlying questions.</p>
+  <p class="cs-p reveal">Instead, we looked at how investigations actually unfolded. Regardless of where teams started, they were all trying to answer the same core questions.</p>
+  <p class="cs-p reveal">That insight shaped the product strategy.</p>
 
-  <div class="cs-vis reveal" style="margin: 48px 0 24px;">
+  <div class="cs-vis reveal" style="margin: 24px 0;">
     <div class="cs-vis-label">One investigation. Multiple questions.</div>
     <div class="cs-vis-body">
       <canvas id="cs-graph" aria-label="HyperSense knowledge graph — five modules and their sub-questions"></canvas>
@@ -1655,40 +1685,77 @@ a.cs-cta { margin-top: 28px; }
 <div class="cs-wrap">
 
   <div class="cs-label reveal"><span class="num">/07</span> Design Challenge</div>
-  <h2 class="cs-display reveal">Four tensions that shaped <em>every design decision.</em></h2>
+  <h2 class="cs-display reveal">Five tensions that shaped <em>every design decision.</em></h2>
   <p class="cs-p reveal">Defining the investigation flow solved the product problem. Designing an experience around it introduced a new set of constraints.</p>
   <p class="cs-p reveal">Every decision now had to balance trust, flexibility, and depth — without breaking the investigation flow.</p>
 
-  <h3 class="cs-h3 reveal" style="margin-top: 52px;">Making complex cost data trustworthy</h3>
-  <p class="cs-p reveal">Before teams could act on payment costs, they first needed confidence in what they were seeing.</p>
-  <p class="cs-p reveal">The challenge wasn't just simplifying the data. It was presenting complex, multi-layered financial information in a way that felt reliable enough for teams to make operational decisions.</p>
-  <div class="cs-challenge reveal">
-    <div class="cs-challenge-tag">Design Challenge</div>
-    <p>Create interfaces that move users from interpretation → confidence → action, without requiring a second source to validate the data.</p>
-  </div>
+  <div class="cs-tensions reveal">
 
-  <h3 class="cs-h3 reveal" style="margin-top: 52px;">One interface for fundamentally different pricing models</h3>
-  <p class="cs-p reveal">IC++ exposes a detailed breakdown of interchange, scheme fees, and processor markups. Blended pricing compresses all of that into a single effective rate.</p>
-  <p class="cs-p reveal">These models don't just differ in pricing. They expose fundamentally different levels of visibility.</p>
-  <div class="cs-challenge reveal">
-    <div class="cs-challenge-tag">Design Challenge</div>
-    <p>Create a unified experience that adapts to both granular IC++ data and simplified blended pricing.</p>
-  </div>
+    <div class="cs-tension-row">
+      <div class="cs-tension-index">01</div>
+      <div class="cs-tension-tension">
+        <div class="cs-tension-title">One cost story from fragmented systems</div>
+        <p class="cs-tension-friction">Cost investigations required teams to piece together answers from multiple disconnected systems, reports, and invoices before they could understand what was happening.</p>
+        <div class="cs-tension-poles"><span class="cs-tension-pole-a">Fragmented cost signals</span><span class="cs-tension-vs">⇄</span><span class="cs-tension-pole-b">One investigation workflow</span></div>
+      </div>
+      <div class="cs-tension-resp">
+        <div class="cs-tension-resp-label">Design response</div>
+        <p>Consolidate fragmented cost data into a single workflow that supports end-to-end investigation.</p>
+      </div>
+    </div>
 
-  <h3 class="cs-h3 reveal" style="margin-top: 52px;">Distinguishing actionable costs from expected ones</h3>
-  <p class="cs-p reveal">Not every increase in payment cost is a problem. Some are expected. Some are strategic. Some require immediate attention.</p>
-  <p class="cs-p reveal">The same cost increase could represent normal business growth, a network change, or preventable leakage.</p>
-  <div class="cs-challenge reveal">
-    <div class="cs-challenge-tag">Design Challenge</div>
-    <p>Help users distinguish normal cost movement from preventable leakage that requires action.</p>
-  </div>
+    <div class="cs-tension-row">
+      <div class="cs-tension-index">02</div>
+      <div class="cs-tension-tension">
+        <div class="cs-tension-title">Making complex cost data trustworthy</div>
+        <p class="cs-tension-friction">Payment teams were expected to make operational and financial decisions from data they couldn't easily verify or explain.</p>
+        <div class="cs-tension-poles"><span class="cs-tension-pole-a">Complex cost data</span><span class="cs-tension-vs">⇄</span><span class="cs-tension-pole-b">Confidence to act</span></div>
+      </div>
+      <div class="cs-tension-resp">
+        <div class="cs-tension-resp-label">Design response</div>
+        <p>Present cost intelligence in a way that feels transparent, explainable, and trustworthy enough to drive decisions.</p>
+      </div>
+    </div>
 
-  <h3 class="cs-h3 reveal" style="margin-top: 52px;">Designing for different levels of depth</h3>
-  <p class="cs-p reveal">Payment Analysts needed transaction-level detail to investigate root causes. Finance leaders needed a clear cost story to explain business impact. Operations teams needed visibility into the decisions influencing costs.</p>
-  <p class="cs-p reveal">All three users depended on the same underlying data, but each needed a different level of depth and context.</p>
-  <div class="cs-challenge reveal">
-    <div class="cs-challenge-tag">Design Challenge</div>
-    <p>Provide executive clarity at a glance while preserving transaction-level depth on demand.</p>
+    <div class="cs-tension-row">
+      <div class="cs-tension-index">03</div>
+      <div class="cs-tension-tension">
+        <div class="cs-tension-title">One interface, two pricing models</div>
+        <p class="cs-tension-friction">The same product needed to serve merchants operating on fundamentally different pricing structures and levels of cost visibility.</p>
+        <div class="cs-tension-poles"><span class="cs-tension-pole-a">IC++ granular detail</span><span class="cs-tension-vs">⇄</span><span class="cs-tension-pole-b">Blended single rate</span></div>
+      </div>
+      <div class="cs-tension-resp">
+        <div class="cs-tension-resp-label">Design response</div>
+        <p>Create a unified experience that adapts to both transparent IC++ pricing and simplified blended pricing.</p>
+      </div>
+    </div>
+
+    <div class="cs-tension-row">
+      <div class="cs-tension-index">04</div>
+      <div class="cs-tension-tension">
+        <div class="cs-tension-title">Distinguishing growth from leakage</div>
+        <p class="cs-tension-friction">Not every increase in payment costs is a problem. Some reflect healthy business growth, while others indicate preventable leakage.</p>
+        <div class="cs-tension-poles"><span class="cs-tension-pole-a">Expected cost movement</span><span class="cs-tension-vs">⇄</span><span class="cs-tension-pole-b">Preventable leakage</span></div>
+      </div>
+      <div class="cs-tension-resp">
+        <div class="cs-tension-resp-label">Design response</div>
+        <p>Help teams distinguish normal cost behaviour from issues that require investigation and action.</p>
+      </div>
+    </div>
+
+    <div class="cs-tension-row">
+      <div class="cs-tension-index">05</div>
+      <div class="cs-tension-tension">
+        <div class="cs-tension-title">One investigation for multiple teams</div>
+        <p class="cs-tension-friction">Finance, Payments, and Operations teams approached the problem from different angles, but every investigation needed a shared understanding of what changed and why.</p>
+        <div class="cs-tension-poles"><span class="cs-tension-pole-a">Different stakeholder goals</span><span class="cs-tension-vs">⇄</span><span class="cs-tension-pole-b">Shared investigation</span></div>
+      </div>
+      <div class="cs-tension-resp">
+        <div class="cs-tension-resp-label">Design response</div>
+        <p>Support different workflows while keeping every team aligned around the same cost narrative.</p>
+      </div>
+    </div>
+
   </div>
 
 </div>
