@@ -85,6 +85,8 @@
   opacity: 0; animation: csFadeUp 0.7s ease forwards 0.05s;
 }
 .cs-back:hover { color: var(--accent); gap: 13px; }
+nav .logo a.cs-back { margin-bottom: 0; opacity: 1; animation: none; color: var(--text-muted); }
+nav .logo a.cs-back:hover { color: var(--accent); }
 .cs-back .arr { display: inline-block; transition: transform 0.2s ease; }
 .cs-back:hover .arr { transform: translateX(-3px); }
 
@@ -581,16 +583,12 @@ a.cs-cta { margin-top: 28px; }
 
 <nav>
   <div class="logo">
-    <a href="index.html">
-      <img src="assets/akhil.jpg" alt="" class="mark" style="width: 22px; height: 22px; object-fit: cover; object-position: top center; filter: grayscale(100%);">
-      <span class="name">Akhil Male</span>
-    </a>
+    <a class="cs-back" href="index.html"><span class="arr">←</span> Back to selected work</a>
   </div>
 </nav>
 
 <!-- ═══════════════════════ HERO ═══════════════════════ -->
 <header class="cs-hero">
-  <a class="cs-back" href="index.html"><span class="arr">←</span> Back to selected work</a>
   <div class="cs-hero-eyebrow">Case Study<span class="sep">·</span>Concept Draft<span class="sep">·</span>2025</div>
   <h1 class="cs-hero-title">Recon<em>ciliation</em></h1>
   <div class="cs-hero-meta">
