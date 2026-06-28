@@ -1646,7 +1646,7 @@ nav .status .dot {
 
 /* === CONTACT === */
 .contact {
-  padding: 140px 40px 120px;
+  padding: 140px 40px 8px;
   max-width: 1400px;
   margin: 0 auto;
   position: relative;
@@ -1654,11 +1654,10 @@ nav .status .dot {
 
 .contact-email {
   display: grid;
-  grid-template-columns: 120px 1fr;
-  align-items: center;
+  grid-template-columns: 1fr auto;
+  align-items: end;
   gap: 16px;
-  padding: 48px 0;
-  border-bottom: 1px solid var(--line);
+  padding: 48px 0 8px;
   color: var(--text);
 }
 .contact-email-label {
@@ -1667,6 +1666,8 @@ nav .status .dot {
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--text-muted);
+  display: block;
+  margin-bottom: 12px;
 }
 .contact-email-address {
   font-family: 'Geist', sans-serif;
@@ -1684,21 +1685,21 @@ nav .status .dot {
 .contact-socials {
   display: flex;
   flex-wrap: wrap;
-  gap: 32px;
-  margin-top: 40px;
+  gap: 20px;
   font-family: 'Geist Mono', monospace;
-  font-size: 12px;
+  font-size: 11px;
 }
 .contact-socials a {
-  color: var(--text-soft);
+  color: var(--text-muted);
   text-decoration: none;
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   transition: color 0.2s;
+  width: fit-content;
 }
-.contact-socials a:hover { color: var(--accent); }
-.contact-socials a .arr { font-style: italic; font-family: 'Instrument Serif', serif; font-size: 14px; }
+.contact-socials a svg { flex-shrink: 0; }
+.contact-socials a:hover { color: var(--text); }
 
 /* === FOOTER === */
 footer {
@@ -1706,6 +1707,7 @@ footer {
   padding: 32px 40px;
   display: grid;
   grid-template-columns: 1fr 1fr;
+  align-items: center;
   gap: 24px;
   font-family: 'Geist Mono', monospace;
   font-size: 11px;
