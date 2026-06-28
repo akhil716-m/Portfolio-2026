@@ -149,7 +149,7 @@ nav .status .dot {
 /* === HERO === */
 .hero {
   min-height: 100vh;
-  padding: 364px 40px 80px;
+  padding: 19vw 40px 5vw;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
