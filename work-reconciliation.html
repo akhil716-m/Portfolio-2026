@@ -375,6 +375,18 @@ nav .logo a.cs-back:hover { color: var(--accent); }
   font-weight: 400; line-height: 1.6; color: var(--text); max-width: 640px;
 }
 .cs-thanks { font-size: 15px; color: var(--text-soft); }
+.cs-thanks-note {
+  margin: 72px 0 0; padding: 0; text-align: center;
+  display: flex; flex-direction: column; align-items: center; gap: 16px;
+}
+.cs-thanks-mark { color: var(--accent); display: inline-flex; align-items: center; gap: 14px; }
+.cs-thanks-dash { width: 32px; height: 1px; background: var(--line); display: inline-block; }
+.cs-thanks-note p {
+  margin: 0; font-family: 'Geist', sans-serif; font-size: 18px; font-weight: 500;
+  color: var(--text); letter-spacing: -0.01em;
+}
+.cs-cta-center { display: flex; justify-content: center; margin-top: 32px; }
+.cs-cta-center a.cs-cta { margin-top: 0; }
 
 /* ---------- BROWSER MOCKUP ---------- */
 .cs-mock-browser {
@@ -609,7 +621,7 @@ a.cs-cta { margin-top: 28px; }
 
   <div class="cs-label reveal"><span class="num">/01</span> Why Reconciliation Exists</div>
   <h2 class="cs-display reveal">One transaction. <em>Multiple versions of the truth.</em></h2>
-  <p class="cs-p reveal">When a customer makes a payment, the journey doesn't end there. A merchant records the transaction. A payment provider processes and settles it. A bank eventually receives the funds. Each system independently stores its own version of that same event.</p>
+  <p class="cs-p reveal">When a customer makes a payment, multiple systems record the same event. Merchants, payment providers, and banks each store their own version of what happened.</p>
 
   <div class="cs-recon-layer-flow reveal" style="margin: 40px 0 48px;">
     <div class="cs-recon-node cs-recon-node--oms">
@@ -629,9 +641,7 @@ a.cs-cta { margin-top: 28px; }
   </div>
 
   <p class="cs-p reveal">As businesses grow, thousands of these transactions flow every day. Even small discrepancies can lead to reporting errors, delayed investigations, and revenue leakage.</p>
-  <p class="cs-p reveal" style="margin-top: 8px;">Reconciliation exists to verify that every system tells the same story about where the money went.</p>
-
-  <p class="cs-p reveal" style="margin-top: 40px;">Reconciliation doesn't compare every system at once. It happens layer by layer, comparing two parties at a time.</p>
+  <p class="cs-p reveal" style="margin-top: 8px;">Reconciliation exists to verify that every system tells the same story about where the money went. To do that, reconciliation happens layer by layer, comparing two parties at a time.</p>
 
   <div class="cs-recon-layers reveal" style="margin: 40px 0 48px;">
     <div class="cs-recon-layer">
@@ -674,10 +684,10 @@ a.cs-cta { margin-top: 28px; }
     </div>
   </div>
 
-  <p class="cs-p reveal">Records are paired using a common identifier, such as an Order ID, and then validated against a predefined rule set.</p>
+  <p class="cs-p reveal">Accounts are paired using a common identifier, such as an Order ID or Batch ID and validated against a predefined rule set. A single transaction may involve multiple accounts and entries across the systems being compared.</p>
 
   <div class="cs-challenge reveal" style="margin-top: 32px;">
-    <p>If the records agree, the transaction is reconciled. If they don't, the investigation begins.</p>
+    <p>If the accounts agree, the transaction is reconciled. If they don't, the investigation begins.</p>
   </div>
 
 </div>
@@ -996,7 +1006,7 @@ a.cs-cta { margin-top: 28px; }
 <!-- Intro -->
 <div class="cs-wrap">
   <div class="cs-label reveal"><span class="num">/05</span> From Investigation to Action</div>
-  <h2 class="cs-display reveal">We simplified the path from investigation <em>to action.</em></h2>
+  <h2 class="cs-display reveal">We simplified the path from investigation <em>to resolution.</em></h2>
   <p class="cs-p reveal">The complexity of an exception never disappeared. Instead, we structured the experience so its hidden structure became immediately visible to analysts.</p>
   <p class="cs-p reveal">Rather than rebuilding context for every exception, analysts moved through a consistent two-step flow:</p>
   <div class="cs-anchor-grid reveal" style="margin-top: 48px; grid-template-columns: repeat(2, 1fr);">
@@ -1148,22 +1158,15 @@ a.cs-cta { margin-top: 28px; }
 <div class="cs-wrap">
   <hr class="cs-divider" style="margin-top: 80px;">
 
-  <div class="cs-thanks-block reveal" style="display: flex; flex-direction: column; align-items: center; text-align: center; padding: 80px 0 40px; gap: 28px;">
-    <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity: 0.65;">
-      <rect x="14" y="10" width="36" height="48" rx="2" stroke="var(--accent)" stroke-width="1.5" fill="none"/>
-      <rect x="22" y="14" width="36" height="48" rx="2" stroke="var(--text-muted)" stroke-width="1.5" fill="var(--bg-card)"/>
-      <line x1="28" y1="26" x2="52" y2="26" stroke="var(--text-muted)" stroke-width="1" opacity="0.5"/>
-      <line x1="28" y1="32" x2="48" y2="32" stroke="var(--text-muted)" stroke-width="1" opacity="0.4"/>
-      <line x1="28" y1="38" x2="50" y2="38" stroke="var(--text-muted)" stroke-width="1" opacity="0.3"/>
-      <line x1="28" y1="44" x2="42" y2="44" stroke="var(--text-muted)" stroke-width="1" opacity="0.25"/>
-    </svg>
-    <p style="font-family: 'Geist', sans-serif; font-size: clamp(26px, 3vw, 34px); font-weight: 500; font-style: normal; color: var(--text); margin: 0; line-height: 1.4;">Thanks for reading.</p>
+  <div class="cs-thanks-note reveal">
+    <span class="cs-thanks-mark" aria-hidden="true">
+      <span class="cs-thanks-dash"></span>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c.4 5.9 5.7 11.2 11.6 11.6v.8C17.7 12.8 12.4 18.1 12 24h-.8C10.8 18.1 5.5 12.8-.4 12.4v-.8C5.5 11.2 10.8 5.9 11.2 0h.8z"/></svg>
+      <span class="cs-thanks-dash"></span>
+    </span>
+    <p>Thank you for taking the time to follow the journey.</p>
   </div>
-  <div style="display: flex; justify-content: center; margin-top: 16px;">
-    <a class="cs-cta reveal" href="index.html" style="margin: 0;">
-      <span class="arr">←</span> Back to selected work
-    </a>
-  </div>
+  <div class="cs-cta-center reveal"><a class="cs-cta" href="index.html"><span class="arr">←</span> Back to selected work</a></div>
 </div>
 
 </section>
@@ -1280,7 +1283,7 @@ a.cs-cta { margin-top: 28px; }
     { id: 'cs-exception', label: '02 — What&rsquo;s an Exception',       thesis: 'Sometimes those trails don\'t agree. <em>And that\'s where investigation begins.</em>' },
     { id: 'cs-shapes',    label: '03 — Why Investigation Becomes Difficult', thesis: 'One mismatch can hide <em>many different stories.</em>' },
     { id: 'cs-structure', label: '04 — Designing the Investigation',        thesis: 'Analysts shouldn\'t have to rebuild the story <em>every time.</em>' },
-    { id: 'cs-showcase',  label: '05 — From Investigation to Action',       thesis: 'We simplified the path from <em>investigation to action.</em>' }
+    { id: 'cs-showcase',  label: '05 — From Investigation to Action',       thesis: 'We simplified the path from <em>investigation to resolution.</em>' }
   ];
 
   var activeId = null;
