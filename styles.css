@@ -639,28 +639,38 @@ nav .status .dot {
 
 /* === EXPLORE CARD === */
 .explore-grid {
-  display: flex; flex-direction: column; gap: 24px;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
 }
 .explore-card {
   display: block; position: relative; border-radius: 10px; overflow: hidden;
   text-decoration: none; color: inherit; border: 1px solid var(--line);
   background: var(--bg-card);
-  z-index: 501; position: relative;
+  z-index: 501;
+}
+.explore-card::before {
+  content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: linear-gradient(to top, var(--bg-card) 0%, rgba(22,22,22,0.85) 30%, transparent 60%),
+              linear-gradient(to left, var(--bg-card) 0%, transparent 25%);
 }
 .explore-card img {
-  width: 100%; display: block; aspect-ratio: 16 / 8;
+  width: 100%; display: block; aspect-ratio: 3 / 2;
   object-fit: cover; object-position: top center;
   transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .explore-card:hover img { transform: scale(1.02); filter: blur(8px) brightness(0.5); }
 .explore-overlay {
-  position: absolute; inset: 0;
-  display: flex; flex-direction: column; justify-content: flex-end; align-items: flex-start;
-  padding: 36px 40px; opacity: 0;
-  transition: opacity 0.35s ease;
+  position: absolute; left: 0; right: 0; bottom: 0; z-index: 2;
+  display: flex; flex-direction: column; align-items: flex-start;
+  padding: 32px 32px 40px;
+  transform: translateY(56px);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.explore-card:hover .explore-overlay { opacity: 1; }
-.explore-overlay-text { margin-bottom: 20px; max-width: 560px; }
+.explore-card:hover .explore-overlay { transform: translateY(0); }
+.explore-overlay-text { margin-bottom: 0; max-width: 560px; display: flex; flex-direction: column; gap: 4px; }
+.explore-overlay-text div, .explore-overlay-text h3, .explore-overlay-text p { margin: 0 !important; }
+.explore-overlay-text div:first-child { margin-bottom: 8px !important; }
+.explore-cta { opacity: 0; margin-top: 8px; transition: opacity 0.3s ease 0.1s; }
+.explore-card:hover .explore-cta { opacity: 1; }
 .explore-cta {
   display: inline-flex; align-items: center; gap: 6px;
   font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.05em;
