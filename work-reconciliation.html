@@ -701,7 +701,7 @@ a.cs-cta { margin-top: 28px; }
   <h2 class="cs-display reveal">Sometimes the records <em>don't agree.</em></h2>
 
   <p class="cs-p reveal" style="margin-top: 24px;">That's where analysts begin investigating.</p>
-  <p class="cs-p reveal">An exception is simply a disagreement between two records.</p>
+  <p class="cs-p reveal">An exception occurs when two records fail to match.</p>
 
   <div class="cs-recon-layer-flow reveal" style="margin: 40px 0 40px;">
     <div class="cs-recon-node cs-recon-node--oms">
@@ -787,7 +787,7 @@ a.cs-cta { margin-top: 28px; }
 <section class="cs-section" id="cs-shapes">
 <div class="cs-wrap">
 
-  <div class="cs-label reveal"><span class="num">/03</span> Why Investigation Becomes Difficult</div>
+  <div class="cs-label reveal"><span class="num">/03</span> Why Resolution Slows Down</div>
   <h2 class="cs-display reveal">One mismatch can hide <em>many different stories.</em></h2>
 
   <p class="cs-p reveal" style="margin-top: 24px;">Knowing why two records disagree is only part of the picture. Analysts also need to understand how those records are connected underneath.</p>
@@ -841,9 +841,9 @@ a.cs-cta { margin-top: 28px; }
     </div>
   </div>
 
-  <p class="cs-p reveal">An exception label only tells part of the story.</p>
+  <p class="cs-p reveal">The exception label explains what failed, but not how the records relate underneath.</p>
 
-  <p class="cs-section-sub reveal" style="margin-top: 40px;">Analysts need to understand both layers before they can act:</p>
+  <p class="cs-h3 reveal" style="margin-top: 40px;">Analysts need to understand both layers before they can act:</p>
   <ul class="cs-list reveal">
     <li>Who is being compared (Account level)</li>
     <li>What is being compared underneath (Entry level)</li>
@@ -961,11 +961,9 @@ a.cs-cta { margin-top: 28px; }
     </div>
   </div>
 
-  <p class="cs-section-sub reveal" style="margin-top: 40px;">Why investigation slows down</p>
+  <p class="cs-h3 reveal" style="margin-top: 40px;">Why resolution slows down</p>
   <ul class="cs-list reveal">
     <li>The exception label hides what's happening underneath.</li>
-    <li>Resolution depends on entry-level relationships, not account-level labels.</li>
-    <li>Analysts must manually reconstruct missing context.</li>
     <li>The same mismatch can require different resolution paths.</li>
   </ul>
 
@@ -980,21 +978,32 @@ a.cs-cta { margin-top: 28px; }
   <div class="cs-label reveal"><span class="num">/04</span> Designing the Investigation</div>
   <h2 class="cs-display reveal">Analysts shouldn't have to rebuild the story <em>every time.</em></h2>
 
-  <p class="cs-p reveal" style="margin-top: 24px;">Every exception already carried the information analysts needed to make a decision — but that information was buried across multiple layers of records, relationships, and metadata.</p>
-  <p class="cs-p reveal">Because analysts investigate exceptions repeatedly throughout the day, even small amounts of reconstruction effort quickly compound at scale.</p>
-  <p class="cs-p reveal">Before taking action, they were repeatedly answering the same fundamental questions.</p>
+  <p class="cs-p reveal" style="margin-top: 24px;">Every exception already carried the information analysts needed to make a decision, but that information was buried across multiple layers of accounts &amp; entries relationships metadata.</p>
+  <p class="cs-p reveal">Because analysts handle exceptions repeatedly, even small amounts of reconstruction effort compound quickly at scale.</p>
 
-  <p class="cs-section-sub reveal" style="margin-top: 40px;">Analysts first needed to know:</p>
+
+  <p class="cs-h3 reveal" style="margin-top: 40px;">Before they could resolve an exception, analysts had to answer the same questions every time:</p>
   <ul class="cs-list reveal">
-    <li>What transaction is this about?</li>
+    <li>Which transaction is affected?</li>
     <li>Which accounts and entries are involved?</li>
-    <li>What exactly caused the mismatch?</li>
-    <li>What action should be taken?</li>
+    <li>What caused the mismatch?</li>
+    <li>What needs to happen next?</li>
   </ul>
 
-  <div class="cs-challenge reveal" style="margin-top: 32px;">
-    <div class="cs-challenge-tag">Design Goal</div>
-    <p>Reduce the effort required to move from investigation to resolution.</p>
+  <p class="cs-h3 reveal" style="margin-top: 40px;">Design principle</p>
+  <p class="cs-p reveal">Every exception should answer two questions:</p>
+
+  <div class="cs-anchor-grid reveal" style="margin-top: 48px; grid-template-columns: repeat(2, 1fr);">
+    <div class="cs-anchor">
+      <div class="cs-anchor-num">01</div>
+      <div class="cs-anchor-title">Understand the exception</div>
+      <div class="cs-anchor-desc">Bring together the information needed to understand what happened and where the discrepancy lives.</div>
+    </div>
+    <div class="cs-anchor">
+      <div class="cs-anchor-num">02</div>
+      <div class="cs-anchor-title">Take action</div>
+      <div class="cs-anchor-desc">Guide analysts toward the appropriate resolution with confidence.</div>
+    </div>
   </div>
 
 </div>
@@ -1009,18 +1018,6 @@ a.cs-cta { margin-top: 28px; }
   <h2 class="cs-display reveal">We simplified the path from investigation <em>to resolution.</em></h2>
   <p class="cs-p reveal">The complexity of an exception never disappeared. Instead, we structured the experience so its hidden structure became immediately visible to analysts.</p>
   <p class="cs-p reveal">Rather than rebuilding context for every exception, analysts moved through a consistent two-step flow:</p>
-  <div class="cs-anchor-grid reveal" style="margin-top: 48px; grid-template-columns: repeat(2, 1fr);">
-    <div class="cs-anchor">
-      <div class="cs-anchor-num">01</div>
-      <div class="cs-anchor-title">Understand the exception</div>
-      <div class="cs-anchor-desc">Bring together the information needed to understand what happened and where the discrepancy lives.</div>
-    </div>
-    <div class="cs-anchor">
-      <div class="cs-anchor-num">02</div>
-      <div class="cs-anchor-title">Take action</div>
-      <div class="cs-anchor-desc">Guide analysts toward the appropriate resolution with confidence.</div>
-    </div>
-  </div>
 </div>
 <!-- Hero mockup -->
 <div class="cs-wrap cs-wrap--showcase">
@@ -1281,7 +1278,7 @@ a.cs-cta { margin-top: 28px; }
   var SECTIONS = [
     { id: 'cs-context',   label: '01 — Multiple Versions of the Truth', thesis: 'One transaction. <em>Multiple versions of the truth.</em>' },
     { id: 'cs-exception', label: '02 — What&rsquo;s an Exception',       thesis: 'Sometimes those trails don\'t agree. <em>And that\'s where investigation begins.</em>' },
-    { id: 'cs-shapes',    label: '03 — Why Investigation Becomes Difficult', thesis: 'One mismatch can hide <em>many different stories.</em>' },
+    { id: 'cs-shapes',    label: '03 — Why Resolution Slows Down', thesis: 'One mismatch can hide <em>many different stories.</em>' },
     { id: 'cs-structure', label: '04 — Designing the Investigation',        thesis: 'Analysts shouldn\'t have to rebuild the story <em>every time.</em>' },
     { id: 'cs-showcase',  label: '05 — From Investigation to Action',       thesis: 'We simplified the path from <em>investigation to resolution.</em>' }
   ];
