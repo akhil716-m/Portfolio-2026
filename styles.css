@@ -1659,9 +1659,7 @@ nav .status .dot {
   gap: 16px;
   padding: 48px 0;
   border-bottom: 1px solid var(--line);
-  text-decoration: none;
   color: var(--text);
-  transition: padding-left 0.5s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s;
 }
 .contact-email-label {
   font-family: 'Geist Mono', monospace;
@@ -1676,23 +1674,12 @@ nav .status .dot {
   font-size: clamp(20px, 2.6vw, 36px);
   line-height: 1.05;
   letter-spacing: -0.02em;
-  display: inline-flex;
-  align-items: center;
-  gap: 14px;
+  text-decoration: none;
+  color: var(--text);
+  transition: color 0.3s;
+  width: fit-content;
 }
-.contact-email .arr {
-  font-family: 'Geist', sans-serif;
-  font-style: italic;
-  color: var(--warm);
-  font-size: clamp(16px, 1.6vw, 26px);
-  display: inline-block;
-  transition: transform 0.3s;
-}
-.contact-email:hover {
-  padding-left: 24px;
-  color: var(--accent);
-}
-.contact-email:hover .arr { transform: translate(6px, -6px); }
+.contact-email-address:hover { color: var(--accent); }
 
 .contact-socials {
   display: flex;
