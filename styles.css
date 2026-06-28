@@ -639,8 +639,7 @@ nav .status .dot {
 
 /* === SECTION === */
 .section {
-  padding: 140px 40px;
-  max-width: 1400px;
+  padding: 140px 12%;
   margin: 0 auto;
   position: relative;
 }
@@ -1180,8 +1179,8 @@ nav .status .dot {
 
 .wc-item {
   display: grid;
-  grid-template-columns: 360px 1fr;
-  height: 560px;
+  grid-template-columns: 19vw 1fr;
+  height: 29vw;
   text-decoration: none;
   color: inherit;
   border: 1px solid var(--line);
@@ -1206,7 +1205,7 @@ nav .status .dot {
 .wc-item--light {
   grid-template-columns: 1fr;
   grid-template-rows: 1fr auto;
-  height: 560px;
+  height: 29vw;
 }
 .wc-item--light .wc-visual {
   order: -1;
@@ -1684,6 +1683,9 @@ footer .right a { color: var(--text-soft); text-decoration: none; }
 footer .right a:hover { color: var(--accent); }
 
 /* === RESPONSIVE === */
+@media (max-width: 1200px) {
+  .section { padding: 140px 5%; }
+}
 @media (max-width: 900px) {
   .spotlight { display: none; }
   nav { padding: 16px 20px; font-size: 11px; }
@@ -1691,7 +1693,7 @@ footer .right a:hover { color: var(--accent); }
   nav .logo .role { display: none; }
   .hero { padding: 120px 20px 60px; }
   .hero-foot { grid-template-columns: 1fr; gap: 32px; }
-  .section { padding: 80px 20px; }
+  .section { padding: 80px 5%; }
   .section-head { grid-template-columns: 1fr; gap: 24px; align-items: start; }
   .section-aside { text-align: left; }
   .about-acts { gap: 110px; margin-top: 60px; }
