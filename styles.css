@@ -176,8 +176,8 @@ nav .status .dot {
 }
 
 .hero-title {
-  font-family: 'Playfair Display', serif;
-  font-weight: 400;
+  font-family: 'Geist', sans-serif;
+  font-weight: 500;
   font-size: clamp(40px, 4.5vw, 72px);
   line-height: 1.2;
   letter-spacing: -0.02em;
@@ -202,7 +202,7 @@ nav .status .dot {
 .hero-title .intro .italic { color: var(--accent); font-style: normal; }
 .hero-title .line:nth-child(2) { animation-delay: 0.6s; }
 .hero-title .line:nth-child(3) { animation-delay: 0.8s; }
-.hero-title .italic { font-style: italic; color: var(--warm); }
+.hero-title .italic { font-style: normal; color: var(--warm); }
 .hero-title .quiet { color: var(--text-muted); }
 .hero-title .accent {
   position: relative;
@@ -394,7 +394,7 @@ nav .status .dot {
   gap: 16px;
 }
 .craft-card-title {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Geist', sans-serif;
   font-size: clamp(48px, 6vw, 88px);
   font-weight: 400;
   line-height: 0.95;
@@ -462,7 +462,7 @@ nav .status .dot {
 .craft-demo-btn { opacity: 0; transition: opacity 0.4s 0.1s; }
 .craft-screenshot-wrap:hover .craft-demo-btn { opacity: 1; }
 .craft-overlay-title {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Geist', sans-serif;
   font-size: 22px;
   font-weight: 400;
   color: var(--text);
@@ -672,7 +672,7 @@ nav .status .dot {
 .section-meta .num { color: var(--accent); }
 
 .section-title {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Geist', sans-serif;
   font-size: clamp(32px, 4.4vw, 64px);
   line-height: 1.05;
   letter-spacing: -0.02em;
@@ -945,7 +945,7 @@ nav .status .dot {
 }
 .act-copy { display: flex; flex-direction: column; }
 .act-title {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Geist', sans-serif;
   font-size: clamp(28px, 3.2vw, 42px);
   font-weight: 400;
   line-height: 1.18;
@@ -1010,7 +1010,7 @@ nav .status .dot {
 .work-link:hover .work-num { color: var(--accent); }
 
 .work-title {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Geist', sans-serif;
   font-size: clamp(17px, 1.7vw, 26px);
   line-height: 1.05;
   letter-spacing: -0.02em;
@@ -1276,7 +1276,7 @@ nav .status .dot {
   margin-bottom: 16px; /* breathing space before brief */
 }
 .wc-title {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Geist', sans-serif;
   font-size: clamp(24px, 2.4vw, 34px);
   font-weight: 400;
   letter-spacing: -0.02em;
@@ -1624,7 +1624,7 @@ nav .status .dot {
   color: var(--text-muted);
 }
 .contact-email-address {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Geist', sans-serif;
   font-weight: 400;
   font-size: clamp(20px, 2.6vw, 36px);
   line-height: 1.05;
@@ -1634,7 +1634,7 @@ nav .status .dot {
   gap: 14px;
 }
 .contact-email .arr {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Geist', sans-serif;
   font-style: italic;
   color: var(--warm);
   font-size: clamp(16px, 1.6vw, 26px);
