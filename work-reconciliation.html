@@ -1014,65 +1014,13 @@ a.cs-cta { margin-top: 28px; }
 
 <!-- Intro -->
 <div class="cs-wrap">
-  <div class="cs-label reveal"><span class="num">/05</span> From Investigation to Action</div>
+  <div class="cs-label reveal"><span class="num">/05</span> Designing for Resolution</div>
   <h2 class="cs-display reveal">We simplified the path from investigation <em>to resolution.</em></h2>
-  <p class="cs-p reveal">The complexity of an exception never disappeared. Instead, we structured the experience so its hidden structure became immediately visible to analysts.</p>
-  <p class="cs-p reveal">Rather than rebuilding context for every exception, analysts moved through a consistent two-step flow:</p>
+  <p class="cs-p reveal">We structured the experience around the way analysts naturally approach exceptions: first understand the exception, then resolve it.</p>
 </div>
-<!-- Hero mockup -->
-<div class="cs-wrap cs-wrap--showcase">
-  <div class="cs-mock-browser reveal">
-    <div class="cs-mock-chrome"><img src="assets/recon/chrome-bar.png" alt="Browser chrome"></div>
-    <div class="cs-mock-window">
-      <div class="cs-mock-nav"><img src="assets/recon/nav.png" alt="Navigation sidebar"></div>
-      <div class="cs-mock-body"><img src="assets/recon/exception-1to1.png" alt="Exception detail"></div>
-    </div>
-  </div>
-</div>
-
-<hr class="cs-divider">
-
-<!-- 01 / Understand the exception -->
-<div class="cs-wrap">
-  <p class="cs-sub-num reveal">01 / Make context immediately visible</p>
-  <p class="cs-p reveal">Analysts were repeatedly spending time rebuilding the same context before they could investigate an exception.</p>
-  <p class="cs-p reveal">We brought that information upfront — participating accounts, underlying entries, topology, matching rules, timestamps, and the reason behind the mismatch.</p>
-  <p class="cs-p reveal">Instead of manually piecing relationships together, analysts can immediately understand what this exception is about.</p>
-</div>
-<div class="cs-wrap">
-  <div class="cs-mock-browser cs-mock--context reveal">
-    <div class="cs-mock-chrome"><img src="assets/recon/chrome-bar.png" alt="Browser chrome"></div>
-    <div class="cs-mock-window">
-      <div class="cs-mock-nav"><img src="assets/recon/nav.png" alt="Navigation sidebar"></div>
-      <div class="cs-mock-body"><img src="assets/recon/understand-exception.png" alt="Exception detail showing account entries, matching rules, and mismatch context"></div>
-    </div>
-  </div>
-</div>
-
-<hr class="cs-divider">
-
-<!-- 02 / Resolve the exception -->
-<div class="cs-wrap">
-  <p class="cs-sub-num reveal">02 / Guide the next action</p>
-  <p class="cs-p reveal">Once the context is clear, resolving an exception becomes a much smaller task.</p>
-  <p class="cs-p reveal">The interface highlights where the disagreement exists and surfaces only the actions that are relevant to that exception.</p>
-  <p class="cs-p reveal">Analysts no longer spend time figuring out how to investigate. They can focus on confidently resolving it.</p>
-</div>
-<div class="cs-wrap">
-  <div class="cs-mock-browser cs-mock--context reveal">
-    <div class="cs-mock-chrome"><img src="assets/recon/chrome-bar.png" alt="Browser chrome"></div>
-    <div class="cs-mock-window">
-      <div class="cs-mock-nav"><img src="assets/recon/nav.png" alt="Navigation sidebar"></div>
-      <div class="cs-mock-body"><img src="assets/recon/oms-entries.png" alt="OMS and PSP account entries with mismatch details and resolution actions"></div>
-    </div>
-  </div>
-</div>
-
-<hr class="cs-divider">
-
 <!-- 03 / The many faces of an exception -->
 <div class="cs-wrap">
-  <p class="cs-sub-num reveal">03 / One flow. Many structures</p>
+  <h3 class="cs-h3 reveal" style="margin-top: 56px;">One experience. Many structures</h3>
   <p class="cs-p reveal">The investigation flow remained the same regardless of how accounts and entries were connected underneath.</p>
   <p class="cs-p reveal">Whether an exception was One-to-One, One-to-Many, Many-to-One...the interface adapted to the topology while preserving a consistent investigation experience.</p>
 </div>
@@ -1106,11 +1054,9 @@ a.cs-cta { margin-top: 28px; }
   </div>
 </div>
 
-<hr class="cs-divider">
-
 <!-- 04 / Resolution actions prototype -->
 <div class="cs-wrap">
-  <p class="cs-sub-num reveal">04 / Make resolution obvious</p>
+  <h3 class="cs-h3 reveal" style="margin-top: 56px;">Make resolution obvious</h3>
   <p class="cs-p reveal">Once the discrepancy is understood, the remaining task is straightforward.</p>
   <p class="cs-p reveal">The available actions are simplified and surfaced in context, allowing exceptions to be resolved through a small set of clear, guided steps.</p>
 </div>
@@ -1161,7 +1107,7 @@ a.cs-cta { margin-top: 28px; }
       <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c.4 5.9 5.7 11.2 11.6 11.6v.8C17.7 12.8 12.4 18.1 12 24h-.8C10.8 18.1 5.5 12.8-.4 12.4v-.8C5.5 11.2 10.8 5.9 11.2 0h.8z"/></svg>
       <span class="cs-thanks-dash"></span>
     </span>
-    <p>Thank you for taking the time to follow the journey.</p>
+    <p>Thanks for following along.</p>
   </div>
   <div class="cs-cta-center reveal"><a class="cs-cta" href="index.html"><span class="arr">←</span> Back to selected work</a></div>
 </div>
@@ -1280,7 +1226,7 @@ a.cs-cta { margin-top: 28px; }
     { id: 'cs-exception', label: '02 — What&rsquo;s an Exception',       thesis: 'Sometimes those trails don\'t agree. <em>And that\'s where investigation begins.</em>' },
     { id: 'cs-shapes',    label: '03 — Why Resolution Slows Down', thesis: 'One mismatch can hide <em>many different stories.</em>' },
     { id: 'cs-structure', label: '04 — Designing the Investigation',        thesis: 'Analysts shouldn\'t have to rebuild the story <em>every time.</em>' },
-    { id: 'cs-showcase',  label: '05 — From Investigation to Action',       thesis: 'We simplified the path from <em>investigation to resolution.</em>' }
+    { id: 'cs-showcase',  label: '05 — Designing for Resolution',       thesis: 'We simplified the path from <em>investigation to resolution.</em>' }
   ];
 
   var activeId = null;
