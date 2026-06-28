@@ -639,7 +639,8 @@ nav .status .dot {
 
 /* === SECTION === */
 .section {
-  padding: 140px 12%;
+  padding: 140px 40px;
+  max-width: 1400px;
   margin: 0 auto;
   position: relative;
 }
@@ -1179,8 +1180,8 @@ nav .status .dot {
 
 .wc-item {
   display: grid;
-  grid-template-columns: 19vw 1fr;
-  height: 29vw;
+  grid-template-columns: 360px 1fr;
+  height: 560px;
   text-decoration: none;
   color: inherit;
   border: 1px solid var(--line);
@@ -1204,9 +1205,8 @@ nav .status .dot {
 }
 .wc-item--light {
   grid-template-columns: 1fr;
-  grid-template-rows: 55% auto;
-  height: 29vw;
-  overflow: hidden;
+  grid-template-rows: 1fr auto;
+  height: 560px;
 }
 .wc-item--light .wc-visual {
   order: -1;
@@ -1214,39 +1214,24 @@ nav .status .dot {
 }
 .wc-item--light .wc-meta {
   border-right: none;
-  padding: 1.5vw 1.8vw;
+  padding: 24px 28px;
 }
 .wc-item--light .wc-title {
-  font-size: 1.8vw;
-}
-.wc-item--light .wc-about {
-  font-size: 0.55vw;
+  font-size: clamp(20px, 1.8vw, 26px);
 }
 .wc-item--light .wc-title-group {
-  margin-bottom: 0.5vw;
+  margin-bottom: 10px;
 }
 .wc-item--light .wc-num {
-  font-size: 0.55vw;
-  margin-bottom: 0.6vw;
+  margin-bottom: 12px;
 }
 .wc-item--light .wc-brief {
-  font-size: 0.6vw;
-}
-.wc-item--light .wc-tags {
-  gap: 0.3vw;
-  margin-top: 0.4vw;
-}
-.wc-item--light .wc-tags span {
-  font-size: 0.5vw;
-  padding: 0.15vw 0.5vw;
-}
-.wc-item--light .wc-year {
-  font-size: 0.55vw;
+  font-size: 11px;
 }
 
 /* Left metadata */
 .wc-meta {
-  padding: clamp(20px, 1.8vw, 36px) clamp(20px, 2vw, 40px);
+  padding: 32px 36px;
   display: flex;
   flex-direction: column;
   border-right: 1px solid var(--line);
@@ -1267,7 +1252,7 @@ nav .status .dot {
   display: flex;
   flex-direction: column;
   gap: 4px;
-  margin-bottom: clamp(14px, 1.5vw, 28px);
+  margin-bottom: 28px; /* breathing space before title */
 }
 .wc-label {
   font-family: 'Geist Mono', monospace;
@@ -1278,7 +1263,7 @@ nav .status .dot {
 }
 .wc-val {
   font-family: 'Geist', sans-serif;
-  font-size: clamp(10px, 0.7vw, 14px);
+  font-size: 13px;
   font-weight: 300;
   color: var(--text-soft);
 }
@@ -1287,8 +1272,8 @@ nav .status .dot {
 .wc-title-group {
   display: flex;
   flex-direction: column;
-  gap: clamp(6px, 0.5vw, 10px);
-  margin-bottom: clamp(8px, 0.8vw, 16px);
+  gap: 10px;
+  margin-bottom: 16px; /* breathing space before brief */
 }
 .wc-title {
   font-family: 'Playfair Display', serif;
@@ -1334,7 +1319,7 @@ nav .status .dot {
 }
 .wc-brief {
   font-family: 'Geist', sans-serif;
-  font-size: clamp(10px, 0.65vw, 13px);
+  font-size: 12px;
   font-weight: 300;
   color: var(--text-soft);
   line-height: 1.65;
@@ -1699,9 +1684,6 @@ footer .right a { color: var(--text-soft); text-decoration: none; }
 footer .right a:hover { color: var(--accent); }
 
 /* === RESPONSIVE === */
-@media (max-width: 1200px) {
-  .section { padding: 140px 5%; }
-}
 @media (max-width: 900px) {
   .spotlight { display: none; }
   nav { padding: 16px 20px; font-size: 11px; }
@@ -1709,7 +1691,7 @@ footer .right a:hover { color: var(--accent); }
   nav .logo .role { display: none; }
   .hero { padding: 120px 20px 60px; }
   .hero-foot { grid-template-columns: 1fr; gap: 32px; }
-  .section { padding: 80px 5%; }
+  .section { padding: 80px 20px; }
   .section-head { grid-template-columns: 1fr; gap: 24px; align-items: start; }
   .section-aside { text-align: left; }
   .about-acts { gap: 110px; margin-top: 60px; }
