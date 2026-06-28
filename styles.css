@@ -1204,8 +1204,9 @@ nav .status .dot {
 }
 .wc-item--light {
   grid-template-columns: 1fr;
-  grid-template-rows: 1fr auto;
+  grid-template-rows: 55% auto;
   height: 29vw;
+  overflow: hidden;
 }
 .wc-item--light .wc-visual {
   order: -1;
