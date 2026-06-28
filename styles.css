@@ -1342,7 +1342,7 @@ nav .status .dot {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
-  margin-top: 8px;
+  margin-top: 12px;
 }
 .wc-tags span {
   font-family: 'Geist Mono', monospace;
