@@ -1301,14 +1301,14 @@ nav .status .dot {
   font-family: 'Geist Mono', monospace;
   font-size: 9px;
   letter-spacing: 0.06em;
-  color: var(--warm);
-  border: 1px solid rgba(232,197,152,0.2);
+  color: var(--text-muted);
+  border: 1px solid rgba(255,255,255,0.12);
   border-radius: 100px;
   padding: 3px 10px;
 }
 .wc-tags .tag-highlight {
-  color: var(--accent);
-  border-color: rgba(212,255,94,0.25);
+  color: var(--text-muted);
+  border-color: rgba(255,255,255,0.12);
 }
 
 /* Brief — label + text tightly paired */
