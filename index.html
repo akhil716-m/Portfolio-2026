@@ -20,11 +20,10 @@
       <span class="name">Akhil Male</span>
     </a>
   </div>
-  <div class="links">
-    <a href="index.html">Home</a>
-    <a href="resume.html">Resume</a>
+  <div style="display: flex; align-items: center; gap: 32px;">
+    <div class="links"><a href="resume.html"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg> Resume</a></div>
+    <div class="status"><span class="dot"></span>available for select projects</div>
   </div>
-  <div class="status"><span class="dot"></span>available for select work</div>
 </nav>
 
 <section class="hero">
@@ -32,7 +31,7 @@
     <div class="hero-left">
       <h1 class="hero-title">
         <span class="line intro">Hi, I'm <span class="italic">Akhil</span> —</span>
-        <span class="line">I design products that <span style="color: var(--warm);">balance</span> <span class="quiet">complexity with care.</span></span>
+        <span class="line">I design products that balance <span class="quiet">complexity with care.</span></span>
       </h1>
     </div>
     <div class="hero-right">
@@ -50,10 +49,6 @@
           <span class="spec-line">    <span class="s-str">"fintech"</span><span class="s-punc">,</span></span>
           <span class="spec-line">    <span class="s-str">"blue collar HRMS"</span><span class="s-punc">,</span></span>
           <span class="spec-line">  <span class="s-punc">],</span></span>
-          <span class="spec-line">&nbsp;</span>
-          <span class="spec-line">  <span class="s-key">shipped</span><span class="s-punc">:</span>  <span class="s-num">5</span><span class="s-punc">,</span>   <span class="s-cmt">// products · 2023–26</span></span>
-          <span class="spec-line">  <span class="s-key">tools</span><span class="s-punc">:</span>    <span class="s-punc">[</span><span class="s-str">"Figma"</span><span class="s-punc">,</span> <span class="s-str">"Claude"</span><span class="s-punc">,</span> <span class="s-str">"Opencode"</span><span class="s-punc">],</span></span>
-          <span class="spec-line">  <span class="s-key">based</span><span class="s-punc">:</span>    <span class="s-str">"Hyderabad, IN"</span><span class="s-punc">,</span></span>
           <span class="spec-line"><span class="s-punc">}</span></span>
           <span class="spec-line"><span class="s-cursor"></span></span>
         </div>
@@ -63,39 +58,21 @@
 
   <div class="hero-foot">
     <p class="hero-bio">
-      Currently at <span class="em">Juspay</span>, designing <span style="color: var(--warm);">0→1</span> enterprise products across payment recovery, observability and merchant operations.
+      Currently at <span class="em">Juspay</span>, designing 0→1 enterprise products across payment recovery, observability and merchant operations.
     </p>
   </div>
 </section>
 
-<div class="marquee">
-  <div class="marquee-track">
-    <span>Product Design <i class="dot">●</i></span>
-    <span>Vibe Code <i class="dot">●</i></span>
-    <span>Enterprise Design <i class="dot">●</i></span>
-    <span>Web Design <i class="dot">●</i></span>
-    <span>Mobile Design <i class="dot">●</i></span>
-    <span>Systems Thinking <i class="dot">●</i></span>
-    <span>Human-Centered Design <i class="dot">●</i></span>
-    <span>Thoughtful Systems <i class="dot">●</i></span>
-    <span>Product Design <i class="dot">●</i></span>
-    <span>Vibe Code <i class="dot">●</i></span>
-    <span>Enterprise Design <i class="dot">●</i></span>
-    <span>Web Design <i class="dot">●</i></span>
-    <span>Mobile Design <i class="dot">●</i></span>
-    <span>Systems Thinking <i class="dot">●</i></span>
-    <span>Human-Centered Design <i class="dot">●</i></span>
-    <span>Thoughtful Systems <i class="dot">●</i></span>
-  </div>
+<div style="max-width: 1400px; margin: 0 auto; padding: 0 40px;">
+  <hr style="border: none; height: 1px; background: linear-gradient(to right, transparent, var(--line), transparent); margin: 0;">
 </div>
 
 <section class="section" style="padding-top: 120px;">
   <div class="section-head">
     <div class="section-head-main">
-      <div class="section-meta"><span class="num">/02</span> Selected Work</div>
-      <h2 class="section-title">Things I've made<br/>that <span class="quiet">shipped.</span></h2>
+      <div class="section-meta"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:-1px; color: var(--accent)"><path d="M12 0c.4 5.9 5.7 11.2 11.6 11.6v.8C17.7 12.8 12.4 18.1 12 24h-.8C10.8 18.1 5.5 12.8-.4 12.4v-.8C5.5 11.2 10.8 5.9 11.2 0h.8z"/></svg> Selected Work</div>
+      <h2 class="section-title">A few products I've helped <span class="quiet">shape.</span></h2>
     </div>
-    <div class="section-aside">case studies arriving soon. each one written, not assembled.</div>
   </div>
 
   <div class="work-cards">
@@ -113,14 +90,14 @@
           </div>
           <div class="wc-title-group">
             <div class="wc-title">HyperSense</div>
-            <div class="wc-about">Cost Observability Tool</div>
+            <div class="wc-about">Payment Cost Observability</div>
           </div>
           <div class="wc-brief-field">
 
-            <div class="wc-brief">Consolidated a fragmented IC++ fee structure across issuers, acquirers, and PSPs into a single cost observability dashboard. Secured 4 enterprise pilots including a demo to Apple.</div>
+            <div class="wc-brief">Built a payment cost observability platform that unified fragmented fee data across processors, acquirers, and card networks into a single operational view, evolving from an internal concept into pilots with enterprise merchants and a product demo to Apple.</div>
           </div>
           <div class="wc-tags">
-            <span>Product Design</span>
+            <span>0→1 Product</span>
             <span>Enterprise</span>
             <span>Fintech</span>
           </div>
@@ -132,56 +109,32 @@
       </a>
 
       <!-- Lighter, supporting projects -->
-      <div class="wc-row">
-
-        <!-- Card 02 -->
-        <a class="wc-item wc-item--light" href="https://recovery-demo.vercel.app/" target="_blank" rel="noopener">
-          <div class="wc-meta">
-            <div class="wc-num">/02</div>
-            <div class="wc-title-group">
-              <div class="wc-title">Revenue Recovery</div>
-              <div class="wc-about">Payment Recovery &amp; Smart Retry</div>
-            </div>
-            <div class="wc-brief-field">
-
-              <div class="wc-brief">A hands-on demo build — designed to help the business team tell the story of how the product recovers lost revenue, through ML-powered failure detection, classification, and smart retry.</div>
-            </div>
-            <div class="wc-tags">
-              <span class="tag-highlight">Demo Build</span>
-              <span>Product Design</span>
-              <span>Fintech</span>
-            </div>
-            <div class="wc-year">2025</div>
+      <!-- Card 02 -->
+      <a class="wc-item" href="work-reconciliation.html">
+        <div class="wc-meta">
+          <div class="wc-num">/02</div>
+          <div class="wc-field">
+            <div class="wc-label">Company</div>
+            <div class="wc-val">Juspay · Hyperswitch</div>
           </div>
-          <div class="wc-visual">
-            <img src="assets/recovery-overview.png" alt="Revenue Recovery dashboard" style="object-fit: cover; object-position: top center;" />
+          <div class="wc-title-group">
+            <div class="wc-title">Reconciliation</div>
+            <div class="wc-about">Reconciliation Exception Handling</div>
           </div>
-        </a>
-
-        <!-- Card 03 — placeholder -->
-        <a class="wc-item wc-item--light" href="work-reconciliation.html">
-          <div class="wc-meta">
-            <div class="wc-num">/03</div>
-            <div class="wc-title-group">
-              <div class="wc-title">Reconciliation</div>
-              <div class="wc-about">Exception Handling for Analysts</div>
-            </div>
-            <div class="wc-brief-field">
-
-              <div class="wc-brief">Simplifying a complex exception process into a UI built around how analysts actually work — fewer screens, fewer decisions, closer to their day-to-day.</div>
-            </div>
-            <div class="wc-tags">
-              <span class="tag-highlight">UI Simplification</span>
-              <span>Fintech</span>
-            </div>
-            <div class="wc-year">Concept Draft</div>
+          <div class="wc-brief-field">
+            <div class="wc-brief">Designed an exception management platform that simplified the path from investigation to resolution, helping analysts identify, understand, and resolve reconciliation exceptions faster.</div>
           </div>
-          <div class="wc-visual">
-            <img src="assets/recon/cover.png" alt="Reconciliation case study cover" style="object-position: center center;">
+          <div class="wc-tags">
+            <span>Product Design</span>
+            <span>Enterprise</span>
+            <span>Fintech</span>
           </div>
-        </a>
-
-      </div>
+          <div class="wc-year">2026</div>
+        </div>
+        <div class="wc-visual">
+          <img src="assets/recon/cover.png" alt="Reconciliation case study cover" style="object-fit: cover; object-position: top center;">
+        </div>
+      </a>
     </div>
 
     <div class="wc-group">
@@ -205,7 +158,6 @@
           </div>
           <div class="wc-tags">
             <span>Product Design</span>
-            <span>Mobile</span>
             <span>EdTech</span>
           </div>
           <div class="wc-year">2024</div>
@@ -246,194 +198,65 @@
   </div>
 </section>
 
-<section class="section">
-  <div class="section-head">
+
+<section class="section" style="padding-top: 80px;">
+  <div class="section-head" style="margin-bottom: 48px;">
     <div class="section-head-main">
-      <div class="section-meta"><span class="num">/03</span> Personal Projects</div>
-      <h2 class="section-title">Work that lives <span class="italic">outside</span> the brief.</h2>
+      <div class="section-meta"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:-1px; color: var(--accent)"><path d="M12 0c.4 5.9 5.7 11.2 11.6 11.6v.8C17.7 12.8 12.4 18.1 12 24h-.8C10.8 18.1 5.5 12.8-.4 12.4v-.8C5.5 11.2 10.8 5.9 11.2 0h.8z"/></svg> Things I've Built</div>
+      <h2 class="section-title">From product ideas to working <span class="quiet">experiences.</span></h2>
     </div>
-    <div class="section-aside">explorations, case studies, and writing.</div>
   </div>
 
-  <div class="personal-grid">
-
-    <a href="https://www.behance.net/akhilmale1" target="_blank" class="personal-card">
-      <div class="personal-preview">
-        <div class="personal-preview-inner"></div>
-      </div>
-      <div class="personal-body">
-        <div class="personal-platform">
-          <span class="personal-dot" style="background:#1769ff;"></span>
-          Behance
+  <div class="explore-grid">
+    <a href="https://recovery-demo.vercel.app/" target="_blank" rel="noopener" class="explore-card">
+      <img src="assets/rr-cover.png" alt="Revenue Recovery demo">
+      <div class="explore-overlay">
+        <div class="explore-overlay-text">
+          <div style="font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.1em; color: var(--accent); margin-bottom: 12px;">PRODUCT DEMO</div>
+          <h3 style="font-family: 'Geist', sans-serif; font-size: 22px; font-weight: 500; color: var(--text); margin: 0 0 8px;">Revenue Recovery</h3>
+          <p style="font-family: 'Geist', sans-serif; font-size: 13px; font-weight: 300; color: var(--text-soft); line-height: 1.7; margin: 0 0 16px;">Built an interactive demo experience that helps business teams showcase how lost revenue is recovered through Juspay Revenue Recovery using realistic payment recovery scenarios.</p>
         </div>
-        <h3 class="personal-title">Blue-collar apps, upskilling & case studies.</h3>
-        <div class="personal-meta">
-          <span>9 projects</span>
-          <span class="sep">·</span>
-          <span>3.5K appreciations</span>
-        </div>
-        <div class="personal-cta">View on Behance <span>↗</span></div>
+        <span class="explore-cta">View Demo ↗</span>
       </div>
     </a>
 
-    <a href="https://dribbble.com/Akhil-716uxd" target="_blank" class="personal-card">
-      <div class="personal-preview">
-        <div class="personal-preview-inner"></div>
-      </div>
-      <div class="personal-body">
-        <div class="personal-platform">
-          <span class="personal-dot" style="background:#ea4c89;"></span>
-          Dribbble
+    <div class="explore-card explore-card--locked">
+      <img src="assets/holdr-cover.png" alt="Holdr — a personal finance tracker">
+      <div class="explore-overlay">
+        <div class="explore-overlay-text">
+          <div style="font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.1em; color: var(--text-soft); margin-bottom: 12px;">WORK IN PROGRESS</div>
+          <h3 style="font-family: 'Geist', sans-serif; font-size: 22px; font-weight: 500; color: var(--text); margin: 0 0 8px;">Holdr</h3>
+          <p style="font-family: 'Geist', sans-serif; font-size: 13px; font-weight: 300; color: var(--text-soft); line-height: 1.7; margin: 0 0 16px;">A personal finance tracker designed to help long-term investors monitor their portfolio, market movements, and key updates in one place.</p>
         </div>
-        <h3 class="personal-title">90 days of design. IKEA, McDonald's and more.</h3>
-        <div class="personal-meta">
-          <span>20+ shots</span>
-          <span class="sep">·</span>
-          <span>UI · Branding · Visual</span>
-        </div>
-        <div class="personal-cta">View on Dribbble <span>↗</span></div>
+        <span class="explore-cta" style="border-color: var(--text-muted); color: var(--text-muted); cursor: default;">🔒 Coming Soon</span>
       </div>
-    </a>
-
-    <a href="https://medium.com/@akhilmale" target="_blank" class="personal-card">
-      <div class="personal-preview">
-        <div class="personal-preview-inner"></div>
-      </div>
-      <div class="personal-body">
-        <div class="personal-platform">
-          <span class="personal-dot" style="background:#ffffff;"></span>
-          Medium
-        </div>
-        <h3 class="personal-title">Writing on design, process and things I'm learning.</h3>
-        <div class="personal-meta">
-          <span>@akhilmale</span>
-          <span class="sep">·</span>
-          <span>Articles & Essays</span>
-        </div>
-        <div class="personal-cta">Read on Medium <span>↗</span></div>
-      </div>
-    </a>
-
+    </div>
   </div>
 </section>
 
-<section class="craft-section">
-  <div class="craft-head">
-    <div class="section-meta"><span class="num">/04</span> Craft</div>
-    <h2 class="section-title">How the <span class="quiet">work gets made.</span></h2>
-  </div>
 
-  <div class="craft-grid">
-
-    <!-- Card 1: Screenshot + overlay -->
-    <div class="craft-card craft-feature">
-      <div class="craft-card-tag">/01 — Design & Build</div>
-      <div class="craft-screenshot-wrap">
-        <img class="craft-screenshot" src="assets/recovery-overview.png" alt="Recovery Overview UI" />
-        <div class="craft-screenshot-overlay">
-          <div class="craft-overlay-text">
-            <h4 class="craft-overlay-title">Revenue Recovery</h4>
-            <p class="craft-overlay-desc">ML-powered payment failure detection, classification, and smart retry — built for scale.</p>
-          </div>
-          <a href="#" class="craft-demo-btn">View Demo <span>↗</span></a>
-        </div>
-      </div>
-      <div class="craft-card-foot">
-        <span class="craft-pill">Vibe Code</span>
-        <span class="craft-pill">Claude</span>
-        <span class="craft-pill">Opencode</span>
-        <span class="craft-pill">HTML / CSS</span>
-      </div>
-    </div>
-
-    <!-- Card 2: Prototype Video -->
-    <div class="craft-card craft-video-card">
-      <div class="craft-card-tag">/02 — Prototype Recording</div>
-      <div class="craft-video-wrap">
-        <video class="craft-video" src="assets/skilling-rec.mov" playsinline loop muted autoplay></video>
-      </div>
-      <div class="craft-card-foot">
-        <span class="craft-pill">Motion</span>
-        <span class="craft-pill">Interaction</span>
-        <span class="craft-pill">Prototype</span>
-      </div>
-    </div>
-
-  </div>
-
-  <!-- Contained UI carousel -->
-  <div class="craft-reel-wrap">
-    <div class="craft-reel">
-      <div class="ui-reel-track">
-        <div class="ui-card"><div class="ui-card-img" style="background-image: url('assets/port-6.png')"></div></div>
-        <div class="ui-card"><div class="ui-card-img" style="background-image: url('assets/port-3.png')"></div></div>
-        <div class="ui-card"><div class="ui-card-img" style="background-image: url('assets/port-9.png')"></div></div>
-        <div class="ui-card"><div class="ui-card-img" style="background-image: url('assets/port-1.png')"></div></div>
-        <div class="ui-card"><div class="ui-card-img" style="background-image: url('assets/port-7.png')"></div></div>
-        <div class="ui-card"><div class="ui-card-img" style="background-image: url('assets/port-4.png')"></div></div>
-        <div class="ui-card"><div class="ui-card-img" style="background-image: url('assets/port-10.png')"></div></div>
-        <div class="ui-card"><div class="ui-card-img" style="background-image: url('assets/port-2.png')"></div></div>
-        <div class="ui-card"><div class="ui-card-img" style="background-image: url('assets/port-8.png')"></div></div>
-        <div class="ui-card"><div class="ui-card-img" style="background-image: url('assets/port-5.png')"></div></div>
-        <div class="ui-card"><div class="ui-card-img" style="background-image: url('assets/port-11.png')"></div></div>
-        <div class="ui-card"><div class="ui-card-img" style="background-image: url('assets/port-6.png')"></div></div>
-        <div class="ui-card"><div class="ui-card-img" style="background-image: url('assets/port-3.png')"></div></div>
-        <div class="ui-card"><div class="ui-card-img" style="background-image: url('assets/port-12.png')"></div></div>
-        <div class="ui-card"><div class="ui-card-img" style="background-image: url('assets/port-9.png')"></div></div>
-        <div class="ui-card"><div class="ui-card-img" style="background-image: url('assets/port-1.png')"></div></div>
-        <div class="ui-card"><div class="ui-card-img" style="background-image: url('assets/port-13.png')"></div></div>
-        <div class="ui-card"><div class="ui-card-img" style="background-image: url('assets/port-7.png')"></div></div>
-        <div class="ui-card"><div class="ui-card-img" style="background-image: url('assets/port-4.png')"></div></div>
-        <div class="ui-card"><div class="ui-card-img" style="background-image: url('assets/port-10.png')"></div></div>
-        <div class="ui-card"><div class="ui-card-img" style="background-image: url('assets/port-2.png')"></div></div>
-        <div class="ui-card"><div class="ui-card-img" style="background-image: url('assets/port-8.png')"></div></div>
-        <div class="ui-card"><div class="ui-card-img" style="background-image: url('assets/port-5.png')"></div></div>
-        <div class="ui-card"><div class="ui-card-img" style="background-image: url('assets/port-11.png')"></div></div>
-        <div class="ui-card"><div class="ui-card-img" style="background-image: url('assets/port-12.png')"></div></div>
-        <div class="ui-card"><div class="ui-card-img" style="background-image: url('assets/port-13.png')"></div></div>
-      </div>
-    </div>
-  </div>
-
-</section>
-
-
-<section class="section">
+<section class="section" style="padding-bottom: 40px;">
   <div class="section-head">
     <div class="section-head-main">
-      <div class="section-meta"><span class="num">/04</span> About</div>
-      <h2 class="section-title">A short <span class="italic">introduction</span>, mostly true.</h2>
+      <div class="section-meta"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:-1px; color: var(--accent)"><path d="M12 0c.4 5.9 5.7 11.2 11.6 11.6v.8C17.7 12.8 12.4 18.1 12 24h-.8C10.8 18.1 5.5 12.8-.4 12.4v-.8C5.5 11.2 10.8 5.9 11.2 0h.8z"/></svg> About Me</div>
+      <h2 class="section-title">The story so <span class="quiet">far.</span></h2>
     </div>
-    <div class="section-aside">designer, occasional astrologer, full-time chai drinker.</div>
   </div>
 
   <div class="about-acts">
 
     <div class="about-act">
       <div class="act-copy about-prose">
-        <h3 class="act-title">It all started with <span class="italic">curiosity</span>,</h3>
-        <p>Growing up around technology, Computer Science felt like the obvious path. But I was always more interested in <span class="warm">understanding people</span> and how they interact with the world around them than writing code itself.</p>
-        <p>Somewhere along the way, I discovered design. What drew me in wasn't the visual side of it, but the idea of <span class="warm">making sense of complexity</span> and turning it into something people could easily understand and trust.</p>
-        <p>Today, I work on products in the world of payments and fintech, designing experiences that sit at the intersection of business, technology, and human behaviour. I enjoy <span class="accent">untangling messy systems, finding patterns,</span> and making things feel simpler than they are.</p>
-        <p>Outside of work, that same curiosity shows up in different ways — exploring new places, experimenting with recipes, building small side projects, or disappearing into rabbit holes about how products and systems work.</p>
-        <p>I don't always have a plan, but <span class="accent">curiosity has been a pretty reliable compass</span> so far.</p>
+        <h3 class="act-title">Hello, I'm <span class="italic">Akhil.</span></h3>
+        <p>I'm a Product Designer at Juspay, where I work on enterprise payment products. My work focuses on simplifying complex workflows and building experiences that help businesses make better decisions.</p>
+        <p>Over the last few years, I've worked across HRMS and fintech, designing experiences for both frontline workers and enterprise teams. While the domains have changed, the challenge has remained the same: making complex systems feel clear, useful, and trustworthy.</p>
+        <p>Looking back, that interest in people and systems is probably what drew me to design in the first place. The transition from Computer Science to design began during my second year of college. What started as curiosity gradually turned into a career and continues to shape how I approach products today.</p>
+        <p>Outside of work, you'll usually find me exploring new places, experimenting with recipes, or learning about how products, businesses, and systems evolve. Lately, that curiosity has also found its way into building things.</p>
       </div>
       <div class="act-visual">
         <div class="about-profile">
           <div class="about-photo-wrap">
             <img class="about-photo" src="assets/akhil.jpg" alt="Akhil Male" />
-          </div>
-          <div class="about-card">
-            <div class="card-head">
-              <span class="title">// about.md</span>
-              <span class="dots"><span></span><span></span><span></span></span>
-            </div>
-            <div class="spec"><span class="k">Role</span><span class="v">Product Designer</span></div>
-            <div class="spec"><span class="k">At</span><span class="v"><span class="accent">JUSPAY</span> · since '24</span></div>
-            <div class="spec"><span class="k">Before</span><span class="v">BetterPlace</span></div>
-            <div class="spec"><span class="k">Focus</span><span class="v">Payments / SaaS / Systems</span></div>
-            <div class="spec"><span class="k">City</span><span class="v">Bengaluru, IN</span></div>
-            <div class="spec"><span class="k">Languages</span><span class="v">EN · TE · HI</span></div>
           </div>
         </div>
       </div>
@@ -443,18 +266,19 @@
 </section>
 
 <section class="contact">
-  <a href="mailto:akhilmale.ux@gmail.com" class="contact-email">
-    <span class="contact-email-label">Let's connect</span>
-    <span class="contact-email-address">akhilmale.ux@gmail.com <span class="arr">↗</span></span>
-  </a>
-
-  <div class="contact-socials">
-    <a href="https://www.linkedin.com/in/male-akhil/" target="_blank">LinkedIn <span class="arr">↗</span></a>
-    <a href="https://dribbble.com/Akhil-716uxd" target="_blank">Dribbble <span class="arr">↗</span></a>
-    <a href="https://www.behance.net/akhilmale1" target="_blank">Behance <span class="arr">↗</span></a>
-    <a href="https://x.com/akhilmale_uxd" target="_blank">X <span class="arr">↗</span></a>
-    <a href="https://www.instagram.com/akhilmale_uxd" target="_blank">Instagram <span class="arr">↗</span></a>
-    <a href="https://medium.com/@akhilmale" target="_blank">Medium <span class="arr">↗</span></a>
+  <div class="contact-email">
+    <div>
+      <span class="contact-email-label">Let's connect</span>
+      <a href="mailto:akhilmale.ux@gmail.com" class="contact-email-address">akhilmale.ux@gmail.com</a>
+    </div>
+    <div class="contact-socials">
+      <a href="https://www.linkedin.com/in/male-akhil/" target="_blank"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg> LinkedIn</a>
+      <a href="https://dribbble.com/Akhil-716uxd" target="_blank"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 24C5.385 24 0 18.615 0 12S5.385 0 12 0s12 5.385 12 12-5.385 12-12 12zm10.12-10.358c-.35-.11-3.17-.953-6.384-.438 1.34 3.684 1.887 6.684 1.992 7.308 2.3-1.555 3.936-4.02 4.395-6.87zm-6.115 7.808c-.153-.9-.75-4.032-2.19-7.77l-.066.02c-5.79 2.015-7.86 6.025-8.04 6.4 1.73 1.358 3.92 2.166 6.29 2.166 1.42 0 2.77-.29 4-.81zm-11.62-2.58c.232-.4 3.045-5.055 8.332-6.765.135-.045.27-.084.405-.12-.26-.585-.54-1.167-.832-1.74C7.17 11.775 2.206 11.71 1.756 11.7l-.004.312c0 2.633.998 5.037 2.634 6.855zm-2.42-8.955c.46.008 4.683.026 9.477-1.248-1.698-3.018-3.53-5.558-3.8-5.928-2.868 1.35-5.01 3.99-5.676 7.17zM9.6 2.052c.282.38 2.145 2.914 3.822 6 3.645-1.365 5.19-3.44 5.373-3.702C16.86 2.61 14.545 1.62 12 1.62c-.8 0-1.59.1-2.4.285v.15zm10.335 3.483c-.218.29-1.91 2.493-5.724 4.04.24.49.47.985.68 1.486.08.18.15.36.22.53 3.41-.43 6.8.26 7.14.33-.02-2.42-.88-4.64-2.31-6.38z"/></svg> Dribbble</a>
+      <a href="https://www.behance.net/akhilmale1" target="_blank"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M6.938 4.503c.702 0 1.34.06 1.92.188.577.13 1.07.33 1.485.61.41.28.733.65.96 1.12.225.47.34 1.05.34 1.73 0 .74-.17 1.36-.507 1.86-.338.5-.837.9-1.502 1.22.906.26 1.576.72 2.022 1.37.448.66.665 1.45.665 2.36 0 .75-.13 1.39-.41 1.93-.28.55-.67 1-1.16 1.35-.48.348-1.05.6-1.67.767-.63.165-1.27.25-1.95.25H0V4.51h6.938v-.007zM6.545 10.16c.6 0 1.08-.16 1.44-.475.36-.32.535-.77.535-1.36 0-.35-.06-.64-.19-.88-.13-.24-.3-.43-.52-.56-.218-.13-.47-.22-.756-.27-.29-.05-.6-.07-.93-.07H3.484v3.61h3.06zm.195 5.49c.37 0 .71-.04 1.01-.12.305-.08.57-.2.79-.35.22-.15.39-.35.51-.6.12-.25.18-.56.18-.92 0-.74-.22-1.28-.66-1.62-.44-.34-1.01-.51-1.72-.51H3.484v4.12h3.256zM21.69 16.97c-.37.63-.93 1.11-1.69 1.44-.76.33-1.66.5-2.7.5-.64 0-1.24-.08-1.79-.24-.56-.16-1.05-.4-1.47-.72-.42-.32-.75-.73-.99-1.22-.24-.49-.37-1.07-.4-1.73h2.59c.02.33.1.6.24.83.14.23.33.42.56.57.23.14.49.25.79.31.29.06.6.09.93.09.67 0 1.2-.15 1.59-.44.39-.29.59-.73.59-1.31 0-.22-.04-.4-.12-.56-.09-.16-.24-.3-.45-.42-.21-.12-.49-.23-.83-.32-.34-.09-.76-.18-1.27-.28-.6-.12-1.15-.27-1.67-.43-.52-.16-.97-.38-1.35-.65-.38-.27-.68-.62-.9-1.04-.22-.42-.33-.96-.33-1.61 0-.6.12-1.12.35-1.55.23-.43.55-.78.95-1.06.4-.28.86-.49 1.39-.62.52-.13 1.07-.2 1.66-.2.6 0 1.16.07 1.67.2.52.14.97.35 1.36.64.39.28.7.65.93 1.09.23.44.37.97.4 1.57h-2.59c-.06-.56-.27-.96-.63-1.2-.36-.24-.84-.36-1.42-.36-.23 0-.46.02-.69.07-.23.05-.44.12-.62.22-.18.1-.33.25-.44.43-.11.19-.17.42-.17.71 0 .23.05.42.14.57.09.15.25.29.47.4.22.12.52.22.88.32.37.1.83.2 1.39.3.56.11 1.08.24 1.56.39.48.15.9.35 1.25.61.36.26.64.59.84.99.2.4.3.9.3 1.49 0 .67-.13 1.25-.4 1.73zM17.06 4.14h5.38v1.25h-5.38V4.14z"/></svg> Behance</a>
+      <a href="https://x.com/akhilmale_uxd" target="_blank"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg> X</a>
+      <a href="https://www.instagram.com/akhilmale_uxd" target="_blank"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg> Instagram</a>
+      <a href="https://medium.com/@akhilmale" target="_blank"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M13.54 12a6.8 6.8 0 01-6.77 6.82A6.8 6.8 0 010 12a6.8 6.8 0 016.77-6.82A6.8 6.8 0 0113.54 12zM20.96 12c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z"/></svg> Medium</a>
+    </div>
   </div>
 </section>
 

@@ -11,7 +11,6 @@
 </head>
 <body>
 
-<div class="spotlight"></div>
 
 <nav>
   <div class="logo">
@@ -33,7 +32,6 @@
       <div class="section-meta"><span class="num">/02</span> Selected Work</div>
       <h2 class="section-title">Things I've <span class="italic">made</span><br/>that <span class="quiet">shipped.</span></h2>
     </div>
-    <div class="section-aside">case studies arriving soon. each one written, not assembled.</div>
   </div>
 
   <div class="work-gallery">
@@ -158,10 +156,6 @@
 </footer>
 
 <script>
-const spotlight = document.querySelector('.spotlight');
-let mx = window.innerWidth/2, my = window.innerHeight/2, sx = mx, sy = my;
-document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; });
-(function loop(){ sx+=(mx-sx)*0.08; sy+=(my-sy)*0.08; spotlight.style.left=sx+'px'; spotlight.style.top=sy+'px'; requestAnimationFrame(loop); })();
 
 const page = location.pathname.split('/').pop() || 'index.html';
 document.querySelectorAll('nav .links a').forEach(a => { if(a.getAttribute('href')===page) a.classList.add('active'); });

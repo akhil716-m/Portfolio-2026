@@ -95,7 +95,7 @@
 .resume-photo:hover { filter: grayscale(0%); }
 .resume-name-block { display: flex; flex-direction: column; gap: 8px; }
 .resume-name {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Geist', sans-serif;
   font-size: clamp(26px, 3vw, 36px);
   font-weight: 400;
   letter-spacing: -0.02em;
@@ -160,7 +160,7 @@
   margin-bottom: 2px;
 }
 .exp-company {
-  font-family: 'Instrument Serif', serif;
+  font-family: 'Geist', sans-serif;
   font-size: 18px;
   font-weight: 400;
   color: var(--text);
@@ -251,7 +251,7 @@
 
 /* Education */
 .edu-school {
-  font-family: 'Instrument Serif', serif;
+  font-family: 'Geist', sans-serif;
   font-size: 15px;
   color: var(--text);
   margin-bottom: 3px;
@@ -332,7 +332,6 @@
 </head>
 <body>
 
-<div class="spotlight"></div>
 
 <nav>
   <div class="logo">
@@ -341,11 +340,10 @@
       <span class="name">Akhil Male</span>
     </a>
   </div>
-  <div class="links">
-    <a href="index.html">Home</a>
-    <a href="resume.html">Resume</a>
+  <div style="display: flex; align-items: center; gap: 32px;">
+    <div class="links"><a href="resume.html" class="active"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg> Resume</a></div>
+    <div class="status"><span class="dot"></span>available for select projects</div>
   </div>
-  <div class="status"><span class="dot"></span>available for select work</div>
 </nav>
 
 <div class="resume-wrap">
@@ -392,9 +390,8 @@
           <div class="exp-initiatives">
             <div class="exp-initiatives-label">Selected Initiatives</div>
             <ul class="exp-bullets">
-              <li><b>HyperSense</b> — Built the cost observability experience that helps enterprise merchants understand and optimize payment processing costs.</li>
-              <li><b>Revenue Recovery</b> — Designed the product experience for revenue recovery, helping businesses understand recovery performance and act on opportunities to recover lost revenue.</li>
-              <li><b>Reconciliation</b> — Simplified complex financial exception and reconciliation processes into intuitive operational experiences.</li>
+              <li><b>HyperSense</b> — Designed the payment cost observability experience to help enterprise merchants understand and optimise payment processing costs. Contributed to the product's journey from an early concept to enterprise pilots.</li>
+              <li><b>Revenue Recovery</b> — Designed the end-to-end product experience for a revenue recovery platform, contributing to its evolution from an early concept into a merchant-facing product.</li>
             </ul>
           </div>
         </div>
@@ -528,10 +525,6 @@
 </footer>
 
 <script>
-const spotlight = document.querySelector('.spotlight');
-let mx = window.innerWidth/2, my = window.innerHeight/2, sx = mx, sy = my;
-document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; });
-(function loop(){ sx+=(mx-sx)*0.08; sy+=(my-sy)*0.08; spotlight.style.left=sx+'px'; spotlight.style.top=sy+'px'; requestAnimationFrame(loop); })();
 
 const page = location.pathname.split('/').pop() || 'index.html';
 document.querySelectorAll('nav .links a').forEach(a => { if(a.getAttribute('href')===page) a.classList.add('active'); });

@@ -43,10 +43,10 @@
   font-weight: 400; margin-bottom: 12px;
 }
 .cs-rail-thesis {
-  font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 300;
-  font-style: italic; line-height: 1.45; color: var(--text-soft); margin: 0;
+  font-family: 'Geist', sans-serif; font-size: 14px; font-weight: 400;
+  font-style: normal; line-height: 1.45; color: var(--text-soft); margin: 0;
 }
-.cs-rail-thesis em { color: var(--text); font-style: italic; }
+.cs-rail-thesis em { color: var(--text); font-style: normal; font-family: 'Geist', sans-serif; font-weight: 500; }
 .cs-rail-others {
   list-style: none; margin: 20px 0 0; padding: 18px 0 0;
   border-top: 1px solid var(--line); display: flex; flex-direction: column; gap: 2px;
@@ -85,6 +85,8 @@
   opacity: 0; animation: csFadeUp 0.7s ease forwards 0.05s;
 }
 .cs-back:hover { color: var(--accent); gap: 13px; }
+nav .logo a.cs-back { margin-bottom: 0; opacity: 1; animation: none; color: var(--text-muted); }
+nav .logo a.cs-back:hover { color: var(--accent); }
 .cs-back .arr { display: inline-block; transition: transform 0.2s ease; }
 .cs-back:hover .arr { transform: translateX(-3px); }
 
@@ -95,12 +97,12 @@
 }
 .cs-hero-eyebrow .sep { color: var(--text-muted); margin: 0 10px; letter-spacing: 0; }
 .cs-hero-title {
-  font-family: 'Playfair Display', serif; font-size: clamp(60px, 11vw, 130px); font-weight: 500;
-  line-height: 0.96; letter-spacing: -0.02em; color: var(--text); max-width: 920px;
+  font-family: 'Geist', sans-serif; font-size: clamp(60px, 11vw, 130px); font-weight: 500;
+  line-height: 0.96; letter-spacing: -0.03em; color: var(--text); max-width: 920px;
   opacity: 0; animation: csFadeUp 0.9s ease forwards 0.35s;
 }
 .cs-hero-title em {
-  font-style: italic; font-family: 'Instrument Serif', serif; font-weight: 400; color: var(--warm);
+  font-style: normal; font-family: 'Geist', sans-serif; font-weight: 500; color: var(--text-soft);
 }
 .cs-hero-meta {
   display: flex; flex-wrap: wrap; gap: 48px; margin-top: 58px; padding-top: 32px;
@@ -143,11 +145,11 @@
 .cs-label::after { content: ''; flex: 1; max-width: 44px; height: 1px; background: var(--line); }
 
 .cs-display {
-  font-family: 'Playfair Display', serif; font-size: clamp(32px, 4.6vw, 52px); font-weight: 500;
+  font-family: 'Geist', sans-serif; font-size: clamp(32px, 4.6vw, 52px); font-weight: 500;
   line-height: 1.18; letter-spacing: -0.015em; color: var(--text); margin: 0 0 30px; max-width: 17ch;
 }
 .cs-display em {
-  font-style: italic; font-family: 'Instrument Serif', serif; font-weight: 400; color: var(--warm);
+  font-style: normal; font-family: 'Geist', sans-serif; font-weight: 500; color: var(--text-soft);
 }
 .cs-lead {
   font-family: 'Geist', sans-serif; font-size: 19px; font-weight: 300; line-height: 1.75;
@@ -159,9 +161,9 @@
 }
 .cs-p:last-child { margin-bottom: 0; }
 .cs-p strong { color: var(--text); font-weight: 600; }
-.cs-em { font-style: italic; font-family: 'Instrument Serif', serif; color: var(--warm); }
+.cs-em { font-style: normal; font-family: 'Geist', sans-serif; font-weight: 500; color: var(--text); }
 .cs-h3 {
-  font-family: 'Playfair Display', serif; font-size: clamp(22px, 3.2vw, 32px); font-weight: 500;
+  font-family: 'Geist', sans-serif; font-size: clamp(22px, 3.2vw, 30px); font-weight: 600;
   color: var(--text); margin: 0 0 16px;
 }
 .cs-list { list-style: none; padding: 0; margin: 0 0 48px; display: flex; flex-direction: column; gap: 11px; }
@@ -178,9 +180,9 @@
 }
 .cs-pullquote {
   margin: 40px 0 0; padding: 18px 24px; border-radius: 0 8px 8px 0;
-  border-left: 2px solid var(--warm); background: rgba(232,197,152,0.05);
-  font-family: 'Instrument Serif', serif; font-style: italic;
-  font-size: clamp(17px, 2vw, 21px); line-height: 1.6; color: var(--warm);
+  border-left: 2px solid var(--accent); background: rgba(212,255,94,0.045);
+  font-family: 'Geist', sans-serif; font-style: normal;
+  font-size: clamp(17px, 2vw, 21px); line-height: 1.6; color: var(--text-soft);
 }
 .cs-challenge {
   margin-top: 22px; padding: 18px 22px; border-radius: 0 8px 8px 0;
@@ -313,7 +315,7 @@
 .cs-anchor-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin: 40px 0 8px; }
 .cs-anchor { padding-top: 18px; border-top: 2px solid var(--accent); }
 .cs-anchor-num { font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; }
-.cs-anchor-title { font-family: 'Playfair Display', serif; font-size: 19px; font-weight: 500; color: var(--text); margin-bottom: 8px; }
+.cs-anchor-title { font-family: 'Geist', sans-serif; font-size: 19px; font-weight: 600; color: var(--text); margin-bottom: 8px; }
 .cs-anchor-desc { font-family: 'Geist', sans-serif; font-size: 12.5px; font-weight: 300; line-height: 1.75; color: var(--text-soft); }
 
 /* ---------- UI TEASER — first glimpse card in section 02 ---------- */
@@ -334,7 +336,7 @@
   display: block; font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
   color: var(--accent); margin-bottom: 10px;
 }
-.cs-ui-cap-title { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 500; color: var(--text); margin-bottom: 8px; }
+.cs-ui-cap-title { font-family: 'Geist', sans-serif; font-size: 18px; font-weight: 600; color: var(--text); margin-bottom: 8px; }
 .cs-ui-cap-desc { font-family: 'Geist', sans-serif; font-size: 13px; font-weight: 300; line-height: 1.7; color: var(--text-soft); margin: 0; }
 
 /* ---------- UI SEQUENCE — editorial numbered panels ---------- */
@@ -348,7 +350,7 @@
   text-transform: uppercase; color: var(--accent); margin-bottom: 10px;
 }
 .cs-ui-panel-title {
-  font-family: 'Playfair Display', serif; font-size: clamp(18px, 2.2vw, 24px); font-weight: 500;
+  font-family: 'Geist', sans-serif; font-size: clamp(18px, 2.2vw, 24px); font-weight: 600;
   color: var(--text); margin: 0;
 }
 .cs-ui-panel-desc {
@@ -369,10 +371,22 @@
 /* ---------- CLOSING QUOTE ---------- */
 .cs-quote {
   margin: 64px 0 22px; padding: 0 0 0 24px; border-left: 2px solid var(--accent);
-  font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(18px, 2.4vw, 23px);
+  font-family: 'Geist', sans-serif; font-style: normal; font-size: clamp(18px, 2.4vw, 23px);
   font-weight: 400; line-height: 1.6; color: var(--text); max-width: 640px;
 }
 .cs-thanks { font-size: 15px; color: var(--text-soft); }
+.cs-thanks-note {
+  margin: 72px 0 0; padding: 0; text-align: center;
+  display: flex; flex-direction: column; align-items: center; gap: 16px;
+}
+.cs-thanks-mark { color: var(--accent); display: inline-flex; align-items: center; gap: 14px; }
+.cs-thanks-dash { width: 32px; height: 1px; background: var(--line); display: inline-block; }
+.cs-thanks-note p {
+  margin: 0; font-family: 'Geist', sans-serif; font-size: 18px; font-weight: 500;
+  color: var(--text); letter-spacing: -0.01em;
+}
+.cs-cta-center { display: flex; justify-content: center; margin-top: 32px; }
+.cs-cta-center a.cs-cta { margin-top: 0; }
 
 /* ---------- BROWSER MOCKUP ---------- */
 .cs-mock-browser {
@@ -448,44 +462,31 @@
 /* ---------- PROTOTYPE — RESOLUTION ACTIONS ---------- */
 .cs-proto { margin: 64px 0 48px; }
 .cs-proto-tabs {
-  display: flex; gap: 0;
+  display: flex; gap: 0; margin-bottom: 16px;
   background: var(--bg-card);
-  border: 1px solid var(--line); border-bottom: none;
-  border-radius: 12px 12px 0 0;
+  border: 1px solid var(--line);
+  border-radius: 10px;
   overflow: hidden;
 }
 .cs-proto-tab {
-  flex: 1; display: flex; align-items: center; justify-content: center; gap: 10px;
-  font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.08em;
+  flex: 1; padding: 12px 16px; border: none; background: none; cursor: pointer;
+  font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.1em;
   text-transform: uppercase; color: var(--text-muted);
-  background: none; border: none; border-right: 1px solid var(--line);
-  padding: 18px 16px; cursor: pointer;
-  transition: all 0.25s ease; white-space: nowrap;
-  position: relative;
+  transition: color 0.2s ease, background 0.2s ease;
+  text-align: center;
 }
-.cs-proto-tab:last-child { border-right: none; }
-.cs-proto-tab .cs-proto-tab-icon {
-  font-size: 16px; color: var(--text-muted); transition: color 0.25s;
-}
-.cs-proto-tab:hover { color: var(--text-soft); background: rgba(255,255,255,0.02); }
-.cs-proto-tab:hover .cs-proto-tab-icon { color: var(--text-soft); }
-.cs-proto-tab.is-active {
-  color: var(--accent); background: rgba(212,255,94,0.04);
-}
-.cs-proto-tab.is-active::after {
-  content: ''; position: absolute; bottom: 0; left: 20%; right: 20%;
-  height: 2px; background: var(--accent); border-radius: 2px 2px 0 0;
-}
-.cs-proto-tab.is-active .cs-proto-tab-icon { color: var(--accent); }
+.cs-proto-tab + .cs-proto-tab { border-left: 1px solid var(--line); }
+.cs-proto-tab:hover { color: var(--text-soft); }
+.cs-proto-tab.is-active { color: var(--accent); background: rgba(212,255,94,0.06); }
 .cs-proto-stage {
-  border: 1px solid var(--line); border-top: none;
-  border-radius: 0 0 12px 12px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
   display: flex;
   position: relative; overflow: hidden;
 }
 .cs-proto-panel { display: none; width: 100%; }
 .cs-proto-panel.is-active { display: block; }
-.cs-proto-panel .cs-mock-browser { border-radius: 0 0 12px 12px; border: none; box-shadow: none; }
+.cs-proto-panel .cs-mock-browser { border-radius: 12px; border: none; box-shadow: none; }
 .cs-proto-panel .cs-mock-window { height: clamp(300px, 45vw, 560px); overflow: hidden; }
 .cs-proto-panel .cs-mock-nav { height: 100%; overflow: hidden; }
 .cs-proto-panel .cs-mock-nav img { height: 100%; width: auto; min-width: 100%; object-fit: cover; object-position: top left; }
@@ -497,7 +498,7 @@
   font-size: 20px;
 }
 .cs-proto-panel h3 {
-  font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 500;
+  font-family: 'Geist', sans-serif; font-size: 22px; font-weight: 600;
   color: var(--text); margin: 0;
 }
 .cs-proto-panel p {
@@ -581,16 +582,12 @@ a.cs-cta { margin-top: 28px; }
 
 <nav>
   <div class="logo">
-    <a href="index.html">
-      <img src="assets/akhil.jpg" alt="" class="mark" style="width: 22px; height: 22px; object-fit: cover; object-position: top center; filter: grayscale(100%);">
-      <span class="name">Akhil Male</span>
-    </a>
+    <a class="cs-back" href="index.html"><span class="arr">←</span> Back to selected work</a>
   </div>
 </nav>
 
 <!-- ═══════════════════════ HERO ═══════════════════════ -->
 <header class="cs-hero">
-  <a class="cs-back" href="index.html"><span class="arr">←</span> Back to selected work</a>
   <div class="cs-hero-eyebrow">Case Study<span class="sep">·</span>Concept Draft<span class="sep">·</span>2025</div>
   <h1 class="cs-hero-title">Recon<em>ciliation</em></h1>
   <div class="cs-hero-meta">
@@ -611,7 +608,7 @@ a.cs-cta { margin-top: 28px; }
 
   <div class="cs-label reveal"><span class="num">/01</span> Why Reconciliation Exists</div>
   <h2 class="cs-display reveal">One transaction. <em>Multiple versions of the truth.</em></h2>
-  <p class="cs-p reveal">When a customer makes a payment, the journey doesn't end there. A merchant records the transaction. A payment provider processes and settles it. A bank eventually receives the funds. Each system independently stores its own version of that same event.</p>
+  <p class="cs-p reveal">When a customer makes a payment, multiple systems record the same event. Merchants, payment providers, and banks each store their own version of what happened.</p>
 
   <div class="cs-recon-layer-flow reveal" style="margin: 40px 0 48px;">
     <div class="cs-recon-node cs-recon-node--oms">
@@ -631,9 +628,7 @@ a.cs-cta { margin-top: 28px; }
   </div>
 
   <p class="cs-p reveal">As businesses grow, thousands of these transactions flow every day. Even small discrepancies can lead to reporting errors, delayed investigations, and revenue leakage.</p>
-  <p class="cs-p reveal" style="margin-top: 8px;">Reconciliation exists to verify that every system tells the same story about where the money went.</p>
-
-  <p class="cs-p reveal" style="margin-top: 40px;">Reconciliation doesn't compare every system at once. It happens layer by layer, comparing two parties at a time.</p>
+  <p class="cs-p reveal" style="margin-top: 8px;">Reconciliation exists to verify that every system tells the same story about where the money went. To do that, reconciliation happens layer by layer, comparing two parties at a time.</p>
 
   <div class="cs-recon-layers reveal" style="margin: 40px 0 48px;">
     <div class="cs-recon-layer">
@@ -676,10 +671,10 @@ a.cs-cta { margin-top: 28px; }
     </div>
   </div>
 
-  <p class="cs-p reveal">Records are paired using a common identifier, such as an Order ID, and then validated against a predefined rule set.</p>
+  <p class="cs-p reveal">Accounts are paired using a common identifier, such as an Order ID or Batch ID and validated against a predefined rule set. A single transaction may involve multiple accounts and entries across the systems being compared.</p>
 
   <div class="cs-challenge reveal" style="margin-top: 32px;">
-    <p>If the records agree, the transaction is reconciled. If they don't, the investigation begins.</p>
+    <p>If the accounts agree, the transaction is reconciled. If they don't, the investigation begins.</p>
   </div>
 
 </div>
@@ -693,7 +688,7 @@ a.cs-cta { margin-top: 28px; }
   <h2 class="cs-display reveal">Sometimes the records <em>don't agree.</em></h2>
 
   <p class="cs-p reveal" style="margin-top: 24px;">That's where analysts begin investigating.</p>
-  <p class="cs-p reveal">An exception is simply a disagreement between two records.</p>
+  <p class="cs-p reveal">An exception occurs when two records fail to match.</p>
 
   <div class="cs-recon-layer-flow reveal" style="margin: 40px 0 40px;">
     <div class="cs-recon-node cs-recon-node--oms">
@@ -779,7 +774,7 @@ a.cs-cta { margin-top: 28px; }
 <section class="cs-section" id="cs-shapes">
 <div class="cs-wrap">
 
-  <div class="cs-label reveal"><span class="num">/03</span> Why Investigation Becomes Difficult</div>
+  <div class="cs-label reveal"><span class="num">/03</span> Why Resolution Slows Down</div>
   <h2 class="cs-display reveal">One mismatch can hide <em>many different stories.</em></h2>
 
   <p class="cs-p reveal" style="margin-top: 24px;">Knowing why two records disagree is only part of the picture. Analysts also need to understand how those records are connected underneath.</p>
@@ -833,9 +828,9 @@ a.cs-cta { margin-top: 28px; }
     </div>
   </div>
 
-  <p class="cs-p reveal">An exception label only tells part of the story.</p>
+  <p class="cs-p reveal">The exception label explains what failed, but not how the records relate underneath.</p>
 
-  <p class="cs-section-sub reveal" style="margin-top: 40px;">Analysts need to understand both layers before they can act:</p>
+  <p class="cs-h3 reveal" style="margin-top: 40px;">Analysts need to understand both layers before they can act:</p>
   <ul class="cs-list reveal">
     <li>Who is being compared (Account level)</li>
     <li>What is being compared underneath (Entry level)</li>
@@ -953,11 +948,9 @@ a.cs-cta { margin-top: 28px; }
     </div>
   </div>
 
-  <p class="cs-section-sub reveal" style="margin-top: 40px;">Why investigation slows down</p>
+  <p class="cs-h3 reveal" style="margin-top: 40px;">Why resolution slows down</p>
   <ul class="cs-list reveal">
     <li>The exception label hides what's happening underneath.</li>
-    <li>Resolution depends on entry-level relationships, not account-level labels.</li>
-    <li>Analysts must manually reconstruct missing context.</li>
     <li>The same mismatch can require different resolution paths.</li>
   </ul>
 
@@ -972,35 +965,21 @@ a.cs-cta { margin-top: 28px; }
   <div class="cs-label reveal"><span class="num">/04</span> Designing the Investigation</div>
   <h2 class="cs-display reveal">Analysts shouldn't have to rebuild the story <em>every time.</em></h2>
 
-  <p class="cs-p reveal" style="margin-top: 24px;">Every exception already carried the information analysts needed to make a decision — but that information was buried across multiple layers of records, relationships, and metadata.</p>
-  <p class="cs-p reveal">Because analysts investigate exceptions repeatedly throughout the day, even small amounts of reconstruction effort quickly compound at scale.</p>
-  <p class="cs-p reveal">Before taking action, they were repeatedly answering the same fundamental questions.</p>
+  <p class="cs-p reveal" style="margin-top: 24px;">Every exception already carried the information analysts needed to make a decision, but that information was buried across multiple layers of accounts &amp; entries relationships metadata.</p>
+  <p class="cs-p reveal">Because analysts handle exceptions repeatedly, even small amounts of reconstruction effort compound quickly at scale.</p>
 
-  <p class="cs-section-sub reveal" style="margin-top: 40px;">Analysts first needed to know:</p>
+
+  <p class="cs-h3 reveal" style="margin-top: 40px;">Before they could resolve an exception, analysts had to answer the same questions every time:</p>
   <ul class="cs-list reveal">
-    <li>What transaction is this about?</li>
+    <li>Which transaction is affected?</li>
     <li>Which accounts and entries are involved?</li>
-    <li>What exactly caused the mismatch?</li>
-    <li>What action should be taken?</li>
+    <li>What caused the mismatch?</li>
+    <li>What needs to happen next?</li>
   </ul>
 
-  <div class="cs-challenge reveal" style="margin-top: 32px;">
-    <div class="cs-challenge-tag">Design Goal</div>
-    <p>Reduce the effort required to move from investigation to resolution.</p>
-  </div>
+  <p class="cs-h3 reveal" style="margin-top: 40px;">Design principle</p>
+  <p class="cs-p reveal">Every exception should answer two questions:</p>
 
-</div>
-</section>
-
-<!-- ═══════════════════════ 06 — UI DESIGN ═══════════════════════ -->
-<section class="cs-section" id="cs-showcase">
-
-<!-- Intro -->
-<div class="cs-wrap">
-  <div class="cs-label reveal"><span class="num">/05</span> From Investigation to Action</div>
-  <h2 class="cs-display reveal">We simplified the path from investigation <em>to action.</em></h2>
-  <p class="cs-p reveal">The complexity of an exception never disappeared. Instead, we structured the experience so its hidden structure became immediately visible to analysts.</p>
-  <p class="cs-p reveal">Rather than rebuilding context for every exception, analysts moved through a consistent two-step flow:</p>
   <div class="cs-anchor-grid reveal" style="margin-top: 48px; grid-template-columns: repeat(2, 1fr);">
     <div class="cs-anchor">
       <div class="cs-anchor-num">01</div>
@@ -1013,61 +992,22 @@ a.cs-cta { margin-top: 28px; }
       <div class="cs-anchor-desc">Guide analysts toward the appropriate resolution with confidence.</div>
     </div>
   </div>
-</div>
-<!-- Hero mockup -->
-<div class="cs-wrap cs-wrap--showcase">
-  <div class="cs-mock-browser reveal">
-    <div class="cs-mock-chrome"><img src="assets/recon/chrome-bar.png" alt="Browser chrome"></div>
-    <div class="cs-mock-window">
-      <div class="cs-mock-nav"><img src="assets/recon/nav.png" alt="Navigation sidebar"></div>
-      <div class="cs-mock-body"><img src="assets/recon/exception-1to1.png" alt="Exception detail"></div>
-    </div>
-  </div>
-</div>
 
-<hr class="cs-divider">
+</div>
+</section>
 
-<!-- 01 / Understand the exception -->
+<!-- ═══════════════════════ 06 — UI DESIGN ═══════════════════════ -->
+<section class="cs-section" id="cs-showcase">
+
+<!-- Intro -->
 <div class="cs-wrap">
-  <p class="cs-sub-num reveal">01 / Make context immediately visible</p>
-  <p class="cs-p reveal">Analysts were repeatedly spending time rebuilding the same context before they could investigate an exception.</p>
-  <p class="cs-p reveal">We brought that information upfront — participating accounts, underlying entries, topology, matching rules, timestamps, and the reason behind the mismatch.</p>
-  <p class="cs-p reveal">Instead of manually piecing relationships together, analysts can immediately understand what this exception is about.</p>
+  <div class="cs-label reveal"><span class="num">/05</span> Designing for Resolution</div>
+  <h2 class="cs-display reveal">We simplified the path from investigation <em>to resolution.</em></h2>
+  <p class="cs-p reveal">We structured the experience around the way analysts naturally approach exceptions: first understand the exception, then resolve it.</p>
 </div>
-<div class="cs-wrap">
-  <div class="cs-mock-browser cs-mock--context reveal">
-    <div class="cs-mock-chrome"><img src="assets/recon/chrome-bar.png" alt="Browser chrome"></div>
-    <div class="cs-mock-window">
-      <div class="cs-mock-nav"><img src="assets/recon/nav.png" alt="Navigation sidebar"></div>
-      <div class="cs-mock-body"><img src="assets/recon/understand-exception.png" alt="Exception detail showing account entries, matching rules, and mismatch context"></div>
-    </div>
-  </div>
-</div>
-
-<hr class="cs-divider">
-
-<!-- 02 / Resolve the exception -->
-<div class="cs-wrap">
-  <p class="cs-sub-num reveal">02 / Guide the next action</p>
-  <p class="cs-p reveal">Once the context is clear, resolving an exception becomes a much smaller task.</p>
-  <p class="cs-p reveal">The interface highlights where the disagreement exists and surfaces only the actions that are relevant to that exception.</p>
-  <p class="cs-p reveal">Analysts no longer spend time figuring out how to investigate. They can focus on confidently resolving it.</p>
-</div>
-<div class="cs-wrap">
-  <div class="cs-mock-browser cs-mock--context reveal">
-    <div class="cs-mock-chrome"><img src="assets/recon/chrome-bar.png" alt="Browser chrome"></div>
-    <div class="cs-mock-window">
-      <div class="cs-mock-nav"><img src="assets/recon/nav.png" alt="Navigation sidebar"></div>
-      <div class="cs-mock-body"><img src="assets/recon/oms-entries.png" alt="OMS and PSP account entries with mismatch details and resolution actions"></div>
-    </div>
-  </div>
-</div>
-
-<hr class="cs-divider">
-
 <!-- 03 / The many faces of an exception -->
 <div class="cs-wrap">
-  <p class="cs-sub-num reveal">03 / One flow. Many structures</p>
+  <h3 class="cs-h3 reveal" style="margin-top: 56px;">One experience. Many structures</h3>
   <p class="cs-p reveal">The investigation flow remained the same regardless of how accounts and entries were connected underneath.</p>
   <p class="cs-p reveal">Whether an exception was One-to-One, One-to-Many, Many-to-One...the interface adapted to the topology while preserving a consistent investigation experience.</p>
 </div>
@@ -1101,43 +1041,41 @@ a.cs-cta { margin-top: 28px; }
   </div>
 </div>
 
-<hr class="cs-divider">
-
 <!-- 04 / Resolution actions prototype -->
 <div class="cs-wrap">
-  <p class="cs-sub-num reveal">04 / Make resolution obvious</p>
+  <h3 class="cs-h3 reveal" style="margin-top: 56px;">Make resolution obvious</h3>
   <p class="cs-p reveal">Once the discrepancy is understood, the remaining task is straightforward.</p>
   <p class="cs-p reveal">The available actions are simplified and surfaced in context, allowing exceptions to be resolved through a small set of clear, guided steps.</p>
 </div>
 <div class="cs-wrap cs-wrap--showcase">
   <div class="cs-proto reveal" id="cs-proto">
     <div class="cs-proto-tabs">
-      <button class="cs-proto-tab is-active" data-panel="edit"><span class="cs-proto-tab-icon">✎</span>Edit</button>
-      <button class="cs-proto-tab" data-panel="add"><span class="cs-proto-tab-icon">+</span>Add</button>
-      <button class="cs-proto-tab" data-panel="swap"><span class="cs-proto-tab-icon">⇄</span>Swap</button>
-      <button class="cs-proto-tab" data-panel="ignore"><span class="cs-proto-tab-icon">—</span>Ignore</button>
+      <button class="cs-proto-tab is-active" data-panel="edit">✎ Edit</button>
+      <button class="cs-proto-tab" data-panel="add">+ Add</button>
+      <button class="cs-proto-tab" data-panel="swap">⇄ Swap</button>
+      <button class="cs-proto-tab" data-panel="ignore"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg> Ignore</button>
     </div>
     <div class="cs-proto-stage">
       <div class="cs-proto-panel is-active" id="proto-edit">
-        <video autoplay loop muted playsinline style="width:100%; display:block; border-radius: 0 0 12px 12px;">
+        <video autoplay loop muted playsinline style="width:100%; display:block; border-radius: 12px;">
           <source src="assets/recon/edit-flow.mp4" type="video/mp4">
           <source src="assets/recon/edit-flow.mov" type="video/quicktime">
         </video>
       </div>
       <div class="cs-proto-panel" id="proto-add">
-        <video autoplay loop muted playsinline style="width:100%; display:block; border-radius: 0 0 12px 12px;">
+        <video autoplay loop muted playsinline style="width:100%; display:block; border-radius: 12px;">
           <source src="assets/recon/add-flow.mp4" type="video/mp4">
           <source src="assets/recon/add-flow.mov" type="video/quicktime">
         </video>
       </div>
       <div class="cs-proto-panel" id="proto-swap">
-        <video autoplay loop muted playsinline style="width:100%; display:block; border-radius: 0 0 12px 12px;">
+        <video autoplay loop muted playsinline style="width:100%; display:block; border-radius: 12px;">
           <source src="assets/recon/swap-flow.mp4" type="video/mp4">
           <source src="assets/recon/swap-flow.mov" type="video/quicktime">
         </video>
       </div>
       <div class="cs-proto-panel" id="proto-ignore">
-        <video autoplay loop muted playsinline style="width:100%; display:block; border-radius: 0 0 12px 12px;">
+        <video autoplay loop muted playsinline style="width:100%; display:block; border-radius: 12px;">
           <source src="assets/recon/ignore-flow.mp4" type="video/mp4">
           <source src="assets/recon/ignore-flow.mov" type="video/quicktime">
         </video>
@@ -1150,22 +1088,15 @@ a.cs-cta { margin-top: 28px; }
 <div class="cs-wrap">
   <hr class="cs-divider" style="margin-top: 80px;">
 
-  <div class="cs-thanks-block reveal" style="display: flex; flex-direction: column; align-items: center; text-align: center; padding: 80px 0 40px; gap: 28px;">
-    <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity: 0.65;">
-      <rect x="14" y="10" width="36" height="48" rx="2" stroke="var(--accent)" stroke-width="1.5" fill="none"/>
-      <rect x="22" y="14" width="36" height="48" rx="2" stroke="var(--text-muted)" stroke-width="1.5" fill="var(--bg-card)"/>
-      <line x1="28" y1="26" x2="52" y2="26" stroke="var(--text-muted)" stroke-width="1" opacity="0.5"/>
-      <line x1="28" y1="32" x2="48" y2="32" stroke="var(--text-muted)" stroke-width="1" opacity="0.4"/>
-      <line x1="28" y1="38" x2="50" y2="38" stroke="var(--text-muted)" stroke-width="1" opacity="0.3"/>
-      <line x1="28" y1="44" x2="42" y2="44" stroke="var(--text-muted)" stroke-width="1" opacity="0.25"/>
-    </svg>
-    <p style="font-family: 'Playfair Display', serif; font-size: clamp(26px, 3vw, 34px); font-weight: 400; font-style: italic; color: var(--text); margin: 0; line-height: 1.4;">Thanks for reading.</p>
+  <div class="cs-thanks-note reveal">
+    <span class="cs-thanks-mark" aria-hidden="true">
+      <span class="cs-thanks-dash"></span>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c.4 5.9 5.7 11.2 11.6 11.6v.8C17.7 12.8 12.4 18.1 12 24h-.8C10.8 18.1 5.5 12.8-.4 12.4v-.8C5.5 11.2 10.8 5.9 11.2 0h.8z"/></svg>
+      <span class="cs-thanks-dash"></span>
+    </span>
+    <p>Thanks for following along.</p>
   </div>
-  <div style="display: flex; justify-content: center; margin-top: 16px;">
-    <a class="cs-cta reveal" href="index.html" style="margin: 0;">
-      <span class="arr">←</span> Back to selected work
-    </a>
-  </div>
+  <div class="cs-cta-center reveal"><a class="cs-cta" href="index.html"><span class="arr">←</span> Back to selected work</a></div>
 </div>
 
 </section>
@@ -1280,9 +1211,9 @@ a.cs-cta { margin-top: 28px; }
   var SECTIONS = [
     { id: 'cs-context',   label: '01 — Multiple Versions of the Truth', thesis: 'One transaction. <em>Multiple versions of the truth.</em>' },
     { id: 'cs-exception', label: '02 — What&rsquo;s an Exception',       thesis: 'Sometimes those trails don\'t agree. <em>And that\'s where investigation begins.</em>' },
-    { id: 'cs-shapes',    label: '03 — Why Investigation Becomes Difficult', thesis: 'One mismatch can hide <em>many different stories.</em>' },
+    { id: 'cs-shapes',    label: '03 — Why Resolution Slows Down', thesis: 'One mismatch can hide <em>many different stories.</em>' },
     { id: 'cs-structure', label: '04 — Designing the Investigation',        thesis: 'Analysts shouldn\'t have to rebuild the story <em>every time.</em>' },
-    { id: 'cs-showcase',  label: '05 — From Investigation to Action',       thesis: 'We simplified the path from <em>investigation to action.</em>' }
+    { id: 'cs-showcase',  label: '05 — Designing for Resolution',       thesis: 'We simplified the path from <em>investigation to resolution.</em>' }
   ];
 
   var activeId = null;
