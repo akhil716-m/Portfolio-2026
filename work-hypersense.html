@@ -779,6 +779,21 @@ a.cs-cta { margin-top: 28px; }
 .cs-arc-row--win .cs-arc-metric strong { color: var(--text); }
 .cs-arc-metric em { font-family: 'Geist', sans-serif; font-style: normal; font-weight: 500; color: var(--text-soft); }
 .cs-arc-row--win .cs-arc-metric em { color: var(--accent); }
+/* interactive hover linking between arcs and legend rows */
+.cs-arc-hit { cursor: pointer; }
+.cs-arc-ring { transition: stroke 0.22s ease, stroke-width 0.22s ease, opacity 0.22s ease; }
+.cs-arc-row { transition: opacity 0.22s ease; }
+.cs-arc-eyebrow, .cs-arc-lead { transition: color 0.22s ease; }
+.cs-arcs.is-focus .cs-arc-ring { opacity: 0.28; }
+.cs-arcs.is-focus .cs-arc-ring.is-hl { opacity: 1; stroke-width: 2.5; }
+/* small + mid keep their own white shade, just a small brightness bump; only enterprise keeps its accent */
+.cs-arcs.is-focus .cs-arc-ring.is-hl[data-tier="0"] { stroke: rgba(255,255,255,0.4); }
+.cs-arcs.is-focus .cs-arc-ring.is-hl[data-tier="1"] { stroke: rgba(255,255,255,0.6); }
+.cs-arcs.is-focus .cs-arc-row { opacity: 0.4; }
+.cs-arcs.is-focus .cs-arc-row.is-hl { opacity: 1; }
+.cs-arc-row.is-hl .cs-arc-eyebrow { color: var(--text-soft); }
+.cs-arc-row--win.is-hl .cs-arc-eyebrow { color: var(--accent); }
+.cs-arc-row.is-hl .cs-arc-lead { color: #fff; }
 @media (max-width: 700px) {
   .cs-arcs { grid-template-columns: 1fr; gap: 28px; padding: 28px 24px; }
   .cs-arcs-viz { max-width: 180px; }
@@ -1199,32 +1214,59 @@ a.cs-cta { margin-top: 28px; }
         <circle cx="26" cy="180" r="104" fill="rgba(255,255,255,0.02)"/>
         <circle cx="26" cy="180" r="52" fill="rgba(255,255,255,0.03)"/>
         <!-- arc strokes -->
-        <circle cx="26" cy="180" r="52" fill="none" stroke="rgba(255,255,255,0.16)" stroke-width="1.5"/>
-        <circle cx="26" cy="180" r="104" fill="none" stroke="rgba(255,255,255,0.28)" stroke-width="1.5"/>
-        <circle cx="26" cy="180" r="160" fill="none" stroke="var(--accent)" stroke-width="2"/>
+        <circle class="cs-arc-ring" data-tier="0" cx="26" cy="180" r="52" fill="none" stroke="rgba(255,255,255,0.16)" stroke-width="1.5"/>
+        <circle class="cs-arc-ring" data-tier="1" cx="26" cy="180" r="104" fill="none" stroke="rgba(255,255,255,0.28)" stroke-width="1.5"/>
+        <circle class="cs-arc-ring" data-tier="2" cx="26" cy="180" r="160" fill="none" stroke="var(--accent)" stroke-width="2"/>
         <circle cx="26" cy="180" r="4.5" fill="var(--accent)"/>
+        <!-- transparent hover hit-regions (largest first so the inner bands sit on top) -->
+        <circle class="cs-arc-hit" data-tier="2" cx="26" cy="180" r="160" fill="transparent"/>
+        <circle class="cs-arc-hit" data-tier="1" cx="26" cy="180" r="104" fill="transparent"/>
+        <circle class="cs-arc-hit" data-tier="0" cx="26" cy="180" r="52" fill="transparent"/>
       </svg>
       <div class="cs-arcs-caption">Merchant scale →</div>
       <div class="cs-arcs-note">At 2% processing cost</div>
     </div>
     <div class="cs-arcs-legend">
-      <div class="cs-arc-row">
+      <div class="cs-arc-row" data-tier="0">
         <span class="cs-arc-eyebrow">Small merchant</span>
         <p class="cs-arc-lead">Costs are rarely a priority.</p>
         <p class="cs-arc-metric"><strong>~$5M</strong> processed annually → <em>$100K</em>/yr in payment costs</p>
       </div>
-      <div class="cs-arc-row">
+      <div class="cs-arc-row" data-tier="1">
         <span class="cs-arc-eyebrow">Mid-sized merchant</span>
         <p class="cs-arc-lead">Costs become noticeable.</p>
         <p class="cs-arc-metric"><strong>~$50M</strong> processed annually → <em>$1M</em>/yr in payment costs</p>
       </div>
-      <div class="cs-arc-row cs-arc-row--win">
+      <div class="cs-arc-row cs-arc-row--win" data-tier="2">
         <span class="cs-arc-eyebrow">Enterprise merchant</span>
         <p class="cs-arc-lead">Every basis point matters.</p>
         <p class="cs-arc-metric"><strong>~$500M</strong> processed annually → <em>$10M</em>/yr in payment costs</p>
       </div>
     </div>
   </div>
+  <script>
+  (function(){
+    var root = document.querySelector('.cs-arcs');
+    if (!root) return;
+    var rings = root.querySelectorAll('.cs-arc-ring');
+    var rows = root.querySelectorAll('.cs-arc-row');
+    var targets = root.querySelectorAll('.cs-arc-hit, .cs-arc-row');
+    function setFocus(tier){
+      root.classList.add('is-focus');
+      rings.forEach(function(r){ r.classList.toggle('is-hl', r.getAttribute('data-tier') === tier); });
+      rows.forEach(function(r){ r.classList.toggle('is-hl', r.getAttribute('data-tier') === tier); });
+    }
+    function clearFocus(){
+      root.classList.remove('is-focus');
+      rings.forEach(function(r){ r.classList.remove('is-hl'); });
+      rows.forEach(function(r){ r.classList.remove('is-hl'); });
+    }
+    targets.forEach(function(el){
+      el.addEventListener('mouseenter', function(){ setFocus(el.getAttribute('data-tier')); });
+    });
+    root.addEventListener('mouseleave', clearFocus);
+  })();
+  </script>
 
   <p class="cs-p reveal">While payment costs are often expressed as a small percentage, their impact grows rapidly with transaction volume.</p>
   <p class="cs-p reveal">At enterprise scale, even marginal inefficiencies can translate into millions of dollars in avoidable spend.</p>
