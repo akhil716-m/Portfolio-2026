@@ -284,54 +284,6 @@ nav .logo a.cs-back:hover { color: var(--accent); }
 }
 .cs-shot-cap em { font-style: normal; color: var(--text-soft); }
 
-/* ---------- OVERVIEW — INTERACTIVE PRODUCT FRAME (chrome bar + segmented setup-switcher + scrollable body + live caption) ---------- */
-.cs-ov { margin: 32px 0 14px; }
-.cs-ov-frame {
-  border-radius: 12px; overflow: hidden; border: 1px solid var(--line);
-  background: var(--bg-card); box-shadow: 0 36px 90px rgba(0,0,0,0.45);
-}
-.cs-ov-frame .cs-shot-bar { padding: 9px 16px; gap: 12px; }
-.cs-ov-frame .cs-shot-dots i { width: 8px; height: 8px; }
-.cs-ov-frame .cs-shot-url { padding: 6px 13px; font-size: 10.5px; }
-.cs-ov-tabbar {
-  display: flex; align-items: center; gap: 10px; padding: 9px 16px;
-  background: var(--bg-soft); border-bottom: 1px solid var(--line); overflow-x: auto;
-}
-.cs-ov-tabbar-label {
-  flex-shrink: 0; font-family: 'Geist Mono', monospace; font-size: 8.5px; letter-spacing: 0.14em;
-  text-transform: uppercase; color: var(--text-muted);
-}
-.cs-ov-segs { display: flex; gap: 5px; flex-shrink: 0; }
-.cs-ov-seg {
-  flex-shrink: 0; padding: 5px 13px; border-radius: 100px; border: 1px solid var(--line);
-  background: transparent; color: var(--text-soft); font-family: 'Geist', sans-serif; font-size: 11px;
-  cursor: pointer; transition: background 0.18s ease, border-color 0.18s ease, color 0.18s ease; white-space: nowrap;
-}
-.cs-ov-seg:hover { color: var(--text); border-color: var(--text-muted); }
-.cs-ov-seg.is-active { background: var(--accent); border-color: var(--accent); color: var(--bg); font-weight: 500; }
-.cs-ov-body { position: relative; height: 504px; overflow-y: auto; background: #fff; display: flex; align-items: stretch; }
-.cs-ov-navbar {
-  flex: 0 0 48px; position: sticky; top: 0; align-self: flex-start;
-  height: 504px; overflow: hidden;
-}
-.cs-ov-navbar > img:first-child { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
-.cs-ov-navbar-avatar {
-  position: absolute; left: 50%; bottom: 16px; transform: translateX(-50%);
-  width: 26px; height: 26px; border-radius: 8px; object-fit: cover; display: block;
-}
-.cs-ov-shot-wrap { flex: 1; min-width: 0; }
-#cs-ov-shot { width: 100%; display: block; opacity: 1; transition: opacity 0.22s ease; }
-.cs-ov-caption {
-  display: flex; flex-wrap: wrap; align-items: baseline; column-gap: 11px; row-gap: 4px;
-  padding: 12px 18px; border-top: 1px solid var(--line);
-}
-.cs-ov-cap-tag {
-  font-family: 'Geist Mono', monospace; font-size: 8.5px; letter-spacing: 0.14em; text-transform: uppercase;
-  color: var(--text-muted);
-}
-.cs-ov-cap-title { font-family: 'Geist', sans-serif; font-size: 14.5px; font-weight: 600; color: var(--accent); transition: color 0.18s ease; }
-.cs-ov-cap-desc { font-family: 'Geist', sans-serif; font-size: 11.5px; font-weight: 300; color: var(--text-soft); line-height: 1.6; flex-basis: 100%; }
-
 /* ---------- TEAM GRID (bento) ---------- */
 .cs-team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line); }
 .cs-team-col { padding: 22px 18px; background: var(--bg-card); }
@@ -827,6 +779,21 @@ a.cs-cta { margin-top: 28px; }
 .cs-arc-row--win .cs-arc-metric strong { color: var(--text); }
 .cs-arc-metric em { font-family: 'Geist', sans-serif; font-style: normal; font-weight: 500; color: var(--text-soft); }
 .cs-arc-row--win .cs-arc-metric em { color: var(--accent); }
+/* interactive hover linking between arcs and legend rows */
+.cs-arc-hit { cursor: pointer; }
+.cs-arc-ring { transition: stroke 0.22s ease, stroke-width 0.22s ease, opacity 0.22s ease; }
+.cs-arc-row { transition: opacity 0.22s ease; }
+.cs-arc-eyebrow, .cs-arc-lead { transition: color 0.22s ease; }
+.cs-arcs.is-focus .cs-arc-ring { opacity: 0.28; }
+.cs-arcs.is-focus .cs-arc-ring.is-hl { opacity: 1; stroke-width: 2.5; }
+/* small + mid keep their own white shade, just a small brightness bump; only enterprise keeps its accent */
+.cs-arcs.is-focus .cs-arc-ring.is-hl[data-tier="0"] { stroke: rgba(255,255,255,0.4); }
+.cs-arcs.is-focus .cs-arc-ring.is-hl[data-tier="1"] { stroke: rgba(255,255,255,0.6); }
+.cs-arcs.is-focus .cs-arc-row { opacity: 0.4; }
+.cs-arcs.is-focus .cs-arc-row.is-hl { opacity: 1; }
+.cs-arc-row.is-hl .cs-arc-eyebrow { color: var(--text-soft); }
+.cs-arc-row--win.is-hl .cs-arc-eyebrow { color: var(--accent); }
+.cs-arc-row.is-hl .cs-arc-lead { color: #fff; }
 @media (max-width: 700px) {
   .cs-arcs { grid-template-columns: 1fr; gap: 28px; padding: 28px 24px; }
   .cs-arcs-viz { max-width: 180px; }
@@ -951,23 +918,6 @@ a.cs-cta { margin-top: 28px; }
 }
 
 /* ---------- OVERVIEW TABS ---------- */
-.cs-ov-tabs-header {
-  font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.12em;
-  text-transform: uppercase; color: var(--text-muted); margin-bottom: 10px; text-align: center;
-}
-.cs-ov-tabs {
-  display: flex; gap: 0; margin-bottom: 16px;
-  background: var(--bg-card); border: 1px solid var(--line); border-radius: 10px; overflow: hidden;
-}
-.cs-ov-tab {
-  flex: 1; padding: 12px 16px; border: none; background: none; cursor: pointer;
-  font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.1em;
-  text-transform: uppercase; color: var(--text-muted); transition: color 0.2s ease, background 0.2s ease;
-  text-align: center;
-}
-.cs-ov-tab + .cs-ov-tab { border-left: 1px solid var(--line); }
-.cs-ov-tab:hover { color: var(--text-soft); }
-.cs-ov-tab.is-active { color: var(--accent); background: rgba(212,255,94,0.06); }
 .cs-ov-tab-desc {
   font-family: 'Geist', sans-serif; font-size: 13px; font-weight: 300;
   color: var(--text-soft); text-align: center; margin: 16px 0 24px; line-height: 1.6;
@@ -1007,7 +957,7 @@ a.cs-cta { margin-top: 28px; }
 .cs-tension-index { grid-column: 1; grid-row: 1; font-family: 'Geist Mono', monospace; font-size: 16px; font-weight: 400; color: var(--text-muted); line-height: 1; padding-top: 3px; }
 .cs-tension-tension { grid-column: 2; }
 .cs-tension-title { font-family: 'Geist', sans-serif; font-size: 17px; font-weight: 500; line-height: 1.35; color: var(--text); margin: 0 0 10px; }
-.cs-tension-friction { font-family: 'Geist', sans-serif; font-size: 13.5px; font-weight: 300; line-height: 1.65; color: var(--text-muted); margin: 0 0 14px; max-width: 62ch; }
+.cs-tension-friction { font-family: 'Geist', sans-serif; font-size: 15px; font-weight: 300; line-height: 1.65; color: var(--text-muted); margin: 0 0 14px; max-width: 62ch; }
 .cs-tension-poles {
   display: inline-flex; align-items: center; gap: 12px;
   font-family: 'Geist', sans-serif; font-size: 13px; line-height: 1.3;
@@ -1021,7 +971,7 @@ a.cs-cta { margin-top: 28px; }
   background: rgba(212,255,94,0.045); border-left: 2px solid rgba(212,255,94,0.5);
 }
 .cs-tension-resp-label { font-family: 'Geist Mono', monospace; font-size: 9.5px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 9px; }
-.cs-tension-resp p { font-family: 'Geist', sans-serif; font-size: 13.5px; font-weight: 300; line-height: 1.65; color: var(--text-soft); margin: 0; max-width: 62ch; }
+.cs-tension-resp p { font-family: 'Geist', sans-serif; font-size: 15px; font-weight: 300; line-height: 1.65; color: var(--text-soft); margin: 0; max-width: 62ch; }
 @media (max-width: 760px) {
   .cs-tension-row { grid-template-columns: 28px 1fr; gap: 12px 16px; }
   .cs-tension-poles { flex-wrap: wrap; }
@@ -1085,14 +1035,6 @@ a.cs-cta { margin-top: 28px; }
 .cs-tl-text { font-family: 'Geist', sans-serif; font-size: 13.5px; font-weight: 300; line-height: 1.75; color: var(--text-soft); }
 .cs-tl-text strong { color: var(--text); font-weight: 500; }
 
-/* ---------- PROTOTYPE — MACBOOK MOCKUP ---------- */
-.cs-mb-scene { padding: 0 0 8px; display: flex; justify-content: center; width: 100vw; margin-left: calc(50% - 50vw); }
-.cs-mb-wrap { width: min(1050px, 92vw); }
-.cs-mb-wrap svg { width: 100%; height: auto; display: block; }
-.cs-mbpro-screen { width: 100%; height: 100%; background: #000; position: relative; overflow: hidden; display: block; }
-@media (min-width: 1281px) { .cs-mb-wrap { width: min(1050px, calc(100vw - 540px)); } }
-@media (max-width: 640px) { .cs-mb-wrap { width: 94vw; } }
-
 /* ---------- CLOSING QUOTE ---------- */
 .cs-quote {
   margin: 64px 0 22px; padding: 0 0 0 24px; border-left: 2px solid var(--accent);
@@ -1123,8 +1065,6 @@ a.cs-cta { margin-top: 28px; }
   .cs-iter { grid-template-columns: 1fr 1fr; }
   .cs-shot-scroll { height: 380px; }
   .cs-shot-navbar { height: 380px; }
-  .cs-ov-body { height: 420px; }
-  .cs-ov-navbar { height: 420px; }
 }
 @media (max-width: 540px) {
   .cs-team-grid { grid-template-columns: 1fr; }
@@ -1143,12 +1083,6 @@ a.cs-cta { margin-top: 28px; }
   .cs-shot-scroll { height: 320px; }
   .cs-shot-navbar { height: 320px; flex-basis: 38px; }
   .cs-shot-bar { gap: 12px; padding: 11px 14px; }
-  .cs-ov-body { height: 350px; }
-  .cs-ov-navbar { height: 350px; flex-basis: 38px; }
-  .cs-ov-frame .cs-shot-bar { padding: 8px 14px; gap: 10px; }
-  .cs-ov-tabbar { padding: 8px 14px; gap: 8px; }
-  .cs-ov-seg { padding: 5px 11px; font-size: 10.5px; }
-  .cs-ov-caption { padding: 10px 14px; }
 }
 </style>
 </head>
@@ -1280,32 +1214,59 @@ a.cs-cta { margin-top: 28px; }
         <circle cx="26" cy="180" r="104" fill="rgba(255,255,255,0.02)"/>
         <circle cx="26" cy="180" r="52" fill="rgba(255,255,255,0.03)"/>
         <!-- arc strokes -->
-        <circle cx="26" cy="180" r="52" fill="none" stroke="rgba(255,255,255,0.16)" stroke-width="1.5"/>
-        <circle cx="26" cy="180" r="104" fill="none" stroke="rgba(255,255,255,0.28)" stroke-width="1.5"/>
-        <circle cx="26" cy="180" r="160" fill="none" stroke="var(--accent)" stroke-width="2"/>
+        <circle class="cs-arc-ring" data-tier="0" cx="26" cy="180" r="52" fill="none" stroke="rgba(255,255,255,0.16)" stroke-width="1.5"/>
+        <circle class="cs-arc-ring" data-tier="1" cx="26" cy="180" r="104" fill="none" stroke="rgba(255,255,255,0.28)" stroke-width="1.5"/>
+        <circle class="cs-arc-ring" data-tier="2" cx="26" cy="180" r="160" fill="none" stroke="var(--accent)" stroke-width="2"/>
         <circle cx="26" cy="180" r="4.5" fill="var(--accent)"/>
+        <!-- transparent hover hit-regions (largest first so the inner bands sit on top) -->
+        <circle class="cs-arc-hit" data-tier="2" cx="26" cy="180" r="160" fill="transparent"/>
+        <circle class="cs-arc-hit" data-tier="1" cx="26" cy="180" r="104" fill="transparent"/>
+        <circle class="cs-arc-hit" data-tier="0" cx="26" cy="180" r="52" fill="transparent"/>
       </svg>
       <div class="cs-arcs-caption">Merchant scale →</div>
       <div class="cs-arcs-note">At 2% processing cost</div>
     </div>
     <div class="cs-arcs-legend">
-      <div class="cs-arc-row">
+      <div class="cs-arc-row" data-tier="0">
         <span class="cs-arc-eyebrow">Small merchant</span>
         <p class="cs-arc-lead">Costs are rarely a priority.</p>
         <p class="cs-arc-metric"><strong>~$5M</strong> processed annually → <em>$100K</em>/yr in payment costs</p>
       </div>
-      <div class="cs-arc-row">
+      <div class="cs-arc-row" data-tier="1">
         <span class="cs-arc-eyebrow">Mid-sized merchant</span>
         <p class="cs-arc-lead">Costs become noticeable.</p>
         <p class="cs-arc-metric"><strong>~$50M</strong> processed annually → <em>$1M</em>/yr in payment costs</p>
       </div>
-      <div class="cs-arc-row cs-arc-row--win">
+      <div class="cs-arc-row cs-arc-row--win" data-tier="2">
         <span class="cs-arc-eyebrow">Enterprise merchant</span>
         <p class="cs-arc-lead">Every basis point matters.</p>
         <p class="cs-arc-metric"><strong>~$500M</strong> processed annually → <em>$10M</em>/yr in payment costs</p>
       </div>
     </div>
   </div>
+  <script>
+  (function(){
+    var root = document.querySelector('.cs-arcs');
+    if (!root) return;
+    var rings = root.querySelectorAll('.cs-arc-ring');
+    var rows = root.querySelectorAll('.cs-arc-row');
+    var targets = root.querySelectorAll('.cs-arc-hit, .cs-arc-row');
+    function setFocus(tier){
+      root.classList.add('is-focus');
+      rings.forEach(function(r){ r.classList.toggle('is-hl', r.getAttribute('data-tier') === tier); });
+      rows.forEach(function(r){ r.classList.toggle('is-hl', r.getAttribute('data-tier') === tier); });
+    }
+    function clearFocus(){
+      root.classList.remove('is-focus');
+      rings.forEach(function(r){ r.classList.remove('is-hl'); });
+      rows.forEach(function(r){ r.classList.remove('is-hl'); });
+    }
+    targets.forEach(function(el){
+      el.addEventListener('mouseenter', function(){ setFocus(el.getAttribute('data-tier')); });
+    });
+    root.addEventListener('mouseleave', clearFocus);
+  })();
+  </script>
 
   <p class="cs-p reveal">While payment costs are often expressed as a small percentage, their impact grows rapidly with transaction volume.</p>
   <p class="cs-p reveal">At enterprise scale, even marginal inefficiencies can translate into millions of dollars in avoidable spend.</p>
@@ -1326,10 +1287,13 @@ a.cs-cta { margin-top: 28px; }
 
   <p class="cs-p reveal">HyperSense is a payment cost observability platform built to help merchants understand where their payment costs come from, why they change, and what actions to take next.</p>
   <p class="cs-p reveal">It transforms fragmented payment data spread across processor invoices, settlement reports, and transaction logs into a single investigation experience.</p>
-
+</div>
+<div class="cs-wrap cs-wrap--showcase">
   <div class="cs-shot reveal" style="margin: 24px 0;">
     <img src="assets/hypersense-hero.png" alt="HyperSense — payment cost observability dashboard" loading="lazy" />
   </div>
+</div>
+<div class="cs-wrap">
 
   <p class="cs-p reveal">Building HyperSense required more than designing dashboards. Before we could make payment costs observable, we first needed to understand how the ecosystem itself worked — how costs were structured, where visibility broke down, and why investigations remained heavily manual.</p>
 
@@ -1778,53 +1742,12 @@ a.cs-cta { margin-top: 28px; }
   <p class="cs-p reveal" style="margin-bottom: 24px;">Creating that experience wasn't straightforward. The same interface needed to work across fundamentally different merchant realities — from single processors to multi-PSP setups, and from simplified blended pricing to fully transparent IC++ models.</p>
 </div>
 <div class="cs-wrap cs-wrap--showcase">
-  <div class="cs-ov-tabs-header reveal">Switch to different merchant setups</div>
-  <div class="cs-ov-tabs reveal" id="cs-ov-tabs">
-    <button class="cs-ov-tab is-active" data-index="0">IC++ only</button>
-    <button class="cs-ov-tab" data-index="1">IC++ &amp; Blended</button>
-    <button class="cs-ov-tab" data-index="2">Blended only</button>
-    <button class="cs-ov-tab" data-index="3">Single PSP</button>
+  <div class="cs-shot-frame reveal" style="border:none; background:transparent;">
+    <video src="assets/hypersense/ov-demo.mp4" poster="assets/hypersense/ov-demo-poster.jpg"
+           autoplay muted loop playsinline controls controlslist="nodownload" preload="metadata"
+           style="width:100%; display:block; height:auto;"></video>
   </div>
-  <div class="cs-shot-frame reveal" id="cs-ov-frame">
-    <div class="cs-mock-chrome"><img src="assets/hypersense/chrome-bar.png" alt="Browser chrome"></div>
-    <div class="cs-mock-window">
-      <div class="cs-mock-nav"><img src="assets/hypersense/ov-nav-full.png" alt="" aria-hidden="true" /></div>
-      <div class="cs-mock-body"><img id="cs-ov-img" src="assets/hypersense/ov-icpp-only.jpg" alt="HyperSense Overview — IC++ only" loading="lazy" style="transition: opacity 0.2s ease;" /></div>
-    </div>
-  </div>
-  <p class="cs-ov-tab-desc" id="cs-ov-tab-desc">Full per-processor fee breakdown — every cost component stays visible.</p>
-  <script>
-  (function(){
-    var tabs = document.querySelectorAll('#cs-ov-tabs .cs-ov-tab');
-    var img = document.getElementById('cs-ov-img');
-    var desc = document.getElementById('cs-ov-tab-desc');
-    var body = img ? img.closest('.cs-mock-body') : null;
-    var data = [
-      { img: 'assets/hypersense/ov-icpp-only.jpg', alt: 'HyperSense Overview — IC++ only', desc: 'Full per-processor fee breakdown — every cost component stays visible.' },
-      { img: 'assets/hypersense/ov-icpp-blended.jpg', alt: 'HyperSense Overview — IC++ and Blended', desc: 'Two pricing models on one stack — the view reconciles both at once.' },
-      { img: 'assets/hypersense/ov-blended-only.jpg', alt: 'HyperSense Overview — Blended only', desc: 'Adapted to flat-rate pricing, where fee-level detail is naturally limited.' },
-      { img: 'assets/hypersense/ov-single-psp.jpg', alt: 'HyperSense Overview — Single PSP', desc: 'Same mental model, scaled down for a single-processor operation.' }
-    ];
-    var cur = 0;
-    tabs.forEach(function(tab) {
-      tab.addEventListener('click', function() {
-        var idx = parseInt(tab.dataset.index, 10);
-        if (idx === cur) return;
-        tabs[cur].classList.remove('is-active');
-        tab.classList.add('is-active');
-        cur = idx;
-        img.style.opacity = '0';
-        setTimeout(function() {
-          img.src = data[idx].img;
-          img.alt = data[idx].alt;
-          desc.textContent = data[idx].desc;
-          if (body) body.scrollTop = 0;
-          img.style.opacity = '1';
-        }, 200);
-      });
-    });
-  })();
-  </script>
+  <p class="cs-ov-tab-desc">The same overview adapts across merchant setups — from full per-processor IC++ detail to simplified blended pricing and single-PSP operations.</p>
 </div>
 <div class="cs-wrap">
   <p class="cs-p reveal" style="margin-top: 24px; margin-bottom: 14px;">Overview answers three fundamental questions:</p>
@@ -1843,14 +1766,10 @@ a.cs-cta { margin-top: 28px; }
 
 </div>
 <div class="cs-wrap cs-wrap--showcase">
-  <div class="cs-shot-frame reveal">
-    <div class="cs-mock-chrome"><img src="assets/hypersense/chrome-bar.png" alt="Browser chrome"></div>
-    <div class="cs-mock-window">
-      <div class="cs-mock-nav"><img src="assets/hypersense/nav-drilldown.png" alt="" aria-hidden="true" /></div>
-      <div class="cs-mock-body">
-        <img src="assets/hypersense/ui-drilldown.jpg" alt="HyperSense Drill-Down screen — decomposing payment cost across processors, regions, corridors, fee types and currencies" loading="lazy" />
-      </div>
-    </div>
+  <div class="cs-shot-frame reveal" style="border:none; background:transparent;">
+    <video src="assets/hypersense/drilldown-demo.mp4" poster="assets/hypersense/drilldown-demo-poster.jpg"
+           autoplay muted loop playsinline controls controlslist="nodownload" preload="metadata"
+           style="width:100%; display:block; height:auto;"></video>
   </div>
 </div>
 <div class="cs-wrap">
@@ -1870,14 +1789,10 @@ a.cs-cta { margin-top: 28px; }
 
 </div>
 <div class="cs-wrap cs-wrap--showcase">
-  <div class="cs-shot-frame reveal">
-    <div class="cs-mock-chrome"><img src="assets/hypersense/chrome-bar.png" alt="Browser chrome"></div>
-    <div class="cs-mock-window">
-      <div class="cs-mock-nav"><img src="assets/hypersense/nav-feespikes.png" alt="" aria-hidden="true" /></div>
-      <div class="cs-mock-body">
-        <img src="assets/hypersense/ui-feespikes.jpg" alt="HyperSense Fee Spikes screen — surfacing unexpected cost increases and tracing them back to a root cause" loading="lazy" />
-      </div>
-    </div>
+  <div class="cs-shot-frame reveal" style="border:none; background:transparent;">
+    <video src="assets/hypersense/feespikes-demo.mp4" poster="assets/hypersense/feespikes-demo-poster.jpg"
+           autoplay muted loop playsinline controls controlslist="nodownload" preload="metadata"
+           style="width:100%; display:block; height:auto;"></video>
   </div>
 </div>
 <div class="cs-wrap">
@@ -1918,14 +1833,10 @@ a.cs-cta { margin-top: 28px; }
 
 </div>
 <div class="cs-wrap cs-wrap--showcase">
-  <div class="cs-shot-frame reveal">
-    <div class="cs-mock-chrome"><img src="assets/hypersense/chrome-bar.png" alt="Browser chrome"></div>
-    <div class="cs-mock-window">
-      <div class="cs-mock-nav"><img src="assets/hypersense/nav-audit.png" alt="" aria-hidden="true" /></div>
-      <div class="cs-mock-body">
-        <img src="assets/hypersense/ui-audit.jpg" alt="HyperSense Audit screen — reconciling contracted vs applied rates and surfacing transaction-level evidence of overcharges" loading="lazy" />
-      </div>
-    </div>
+  <div class="cs-shot-frame reveal" style="border:none; background:transparent;">
+    <video src="assets/hypersense/audit-demo.mp4" poster="assets/hypersense/audit-demo-poster.jpg"
+           autoplay muted loop playsinline controls controlslist="nodownload" preload="metadata"
+           style="width:100%; display:block; height:auto;"></video>
   </div>
 </div>
 <div class="cs-wrap">
@@ -1943,14 +1854,10 @@ a.cs-cta { margin-top: 28px; }
 
 </div>
 <div class="cs-wrap cs-wrap--showcase">
-  <div class="cs-shot-frame reveal">
-    <div class="cs-mock-chrome"><img src="assets/hypersense/chrome-bar.png" alt="Browser chrome"></div>
-    <div class="cs-mock-window">
-      <div class="cs-mock-nav"><img src="assets/hypersense/nav-forecast.png" alt="" aria-hidden="true" /></div>
-      <div class="cs-mock-body">
-        <img src="assets/hypersense/ui-forecast.jpg" alt="HyperSense Forecast screen — translating upcoming card network fee changes into a merchant-specific cost impact estimate" loading="lazy" />
-      </div>
-    </div>
+  <div class="cs-shot-frame reveal" style="border:none; background:transparent;">
+    <video src="assets/hypersense/forecast-demo.mp4" poster="assets/hypersense/forecast-demo-poster.jpg"
+           autoplay muted loop playsinline controls controlslist="nodownload" preload="metadata"
+           style="width:100%; display:block; height:auto;"></video>
   </div>
 </div>
 <div class="cs-wrap">
@@ -1962,253 +1869,6 @@ a.cs-cta { margin-top: 28px; }
     <li>What will the impact be?</li>
   </ul>
   <p class="cs-p reveal">Instead of surfacing every published update, Forecast prioritised only the changes relevant to a merchant's business and translated them into clear financial impact.</p>
-
-  <!-- PROTOTYPE — LIVE WALKTHROUGH (MacBook Pro 14 inline-SVG mockup) -->
-  <hr style="border:none; border-top:1px solid var(--line); margin: 64px 0 40px;" />
-  <div class="cs-proto-intro reveal" style="text-align: center; margin-bottom: 24px;">
-    <div style="font-family:'Geist Mono',monospace; font-size:10px; letter-spacing:0.18em; text-transform:uppercase; color:var(--text-muted);">HyperSense — Full product prototype</div>
-  </div>
-  <div class="cs-mb-scene reveal" id="cs-mb-scene" style="padding-top: 0;">
-    <div class="cs-mb-wrap">
-      <svg viewBox="0 0 1216 735" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <clipPath id="cs-mb-screen-clip">
-            <path d="M124.5 32C124.5 24.268 130.768 18 138.5 18H1077.5C1085.23 18 1091.5 24.268 1091.5 32V646H124.5V32Z"/>
-          </clipPath>
-          <linearGradient id="cs-mb-g0" x1="608" y1="685" x2="608" y2="713" gradientUnits="userSpaceOnUse">
-            <stop stop-color="#AEAFB4"/><stop offset="0.193" stop-color="#AFB0B5"/><stop offset="0.376" stop-color="#AFB0B5"/>
-            <stop offset="0.599" stop-color="#7D7E82"/><stop offset="0.714" stop-color="#696A6F"/>
-            <stop offset="0.852" stop-color="#838489"/><stop offset="0.931" stop-color="#ABACB0"/>
-          </linearGradient>
-          <linearGradient id="cs-mb-g1" x1="1069.5" y1="717.25" x2="1149" y2="717.25" gradientUnits="userSpaceOnUse">
-            <stop stop-color="#8C8D91"/><stop offset="0.173" stop-color="#525358"/><stop offset="0.318" stop-color="#78797D"/>
-            <stop offset="0.465" stop-color="#A0A0A2"/><stop offset="0.691" stop-color="#9A9A9C"/>
-            <stop offset="0.826" stop-color="#4F5055"/><stop offset="0.941" stop-color="#9E9EA0"/><stop offset="1" stop-color="#848589"/>
-          </linearGradient>
-          <linearGradient id="cs-mb-g2" x1="1072.54" y1="718.875" x2="1145.93" y2="718.875" gradientUnits="userSpaceOnUse">
-            <stop stop-color="#575757"/><stop offset="0.083" stop-color="#2D2D2D"/><stop offset="0.490" stop-color="#4E4E4E"/>
-            <stop offset="0.825" stop-color="#2A2A2A"/><stop offset="1" stop-color="#5C5C5C"/>
-          </linearGradient>
-          <linearGradient id="cs-mb-g3" x1="66" y1="717.25" x2="145.5" y2="717.25" gradientUnits="userSpaceOnUse">
-            <stop stop-color="#8C8D91"/><stop offset="0.173" stop-color="#525358"/><stop offset="0.318" stop-color="#78797D"/>
-            <stop offset="0.465" stop-color="#A0A0A2"/><stop offset="0.691" stop-color="#9A9A9C"/>
-            <stop offset="0.826" stop-color="#4F5055"/><stop offset="0.941" stop-color="#9E9EA0"/><stop offset="1" stop-color="#848589"/>
-          </linearGradient>
-          <linearGradient id="cs-mb-g4" x1="69.04" y1="718.875" x2="142.43" y2="718.875" gradientUnits="userSpaceOnUse">
-            <stop stop-color="#575757"/><stop offset="0.083" stop-color="#2D2D2D"/><stop offset="0.490" stop-color="#4E4E4E"/>
-            <stop offset="0.825" stop-color="#2A2A2A"/><stop offset="1" stop-color="#5C5C5C"/>
-          </linearGradient>
-          <linearGradient id="cs-mb-g5" x1="502.5" y1="690.333" x2="713" y2="690.333" gradientUnits="userSpaceOnUse">
-            <stop stop-color="#25262B"/><stop offset="0.016" stop-color="#606166"/><stop offset="0.036" stop-color="#9FA0A4"/>
-            <stop offset="0.050" stop-color="#C8C8CE"/><stop offset="0.479" stop-color="#D7D8DD"/>
-            <stop offset="0.941" stop-color="#CBCBD3"/><stop offset="0.970" stop-color="#A7A8AC"/>
-            <stop offset="0.980" stop-color="#595A5E"/><stop offset="1" stop-color="#27282C"/>
-          </linearGradient>
-          <linearGradient id="cs-mb-g6" x1="607.5" y1="657" x2="607.5" y2="680" gradientUnits="userSpaceOnUse">
-            <stop stop-color="#222222"/><stop offset="0.085" stop-color="#242424"/>
-            <stop offset="0.830" stop-color="#242424"/><stop offset="1" stop-color="#201F24"/>
-          </linearGradient>
-        </defs>
-        <!-- Base / palm rest -->
-        <path d="M1216 687.995V685H0V687.995C0 696.748 0 701.124 2.61584 704.467C4.91681 707.408 8.58832 709.798 13.1042 711.297C18.2381 713 24.9587 713 38.4 713H1177.6C1191.04 713 1197.76 713 1202.9 711.297C1207.41 709.798 1211.08 707.408 1213.38 704.467C1216 701.124 1216 696.748 1216 687.995Z" fill="url(#cs-mb-g0)"/>
-        <!-- Right foot -->
-        <path d="M1146 717C1147.6 716.6 1148.67 714.833 1149 714H1069.5C1069.83 714.833 1070.9 716.6 1072.5 717C1072.67 718.167 1073.4 720.5 1075 720.5H1143.5C1145.1 720.5 1145.83 718.167 1146 717Z" fill="url(#cs-mb-g1)"/>
-        <path d="M1145.93 717.403C1145.67 718.632 1144.93 720.5 1143.5 720.5H1075C1073.51 720.5 1072.77 718.47 1072.54 717.25H1145.93V717.403Z" fill="url(#cs-mb-g2)"/>
-        <path d="M1145.93 717.403C1145.85 717.752 1145.74 718.151 1145.59 718.545H1072.91C1072.73 718.092 1072.61 717.631 1072.54 717.25H1145.93V717.403Z" fill="#383838"/>
-        <!-- Left foot -->
-        <path d="M142.5 717C144.1 716.6 145.167 714.833 145.5 714H66C66.3333 714.833 67.4 716.6 69 717C69.1667 718.167 69.9 720.5 71.5 720.5H140C141.6 720.5 142.333 718.167 142.5 717Z" fill="url(#cs-mb-g3)"/>
-        <path d="M142.427 717.403C142.168 718.632 141.431 720.5 140 720.5H71.5002C70.0079 720.5 69.2701 718.47 69.0422 717.25H142.427V717.403Z" fill="url(#cs-mb-g4)"/>
-        <path d="M142.427 717.403C142.354 717.752 142.241 718.151 142.085 718.545H69.4126C69.2342 718.092 69.1137 717.631 69.0425 717.25H142.427V717.403Z" fill="#383838"/>
-        <!-- Hinge notch -->
-        <path d="M502 685H713C713 691.075 708.075 696 702 696H513C506.925 696 502 691.075 502 685Z" fill="url(#cs-mb-g5)"/>
-        <path d="M712.487 685.5C712.226 691.067 707.631 695.5 702 695.5H513C507.369 695.5 502.774 691.067 502.513 685.5H712.487Z" stroke="white" stroke-opacity="0.1"/>
-        <!-- Display outer fill -->
-        <path d="M608.5 2H1078.5C1093.96 2 1106.5 14.536 1106.5 30V683H608.5H608H110V30C110 14.536 122.536 2 138 2H608H608.5Z" fill="black"/>
-        <!-- Bezel inner border -->
-        <path fill-rule="evenodd" clip-rule="evenodd" d="M1078.5 4H138C123.641 4 112 15.6406 112 30V681H1104.5V30C1104.5 15.6406 1092.86 4 1078.5 4ZM1078.5 2H138C122.536 2 110 14.536 110 30V683H1106.5V30C1106.5 14.536 1093.96 2 1078.5 2Z" fill="#201F24"/>
-        <!-- Bezel outer ring -->
-        <path fill-rule="evenodd" clip-rule="evenodd" d="M1108.5 685H108V30C108 13.4315 121.431 0 138 0H1078.5C1095.07 0 1108.5 13.4315 1108.5 30V685ZM1078.5 2H138C122.536 2 110 14.536 110 30V683H1106.5V30C1106.5 14.536 1093.96 2 1078.5 2Z" fill="#7D7D7F"/>
-        <!-- Bottom chin bar -->
-        <path d="M112.846 657H1103.5V676C1103.5 678.209 1101.71 680 1099.5 680H116.846C114.637 680 112.846 678.209 112.846 676V657Z" fill="url(#cs-mb-g6)"/>
-        <!-- Screen area fill -->
-        <path d="M124.5 32C124.5 24.268 130.768 18 138.5 18H1077.5C1085.23 18 1091.5 24.268 1091.5 32V646H124.5V32Z" fill="#050505"/>
-        <!-- ↓ SCREEN CONTENT -->
-        <foreignObject x="124.5" y="18" width="967" height="628" clip-path="url(#cs-mb-screen-clip)">
-          <div xmlns="http://www.w3.org/1999/xhtml" class="cs-mbpro-screen" style="background:#000;overflow:hidden;padding:0;margin:0;position:relative;" id="cs-proto-wrap">
-
-            <video id="cs-proto-vid" playsinline style="width:100%;height:100%;object-fit:cover;display:block;border:none;background:#000;" preload="auto">
-              <source src="assets/hypersense/proto.mp4" type="video/mp4">
-            </video>
-
-            <!-- dim overlay, shown alongside the control bar -->
-            <div id="cs-proto-dim" style="position:absolute;inset:0;background:rgba(0,0,0,.32);opacity:0;transition:opacity .25s;pointer-events:none;"></div>
-
-            <!-- bottom control bar -->
-            <div id="cs-proto-bar" style="position:absolute;bottom:0;left:0;right:0;display:flex;align-items:center;gap:12px;padding:9px 14px;background:linear-gradient(to top,rgba(0,0,0,.55) 0%,transparent 100%);opacity:0;transition:opacity .25s;pointer-events:none;">
-
-              <!-- play / pause -->
-              <button id="cs-proto-pp" style="background:none;border:none;cursor:pointer;padding:0;width:16px;height:16px;display:flex;align-items:center;justify-content:center;flex:none;">
-                <svg id="cs-proto-pause-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <rect x="5" y="3" width="5" height="18" rx="1.5" fill="#d4ff5e"/>
-                  <rect x="14" y="3" width="5" height="18" rx="1.5" fill="#d4ff5e"/>
-                </svg>
-                <svg id="cs-proto-play-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:none;">
-                  <path d="M5 3.5V20.5C5 21.27 5.86 21.74 6.51 21.32L19.51 12.82C20.1 12.44 20.1 11.56 19.51 11.18L6.51 2.68C5.86 2.26 5 2.73 5 3.5Z" fill="#d4ff5e"/>
-                </svg>
-              </button>
-
-              <!-- progress -->
-              <div id="cs-proto-prog-track" style="flex:1;height:3px;background:rgba(255,255,255,.18);border-radius:4px;cursor:pointer;position:relative;">
-                <div id="cs-proto-prog-fill" style="height:100%;width:0%;background:#d4ff5e;border-radius:4px;pointer-events:none;transition:width .1s linear;"></div>
-                <div id="cs-proto-prog-thumb" style="position:absolute;top:50%;right:auto;width:8px;height:8px;border-radius:50%;background:#d4ff5e;transform:translate(-50%,-50%);left:0%;pointer-events:none;box-shadow:0 0 6px rgba(212,255,94,.6);"></div>
-              </div>
-
-              <!-- time -->
-              <div id="cs-proto-time" style="font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:0.04em;color:rgba(255,255,255,.55);flex:none;white-space:nowrap;">0:00 / 0:00</div>
-
-            </div>
-
-            <script>
-            (function(){
-              var vid=document.getElementById('cs-proto-vid');
-              var dim=document.getElementById('cs-proto-dim');
-              var bar=document.getElementById('cs-proto-bar');
-              var wrap=document.getElementById('cs-proto-wrap');
-              var fill=document.getElementById('cs-proto-prog-fill');
-              var thumb=document.getElementById('cs-proto-prog-thumb');
-              var track=document.getElementById('cs-proto-prog-track');
-              var time=document.getElementById('cs-proto-time');
-              var ppBtn=document.getElementById('cs-proto-pp');
-              var pauseIcon=document.getElementById('cs-proto-pause-icon');
-              var playIcon=document.getElementById('cs-proto-play-icon');
-              var hideTimer;
-
-              function syncIcon(){
-                if(vid.paused){ pauseIcon.style.display='none'; playIcon.style.display=''; }
-                else { pauseIcon.style.display=''; playIcon.style.display='none'; }
-              }
-              function setOverlay(show){
-                dim.style.opacity = show ? '1':'0';
-                bar.style.opacity = show ? '1':'0';
-                bar.style.pointerEvents = show ? 'auto':'none';
-              }
-              function syncState(){
-                syncIcon();
-                if(vid.paused) setOverlay(true);
-              }
-              syncState();
-              vid.play().then(syncState).catch(syncState);
-
-              function fmt(s){
-                if(!isFinite(s)) return '0:00';
-                var m=Math.floor(s/60), sec=Math.floor(s%60);
-                return m+':'+(sec<10?'0':'')+sec;
-              }
-              function updateTime(){
-                time.textContent=fmt(vid.currentTime)+' / '+fmt(vid.duration);
-              }
-
-              function showBar(){
-                setOverlay(true);
-                clearTimeout(hideTimer);
-                hideTimer=setTimeout(function(){
-                  if(!vid.paused) setOverlay(false);
-                },2500);
-              }
-
-              // Track the cursor against the screen's actual rect so hover
-              // controls cover the whole screen with no dead zones and never
-              // trigger outside it (mouseenter/leave on foreignObject content
-              // can be unreliable across browsers)
-              var hovering = false;
-
-              document.addEventListener('mousemove', function(e){
-                var r = wrap.getBoundingClientRect();
-                var inside = e.clientX >= r.left && e.clientX <= r.right && e.clientY >= r.top && e.clientY <= r.bottom;
-                if(inside){
-                  hovering = true;
-                  showBar();
-                } else if(hovering){
-                  hovering = false;
-                  clearTimeout(hideTimer);
-                  if(!vid.paused) setOverlay(false);
-                }
-              });
-
-              // Keep the overlay visible while paused
-              vid.addEventListener('pause', function(){
-                clearTimeout(hideTimer);
-                setOverlay(true);
-                syncIcon();
-              });
-              vid.addEventListener('play', syncIcon);
-
-              // Left/right arrow keys seek 5s back/forward while hovering the player
-              document.addEventListener('keydown', function(e){
-                if(!hovering) return;
-                if(e.key === 'ArrowLeft'){
-                  e.preventDefault();
-                  vid.currentTime = Math.max(0, vid.currentTime - 5);
-                  showBar();
-                } else if(e.key === 'ArrowRight'){
-                  e.preventDefault();
-                  vid.currentTime = Math.min(vid.duration || Infinity, vid.currentTime + 5);
-                  showBar();
-                }
-              });
-
-              ppBtn.addEventListener('click', function(e){
-                e.stopPropagation();
-                if(vid.paused){ vid.play(); } else { vid.pause(); }
-              });
-
-              // Click anywhere on the video screen (outside the bar) toggles play/pause
-              wrap.addEventListener('click', function(e){
-                if(e.target.closest('#cs-proto-bar')) return;
-                if(vid.paused){ vid.play(); } else { vid.pause(); }
-              });
-
-              // Progress + thumb + time
-              vid.addEventListener('loadedmetadata', updateTime);
-              vid.addEventListener('timeupdate', function(){
-                updateTime();
-                if(!vid.duration) return;
-                var pct=vid.currentTime/vid.duration*100;
-                fill.style.width=pct+'%';
-                thumb.style.left=pct+'%';
-              });
-              function seekToEvent(e){
-                var rect=track.getBoundingClientRect();
-                var pct=Math.max(0,Math.min(1,(e.clientX-rect.left)/rect.width));
-                if(vid.duration) vid.currentTime=pct*vid.duration;
-              }
-              track.addEventListener('mousedown', function(e){
-                e.preventDefault();
-                e.stopPropagation();
-                seekToEvent(e);
-                function onMove(ev){ seekToEvent(ev); }
-                function onUp(){
-                  document.removeEventListener('mousemove', onMove);
-                  document.removeEventListener('mouseup', onUp);
-                }
-                document.addEventListener('mousemove', onMove);
-                document.addEventListener('mouseup', onUp);
-              });
-            })();
-            </script>
-
-          </div>
-        </foreignObject>
-        <!-- Notch pill -->
-        <path d="M667 20.5C667 18 670 18 671.5 18H544.5C546 18 549 18 549 20.5V30C549 34.4183 552.582 38 557 38H659C663.418 38 667 34.4183 667 30V20.5Z" fill="black"/>
-        <!-- Camera -->
-        <circle cx="608" cy="24.0907" r="3.77901" fill="#0F0F0F" stroke="#151515" stroke-width="0.260621"/>
-        <circle cx="607.609" cy="25.0029" r="0.912175" fill="#16181E"/>
-        <circle cx="607.609" cy="23.6998" r="0.912175" fill="#0A0B0D"/>
-        <circle opacity="0.6" cx="608" cy="24.0907" r="1.30311" fill="#1F2531"/>
-      </svg>
-    </div>
-  </div>
 
 </div>
 </section>
