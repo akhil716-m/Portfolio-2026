@@ -38,34 +38,25 @@
 }
 .cs-rail.is-visible { opacity: 1; pointer-events: auto; }
 .cs-rail-inner { padding-left: 18px; border-left: 1px solid var(--line); }
-.cs-rail-num {
-  display: block; font-family: 'Geist Mono', monospace; font-size: 9px;
-  letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent);
-  font-weight: 400; margin-bottom: 12px;
+.cs-rail-list {
+  list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 2px;
 }
-.cs-rail-thesis {
-  font-family: 'Geist', sans-serif; font-size: 14px; font-weight: 400;
-  font-style: normal; line-height: 1.45; color: var(--text-soft); margin: 0;
-}
-.cs-rail-thesis em { color: var(--text); font-style: normal; font-family: 'Geist', sans-serif; font-weight: 500; }
-.cs-rail-others {
-  list-style: none; margin: 20px 0 0; padding: 18px 0 0;
-  border-top: 1px solid var(--line); display: flex; flex-direction: column; gap: 2px;
-}
-.cs-rail-others li button {
+.cs-rail-list li button {
   display: flex; align-items: center; gap: 10px; width: 100%;
   background: none; border: none; cursor: pointer; padding: 5px 0; text-align: left;
 }
-.cs-rail-others-num {
+.cs-rail-num {
   font-family: 'Geist Mono', monospace; font-size: 9px; letter-spacing: 0.12em;
   color: var(--text-muted); flex-shrink: 0; transition: color 0.15s;
 }
-.cs-rail-others-name {
+.cs-rail-name {
   font-family: 'Geist', sans-serif; font-size: 11px; color: var(--text-muted);
   line-height: 1.3; white-space: nowrap; transition: color 0.15s;
 }
-.cs-rail-others li button:hover .cs-rail-others-name,
-.cs-rail-others li button:hover .cs-rail-others-num { color: var(--text-soft); }
+.cs-rail-list li button:hover .cs-rail-name,
+.cs-rail-list li button:hover .cs-rail-num { color: var(--text-soft); }
+.cs-rail-list li.is-active .cs-rail-num { color: var(--accent); }
+.cs-rail-list li.is-active .cs-rail-name { color: var(--text); font-weight: 500; }
 @media(max-width: 1280px) { .cs-rail { display: none; } }
 
 /* ---------- HERO ---------- */
@@ -221,6 +212,15 @@ nav .logo a.cs-back:hover { color: var(--accent); }
   background: rgba(255,255,255,0.015);
   font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted);
 }
+
+/* Quiet sub-divider — marks a shift from shared context to personal contribution */
+.cs-subdivider {
+  display: flex; align-items: center; gap: 14px; margin: 48px 0 22px;
+  font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--text-muted);
+}
+.cs-subdivider::before { content: ''; width: 20px; height: 1px; background: var(--accent); flex-shrink: 0; }
+.cs-subdivider::after { content: ''; flex: 1; height: 1px; background: var(--line); }
 .cs-vis-body { padding: 32px 28px; }
 
 
@@ -1093,8 +1093,7 @@ a.cs-cta { margin-top: 28px; }
 <!-- CONTEXT RAIL — sticky scroll-spy: active section thesis + jump list -->
 <aside class="cs-rail" id="cs-rail" aria-hidden="true" aria-label="Section context">
   <div class="cs-rail-inner">
-    <div id="cs-rail-active"></div>
-    <ul class="cs-rail-others" id="cs-rail-others"></ul>
+    <ul class="cs-rail-list" id="cs-rail-list"></ul>
   </div>
 </aside>
 
@@ -1191,7 +1190,7 @@ a.cs-cta { margin-top: 28px; }
     </div>
   </div>
 
-  <p class="cs-p reveal">In reality, every transaction passes through multiple participants before the money reaches the merchant's bank account — each introducing its own fees, rules, and operational complexity. These processing costs are a necessary part of accepting payments, but at scale they quickly become one of a merchant's largest variable expenses.</p>
+  <p class="cs-p reveal">In reality, every transaction passes through multiple participants before the money reaches the merchant's bank account, each introducing its own fees, rules, and operational complexity. These processing costs are a necessary part of accepting payments, but at scale they quickly become one of a merchant's largest variable expenses.</p>
 
   <h3 class="cs-h3 reveal" style="margin-top: 52px;">What surprised us..</h3>
   <p class="cs-p reveal">Merchants knew <strong>how much</strong> they were paying, but had very little understanding of <strong>what changed</strong>, <strong>why it changed</strong>, or <strong>where their money was going</strong>. The numbers were too large to ignore.</p>
@@ -1295,9 +1294,8 @@ a.cs-cta { margin-top: 28px; }
 </div>
 <div class="cs-wrap">
 
-  <p class="cs-p reveal">Building HyperSense required more than designing dashboards. Before we could make payment costs observable, we first needed to understand how the ecosystem itself worked — how costs were structured, where visibility broke down, and why investigations remained heavily manual.</p>
+  <div class="cs-subdivider reveal"><span>My Contribution</span></div>
 
-  <p class="cs-p reveal">A cross-functional team of seven came together to explore the space. We studied processor invoices, fee structures, operational workflows, and merchant pain points to identify where the biggest visibility gaps existed and where the product could create the most value.</p>
   <p class="cs-p reveal">As the sole product designer, I worked closely with product, engineering, and data teams to translate those insights into a cohesive investigation experience.</p>
 
   <div class="cs-vis reveal" style="margin: 24px 0;">
@@ -1336,7 +1334,7 @@ a.cs-cta { margin-top: 28px; }
   <div class="cs-label reveal"><span class="num">/03</span> Understanding the terrain</div>
   <h2 class="cs-display reveal">The industry's most transparent pricing model comes with an <em>invisible tradeoff.</em></h2>
 
-  <p class="cs-p reveal">Every card payment looks simple from the outside — tap, approve, done. But every transaction the merchant processes comes with a payment's cost, and how that cost is calculated depends on the pricing model a merchant chooses.</p>
+  <p class="cs-p reveal">Every card payment looks simple from the outside: tap, approve, done. But every transaction the merchant processes comes with a payment's cost, and how that cost is calculated depends on the pricing model a merchant chooses.</p>
   <p class="cs-p reveal">The industry primarily operates on two models: <span class="cs-gloss" tabindex="0" data-gloss="blended-pricing">Blended pricing</span> and <span class="cs-gloss" tabindex="0" data-gloss="ic-plus-plus">IC++</span> pricing.</p>
   <p class="cs-p reveal">Blended pricing applies a single fixed rate to every transaction. It's simple and predictable, but at high volumes, merchants often end up paying more than necessary.</p>
   <p class="cs-p reveal"><span class="cs-gloss" tabindex="0" data-gloss="ic-plus-plus">IC++</span> pricing, on the other hand, charges the actual cost of processing for each transaction, creating opportunities to reduce costs at scale. That's why enterprise merchants prefer IC++. But the same transparency that creates savings also introduces a new layer of complexity.</p>
@@ -1363,14 +1361,14 @@ a.cs-cta { margin-top: 28px; }
           <span class="cs-sim-flow-label">Merchant Receives</span>
         </div>
       </div>
-      <p class="cs-sim-teaser-desc">A payment may look like a single event, but it's actually a chain of participants, systems, and decisions — each contributing to the final cost.</p>
+      <p class="cs-sim-teaser-desc">A payment may look like a single event, but it's actually a chain of participants, systems, and decisions, each contributing to the final cost.</p>
       <button class="cs-sim-btn" id="cs-sim-open"><span class="play"></span> See the Cost Flow</button>
     </div>
   </div>
 
   <h3 class="cs-h3 reveal" style="margin-top: 40px;">The same transparency that creates savings also creates complexity.</h3>
 
-  <p class="cs-p reveal">Because in <span class="cs-gloss" tabindex="0" data-gloss="ic-plus-plus">IC++</span> pricing happens at a transaction level, no two transactions are guaranteed to cost the same. Each transaction cost is determined by card type, authentication, settlement timing, geography, and data quality — each variable quietly shifts the fee tier. Most merchants never see this happen.</p>
+  <p class="cs-p reveal">Because in <span class="cs-gloss" tabindex="0" data-gloss="ic-plus-plus">IC++</span> pricing happens at a transaction level, no two transactions are guaranteed to cost the same. Each transaction cost is determined by card type, authentication, settlement timing, geography, and data quality. Each variable quietly shifts the fee tier, and most merchants never see this happen.</p>
   <p class="cs-p reveal">Most enterprises on <span class="cs-gloss" tabindex="0" data-gloss="ic-plus-plus">IC++</span> pricing consistently pay more than they should. The gap between what they should pay and what they actually pay can quietly reach <span class="warm">7–10% of their total payment costs</span>.</p>
 
 
@@ -1453,9 +1451,9 @@ a.cs-cta { margin-top: 28px; }
   <div class="cs-label reveal"><span class="num">/04</span> Geographic Focus</div>
   <h2 class="cs-display reveal">Why the US and Europe <em>mattered.</em></h2>
 
-  <p class="cs-p reveal">The challenge of understanding payment costs isn't universal. It exists primarily in markets where merchants are directly exposed to the underlying cost of processing for every transaction.</p>
-  <p class="cs-p reveal">In India, domestic payments largely run on UPI, where transaction costs are minimal. In many Southeast Asian and Latin American markets, merchants operate on simplified or blended pricing models that hide much of the underlying complexity.</p>
-  <p class="cs-p reveal">The problem becomes significant in markets such as the United States and Europe, where enterprise merchants commonly operate on <span class="cs-gloss" tabindex="0" data-gloss="ic-plus-plus">IC++</span> pricing and are directly exposed to interchange, scheme fees, and processor markups.</p>
+  <p class="cs-p reveal">The visibility of payment costs varies significantly across markets.</p>
+  <p class="cs-p reveal">In India, domestic payments largely run on UPI, where transaction costs are minimal. In many Southeast Asian and Latin American markets, merchants operate on simplified or blended pricing models that bundle costs into a single rate.</p>
+  <p class="cs-p reveal">In contrast, merchants in the United States and Europe often operate on <span class="cs-gloss" tabindex="0" data-gloss="ic-plus-plus">IC++</span> pricing, where every component of payment cost is exposed individually, creating both transparency and complexity.</p>
 
   <div class="cs-vis reveal">
     <div class="cs-vis-label">Where payment cost visibility matters</div>
@@ -1482,7 +1480,7 @@ a.cs-cta { margin-top: 28px; }
 
   <div class="cs-label reveal"><span class="num">/05</span> Users</div>
   <h2 class="cs-display reveal">Three users. One blind spot. <em>Different stakes.</em></h2>
-  <p class="cs-p reveal">Once we understood where the problem existed, we needed to understand who was responsible for solving it. We discovered that payment costs weren't owned by a single team. Three different stakeholders interacted with the same problem from different angles — each carrying a different responsibility, but all missing the same visibility.</p>
+  <p class="cs-p reveal">Once we understood where the problem existed, we needed to understand who was responsible for solving it. We discovered that payment costs weren't owned by a single team. Three different stakeholders interacted with the same problem from different angles, each carrying a different responsibility, but all missing the same visibility.</p>
 
   <!-- Persona 1 — Payment Analyst -->
   <div class="cs-persona reveal">
@@ -1619,8 +1617,7 @@ a.cs-cta { margin-top: 28px; }
     </div>
   </div>
 
-  <p class="cs-p reveal" style="margin-top: 40px;">By this point, we understood the ecosystem. The challenge was turning a fragmented payment system into a coherent cost story that different teams could trust and act on.</p>
-  <p class="cs-p reveal">Different teams carried different responsibilities, but they were all trying to solve the same problem: understanding where payment costs were coming from and what to do about them.</p>
+  <p class="cs-p reveal" style="margin-top: 40px;">By this point, we understood the ecosystem. The challenge was turning a fragmented payment system into a coherent cost story that different teams could trust and act on. While each team entered from a different perspective and carried different responsibilities, they were ultimately trying to answer the same question: where payment costs were coming from and what to do about them.</p>
 
 </div>
 </section>
@@ -1641,7 +1638,7 @@ a.cs-cta { margin-top: 28px; }
       <canvas id="cs-graph" aria-label="HyperSense knowledge graph — five modules and their sub-questions"></canvas>
     </div>
   </div>
-  <p class="cs-p reveal">We designed the product around how teams investigate costs. Rather than asking teams to manually piece together fragmented reports, each module guided them toward the answers they needed — from understanding what changed to deciding what to do next. Together, they form a coherent cost story that teams could trust and act on.</p>
+  <p class="cs-p reveal">We designed the product around how teams investigate costs. Rather than asking teams to manually piece together fragmented reports, each module guided them toward the answers they needed: from understanding what changed to deciding what to do next. Together, they form a coherent cost story that teams could trust and act on.</p>
 
 </div>
 </section>
@@ -1653,7 +1650,7 @@ a.cs-cta { margin-top: 28px; }
   <div class="cs-label reveal"><span class="num">/07</span> Design Challenge</div>
   <h2 class="cs-display reveal">Five tensions that shaped <em>every design decision.</em></h2>
   <p class="cs-p reveal">Defining the investigation flow solved the product problem. Designing an experience around it introduced a new set of constraints.</p>
-  <p class="cs-p reveal">Every decision now had to balance trust, flexibility, and depth — without breaking the investigation flow.</p>
+  <p class="cs-p reveal">Every decision now had to balance trust, flexibility, and depth, without breaking the investigation flow.</p>
 
   <div class="cs-tensions reveal">
 
@@ -1739,7 +1736,7 @@ a.cs-cta { margin-top: 28px; }
   <h3 class="cs-h3 reveal" style="margin-top: 56px;">Overview — <em style="font-style: normal; font-family: 'Geist', sans-serif; font-weight: 500; color: var(--warm);">What's my cost story at a glance?</em></h3>
   <p class="cs-p reveal">Before teams investigate anomalies or optimize costs, they first need to understand where they stand today.</p>
   <p class="cs-p reveal">We designed Overview as the system's source of truth: a unified cost layer that consolidates fragmented signals into a single cost story.</p>
-  <p class="cs-p reveal" style="margin-bottom: 24px;">Creating that experience wasn't straightforward. The same interface needed to work across fundamentally different merchant realities — from single processors to multi-PSP setups, and from simplified blended pricing to fully transparent IC++ models.</p>
+  <p class="cs-p reveal" style="margin-bottom: 24px;">Creating that experience wasn't straightforward. The same interface needed to work across fundamentally different merchant realities: from single processors to multi-PSP setups, and from simplified blended pricing to fully transparent IC++ models.</p>
 </div>
 <div class="cs-wrap cs-wrap--showcase">
   <div class="cs-shot-frame reveal" style="border:none; background:transparent;">
@@ -1747,7 +1744,7 @@ a.cs-cta { margin-top: 28px; }
            autoplay muted loop playsinline controls controlslist="nodownload" preload="metadata"
            style="width:100%; display:block; height:auto;"></video>
   </div>
-  <p class="cs-ov-tab-desc">The same overview adapts across merchant setups — from full per-processor IC++ detail to simplified blended pricing and single-PSP operations.</p>
+  <p class="cs-ov-tab-desc">The same overview adapts across merchant setups: from full per-processor IC++ detail to simplified blended pricing and single-PSP operations.</p>
 </div>
 <div class="cs-wrap">
   <p class="cs-p reveal" style="margin-top: 24px; margin-bottom: 14px;">Overview answers three fundamental questions:</p>
@@ -1761,7 +1758,7 @@ a.cs-cta { margin-top: 28px; }
 
   <h3 class="cs-h3 reveal" style="margin-top: 80px;">Drill-Down — <em style="font-style: normal; font-family: 'Geist', sans-serif; font-weight: 500; color: var(--warm);">How is cost distributed across my business?</em></h3>
   <p class="cs-p reveal">Overview answered what the cost story looks like at a glance. The next step was understanding where that story was coming from.</p>
-  <p class="cs-p reveal">A single number rarely explains why costs change. Teams needed the ability to break costs down across the dimensions that shape them — processors, regions, corridors, fee types, and currencies.</p>
+  <p class="cs-p reveal">A single number rarely explains why costs change. Teams needed the ability to break costs down across the dimensions that shape them: processors, regions, corridors, fee types, and currencies.</p>
   <p class="cs-p reveal">The challenge was balancing analytical depth with usability. We needed to create a flexible investigation surface that supported exploration without overwhelming teams with raw data or forcing them into rigid analysis paths.</p>
 
 </div>
@@ -1785,7 +1782,7 @@ a.cs-cta { margin-top: 28px; }
   <h3 class="cs-h3 reveal" style="margin-top: 80px;">Fee Spikes — <em style="font-style: normal; font-family: 'Geist', sans-serif; font-weight: 500; color: var(--warm);">Turning unexpected cost increases into actionable signals</em></h3>
   <p class="cs-p reveal">Drill-Down helped teams understand where costs were coming from. The next challenge was determining whether those changes were expected or required action.</p>
   <p class="cs-p reveal">Not every increase in payment cost is a problem. Costs can rise because of healthy sales growth, expansion into new markets, recurring downgrades, or network-driven changes.</p>
-  <p class="cs-p reveal">The challenge was helping teams quickly separate normal business movement from preventable leakage — without requiring them to manually inspect reports or trace every fee line item.</p>
+  <p class="cs-p reveal">The challenge was helping teams quickly separate normal business movement from preventable leakage, without requiring them to manually inspect reports or trace every fee line item.</p>
 
 </div>
 <div class="cs-wrap cs-wrap--showcase">
@@ -1829,7 +1826,7 @@ a.cs-cta { margin-top: 28px; }
   <p class="cs-p reveal">Fee Spikes helped teams identify where action was needed. The next step was validating whether they had been charged correctly in the first place.</p>
   <p class="cs-p reveal">Processor invoices show what was charged, but rarely explain whether those charges were accurate.</p>
   <p class="cs-p reveal">A line item such as "<span class="cs-gloss" tabindex="0" data-gloss="cps">CPS Retail</span>" or "EIRF" offers little insight into whether the correct rate was applied, which transactions were downgraded, or how much those discrepancies ultimately cost.</p>
-  <p class="cs-p reveal">The challenge was bringing together multiple layers of information — contracted rates, applied rates, fee variances, and transaction-level evidence — into a single verification flow.</p>
+  <p class="cs-p reveal">The challenge was bringing together multiple layers of information (contracted rates, applied rates, fee variances, and transaction-level evidence) into a single verification flow.</p>
 
 </div>
 <div class="cs-wrap cs-wrap--showcase">
@@ -1846,7 +1843,7 @@ a.cs-cta { margin-top: 28px; }
     <li>What was actually charged?</li>
     <li>What should it have been?</li>
   </ul>
-  <p class="cs-p reveal">Instead of forcing teams to manually reconcile invoices, contracts, and transaction exports, the experience progressively moved from summary-level variances down to transaction-level evidence — making every discrepancy traceable and easy to defend.</p>
+  <p class="cs-p reveal">Instead of forcing teams to manually reconcile invoices, contracts, and transaction exports, the experience progressively moved from summary-level variances down to transaction-level evidence, making every discrepancy traceable and easy to defend.</p>
 
   <h3 class="cs-h3 reveal" style="margin-top: 80px;">Forecast — <em style="font-style: normal; font-family: 'Geist', sans-serif; font-weight: 500; color: var(--warm);">Turning network updates into cost foresight</em></h3>
   <p class="cs-p reveal">Card networks like Visa and Mastercard regularly introduce new fees, revise existing programs, and update qualification rules. Although these changes are published weeks in advance, they are often buried inside dense technical documentation.</p>
@@ -1880,7 +1877,7 @@ a.cs-cta { margin-top: 28px; }
   <div class="cs-label reveal"><span class="num">/09</span> Outcome</div>
   <h2 class="cs-display reveal">From a concept to <em>real merchant traction.</em></h2>
   <p class="cs-p reveal">HyperSense evolved from an internal concept into a product validated by enterprise merchants.</p>
-  <p class="cs-p reveal">Through demos, pilots, and customer conversations, we confirmed that payment cost visibility wasn't just an operational problem — it was a business-critical one worth solving.</p>
+  <p class="cs-p reveal">Through demos, pilots, and customer conversations, we confirmed that payment cost visibility wasn't just an operational problem; it was a business-critical one worth solving.</p>
 
   <div class="cs-fstat-grid reveal">
     <div class="cs-fstat">
@@ -1904,7 +1901,7 @@ a.cs-cta { margin-top: 28px; }
     <span class="cs-outcome-next-tag">What's next</span>
     <p>While HyperSense began as a merchant-facing observability product, the investigation uncovered a larger opportunity upstream.</p>
     <p>Many of the cost decisions that merchants struggle to understand originate within banks, processors, and network programs.</p>
-    <p>We're now applying the same principles of cost visibility and intelligence to financial institutions — helping them understand and manage payment costs.</p>
+    <p>We're now applying the same principles of cost visibility and intelligence to financial institutions, helping them understand and manage payment costs.</p>
   </div>
 
   <div class="cs-thanks-note reveal">
@@ -1944,21 +1941,20 @@ a.cs-cta { margin-top: 28px; }
 
 /* Context rail — scroll-spy: active section thesis + jump list to the rest */
 (function() {
-  var rail   = document.getElementById('cs-rail');
-  var active = document.getElementById('cs-rail-active');
-  var others = document.getElementById('cs-rail-others');
-  if (!rail || !active || !others) return;
+  var rail = document.getElementById('cs-rail');
+  var list = document.getElementById('cs-rail-list');
+  if (!rail || !list) return;
 
   var SECTIONS = [
-    { id: 'cs-what',      label: '01 — The Cost of Invisibility',    thesis: 'Every payment generates revenue. But not every dollar <em>reaches the merchant.</em>' },
-    { id: 'cs-begins',    label: '02 — Where Hypersense Begins',     thesis: 'Making payment costs <em>observable.</em>' },
-    { id: 'cs-terrain',   label: '03 — Understanding the Terrain',   thesis: 'The industry&rsquo;s most transparent pricing model is also its <em>most complex.</em>' },
-    { id: 'cs-markets',   label: '04 — Geographic Focus',   thesis: 'Why the US and Europe <em>mattered.</em>' },
-    { id: 'cs-users',     label: '05 — Users',                       thesis: 'Three users. One blind spot. <em>Different stakes.</em>' },
-    { id: 'cs-strategy',  label: '06 — Product Strategy and Design', thesis: 'From fragmented signals to <em>one investigation.</em>' },
-    { id: 'cs-challenge', label: '07 — Design Challenge',            thesis: 'Four tensions that shaped <em>every design decision.</em>' },
-    { id: 'cs-ui',        label: '08 — Product Experience',          thesis: 'From fragmented costs to <em>a single cost story.</em>' },
-    { id: 'cs-outcome',   label: '09 — Outcome',                     thesis: 'From a concept to <em>real merchant traction.</em>' }
+    { id: 'cs-what',      label: '01 — The Cost of Invisibility' },
+    { id: 'cs-begins',    label: '02 — Where Hypersense Begins' },
+    { id: 'cs-terrain',   label: '03 — Understanding the Terrain' },
+    { id: 'cs-markets',   label: '04 — Geographic Focus' },
+    { id: 'cs-users',     label: '05 — Users' },
+    { id: 'cs-strategy',  label: '06 — Product Strategy and Design' },
+    { id: 'cs-challenge', label: '07 — Design Challenge' },
+    { id: 'cs-ui',        label: '08 — Product Experience' },
+    { id: 'cs-outcome',   label: '09 — Outcome' }
   ];
 
   var activeId = null;
@@ -1969,21 +1965,22 @@ a.cs-cta { margin-top: 28px; }
     if (el) el.scrollIntoView({ behavior: 'smooth' });
   }
 
-  function render(sec) {
-    active.innerHTML = '<span class="cs-rail-num">' + sec.label + '</span><p class="cs-rail-thesis">' + sec.thesis + '</p>';
-    others.innerHTML = SECTIONS
-      .filter(function(s){ return s.id !== sec.id; })
-      .map(function(s){
-        var parts = s.label.split(' — ');
-        return '<li><button type="button" data-target="' + s.id + '">' +
-               '<span class="cs-rail-others-num">' + parts[0] + '</span>' +
-               '<span class="cs-rail-others-name">' + parts[1] + '</span>' +
-               '</button></li>';
-      })
-      .join('');
-    others.querySelectorAll('button').forEach(function(btn) {
-      btn.addEventListener('click', function(){ scrollToSection(this.getAttribute('data-target')); });
-    });
+  list.innerHTML = SECTIONS.map(function(s) {
+    var parts = s.label.split(' — ');
+    return '<li data-id="' + s.id + '"><button type="button" data-target="' + s.id + '">' +
+           '<span class="cs-rail-num">' + parts[0] + '</span>' +
+           '<span class="cs-rail-name">' + parts[1] + '</span>' +
+           '</button></li>';
+  }).join('');
+  list.querySelectorAll('button').forEach(function(btn) {
+    btn.addEventListener('click', function(){ scrollToSection(this.getAttribute('data-target')); });
+  });
+
+  function setActive(sec) {
+    var prev = list.querySelector('li.is-active');
+    if (prev) prev.classList.remove('is-active');
+    var li = list.querySelector('li[data-id="' + sec.id + '"]');
+    if (li) li.classList.add('is-active');
   }
 
   /* Hide the rail while the hero is in view; reveal once scrolled past it */
@@ -2015,7 +2012,7 @@ a.cs-cta { margin-top: 28px; }
     });
     if (current && current.id !== activeId) {
       activeId = current.id;
-      render(current);
+      setActive(current);
       if (heroGone) { rail.classList.add('is-visible'); rail.removeAttribute('aria-hidden'); }
     }
   }
@@ -2046,19 +2043,19 @@ a.cs-cta { margin-top: 28px; }
   const GLOSSARY = {
     'ic-plus-plus': {
       term: 'IC++',
-      def: 'A pricing model where merchants pay the actual interchange cost set by card networks, plus a fixed processor markup. Every fee component is itemised — unlike blended rates.'
+      def: 'A pricing model where merchants pay the actual interchange cost set by card networks, plus a fixed processor markup. Every fee component is itemised, unlike blended rates.'
     },
     'interchange': {
       term: 'Interchange',
-      def: 'Fee paid to the card-issuing bank on every transaction. Set by Visa and Mastercard across 500+ rate categories — varying by card type, merchant category, transaction method, and data quality.'
+      def: 'Fee paid to the card-issuing bank on every transaction. Set by Visa and Mastercard across 500+ rate categories, varying by card type, merchant category, transaction method, and data quality.'
     },
     'scheme-fees': {
       term: 'Scheme Fees',
-      def: 'Fees charged by card networks (Visa, Mastercard) for using their payment infrastructure — covering authorisation, fraud screening, and routing. Updated twice yearly in 900-page rulebooks.'
+      def: 'Fees charged by card networks (Visa, Mastercard) for using their payment infrastructure, covering authorisation, fraud screening, and routing. Updated twice yearly in 900-page rulebooks.'
     },
     'processor-markup': {
       term: 'Processor Markup',
-      def: 'The fee a PSP or acquirer adds on top of interchange and scheme fees. Negotiated at contract time — the most transparent layer of IC++ pricing.'
+      def: 'The fee a PSP or acquirer adds on top of interchange and scheme fees. Negotiated at contract time; it is the most transparent layer of IC++ pricing.'
     },
     'psp': {
       term: 'PSP',
@@ -2074,7 +2071,7 @@ a.cs-cta { margin-top: 28px; }
     },
     'blended-pricing': {
       term: 'Blended Pricing',
-      def: 'A pricing model where all fees — interchange, scheme fees, and processor markup — are rolled into a single percentage rate. Simpler than IC++, but hides cost detail and makes it impossible to trace where fees originate.'
+      def: 'A pricing model where all fees (interchange, scheme fees, and processor markup) are rolled into a single percentage rate. Simpler than IC++, but hides cost detail and makes it impossible to trace where fees originate.'
     },
     'avs': {
       term: 'AVS',
@@ -2082,7 +2079,7 @@ a.cs-cta { margin-top: 28px; }
     },
     'mcc': {
       term: 'MCC',
-      def: 'Merchant Category Code. A 4-digit code assigned by card networks classifying a business by its goods or services. Incorrect MCC classification can land transactions on the wrong — and more expensive — interchange tier.'
+      def: 'Merchant Category Code. A 4-digit code assigned by card networks classifying a business by its goods or services. Incorrect MCC classification can land transactions on the wrong, more expensive, interchange tier.'
     },
     'emv': {
       term: 'EMV',
@@ -2098,7 +2095,7 @@ a.cs-cta { margin-top: 28px; }
     },
     'cnp': {
       term: 'CNP',
-      def: 'Card Not Present. Transactions where the physical card isn’t used at a terminal — e-commerce and mobile payments. CNP carries higher fraud risk and is subject to stricter interchange qualification rules.'
+      def: 'Card Not Present. Transactions where the physical card isn’t used at a terminal, such as e-commerce and mobile payments. CNP carries higher fraud risk and is subject to stricter interchange qualification rules.'
     },
     'level2': {
       term: 'Level 2 Data',
@@ -2106,7 +2103,7 @@ a.cs-cta { margin-top: 28px; }
     },
     'fanf': {
       term: 'FANF',
-      def: 'Fixed Acquirer Network Fee. A monthly Visa fee tied to transaction volume and card-present vs. card-not-present mix. As volume crosses certain thresholds, the fee steps up to a higher tier — a non-obvious cost driver.'
+      def: 'Fixed Acquirer Network Fee. A monthly Visa fee tied to transaction volume and card-present vs. card-not-present mix. As volume crosses certain thresholds, the fee steps up to a higher tier, a non-obvious cost driver.'
     },
     'cps': {
       term: 'CPS',
@@ -2263,7 +2260,7 @@ a.cs-cta { margin-top: 28px; }
         intl:   [{ n: 'Per-authorisation fee', flat: 0.05 }, { n: 'Scheme fee (base + cross-border + FX)', pct: 0.4 }]
       } },
     { id: 'iss', entity: 'Issuing Bank', name: 'Interchange', color: 'var(--warm)',
-      role: "The customer's bank funds the transaction, absorbs credit risk and potential fraud liability, and earns interchange in return — the single largest variable in IC++ pricing.",
+      role: "The customer's bank funds the transaction, absorbs credit risk and potential fraud liability, and earns interchange in return. It's the single largest variable in IC++ pricing.",
       fees: {
         debit:  [{ n: 'Interchange', pct: 0.95 }],
         credit: [{ n: 'Interchange', pct: 2.4 }],
@@ -2357,7 +2354,7 @@ a.cs-cta { margin-top: 28px; }
     const dgDelta = ((DOWNGRADE[card].actual - DOWNGRADE[card].expected) / 100) * TXN;
     const annualRaw = 500000000 * (DOWNGRADE[card].actual - DOWNGRADE[card].expected) / 100;
     const annualFmt = annualRaw >= 1e6 ? `$${(annualRaw/1e6).toFixed(1)}M` : `$${(annualRaw/1e3).toFixed(0)}K`;
-    html += `<div class="cs-sim-callout" id="cs-sim-callout">This transaction lost <strong>$${dgDelta.toFixed(2)}</strong> to a downgrade. At $500M annual volume, that rate of avoidable loss accounts for <strong>${annualFmt}</strong> per year — across dozens of reasons, none of them visible on the invoice.</div>`;
+    html += `<div class="cs-sim-callout" id="cs-sim-callout">This transaction lost <strong>$${dgDelta.toFixed(2)}</strong> to a downgrade. At $500M annual volume, that rate of avoidable loss accounts for <strong>${annualFmt}</strong> per year, across dozens of reasons, none of them visible on the invoice.</div>`;
 
     stagesEl.innerHTML = html;
     dedEl.textContent = '—';
@@ -2686,7 +2683,7 @@ a.cs-cta { margin-top: 28px; }
     792:{name:'Turkey',note:'IC++ with local scheme complexity'},
     36:{name:'Australia',note:'Four-party card network model'},
     710:{name:'South Africa',note:'Visa/Mastercard interchange model'},
-    356:{name:'India',note:'UPI-dominant — near-zero transaction cost'},
+    356:{name:'India',note:'UPI-dominant, near-zero transaction cost'},
     360:{name:'Indonesia',note:'Domestic rails, flat pricing'},
     76:{name:'Brazil',note:'Blended rates dominate'},
     156:{name:'China',note:'UnionPay domestic pricing'},

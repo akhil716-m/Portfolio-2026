@@ -98,7 +98,7 @@ nav .logo .mark {
   font-size: 14px;
   font-style: italic;
 }
-nav .logo .name { font-weight: 500; }
+nav .logo .name { font-weight: 600; font-size: 15px; letter-spacing: -0.01em; }
 nav .logo .role { color: var(--text-muted); margin-left: 4px; }
 
 nav .links { display: flex; gap: 32px; }
@@ -107,6 +107,7 @@ nav .links a {
   text-decoration: none;
   transition: color 0.2s;
   position: relative;
+  font-size: 14px;
 }
 nav .links a:hover { color: var(--text); }
 nav .links a::before {
@@ -1271,9 +1272,6 @@ nav .status .dot {
 .wc-item--light .wc-title-group {
   margin-bottom: 10px;
 }
-.wc-item--light .wc-num {
-  margin-bottom: 12px;
-}
 .wc-item--light .wc-brief {
   font-size: 11px;
 }
@@ -1285,15 +1283,6 @@ nav .status .dot {
   flex-direction: column;
   border-right: 1px solid var(--line);
   overflow: hidden;
-}
-
-/* Index number */
-.wc-num {
-  font-family: 'Geist Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 0.1em;
-  color: var(--accent);
-  margin-bottom: 20px;
 }
 
 /* Company — tightly paired label + value */
