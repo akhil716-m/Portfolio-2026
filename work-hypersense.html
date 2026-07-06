@@ -941,11 +941,13 @@ a.cs-cta { margin-top: 28px; }
 
 /* ---------- DESIGN CHALLENGE CALLOUT ---------- */
 .cs-challenge {
-  margin-top: 22px; padding: 18px 22px; border-radius: 0 8px 8px 0;
+  margin: 22px 0 28px; padding: 18px 22px; border-radius: 0 8px 8px 0;
   background: rgba(212,255,94,0.045); border-left: 2px solid rgba(212,255,94,0.35);
 }
 .cs-challenge-tag { font-family: 'Geist Mono', monospace; font-size: 9.5px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
 .cs-challenge p { font-family: 'Geist', sans-serif; font-size: 14.5px; font-weight: 300; line-height: 1.8; color: var(--text-soft); margin: 0; }
+.cs-challenge-lines { display: flex; flex-direction: column; gap: 8px; }
+.cs-challenge-lines p { font-family: 'Geist Mono', monospace; font-size: 13.5px; }
 
 /* ---------- DESIGN TENSIONS (editorial list) ---------- */
 .cs-tensions { margin: 36px 0 0; position: relative; z-index: 501; }
@@ -1803,7 +1805,13 @@ a.cs-cta { margin-top: 28px; }
   <h3 class="cs-h3 reveal" style="margin-top: 80px;">Audit — <em style="font-style: normal; font-family: 'Geist', sans-serif; font-weight: 500; color: var(--warm);">Verifying every fee charged.</em></h3>
   <p class="cs-p reveal">Fee Spikes helped teams identify where action was needed. The next step was validating whether they had been charged correctly in the first place.</p>
   <p class="cs-p reveal">Processor invoices show what was charged, but rarely explain whether those charges were accurate.</p>
-  <p class="cs-p reveal">A line item such as "<span class="cs-gloss" tabindex="0" data-gloss="cps">CPS Retail</span>" or "EIRF" offers little insight into whether the correct rate was applied, which transactions were downgraded, or how much those discrepancies ultimately cost.</p>
+  <div class="cs-challenge reveal">
+    <div class="cs-challenge-tag">What merchants actually see</div>
+    <div class="cs-challenge-lines">
+      <p>CPS Retail — $4,892</p>
+      <p>EIRF — $2,147</p>
+    </div>
+  </div>
   <p class="cs-p reveal">The challenge was bringing together multiple layers of information (contracted rates, applied rates, fee variances, and transaction-level evidence) into a single verification flow.</p>
 
 </div>
@@ -1815,7 +1823,7 @@ a.cs-cta { margin-top: 28px; }
   </div>
 </div>
 <div class="cs-wrap">
-  <p class="cs-p reveal" style="margin-top: 24px; margin-bottom: 14px;">We designed Audit as a structured investigation experience that helps teams answer three questions:</p>
+  <p class="cs-p reveal" style="margin-top: 24px; margin-bottom: 14px;">Every audit ultimately comes down to three questions:</p>
   <ul class="cs-list reveal">
     <li>Was I charged correctly?</li>
     <li>What was actually charged?</li>
@@ -1839,11 +1847,11 @@ a.cs-cta { margin-top: 28px; }
   <p class="cs-p reveal" style="margin-top: 24px;">We designed Forecast to translate network updates into merchant-specific insights by modelling upcoming changes against each merchant's transaction behaviour.</p>
   <p class="cs-p reveal" style="margin-bottom: 14px;">It helps teams answer three questions:</p>
   <ul class="cs-list reveal">
-    <li>What should we do next?</li>
     <li>What changes are coming?</li>
     <li>What will the impact be?</li>
+    <li>What should we do next?</li>
   </ul>
-  <p class="cs-p reveal">Instead of surfacing every published update, Forecast prioritised only the changes relevant to a merchant's business and translated them into clear financial impact.</p>
+  <p class="cs-p reveal">With Forecast, the investigation no longer ended with understanding what happened. Teams could start preparing for what happens next.</p>
 
 </div>
 </section>
