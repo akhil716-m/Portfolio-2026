@@ -227,6 +227,68 @@ nav .logo a.cs-back:hover { color: var(--accent); }
 .cs-subdivider::after { content: ''; flex: 1; height: 1px; background: var(--line); }
 .cs-vis-body { padding: 32px 28px; }
 
+/* ---------- HOW MONEY FLOWS — live pipeline ----------
+   A lime pulse travels customer → merchant on a 6s loop, shrinking after
+   each fee node; nodes flare as it passes. Runs only once the block has
+   revealed, and sits still for users who prefer reduced motion. */
+.cs-flow-stage { position: relative; }
+.cs-flow-dot {
+  position: absolute; top: 56%; left: 12.86%;
+  width: 9px; height: 9px; margin: -4.5px 0 0 -4.5px;
+  border-radius: 50%; background: var(--accent);
+  box-shadow: 0 0 10px var(--accent), 0 0 24px rgba(212,255,94,0.45);
+  opacity: 0; pointer-events: none;
+}
+.cs-ng { opacity: 0.22; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .cs-vis.is-visible .cs-fl { animation: cs-dash-march 0.8s linear infinite; }
+  .cs-vis.is-visible .cs-flow-dot { animation: cs-flow-travel 6s linear infinite; }
+  .cs-vis.is-visible .cs-ng1 { animation: cs-node-flare 6s linear 1.14s infinite; }
+  .cs-vis.is-visible .cs-ng2 { animation: cs-node-flare 6s linear 2.25s infinite; }
+  .cs-vis.is-visible .cs-ng3 { animation: cs-node-flare 6s linear 3.37s infinite; }
+  .cs-vis.is-visible .cs-n1 { animation: cs-ring-flare 6s linear 1.14s infinite; }
+  .cs-vis.is-visible .cs-n2 { animation: cs-ring-flare 6s linear 2.25s infinite; }
+  .cs-vis.is-visible .cs-n3 { animation: cs-ring-flare 6s linear 3.37s infinite; }
+  .cs-vis.is-visible .cs-fee1 { animation: cs-fee-flare 6s linear 1.14s infinite; }
+  .cs-vis.is-visible .cs-fee2 { animation: cs-fee-flare 6s linear 2.25s infinite; }
+  .cs-vis.is-visible .cs-fee3 { animation: cs-fee-flare 6s linear 3.37s infinite; }
+  .cs-vis.is-visible .cs-amt-out { animation: cs-amt-arrive 6s linear infinite; }
+}
+@keyframes cs-dash-march { to { stroke-dashoffset: -9; } }
+@keyframes cs-flow-travel {
+  0%    { left: 12.86%; transform: scale(0.5); opacity: 0; }
+  3%    { opacity: 1; transform: scale(1); }
+  20.7% { transform: scale(1); }
+  23%   { transform: scale(0.85); }
+  37.5% { transform: scale(0.85); }
+  40%   { transform: scale(0.75); }
+  56%   { transform: scale(0.75); }
+  58.5% { transform: scale(0.64); }
+  71%   { opacity: 1; }
+  75%   { left: 87%; transform: scale(0.55); opacity: 0; }
+  100%  { left: 87%; transform: scale(0.55); opacity: 0; }
+}
+@keyframes cs-node-flare {
+  0%, 100% { opacity: 0.22; }
+  2.5%     { opacity: 0.85; }
+  13%      { opacity: 0.22; }
+}
+@keyframes cs-ring-flare {
+  0%, 100% { stroke: rgba(212,255,94,0.35); }
+  2.5%     { stroke: rgba(212,255,94,0.95); }
+  13%      { stroke: rgba(212,255,94,0.35); }
+}
+@keyframes cs-fee-flare {
+  0%, 100% { fill: rgba(212,255,94,0.7); }
+  2.5%     { fill: rgba(212,255,94,1); }
+  13%      { fill: rgba(212,255,94,0.7); }
+}
+@keyframes cs-amt-arrive {
+  0%, 71%, 90%, 100% { fill: var(--text-soft); }
+  76%                { fill: var(--text); }
+}
+
 
 .cs-fee-rate-row { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; }
 .cs-fee-bottom-label {
@@ -1140,18 +1202,26 @@ a.cs-cta { margin-top: 28px; }
   <div class="cs-vis reveal" style="margin: 24px 0;">
     <div class="cs-vis-label">How money flows</div>
     <div class="cs-vis-body" style="padding: 44px 28px 40px;">
+      <div class="cs-flow-stage">
       <svg viewBox="0 0 700 132" xmlns="http://www.w3.org/2000/svg" role="img" style="width:100%; display:block;">
         <title>Payment flow — $1,000 enters, intermediaries each extract a fee, the merchant receives $980</title>
+
+        <defs>
+          <radialGradient id="cs-flow-nodeglow">
+            <stop offset="0%" stop-color="rgba(212,255,94,0.28)"/>
+            <stop offset="100%" stop-color="rgba(212,255,94,0)"/>
+          </radialGradient>
+        </defs>
 
         <!-- ══ "Payment costs" bracket over the hidden chain ══ -->
         <text x="350" y="14" text-anchor="middle" font-family="'Geist',sans-serif" font-size="9.5" font-weight="500" letter-spacing="0.14em" fill="rgba(212,255,94,0.5)">PAYMENT COSTS — INVISIBLE TO MOST MERCHANTS</text>
         <path d="M 196 30 L 196 24 L 504 24 L 504 30" fill="none" stroke="rgba(212,255,94,0.25)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" />
 
-        <!-- ══ Flow line — opacity erodes after each cut ══ -->
-        <line x1="90"  y1="74" x2="204" y2="74" stroke="rgba(255,255,255,0.30)" stroke-width="1.4" stroke-dasharray="3 6" stroke-linecap="round" />
-        <line x1="240" y1="74" x2="332" y2="74" stroke="rgba(255,255,255,0.24)" stroke-width="1.3" stroke-dasharray="3 6" stroke-linecap="round" />
-        <line x1="368" y1="74" x2="460" y2="74" stroke="rgba(255,255,255,0.18)" stroke-width="1.2" stroke-dasharray="3 6" stroke-linecap="round" />
-        <line x1="496" y1="74" x2="609" y2="74" stroke="rgba(255,255,255,0.12)" stroke-width="1.1" stroke-dasharray="3 6" stroke-linecap="round" />
+        <!-- ══ Flow line — opacity erodes after each cut, dashes march while live ══ -->
+        <line class="cs-fl" x1="90"  y1="74" x2="204" y2="74" stroke="rgba(255,255,255,0.30)" stroke-width="1.4" stroke-dasharray="3 6" stroke-linecap="round" />
+        <line class="cs-fl" x1="240" y1="74" x2="332" y2="74" stroke="rgba(255,255,255,0.24)" stroke-width="1.3" stroke-dasharray="3 6" stroke-linecap="round" />
+        <line class="cs-fl" x1="368" y1="74" x2="460" y2="74" stroke="rgba(255,255,255,0.18)" stroke-width="1.2" stroke-dasharray="3 6" stroke-linecap="round" />
+        <line class="cs-fl" x1="496" y1="74" x2="609" y2="74" stroke="rgba(255,255,255,0.12)" stroke-width="1.1" stroke-dasharray="3 6" stroke-linecap="round" />
 
         <!-- ══ CUSTOMER PAYS — card icon ══ -->
         <g stroke="rgba(255,255,255,0.5)" fill="none" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
@@ -1164,22 +1234,25 @@ a.cs-cta { margin-top: 28px; }
 
         <!-- ══ INTERMEDIARY CUTS ══ -->
         <!-- Acquiring bank -->
+        <circle class="cs-ng cs-ng1" cx="222" cy="74" r="30" fill="url(#cs-flow-nodeglow)" />
         <text x="222" y="46" text-anchor="middle" font-family="'Geist',sans-serif" font-size="10.5" fill="var(--text-soft)">Acquiring bank</text>
-        <circle cx="222" cy="74" r="17" fill="var(--bg-soft)" stroke="rgba(212,255,94,0.35)" stroke-width="1.3" />
+        <circle class="cs-node cs-n1" cx="222" cy="74" r="17" fill="var(--bg-soft)" stroke="rgba(212,255,94,0.35)" stroke-width="1.3" />
         <text x="222" y="79" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="13" font-weight="500" fill="var(--accent)">%</text>
-        <text x="222" y="107" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="11" fill="rgba(212,255,94,0.7)">−0.35%</text>
+        <text class="cs-fee cs-fee1" x="222" y="107" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="11" fill="rgba(212,255,94,0.7)">−0.35%</text>
 
         <!-- Card network -->
+        <circle class="cs-ng cs-ng2" cx="350" cy="74" r="30" fill="url(#cs-flow-nodeglow)" />
         <text x="350" y="46" text-anchor="middle" font-family="'Geist',sans-serif" font-size="10.5" fill="var(--text-soft)">Card network</text>
-        <circle cx="350" cy="74" r="17" fill="var(--bg-soft)" stroke="rgba(212,255,94,0.35)" stroke-width="1.3" />
+        <circle class="cs-node cs-n2" cx="350" cy="74" r="17" fill="var(--bg-soft)" stroke="rgba(212,255,94,0.35)" stroke-width="1.3" />
         <text x="350" y="79" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="13" font-weight="500" fill="var(--accent)">%</text>
-        <text x="350" y="107" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="11" fill="rgba(212,255,94,0.7)">−0.15%</text>
+        <text class="cs-fee cs-fee2" x="350" y="107" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="11" fill="rgba(212,255,94,0.7)">−0.15%</text>
 
         <!-- Issuing bank -->
+        <circle class="cs-ng cs-ng3" cx="478" cy="74" r="30" fill="url(#cs-flow-nodeglow)" />
         <text x="478" y="46" text-anchor="middle" font-family="'Geist',sans-serif" font-size="10.5" fill="var(--text-soft)">Issuing bank</text>
-        <circle cx="478" cy="74" r="17" fill="var(--bg-soft)" stroke="rgba(212,255,94,0.35)" stroke-width="1.3" />
+        <circle class="cs-node cs-n3" cx="478" cy="74" r="17" fill="var(--bg-soft)" stroke="rgba(212,255,94,0.35)" stroke-width="1.3" />
         <text x="478" y="79" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="13" font-weight="500" fill="var(--accent)">%</text>
-        <text x="478" y="107" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="11" fill="rgba(212,255,94,0.7)">−1.50%</text>
+        <text class="cs-fee cs-fee3" x="478" y="107" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="11" fill="rgba(212,255,94,0.7)">−1.50%</text>
 
         <!-- ══ MERCHANT RECEIVES — bank icon ══ -->
         <g stroke="rgba(255,255,255,0.5)" fill="none" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
@@ -1191,8 +1264,10 @@ a.cs-cta { margin-top: 28px; }
           <line x1="617" y1="90" x2="655" y2="90" />
         </g>
         <text x="636" y="50" text-anchor="middle" font-family="'Geist',sans-serif" font-size="11" font-weight="500" fill="var(--text)">Merchant receives</text>
-        <text x="636" y="112" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="12.5" font-weight="500" fill="var(--text-soft)">$980</text>
+        <text class="cs-amt-out" x="636" y="112" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="12.5" font-weight="500" fill="var(--text-soft)">$980</text>
       </svg>
+      <span class="cs-flow-dot" aria-hidden="true"></span>
+      </div>
     </div>
   </div>
 
