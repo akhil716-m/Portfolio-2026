@@ -244,7 +244,7 @@ nav .status .dot {
   font-size: clamp(18px, 1.3vw, 21px);
   line-height: 1.55;
   color: var(--text-soft);
-  max-width: 560px;
+  max-width: 600px;
   font-weight: 300;
 }
 .hero-bio .em { color: var(--text); font-weight: 400; }
@@ -721,7 +721,7 @@ nav .status .dot {
 
 .section-title {
   font-family: 'Geist', sans-serif;
-  font-size: clamp(38px, 4.6vw, 68px);
+  font-size: clamp(32px, 4.4vw, 64px);
   line-height: 1.05;
   letter-spacing: -0.02em;
   font-weight: 400;
