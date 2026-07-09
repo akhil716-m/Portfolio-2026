@@ -550,7 +550,9 @@ a.cs-cta { margin-top: 28px; }
 /* ---------- RESPONSIVE ---------- */
 @media (max-width: 760px) {
   .cs-hero-meta { gap: 30px; }
-  .cs-hero { padding-top: 120px; }
+  .cs-hero { min-height: auto; justify-content: flex-start; padding: 120px 20px 80px; }
+  .cs-hero-scroll { display: none; }
+  .cs-hero-title { font-size: clamp(40px, 11vw, 130px); }
   .cs-flow-row { flex-direction: column; }
   .cs-flow-arrow { transform: rotate(90deg); justify-content: center; padding: 2px 0; }
   .cs-flow-result { flex-direction: column; }
@@ -564,6 +566,9 @@ a.cs-cta { margin-top: 28px; }
   .cs-recon-cmp { transform: rotate(90deg); }
   .cs-recon-node--result { min-width: unset; width: 100%; }
   .cs-exc-grid { grid-template-columns: 1fr 1fr; }
+  .cs-exc-tile { min-width: 0; padding: 16px 14px; }
+  .cs-exc-visual { flex-wrap: wrap; height: auto; }
+  .cs-exc-v-box { white-space: normal; }
   .cs-ui-panel-hd { grid-template-columns: 1fr; gap: 12px; }
 }
 </style>

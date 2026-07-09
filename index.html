@@ -21,7 +21,7 @@
   </div>
   <div style="display: flex; align-items: center; gap: 32px;">
     <div class="links"><a href="resume.html"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg> Resume</a></div>
-    <div class="status"><span class="dot"></span>available for select projects</div>
+    <div class="status"><span class="dot"></span><span class="status-text">available for select projects</span></div>
   </div>
 </nav>
 
@@ -310,6 +310,20 @@ document.querySelectorAll('nav .links a').forEach(a => { if(a.getAttribute('href
     lines.forEach((l, i) => setTimeout(() => l.classList.add('scan'), i * 48));
   });
 })();
+
+// Tap-to-expand explore cards on touch devices
+const isTouch = window.matchMedia('(hover: none)').matches;
+if (isTouch) {
+  document.querySelectorAll('.explore-card').forEach(card => {
+    card.addEventListener('click', e => {
+      if (!card.classList.contains('is-expanded')) {
+        e.preventDefault();
+        document.querySelectorAll('.explore-card.is-expanded').forEach(c => { if (c !== card) c.classList.remove('is-expanded'); });
+        card.classList.add('is-expanded');
+      }
+    });
+  });
+}
 
 console.log('%cHi.','font-family:"Instrument Serif",serif;font-size:32px;font-style:italic;color:#d4ff5e;');
 console.log('%cIf you got this far, you\'re probably my kind of person. → akhilmale.ux@gmail.com','font-family:monospace;font-size:12px;color:#8a8a8a;');

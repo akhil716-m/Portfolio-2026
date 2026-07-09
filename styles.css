@@ -1713,17 +1713,43 @@ footer .right a:hover { color: var(--accent); }
 /* === RESPONSIVE === */
 @media (max-width: 900px) {
   .spotlight { display: none; }
-  nav { padding: 16px 20px; font-size: 11px; }
-  nav .links { display: none; }
+  nav {
+    padding: 16px 20px;
+    font-size: 11px;
+    background: rgba(10, 10, 10, 0.88);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--line);
+  }
+  nav .links a:has(svg) { font-size: 0; }
+  nav .status-text { display: none; }
   nav .logo .role { display: none; }
-  .hero { padding: 120px 20px 60px; }
+  .hero { padding: 120px 20px 60px; min-height: auto; justify-content: flex-start; gap: 56px; }
   .hero-foot { grid-template-columns: 1fr; gap: 32px; }
-  .section { padding: 80px 20px; }
+  .section { padding: 80px 20px !important; }
   .section-head { grid-template-columns: 1fr; gap: 24px; align-items: start; }
   .section-aside { text-align: left; }
   .about-acts { gap: 110px; margin-top: 60px; }
   .about-act { grid-template-columns: 1fr; gap: 36px; }
+  .act-visual { display: none; }
   .act-title { max-width: none; }
+  .explore-grid { grid-template-columns: 1fr; }
+  .explore-card { display: flex; flex-direction: column; }
+  .explore-card::before { display: none; }
+  .explore-card img { aspect-ratio: 16 / 9; }
+  .explore-overlay {
+    position: static;
+    transform: none;
+    padding: 18px 20px 20px;
+    background: none;
+  }
+  .explore-overlay-text p,
+  .explore-cta { display: none; }
+  .explore-card.is-expanded .explore-overlay-text p,
+  .explore-card.is-expanded .explore-cta { display: block; opacity: 1; }
+  .explore-overlay-text div:first-child { margin-bottom: 2px !important; }
+  .explore-overlay-text h3 { margin: 0 !important; }
+  .explore-card.is-expanded .explore-overlay-text h3 { margin: 0 0 8px !important; }
   .work-gallery { grid-template-columns: 1fr; gap: 32px; }
   .wc-item { grid-template-columns: 1fr; height: auto; }
   .wc-item .wc-meta { border-right: none; border-bottom: 1px solid var(--line); }
@@ -1744,7 +1770,7 @@ footer .right a:hover { color: var(--accent); }
   .manifesto { padding: 100px 20px; }
   .faq-row { grid-template-columns: 32px 1fr 24px; gap: 12px; }
   .faq-a { margin-left: 44px; margin-right: 32px; }
-  .contact { padding: 120px 20px 60px; }
+  .contact { padding: 80px 20px 60px; }
   .contact-email { grid-template-columns: 1fr; gap: 12px; padding: 28px 0; }
   .contact-email:hover { padding-left: 0; }
   .contact-email-address { gap: 12px; }
