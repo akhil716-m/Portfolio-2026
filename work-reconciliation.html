@@ -549,8 +549,12 @@ a.cs-cta { margin-top: 28px; }
 
 /* ---------- RESPONSIVE ---------- */
 @media (max-width: 760px) {
-  .cs-hero-meta { gap: 30px; }
-  .cs-hero { padding-top: 120px; }
+  .cs-hero-meta { gap: 30px; margin-top: 32px; border-top: 1px solid var(--line); padding-top: 32px; }
+  .cs-hero { min-height: 100vh; justify-content: flex-start; padding: 260px 20px 60px; }
+  .cs-hero-scroll { display: none; }
+  .cs-hero-eyebrow { margin-top: auto; margin-bottom: 32px; white-space: nowrap; letter-spacing: 0.1em; font-size: 10px; }
+  .cs-hero-eyebrow .sep { margin: 0 6px; }
+  .cs-hero-title { font-size: clamp(46px, 11vw, 130px); }
   .cs-flow-row { flex-direction: column; }
   .cs-flow-arrow { transform: rotate(90deg); justify-content: center; padding: 2px 0; }
   .cs-flow-result { flex-direction: column; }
@@ -564,6 +568,9 @@ a.cs-cta { margin-top: 28px; }
   .cs-recon-cmp { transform: rotate(90deg); }
   .cs-recon-node--result { min-width: unset; width: 100%; }
   .cs-exc-grid { grid-template-columns: 1fr 1fr; }
+  .cs-exc-tile { min-width: 0; padding: 16px 14px; }
+  .cs-exc-visual { flex-wrap: wrap; height: auto; }
+  .cs-exc-v-box { white-space: normal; }
   .cs-ui-panel-hd { grid-template-columns: 1fr; gap: 12px; }
 }
 </style>
@@ -1296,6 +1303,10 @@ a.cs-cta { margin-top: 28px; }
   }
 })();
 
+</script>
+<script>
+const navEl = document.querySelector('nav');
+window.addEventListener('scroll', () => { navEl.classList.toggle('is-scrolled', window.scrollY > 8); }, { passive: true });
 </script>
 </body>
 </html>
