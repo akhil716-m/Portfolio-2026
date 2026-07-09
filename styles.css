@@ -670,6 +670,13 @@ nav .status .dot {
 .explore-overlay-text { margin-bottom: 0; max-width: 560px; display: flex; flex-direction: column; gap: 4px; }
 .explore-overlay-text div, .explore-overlay-text h3, .explore-overlay-text p { margin: 0 !important; }
 .explore-overlay-text div:first-child { margin-bottom: 8px !important; }
+.explore-overlay-text p {
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), max-height 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.explore-card:hover .explore-overlay-text p { opacity: 1; max-height: 200px; }
 .explore-cta { opacity: 0; margin-top: 8px; transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1) 0.05s; }
 .explore-card:hover .explore-cta { opacity: 1; }
 .explore-cta {
