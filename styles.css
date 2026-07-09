@@ -1795,7 +1795,7 @@ footer .right a:hover { color: var(--accent); }
 
 /* Bridge line between the story and the photo deck */
 .life-bridge {
-  margin-top: 140px;
+  margin-top: 90px;
   text-align: center;
   font-weight: 300;
   font-size: clamp(18px, 1.7vw, 24px);
@@ -1808,8 +1808,8 @@ footer .right a:hover { color: var(--accent); }
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  margin-top: 70px;
-  padding-bottom: 56px;
+  margin-top: 56px;
+  padding-bottom: 0;
 }
 
 .life-card {
@@ -1890,7 +1890,7 @@ footer .right a:hover { color: var(--accent); }
 }
 
 @media (max-width: 900px) {
-  .life-bridge { margin-top: 90px; font-size: 17px; }
+  .life-bridge { margin-top: 64px; font-size: 17px; }
   .life-strip {
     justify-content: flex-start;
     overflow-x: auto;
