@@ -1761,7 +1761,7 @@ footer .right a:hover { color: var(--accent); }
   .explore-card.is-expanded .explore-overlay-text h3 { margin: 0 0 8px !important; }
   .work-gallery { grid-template-columns: 1fr; gap: 32px; }
   .wc-item { grid-template-columns: 1fr; height: auto; }
-  .wc-item .wc-meta { border-right: none; border-bottom: 1px solid var(--line); }
+  .wc-item .wc-meta { border-right: none; border-bottom: 1px solid var(--line); padding: 28px 20px; }
   .wc-item .wc-visual { height: 280px; }
   .wc-row { grid-template-columns: 1fr; gap: 24px; }
   .wc-item--light { height: auto; }

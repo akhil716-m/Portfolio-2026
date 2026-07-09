@@ -142,8 +142,12 @@ nav .logo a.cs-back:hover { color: var(--accent); }
 @media (max-width: 900px) {
   .cs-wrap--showcase { max-width: 90vw; }
   .cs-mock-window { height: calc(64.8vw - 52px); }
-  .cs-hero { min-height: auto; justify-content: flex-start; padding: 120px 20px 80px; }
+  .cs-hero { min-height: 100vh; justify-content: flex-start; padding: 260px 20px 60px; }
   .cs-hero-scroll { display: none; }
+  .cs-hero-eyebrow { margin-top: auto; margin-bottom: 32px; white-space: nowrap; letter-spacing: 0.1em; font-size: 10px; }
+  .cs-hero-eyebrow .sep { margin: 0 6px; }
+  .cs-hero-title { font-size: clamp(46px, 11vw, 130px); max-width: 260px; }
+  .cs-hero-meta { margin-top: 32px; border-top: 1px solid var(--line); padding-top: 32px; }
 }
 
 .cs-label {
@@ -1120,7 +1124,7 @@ a.cs-cta { margin-top: 28px; }
   .cs-fee-why-item + .cs-fee-why-item { border-left: none; padding-left: 0; border-top: 1px solid var(--line); padding-top: 18px; }
   .cs-team-grid { grid-template-columns: 1fr 1fr; }
   .cs-hero-meta { gap: 30px; }
-  .cs-hero { padding-top: 120px; }
+  .cs-hero { padding-top: 260px; }
   .cs-stats { grid-template-columns: 1fr; }
   .cs-stat + .cs-stat { border-left: none; border-top: 1px solid var(--line); }
   .cs-docs { grid-template-columns: 1fr; gap: 30px; padding: 26px; }

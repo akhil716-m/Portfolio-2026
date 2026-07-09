@@ -549,10 +549,12 @@ a.cs-cta { margin-top: 28px; }
 
 /* ---------- RESPONSIVE ---------- */
 @media (max-width: 760px) {
-  .cs-hero-meta { gap: 30px; }
-  .cs-hero { min-height: auto; justify-content: flex-start; padding: 120px 20px 80px; }
+  .cs-hero-meta { gap: 30px; margin-top: 32px; border-top: 1px solid var(--line); padding-top: 32px; }
+  .cs-hero { min-height: 100vh; justify-content: flex-start; padding: 260px 20px 60px; }
   .cs-hero-scroll { display: none; }
-  .cs-hero-title { font-size: clamp(40px, 11vw, 130px); }
+  .cs-hero-eyebrow { margin-top: auto; margin-bottom: 32px; white-space: nowrap; letter-spacing: 0.1em; font-size: 10px; }
+  .cs-hero-eyebrow .sep { margin: 0 6px; }
+  .cs-hero-title { font-size: clamp(46px, 11vw, 130px); }
   .cs-flow-row { flex-direction: column; }
   .cs-flow-arrow { transform: rotate(90deg); justify-content: center; padding: 2px 0; }
   .cs-flow-result { flex-direction: column; }
