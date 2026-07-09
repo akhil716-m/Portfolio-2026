@@ -1789,26 +1789,26 @@ footer .right a:hover { color: var(--accent); }
   footer .right { text-align: center; }
 }
 
-/* === LIFE / BEYOND WORK === */
-.life-section { padding-top: 40px !important; }
-
+/* === LIFE ALBUM (inside About) === */
 .section-meta svg { animation: meta-spin 14s linear infinite; }
 @keyframes meta-spin { to { transform: rotate(360deg); } }
 
-.life-sub {
-  max-width: 520px;
-  margin-top: 20px;
-  font-size: 15px;
+/* Bridge line between the story and the photo deck */
+.life-bridge {
+  margin-top: 140px;
+  text-align: center;
   font-weight: 300;
+  font-size: clamp(18px, 1.7vw, 24px);
+  letter-spacing: -0.01em;
   color: var(--text-soft);
-  line-height: 1.7;
 }
+.life-bridge .circled { color: var(--text); }
 
 .life-strip {
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  margin-top: 90px;
+  margin-top: 70px;
   padding-bottom: 56px;
 }
 
@@ -1890,11 +1890,12 @@ footer .right a:hover { color: var(--accent); }
 }
 
 @media (max-width: 900px) {
+  .life-bridge { margin-top: 90px; font-size: 17px; }
   .life-strip {
     justify-content: flex-start;
     overflow-x: auto;
     gap: 16px;
-    margin: 48px -20px 0;
+    margin: 32px -20px 0;
     padding: 12px 28px 36px;
     scroll-snap-type: x mandatory;
     scrollbar-width: none;
@@ -1936,7 +1937,6 @@ footer .right a:hover { color: var(--accent); }
   color: var(--text);
   padding: 0.02em 0.14em;
 }
-.section-title .circled { color: var(--text); }
 .circled .circ {
   position: absolute;
   inset: -0.14em -0.24em;
@@ -2169,4 +2169,81 @@ footer .right a:hover .arr--up { transform: translateY(-3px); }
   .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
   .life-strip.in-view .life-card { animation: none; }
   .arr, .contact-socials a svg { transition: none; }
+}
+
+/* === ABOUT POLAROID — echoes the life-album cards === */
+.about-act .act-visual {
+  overflow: visible;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.about-polaroid {
+  position: relative;
+  width: min(100%, 440px);
+  margin: 0;
+  transform: rotate(2.4deg);
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+/* Ghost card behind — hints at the photo deck further down */
+.about-polaroid::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: #101010;
+  border: 1px solid var(--line-soft);
+  border-radius: 14px;
+  transform: rotate(-3.2deg);
+  z-index: -1;
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.about-polaroid:hover { transform: rotate(0.6deg) translateY(-6px); }
+.about-polaroid:hover::before { transform: rotate(-1.4deg); }
+.ap-inner {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 10px 10px 0;
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.5);
+}
+.ap-img {
+  aspect-ratio: 4 / 5;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.ap-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+  filter: grayscale(100%);
+  transition: filter 0.6s ease;
+}
+.about-polaroid:hover .ap-img img { filter: grayscale(0%); }
+.ap-inner figcaption {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 12px 8px 14px;
+}
+.ap-idx {
+  font-family: 'Geist Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+}
+.ap-cap {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-size: 16px;
+  color: var(--text-soft);
+}
+
+@media (max-width: 900px) {
+  .about-act .act-visual { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about-polaroid, .about-polaroid::before, .ap-img img { transition: none; }
 }
