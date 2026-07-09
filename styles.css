@@ -1730,6 +1730,7 @@ footer .right a:hover { color: var(--accent); }
     font-family: 'Geist Mono', monospace; font-size: 11px;
   }
   nav .links a:has(svg) svg { width: 12px; height: 12px; }
+  nav .links a:has(svg)::before { display: none; }
   nav .status-text { display: none; }
   nav .status { display: none; }
   nav .logo .role { display: none; }
