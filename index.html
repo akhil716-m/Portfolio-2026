@@ -274,6 +274,9 @@
 </footer>
 
 <script>
+const navEl = document.querySelector('nav');
+window.addEventListener('scroll', () => { navEl.classList.toggle('is-scrolled', window.scrollY > 8); }, { passive: true });
+
 const spotlight = document.querySelector('.spotlight');
 let mx = window.innerWidth/2, my = window.innerHeight/2, sx = mx, sy = my;
 document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; });

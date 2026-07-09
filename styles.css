@@ -1719,12 +1719,21 @@ footer .right a:hover { color: var(--accent); }
     background: rgba(10, 10, 10, 0.88);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
-    border-bottom: 1px solid var(--line);
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.25s ease;
   }
-  nav .links a:has(svg) { font-size: 0; }
+  nav.is-scrolled { border-bottom-color: var(--line); }
+  nav .links a:has(svg) {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 6px 12px; border-radius: 8px;
+    background: var(--accent); color: #000 !important;
+    font-family: 'Geist Mono', monospace; font-size: 11px;
+  }
+  nav .links a:has(svg) svg { width: 12px; height: 12px; }
   nav .status-text { display: none; }
+  nav .status { display: none; }
   nav .logo .role { display: none; }
-  .hero { padding: 120px 20px 60px; min-height: auto; justify-content: flex-start; gap: 56px; }
+  .hero { padding: 148px 20px 60px; min-height: 100vh; justify-content: space-between; gap: 56px; }
   .hero-foot { grid-template-columns: 1fr; gap: 32px; }
   .section { padding: 80px 20px !important; }
   .section-head { grid-template-columns: 1fr; gap: 24px; align-items: start; }

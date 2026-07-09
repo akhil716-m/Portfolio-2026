@@ -2912,5 +2912,9 @@ console.log('%cYou found the HyperSense rebuild — full case study, sections 01
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 })();
 </script>
+<script>
+const navEl = document.querySelector('nav');
+window.addEventListener('scroll', () => { navEl.classList.toggle('is-scrolled', window.scrollY > 8); }, { passive: true });
+</script>
 </body>
 </html>

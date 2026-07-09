@@ -1302,5 +1302,9 @@ a.cs-cta { margin-top: 28px; }
 })();
 
 </script>
+<script>
+const navEl = document.querySelector('nav');
+window.addEventListener('scroll', () => { navEl.classList.toggle('is-scrolled', window.scrollY > 8); }, { passive: true });
+</script>
 </body>
 </html>
