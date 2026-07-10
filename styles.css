@@ -2034,17 +2034,6 @@ footer .right a:hover { color: var(--accent); }
   transition: opacity 0.9s ease 0.25s, transform 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.25s;
 }
 .resume-band.in-view .rb-inner { opacity: 1; transform: translateY(0); }
-.rb-meta {
-  font-family: 'Geist Mono', monospace;
-  font-size: 11px;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-.rb-meta svg { animation: meta-spin 14s linear infinite; }
 .rb-title {
   font-family: 'Geist', sans-serif;
   font-size: clamp(32px, 4.4vw, 64px);
