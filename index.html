@@ -429,13 +429,12 @@ if (isTouch) {
   });
 }
 
-// Life album — auto-scrolling carousel on desktop (duplicate the card set for a seamless loop)
+// Life album — auto-scrolling carousel (duplicate the card set for a seamless loop)
 (function() {
   const track = document.getElementById('life-track');
   const set = track && track.querySelector('.life-set');
   if (!track || !set) return;
-  const isDesktop = window.matchMedia('(min-width: 901px)').matches;
-  if (!isDesktop) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   const clone = set.cloneNode(true);
   clone.setAttribute('aria-hidden', 'true');
   track.appendChild(clone);
