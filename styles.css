@@ -1818,22 +1818,25 @@ footer .right a:hover { color: var(--accent); }
 
 .life-strip {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: flex-start;
-  margin-top: 56px;
+  gap: 32px 8px;
+  max-width: 1180px;
+  margin: 56px auto 0;
   padding-bottom: 0;
 }
 
 .life-card {
   position: relative;
-  width: clamp(170px, 15vw, 230px);
-  margin: 0 -16px;
+  width: clamp(150px, 12vw, 195px);
   z-index: 1;
-  transform: translateX(var(--cx)) rotate(calc(var(--r) * 0.3));
-  transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+  opacity: 0;
+  transform: translateY(36px) rotate(calc(var(--r) * 0.4));
+  transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.7s ease;
   transition-delay: var(--d);
 }
-.life-strip.in-view .life-card { transform: translateY(var(--y)) rotate(var(--r)); }
+.life-strip.in-view .life-card { opacity: 1; transform: translateY(var(--y)) rotate(var(--r)); }
 .life-card:hover { z-index: 10; }
 
 .life-inner {
@@ -1904,8 +1907,10 @@ footer .right a:hover { color: var(--accent); }
 @media (max-width: 900px) {
   .life-bridge { margin-top: 64px; font-size: 17px; }
   .life-strip {
+    flex-wrap: nowrap;
     justify-content: flex-start;
     overflow-x: auto;
+    max-width: none;
     gap: 16px;
     margin: 32px -20px 0;
     padding: 12px 28px 36px;
