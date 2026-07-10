@@ -2028,7 +2028,7 @@ footer .right a:hover { color: var(--accent); }
   align-items: center;
   text-align: center;
   gap: 24px;
-  padding: 110px 0 120px;
+  padding: 72px 0 120px;
   opacity: 0;
   transform: translateY(24px);
   transition: opacity 0.9s ease 0.25s, transform 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.25s;
