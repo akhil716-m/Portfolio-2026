@@ -662,9 +662,9 @@ nav .status .dot {
 .explore-overlay {
   position: absolute; left: 0; right: 0; bottom: 0; z-index: 2;
   display: flex; flex-direction: column; align-items: flex-start;
-  padding: 32px 32px 40px;
+  padding: 32px;
 }
-.explore-overlay-text { margin-bottom: 0; max-width: 560px; display: flex; flex-direction: column; gap: 4px; }
+.explore-overlay-text { margin-bottom: 0; max-width: 560px; display: flex; flex-direction: column; }
 .explore-overlay-text div, .explore-overlay-text h3, .explore-overlay-text p { margin: 0 !important; }
 .explore-overlay-text div:first-child { margin-bottom: 8px !important; }
 .explore-overlay-text p {
@@ -675,17 +675,23 @@ nav .status .dot {
 }
 .explore-overlay-text p > span { overflow: hidden; min-height: 0; display: block; }
 .explore-card:hover .explore-overlay-text p { grid-template-rows: 1fr; opacity: 1; }
-.explore-cta {
+.explore-cta-row {
+  display: grid;
+  grid-template-rows: 0fr;
   opacity: 0;
-  margin-top: 8px;
+  margin-top: 0;
+  transition: grid-template-rows 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), margin-top 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.explore-cta-row > span { overflow: hidden; min-height: 0; }
+.explore-card:hover .explore-cta-row { grid-template-rows: 1fr; opacity: 1; margin-top: 8px; }
+.explore-cta {
   display: inline-flex; align-items: center; gap: 6px;
   font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.05em;
   color: var(--accent); text-decoration: none;
   border: 1px solid var(--accent); border-radius: 100px;
   padding: 6px 16px; width: fit-content;
-  transition: opacity 0.45s cubic-bezier(0.4, 0, 0.2, 1) 0.08s, background 0.3s, color 0.3s;
+  transition: background 0.3s, color 0.3s;
 }
-.explore-card:hover .explore-cta { opacity: 1; }
 .explore-cta:hover { background: var(--accent); color: #000; }
 .explore-card--locked { cursor: default; }
 .explore-card--locked:hover img { filter: blur(4px) brightness(0.6); }
@@ -1760,9 +1766,9 @@ footer .right a:hover { color: var(--accent); }
     background: none;
   }
   .explore-overlay-text p,
-  .explore-cta { display: none; }
+  .explore-cta-row { display: none; }
   .explore-card.is-expanded .explore-overlay-text p,
-  .explore-card.is-expanded .explore-cta { display: block; opacity: 1; }
+  .explore-card.is-expanded .explore-cta-row { display: block; opacity: 1; }
   .explore-overlay-text div:first-child { margin-bottom: 2px !important; }
   .explore-overlay-text h3 { margin: 0 !important; }
   .explore-card.is-expanded .explore-overlay-text h3 { margin: 0 0 8px !important; }
