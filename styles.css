@@ -2056,7 +2056,7 @@ footer .right a:hover { color: var(--accent); }
   position: relative;
   font-family: 'Instrument Serif', serif;
   font-style: italic;
-  color: var(--warm);
+  color: var(--accent);
 }
 .rb-word::after {
   content: '';
@@ -2066,7 +2066,7 @@ footer .right a:hover { color: var(--accent); }
   bottom: -0.04em;
   height: 0.06em;
   border-radius: 3px;
-  background: linear-gradient(to right, var(--warm), rgba(232, 197, 152, 0.25));
+  background: linear-gradient(to right, var(--accent), rgba(212, 255, 94, 0.25));
   opacity: 0.65;
   transform: scaleX(0);
   transform-origin: left center;
