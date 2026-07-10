@@ -1817,26 +1817,40 @@ footer .right a:hover { color: var(--accent); }
 .life-bridge .circled { color: var(--text); }
 
 .life-strip {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 32px 8px;
-  max-width: 1180px;
+  position: relative;
+  max-width: 1060px;
   margin: 56px auto 0;
-  padding-bottom: 0;
+  padding: 40px 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity 0.9s ease;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
 }
+.life-strip.in-view { opacity: 1; }
+
+.life-track {
+  display: flex;
+  align-items: flex-start;
+  width: max-content;
+}
+.life-set {
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+  padding-right: 24px;
+}
+.has-clone .life-track { animation: life-scroll 42s linear infinite; }
+.life-strip:hover .life-track { animation-play-state: paused; }
+@keyframes life-scroll { to { transform: translateX(-50%); } }
 
 .life-card {
   position: relative;
-  width: clamp(150px, 12vw, 195px);
+  width: 190px;
+  flex: 0 0 190px;
   z-index: 1;
-  opacity: 0;
-  transform: translateY(36px) rotate(calc(var(--r) * 0.4));
-  transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.7s ease;
-  transition-delay: var(--d);
+  transform: rotate(var(--r));
 }
-.life-strip.in-view .life-card { opacity: 1; transform: translateY(var(--y)) rotate(var(--r)); }
 .life-card:hover { z-index: 10; }
 
 .life-inner {
@@ -1907,39 +1921,45 @@ footer .right a:hover { color: var(--accent); }
 @media (max-width: 900px) {
   .life-bridge { margin-top: 64px; font-size: 17px; }
   .life-strip {
-    flex-wrap: nowrap;
-    justify-content: flex-start;
-    overflow-x: auto;
     max-width: none;
-    gap: 16px;
     margin: 32px -20px 0;
     padding: 12px 28px 36px;
+    overflow-x: auto;
+    -webkit-mask-image: none;
+    mask-image: none;
+    opacity: 1;
     scroll-snap-type: x mandatory;
     scrollbar-width: none;
   }
   .life-strip::-webkit-scrollbar { display: none; }
+  .life-track { animation: none !important; }
+  .life-set { gap: 16px; padding-right: 0; }
   .life-card {
     flex: 0 0 62vw;
     width: 62vw;
-    margin: 0;
-    scroll-snap-align: center;
     opacity: 0;
     transform: translateY(24px) rotate(calc(var(--r) * 0.35));
     transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.8s ease;
-    transition-delay: var(--d);
   }
+  .life-card:nth-child(1) { transition-delay: 0ms; }
+  .life-card:nth-child(2) { transition-delay: 45ms; }
+  .life-card:nth-child(3) { transition-delay: 90ms; }
+  .life-card:nth-child(4) { transition-delay: 135ms; }
+  .life-card:nth-child(n+5) { transition-delay: 180ms; }
   .life-strip.in-view .life-card {
     opacity: 1;
     transform: translateY(0) rotate(calc(var(--r) * 0.35));
   }
+  .life-card { scroll-snap-align: center; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .life-card, .life-inner, .life-img img {
+  .life-card, .life-inner, .life-img img, .life-track {
     transition: none !important;
     animation: none !important;
   }
-  .life-card { opacity: 1 !important; transform: translateY(var(--y)) rotate(var(--r)) !important; }
+  .life-strip { opacity: 1 !important; overflow-x: auto !important; }
+  .life-card { opacity: 1 !important; transform: rotate(var(--r)) !important; }
   .section-meta svg { animation: none !important; }
 }
 
@@ -2128,15 +2148,6 @@ footer .right a:hover { color: var(--accent); }
 .reveal.in-view { opacity: 1; transform: none; }
 .explore-card.reveal:nth-child(2) { transition-delay: 0.12s; }
 
-/* Idle float for the fanned life cards once dealt */
-@keyframes life-float {
-  0%, 100% { transform: translateY(var(--y)) rotate(var(--r)); }
-  50% { transform: translateY(calc(var(--y) - 6px)) rotate(var(--r)); }
-}
-.life-strip.in-view .life-card {
-  animation: life-float 7s ease-in-out infinite;
-  animation-delay: calc(var(--d) * 6 + 1.4s);
-}
 
 /* Arrows nudge with a springy overshoot */
 .arr {
@@ -2172,7 +2183,6 @@ footer .right a:hover .arr--up { transform: translateY(-3px); }
   .resume-band { padding: 0 20px; }
   .rb-inner { padding: 80px 0 90px; gap: 20px; }
   .rb-term { font-size: 11px; }
-  .life-strip.in-view .life-card { animation: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -2184,7 +2194,6 @@ footer .right a:hover .arr--up { transform: translateY(-3px); }
   .rb-cursor { animation: none; }
   .rb-cta { transition: none; }
   .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
-  .life-strip.in-view .life-card { animation: none; }
   .arr, .contact-socials a svg { transition: none; }
 }
 
