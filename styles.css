@@ -1787,7 +1787,7 @@ footer .right a:hover { color: var(--accent); }
 
 /* Bridge line between the story and the photo deck */
 .life-bridge {
-  margin-top: 90px;
+  margin-top: 170px;
   text-align: center;
   font-weight: 300;
   font-size: clamp(18px, 1.7vw, 24px);
