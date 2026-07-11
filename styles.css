@@ -1824,8 +1824,6 @@ footer .right a:hover { color: var(--accent); }
   overflow: hidden;
   opacity: 0;
   transition: opacity 0.9s ease;
-  -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
-  mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
 }
 .life-strip.in-view { opacity: 1; }
 
