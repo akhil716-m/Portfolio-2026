@@ -1816,6 +1816,7 @@ footer .right a:hover { color: var(--accent); }
 }
 .life-bridge .circled { color: var(--text); }
 
+/* Lift the album above the global noise layer (z-index: 500) so photos stay crisp */
 .life-strip {
   position: relative;
   max-width: 1060px;
@@ -1824,6 +1825,7 @@ footer .right a:hover { color: var(--accent); }
   overflow: hidden;
   opacity: 0;
   transition: opacity 0.9s ease;
+  z-index: 501;
 }
 .life-strip.in-view { opacity: 1; }
 
