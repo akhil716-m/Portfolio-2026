@@ -1857,7 +1857,7 @@ footer .right a:hover { color: var(--accent); }
   background: var(--bg-card);
   border: 1px solid var(--line);
   border-radius: 14px;
-  padding: 8px 8px 0;
+  padding: 8px;
   box-shadow: 0 24px 48px rgba(0, 0, 0, 0.5);
   transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.45s ease;
 }
@@ -1899,24 +1899,6 @@ footer .right a:hover { color: var(--accent); }
   color: var(--text-muted);
 }
 
-.life-card figcaption {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  padding: 10px 6px 12px;
-}
-.life-idx {
-  font-family: 'Geist Mono', monospace;
-  font-size: 9px;
-  letter-spacing: 0.08em;
-  color: var(--text-muted);
-}
-.life-cap {
-  font-family: 'Instrument Serif', serif;
-  font-style: italic;
-  font-size: 15px;
-  color: var(--text-soft);
-}
 
 @media (max-width: 900px) {
   .life-bridge { margin-top: 64px; font-size: 17px; }
