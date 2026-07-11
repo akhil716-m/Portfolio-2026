@@ -867,8 +867,8 @@ nav .status .dot {
 /* === ABOUT === */
 .about-prose {
   font-family: 'Geist', sans-serif;
-  font-size: clamp(18px, 1.3vw, 21px);
-  line-height: 1.75;
+  font-size: clamp(15px, 1.05vw, 17px);
+  line-height: 1.7;
   color: var(--text-soft);
   font-weight: 300;
 }
