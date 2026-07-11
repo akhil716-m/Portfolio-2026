@@ -2134,7 +2134,7 @@ footer .right a:hover .arr--up { transform: translateY(-3px); }
 }
 .about-polaroid {
   position: relative;
-  width: min(100%, 440px);
+  width: min(100%, 380px);
   margin: 0;
   transform: rotate(2.4deg);
   transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
