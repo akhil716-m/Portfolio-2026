@@ -1105,6 +1105,7 @@ a.cs-cta { margin-top: 28px; }
 /* ---------- KNOWLEDGE GRAPH ---------- */
 #cs-graph { width: 100%; height: auto; display: block; }
 .cs-graph-hint { font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.1em; color: var(--text-muted); opacity: 0.6; text-align: center; margin: 16px 0 0; }
+@media (hover: none) { .cs-graph-hint { display: none; } }
 
 /* ---------- UI WALKTHROUGH BITS ---------- */
 .cs-ui-tag {
@@ -1783,6 +1784,7 @@ a.cs-cta { margin-top: 28px; }
     <div class="cs-vis-label">One investigation. Multiple questions.</div>
     <div class="cs-vis-body">
       <canvas id="cs-graph" aria-label="HyperSense knowledge graph — five modules and their sub-questions"></canvas>
+      <p class="cs-graph-hint">hover a module to trace its questions</p>
     </div>
   </div>
   <p class="cs-p reveal">We designed the product around how teams investigate costs. Rather than asking teams to manually piece together fragmented reports, each module guided them toward the answers they needed: from understanding what changed to deciding what to do next. Together, they form a coherent cost story that teams could trust and act on.</p>
@@ -2646,6 +2648,28 @@ a.cs-cta { margin-top: 28px; }
   const R_MOD = 178, R_Q = 290;
   const LIME = '#d4ff5e';
 
+  /* Growth choreography — the graph assembles from the center outward
+     once scrolled into view: hub blooms, spokes draw, modules pop,
+     questions land last. Reduced motion renders the final state. */
+  const graphReduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let t0 = null;
+  if (graphReduceMotion || !('IntersectionObserver' in window)) {
+    t0 = -1e9;
+  } else {
+    const gio = new IntersectionObserver((es) => {
+      es.forEach(en => { if (en.isIntersecting && t0 === null) { t0 = performance.now(); gio.disconnect(); } });
+    }, { threshold: 0.3 });
+    gio.observe(canvas);
+  }
+  const clamp01 = v => v < 0 ? 0 : v > 1 ? 1 : v;
+  const easeOutC = p => 1 - Math.pow(1 - p, 3);
+  const easeBack = p => { const c = 1.70158, q = p - 1; return 1 + (c + 1) * q * q * q + c * q * q; };
+
+  /* Signal pulses — after assembly, investigations occasionally flow
+     from the hub out through a module to one of its questions. */
+  const pulses = [];
+  let nextPulse = 0;
+
   const mods = [
     { id: 'overview',  label: 'Overview',   angle: -Math.PI/2,
       subs: ['What changed?', 'What am I paying today?', 'Where should I start investigating?'] },
@@ -2660,22 +2684,22 @@ a.cs-cta { margin-top: 28px; }
   ];
 
   const nodes = [], edges = [], nodeMap = {};
-  const center = { id: 'center', label: 'HyperSense', x: CX, y: CY, bx: CX, by: CY, r: 14, type: 'center' };
+  const center = { id: 'center', label: 'HyperSense', x: CX, y: CY, bx: CX, by: CY, r: 14, type: 'center', hs: 0 };
   nodes.push(center); nodeMap.center = center;
 
-  mods.forEach((mod) => {
+  mods.forEach((mod, mi) => {
     const mx = CX + R_MOD * Math.cos(mod.angle), my = CY + R_MOD * Math.sin(mod.angle);
-    const mn = { id: mod.id, label: mod.label, x: mx, y: my, bx: mx, by: my, r: 8, type: 'module' };
+    const mn = { id: mod.id, label: mod.label, x: mx, y: my, bx: mx, by: my, r: 8, type: 'module', mi, hs: 0 };
     nodes.push(mn); nodeMap[mod.id] = mn;
-    edges.push({ from: 'center', to: mod.id, type: 'module' });
+    edges.push({ from: 'center', to: mod.id, type: 'module', mi });
     const nq = mod.subs.length, spread = nq <= 2 ? 0.30 : nq <= 3 ? 0.38 : 0.52, bias = mod.qBias || 0;
     mod.subs.forEach((sub, qi) => {
       const qa = nq === 1 ? mod.angle : mod.angle + bias - spread + (qi/(nq-1)) * spread * 2;
       const qx = CX + R_Q * Math.cos(qa), qy = CY + R_Q * Math.sin(qa);
       const qid = mod.id + '_q' + qi;
-      const qn = { id: qid, label: sub, x: qx, y: qy, bx: qx, by: qy, r: 3.5, type: 'question' };
+      const qn = { id: qid, label: sub, x: qx, y: qy, bx: qx, by: qy, r: 3.5, type: 'question', mi, qi, hs: 0 };
       nodes.push(qn); nodeMap[qid] = qn;
-      edges.push({ from: mod.id, to: qid, type: 'question' });
+      edges.push({ from: mod.id, to: qid, type: 'question', mi, qi });
     });
   });
 
@@ -2709,20 +2733,29 @@ a.cs-cta { margin-top: 28px; }
 
   function frame() {
     t += 0.008;
+    const now = performance.now();
+    const el = t0 === null ? -1 : now - t0;
+    const rev = (start, dur) => el < 0 ? 0 : clamp01((el - start) / dur);
     ctx.clearRect(0, 0, W, H);
     ctx.save();
     ctx.beginPath(); ctx.rect(8, 8, W - 16, H - 16); ctx.clip();
     nodes.forEach((n, i) => {
-      const f = 0.22 + i*0.045, amp = n.type === 'center' ? 2.5 : n.type === 'module' ? 5.5 : 4.5;
+      const f = 0.22 + i*0.045, amp = graphReduceMotion ? 0 : (n.type === 'center' ? 2.5 : n.type === 'module' ? 5.5 : 4.5);
       n.x = n.bx + Math.sin(t*f + i) * amp;
       n.y = n.by + Math.cos(t*f*0.85 + i*1.3) * amp;
+      n.hs += ((hovId === n.id ? 1 : 0) - n.hs) * 0.16;
     });
     const conn = hovId ? getConn(hovId) : null;
 
     edges.forEach(e => {
       const fn = nodeMap[e.from], tn = nodeMap[e.to]; if (!fn || !tn) return;
+      const p = e.type === 'module'
+        ? easeOutC(rev(350 + e.mi*90, 450))
+        : easeOutC(rev(1250 + e.mi*90 + e.qi*70, 380));
+      if (p <= 0) return;
       const act = !conn || (conn.has(e.from) && conn.has(e.to));
-      ctx.beginPath(); ctx.moveTo(fn.x, fn.y); ctx.lineTo(tn.x, tn.y);
+      ctx.beginPath(); ctx.moveTo(fn.x, fn.y);
+      ctx.lineTo(fn.x + (tn.x - fn.x) * p, fn.y + (tn.y - fn.y) * p);
       if (e.type === 'module') { ctx.strokeStyle = act ? 'rgba(212,255,94,0.4)' : 'rgba(212,255,94,0.06)'; ctx.lineWidth = 1.2; }
       else { ctx.strokeStyle = act ? 'rgba(255,255,255,0.16)' : 'rgba(255,255,255,0.04)'; ctx.lineWidth = 0.6; }
       ctx.stroke();
@@ -2730,42 +2763,77 @@ a.cs-cta { margin-top: 28px; }
 
     nodes.forEach(n => {
       const dim = conn && !conn.has(n.id), a = dim ? 0.12 : 1;
+      const hm = 1 + 0.3 * n.hs;
       if (n.type === 'center') {
-        const g1 = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, 55);
+        const g = easeBack(rev(0, 500));
+        if (g <= 0) return;
+        const g1 = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, 55 * g);
         g1.addColorStop(0, 'rgba(212,255,94,0.16)'); g1.addColorStop(1, 'rgba(212,255,94,0)');
-        ctx.beginPath(); ctx.arc(n.x, n.y, 55, 0, Math.PI*2); ctx.fillStyle = g1; ctx.fill();
-        const g2 = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, 24);
+        ctx.beginPath(); ctx.arc(n.x, n.y, 55 * g, 0, Math.PI*2); ctx.fillStyle = g1; ctx.fill();
+        const g2 = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, 24 * g);
         g2.addColorStop(0, 'rgba(212,255,94,0.5)'); g2.addColorStop(1, 'rgba(212,255,94,0)');
-        ctx.beginPath(); ctx.arc(n.x, n.y, 24, 0, Math.PI*2); ctx.fillStyle = g2; ctx.fill();
-        ctx.beginPath(); ctx.arc(n.x, n.y, n.r, 0, Math.PI*2); ctx.fillStyle = LIME; ctx.fill();
-        ctx.font = '500 17px "Geist", system-ui, sans-serif';
-        ctx.textAlign = 'center'; ctx.textBaseline = 'top';
-        ctx.fillStyle = 'rgba(237,237,237,0.85)';
-        ctx.fillText('HyperSense', n.x, n.y + n.r + 16);
-        ctx.textBaseline = 'alphabetic';
+        ctx.beginPath(); ctx.arc(n.x, n.y, 24 * g, 0, Math.PI*2); ctx.fillStyle = g2; ctx.fill();
+        ctx.beginPath(); ctx.arc(n.x, n.y, n.r * g * hm, 0, Math.PI*2); ctx.fillStyle = LIME; ctx.fill();
+        const la = easeOutC(rev(250, 350));
+        if (la > 0) {
+          ctx.font = '500 17px "Geist", system-ui, sans-serif';
+          ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+          ctx.fillStyle = `rgba(237,237,237,${(0.85 + 0.15*n.hs) * la})`;
+          ctx.fillText('HyperSense', n.x, n.y + n.r + 16);
+          ctx.textBaseline = 'alphabetic';
+        }
       } else if (n.type === 'module') {
-        const gm = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, 30);
+        const g = easeBack(rev(700 + n.mi*90, 400));
+        if (g <= 0) return;
+        const gm = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, 30 * g);
         gm.addColorStop(0, `rgba(212,255,94,${0.2*a})`); gm.addColorStop(1, 'rgba(212,255,94,0)');
-        ctx.beginPath(); ctx.arc(n.x, n.y, 30, 0, Math.PI*2); ctx.fillStyle = gm; ctx.fill();
-        ctx.beginPath(); ctx.arc(n.x, n.y, n.r, 0, Math.PI*2);
+        ctx.beginPath(); ctx.arc(n.x, n.y, 30 * g, 0, Math.PI*2); ctx.fillStyle = gm; ctx.fill();
+        ctx.beginPath(); ctx.arc(n.x, n.y, n.r * g * hm, 0, Math.PI*2);
         ctx.fillStyle = `rgba(212,255,94,${a})`; ctx.fill();
-        const lp = lpos(n);
-        ctx.font = '500 16px "Geist", system-ui, sans-serif';
-        ctx.textAlign = lp.align; ctx.textBaseline = lp.base;
-        ctx.fillStyle = `rgba(237,237,237,${0.9*a})`;
-        ctx.fillText(n.label, lp.x, lp.y);
-        ctx.textBaseline = 'alphabetic';
+        const la = easeOutC(rev(780 + n.mi*90, 350));
+        if (la > 0) {
+          const lp = lpos(n);
+          ctx.font = '500 16px "Geist", system-ui, sans-serif';
+          ctx.textAlign = lp.align; ctx.textBaseline = lp.base;
+          ctx.fillStyle = `rgba(237,237,237,${(0.9 + 0.1*n.hs) * a * la})`;
+          ctx.fillText(n.label, lp.x, lp.y);
+          ctx.textBaseline = 'alphabetic';
+        }
       } else {
-        ctx.beginPath(); ctx.arc(n.x, n.y, n.r, 0, Math.PI*2);
-        ctx.fillStyle = `rgba(180,180,180,${0.45*a})`; ctx.fill();
+        const g = easeOutC(rev(1350 + n.mi*90 + n.qi*70, 400));
+        if (g <= 0) return;
+        ctx.beginPath(); ctx.arc(n.x, n.y, n.r * g * hm, 0, Math.PI*2);
+        ctx.fillStyle = `rgba(180,180,180,${0.45*a*g})`; ctx.fill();
         const lp2 = lpos(n);
         ctx.font = '15px "Geist", system-ui, sans-serif';
         ctx.textAlign = lp2.align; ctx.textBaseline = lp2.base;
-        ctx.fillStyle = `rgba(170,170,170,${0.7*a})`;
+        ctx.fillStyle = `rgba(170,170,170,${(0.7 + 0.3*n.hs) * a * g})`;
         ctx.fillText(n.label, lp2.x, lp2.y);
         ctx.textBaseline = 'alphabetic';
       }
     });
+
+    /* Signal pulses — hub → module → question, paused while tracing */
+    if (!graphReduceMotion && el > 2600 && now >= nextPulse && pulses.length < 3) {
+      const mi = (Math.random() * mods.length) | 0;
+      const qi = (Math.random() * mods[mi].subs.length) | 0;
+      pulses.push({ mi, qi, start: now, dur: 1500 });
+      nextPulse = now + 1100 + Math.random() * 1600;
+    }
+    for (let i = pulses.length - 1; i >= 0; i--) {
+      const pu = pulses[i], pr = (now - pu.start) / pu.dur;
+      if (pr >= 1) { pulses.splice(i, 1); continue; }
+      if (conn) continue;
+      const mn = nodeMap[mods[pu.mi].id], qn = nodeMap[mods[pu.mi].id + '_q' + pu.qi];
+      let px, py;
+      if (pr < 0.45) { const lp = pr / 0.45; px = center.x + (mn.x - center.x) * lp; py = center.y + (mn.y - center.y) * lp; }
+      else { const lp = (pr - 0.45) / 0.55; px = mn.x + (qn.x - mn.x) * lp; py = mn.y + (qn.y - mn.y) * lp; }
+      const al = Math.sin(Math.PI * pr);
+      const pg = ctx.createRadialGradient(px, py, 0, px, py, 9);
+      pg.addColorStop(0, `rgba(212,255,94,${0.3*al})`); pg.addColorStop(1, 'rgba(212,255,94,0)');
+      ctx.beginPath(); ctx.arc(px, py, 9, 0, Math.PI*2); ctx.fillStyle = pg; ctx.fill();
+      ctx.beginPath(); ctx.arc(px, py, 2.2, 0, Math.PI*2); ctx.fillStyle = `rgba(212,255,94,${0.9*al})`; ctx.fill();
+    }
     ctx.restore();
     requestAnimationFrame(frame);
   }
