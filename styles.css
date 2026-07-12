@@ -1794,7 +1794,7 @@ footer .right a:hover { color: var(--accent); }
   letter-spacing: -0.01em;
   color: var(--text-soft);
 }
-.life-bridge .circled { color: var(--text); }
+.life-bridge .circled { color: var(--accent); }
 
 /* Lift the album above the global noise layer (z-index: 500) so photos stay crisp */
 .life-strip {
@@ -1924,7 +1924,7 @@ footer .right a:hover { color: var(--accent); }
 }
 .circled .circ path {
   fill: none;
-  stroke: rgba(235, 232, 220, 0.55);
+  stroke: rgba(212, 255, 94, 0.55);
   stroke-width: 1.3;
   stroke-linecap: round;
   vector-effect: non-scaling-stroke;
