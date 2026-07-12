@@ -2199,12 +2199,6 @@ footer .right a:hover .arr--up { transform: translateY(-3px); }
   letter-spacing: 0.08em;
   color: var(--text-muted);
 }
-.ap-cap {
-  font-family: 'Geist', sans-serif;
-  font-style: normal;
-  font-size: 14px;
-  color: var(--text-soft);
-}
 
 @media (max-width: 900px) {
   .about-act .act-visual { display: none; }
