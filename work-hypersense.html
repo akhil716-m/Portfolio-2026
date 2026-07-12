@@ -730,6 +730,51 @@ a.cs-cta { margin-top: 28px; }
 .cs-journey-title { font-family: 'Geist', sans-serif; font-size: 12.5px; font-weight: 500; color: var(--text); line-height: 1.3; margin-bottom: 4px; }
 .cs-journey-note  { font-family: 'Geist', sans-serif; font-size: 11px; font-weight: 300; color: var(--text-muted); line-height: 1.5; }
 
+/* Journey choreography — the rail draws in and the four beats land in
+   sequence once the persona card scrolls into view. */
+.cs-journey::before { transform: scaleX(0); transform-origin: left center; }
+.cs-persona.is-visible .cs-journey::before {
+  transform: scaleX(1);
+  transition: transform 1.5s cubic-bezier(0.4, 0, 0.2, 1) 0.25s;
+}
+.cs-journey-step { opacity: 0; transform: translateY(10px); }
+.cs-persona.is-visible .cs-journey-step {
+  opacity: 1; transform: translateY(0);
+  transition: opacity 0.55s ease, transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.cs-persona.is-visible .cs-journey-step:nth-child(1) { transition-delay: 0.3s; }
+.cs-persona.is-visible .cs-journey-step:nth-child(2) { transition-delay: 0.65s; }
+.cs-persona.is-visible .cs-journey-step:nth-child(3) { transition-delay: 1s; }
+.cs-persona.is-visible .cs-journey-step:nth-child(4) { transition-delay: 1.35s; }
+
+@keyframes csDotPing { 0% { transform: scale(0.3); } 55% { transform: scale(1.4); } 100% { transform: scale(1); } }
+.cs-persona.is-visible .cs-journey-step:nth-child(1) .cs-journey-dot { animation: csDotPing 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.35s backwards; }
+.cs-persona.is-visible .cs-journey-step:nth-child(2) .cs-journey-dot { animation: csDotPing 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.7s backwards; }
+.cs-persona.is-visible .cs-journey-step:nth-child(3) .cs-journey-dot { animation: csDotPing 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 1.05s backwards; }
+.cs-persona.is-visible .cs-journey-step:nth-child(4) .cs-journey-dot { animation: csDotPing 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 1.4s backwards; }
+
+/* Hover — the beat under the cursor lights up */
+.cs-journey-dot { transition: background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease; }
+.cs-journey-num, .cs-journey-note { transition: color 0.25s ease; }
+.cs-journey-step:hover .cs-journey-dot { background: var(--accent); border-color: var(--accent); box-shadow: 0 0 10px rgba(212,255,94,0.35); }
+.cs-journey-step:hover .cs-journey-num,
+.cs-journey-step:hover .cs-journey-note { color: var(--text-soft); }
+
+/* Final beat — the failure state the journey collapses into */
+.cs-journey-step:last-child .cs-journey-dot { border-color: rgba(224,96,96,0.55); background: rgba(224,96,96,0.12); }
+.cs-journey-step:last-child .cs-journey-num { color: rgba(224,96,96,0.8); }
+.cs-journey-step:last-child .cs-journey-title { color: var(--error); }
+.cs-journey-step:last-child:hover .cs-journey-dot { background: var(--error); border-color: var(--error); box-shadow: 0 0 10px rgba(224,96,96,0.35); }
+
+/* Key figures — the stakes, scannable */
+.cs-num { color: var(--warm); font-weight: 400; }
+
+@media (prefers-reduced-motion: reduce) {
+  .cs-journey::before { transform: scaleX(1); transition: none !important; }
+  .cs-journey-step { opacity: 1; transform: none; transition: none !important; }
+  .cs-journey-dot { animation: none !important; }
+}
+
 .cs-persona-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; padding-top: 26px; border-top: 1px solid var(--line); }
 .cs-persona-meta-label { display: block; font-family: 'Geist Mono', monospace; font-size: 9.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; }
 .cs-persona-meta p { font-family: 'Geist', sans-serif; font-size: 13px; font-weight: 300; line-height: 1.7; color: var(--text-soft); margin: 0; }
@@ -1160,7 +1205,9 @@ a.cs-cta { margin-top: 28px; }
     background: linear-gradient(180deg,
       rgba(255,255,255,0.07) 0%, rgba(255,255,255,0.12) 40%,
       rgba(255,255,255,0.12) 60%, rgba(255,255,255,0.06) 100%);
+    transform: scaleY(0); transform-origin: center top;
   }
+  .cs-persona.is-visible .cs-journey::before { transform: scaleY(1); }
   .cs-journey-step { flex-direction: row; gap: 12px; align-items: flex-start; padding-right: 0; }
   .cs-journey-dot { margin-bottom: 0; flex-shrink: 0; margin-top: 2px; background: var(--bg-card); }
   .cs-iter { grid-template-columns: 1fr; }
@@ -1596,7 +1643,7 @@ a.cs-cta { margin-top: 28px; }
         <div class="cs-journey-dot"></div>
         <div class="cs-journey-num">01</div>
         <div class="cs-journey-title">Invoice arrives</div>
-        <div class="cs-journey-note">A $47K cost increase appears on the monthly invoice.</div>
+        <div class="cs-journey-note">A <span class="cs-num">$47K</span> cost increase appears on the monthly invoice.</div>
       </div>
       <div class="cs-journey-step">
         <div class="cs-journey-dot"></div>
@@ -1633,7 +1680,7 @@ a.cs-cta { margin-top: 28px; }
       <div class="cs-persona-icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="8.5" cy="6.5" r="3"/><path d="M3 17c0-3.6 2.5-6.2 5.5-6.2"/><path d="M11.3 16.3l1.7-2 1.3 1.3 2.5-2.8"/><path d="M15.3 11.8h1.5v1.5"/></svg></div>
       <div>
         <div class="cs-persona-name">The Treasury / Finance Lead <span class="dash">–</span> <em>Owns forecasting and budget accountability.</em></div>
-        <p class="cs-persona-desc">Payment costs are one of the largest variable expenses in the business, often representing 1.5–2.2% of revenue. When those numbers move, finance teams are expected to explain why and predict what happens next.</p>
+        <p class="cs-persona-desc">Payment costs are one of the largest variable expenses in the business, often representing <span class="cs-num">1.5–2.2% of revenue</span>. When those numbers move, finance teams are expected to explain why and predict what happens next.</p>
       </div>
     </div>
     <div class="cs-journey">
@@ -1641,7 +1688,7 @@ a.cs-cta { margin-top: 28px; }
         <div class="cs-journey-dot"></div>
         <div class="cs-journey-num">01</div>
         <div class="cs-journey-title">Variance detected</div>
-        <div class="cs-journey-note">Payment costs increased 13% quarter-over-quarter. The CFO wants an explanation.</div>
+        <div class="cs-journey-note">Payment costs increased <span class="cs-num">13%</span> quarter-over-quarter. The CFO wants an explanation.</div>
       </div>
       <div class="cs-journey-step">
         <div class="cs-journey-dot"></div>
