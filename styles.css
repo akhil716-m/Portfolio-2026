@@ -2200,9 +2200,9 @@ footer .right a:hover .arr--up { transform: translateY(-3px); }
   color: var(--text-muted);
 }
 .ap-cap {
-  font-family: 'Instrument Serif', serif;
-  font-style: italic;
-  font-size: 16px;
+  font-family: 'Geist', sans-serif;
+  font-style: normal;
+  font-size: 14px;
   color: var(--text-soft);
 }
 
