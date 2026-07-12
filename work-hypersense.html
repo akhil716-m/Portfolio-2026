@@ -46,11 +46,11 @@
   background: none; border: none; cursor: pointer; padding: 5px 0; text-align: left;
 }
 .cs-rail-num {
-  font-family: 'Geist Mono', monospace; font-size: 9px; letter-spacing: 0.12em;
+  font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.12em;
   color: var(--text-muted); flex-shrink: 0; transition: color 0.15s;
 }
 .cs-rail-name {
-  font-family: 'Geist', sans-serif; font-size: 11px; color: var(--text-muted);
+  font-family: 'Geist', sans-serif; font-size: 12px; color: var(--text-muted);
   line-height: 1.3; white-space: nowrap; transition: color 0.15s;
 }
 .cs-rail-list li button:hover .cs-rail-name,
@@ -704,9 +704,9 @@ a.cs-cta { margin-top: 28px; }
   background: rgba(212,255,94,0.07); border: 1px solid rgba(212,255,94,0.25); color: var(--accent);
 }
 .cs-persona-icon svg { width: 17px; height: 17px; }
-.cs-persona-name { font-family: 'Geist', sans-serif; font-size: 16px; font-weight: 500; color: var(--text); margin-bottom: 8px; line-height: 1.4; }
+.cs-persona-name { font-family: 'Geist', sans-serif; font-size: 17px; font-weight: 600; color: var(--text); margin-bottom: 10px; line-height: 1.4; }
 .cs-persona-name .dash { color: var(--text-muted); }
-.cs-persona-name em { font-style: normal; font-family: 'Geist', sans-serif; font-weight: 400; color: var(--text-soft); font-size: 14px; }
+.cs-persona-name em { font-style: normal; font-family: 'Geist', sans-serif; font-weight: 400; color: var(--text-muted); font-size: 13px; }
 .cs-persona-desc { font-family: 'Geist', sans-serif; font-size: 13px; font-weight: 300; line-height: 1.75; color: var(--text-soft); margin: 0; max-width: 64ch; }
 
 /* Journey flow — linear gradient rail */
@@ -729,6 +729,51 @@ a.cs-cta { margin-top: 28px; }
 .cs-journey-num   { font-family: 'Geist Mono', monospace; font-size: 9px; letter-spacing: 0.13em; color: var(--text-muted); margin-bottom: 5px; }
 .cs-journey-title { font-family: 'Geist', sans-serif; font-size: 12.5px; font-weight: 500; color: var(--text); line-height: 1.3; margin-bottom: 4px; }
 .cs-journey-note  { font-family: 'Geist', sans-serif; font-size: 11px; font-weight: 300; color: var(--text-muted); line-height: 1.5; }
+
+/* Journey choreography — the rail draws in and the four beats land in
+   sequence once the persona card scrolls into view. */
+.cs-journey::before { transform: scaleX(0); transform-origin: left center; }
+.cs-persona.is-visible .cs-journey::before {
+  transform: scaleX(1);
+  transition: transform 1.5s cubic-bezier(0.4, 0, 0.2, 1) 0.25s;
+}
+.cs-journey-step { opacity: 0; transform: translateY(10px); }
+.cs-persona.is-visible .cs-journey-step {
+  opacity: 1; transform: translateY(0);
+  transition: opacity 0.55s ease, transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.cs-persona.is-visible .cs-journey-step:nth-child(1) { transition-delay: 0.3s; }
+.cs-persona.is-visible .cs-journey-step:nth-child(2) { transition-delay: 0.65s; }
+.cs-persona.is-visible .cs-journey-step:nth-child(3) { transition-delay: 1s; }
+.cs-persona.is-visible .cs-journey-step:nth-child(4) { transition-delay: 1.35s; }
+
+@keyframes csDotPing { 0% { transform: scale(0.3); } 55% { transform: scale(1.4); } 100% { transform: scale(1); } }
+.cs-persona.is-visible .cs-journey-step:nth-child(1) .cs-journey-dot { animation: csDotPing 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.35s backwards; }
+.cs-persona.is-visible .cs-journey-step:nth-child(2) .cs-journey-dot { animation: csDotPing 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.7s backwards; }
+.cs-persona.is-visible .cs-journey-step:nth-child(3) .cs-journey-dot { animation: csDotPing 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 1.05s backwards; }
+.cs-persona.is-visible .cs-journey-step:nth-child(4) .cs-journey-dot { animation: csDotPing 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 1.4s backwards; }
+
+/* Hover — the beat under the cursor lights up */
+.cs-journey-dot { transition: background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease; }
+.cs-journey-num, .cs-journey-note { transition: color 0.25s ease; }
+.cs-journey-step:hover .cs-journey-dot { background: var(--accent); border-color: var(--accent); box-shadow: 0 0 10px rgba(212,255,94,0.35); }
+.cs-journey-step:hover .cs-journey-num,
+.cs-journey-step:hover .cs-journey-note { color: var(--text-soft); }
+
+/* Final beat — the failure state the journey collapses into */
+.cs-journey-step:last-child .cs-journey-dot { border-color: rgba(224,96,96,0.55); background: var(--bg); }
+.cs-journey-step:last-child .cs-journey-num { color: rgba(224,96,96,0.8); }
+.cs-journey-step:last-child .cs-journey-title { color: var(--error); }
+.cs-journey-step:last-child:hover .cs-journey-dot { background: var(--error); border-color: var(--error); box-shadow: 0 0 10px rgba(224,96,96,0.35); }
+
+/* Key figures — the stakes, scannable */
+.cs-num { color: var(--accent); font-weight: 500; }
+
+@media (prefers-reduced-motion: reduce) {
+  .cs-journey::before { transform: scaleX(1); transition: none !important; }
+  .cs-journey-step { opacity: 1; transform: none; transition: none !important; }
+  .cs-journey-dot { animation: none !important; }
+}
 
 .cs-persona-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; padding-top: 26px; border-top: 1px solid var(--line); }
 .cs-persona-meta-label { display: block; font-family: 'Geist Mono', monospace; font-size: 9.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; }
@@ -1160,7 +1205,9 @@ a.cs-cta { margin-top: 28px; }
     background: linear-gradient(180deg,
       rgba(255,255,255,0.07) 0%, rgba(255,255,255,0.12) 40%,
       rgba(255,255,255,0.12) 60%, rgba(255,255,255,0.06) 100%);
+    transform: scaleY(0); transform-origin: center top;
   }
+  .cs-persona.is-visible .cs-journey::before { transform: scaleY(1); }
   .cs-journey-step { flex-direction: row; gap: 12px; align-items: flex-start; padding-right: 0; }
   .cs-journey-dot { margin-bottom: 0; flex-shrink: 0; margin-top: 2px; background: var(--bg-card); }
   .cs-iter { grid-template-columns: 1fr; }
@@ -1596,7 +1643,7 @@ a.cs-cta { margin-top: 28px; }
         <div class="cs-journey-dot"></div>
         <div class="cs-journey-num">01</div>
         <div class="cs-journey-title">Invoice arrives</div>
-        <div class="cs-journey-note">A $47K cost increase appears on the monthly invoice.</div>
+        <div class="cs-journey-note">A <span class="cs-num">$47K</span> cost increase appears on the monthly invoice.</div>
       </div>
       <div class="cs-journey-step">
         <div class="cs-journey-dot"></div>
@@ -1633,7 +1680,7 @@ a.cs-cta { margin-top: 28px; }
       <div class="cs-persona-icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="8.5" cy="6.5" r="3"/><path d="M3 17c0-3.6 2.5-6.2 5.5-6.2"/><path d="M11.3 16.3l1.7-2 1.3 1.3 2.5-2.8"/><path d="M15.3 11.8h1.5v1.5"/></svg></div>
       <div>
         <div class="cs-persona-name">The Treasury / Finance Lead <span class="dash">–</span> <em>Owns forecasting and budget accountability.</em></div>
-        <p class="cs-persona-desc">Payment costs are one of the largest variable expenses in the business, often representing 1.5–2.2% of revenue. When those numbers move, finance teams are expected to explain why and predict what happens next.</p>
+        <p class="cs-persona-desc">Payment costs are one of the largest variable expenses in the business, often representing <span class="cs-num">1.5–2.2% of revenue</span>. When those numbers move, finance teams are expected to explain why and predict what happens next.</p>
       </div>
     </div>
     <div class="cs-journey">
@@ -1641,7 +1688,7 @@ a.cs-cta { margin-top: 28px; }
         <div class="cs-journey-dot"></div>
         <div class="cs-journey-num">01</div>
         <div class="cs-journey-title">Variance detected</div>
-        <div class="cs-journey-note">Payment costs increased 13% quarter-over-quarter. The CFO wants an explanation.</div>
+        <div class="cs-journey-note">Payment costs increased <span class="cs-num">13%</span> quarter-over-quarter. The CFO wants an explanation.</div>
       </div>
       <div class="cs-journey-step">
         <div class="cs-journey-dot"></div>
@@ -2599,6 +2646,28 @@ a.cs-cta { margin-top: 28px; }
   const R_MOD = 178, R_Q = 290;
   const LIME = '#d4ff5e';
 
+  /* Growth choreography — the graph assembles from the center outward
+     once scrolled into view: hub blooms, spokes draw, modules pop,
+     questions land last. Reduced motion renders the final state. */
+  const graphReduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let t0 = null;
+  if (graphReduceMotion || !('IntersectionObserver' in window)) {
+    t0 = -1e9;
+  } else {
+    const gio = new IntersectionObserver((es) => {
+      es.forEach(en => { if (en.isIntersecting && t0 === null) { t0 = performance.now(); gio.disconnect(); } });
+    }, { threshold: 0.3 });
+    gio.observe(canvas);
+  }
+  const clamp01 = v => v < 0 ? 0 : v > 1 ? 1 : v;
+  const easeOutC = p => 1 - Math.pow(1 - p, 3);
+  const easeBack = p => { const c = 1.70158, q = p - 1; return 1 + (c + 1) * q * q * q + c * q * q; };
+
+  /* Signal pulses — after assembly, investigations occasionally flow
+     from the hub out through a module to one of its questions. */
+  const pulses = [];
+  let nextPulse = 0;
+
   const mods = [
     { id: 'overview',  label: 'Overview',   angle: -Math.PI/2,
       subs: ['What changed?', 'What am I paying today?', 'Where should I start investigating?'] },
@@ -2613,22 +2682,22 @@ a.cs-cta { margin-top: 28px; }
   ];
 
   const nodes = [], edges = [], nodeMap = {};
-  const center = { id: 'center', label: 'HyperSense', x: CX, y: CY, bx: CX, by: CY, r: 14, type: 'center' };
+  const center = { id: 'center', label: 'HyperSense', x: CX, y: CY, bx: CX, by: CY, r: 14, type: 'center', hs: 0 };
   nodes.push(center); nodeMap.center = center;
 
-  mods.forEach((mod) => {
+  mods.forEach((mod, mi) => {
     const mx = CX + R_MOD * Math.cos(mod.angle), my = CY + R_MOD * Math.sin(mod.angle);
-    const mn = { id: mod.id, label: mod.label, x: mx, y: my, bx: mx, by: my, r: 8, type: 'module' };
+    const mn = { id: mod.id, label: mod.label, x: mx, y: my, bx: mx, by: my, r: 8, type: 'module', mi, hs: 0 };
     nodes.push(mn); nodeMap[mod.id] = mn;
-    edges.push({ from: 'center', to: mod.id, type: 'module' });
+    edges.push({ from: 'center', to: mod.id, type: 'module', mi });
     const nq = mod.subs.length, spread = nq <= 2 ? 0.30 : nq <= 3 ? 0.38 : 0.52, bias = mod.qBias || 0;
     mod.subs.forEach((sub, qi) => {
       const qa = nq === 1 ? mod.angle : mod.angle + bias - spread + (qi/(nq-1)) * spread * 2;
       const qx = CX + R_Q * Math.cos(qa), qy = CY + R_Q * Math.sin(qa);
       const qid = mod.id + '_q' + qi;
-      const qn = { id: qid, label: sub, x: qx, y: qy, bx: qx, by: qy, r: 3.5, type: 'question' };
+      const qn = { id: qid, label: sub, x: qx, y: qy, bx: qx, by: qy, r: 3.5, type: 'question', mi, qi, hs: 0 };
       nodes.push(qn); nodeMap[qid] = qn;
-      edges.push({ from: mod.id, to: qid, type: 'question' });
+      edges.push({ from: mod.id, to: qid, type: 'question', mi, qi });
     });
   });
 
@@ -2662,20 +2731,29 @@ a.cs-cta { margin-top: 28px; }
 
   function frame() {
     t += 0.008;
+    const now = performance.now();
+    const el = t0 === null ? -1 : now - t0;
+    const rev = (start, dur) => el < 0 ? 0 : clamp01((el - start) / dur);
     ctx.clearRect(0, 0, W, H);
     ctx.save();
     ctx.beginPath(); ctx.rect(8, 8, W - 16, H - 16); ctx.clip();
     nodes.forEach((n, i) => {
-      const f = 0.22 + i*0.045, amp = n.type === 'center' ? 2.5 : n.type === 'module' ? 5.5 : 4.5;
+      const f = 0.22 + i*0.045, amp = graphReduceMotion ? 0 : (n.type === 'center' ? 2.5 : n.type === 'module' ? 5.5 : 4.5);
       n.x = n.bx + Math.sin(t*f + i) * amp;
       n.y = n.by + Math.cos(t*f*0.85 + i*1.3) * amp;
+      n.hs += ((hovId === n.id ? 1 : 0) - n.hs) * 0.16;
     });
     const conn = hovId ? getConn(hovId) : null;
 
     edges.forEach(e => {
       const fn = nodeMap[e.from], tn = nodeMap[e.to]; if (!fn || !tn) return;
+      const p = e.type === 'module'
+        ? easeOutC(rev(350 + e.mi*90, 450))
+        : easeOutC(rev(1250 + e.mi*90 + e.qi*70, 380));
+      if (p <= 0) return;
       const act = !conn || (conn.has(e.from) && conn.has(e.to));
-      ctx.beginPath(); ctx.moveTo(fn.x, fn.y); ctx.lineTo(tn.x, tn.y);
+      ctx.beginPath(); ctx.moveTo(fn.x, fn.y);
+      ctx.lineTo(fn.x + (tn.x - fn.x) * p, fn.y + (tn.y - fn.y) * p);
       if (e.type === 'module') { ctx.strokeStyle = act ? 'rgba(212,255,94,0.4)' : 'rgba(212,255,94,0.06)'; ctx.lineWidth = 1.2; }
       else { ctx.strokeStyle = act ? 'rgba(255,255,255,0.16)' : 'rgba(255,255,255,0.04)'; ctx.lineWidth = 0.6; }
       ctx.stroke();
@@ -2683,42 +2761,77 @@ a.cs-cta { margin-top: 28px; }
 
     nodes.forEach(n => {
       const dim = conn && !conn.has(n.id), a = dim ? 0.12 : 1;
+      const hm = 1 + 0.3 * n.hs;
       if (n.type === 'center') {
-        const g1 = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, 55);
+        const g = easeBack(rev(0, 500));
+        if (g <= 0) return;
+        const g1 = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, 55 * g);
         g1.addColorStop(0, 'rgba(212,255,94,0.16)'); g1.addColorStop(1, 'rgba(212,255,94,0)');
-        ctx.beginPath(); ctx.arc(n.x, n.y, 55, 0, Math.PI*2); ctx.fillStyle = g1; ctx.fill();
-        const g2 = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, 24);
+        ctx.beginPath(); ctx.arc(n.x, n.y, 55 * g, 0, Math.PI*2); ctx.fillStyle = g1; ctx.fill();
+        const g2 = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, 24 * g);
         g2.addColorStop(0, 'rgba(212,255,94,0.5)'); g2.addColorStop(1, 'rgba(212,255,94,0)');
-        ctx.beginPath(); ctx.arc(n.x, n.y, 24, 0, Math.PI*2); ctx.fillStyle = g2; ctx.fill();
-        ctx.beginPath(); ctx.arc(n.x, n.y, n.r, 0, Math.PI*2); ctx.fillStyle = LIME; ctx.fill();
-        ctx.font = '500 17px "Geist", system-ui, sans-serif';
-        ctx.textAlign = 'center'; ctx.textBaseline = 'top';
-        ctx.fillStyle = 'rgba(237,237,237,0.85)';
-        ctx.fillText('HyperSense', n.x, n.y + n.r + 16);
-        ctx.textBaseline = 'alphabetic';
+        ctx.beginPath(); ctx.arc(n.x, n.y, 24 * g, 0, Math.PI*2); ctx.fillStyle = g2; ctx.fill();
+        ctx.beginPath(); ctx.arc(n.x, n.y, n.r * g * hm, 0, Math.PI*2); ctx.fillStyle = LIME; ctx.fill();
+        const la = easeOutC(rev(250, 350));
+        if (la > 0) {
+          ctx.font = '500 17px "Geist", system-ui, sans-serif';
+          ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+          ctx.fillStyle = `rgba(237,237,237,${(0.85 + 0.15*n.hs) * la})`;
+          ctx.fillText('HyperSense', n.x, n.y + n.r + 16);
+          ctx.textBaseline = 'alphabetic';
+        }
       } else if (n.type === 'module') {
-        const gm = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, 30);
+        const g = easeBack(rev(700 + n.mi*90, 400));
+        if (g <= 0) return;
+        const gm = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, 30 * g);
         gm.addColorStop(0, `rgba(212,255,94,${0.2*a})`); gm.addColorStop(1, 'rgba(212,255,94,0)');
-        ctx.beginPath(); ctx.arc(n.x, n.y, 30, 0, Math.PI*2); ctx.fillStyle = gm; ctx.fill();
-        ctx.beginPath(); ctx.arc(n.x, n.y, n.r, 0, Math.PI*2);
+        ctx.beginPath(); ctx.arc(n.x, n.y, 30 * g, 0, Math.PI*2); ctx.fillStyle = gm; ctx.fill();
+        ctx.beginPath(); ctx.arc(n.x, n.y, n.r * g * hm, 0, Math.PI*2);
         ctx.fillStyle = `rgba(212,255,94,${a})`; ctx.fill();
-        const lp = lpos(n);
-        ctx.font = '500 16px "Geist", system-ui, sans-serif';
-        ctx.textAlign = lp.align; ctx.textBaseline = lp.base;
-        ctx.fillStyle = `rgba(237,237,237,${0.9*a})`;
-        ctx.fillText(n.label, lp.x, lp.y);
-        ctx.textBaseline = 'alphabetic';
+        const la = easeOutC(rev(780 + n.mi*90, 350));
+        if (la > 0) {
+          const lp = lpos(n);
+          ctx.font = '500 16px "Geist", system-ui, sans-serif';
+          ctx.textAlign = lp.align; ctx.textBaseline = lp.base;
+          ctx.fillStyle = `rgba(237,237,237,${(0.9 + 0.1*n.hs) * a * la})`;
+          ctx.fillText(n.label, lp.x, lp.y);
+          ctx.textBaseline = 'alphabetic';
+        }
       } else {
-        ctx.beginPath(); ctx.arc(n.x, n.y, n.r, 0, Math.PI*2);
-        ctx.fillStyle = `rgba(180,180,180,${0.45*a})`; ctx.fill();
+        const g = easeOutC(rev(1350 + n.mi*90 + n.qi*70, 400));
+        if (g <= 0) return;
+        ctx.beginPath(); ctx.arc(n.x, n.y, n.r * g * hm, 0, Math.PI*2);
+        ctx.fillStyle = `rgba(180,180,180,${0.45*a*g})`; ctx.fill();
         const lp2 = lpos(n);
         ctx.font = '15px "Geist", system-ui, sans-serif';
         ctx.textAlign = lp2.align; ctx.textBaseline = lp2.base;
-        ctx.fillStyle = `rgba(170,170,170,${0.7*a})`;
+        ctx.fillStyle = `rgba(170,170,170,${(0.7 + 0.3*n.hs) * a * g})`;
         ctx.fillText(n.label, lp2.x, lp2.y);
         ctx.textBaseline = 'alphabetic';
       }
     });
+
+    /* Signal pulses — hub → module → question, paused while tracing */
+    if (!graphReduceMotion && el > 2600 && now >= nextPulse && pulses.length < 3) {
+      const mi = (Math.random() * mods.length) | 0;
+      const qi = (Math.random() * mods[mi].subs.length) | 0;
+      pulses.push({ mi, qi, start: now, dur: 1500 });
+      nextPulse = now + 1100 + Math.random() * 1600;
+    }
+    for (let i = pulses.length - 1; i >= 0; i--) {
+      const pu = pulses[i], pr = (now - pu.start) / pu.dur;
+      if (pr >= 1) { pulses.splice(i, 1); continue; }
+      if (conn) continue;
+      const mn = nodeMap[mods[pu.mi].id], qn = nodeMap[mods[pu.mi].id + '_q' + pu.qi];
+      let px, py;
+      if (pr < 0.45) { const lp = pr / 0.45; px = center.x + (mn.x - center.x) * lp; py = center.y + (mn.y - center.y) * lp; }
+      else { const lp = (pr - 0.45) / 0.55; px = mn.x + (qn.x - mn.x) * lp; py = mn.y + (qn.y - mn.y) * lp; }
+      const al = Math.sin(Math.PI * pr);
+      const pg = ctx.createRadialGradient(px, py, 0, px, py, 9);
+      pg.addColorStop(0, `rgba(212,255,94,${0.3*al})`); pg.addColorStop(1, 'rgba(212,255,94,0)');
+      ctx.beginPath(); ctx.arc(px, py, 9, 0, Math.PI*2); ctx.fillStyle = pg; ctx.fill();
+      ctx.beginPath(); ctx.arc(px, py, 2.2, 0, Math.PI*2); ctx.fillStyle = `rgba(212,255,94,${0.9*al})`; ctx.fill();
+    }
     ctx.restore();
     requestAnimationFrame(frame);
   }
