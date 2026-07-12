@@ -690,7 +690,7 @@ nav .status .dot {
   grid-template-columns: 1fr 280px;
   gap: 60px;
   align-items: end;
-  margin-bottom: 80px;
+  margin-bottom: 48px;
 }
 
 .section-head-main {
@@ -976,7 +976,7 @@ nav .status .dot {
   display: flex;
   flex-direction: column;
   gap: 180px;
-  margin-top: 60px;
+  margin-top: 48px;
 }
 .about-act {
   display: grid;
@@ -1194,7 +1194,7 @@ nav .status .dot {
   display: flex;
   flex-direction: column;
   gap: 56px;
-  margin-top: 60px;
+  margin-top: 48px;
 }
 
 .wc-group {
