@@ -704,9 +704,9 @@ a.cs-cta { margin-top: 28px; }
   background: rgba(212,255,94,0.07); border: 1px solid rgba(212,255,94,0.25); color: var(--accent);
 }
 .cs-persona-icon svg { width: 17px; height: 17px; }
-.cs-persona-name { font-family: 'Geist', sans-serif; font-size: 16px; font-weight: 500; color: var(--text); margin-bottom: 8px; line-height: 1.4; }
+.cs-persona-name { font-family: 'Geist', sans-serif; font-size: 17px; font-weight: 600; color: var(--text); margin-bottom: 10px; line-height: 1.4; }
 .cs-persona-name .dash { color: var(--text-muted); }
-.cs-persona-name em { font-style: normal; font-family: 'Geist', sans-serif; font-weight: 400; color: var(--text-soft); font-size: 14px; }
+.cs-persona-name em { font-style: normal; font-family: 'Geist', sans-serif; font-weight: 400; color: var(--text-muted); font-size: 13px; }
 .cs-persona-desc { font-family: 'Geist', sans-serif; font-size: 13px; font-weight: 300; line-height: 1.75; color: var(--text-soft); margin: 0; max-width: 64ch; }
 
 /* Journey flow — linear gradient rail */
@@ -761,13 +761,13 @@ a.cs-cta { margin-top: 28px; }
 .cs-journey-step:hover .cs-journey-note { color: var(--text-soft); }
 
 /* Final beat — the failure state the journey collapses into */
-.cs-journey-step:last-child .cs-journey-dot { border-color: rgba(224,96,96,0.55); background: rgba(224,96,96,0.12); }
+.cs-journey-step:last-child .cs-journey-dot { border-color: rgba(224,96,96,0.55); background: var(--bg); }
 .cs-journey-step:last-child .cs-journey-num { color: rgba(224,96,96,0.8); }
 .cs-journey-step:last-child .cs-journey-title { color: var(--error); }
 .cs-journey-step:last-child:hover .cs-journey-dot { background: var(--error); border-color: var(--error); box-shadow: 0 0 10px rgba(224,96,96,0.35); }
 
 /* Key figures — the stakes, scannable */
-.cs-num { color: var(--warm); font-weight: 400; }
+.cs-num { color: var(--accent); font-weight: 500; }
 
 @media (prefers-reduced-motion: reduce) {
   .cs-journey::before { transform: scaleX(1); transition: none !important; }
