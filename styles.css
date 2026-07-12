@@ -1731,7 +1731,7 @@ footer .right a:hover { color: var(--accent); }
   .section { padding: 80px 20px !important; }
   .section-head { grid-template-columns: 1fr; gap: 24px; align-items: start; }
   .section-aside { text-align: left; }
-  .about-acts { gap: 110px; margin-top: 60px; }
+  .about-acts { gap: 110px; margin-top: 48px; }
   .about-act { grid-template-columns: 1fr; gap: 36px; }
   .act-visual { display: none; }
   .act-title { max-width: none; }
