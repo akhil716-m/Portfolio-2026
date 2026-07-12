@@ -985,7 +985,7 @@ nav .status .dot {
   gap: 90px;
 }
 .act-copy { display: flex; flex-direction: column; }
-.act-visual { overflow: hidden; max-height: 0; min-height: 100%; }
+.act-visual { overflow: hidden; }
 .act-title {
   font-family: 'Geist', sans-serif;
   font-size: clamp(30px, 3.4vw, 44px);
@@ -1787,7 +1787,7 @@ footer .right a:hover { color: var(--accent); }
 
 /* Bridge line between the story and the photo deck */
 .life-bridge {
-  margin-top: 170px;
+  margin-top: 90px;
   text-align: center;
   font-weight: 300;
   font-size: clamp(18px, 1.7vw, 24px);
