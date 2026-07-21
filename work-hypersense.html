@@ -917,6 +917,72 @@ a.cs-cta { margin-top: 28px; }
   .cs-arc-desc { margin-left: 104px; }
 }
 
+/* ---------- VISIBILITY GAP (the what vs the why) ----------
+   Left: the total-cost line draws itself in a second — the "what" was
+   always easy to see. Right: the candidate causes stay redacted, their
+   shimmer looping forever — the "why" never resolves on its own. */
+.cs-vgap-body { display: grid; grid-template-columns: 7fr 3fr; }
+.cs-vgap-col { padding: 22px 26px; min-width: 0; display: flex; flex-direction: column; }
+.cs-vgap-col--why { border-left: 1px solid var(--line); }
+.cs-vgap-head {
+  display: flex; align-items: flex-start; justify-content: space-between; gap: 10px;
+  margin-bottom: 14px; min-height: 26px;
+}
+.cs-vgap-col--why .cs-vgap-head { flex-direction: column; align-items: flex-start; gap: 8px; min-height: 0; }
+.cs-vgap-eyebrow {
+  font-family: 'Geist Mono', monospace; font-size: 9px; letter-spacing: 0.12em; line-height: 1.5;
+  text-transform: uppercase; color: var(--text-muted); padding-top: 2px;
+}
+.cs-vgap-time {
+  font-family: 'Geist Mono', monospace; font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 4px 9px; border-radius: 100px; white-space: nowrap; flex-shrink: 0;
+}
+.cs-vgap-time--fast { color: var(--accent); border: 1px solid rgba(212,255,94,0.28); background: rgba(212,255,94,0.05); }
+.cs-vgap-time--slow { color: var(--text-soft); border: 1px dashed rgba(255,255,255,0.18); }
+.cs-vgap-content { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+.cs-vgap-chart { width: 100%; height: auto; display: block; }
+.cs-vgap-rows { display: flex; flex-direction: column; gap: 18px; }
+.cs-vgap-redact {
+  position: relative; height: 22px; border-radius: 6px;
+  background: rgba(255,255,255,0.05); overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+}
+.cs-vgap-redact::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(100deg, transparent 25%, rgba(255,255,255,0.08) 50%, transparent 75%);
+  transform: translateX(-100%);
+}
+.cs-vgap-redact i { font-style: normal; font-family: 'Geist Mono', monospace; font-size: 10.5px; color: var(--text-muted); }
+@media (prefers-reduced-motion: no-preference) {
+  /* initial hidden states live here so reduced-motion users get the full static chart */
+  .cs-vgap-line { stroke-dasharray: 1; stroke-dashoffset: 1; }
+  .cs-vgap-area, .cs-vgap-dot, .cs-vgap-stat { opacity: 0; }
+  .cs-vis.is-visible .cs-vgap-line { animation: cs-vgap-draw 1.3s cubic-bezier(0.3,0.1,0.25,1) 0.2s forwards; }
+  .cs-vis.is-visible .cs-vgap-area { animation: cs-vgap-fade 0.8s ease 1s forwards; }
+  .cs-vis.is-visible .cs-vgap-dot { animation: cs-vgap-fade 0.4s ease 1.35s forwards; }
+  .cs-vis.is-visible .cs-vgap-stat { animation: cs-vgap-fade 0.5s ease 1.5s forwards; }
+  .cs-vis.is-visible .cs-vgap-pulse { animation: cs-vgap-pulse 2.8s ease-out 1.7s infinite; }
+  .cs-vis.is-visible .cs-vgap-redact::after { animation: cs-vgap-shimmer 2.6s ease-in-out infinite; }
+  .cs-vis.is-visible .cs-vgap-redact:nth-child(2)::after { animation-delay: 0.35s; }
+  .cs-vis.is-visible .cs-vgap-redact:nth-child(3)::after { animation-delay: 0.7s; }
+  .cs-vis.is-visible .cs-vgap-redact:nth-child(4)::after { animation-delay: 1.05s; }
+}
+@keyframes cs-vgap-draw { to { stroke-dashoffset: 0; } }
+@keyframes cs-vgap-fade { to { opacity: 1; } }
+@keyframes cs-vgap-pulse {
+  0%   { r: 4; opacity: 0.5; }
+  70%  { r: 14; opacity: 0; }
+  100% { r: 14; opacity: 0; }
+}
+@keyframes cs-vgap-shimmer {
+  0%       { transform: translateX(-100%); }
+  55%, 100% { transform: translateX(100%); }
+}
+@media (max-width: 700px) {
+  .cs-vgap-body { grid-template-columns: 1fr; }
+  .cs-vgap-col--why { border-left: none; border-top: 1px solid var(--line); }
+}
+
 /* ---------- FROSTED STAT CARD (notch) ---------- */
 .cs-fstat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; position: relative; z-index: 501; }
 .cs-fstat-cell { display: flex; flex-direction: column; }
@@ -1419,6 +1485,60 @@ a.cs-cta { margin-top: 28px; }
 
   <h3 class="cs-h3 reveal" style="margin-top: 52px;">The problem wasn't the cost itself. It was the lack of visibility.</h3>
   <p class="cs-p reveal">Merchants could see that costs had increased, but understanding them remained a heavily manual exercise.</p>
+
+  <!-- THE VISIBILITY GAP — the "what" resolves in seconds, the "why" never does -->
+  <div class="cs-vis reveal" style="margin: 24px 0 40px;">
+    <div class="cs-vis-label">The visibility gap</div>
+    <div class="cs-vgap-body">
+      <div class="cs-vgap-col">
+        <div class="cs-vgap-head">
+          <span class="cs-vgap-eyebrow">What merchants could see</span>
+          <span class="cs-vgap-time cs-vgap-time--fast">Seconds</span>
+        </div>
+        <div class="cs-vgap-content">
+        <svg class="cs-vgap-chart" viewBox="0 0 320 150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A rising payment-cost trend line ending at plus 22 percent — the increase itself was easy to see">
+          <defs>
+            <linearGradient id="cs-vgap-fill" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="rgba(212,255,94,0.1)"/>
+              <stop offset="1" stop-color="rgba(212,255,94,0)"/>
+            </linearGradient>
+          </defs>
+          <text x="8" y="14" font-family="'Geist Mono',monospace" font-size="8.5" letter-spacing="1.2" fill="rgba(255,255,255,0.28)">TOTAL PAYMENT COSTS</text>
+          <g stroke="rgba(255,255,255,0.05)" stroke-width="1">
+            <line x1="8" y1="39" x2="312" y2="39"/>
+            <line x1="8" y1="70" x2="312" y2="70"/>
+            <line x1="8" y1="100" x2="312" y2="100"/>
+          </g>
+          <line x1="8" y1="126" x2="312" y2="126" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+          <path class="cs-vgap-area" d="M 8 112 C 60 108, 110 104, 152 99 C 194 94, 224 86, 252 71 C 272 61, 290 47, 308 36 L 308 126 L 8 126 Z" fill="url(#cs-vgap-fill)"/>
+          <path class="cs-vgap-line" pathLength="1" d="M 8 112 C 60 108, 110 104, 152 99 C 194 94, 224 86, 252 71 C 272 61, 290 47, 308 36" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round"/>
+          <circle class="cs-vgap-pulse" cx="308" cy="36" r="4" fill="none" stroke="var(--accent)" opacity="0"/>
+          <circle class="cs-vgap-dot" cx="308" cy="36" r="4" fill="var(--accent)"/>
+          <text class="cs-vgap-stat" x="296" y="26" text-anchor="end" font-family="'Geist Mono',monospace" font-size="14" font-weight="500" fill="var(--accent)">+22%</text>
+          <g font-family="'Geist Mono',monospace" font-size="8.5" fill="rgba(255,255,255,0.28)">
+            <text x="8" y="144">Q1</text>
+            <text x="308" y="144" text-anchor="end">Q2</text>
+          </g>
+        </svg>
+        </div>
+      </div>
+      <div class="cs-vgap-col cs-vgap-col--why">
+        <div class="cs-vgap-head">
+          <span class="cs-vgap-eyebrow">What actually changed</span>
+          <span class="cs-vgap-time cs-vgap-time--slow">Weeks of digging</span>
+        </div>
+        <div class="cs-vgap-content">
+        <div class="cs-vgap-rows" aria-label="Several cost drivers, each one unclear">
+          <span class="cs-vgap-redact" style="width: 82%;"><i>?</i></span>
+          <span class="cs-vgap-redact" style="width: 58%;"><i>?</i></span>
+          <span class="cs-vgap-redact" style="width: 70%;"><i>?</i></span>
+          <span class="cs-vgap-redact" style="width: 46%;"><i>?</i></span>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <p class="cs-p reveal">This pushed us to dig deeper into how payment costs were structured, why they were so difficult to explain, and where visibility was breaking down.</p>
 
 </div>

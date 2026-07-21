@@ -1808,6 +1808,23 @@ footer .right a:hover { color: var(--accent); }
   z-index: 501;
 }
 .life-strip.in-view { opacity: 1; }
+.life-strip::before,
+.life-strip::after {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  width: min(30%, 280px);
+  z-index: 5;
+  pointer-events: none;
+}
+.life-strip::before {
+  left: 0;
+  background: linear-gradient(to right, var(--bg) 0%, rgba(10,10,10,0.94) 12%, rgba(10,10,10,0.8) 28%, rgba(10,10,10,0.55) 48%, rgba(10,10,10,0.28) 70%, rgba(10,10,10,0.08) 88%, transparent 100%);
+}
+.life-strip::after {
+  right: 0;
+  background: linear-gradient(to left, var(--bg) 0%, rgba(10,10,10,0.94) 12%, rgba(10,10,10,0.8) 28%, rgba(10,10,10,0.55) 48%, rgba(10,10,10,0.28) 70%, rgba(10,10,10,0.08) 88%, transparent 100%);
+}
 
 .life-track {
   display: flex;
@@ -2129,12 +2146,12 @@ footer .right a:hover .arr--up { transform: translateY(-3px); }
 .about-act .act-visual {
   overflow: visible;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
 }
 .about-polaroid {
   position: relative;
-  width: min(100%, 380px);
+  width: min(100%, 350px);
   margin: 0;
   transform: rotate(2.4deg);
   transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
