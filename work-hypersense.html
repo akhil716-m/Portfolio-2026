@@ -917,62 +917,6 @@ a.cs-cta { margin-top: 28px; }
   .cs-arc-desc { margin-left: 104px; }
 }
 
-/* ---------- VISIBILITY GAP (the what vs the why) ----------
-   Left: the total-cost line draws itself in a second — the "what" was
-   always easy to see. Right: the candidate causes stay redacted, their
-   shimmer looping forever — the "why" never resolves on its own. */
-.cs-vgap-body { display: grid; grid-template-columns: 7fr 3fr; }
-.cs-vgap-col { padding: 22px 24px; min-width: 0; display: flex; flex-direction: column; }
-.cs-vgap-col--why { border-left: 1px solid var(--line); }
-.cs-vgap-head { margin-bottom: 14px; }
-.cs-vgap-eyebrow {
-  font-family: 'Geist Mono', monospace; font-size: 9px; letter-spacing: 0.1em; line-height: 1.5;
-  text-transform: uppercase; color: var(--text-muted);
-}
-.cs-vgap-content { flex: 1; display: flex; flex-direction: column; justify-content: center; }
-.cs-vgap-chart { width: 100%; height: auto; display: block; }
-.cs-vgap-rows { display: flex; flex-direction: column; gap: 15px; }
-.cs-vgap-redact {
-  position: relative; height: 19px; border-radius: 5px;
-  background: rgba(255,255,255,0.05); overflow: hidden;
-  display: flex; align-items: center; justify-content: center;
-}
-.cs-vgap-redact::after {
-  content: ''; position: absolute; inset: 0;
-  background: linear-gradient(100deg, transparent 25%, rgba(255,255,255,0.08) 50%, transparent 75%);
-  transform: translateX(-100%);
-}
-.cs-vgap-redact i { font-style: normal; font-family: 'Geist Mono', monospace; font-size: 9.5px; color: var(--text-muted); }
-@media (prefers-reduced-motion: no-preference) {
-  /* initial hidden states live here so reduced-motion users get the full static chart */
-  .cs-vgap-line { stroke-dasharray: 1; stroke-dashoffset: 1; }
-  .cs-vgap-area, .cs-vgap-dot, .cs-vgap-stat { opacity: 0; }
-  .cs-vis.is-visible .cs-vgap-line { animation: cs-vgap-draw 1.3s cubic-bezier(0.3,0.1,0.25,1) 0.2s forwards; }
-  .cs-vis.is-visible .cs-vgap-area { animation: cs-vgap-fade 0.8s ease 1s forwards; }
-  .cs-vis.is-visible .cs-vgap-dot { animation: cs-vgap-fade 0.4s ease 1.35s forwards; }
-  .cs-vis.is-visible .cs-vgap-stat { animation: cs-vgap-fade 0.5s ease 1.5s forwards; }
-  .cs-vis.is-visible .cs-vgap-pulse { animation: cs-vgap-pulse 2.8s ease-out 1.7s infinite; }
-  .cs-vis.is-visible .cs-vgap-redact::after { animation: cs-vgap-shimmer 2.6s ease-in-out infinite; }
-  .cs-vis.is-visible .cs-vgap-redact:nth-child(2)::after { animation-delay: 0.35s; }
-  .cs-vis.is-visible .cs-vgap-redact:nth-child(3)::after { animation-delay: 0.7s; }
-  .cs-vis.is-visible .cs-vgap-redact:nth-child(4)::after { animation-delay: 1.05s; }
-}
-@keyframes cs-vgap-draw { to { stroke-dashoffset: 0; } }
-@keyframes cs-vgap-fade { to { opacity: 1; } }
-@keyframes cs-vgap-pulse {
-  0%   { r: 4; opacity: 0.5; }
-  70%  { r: 14; opacity: 0; }
-  100% { r: 14; opacity: 0; }
-}
-@keyframes cs-vgap-shimmer {
-  0%       { transform: translateX(-100%); }
-  55%, 100% { transform: translateX(100%); }
-}
-@media (max-width: 700px) {
-  .cs-vgap-body { grid-template-columns: 1fr; }
-  .cs-vgap-col--why { border-left: none; border-top: 1px solid var(--line); }
-}
-
 /* ---------- FROSTED STAT CARD (notch) ---------- */
 .cs-fstat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; position: relative; z-index: 501; }
 .cs-fstat-cell { display: flex; flex-direction: column; }
@@ -1316,13 +1260,12 @@ a.cs-cta { margin-top: 28px; }
   <h2 class="cs-display reveal">Every payment generates revenue. But not every dollar <em>reaches the merchant.</em></h2>
 
   <p class="cs-p reveal">Juspay has been building payment infrastructure for businesses in India for over a decade. With Hyperswitch, we expanded beyond domestic payments to support merchants operating across the US and European markets.</p>
-  <p class="cs-p reveal">Working closely with businesses in these markets gave us a deeper understanding of how payments were structured and the operational realities merchants navigate every day. As we expanded our stack of offerings for these markets, one area consistently demanded attention: payment costs.</p>
+  <p class="cs-p reveal">Working closely with businesses in these markets gave us a deeper understanding of how payments were structured and the operational realities merchants navigate every day. As we expanded our stack of offerings for these markets, one area consistently tapped attention: payment costs.</p>
 
   <p class="cs-p reveal">On the surface, payments appear simple. A customer pays, and the merchant gets paid.</p>
 
   <!-- Payment flow — simplified journey -->
   <div class="cs-vis reveal" style="margin: 24px 0;">
-    <div class="cs-vis-label">How money flows</div>
     <div class="cs-vis-body" style="padding: 44px 28px 40px;">
       <div class="cs-flow-stage">
       <svg viewBox="0 0 700 132" xmlns="http://www.w3.org/2000/svg" role="img" style="width:100%; display:block;">
@@ -1393,15 +1336,14 @@ a.cs-cta { margin-top: 28px; }
     </div>
   </div>
 
-  <p class="cs-p reveal">In reality, every transaction passes through multiple participants before the money reaches the merchant's bank account, each introducing its own fees, rules, and operational complexity. These processing costs are a necessary part of accepting payments, but at scale they quickly become one of a merchant's largest variable expenses.</p>
+  <p class="cs-p reveal">In reality, every transaction passes through multiple participants before reaching the merchant, each introducing its own fees and rules. Individually these costs seem small, but at enterprise scale they become one of a merchant's largest variable expenses.</p>
 
-  <h3 class="cs-h3 reveal" style="margin-top: 52px;">What surprised us..</h3>
-  <p class="cs-p reveal">Merchants knew <strong>how much</strong> they were paying, but had very little understanding of <strong>what changed</strong>, <strong>why it changed</strong>, or <strong>where their money was going</strong>. The numbers were too large to ignore.</p>
-  <p class="cs-p reveal">Most merchants spend between 1.5–3.5% of their payment volume on processing costs. At scale, even a seemingly small percentage becomes a significant business expense.</p>
+  <h3 class="cs-h3 reveal" style="margin-top: 52px;">The visibility gap</h3>
+  <p class="cs-p reveal">Merchants knew <strong>how much</strong> they were paying, but had very little understanding of <strong>what changed</strong>, <strong>why it changed</strong>, or <strong>where their money was going</strong>.</p>
+  <p class="cs-p reveal">Although payment costs are expressed as small percentages between 1.5–3.5% of their payment volume on processing costs, at enterprise scale they quickly translate into millions of dollars in avoidable spend.</p>
 
   <!-- Merchant scale tiers — concentric arcs -->
-  <div class="cs-vis-heading reveal" style="margin-top: 48px;">Why scale changes everything</div>
-  <div class="cs-arcs reveal" style="margin: 16px 0 24px;">
+  <div class="cs-arcs reveal" style="margin: 48px 0 24px;">
     <div class="cs-arcs-viz">
       <svg viewBox="0 0 220 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Concentric arcs showing payment cost scaling from small to enterprise merchants">
         <defs>
@@ -1470,62 +1412,6 @@ a.cs-cta { margin-top: 28px; }
   })();
   </script>
 
-  <p class="cs-p reveal">While payment costs are often expressed as a small percentage, their impact grows rapidly with transaction volume.</p>
-  <p class="cs-p reveal">At enterprise scale, even marginal inefficiencies can translate into millions of dollars in avoidable spend.</p>
-
-  <h3 class="cs-h3 reveal" style="margin-top: 52px;">The problem wasn't the cost itself. It was the lack of visibility.</h3>
-  <p class="cs-p reveal">Merchants could see that costs had increased, but understanding them remained a heavily manual exercise.</p>
-
-  <!-- THE VISIBILITY GAP — the "what" resolves in seconds, the "why" never does -->
-  <div class="cs-vis reveal" style="margin: 24px 0 40px;">
-    <div class="cs-vgap-body">
-      <div class="cs-vgap-col">
-        <div class="cs-vgap-head">
-          <span class="cs-vgap-eyebrow">What merchants could see</span>
-        </div>
-        <div class="cs-vgap-content">
-        <svg class="cs-vgap-chart" viewBox="0 0 320 136" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A rising payment-cost trend line ending at plus 22 percent — the increase itself was easy to see">
-          <defs>
-            <linearGradient id="cs-vgap-fill" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" stop-color="rgba(212,255,94,0.1)"/>
-              <stop offset="1" stop-color="rgba(212,255,94,0)"/>
-            </linearGradient>
-          </defs>
-          <g stroke="rgba(255,255,255,0.05)" stroke-width="1">
-            <line x1="8" y1="35" x2="312" y2="35"/>
-            <line x1="8" y1="63" x2="312" y2="63"/>
-            <line x1="8" y1="91" x2="312" y2="91"/>
-          </g>
-          <line x1="8" y1="114" x2="312" y2="114" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
-          <path class="cs-vgap-area" d="M 8 101 C 60 98, 110 94, 152 90 C 194 85, 224 78, 252 64 C 272 55, 290 43, 308 33 L 308 114 L 8 114 Z" fill="url(#cs-vgap-fill)"/>
-          <path class="cs-vgap-line" pathLength="1" d="M 8 101 C 60 98, 110 94, 152 90 C 194 85, 224 78, 252 64 C 272 55, 290 43, 308 33" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round"/>
-          <circle class="cs-vgap-pulse" cx="308" cy="33" r="4" fill="none" stroke="var(--accent)" opacity="0"/>
-          <circle class="cs-vgap-dot" cx="308" cy="33" r="4" fill="var(--accent)"/>
-          <text class="cs-vgap-stat" x="296" y="23" text-anchor="end" font-family="'Geist Mono',monospace" font-size="14" font-weight="500" fill="var(--accent)">+22%</text>
-          <g font-family="'Geist Mono',monospace" font-size="8.5" fill="rgba(255,255,255,0.28)">
-            <text x="8" y="130">Q1</text>
-            <text x="308" y="130" text-anchor="end">Q2</text>
-          </g>
-        </svg>
-        </div>
-      </div>
-      <div class="cs-vgap-col cs-vgap-col--why">
-        <div class="cs-vgap-head">
-          <span class="cs-vgap-eyebrow">What actually changed</span>
-        </div>
-        <div class="cs-vgap-content">
-        <div class="cs-vgap-rows" aria-label="Several cost drivers, each one unclear">
-          <span class="cs-vgap-redact" style="width: 82%;"><i>?</i></span>
-          <span class="cs-vgap-redact" style="width: 58%;"><i>?</i></span>
-          <span class="cs-vgap-redact" style="width: 70%;"><i>?</i></span>
-          <span class="cs-vgap-redact" style="width: 46%;"><i>?</i></span>
-        </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <p class="cs-p reveal">This pushed us to dig deeper into how payment costs were structured, why they were so difficult to explain, and where visibility was breaking down.</p>
 
 </div>
 </section>
