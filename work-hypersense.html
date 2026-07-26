@@ -870,11 +870,10 @@ a.cs-cta { margin-top: 28px; }
 
 /* ---------- CONCENTRIC ARCS (scale) ---------- */
 .cs-arcs {
-  display: grid; grid-template-columns: 240px 1fr; gap: 40px; align-items: center;
+  display: grid; grid-template-columns: 51fr 49fr; gap: 28px; align-items: start;
   padding: 36px 36px; border: 1px solid var(--line); border-radius: 14px;
   background: var(--bg-card); position: relative; z-index: 501;
 }
-.cs-arcs-viz { align-self: end; }
 .cs-arcs-viz svg { width: 100%; height: auto; display: block; }
 .cs-arcs-caption {
   font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.14em;
@@ -885,7 +884,7 @@ a.cs-cta { margin-top: 28px; }
   text-transform: uppercase; color: rgba(255,255,255,0.28); margin-top: 5px; text-align: left;
 }
 .cs-arcs-legend { display: flex; flex-direction: column; }
-.cs-arc-row { padding: 18px 0; border-top: 1px solid var(--line); }
+.cs-arc-row { padding: 24px 0; border-top: 1px solid var(--line); }
 .cs-arc-row:first-child { border-top: none; padding-top: 0; }
 .cs-arc-row:last-child { padding-bottom: 0; }
 .cs-arc-row { display: flex; flex-direction: column; gap: 0; }
@@ -897,7 +896,6 @@ a.cs-cta { margin-top: 28px; }
 .cs-arc-lead { font-family: 'Geist', sans-serif; font-size: 13px; font-weight: 400; line-height: 1.5; color: var(--text); margin: 12px 0 0; }
 .cs-arc-metric { font-family: 'Geist Mono', monospace; font-size: 12px; font-weight: 400; letter-spacing: 0.02em; color: var(--text-muted); margin: 4px 0 0; }
 .cs-arc-metric strong { font-family: 'Geist', sans-serif; font-weight: 500; color: var(--text-soft); }
-.cs-arc-row--win .cs-arc-metric strong { color: var(--text); }
 .cs-arc-metric em { font-family: 'Geist', sans-serif; font-style: normal; font-weight: 500; color: var(--text-soft); }
 .cs-arc-row--win .cs-arc-metric em { color: var(--accent); }
 /* interactive hover linking between arcs and legend rows */
@@ -1263,14 +1261,13 @@ a.cs-cta { margin-top: 28px; }
   <div class="cs-label reveal"><span class="num">/01</span> The Cost of Invisibility</div>
   <h2 class="cs-display reveal">Every payment generates revenue. But not every dollar <em>reaches the merchant.</em></h2>
 
-  <p class="cs-p reveal">Juspay has been building payment infrastructure for businesses in India for over a decade. With Hyperswitch, we expanded beyond domestic payments to support merchants operating across the US and European markets.</p>
-  <p class="cs-p reveal">Working closely with businesses in these markets gave us a deeper understanding of how payments were structured and the operational realities merchants navigate every day. As we expanded our stack of offerings for these markets, one area consistently demanded attention: payment costs.</p>
+  <p class="cs-p reveal">After building payment infrastructure for enterprise businesses in India for over a decade, Juspay expanded into the US and European markets through Hyperswitch. It exposed us to a very different payments ecosystem, where payment costs were no longer a hidden operational detail but a critical business concern.</p>
+  <p class="cs-p reveal">Working closely with enterprise merchants in these markets gave us a deeper understanding of how those costs were structured and why making sense of them remained so difficult.</p>
 
   <p class="cs-p reveal">On the surface, payments appear simple. A customer pays, and the merchant gets paid.</p>
 
   <!-- Payment flow — simplified journey -->
   <div class="cs-vis reveal" style="margin: 24px 0;">
-    <div class="cs-vis-label">How money flows</div>
     <div class="cs-vis-body" style="padding: 44px 28px 40px;">
       <div class="cs-flow-stage">
       <svg viewBox="0 0 700 132" xmlns="http://www.w3.org/2000/svg" role="img" style="width:100%; display:block;">
@@ -1341,15 +1338,14 @@ a.cs-cta { margin-top: 28px; }
     </div>
   </div>
 
-  <p class="cs-p reveal">In reality, every transaction passes through multiple participants before the money reaches the merchant's bank account, each introducing its own fees, rules, and operational complexity. These processing costs are a necessary part of accepting payments, but at scale they quickly become one of a merchant's largest variable expenses.</p>
+  <p class="cs-p reveal">In reality, every transaction passes through multiple participants before reaching the merchant, each introducing its own fees and rules. Individually these costs seem small, but at enterprise scale they become one of a merchant's largest variable expenses.</p>
 
-  <h3 class="cs-h3 reveal" style="margin-top: 52px;">What surprised us..</h3>
-  <p class="cs-p reveal">Merchants knew <strong>how much</strong> they were paying, but had very little understanding of <strong>what changed</strong>, <strong>why it changed</strong>, or <strong>where their money was going</strong>. The numbers were too large to ignore.</p>
-  <p class="cs-p reveal">Most merchants spend between 1.5–3.5% of their payment volume on processing costs. At scale, even a seemingly small percentage becomes a significant business expense.</p>
+  <h3 class="cs-h3 reveal" style="margin-top: 52px;">The visibility gap</h3>
+  <p class="cs-p reveal">Merchants knew <strong>how much</strong> they were paying, but had very little understanding of <strong>what changed</strong>, <strong>why it changed</strong>, or <strong>where their money was going</strong>.</p>
+  <p class="cs-p reveal">Although payment costs are expressed as small percentages between 1.5–3.5% of their payment volume on processing costs, at enterprise scale they quickly translate into millions of dollars in avoidable spend.</p>
 
   <!-- Merchant scale tiers — concentric arcs -->
-  <div class="cs-vis-heading reveal" style="margin-top: 48px;">Why scale changes everything</div>
-  <div class="cs-arcs reveal" style="margin: 16px 0 24px;">
+  <div class="cs-arcs reveal" style="margin: 48px 0 24px;">
     <div class="cs-arcs-viz">
       <svg viewBox="0 0 220 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Concentric arcs showing payment cost scaling from small to enterprise merchants">
         <defs>
@@ -1374,23 +1370,23 @@ a.cs-cta { margin-top: 28px; }
         <circle class="cs-arc-hit" data-tier="0" cx="26" cy="180" r="52" fill="transparent"/>
       </svg>
       <div class="cs-arcs-caption">Merchant scale →</div>
-      <div class="cs-arcs-note">At 2% processing cost</div>
+      <div class="cs-arcs-note">Assuming a 2% processing cost</div>
     </div>
     <div class="cs-arcs-legend">
       <div class="cs-arc-row" data-tier="0">
         <span class="cs-arc-eyebrow">Small merchant</span>
         <p class="cs-arc-lead">Costs are rarely a priority.</p>
-        <p class="cs-arc-metric"><strong>~$5M</strong> processed annually → <em>$100K</em>/yr in payment costs</p>
+        <p class="cs-arc-metric"><strong>$5M</strong>/yr volume → <em>$100K</em>/yr fees</p>
       </div>
       <div class="cs-arc-row" data-tier="1">
         <span class="cs-arc-eyebrow">Mid-sized merchant</span>
         <p class="cs-arc-lead">Costs become noticeable.</p>
-        <p class="cs-arc-metric"><strong>~$50M</strong> processed annually → <em>$1M</em>/yr in payment costs</p>
+        <p class="cs-arc-metric"><strong>$50M</strong>/yr volume → <em>$1M</em>/yr fees</p>
       </div>
       <div class="cs-arc-row cs-arc-row--win" data-tier="2">
         <span class="cs-arc-eyebrow">Enterprise merchant</span>
         <p class="cs-arc-lead">Every basis point matters.</p>
-        <p class="cs-arc-metric"><strong>~$500M</strong> processed annually → <em>$10M</em>/yr in payment costs</p>
+        <p class="cs-arc-metric"><strong>$500M</strong>/yr volume → <em>$10M</em>/yr fees</p>
       </div>
     </div>
   </div>
@@ -1418,13 +1414,6 @@ a.cs-cta { margin-top: 28px; }
   })();
   </script>
 
-  <p class="cs-p reveal">While payment costs are often expressed as a small percentage, their impact grows rapidly with transaction volume.</p>
-  <p class="cs-p reveal">At enterprise scale, even marginal inefficiencies can translate into millions of dollars in avoidable spend.</p>
-
-  <h3 class="cs-h3 reveal" style="margin-top: 52px;">The problem wasn't the cost itself. It was the lack of visibility.</h3>
-  <p class="cs-p reveal">Merchants could see that costs had increased, but understanding them remained a heavily manual exercise.</p>
-  <p class="cs-p reveal">This pushed us to dig deeper into how payment costs were structured, why they were so difficult to explain, and where visibility was breaking down.</p>
-
 </div>
 </section>
 
@@ -1447,7 +1436,7 @@ a.cs-cta { margin-top: 28px; }
 
   <div class="cs-subdivider reveal"><span>My Contribution</span></div>
 
-  <p class="cs-p reveal">As the sole product designer, I worked closely with product, engineering, and data teams to translate those insights into a cohesive investigation experience.</p>
+  <p class="cs-p reveal">As a sole product designer, I worked closely with product, engineering, and business development teams to translate those insights into a cohesive investigation experience for enterprise merchants.</p>
 
   <div class="cs-vis reveal" style="margin: 24px 0;">
     <div class="cs-vis-label">One designer. A team of seven. One shared problem to solve.</div>
@@ -1455,22 +1444,22 @@ a.cs-cta { margin-top: 28px; }
       <div class="cs-team-col">
         <div class="cs-team-role cs-team-role--mine">Design</div>
         <div class="cs-team-name">Solo Product Designer</div>
-        <div class="cs-team-desc">Research, product thinking, UX, interaction design, visual system.</div>
+        <div class="cs-team-desc">UX, product strategy, systems thinking, IA, data visualisation, interaction design.</div>
+      </div>
+      <div class="cs-team-col">
+        <div class="cs-team-role">Product</div>
+        <div class="cs-team-name">Product Manager</div>
+        <div class="cs-team-desc">Problem framing, prioritization, merchant requirements, roadmap, delivery.</div>
+      </div>
+      <div class="cs-team-col">
+        <div class="cs-team-role">Growth</div>
+        <div class="cs-team-name">BD Lead</div>
+        <div class="cs-team-desc">Merchant discovery, customer feedback, GTM strategy, market validation.</div>
       </div>
       <div class="cs-team-col">
         <div class="cs-team-role">Engineering</div>
-        <div class="cs-team-name">2 Backend Engineers</div>
-        <div class="cs-team-desc">Classification, anomaly detection, transaction-level cost intelligence.</div>
-      </div>
-      <div class="cs-team-col">
-        <div class="cs-team-role">Product &amp; Growth</div>
-        <div class="cs-team-name">PM, BD Lead, Growth</div>
-        <div class="cs-team-desc">Discovery, customer conversations, GTM.</div>
-      </div>
-      <div class="cs-team-col">
-        <div class="cs-team-role">Data</div>
-        <div class="cs-team-name">Data Engineer</div>
-        <div class="cs-team-desc">Cost normalization, fee structures, transaction mapping.</div>
+        <div class="cs-team-name">Frontend &amp; Backend Engineers</div>
+        <div class="cs-team-desc">Cost engine, transaction intelligence, anomaly detection, platform implementation.</div>
       </div>
     </div>
   </div>
@@ -1488,7 +1477,7 @@ a.cs-cta { margin-top: 28px; }
   <p class="cs-p reveal">Every card payment looks simple from the outside: tap, approve, done. But every transaction the merchant processes comes with a payment's cost, and how that cost is calculated depends on the pricing model a merchant chooses.</p>
   <p class="cs-p reveal">The industry primarily operates on two models: <span class="cs-gloss" tabindex="0" data-gloss="blended-pricing">Blended pricing</span> and <span class="cs-gloss" tabindex="0" data-gloss="ic-plus-plus">IC++</span> pricing.</p>
   <p class="cs-p reveal">Blended pricing applies a single fixed rate to every transaction. It's simple and predictable, but at high volumes, merchants often end up paying more than necessary.</p>
-  <p class="cs-p reveal"><span class="cs-gloss" tabindex="0" data-gloss="ic-plus-plus">IC++</span> pricing, on the other hand, charges the actual cost of processing for each transaction, creating opportunities to reduce costs at scale. That's why enterprise merchants prefer IC++. But the same transparency that creates savings also introduces a new layer of complexity.</p>
+  <p class="cs-p reveal"><span class="cs-gloss" tabindex="0" data-gloss="ic-plus-plus">IC++</span> pricing, on the other hand, charges the actual cost of processing for each transaction, creating opportunities to reduce costs at scale. That's why enterprise merchants prefer IC++.</p>
 
   <!-- IC++ FEE SIMULATOR — teaser -->
   <div class="cs-vis reveal cs-sim-teaser" style="margin: 24px 0 40px;">
@@ -1519,21 +1508,18 @@ a.cs-cta { margin-top: 28px; }
 
   <h3 class="cs-h3 reveal" style="margin-top: 40px;">The same transparency that creates savings also creates complexity.</h3>
 
-  <p class="cs-p reveal">Because in <span class="cs-gloss" tabindex="0" data-gloss="ic-plus-plus">IC++</span> pricing happens at a transaction level, no two transactions are guaranteed to cost the same. Each transaction cost is determined by card type, authentication, settlement timing, geography, and data quality. Each variable quietly shifts the fee tier, and most merchants never see this happen.</p>
-  <p class="cs-p reveal">Most enterprises on <span class="cs-gloss" tabindex="0" data-gloss="ic-plus-plus">IC++</span> pricing consistently pay more than they should. The gap between what they should pay and what they actually pay can quietly reach <span class="warm">7–10% of their total payment costs</span>.</p>
-
-
-  <p class="cs-p reveal" style="margin-top: 24px;">Understanding what merchants were actually charged is rarely straightforward. Finding that answer often means reconciling reports from multiple processors.</p>
+  <p class="cs-p reveal">In <span class="cs-gloss" tabindex="0" data-gloss="ic-plus-plus">IC++</span> pricing, no two transactions are guaranteed to be priced the same. Card type, authentication, settlement timing, geography, and data quality all influence the final fee. Each variable can quietly shift a transaction into a different fee tier, and most merchants never see it happen.</p>
+  <p class="cs-p reveal">Without visibility, enterprise merchants often pay more than they should. The gap between expected and actual payment costs can reach <span class="warm">7–10%</span>.</p>
 
   <!-- THE RAW DOCUMENTS -->
   <div class="cs-docs reveal" style="margin: 24px 0 40px;">
     <div class="cs-docs-header">
       <div class="cs-docs-tag">The raw documents</div>
-      <h3 class="cs-docs-title">Every billing cycle becomes <em>an investigation.</em></h3>
+      <h3 class="cs-docs-title">Payment cost data is <em>fragmented.</em></h3>
     </div>
     <div class="cs-docs-body">
       <div class="cs-docs-text">
-        <p>No single report tells the full story. Teams work across invoices, settlement reports, and network documentation to reconstruct what they were charged and why.</p>
+        <p>Understanding the complete cost story often means piecing together fragmented payment cost data spread across invoices, settlement reports, and network documentation.</p>
       </div>
       <div>
         <div class="cs-docs-trio">
@@ -1543,20 +1529,6 @@ a.cs-cta { margin-top: 28px; }
         </div>
         <div class="cs-docs-shot-cap">Different formats. One cost story.</div>
       </div>
-    </div>
-  </div>
-
-  <h3 class="cs-h3 reveal" style="margin-top: 40px;">Small operational decisions can become expensive mistakes.</h3>
-
-  <p class="cs-p reveal">At the transaction level, small operational decisions can quietly increase costs. Something as simple as delayed settlement, missing authentication data, or incorrect merchant classification can downgrade a transaction and push it into a more expensive fee tier.</p>
-  <p class="cs-p reveal">At enterprise scale, even small inefficiencies can compound into significant avoidable spend.</p>
-
-  <!-- COST CALLOUT — rate + challenge -->
-  <div class="cs-cost-callout reveal" style="margin: 24px 0;">
-    <div class="cs-cost-callout-inner">
-      <span class="cs-cost-callout-rate">1.5–3.5%</span>
-      <div class="cs-cost-callout-label">Average payment processing cost</div>
-      <p class="cs-cost-callout-context">Even a 0.1% difference in processing cost can translate into millions in avoidable spend at enterprise scale.</p>
     </div>
   </div>
 
@@ -2023,7 +1995,7 @@ a.cs-cta { margin-top: 28px; }
     <div class="cs-fstat">
       <div class="cs-fstat-num">20<span class="cs-fstat-sym">+</span></div>
       <div class="cs-fstat-label">Demoed</div>
-      <p class="cs-fstat-desc">Presented to 20+ enterprise merchants, includes <strong>Apple</strong>.</p>
+      <p class="cs-fstat-desc">Presented to 20+ enterprise merchants, includes <strong>Apple, SpaceX.</strong></p>
     </div>
     <div class="cs-fstat">
       <div class="cs-fstat-num">6</div>
