@@ -451,56 +451,21 @@ nav .logo a.cs-back:hover { color: var(--accent); }
 .cs-deck-dot.is-active { width: 24px; height: 8px; border-radius: 4px; background: var(--accent); }
 
 /* ---------- PROTOTYPE — RESOLUTION ACTIONS ---------- */
-.cs-proto { margin: 64px 0 48px; }
-.cs-proto-tabs {
-  display: flex; gap: 0; margin-bottom: 16px;
-  background: var(--bg-card);
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  overflow: hidden;
-}
-.cs-proto-tab {
-  flex: 1; padding: 12px 16px; border: none; background: none; cursor: pointer;
-  font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.1em;
-  text-transform: uppercase; color: var(--text-muted);
-  transition: color 0.2s ease, background 0.2s ease;
-  text-align: center;
-}
-.cs-proto-tab + .cs-proto-tab { border-left: 1px solid var(--line); }
-.cs-proto-tab:hover { color: var(--text-soft); }
-.cs-proto-tab.is-active { color: var(--accent); background: rgba(212,255,94,0.06); }
+.cs-proto-item { margin: 0 0 56px; }
+.cs-proto-item:last-child { margin-bottom: 0; }
+.cs-proto-item-head { margin: 32px 0 20px; }
 .cs-proto-stage {
   border: 1px solid var(--line);
   border-radius: 12px;
-  display: flex;
   position: relative; overflow: hidden;
 }
-.cs-proto-panel { display: none; width: 100%; }
-.cs-proto-panel.is-active { display: block; }
-.cs-proto-panel .cs-mock-browser { border-radius: 12px; border: none; box-shadow: none; }
-.cs-proto-panel .cs-mock-window { height: clamp(300px, 45vw, 560px); overflow: hidden; }
-.cs-proto-panel .cs-mock-nav { height: 100%; overflow: hidden; }
-.cs-proto-panel .cs-mock-nav img { height: 100%; width: auto; min-width: 100%; object-fit: cover; object-position: top left; }
-.cs-proto-panel .cs-mock-body { overflow-y: auto; }
-.cs-proto-icon {
-  width: 48px; height: 48px; border-radius: 12px;
-  background: rgba(212,255,94,0.08); border: 1px solid rgba(212,255,94,0.15);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 20px;
+.cs-proto-cap-title {
+  font-family: 'Geist', sans-serif; font-size: 17px; font-weight: 600;
+  color: var(--text); margin: 0 0 4px;
 }
-.cs-proto-panel h3 {
-  font-family: 'Geist', sans-serif; font-size: 22px; font-weight: 600;
-  color: var(--text); margin: 0;
-}
-.cs-proto-panel p {
-  font-family: 'Geist', sans-serif; font-size: 14px; line-height: 1.6;
-  color: var(--text-soft); max-width: 480px; margin: 0;
-}
-.cs-proto-placeholder {
-  font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.12em;
-  text-transform: uppercase; color: var(--text-muted);
-  padding: 8px 16px; border: 1px dashed var(--line); border-radius: 6px;
-  margin-top: 8px;
+.cs-proto-cap-desc {
+  font-family: 'Geist', sans-serif; font-size: 14px; font-weight: 300;
+  line-height: 1.5; color: var(--text-soft); max-width: 620px; margin: 0;
 }
 
 @media (max-width: 768px) {
@@ -1044,39 +1009,66 @@ a.cs-cta { margin-top: 28px; }
   <p class="cs-p reveal">Once the discrepancy is understood, the remaining task is straightforward.</p>
   <p class="cs-p reveal">The available actions are simplified and surfaced in context, allowing exceptions to be resolved through a small set of clear, guided steps.</p>
 </div>
-<div class="cs-wrap cs-wrap--showcase">
-  <div class="cs-proto reveal" id="cs-proto">
-    <div class="cs-proto-tabs">
-      <button class="cs-proto-tab is-active" data-panel="edit">✎ Edit</button>
-      <button class="cs-proto-tab" data-panel="add">+ Add</button>
-      <button class="cs-proto-tab" data-panel="swap">⇄ Swap</button>
-      <button class="cs-proto-tab" data-panel="ignore"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg> Ignore</button>
+<div class="cs-proto-item">
+  <div class="cs-wrap">
+    <div class="cs-proto-item-head">
+      <h4 class="cs-proto-cap-title reveal">Edit an entry</h4>
+      <p class="cs-proto-cap-desc reveal">Correct the amount, date, or reference on an entry without leaving the exception.</p>
     </div>
-    <div class="cs-proto-stage">
-      <div class="cs-proto-panel is-active" id="proto-edit">
-        <video autoplay loop muted playsinline style="width:100%; display:block; border-radius: 12px;">
-          <source src="assets/recon/edit-flow.mp4" type="video/mp4">
-          <source src="assets/recon/edit-flow.mov" type="video/quicktime">
-        </video>
-      </div>
-      <div class="cs-proto-panel" id="proto-add">
-        <video autoplay loop muted playsinline style="width:100%; display:block; border-radius: 12px;">
-          <source src="assets/recon/add-flow.mp4" type="video/mp4">
-          <source src="assets/recon/add-flow.mov" type="video/quicktime">
-        </video>
-      </div>
-      <div class="cs-proto-panel" id="proto-swap">
-        <video autoplay loop muted playsinline style="width:100%; display:block; border-radius: 12px;">
-          <source src="assets/recon/swap-flow.mp4" type="video/mp4">
-          <source src="assets/recon/swap-flow.mov" type="video/quicktime">
-        </video>
-      </div>
-      <div class="cs-proto-panel" id="proto-ignore">
-        <video autoplay loop muted playsinline style="width:100%; display:block; border-radius: 12px;">
-          <source src="assets/recon/ignore-flow.mp4" type="video/mp4">
-          <source src="assets/recon/ignore-flow.mov" type="video/quicktime">
-        </video>
-      </div>
+  </div>
+  <div class="cs-wrap cs-wrap--showcase">
+    <div class="cs-proto-stage reveal">
+      <video src="assets/recon/edit-flow.mp4" poster="assets/recon/edit-flow-poster.jpg"
+             autoplay muted loop playsinline controls controlslist="nodownload" preload="metadata"
+             style="width:100%; display:block; border-radius: 12px;"></video>
+    </div>
+  </div>
+</div>
+
+<div class="cs-proto-item">
+  <div class="cs-wrap">
+    <div class="cs-proto-item-head">
+      <h4 class="cs-proto-cap-title reveal">Add a missing entry</h4>
+      <p class="cs-proto-cap-desc reveal">Create the counterpart record needed to complete the match.</p>
+    </div>
+  </div>
+  <div class="cs-wrap cs-wrap--showcase">
+    <div class="cs-proto-stage reveal">
+      <video src="assets/recon/add-flow.mp4" poster="assets/recon/add-flow-poster.jpg"
+             autoplay muted loop playsinline controls controlslist="nodownload" preload="metadata"
+             style="width:100%; display:block; border-radius: 12px;"></video>
+    </div>
+  </div>
+</div>
+
+<div class="cs-proto-item">
+  <div class="cs-wrap">
+    <div class="cs-proto-item-head">
+      <h4 class="cs-proto-cap-title reveal">Swap the match</h4>
+      <p class="cs-proto-cap-desc reveal">Reassign an entry to the transaction it actually belongs to.</p>
+    </div>
+  </div>
+  <div class="cs-wrap cs-wrap--showcase">
+    <div class="cs-proto-stage reveal">
+      <video src="assets/recon/swap-flow.mp4" poster="assets/recon/swap-flow-poster.jpg"
+             autoplay muted loop playsinline controls controlslist="nodownload" preload="metadata"
+             style="width:100%; display:block; border-radius: 12px;"></video>
+    </div>
+  </div>
+</div>
+
+<div class="cs-proto-item">
+  <div class="cs-wrap">
+    <div class="cs-proto-item-head">
+      <h4 class="cs-proto-cap-title reveal">Ignore an entry</h4>
+      <p class="cs-proto-cap-desc reveal">Exclude an entry that isn't meant to be reconciled.</p>
+    </div>
+  </div>
+  <div class="cs-wrap cs-wrap--showcase">
+    <div class="cs-proto-stage reveal">
+      <video src="assets/recon/ignore-flow.mp4" poster="assets/recon/ignore-flow-poster.jpg"
+             autoplay muted loop playsinline controls controlslist="nodownload" preload="metadata"
+             style="width:100%; display:block; border-radius: 12px;"></video>
     </div>
   </div>
 </div>
@@ -1159,29 +1151,6 @@ a.cs-cta { margin-top: 28px; }
   deck.addEventListener('click', function() {
     current = (current + 1) % n;
     layout();
-  });
-})();
-
-/* Prototype tabs */
-(function() {
-  var proto = document.getElementById('cs-proto');
-  if (!proto) return;
-  var tabs = proto.querySelectorAll('.cs-proto-tab');
-  var panels = proto.querySelectorAll('.cs-proto-panel');
-  tabs.forEach(function(tab) {
-    tab.addEventListener('click', function() {
-      tabs.forEach(function(t) { t.classList.remove('is-active'); });
-      panels.forEach(function(p) {
-        p.classList.remove('is-active');
-        var v = p.querySelector('video');
-        if (v) { v.pause(); v.currentTime = 0; }
-      });
-      tab.classList.add('is-active');
-      var active = document.getElementById('proto-' + tab.getAttribute('data-panel'));
-      active.classList.add('is-active');
-      var v = active.querySelector('video');
-      if (v) { v.currentTime = 0; v.play(); }
-    });
   });
 })();
 
