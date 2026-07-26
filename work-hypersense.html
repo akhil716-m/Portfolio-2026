@@ -866,11 +866,10 @@ a.cs-cta { margin-top: 28px; }
 
 /* ---------- CONCENTRIC ARCS (scale) ---------- */
 .cs-arcs {
-  display: grid; grid-template-columns: 240px 1fr; gap: 40px; align-items: center;
+  display: grid; grid-template-columns: 51fr 49fr; gap: 28px; align-items: start;
   padding: 36px 36px; border: 1px solid var(--line); border-radius: 14px;
   background: var(--bg-card); position: relative; z-index: 501;
 }
-.cs-arcs-viz { align-self: end; }
 .cs-arcs-viz svg { width: 100%; height: auto; display: block; }
 .cs-arcs-caption {
   font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.14em;
@@ -881,7 +880,7 @@ a.cs-cta { margin-top: 28px; }
   text-transform: uppercase; color: rgba(255,255,255,0.28); margin-top: 5px; text-align: left;
 }
 .cs-arcs-legend { display: flex; flex-direction: column; }
-.cs-arc-row { padding: 18px 0; border-top: 1px solid var(--line); }
+.cs-arc-row { padding: 24px 0; border-top: 1px solid var(--line); }
 .cs-arc-row:first-child { border-top: none; padding-top: 0; }
 .cs-arc-row:last-child { padding-bottom: 0; }
 .cs-arc-row { display: flex; flex-direction: column; gap: 0; }
@@ -893,7 +892,6 @@ a.cs-cta { margin-top: 28px; }
 .cs-arc-lead { font-family: 'Geist', sans-serif; font-size: 13px; font-weight: 400; line-height: 1.5; color: var(--text); margin: 12px 0 0; }
 .cs-arc-metric { font-family: 'Geist Mono', monospace; font-size: 12px; font-weight: 400; letter-spacing: 0.02em; color: var(--text-muted); margin: 4px 0 0; }
 .cs-arc-metric strong { font-family: 'Geist', sans-serif; font-weight: 500; color: var(--text-soft); }
-.cs-arc-row--win .cs-arc-metric strong { color: var(--text); }
 .cs-arc-metric em { font-family: 'Geist', sans-serif; font-style: normal; font-weight: 500; color: var(--text-soft); }
 .cs-arc-row--win .cs-arc-metric em { color: var(--accent); }
 /* interactive hover linking between arcs and legend rows */
@@ -1259,8 +1257,8 @@ a.cs-cta { margin-top: 28px; }
   <div class="cs-label reveal"><span class="num">/01</span> The Cost of Invisibility</div>
   <h2 class="cs-display reveal">Every payment generates revenue. But not every dollar <em>reaches the merchant.</em></h2>
 
-  <p class="cs-p reveal">Juspay has been building payment infrastructure for businesses in India for over a decade. With Hyperswitch, we expanded beyond domestic payments to support merchants operating across the US and European markets.</p>
-  <p class="cs-p reveal">Working closely with businesses in these markets gave us a deeper understanding of how payments were structured and the operational realities merchants navigate every day. As we expanded our stack of offerings for these markets, one area consistently tapped attention: payment costs.</p>
+  <p class="cs-p reveal">After building payment infrastructure for enterprise businesses in India for over a decade, Juspay expanded into the US and European markets through Hyperswitch. It exposed us to a very different payments ecosystem, where payment costs were no longer a hidden operational detail but a critical business concern.</p>
+  <p class="cs-p reveal">Working closely with enterprise merchants in these markets gave us a deeper understanding of how those costs were structured and why making sense of them remained so difficult.</p>
 
   <p class="cs-p reveal">On the surface, payments appear simple. A customer pays, and the merchant gets paid.</p>
 
@@ -1368,23 +1366,23 @@ a.cs-cta { margin-top: 28px; }
         <circle class="cs-arc-hit" data-tier="0" cx="26" cy="180" r="52" fill="transparent"/>
       </svg>
       <div class="cs-arcs-caption">Merchant scale →</div>
-      <div class="cs-arcs-note">At 2% processing cost</div>
+      <div class="cs-arcs-note">Assuming a 2% processing cost</div>
     </div>
     <div class="cs-arcs-legend">
       <div class="cs-arc-row" data-tier="0">
         <span class="cs-arc-eyebrow">Small merchant</span>
         <p class="cs-arc-lead">Costs are rarely a priority.</p>
-        <p class="cs-arc-metric"><strong>~$5M</strong> processed annually → <em>$100K</em>/yr in payment costs</p>
+        <p class="cs-arc-metric"><strong>$5M</strong>/yr volume → <em>$100K</em>/yr fees</p>
       </div>
       <div class="cs-arc-row" data-tier="1">
         <span class="cs-arc-eyebrow">Mid-sized merchant</span>
         <p class="cs-arc-lead">Costs become noticeable.</p>
-        <p class="cs-arc-metric"><strong>~$50M</strong> processed annually → <em>$1M</em>/yr in payment costs</p>
+        <p class="cs-arc-metric"><strong>$50M</strong>/yr volume → <em>$1M</em>/yr fees</p>
       </div>
       <div class="cs-arc-row cs-arc-row--win" data-tier="2">
         <span class="cs-arc-eyebrow">Enterprise merchant</span>
         <p class="cs-arc-lead">Every basis point matters.</p>
-        <p class="cs-arc-metric"><strong>~$500M</strong> processed annually → <em>$10M</em>/yr in payment costs</p>
+        <p class="cs-arc-metric"><strong>$500M</strong>/yr volume → <em>$10M</em>/yr fees</p>
       </div>
     </div>
   </div>
@@ -1411,7 +1409,6 @@ a.cs-cta { margin-top: 28px; }
     root.addEventListener('mouseleave', clearFocus);
   })();
   </script>
-
 
 </div>
 </section>
