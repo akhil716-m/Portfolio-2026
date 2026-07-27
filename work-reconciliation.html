@@ -16,7 +16,6 @@
    rules are namespaced with `.cs-` to stay isolated from the
    shared stylesheet.
    ============================================================ */
-
 #cs-progress {
   position: fixed; top: 0; left: 0; height: 2px; background: var(--accent);
   width: 0%; z-index: 1000; transition: width 0.12s linear;
@@ -67,7 +66,7 @@
   content: ''; position: absolute; inset: 0; pointer-events: none; z-index: -1;
   background:
     radial-gradient(ellipse 60% 50% at 80% 10%, rgba(212,255,94,0.07), transparent 70%),
-    radial-gradient(ellipse 50% 40% at 10% 90%, rgba(232,197,152,0.05), transparent 70%);
+    radial-gradient(ellipse 50% 40% at 10% 90%, rgba(255,255,255,0.03), transparent 70%);
 }
 .cs-back {
   display: inline-flex; align-items: center; gap: 8px; margin-bottom: 32px; width: fit-content;
@@ -202,7 +201,7 @@ nav .logo a.cs-back:hover { color: var(--accent); }
 }
 .cs-flow-branch strong { color: var(--text); font-weight: 500; }
 .cs-flow-branch--match { border-color: rgba(212,255,94,0.35); background: rgba(212,255,94,0.04); }
-.cs-flow-branch--exception { border-color: rgba(232,197,152,0.35); background: rgba(232,197,152,0.05); }
+.cs-flow-branch--exception { border-color: var(--line); background: var(--bg-card); }
 
 /* ---------- RECON LAYERS — two-source reconciliation flow ---------- */
 .cs-recon-layers { margin: 44px 0 8px; display: flex; flex-direction: column; gap: 12px; }
@@ -218,14 +217,14 @@ nav .logo a.cs-back:hover { color: var(--accent); }
 }
 .cs-recon-node-title { font-family: 'Geist', sans-serif; font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
 .cs-recon-node-sub { font-family: 'Geist', sans-serif; font-size: 11px; font-weight: 300; color: var(--text-muted); }
-.cs-recon-node--oms { border-color: rgba(212,255,94,0.22); background: rgba(212,255,94,0.04); }
+.cs-recon-node--oms { border-color: var(--line); background: var(--bg-card); }
 .cs-recon-node--oms .cs-recon-node-title { color: var(--accent); }
-.cs-recon-node--psp { border-color: rgba(232,197,152,0.28); background: rgba(232,197,152,0.05); }
-.cs-recon-node--psp .cs-recon-node-title { color: var(--warm); }
+.cs-recon-node--psp { border-color: var(--line); background: var(--bg-card); }
+.cs-recon-node--psp .cs-recon-node-title { color: var(--text-soft); }
 .cs-recon-node--bank { border-color: var(--line); background: var(--bg-card); }
 .cs-recon-node--bank .cs-recon-node-title { color: var(--text); }
 .cs-recon-node--result { border-color: var(--line); background: var(--bg-soft); flex: 0 0 auto; min-width: 150px; }
-.cs-recon-node--result .cs-recon-node-title { font-weight: 500; color: var(--text-soft); }
+.cs-recon-node--result .cs-recon-node-title { font-weight: 500; color: var(--text); }
 .cs-recon-node--exception { border-color: rgba(220,70,60,0.35); background: rgba(220,70,60,0.06); }
 .cs-recon-node--exception .cs-recon-node-title { color: #e05858; }
 .cs-recon-node--matched { border-color: rgba(212,255,94,0.28); background: rgba(212,255,94,0.05); }
@@ -248,14 +247,14 @@ nav .logo a.cs-back:hover { color: var(--accent); }
   background: var(--bg-soft); color: var(--text-soft); font-size: 11px;
   font-family: 'Geist Mono', monospace; white-space: nowrap;
 }
-.cs-exc-v-box--diff { border-color: rgba(232,197,152,0.35); color: var(--warm); background: rgba(232,197,152,0.07); }
+.cs-exc-v-box--diff { border-color: rgba(255,255,255,0.16); color: var(--text-soft); background: rgba(255,255,255,0.04); }
 .cs-exc-v-box--empty { border-style: dashed; color: var(--text-muted); }
-.cs-exc-v-op { color: var(--warm); font-size: 14px; }
+.cs-exc-v-op { color: var(--text-soft); font-size: 14px; }
 .cs-exc-v-sep { color: var(--text-muted); font-size: 10px; letter-spacing: 0.05em; }
 .cs-exc-v-col { display: flex; flex-direction: column; gap: 4px; }
 .cs-exc-v-arrow { font-size: 18px; line-height: 1; }
 .cs-exc-v-arrow--up { color: var(--accent); }
-.cs-exc-v-arrow--down { color: var(--warm); }
+.cs-exc-v-arrow--down { color: var(--text-soft); }
 .cs-exc-v-unknown { font-size: 24px; color: var(--text-muted); font-family: 'Geist Mono', monospace; }
 .cs-exc-title { font-family: 'Geist', sans-serif; font-size: 13px; font-weight: 500; margin-bottom: 4px; color: var(--text); }
 .cs-exc-sub { font-family: 'Geist', sans-serif; font-size: 11.5px; font-weight: 300; line-height: 1.5; color: var(--text-muted); }
