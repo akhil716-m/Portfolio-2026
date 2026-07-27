@@ -230,8 +230,8 @@ nav .logo a.cs-back:hover { color: var(--accent); }
 .cs-recon-node--matched { border-color: rgba(212,255,94,0.28); background: rgba(212,255,94,0.05); }
 .cs-recon-node--matched .cs-recon-node-title { color: var(--accent); }
 .cs-recon-cmp {
-  font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.06em; color: var(--text-muted);
-  flex-shrink: 0; white-space: nowrap;
+  font-family: 'Geist Mono', monospace; font-size: 16px; color: var(--text-muted);
+  flex-shrink: 0; white-space: nowrap; line-height: 1;
 }
 .cs-recon-arr { font-family: 'Geist Mono', monospace; font-size: 13px; color: var(--text-muted); flex-shrink: 0; }
 
@@ -569,7 +569,7 @@ a.cs-cta { margin-top: 28px; }
 
   <div class="cs-label reveal"><span class="num">/01</span> Why Reconciliation Exists</div>
   <h2 class="cs-display reveal">One transaction. <em>Multiple versions of the truth.</em></h2>
-  <p class="cs-p reveal">When a customer makes a payment, multiple systems record the same event. Merchants, payment providers, and banks each store their own version of what happened.</p>
+  <p class="cs-p reveal">When a customer makes a payment, merchants, payment providers, and banks each record their own version of the same transaction.</p>
 
   <div class="cs-recon-layer-flow reveal" style="margin: 40px 0 48px;">
     <div class="cs-recon-node cs-recon-node--oms">
@@ -588,8 +588,8 @@ a.cs-cta { margin-top: 28px; }
     </div>
   </div>
 
-  <p class="cs-p reveal">As businesses grow, thousands of these transactions flow every day. Even small discrepancies can lead to reporting errors, delayed investigations, and revenue leakage.</p>
-  <p class="cs-p reveal" style="margin-top: 8px;">Reconciliation exists to verify that every system tells the same story about where the money went. To do that, reconciliation happens layer by layer, comparing two parties at a time.</p>
+  <p class="cs-p reveal">As transaction volumes grow, even small discrepancies can lead to reporting errors, delayed investigations, and revenue leakage.</p>
+  <p class="cs-p reveal" style="margin-top: 8px;">Reconciliation solves this by verifying that every system tells the same story about where the money went.</p>
 
   <div class="cs-recon-layers reveal" style="margin: 40px 0 48px;">
     <div class="cs-recon-layer">
@@ -599,7 +599,7 @@ a.cs-cta { margin-top: 28px; }
           <div class="cs-recon-node-title">OMS</div>
           <div class="cs-recon-node-sub">What we recorded</div>
         </div>
-        <div class="cs-recon-cmp">compare →</div>
+        <div class="cs-recon-cmp" aria-label="compare">⇄</div>
         <div class="cs-recon-node cs-recon-node--psp">
           <div class="cs-recon-node-title">PSP (Adyen)</div>
           <div class="cs-recon-node-sub">What Adyen settled</div>
@@ -618,7 +618,7 @@ a.cs-cta { margin-top: 28px; }
           <div class="cs-recon-node-title">PSP (Adyen)</div>
           <div class="cs-recon-node-sub">What Adyen sent</div>
         </div>
-        <div class="cs-recon-cmp">compare →</div>
+        <div class="cs-recon-cmp" aria-label="compare">⇄</div>
         <div class="cs-recon-node cs-recon-node--bank">
           <div class="cs-recon-node-title">Bank</div>
           <div class="cs-recon-node-sub">What bank received</div>
@@ -632,7 +632,7 @@ a.cs-cta { margin-top: 28px; }
     </div>
   </div>
 
-  <p class="cs-p reveal">Accounts are paired using a common identifier, such as an Order ID or Batch ID and validated against a predefined rule set. A single transaction may involve multiple accounts and entries across the systems being compared.</p>
+  <p class="cs-p reveal">Accounts are paired using a common identifier, such as an Order ID or Batch ID, and validated against a predefined rule set. Depending on how the transaction flows through each system, a single transaction may span multiple accounts and many underlying entries.</p>
 
   <div class="cs-challenge reveal" style="margin-top: 32px;">
     <p>If the accounts agree, the transaction is reconciled. If they don't, the investigation begins.</p>
@@ -656,7 +656,7 @@ a.cs-cta { margin-top: 28px; }
       <div class="cs-recon-node-title">OMS</div>
       <div class="cs-recon-node-sub">What we recorded</div>
     </div>
-    <div class="cs-recon-cmp">compare →</div>
+    <div class="cs-recon-cmp" aria-label="compare">⇄</div>
     <div class="cs-recon-node cs-recon-node--psp">
       <div class="cs-recon-node-title">PSP (Adyen)</div>
       <div class="cs-recon-node-sub">What Adyen settled</div>
