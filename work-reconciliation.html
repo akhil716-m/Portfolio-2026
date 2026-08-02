@@ -732,9 +732,9 @@ a.cs-cta { margin-top: 28px; }
   <div class="cs-label reveal"><span class="num">/03</span> Why Resolution Slows Down</div>
   <h2 class="cs-display reveal">One mismatch can hide <em>many different stories.</em></h2>
 
-  <p class="cs-p reveal" style="margin-top: 24px;">Knowing why two records disagree is only part of the picture. Analysts first need to understand how the underlying accounts and entries relate to one another.</p>
+  <p class="cs-p reveal" style="margin-top: 24px;">The mismatch type only tells part of the story. Understanding how accounts and entries are connected is what determines how it's resolved.</p>
   <p class="cs-p reveal">Transactions don't always map one-to-one. A single order can split into multiple settlement entries, while several orders can eventually settle into one bank record. That means two exceptions with the same mismatch reason can have entirely different structures underneath.</p>
-  <p class="cs-p reveal">Before taking any action, analysts first need to reconstruct the relationship between those accounts and entries.</p>
+  <p class="cs-p reveal">Before they can act, analysts first need to reconstruct how those accounts and entries relate to one another.</p>
 
   <div class="cs-match-grid reveal">
     <div class="cs-match-cell">
@@ -744,7 +744,7 @@ a.cs-cta { margin-top: 28px; }
         <div class="cs-match-col"><span class="cs-match-dot"></span></div>
       </div>
       <div class="cs-match-title">One-to-one</div>
-      <div class="cs-match-desc">A single order, a single settlement line. This is the expected case, and the one most tools assume by default.</div>
+      <div class="cs-match-desc">One order matches one settlement entry. The simplest and most common case.</div>
     </div>
     <div class="cs-match-cell">
       <div class="cs-match-diagram">
@@ -755,7 +755,7 @@ a.cs-cta { margin-top: 28px; }
         </div>
       </div>
       <div class="cs-match-title">One-to-many</div>
-      <div class="cs-match-desc">One order splits into several settlement entries, such as a capture, a fee, and a refund, each landing separately.</div>
+      <div class="cs-match-desc">One order splits into multiple settlement entries, such as capture, fee, and refund.</div>
     </div>
     <div class="cs-match-cell">
       <div class="cs-match-diagram">
@@ -766,7 +766,7 @@ a.cs-cta { margin-top: 28px; }
         <div class="cs-match-col"><span class="cs-match-dot"></span></div>
       </div>
       <div class="cs-match-title">Many-to-one</div>
-      <div class="cs-match-desc">Several orders settle together as a single bank entry, typically from end-of-day batching.</div>
+      <div class="cs-match-desc">Multiple orders settle into a single bank entry, usually through batching.</div>
     </div>
     <div class="cs-match-cell">
       <div class="cs-match-diagram">
@@ -779,11 +779,11 @@ a.cs-cta { margin-top: 28px; }
         </div>
       </div>
       <div class="cs-match-title">Many-to-many</div>
-      <div class="cs-match-desc">A batch of orders settles against a batch of bank entries, with no fixed pairing between them.</div>
+      <div class="cs-match-desc">Groups of orders reconcile against groups of bank entries, with no fixed pairing.</div>
     </div>
   </div>
 
-  <p class="cs-p reveal">The exception label explains what failed, but not how the records relate underneath.</p>
+  <p class="cs-p reveal">The exception label tells you what failed, but not how the records relate underneath.</p>
 
   <p class="cs-h3 reveal" style="margin-top: 40px;">Analysts need to understand both layers before they can act:</p>
   <ul class="cs-list reveal">
@@ -794,7 +794,7 @@ a.cs-cta { margin-top: 28px; }
   <div class="cs-topo-v2 reveal" style="margin-top: 32px;">
     <div class="cs-topo-outer">
       <div class="cs-topo-badge">Account level</div>
-      <div class="cs-topo-tag">Reveals who is being compared.</div>
+      <div class="cs-topo-tag">Shows who is being compared.</div>
       <div class="cs-topo-row">
         <div class="cs-topo-card">
           <div class="cs-topo-mini">
@@ -848,7 +848,7 @@ a.cs-cta { margin-top: 28px; }
 
       <div class="cs-topo-inner">
         <div class="cs-topo-badge">Entry level</div>
-        <div class="cs-topo-tag">Reveals what is being compared underneath.</div>
+        <div class="cs-topo-tag">Shows what is being compared underneath.</div>
         <div class="cs-topo-row">
           <div class="cs-topo-card">
             <div class="cs-topo-mini">
@@ -905,8 +905,8 @@ a.cs-cta { margin-top: 28px; }
 
   <p class="cs-h3 reveal" style="margin-top: 40px;">Why resolution slows down</p>
   <ul class="cs-list reveal">
-    <li>The exception label hides the relationships underneath.</li>
-    <li>The same mismatch can require completely different actions.</li>
+    <li>The exception label hides the structure beneath it.</li>
+    <li>The same mismatch can require entirely different resolutions.</li>
   </ul>
 
 
