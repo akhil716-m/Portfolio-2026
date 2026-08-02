@@ -1016,7 +1016,7 @@ a.cs-cta { margin-top: 28px; }
   <div class="cs-wrap cs-wrap--showcase">
     <div class="cs-proto-stage reveal">
       <video src="assets/recon/edit-flow.mp4" poster="assets/recon/edit-flow-poster.jpg"
-             autoplay muted loop playsinline controls controlslist="nodownload" preload="metadata"
+             class="cs-proto-video" muted loop playsinline controls controlslist="nodownload" preload="metadata"
              style="width:100%; display:block; border-radius: 12px;"></video>
     </div>
   </div>
@@ -1032,7 +1032,7 @@ a.cs-cta { margin-top: 28px; }
   <div class="cs-wrap cs-wrap--showcase">
     <div class="cs-proto-stage reveal">
       <video src="assets/recon/add-flow.mp4" poster="assets/recon/add-flow-poster.jpg"
-             autoplay muted loop playsinline controls controlslist="nodownload" preload="metadata"
+             class="cs-proto-video" muted loop playsinline controls controlslist="nodownload" preload="metadata"
              style="width:100%; display:block; border-radius: 12px;"></video>
     </div>
   </div>
@@ -1048,7 +1048,7 @@ a.cs-cta { margin-top: 28px; }
   <div class="cs-wrap cs-wrap--showcase">
     <div class="cs-proto-stage reveal">
       <video src="assets/recon/swap-flow.mp4" poster="assets/recon/swap-flow-poster.jpg"
-             autoplay muted loop playsinline controls controlslist="nodownload" preload="metadata"
+             class="cs-proto-video" muted loop playsinline controls controlslist="nodownload" preload="metadata"
              style="width:100%; display:block; border-radius: 12px;"></video>
     </div>
   </div>
@@ -1064,7 +1064,7 @@ a.cs-cta { margin-top: 28px; }
   <div class="cs-wrap cs-wrap--showcase">
     <div class="cs-proto-stage reveal">
       <video src="assets/recon/ignore-flow.mp4" poster="assets/recon/ignore-flow-poster.jpg"
-             autoplay muted loop playsinline controls controlslist="nodownload" preload="metadata"
+             class="cs-proto-video" muted loop playsinline controls controlslist="nodownload" preload="metadata"
              style="width:100%; display:block; border-radius: 12px;"></video>
     </div>
   </div>
@@ -1093,6 +1093,36 @@ a.cs-cta { margin-top: 28px; }
 </footer>
 
 <script>
+
+/* Scroll-triggered prototype video playback — only the single most-visible video plays */
+(function() {
+  var videos = Array.from(document.querySelectorAll('.cs-proto-video'));
+  if (!videos.length || !('IntersectionObserver' in window)) return;
+  var ratios = new Map(videos.map(function(v) { return [v, 0]; }));
+
+  function sync() {
+    var best = null;
+    var bestRatio = 0;
+    ratios.forEach(function(ratio, v) {
+      if (ratio > bestRatio) { bestRatio = ratio; best = v; }
+    });
+    videos.forEach(function(v) {
+      if (v === best && bestRatio >= 0.5) {
+        v.play().catch(function() {});
+      } else {
+        v.pause();
+      }
+    });
+  }
+
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      ratios.set(entry.target, entry.intersectionRatio);
+    });
+    sync();
+  }, { threshold: [0, 0.25, 0.5, 0.75, 1] });
+  videos.forEach(function(v) { observer.observe(v); });
+})();
 
 /* Stacked card deck */
 (function() {
