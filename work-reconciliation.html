@@ -936,19 +936,17 @@ a.cs-cta { margin-top: 28px; }
     <li>What needs to happen next?</li>
   </ul>
 
-  <p class="cs-lead reveal" style="margin-top: 40px;">We reduced every investigation to two questions.</p>
-  <p class="cs-p reveal">Every exception experience should answer two questions before asking analysts to act.</p>
+  <h3 class="cs-h3 reveal" style="margin-top: 40px;">Design principles</h3>
+  <p class="cs-p reveal">Every investigation was designed around two simple principles.</p>
 
   <div class="cs-anchor-grid reveal" style="margin-top: 48px; grid-template-columns: repeat(2, 1fr);">
     <div class="cs-anchor">
       <div class="cs-anchor-num">01</div>
       <div class="cs-anchor-title">Understand the exception</div>
-      <div class="cs-anchor-desc">Surface everything needed to understand what happened and where the discrepancy lives.</div>
     </div>
     <div class="cs-anchor">
       <div class="cs-anchor-num">02</div>
       <div class="cs-anchor-title">Take action</div>
-      <div class="cs-anchor-desc">Guide analysts toward the right resolution with only the actions relevant to that exception.</div>
     </div>
   </div>
 
@@ -962,13 +960,12 @@ a.cs-cta { margin-top: 28px; }
 <div class="cs-wrap">
   <div class="cs-label reveal"><span class="num">/05</span> Designing for Resolution</div>
   <h2 class="cs-display reveal">We simplified the path from investigation <em>to resolution.</em></h2>
-  <p class="cs-p reveal">We structured the experience around the way analysts naturally approach exceptions: first understand the exception, then resolve it.</p>
+  <p class="cs-p reveal">We structured the experience around a simple principle: understand the exception first, then resolve it.</p>
 </div>
 <!-- 03 / The many faces of an exception -->
 <div class="cs-wrap">
   <h3 class="cs-h3 reveal" style="margin-top: 56px;">One experience. Many structures</h3>
-  <p class="cs-p reveal">The investigation flow remained the same regardless of how accounts and entries were connected underneath.</p>
-  <p class="cs-p reveal">Whether an exception was One-to-One, One-to-Many, Many-to-One...the interface adapted to the topology while preserving a consistent investigation experience.</p>
+  <p class="cs-p reveal">Regardless of how accounts and entries were connected underneath, analysts followed the same investigation experience, and the interface adapted to each topology while preserving a familiar workflow.</p>
 </div>
 <div class="cs-wrap cs-wrap--showcase">
   <div class="cs-deck reveal" id="cs-deck">
@@ -1000,17 +997,20 @@ a.cs-cta { margin-top: 28px; }
   </div>
 </div>
 
+<div class="cs-wrap">
+  <p class="cs-p reveal" style="margin-top: 32px;">Once analysts understood the discrepancy, resolving it became the next step.</p>
+</div>
+
 <!-- 04 / Resolution actions prototype -->
 <div class="cs-wrap">
   <h3 class="cs-h3 reveal" style="margin-top: 56px;">Make resolution obvious</h3>
-  <p class="cs-p reveal">Once the discrepancy is understood, resolving it should be straightforward.</p>
-  <p class="cs-p reveal">We surfaced only the actions relevant to each exception, so analysts could resolve issues without leaving the investigation.</p>
+  <p class="cs-p reveal">Once the discrepancy was understood, the interface surfaced only the actions relevant to that exception, allowing analysts to resolve issues without leaving the investigation.</p>
 </div>
 <div class="cs-proto-item">
   <div class="cs-wrap">
     <div class="cs-proto-item-head">
       <h4 class="cs-proto-cap-title reveal">Edit an entry</h4>
-      <p class="cs-proto-cap-desc reveal">Correct incorrect values directly in context without leaving the investigation.</p>
+      <p class="cs-proto-cap-desc reveal">Update incorrect values directly within the investigation.</p>
     </div>
   </div>
   <div class="cs-wrap cs-wrap--showcase">
@@ -1026,7 +1026,7 @@ a.cs-cta { margin-top: 28px; }
   <div class="cs-wrap">
     <div class="cs-proto-item-head">
       <h4 class="cs-proto-cap-title reveal">Add a missing entry</h4>
-      <p class="cs-proto-cap-desc reveal">Complete the missing side of the transaction and restore the expected relationship.</p>
+      <p class="cs-proto-cap-desc reveal">Create the missing record and restore the expected relationship.</p>
     </div>
   </div>
   <div class="cs-wrap cs-wrap--showcase">
@@ -1042,7 +1042,7 @@ a.cs-cta { margin-top: 28px; }
   <div class="cs-wrap">
     <div class="cs-proto-item-head">
       <h4 class="cs-proto-cap-title reveal">Swap the match</h4>
-      <p class="cs-proto-cap-desc reveal">Reassign an entry to the transaction where it actually belongs.</p>
+      <p class="cs-proto-cap-desc reveal">Move an entry to the transaction where it belongs.</p>
     </div>
   </div>
   <div class="cs-wrap cs-wrap--showcase">
@@ -1058,7 +1058,7 @@ a.cs-cta { margin-top: 28px; }
   <div class="cs-wrap">
     <div class="cs-proto-item-head">
       <h4 class="cs-proto-cap-title reveal">Ignore an entry</h4>
-      <p class="cs-proto-cap-desc reveal">Exclude entries that aren't intended to participate in reconciliation.</p>
+      <p class="cs-proto-cap-desc reveal">Remove entries that shouldn't participate in reconciliation.</p>
     </div>
   </div>
   <div class="cs-wrap cs-wrap--showcase">
