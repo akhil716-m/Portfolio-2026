@@ -156,6 +156,10 @@ nav .logo a.cs-back:hover { color: var(--accent); }
   font-family: 'Geist', sans-serif; font-size: clamp(22px, 3.2vw, 30px); font-weight: 600;
   color: var(--text); margin: 0 0 16px;
 }
+.cs-lead {
+  font-family: 'Geist', sans-serif; font-size: 19px; font-weight: 500; line-height: 1.5;
+  color: var(--text); margin: 0 0 20px;
+}
 .cs-list { list-style: none; padding: 0; margin: 0 0 48px; display: flex; flex-direction: column; gap: 11px; }
 .cs-list li {
   position: relative; padding-left: 24px;
@@ -920,11 +924,11 @@ a.cs-cta { margin-top: 28px; }
   <div class="cs-label reveal"><span class="num">/04</span> Designing the Investigation</div>
   <h2 class="cs-display reveal">Analysts shouldn't have to rebuild the story <em>every time.</em></h2>
 
-  <p class="cs-p reveal" style="margin-top: 24px;">Every exception already carried the information analysts needed to make a decision, but that information was buried across multiple layers of accounts &amp; entries relationships metadata.</p>
+  <p class="cs-p reveal" style="margin-top: 24px;">Every exception already contained the information analysts needed to make a decision. It was simply buried across accounts, entries, relationships, and metadata.</p>
   <p class="cs-p reveal">Because analysts handle exceptions repeatedly, even small amounts of reconstruction effort compound quickly at scale.</p>
 
 
-  <p class="cs-h3 reveal" style="margin-top: 40px;">Before they could resolve an exception, analysts had to answer the same questions every time:</p>
+  <p class="cs-lead reveal" style="margin-top: 40px;">Before resolving an exception, analysts answered the same questions every time:</p>
   <ul class="cs-list reveal">
     <li>Which transaction is affected?</li>
     <li>Which accounts and entries are involved?</li>
@@ -932,19 +936,19 @@ a.cs-cta { margin-top: 28px; }
     <li>What needs to happen next?</li>
   </ul>
 
-  <p class="cs-h3 reveal" style="margin-top: 40px;">Design principle</p>
-  <p class="cs-p reveal">Every exception should answer two questions:</p>
+  <p class="cs-lead reveal" style="margin-top: 40px;">We reduced every investigation to two questions.</p>
+  <p class="cs-p reveal">Every exception experience should answer two questions before asking analysts to act.</p>
 
   <div class="cs-anchor-grid reveal" style="margin-top: 48px; grid-template-columns: repeat(2, 1fr);">
     <div class="cs-anchor">
       <div class="cs-anchor-num">01</div>
       <div class="cs-anchor-title">Understand the exception</div>
-      <div class="cs-anchor-desc">Bring together the information needed to understand what happened and where the discrepancy lives.</div>
+      <div class="cs-anchor-desc">Surface everything needed to understand what happened and where the discrepancy lives.</div>
     </div>
     <div class="cs-anchor">
       <div class="cs-anchor-num">02</div>
       <div class="cs-anchor-title">Take action</div>
-      <div class="cs-anchor-desc">Guide analysts toward the appropriate resolution with confidence.</div>
+      <div class="cs-anchor-desc">Guide analysts toward the right resolution with only the actions relevant to that exception.</div>
     </div>
   </div>
 
