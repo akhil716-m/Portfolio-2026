@@ -311,6 +311,10 @@ nav .logo a.cs-back:hover { color: var(--accent); }
 .cs-anchor-num { font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; }
 .cs-anchor-title { font-family: 'Geist', sans-serif; font-size: 19px; font-weight: 600; color: var(--text); margin-bottom: 8px; }
 .cs-anchor-desc { font-family: 'Geist', sans-serif; font-size: 12.5px; font-weight: 300; line-height: 1.75; color: var(--text-soft); }
+.cs-phase-tag {
+  font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--accent); font-weight: 500; margin-bottom: 10px;
+}
 
 /* ---------- UI TEASER — first glimpse card in section 02 ---------- */
 .cs-ui-teaser { margin: 8px 0 0; }
@@ -964,7 +968,8 @@ a.cs-cta { margin-top: 28px; }
 </div>
 <!-- 03 / The many faces of an exception -->
 <div class="cs-wrap">
-  <h3 class="cs-h3 reveal" style="margin-top: 56px;">Understand the exception</h3>
+  <div class="cs-phase-tag reveal" style="margin-top: 56px;">Understand the exception</div>
+  <h3 class="cs-h3 reveal">One experience. Many structures</h3>
   <p class="cs-p reveal">Regardless of how accounts and entries were connected underneath, analysts followed the same investigation experience, and the interface adapted to each topology while preserving a familiar workflow.</p>
 </div>
 <div class="cs-wrap cs-wrap--showcase">
@@ -997,13 +1002,10 @@ a.cs-cta { margin-top: 28px; }
   </div>
 </div>
 
-<div class="cs-wrap">
-  <p class="cs-p reveal" style="margin-top: 32px;">Once analysts understood the discrepancy, resolving it became the next step.</p>
-</div>
-
 <!-- 04 / Resolution actions prototype -->
 <div class="cs-wrap">
-  <h3 class="cs-h3 reveal" style="margin-top: 56px;">Make resolution obvious</h3>
+  <div class="cs-phase-tag reveal" style="margin-top: 56px;">Take action</div>
+  <h3 class="cs-h3 reveal">Make resolution obvious</h3>
   <p class="cs-p reveal">Once the discrepancy was understood, the interface surfaced only the actions relevant to that exception, allowing analysts to resolve issues without leaving the investigation.</p>
 </div>
 <div class="cs-proto-item">
