@@ -20,7 +20,6 @@
    rules are namespaced with `.cs-` to stay isolated from the
    shared stylesheet.
    ============================================================ */
-
 #cs-progress {
   position: fixed; top: 0; left: 0; height: 2px; background: var(--accent);
   width: 0%; z-index: 1000; transition: width 0.12s linear;
@@ -71,7 +70,7 @@
   content: ''; position: absolute; inset: 0; pointer-events: none; z-index: -1;
   background:
     radial-gradient(ellipse 60% 50% at 80% 10%, rgba(212,255,94,0.07), transparent 70%),
-    radial-gradient(ellipse 50% 40% at 10% 90%, rgba(232,197,152,0.05), transparent 70%);
+    radial-gradient(ellipse 50% 40% at 10% 90%, rgba(255,255,255,0.03), transparent 70%);
 }
 .cs-back {
   display: inline-flex; align-items: center; gap: 8px; margin-bottom: 32px; width: fit-content;
@@ -161,6 +160,10 @@ nav .logo a.cs-back:hover { color: var(--accent); }
   font-family: 'Geist', sans-serif; font-size: clamp(22px, 3.2vw, 30px); font-weight: 600;
   color: var(--text); margin: 0 0 16px;
 }
+.cs-lead {
+  font-family: 'Geist', sans-serif; font-size: 19px; font-weight: 500; line-height: 1.5;
+  color: var(--text); margin: 0 0 20px;
+}
 .cs-list { list-style: none; padding: 0; margin: 0 0 48px; display: flex; flex-direction: column; gap: 11px; }
 .cs-list li {
   position: relative; padding-left: 24px;
@@ -206,7 +209,7 @@ nav .logo a.cs-back:hover { color: var(--accent); }
 }
 .cs-flow-branch strong { color: var(--text); font-weight: 500; }
 .cs-flow-branch--match { border-color: rgba(212,255,94,0.35); background: rgba(212,255,94,0.04); }
-.cs-flow-branch--exception { border-color: rgba(232,197,152,0.35); background: rgba(232,197,152,0.05); }
+.cs-flow-branch--exception { border-color: var(--line); background: var(--bg-card); }
 
 /* ---------- RECON LAYERS — two-source reconciliation flow ---------- */
 .cs-recon-layers { margin: 44px 0 8px; display: flex; flex-direction: column; gap: 12px; }
@@ -222,21 +225,21 @@ nav .logo a.cs-back:hover { color: var(--accent); }
 }
 .cs-recon-node-title { font-family: 'Geist', sans-serif; font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
 .cs-recon-node-sub { font-family: 'Geist', sans-serif; font-size: 11px; font-weight: 300; color: var(--text-muted); }
-.cs-recon-node--oms { border-color: rgba(212,255,94,0.22); background: rgba(212,255,94,0.04); }
+.cs-recon-node--oms { border-color: var(--line); background: var(--bg-card); }
 .cs-recon-node--oms .cs-recon-node-title { color: var(--accent); }
-.cs-recon-node--psp { border-color: rgba(232,197,152,0.28); background: rgba(232,197,152,0.05); }
-.cs-recon-node--psp .cs-recon-node-title { color: var(--warm); }
+.cs-recon-node--psp { border-color: var(--line); background: var(--bg-card); }
+.cs-recon-node--psp .cs-recon-node-title { color: var(--text-soft); }
 .cs-recon-node--bank { border-color: var(--line); background: var(--bg-card); }
 .cs-recon-node--bank .cs-recon-node-title { color: var(--text); }
 .cs-recon-node--result { border-color: var(--line); background: var(--bg-soft); flex: 0 0 auto; min-width: 150px; }
-.cs-recon-node--result .cs-recon-node-title { font-weight: 500; color: var(--text-soft); }
+.cs-recon-node--result .cs-recon-node-title { font-weight: 500; color: var(--text); }
 .cs-recon-node--exception { border-color: rgba(220,70,60,0.35); background: rgba(220,70,60,0.06); }
 .cs-recon-node--exception .cs-recon-node-title { color: #e05858; }
 .cs-recon-node--matched { border-color: rgba(212,255,94,0.28); background: rgba(212,255,94,0.05); }
 .cs-recon-node--matched .cs-recon-node-title { color: var(--accent); }
 .cs-recon-cmp {
-  font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.06em; color: var(--text-muted);
-  flex-shrink: 0; white-space: nowrap;
+  font-family: 'Geist Mono', monospace; font-size: 16px; color: var(--text-muted);
+  flex-shrink: 0; white-space: nowrap; line-height: 1;
 }
 .cs-recon-arr { font-family: 'Geist Mono', monospace; font-size: 13px; color: var(--text-muted); flex-shrink: 0; }
 
@@ -252,14 +255,14 @@ nav .logo a.cs-back:hover { color: var(--accent); }
   background: var(--bg-soft); color: var(--text-soft); font-size: 11px;
   font-family: 'Geist Mono', monospace; white-space: nowrap;
 }
-.cs-exc-v-box--diff { border-color: rgba(232,197,152,0.35); color: var(--warm); background: rgba(232,197,152,0.07); }
+.cs-exc-v-box--diff { border-color: rgba(255,255,255,0.16); color: var(--text-soft); background: rgba(255,255,255,0.04); }
 .cs-exc-v-box--empty { border-style: dashed; color: var(--text-muted); }
-.cs-exc-v-op { color: var(--warm); font-size: 14px; }
+.cs-exc-v-op { color: var(--text-soft); font-size: 14px; }
 .cs-exc-v-sep { color: var(--text-muted); font-size: 10px; letter-spacing: 0.05em; }
 .cs-exc-v-col { display: flex; flex-direction: column; gap: 4px; }
 .cs-exc-v-arrow { font-size: 18px; line-height: 1; }
 .cs-exc-v-arrow--up { color: var(--accent); }
-.cs-exc-v-arrow--down { color: var(--warm); }
+.cs-exc-v-arrow--down { color: var(--text-soft); }
 .cs-exc-v-unknown { font-size: 24px; color: var(--text-muted); font-family: 'Geist Mono', monospace; }
 .cs-exc-title { font-family: 'Geist', sans-serif; font-size: 13px; font-weight: 500; margin-bottom: 4px; color: var(--text); }
 .cs-exc-sub { font-family: 'Geist', sans-serif; font-size: 11.5px; font-weight: 300; line-height: 1.5; color: var(--text-muted); }
@@ -312,6 +315,10 @@ nav .logo a.cs-back:hover { color: var(--accent); }
 .cs-anchor-num { font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; }
 .cs-anchor-title { font-family: 'Geist', sans-serif; font-size: 19px; font-weight: 600; color: var(--text); margin-bottom: 8px; }
 .cs-anchor-desc { font-family: 'Geist', sans-serif; font-size: 12.5px; font-weight: 300; line-height: 1.75; color: var(--text-soft); }
+.cs-phase-tag {
+  font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--accent); font-weight: 500; margin-bottom: 10px;
+}
 
 /* ---------- UI TEASER — first glimpse card in section 02 ---------- */
 .cs-ui-teaser { margin: 8px 0 0; }
@@ -574,9 +581,9 @@ a.cs-cta { margin-top: 28px; }
 
   <div class="cs-label reveal"><span class="num">/01</span> Why Reconciliation Exists</div>
   <h2 class="cs-display reveal">One transaction. <em>Multiple versions of the truth.</em></h2>
-  <p class="cs-p reveal">When a customer makes a payment, multiple systems record the same event. Merchants, payment providers, and banks each store their own version of what happened.</p>
+  <p class="cs-p reveal">When a customer makes a payment, merchants, payment providers, and banks each record their own version of the same transaction.</p>
 
-  <div class="cs-recon-layer-flow reveal" style="margin: 40px 0 48px;">
+  <div class="cs-recon-layer-flow reveal" style="margin: 24px 0 28px;">
     <div class="cs-recon-node cs-recon-node--oms">
       <div class="cs-recon-node-title">OMS</div>
       <div class="cs-recon-node-sub">Merchant records it</div>
@@ -593,10 +600,9 @@ a.cs-cta { margin-top: 28px; }
     </div>
   </div>
 
-  <p class="cs-p reveal">As businesses grow, thousands of these transactions flow every day. Even small discrepancies can lead to reporting errors, delayed investigations, and revenue leakage.</p>
-  <p class="cs-p reveal" style="margin-top: 8px;">Reconciliation exists to verify that every system tells the same story about where the money went. To do that, reconciliation happens layer by layer, comparing two parties at a time.</p>
+  <p class="cs-p reveal">As transaction volumes grow, even small discrepancies become difficult to investigate at scale, so reconciliation solves this by comparing each system against another and verifying that every version tells the same story about where the money went.</p>
 
-  <div class="cs-recon-layers reveal" style="margin: 40px 0 48px;">
+  <div class="cs-recon-layers reveal" style="margin: 64px 0 28px;">
     <div class="cs-recon-layer">
       <div class="cs-recon-layer-lbl">Layer 1</div>
       <div class="cs-recon-layer-flow">
@@ -604,7 +610,7 @@ a.cs-cta { margin-top: 28px; }
           <div class="cs-recon-node-title">OMS</div>
           <div class="cs-recon-node-sub">What we recorded</div>
         </div>
-        <div class="cs-recon-cmp">compare →</div>
+        <div class="cs-recon-cmp" aria-label="compare">⇄</div>
         <div class="cs-recon-node cs-recon-node--psp">
           <div class="cs-recon-node-title">PSP (Adyen)</div>
           <div class="cs-recon-node-sub">What Adyen settled</div>
@@ -623,7 +629,7 @@ a.cs-cta { margin-top: 28px; }
           <div class="cs-recon-node-title">PSP (Adyen)</div>
           <div class="cs-recon-node-sub">What Adyen sent</div>
         </div>
-        <div class="cs-recon-cmp">compare →</div>
+        <div class="cs-recon-cmp" aria-label="compare">⇄</div>
         <div class="cs-recon-node cs-recon-node--bank">
           <div class="cs-recon-node-title">Bank</div>
           <div class="cs-recon-node-sub">What bank received</div>
@@ -637,11 +643,7 @@ a.cs-cta { margin-top: 28px; }
     </div>
   </div>
 
-  <p class="cs-p reveal">Accounts are paired using a common identifier, such as an Order ID or Batch ID and validated against a predefined rule set. A single transaction may involve multiple accounts and entries across the systems being compared.</p>
-
-  <div class="cs-challenge reveal" style="margin-top: 32px;">
-    <p>If the accounts agree, the transaction is reconciled. If they don't, the investigation begins.</p>
-  </div>
+  <p class="cs-p reveal">Accounts are paired using a common identifier, such as an Order ID or Batch ID, and validated against a predefined rule set. Depending on how the transaction flows through each system, a single transaction may span multiple accounts and many underlying entries.</p>
 
 </div>
 </section>
@@ -653,15 +655,14 @@ a.cs-cta { margin-top: 28px; }
   <div class="cs-label reveal"><span class="num">/02</span> What's an Exception</div>
   <h2 class="cs-display reveal">Sometimes the records <em>don't agree.</em></h2>
 
-  <p class="cs-p reveal" style="margin-top: 24px;">That's where analysts begin investigating.</p>
-  <p class="cs-p reveal">An exception occurs when two records fail to match.</p>
+  <p class="cs-p reveal" style="margin-top: 24px;">When two records don't agree, an exception is created. That's where the investigation begins.</p>
 
   <div class="cs-recon-layer-flow reveal" style="margin: 40px 0 40px;">
     <div class="cs-recon-node cs-recon-node--oms">
       <div class="cs-recon-node-title">OMS</div>
       <div class="cs-recon-node-sub">What we recorded</div>
     </div>
-    <div class="cs-recon-cmp">compare →</div>
+    <div class="cs-recon-cmp" aria-label="compare">⇄</div>
     <div class="cs-recon-node cs-recon-node--psp">
       <div class="cs-recon-node-title">PSP (Adyen)</div>
       <div class="cs-recon-node-sub">What Adyen settled</div>
@@ -673,7 +674,7 @@ a.cs-cta { margin-top: 28px; }
     </div>
   </div>
 
-  <p class="cs-p reveal">While the issue may look similar at first glance, the underlying reason can vary significantly — and each one requires a different way of investigating and resolving it.</p>
+  <p class="cs-p reveal">Although every exception may look similar on the surface, the reason behind them can be entirely different requiring different investigation and resolution paths.</p>
 
   <div class="cs-exc-grid reveal">
     <div class="cs-exc-tile">
@@ -743,9 +744,9 @@ a.cs-cta { margin-top: 28px; }
   <div class="cs-label reveal"><span class="num">/03</span> Why Resolution Slows Down</div>
   <h2 class="cs-display reveal">One mismatch can hide <em>many different stories.</em></h2>
 
-  <p class="cs-p reveal" style="margin-top: 24px;">Knowing why two records disagree is only part of the picture. Analysts also need to understand how those records are connected underneath.</p>
+  <p class="cs-p reveal" style="margin-top: 24px;">The mismatch type only tells part of the story. Understanding how accounts and entries are connected is what determines how it's resolved.</p>
   <p class="cs-p reveal">Transactions don't always map one-to-one. A single order can split into multiple settlement entries, while several orders can eventually settle into one bank record. That means two exceptions with the same mismatch reason can have entirely different structures underneath.</p>
-  <p class="cs-p reveal">Before taking any action, analysts first need to reconstruct how those accounts &amp; entries relate to one another.</p>
+  <p class="cs-p reveal">Before they can act, analysts first need to reconstruct how those accounts and entries relate to one another.</p>
 
   <div class="cs-match-grid reveal">
     <div class="cs-match-cell">
@@ -755,7 +756,7 @@ a.cs-cta { margin-top: 28px; }
         <div class="cs-match-col"><span class="cs-match-dot"></span></div>
       </div>
       <div class="cs-match-title">One-to-one</div>
-      <div class="cs-match-desc">A single order, a single settlement line. The expected case — and the one most tools assume by default.</div>
+      <div class="cs-match-desc">One order matches one settlement entry. The simplest and most common case.</div>
     </div>
     <div class="cs-match-cell">
       <div class="cs-match-diagram">
@@ -766,7 +767,7 @@ a.cs-cta { margin-top: 28px; }
         </div>
       </div>
       <div class="cs-match-title">One-to-many</div>
-      <div class="cs-match-desc">One order splits into several settlement entries — a capture, a fee, a refund — each landing separately.</div>
+      <div class="cs-match-desc">One order splits into multiple settlement entries, such as capture, fee, and refund.</div>
     </div>
     <div class="cs-match-cell">
       <div class="cs-match-diagram">
@@ -777,7 +778,7 @@ a.cs-cta { margin-top: 28px; }
         <div class="cs-match-col"><span class="cs-match-dot"></span></div>
       </div>
       <div class="cs-match-title">Many-to-one</div>
-      <div class="cs-match-desc">Several orders settle together as a single bank entry — typically from end-of-day batching.</div>
+      <div class="cs-match-desc">Multiple orders settle into a single bank entry, usually through batching.</div>
     </div>
     <div class="cs-match-cell">
       <div class="cs-match-diagram">
@@ -790,11 +791,11 @@ a.cs-cta { margin-top: 28px; }
         </div>
       </div>
       <div class="cs-match-title">Many-to-many</div>
-      <div class="cs-match-desc">A batch of orders settles against a batch of bank entries, with no fixed pairing between them.</div>
+      <div class="cs-match-desc">Groups of orders reconcile against groups of bank entries, with no fixed pairing.</div>
     </div>
   </div>
 
-  <p class="cs-p reveal">The exception label explains what failed, but not how the records relate underneath.</p>
+  <p class="cs-p reveal">The exception label tells you what failed, but not how the records relate underneath.</p>
 
   <p class="cs-h3 reveal" style="margin-top: 40px;">Analysts need to understand both layers before they can act:</p>
   <ul class="cs-list reveal">
@@ -805,7 +806,7 @@ a.cs-cta { margin-top: 28px; }
   <div class="cs-topo-v2 reveal" style="margin-top: 32px;">
     <div class="cs-topo-outer">
       <div class="cs-topo-badge">Account level</div>
-      <div class="cs-topo-tag">Reveals who is being compared.</div>
+      <div class="cs-topo-tag">Shows who is being compared.</div>
       <div class="cs-topo-row">
         <div class="cs-topo-card">
           <div class="cs-topo-mini">
@@ -859,7 +860,7 @@ a.cs-cta { margin-top: 28px; }
 
       <div class="cs-topo-inner">
         <div class="cs-topo-badge">Entry level</div>
-        <div class="cs-topo-tag">Reveals what is being compared underneath.</div>
+        <div class="cs-topo-tag">Shows what is being compared underneath.</div>
         <div class="cs-topo-row">
           <div class="cs-topo-card">
             <div class="cs-topo-mini">
@@ -916,8 +917,8 @@ a.cs-cta { margin-top: 28px; }
 
   <p class="cs-h3 reveal" style="margin-top: 40px;">Why resolution slows down</p>
   <ul class="cs-list reveal">
-    <li>The exception label hides what's happening underneath.</li>
-    <li>The same mismatch can require different resolution paths.</li>
+    <li>The exception label hides the structure beneath it.</li>
+    <li>The same mismatch can require entirely different resolutions.</li>
   </ul>
 
 
@@ -931,11 +932,11 @@ a.cs-cta { margin-top: 28px; }
   <div class="cs-label reveal"><span class="num">/04</span> Designing the Investigation</div>
   <h2 class="cs-display reveal">Analysts shouldn't have to rebuild the story <em>every time.</em></h2>
 
-  <p class="cs-p reveal" style="margin-top: 24px;">Every exception already carried the information analysts needed to make a decision, but that information was buried across multiple layers of accounts &amp; entries relationships metadata.</p>
+  <p class="cs-p reveal" style="margin-top: 24px;">Every exception already contained the information analysts needed to make a decision. It was simply buried across accounts, entries, relationships, and metadata.</p>
   <p class="cs-p reveal">Because analysts handle exceptions repeatedly, even small amounts of reconstruction effort compound quickly at scale.</p>
 
 
-  <p class="cs-h3 reveal" style="margin-top: 40px;">Before they could resolve an exception, analysts had to answer the same questions every time:</p>
+  <p class="cs-lead reveal" style="margin-top: 40px;">Before resolving an exception, analysts answered the same questions every time:</p>
   <ul class="cs-list reveal">
     <li>Which transaction is affected?</li>
     <li>Which accounts and entries are involved?</li>
@@ -943,19 +944,17 @@ a.cs-cta { margin-top: 28px; }
     <li>What needs to happen next?</li>
   </ul>
 
-  <p class="cs-h3 reveal" style="margin-top: 40px;">Design principle</p>
-  <p class="cs-p reveal">Every exception should answer two questions:</p>
+  <h3 class="cs-h3 reveal" style="margin-top: 40px;">Design principles</h3>
+  <p class="cs-p reveal">Every investigation was designed around two simple principles.</p>
 
   <div class="cs-anchor-grid reveal" style="margin-top: 48px; grid-template-columns: repeat(2, 1fr);">
     <div class="cs-anchor">
       <div class="cs-anchor-num">01</div>
       <div class="cs-anchor-title">Understand the exception</div>
-      <div class="cs-anchor-desc">Bring together the information needed to understand what happened and where the discrepancy lives.</div>
     </div>
     <div class="cs-anchor">
       <div class="cs-anchor-num">02</div>
       <div class="cs-anchor-title">Take action</div>
-      <div class="cs-anchor-desc">Guide analysts toward the appropriate resolution with confidence.</div>
     </div>
   </div>
 
@@ -969,13 +968,13 @@ a.cs-cta { margin-top: 28px; }
 <div class="cs-wrap">
   <div class="cs-label reveal"><span class="num">/05</span> Designing for Resolution</div>
   <h2 class="cs-display reveal">We simplified the path from investigation <em>to resolution.</em></h2>
-  <p class="cs-p reveal">We structured the experience around the way analysts naturally approach exceptions: first understand the exception, then resolve it.</p>
+  <p class="cs-p reveal">We structured the experience around a simple principle: understand the exception first, then resolve it.</p>
 </div>
 <!-- 03 / The many faces of an exception -->
 <div class="cs-wrap">
-  <h3 class="cs-h3 reveal" style="margin-top: 56px;">One experience. Many structures</h3>
-  <p class="cs-p reveal">The investigation flow remained the same regardless of how accounts and entries were connected underneath.</p>
-  <p class="cs-p reveal">Whether an exception was One-to-One, One-to-Many, Many-to-One...the interface adapted to the topology while preserving a consistent investigation experience.</p>
+  <div class="cs-phase-tag reveal" style="margin-top: 56px;">Understand the exception</div>
+  <h3 class="cs-h3 reveal">One experience. Many structures</h3>
+  <p class="cs-p reveal">Regardless of how accounts and entries were connected underneath, analysts followed the same investigation experience, and the interface adapted to each topology while preserving a familiar workflow.</p>
 </div>
 <div class="cs-wrap cs-wrap--showcase">
   <div class="cs-deck reveal" id="cs-deck">
@@ -1009,21 +1008,21 @@ a.cs-cta { margin-top: 28px; }
 
 <!-- 04 / Resolution actions prototype -->
 <div class="cs-wrap">
-  <h3 class="cs-h3 reveal" style="margin-top: 56px;">Make resolution obvious</h3>
-  <p class="cs-p reveal">Once the discrepancy is understood, resolving it should be straightforward.</p>
-  <p class="cs-p reveal">We surfaced only the actions relevant to each exception, so analysts could resolve issues without leaving the investigation.</p>
+  <div class="cs-phase-tag reveal" style="margin-top: 56px;">Take action</div>
+  <h3 class="cs-h3 reveal">Make resolution obvious</h3>
+  <p class="cs-p reveal">Once the discrepancy was understood, the interface surfaced only the actions relevant to that exception, allowing analysts to resolve issues without leaving the investigation.</p>
 </div>
 <div class="cs-proto-item">
   <div class="cs-wrap">
     <div class="cs-proto-item-head">
       <h4 class="cs-proto-cap-title reveal">Edit an entry</h4>
-      <p class="cs-proto-cap-desc reveal">Correct incorrect values directly in context without leaving the investigation.</p>
+      <p class="cs-proto-cap-desc reveal">Update incorrect values directly within the investigation.</p>
     </div>
   </div>
   <div class="cs-wrap cs-wrap--showcase">
     <div class="cs-proto-stage reveal">
       <video src="assets/recon/edit-flow.mp4" poster="assets/recon/edit-flow-poster.jpg"
-             autoplay muted loop playsinline controls controlslist="nodownload" preload="metadata"
+             class="cs-proto-video" muted loop playsinline controls controlslist="nodownload" preload="metadata"
              style="width:100%; display:block; border-radius: 12px;"></video>
     </div>
   </div>
@@ -1033,13 +1032,13 @@ a.cs-cta { margin-top: 28px; }
   <div class="cs-wrap">
     <div class="cs-proto-item-head">
       <h4 class="cs-proto-cap-title reveal">Add a missing entry</h4>
-      <p class="cs-proto-cap-desc reveal">Complete the missing side of the transaction and restore the expected relationship.</p>
+      <p class="cs-proto-cap-desc reveal">Create the missing record and restore the expected relationship.</p>
     </div>
   </div>
   <div class="cs-wrap cs-wrap--showcase">
     <div class="cs-proto-stage reveal">
       <video src="assets/recon/add-flow.mp4" poster="assets/recon/add-flow-poster.jpg"
-             autoplay muted loop playsinline controls controlslist="nodownload" preload="metadata"
+             class="cs-proto-video" muted loop playsinline controls controlslist="nodownload" preload="metadata"
              style="width:100%; display:block; border-radius: 12px;"></video>
     </div>
   </div>
@@ -1049,13 +1048,13 @@ a.cs-cta { margin-top: 28px; }
   <div class="cs-wrap">
     <div class="cs-proto-item-head">
       <h4 class="cs-proto-cap-title reveal">Swap the match</h4>
-      <p class="cs-proto-cap-desc reveal">Reassign an entry to the transaction where it actually belongs.</p>
+      <p class="cs-proto-cap-desc reveal">Move an entry to the transaction where it belongs.</p>
     </div>
   </div>
   <div class="cs-wrap cs-wrap--showcase">
     <div class="cs-proto-stage reveal">
       <video src="assets/recon/swap-flow.mp4" poster="assets/recon/swap-flow-poster.jpg"
-             autoplay muted loop playsinline controls controlslist="nodownload" preload="metadata"
+             class="cs-proto-video" muted loop playsinline controls controlslist="nodownload" preload="metadata"
              style="width:100%; display:block; border-radius: 12px;"></video>
     </div>
   </div>
@@ -1065,13 +1064,13 @@ a.cs-cta { margin-top: 28px; }
   <div class="cs-wrap">
     <div class="cs-proto-item-head">
       <h4 class="cs-proto-cap-title reveal">Ignore an entry</h4>
-      <p class="cs-proto-cap-desc reveal">Exclude entries that aren't intended to participate in reconciliation.</p>
+      <p class="cs-proto-cap-desc reveal">Remove entries that shouldn't participate in reconciliation.</p>
     </div>
   </div>
   <div class="cs-wrap cs-wrap--showcase">
     <div class="cs-proto-stage reveal">
       <video src="assets/recon/ignore-flow.mp4" poster="assets/recon/ignore-flow-poster.jpg"
-             autoplay muted loop playsinline controls controlslist="nodownload" preload="metadata"
+             class="cs-proto-video" muted loop playsinline controls controlslist="nodownload" preload="metadata"
              style="width:100%; display:block; border-radius: 12px;"></video>
     </div>
   </div>
@@ -1100,6 +1099,36 @@ a.cs-cta { margin-top: 28px; }
 </footer>
 
 <script>
+
+/* Scroll-triggered prototype video playback — only the single most-visible video plays */
+(function() {
+  var videos = Array.from(document.querySelectorAll('.cs-proto-video'));
+  if (!videos.length || !('IntersectionObserver' in window)) return;
+  var ratios = new Map(videos.map(function(v) { return [v, 0]; }));
+
+  function sync() {
+    var best = null;
+    var bestRatio = 0;
+    ratios.forEach(function(ratio, v) {
+      if (ratio > bestRatio) { bestRatio = ratio; best = v; }
+    });
+    videos.forEach(function(v) {
+      if (v === best && bestRatio >= 0.5) {
+        v.play().catch(function() {});
+      } else {
+        v.pause();
+      }
+    });
+  }
+
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      ratios.set(entry.target, entry.intersectionRatio);
+    });
+    sync();
+  }, { threshold: [0, 0.25, 0.5, 0.75, 1] });
+  videos.forEach(function(v) { observer.observe(v); });
+})();
 
 /* Stacked card deck */
 (function() {
