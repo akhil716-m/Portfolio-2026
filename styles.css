@@ -1257,9 +1257,8 @@ nav .status .dot {
   position: relative;
   cursor: pointer;
 }
-/* Higher specificity than .reveal's transition shorthand so both survive together */
 .wc-group .wc-item {
-  transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.35s;
+  transition: background-color 0.35s;
 }
 .wc-item + .wc-item {
   border-top: 1px solid var(--line);
