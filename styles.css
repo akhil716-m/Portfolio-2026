@@ -1219,7 +1219,7 @@ nav .status .dot {
   position: absolute;
   width: 10px;
   height: 10px;
-  background: var(--accent);
+  background: var(--text-soft);
   pointer-events: none;
   z-index: 2;
 }
