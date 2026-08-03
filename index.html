@@ -70,7 +70,7 @@
   <hr style="border: none; height: 1px; background: linear-gradient(to right, transparent, var(--line), transparent); margin: 0;">
 </div>
 
-<section class="section" style="padding-top: 120px; padding-bottom: 80px;">
+<section id="selected-work" class="section" style="padding-top: 120px; padding-bottom: 80px;">
   <div class="section-head">
     <div class="section-head-main">
       <div class="section-meta"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:-1px; color: var(--accent)"><path d="M12 0c.4 5.9 5.7 11.2 11.6 11.6v.8C17.7 12.8 12.4 18.1 12 24h-.8C10.8 18.1 5.5 12.8-.4 12.4v-.8C5.5 11.2 10.8 5.9 11.2 0h.8z"/></svg> Selected Work</div>
@@ -81,6 +81,10 @@
   <div class="work-cards">
 
     <div class="wc-group">
+      <span class="wc-corner wc-corner--tl" aria-hidden="true"></span>
+      <span class="wc-corner wc-corner--tr" aria-hidden="true"></span>
+      <span class="wc-corner wc-corner--bl" aria-hidden="true"></span>
+      <span class="wc-corner wc-corner--br" aria-hidden="true"></span>
 
       <!-- Card 01 -->
       <a class="wc-item" href="work-hypersense.html">
@@ -440,7 +444,7 @@ if (isTouch) {
 
 // Scroll reveals — sections fade up, life deck fans, heading circle draws, resume band
 (function() {
-  document.querySelectorAll('.section-head, .wc-item, .explore-card, .about-act, .life-bridge, .contact-email')
+  document.querySelectorAll('.section:not(#selected-work) .section-head, .explore-card, .about-act, .life-bridge, .contact-email')
     .forEach(el => el.classList.add('reveal'));
   const targets = document.querySelectorAll('.life-strip, .circled, .resume-band, .reveal');
   if (!targets.length) return;
