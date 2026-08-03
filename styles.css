@@ -1212,13 +1212,16 @@ nav .status .dot {
   border-left: 1px solid var(--line);
   border-right: 1px solid var(--line);
 }
-/* Corner marks sit outside the vertical rule, but tucked inside the horizontal cap */
+/* Corner marks sit outside the vertical rule, but tucked inside the horizontal cap.
+   Overlap the border by 1px (10px square offset by 9px) rather than touching it exactly,
+   so sub-pixel rounding on the frame's fractional height can't leave a hairline gap. */
 .wc-corner {
   position: absolute;
-  width: 9px;
-  height: 9px;
+  width: 10px;
+  height: 10px;
   background: var(--accent);
   pointer-events: none;
+  z-index: 2;
 }
 .wc-corner--tl { top: 0; left: -9px; }
 .wc-corner--tr { top: 0; right: -9px; }
