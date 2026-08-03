@@ -685,6 +685,13 @@ nav .status .dot {
   position: relative;
 }
 
+/* Laptop range (13"–16" at native resolution) sits right at the max-width cap, so it
+   gets none of the auto-centering margin a 27"+ monitor gets for free — give it its
+   own side padding instead of the flat 40px so the boxed frame doesn't hug the edge. */
+@media (min-width: 901px) and (max-width: 1800px) {
+  .section { padding-left: 100px; padding-right: 100px; }
+}
+
 .section-head {
   display: grid;
   grid-template-columns: 1fr 280px;
@@ -1397,7 +1404,7 @@ nav .status .dot {
   border-radius: 20px;
   overflow: hidden;
   position: relative;
-  height: 460px;
+  aspect-ratio: 5 / 3;
   box-shadow: 0 24px 60px -28px rgba(0,0,0,0.55);
   transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.45s;
 }
@@ -1788,7 +1795,7 @@ footer .right a:hover { color: var(--accent); }
   .work-gallery { grid-template-columns: 1fr; gap: 32px; }
   .wc-item { grid-template-columns: 1fr; gap: 28px; padding: 48px 20px; }
   .wc-item .wc-meta { border-right: none; padding: 0; }
-  .wc-item .wc-visual { height: 260px; border-radius: 16px; }
+  .wc-item .wc-visual { border-radius: 16px; }
   .wc-row { grid-template-columns: 1fr; gap: 24px; }
   .wc-item--light { height: auto; }
   .wc-item--light .wc-visual { height: 220px; }
