@@ -1212,6 +1212,18 @@ nav .status .dot {
   border-left: 1px solid var(--line);
   border-right: 1px solid var(--line);
 }
+/* Corner marks sit outside the vertical rule, but tucked inside the horizontal cap */
+.wc-corner {
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  background: var(--accent);
+  pointer-events: none;
+}
+.wc-corner--tl { top: 0; left: -9px; }
+.wc-corner--tr { top: 0; right: -9px; }
+.wc-corner--bl { bottom: 0; left: -9px; }
+.wc-corner--br { bottom: 0; right: -9px; }
 /* Top and bottom caps break out to the full viewport width, edge to edge — the vertical rules stay within the content column */
 .wc-group::before,
 .wc-group::after {
