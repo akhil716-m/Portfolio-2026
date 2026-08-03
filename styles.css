@@ -1201,7 +1201,6 @@ nav .status .dot {
   display: flex;
   flex-direction: column;
   gap: 0;
-  counter-reset: wc-index;
   position: relative;
   border-left: 1px solid var(--line);
   border-right: 1px solid var(--line);
@@ -1247,13 +1246,19 @@ nav .status .dot {
   color: inherit;
   border: none;
   border-radius: 0;
-  background: none;
+  background: rgba(212,255,94,0);
   position: relative;
   cursor: pointer;
-  counter-increment: wc-index;
+}
+/* Higher specificity than .reveal's transition shorthand so both survive together */
+.wc-group .wc-item {
+  transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.35s;
 }
 .wc-item + .wc-item {
   border-top: 1px solid var(--line);
+}
+.wc-item:hover {
+  background: rgba(212,255,94,0.035);
 }
 .wc-item:hover .wc-title {
   color: var(--accent);
@@ -1297,19 +1302,12 @@ nav .status .dot {
   overflow: visible;
 }
 
-/* Company — tightly paired label + value, prefixed with a numbered eyebrow */
+/* Company — tightly paired label + value */
 .wc-field {
   display: flex;
-  align-items: baseline;
-  gap: 10px;
+  flex-direction: column;
+  gap: 4px;
   margin-bottom: 28px; /* breathing space before title */
-}
-.wc-field::before {
-  content: counter(wc-index, decimal-leading-zero);
-  font-family: 'Geist Mono', monospace;
-  font-size: 12px;
-  letter-spacing: 0.08em;
-  color: var(--accent);
 }
 .wc-label {
   font-family: 'Geist Mono', monospace;
