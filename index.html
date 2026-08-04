@@ -15,8 +15,6 @@
 </head>
 <body class="home">
 
-<div class="spotlight"></div>
-
 <nav>
   <div class="logo">
     <a href="index.html">
@@ -36,26 +34,6 @@
         <span class="line intro">Hi, I'm <span class="italic">Akhil</span> —</span>
         <span class="line">I design products that balance <span class="quiet">complexity with care.</span></span>
       </h1>
-    </div>
-    <div class="hero-right">
-      <div class="hero-spec">
-        <div class="spec-block">
-          <span class="spec-line"><span class="s-cmt">// akhil.profile</span></span>
-          <span class="spec-line">&nbsp;</span>
-          <span class="spec-line"><span class="s-kw">const</span> designer <span class="s-punc">= {</span></span>
-          <span class="spec-line">  <span class="s-key">name</span><span class="s-punc">:</span>     <span class="s-str">"M. Akhil"</span><span class="s-punc">,</span></span>
-          <span class="spec-line">  <span class="s-key">role</span><span class="s-punc">:</span>     <span class="s-str">"Product Designer"</span><span class="s-punc">,</span>  <span class="s-cmt">// 3+ yrs experience</span></span>
-          <span class="spec-line">  <span class="s-key">at</span><span class="s-punc">:</span>       <span class="s-str">"JUSPAY"</span><span class="s-punc">,</span>        <span class="s-cmt">// since '24</span></span>
-          <span class="spec-line">  <span class="s-key">before</span><span class="s-punc">:</span>   <span class="s-str">"BetterPlace"</span><span class="s-punc">,</span>   <span class="s-cmt">// HRMS · workforce</span></span>
-          <span class="spec-line">&nbsp;</span>
-          <span class="spec-line">  <span class="s-key">domains</span><span class="s-punc">: [</span></span>
-          <span class="spec-line">    <span class="s-str">"fintech"</span><span class="s-punc">,</span></span>
-          <span class="spec-line">    <span class="s-str">"blue collar HRMS"</span><span class="s-punc">,</span></span>
-          <span class="spec-line">  <span class="s-punc">],</span></span>
-          <span class="spec-line"><span class="s-punc">}</span></span>
-          <span class="spec-line"><span class="s-cursor"></span></span>
-        </div>
-      </div>
     </div>
   </div>
 
@@ -379,11 +357,6 @@
 const navEl = document.querySelector('nav');
 window.addEventListener('scroll', () => { navEl.classList.toggle('is-scrolled', window.scrollY > 8); }, { passive: true });
 
-const spotlight = document.querySelector('.spotlight');
-let mx = window.innerWidth/2, my = window.innerHeight/2, sx = mx, sy = my;
-document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; });
-(function loop(){ sx+=(mx-sx)*0.08; sy+=(my-sy)*0.08; spotlight.style.left=sx+'px'; spotlight.style.top=sy+'px'; requestAnimationFrame(loop); })();
-
 const workLinks = document.querySelectorAll('.work-link');
 const previews = document.querySelectorAll('.work-preview');
 workLinks.forEach(link => {
@@ -402,19 +375,6 @@ if (workGallery) {
 // Active nav — index has no active link since it's home
 const page = location.pathname.split('/').pop() || 'index.html';
 document.querySelectorAll('nav .links a').forEach(a => { if(a.getAttribute('href')===page) a.classList.add('active'); });
-
-// Spec sheet scan-in
-(function() {
-  const wrap = document.querySelector('.hero-right');
-  if (!wrap) return;
-  const lines = wrap.querySelectorAll('.spec-line');
-  let done = false;
-  wrap.addEventListener('mouseenter', () => {
-    if (done) return;
-    done = true;
-    lines.forEach((l, i) => setTimeout(() => l.classList.add('scan'), i * 48));
-  });
-})();
 
 // Tap-to-expand explore cards on touch devices
 const isTouch = window.matchMedia('(hover: none)').matches;
