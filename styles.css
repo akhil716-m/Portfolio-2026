@@ -1415,7 +1415,7 @@ nav .status .dot {
 /* Right visual — soft rounded frame, no border of its own (the card's outer rule frames it) */
 .wc-visual {
   background: var(--bg-soft);
-  border-radius: 20px;
+  border-radius: 16px;
   overflow: hidden;
   position: relative;
   aspect-ratio: 5 / 3;
@@ -1809,7 +1809,7 @@ footer .right a:hover { color: var(--accent); }
   .work-gallery { grid-template-columns: 1fr; gap: 32px; }
   .wc-item { grid-template-columns: 1fr; gap: 28px; padding: 48px 20px; }
   .wc-item .wc-meta { border-right: none; padding: 0; }
-  .wc-item .wc-visual { border-radius: 16px; }
+  .wc-item .wc-visual { border-radius: 12px; }
   .wc-row { grid-template-columns: 1fr; gap: 24px; }
   .wc-item--light { height: auto; }
   .wc-item--light .wc-visual { height: 220px; }
