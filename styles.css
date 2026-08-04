@@ -1225,25 +1225,12 @@ nav .status .dot {
   align-items: start;
   gap: 64px;
   padding: 64px 40px;
-  text-decoration: none;
-  color: inherit;
   border: none;
   border-radius: 0;
-  background: rgba(212,255,94,0);
   position: relative;
-  cursor: pointer;
-}
-.wc-group .wc-item {
-  transition: background-color 0.35s;
 }
 .wc-item + .wc-item {
   border-top: 1px solid var(--line);
-}
-.wc-item:hover {
-  background: rgba(212,255,94,0.035);
-}
-.wc-item:hover .wc-title {
-  color: var(--accent);
 }
 
 /* Lighter, supporting projects — sit side by side, smaller than the flagship card */
@@ -1364,13 +1351,21 @@ nav .status .dot {
   line-height: 1.65;
 }
 
-/* Year */
-.wc-year {
+/* CTA — the only clickable element in the card */
+.wc-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   font-family: 'Geist Mono', monospace;
-  font-size: 11px;
-  color: var(--text-muted);
-  letter-spacing: 0.08em;
-  margin-top: 24px;
+  font-size: 13px;
+  letter-spacing: 0.05em;
+  color: var(--accent);
+  text-decoration: none;
+  width: fit-content;
+  margin-top: 40px;
+}
+.wc-cta:hover .arr {
+  transform: translate(3px, 0);
 }
 
 /* Right visual — soft rounded frame, no border of its own (the card's outer rule frames it) */
@@ -1392,13 +1387,6 @@ nav .status .dot {
   object-position: top center;
   display: block;
   transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.wc-item:hover .wc-visual {
-  transform: translateY(-4px);
-  box-shadow: 0 32px 70px -24px rgba(0,0,0,0.6);
-}
-.wc-item:hover .wc-visual img {
-  transform: scale(1.03);
 }
 
 /* Placeholder card — case study not yet written */
