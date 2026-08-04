@@ -27,20 +27,6 @@ body {
 }
 
 
-/* Spotlight cursor */
-.spotlight {
-  position: fixed;
-  width: 600px;
-  height: 600px;
-  border-radius: 50%;
-  background: radial-gradient(circle, var(--glow) 0%, transparent 60%);
-  pointer-events: none;
-  z-index: 1;
-  transform: translate(-50%, -50%);
-  transition: opacity 0.3s;
-  mix-blend-mode: screen;
-}
-
 /* === NAV === */
 nav {
   position: fixed;
@@ -137,6 +123,18 @@ nav .status .dot {
   position: relative;
   max-width: 1400px;
   margin: 0 auto;
+}
+/* Faint dot-grid texture, fading toward the edges — atmosphere behind the intro copy */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(255,255,255,0.07) 1px, transparent 1px);
+  background-size: 28px 28px;
+  -webkit-mask-image: radial-gradient(ellipse 70% 55% at 50% 32%, black 35%, transparent 85%);
+  mask-image: radial-gradient(ellipse 70% 55% at 50% 32%, black 35%, transparent 85%);
+  pointer-events: none;
+  z-index: -1;
 }
 
 .hero-eyebrow {
@@ -251,46 +249,9 @@ nav .status .dot {
 /* === HERO ILLUSTRATION === */
 .hero-body {
   display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 60px;
+  grid-template-columns: 1fr;
   align-items: center;
 }
-.hero-right { position: relative; height: 420px; }
-.hero-spec {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-end;
-  padding: 0;
-  opacity: 0.15;
-  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.hero-right:hover .hero-spec { opacity: 1; }
-.spec-block {
-  font-family: 'Geist Mono', monospace;
-  font-size: 12px;
-  line-height: 1.95;
-}
-.spec-line { display: block; white-space: nowrap; }
-@keyframes scanIn {
-  from { clip-path: inset(0 100% 0 0); }
-  to   { clip-path: inset(0 -1px 0 0); }
-}
-.spec-line.scan { animation: scanIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) both; }
-.s-key  { color: var(--text-muted); }
-.s-str  { color: var(--text); }
-.s-num  { color: var(--accent); }
-.s-cmt  { color: #3a3a3a; }
-.s-kw   { color: rgba(212,255,94,0.5); }
-.s-punc { color: #484848; }
-.s-cursor {
-  display: inline-block; width: 7px; height: 13px;
-  background: var(--accent); opacity: 0.7; vertical-align: text-bottom;
-  animation: blink 1.1s step-end infinite;
-}
-@keyframes blink { 0%,100%{opacity:0.7} 50%{opacity:0} }
 
 /* === SCROLL HINT === */
 @keyframes scrollDown {
@@ -689,7 +650,7 @@ nav .status .dot {
    gets none of the auto-centering margin a 27"+ monitor gets for free — give it its
    own side padding instead of the flat 40px so the boxed frame doesn't hug the edge. */
 @media (min-width: 901px) and (max-width: 1800px) {
-  .section { padding-left: 100px; padding-right: 100px; }
+  .section, .hero { padding-left: 100px; padding-right: 100px; }
 }
 
 .section-head {
@@ -720,8 +681,8 @@ nav .status .dot {
 
 .section-title {
   font-family: 'Geist', sans-serif;
-  font-size: clamp(32px, 4.4vw, 64px);
-  line-height: 1.05;
+  font-size: clamp(30px, 3.8vw, 56px);
+  line-height: 1.08;
   letter-spacing: -0.02em;
   font-weight: 400;
 }
@@ -1219,7 +1180,7 @@ nav .status .dot {
   position: absolute;
   width: 10px;
   height: 10px;
-  background: var(--text-soft);
+  background: var(--text-muted);
   pointer-events: none;
   z-index: 2;
 }
@@ -1264,25 +1225,12 @@ nav .status .dot {
   align-items: start;
   gap: 64px;
   padding: 64px 40px;
-  text-decoration: none;
-  color: inherit;
   border: none;
   border-radius: 0;
-  background: rgba(212,255,94,0);
   position: relative;
-  cursor: pointer;
-}
-.wc-group .wc-item {
-  transition: background-color 0.35s;
 }
 .wc-item + .wc-item {
   border-top: 1px solid var(--line);
-}
-.wc-item:hover {
-  background: rgba(212,255,94,0.035);
-}
-.wc-item:hover .wc-title {
-  color: var(--accent);
 }
 
 /* Lighter, supporting projects — sit side by side, smaller than the flagship card */
@@ -1403,19 +1351,27 @@ nav .status .dot {
   line-height: 1.65;
 }
 
-/* Year */
-.wc-year {
+/* CTA — the only clickable element in the card */
+.wc-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   font-family: 'Geist Mono', monospace;
-  font-size: 11px;
-  color: var(--text-muted);
-  letter-spacing: 0.08em;
-  margin-top: 24px;
+  font-size: 13px;
+  letter-spacing: 0.05em;
+  color: var(--accent);
+  text-decoration: none;
+  width: fit-content;
+  margin-top: 40px;
+}
+.wc-cta:hover .arr {
+  transform: translate(3px, 0);
 }
 
 /* Right visual — soft rounded frame, no border of its own (the card's outer rule frames it) */
 .wc-visual {
   background: var(--bg-soft);
-  border-radius: 20px;
+  border-radius: 16px;
   overflow: hidden;
   position: relative;
   aspect-ratio: 5 / 3;
@@ -1431,13 +1387,6 @@ nav .status .dot {
   object-position: top center;
   display: block;
   transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.wc-item:hover .wc-visual {
-  transform: translateY(-4px);
-  box-shadow: 0 32px 70px -24px rgba(0,0,0,0.6);
-}
-.wc-item:hover .wc-visual img {
-  transform: scale(1.03);
 }
 
 /* Placeholder card — case study not yet written */
@@ -1758,7 +1707,6 @@ footer .right a:hover { color: var(--accent); }
 
 /* === RESPONSIVE === */
 @media (max-width: 900px) {
-  .spotlight { display: none; }
   nav {
     padding: 16px 20px;
     font-size: 11px;
@@ -1809,12 +1757,10 @@ footer .right a:hover { color: var(--accent); }
   .work-gallery { grid-template-columns: 1fr; gap: 32px; }
   .wc-item { grid-template-columns: 1fr; gap: 28px; padding: 48px 20px; }
   .wc-item .wc-meta { border-right: none; padding: 0; }
-  .wc-item .wc-visual { border-radius: 16px; }
+  .wc-item .wc-visual { border-radius: 12px; }
   .wc-row { grid-template-columns: 1fr; gap: 24px; }
   .wc-item--light { height: auto; }
   .wc-item--light .wc-visual { height: 220px; }
-  .hero-right { display: none; }
-  .hero-body { grid-template-columns: 1fr; }
   .work-preview-wrap { display: none; }
   .work-link { grid-template-columns: 32px 1fr auto; gap: 16px; padding: 20px 0; }
   .work-link:hover { padding-left: 8px; }
