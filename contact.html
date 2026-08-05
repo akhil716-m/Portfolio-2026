@@ -19,13 +19,13 @@
 
 <nav>
   <div class="logo">
-    <a href="index.html">
+    <a href="/">
       <span class="name">Akhil Male</span>
     </a>
   </div>
   <div class="links">
-    <a href="index.html">Home</a>
-    <a href="resume.html">Resume</a>
+    <a href="/">Home</a>
+    <a href="/resume">Resume</a>
   </div>
   <div class="status"><span class="dot"></span><span class="status-text">available for select work</span></div>
 </nav>
@@ -58,7 +58,7 @@
 const navEl = document.querySelector('nav');
 window.addEventListener('scroll', () => { navEl.classList.toggle('is-scrolled', window.scrollY > 8); }, { passive: true });
 
-const page = location.pathname.split('/').pop() || 'index.html';
+const page = location.pathname.replace(/\/$/, '') || '/';
 document.querySelectorAll('nav .links a').forEach(a => { if(a.getAttribute('href')===page) a.classList.add('active'); });
 
 document.querySelectorAll('.faq-item').forEach(item => {
