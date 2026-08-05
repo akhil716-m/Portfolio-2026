@@ -4,6 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Akhil Male — Contact</title>
+<link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -18,13 +19,13 @@
 
 <nav>
   <div class="logo">
-    <a href="index.html">
+    <a href="/">
       <span class="name">Akhil Male</span>
     </a>
   </div>
   <div class="links">
-    <a href="index.html">Home</a>
-    <a href="resume.html">Resume</a>
+    <a href="/">Home</a>
+    <a href="/resume">Resume</a>
   </div>
   <div class="status"><span class="dot"></span><span class="status-text">available for select work</span></div>
 </nav>
@@ -57,7 +58,7 @@
 const navEl = document.querySelector('nav');
 window.addEventListener('scroll', () => { navEl.classList.toggle('is-scrolled', window.scrollY > 8); }, { passive: true });
 
-const page = location.pathname.split('/').pop() || 'index.html';
+const page = location.pathname.replace(/\/$/, '') || '/';
 document.querySelectorAll('nav .links a').forEach(a => { if(a.getAttribute('href')===page) a.classList.add('active'); });
 
 document.querySelectorAll('.faq-item').forEach(item => {

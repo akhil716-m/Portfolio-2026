@@ -4,6 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Akhil Male — Product Designer</title>
+<link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -17,12 +18,12 @@
 
 <nav>
   <div class="logo">
-    <a href="index.html">
+    <a href="/">
       <span class="name">Akhil Male</span>
     </a>
   </div>
   <div style="display: flex; align-items: center; gap: 32px;">
-    <div class="links"><a href="resume.html"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg> Resume</a></div>
+    <div class="links"><a href="/resume"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg> Resume</a></div>
     <div class="status"><span class="dot"></span><span class="status-text">available for select projects</span></div>
   </div>
 </nav>
@@ -83,7 +84,7 @@
             <span>Enterprise</span>
             <span>Fintech</span>
           </div>
-          <a class="wc-cta" href="work-hypersense.html">Read case study <span class="arr">→</span></a>
+          <a class="wc-cta" href="/work-hypersense">Read case study <span class="arr">→</span></a>
         </div>
         <div class="wc-visual">
           <img src="assets/hypersense-behance-cover.png" alt="HyperSense dashboard" style="object-fit: cover; object-position: top center;" />
@@ -109,7 +110,7 @@
             <span>Enterprise</span>
             <span>Fintech</span>
           </div>
-          <a class="wc-cta" href="work-reconciliation.html">Read case study <span class="arr">→</span></a>
+          <a class="wc-cta" href="/work-reconciliation">Read case study <span class="arr">→</span></a>
         </div>
         <div class="wc-visual">
           <img src="assets/recon/cover.png" alt="Reconciliation case study cover" style="object-fit: cover; object-position: top center;">
@@ -134,7 +135,7 @@
             <span>Product Design</span>
             <span>EdTech</span>
           </div>
-          <a class="wc-cta" href="https://www.behance.net/gallery/193558927/Learning-app-for-Blue-collar-Upskilling" target="_blank" rel="noopener">View on Behance <span class="arr">↗</span></a>
+          <a class="wc-cta" href="https://www.behance.net/gallery/193558927/Learning-app-for-Blue-collar-Upskilling" target="_blank" rel="noopener" data-track="oust-app-behance">View on Behance <span class="arr">↗</span></a>
         </div>
         <div class="wc-visual">
           <img src="assets/skilling-behance.png" alt="Oust App UI" style="object-fit: cover; object-position: 60% center;" />
@@ -159,7 +160,7 @@
             <span>Product Design</span>
             <span>Workforce Ops</span>
           </div>
-          <a class="wc-cta" href="https://www.behance.net/gallery/196838779/Attendance-app-for-blue-collars" target="_blank" rel="noopener">View on Behance <span class="arr">↗</span></a>
+          <a class="wc-cta" href="https://www.behance.net/gallery/196838779/Attendance-app-for-blue-collars" target="_blank" rel="noopener" data-track="attendance-behance">View on Behance <span class="arr">↗</span></a>
         </div>
         <div class="wc-visual">
           <img src="assets/attendance-behance.png" alt="Attendance UI" style="object-fit: cover; object-position: top center;" />
@@ -326,7 +327,7 @@
   <div class="rb-inner">
     <h2 class="rb-title">A snapshot of the journey so far.</h2>
     <div class="rb-term" aria-hidden="true"><span class="rb-typed"></span><span class="rb-cursor"></span></div>
-    <a class="rb-cta" href="resume.html">View Resume <span class="arr">↗</span></a>
+    <a class="rb-cta" href="/resume">View Resume <span class="arr">↗</span></a>
   </div>
   <div class="rb-rule" aria-hidden="true"></div>
 </section>
@@ -373,8 +374,15 @@ if (workGallery) {
 }
 
 // Active nav — index has no active link since it's home
-const page = location.pathname.split('/').pop() || 'index.html';
+const page = location.pathname.replace(/\/$/, '') || '/';
 document.querySelectorAll('nav .links a').forEach(a => { if(a.getAttribute('href')===page) a.classList.add('active'); });
+
+// Track outbound case-study links (Behance) as custom Vercel Analytics events
+document.querySelectorAll('[data-track]').forEach(el => {
+  el.addEventListener('click', () => {
+    if (window.va) window.va('event', { name: el.dataset.track });
+  });
+});
 
 // Tap-to-expand explore cards on touch devices
 const isTouch = window.matchMedia('(hover: none)').matches;
