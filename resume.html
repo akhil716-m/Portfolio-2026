@@ -91,11 +91,17 @@
 /* ── Header ── */
 .resume-header {
   display: grid;
-  grid-template-columns: auto 1fr auto;
-  gap: 24px;
+  grid-template-columns: 1fr 280px;
+  gap: 60px;
   align-items: center;
   padding-bottom: 0;
   margin-bottom: 56px;
+}
+.resume-header-id {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  min-width: 0;
 }
 .resume-photo {
   width: 110px;
@@ -110,7 +116,7 @@
   align-self: center;
 }
 .resume-photo:hover { filter: grayscale(0%); }
-.resume-name-block { display: flex; flex-direction: column; gap: 8px; }
+.resume-name-block { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
 .resume-name {
   font-family: 'Geist', sans-serif;
   font-size: 24px;
@@ -406,10 +412,12 @@
 
   <!-- Header -->
   <div class="resume-header">
-    <img src="assets/akhil.jpg" alt="M. Akhil" class="resume-photo" />
-    <div class="resume-name-block">
-      <div class="resume-name">M. Akhil</div>
-      <div class="resume-summary">Product Designer with 3.5+ years of experience simplifying complex enterprise and B2B products.</div>
+    <div class="resume-header-id">
+      <img src="assets/akhil.jpg" alt="M. Akhil" class="resume-photo" />
+      <div class="resume-name-block">
+        <div class="resume-name">M. Akhil</div>
+        <div class="resume-summary">Product Designer with 3.5+ years of experience simplifying complex enterprise and B2B products.</div>
+      </div>
     </div>
     <div class="resume-contacts">
       <a href="mailto:akhilmale.ux@gmail.com" class="resume-contact">akhilmale.ux@gmail.com</a>
