@@ -1,0 +1,13 @@
+# Files that should not be published by Cloudflare
+.git
+.github
+.wrangler
+node_modules
+wrangler.jsonc
+.assetsignore
+vercel.json
+README.md
+CLAUDE.md
+
+# Cloudflare rejects files over 25 MiB. This recording isn't used by any page.
+assets/skilling-rec.mov
