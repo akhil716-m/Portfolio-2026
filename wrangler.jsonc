@@ -1,0 +1,13 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "portfolio-2026",
+  "compatibility_date": "2026-09-01",
+  // Static site: serve the repo root as-is, no build step.
+  "assets": {
+    "directory": "./",
+    // Serves /contact from contact.html and redirects /contact.html to /contact
+    // (same behaviour as cleanUrls + trailingSlash:false in vercel.json).
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "none"
+  }
+}
