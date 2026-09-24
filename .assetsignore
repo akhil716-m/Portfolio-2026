@@ -5,6 +5,7 @@
 node_modules
 wrangler.jsonc
 .assetsignore
+vercel.json
 README.md
 CLAUDE.md
 
