@@ -1,4 +1,5 @@
 {
-  "cleanUrls": true,
-  "trailingSlash": false
+  "redirects": [
+    { "source": "/(.*)", "destination": "https://akhilmale.in/$1", "permanent": true }
+  ]
 }

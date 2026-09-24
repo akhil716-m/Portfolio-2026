@@ -6,7 +6,7 @@
   "assets": {
     "directory": "./",
     // Serves /contact from contact.html and redirects /contact.html to /contact
-    // (same behaviour as cleanUrls + trailingSlash:false in vercel.json).
+    // (clean URLs without .html and without a trailing slash).
     "html_handling": "auto-trailing-slash",
     "not_found_handling": "none"
   }
