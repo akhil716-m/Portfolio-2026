@@ -1,0 +1,1437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Akhil Male — Up-skill, a Case Study</title>
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<meta name="description" content="A ground-up redesign of GoBetter's learning app for blue-collar workers.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Akhil Male — Up-skill, a Case Study">
+<meta property="og:description" content="A ground-up redesign of GoBetter's learning app for blue-collar workers.">
+<meta property="og:url" content="https://akhilmale.in/work-skilling">
+<meta property="og:image" content="https://akhilmale.in/assets/og-image.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Akhil Male — Up-skill, a Case Study">
+<meta name="twitter:description" content="A ground-up redesign of GoBetter's learning app for blue-collar workers.">
+<meta name="twitter:image" content="https://akhilmale.in/assets/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<script type="text/javascript">
+  (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+  })(window, document, "clarity", "script", "ykaez3m42c");
+</script>
+<style>
+/* ============================================================
+   CASE STUDY — UP-SKILL (GoBetter learning app)
+   Shares the lime / dark, Geist language established in the
+   HyperSense and Reconciliation case studies. All page-specific
+   rules are namespaced with `.cs-` to stay isolated from the
+   shared stylesheet. Design boards are cropped from the source
+   PDF and live in assets/skilling/ — swap any file for a better
+   export without touching the markup.
+   ============================================================ */
+#cs-progress {
+  position: fixed; top: 0; left: 0; height: 2px; background: var(--accent);
+  width: 0%; z-index: 1000; transition: width 0.12s linear;
+  box-shadow: 0 0 12px rgba(212,255,94,0.4);
+}
+
+@keyframes csFadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes csScrollPulse {
+  0%, 100% { opacity: 0.25; transform: scaleY(0.6); }
+  50% { opacity: 1; transform: scaleY(1); }
+}
+
+/* ---------- CONTEXT RAIL — sticky scroll-spy nav (section thesis + jump list) ---------- */
+.cs-rail {
+  position: fixed; left: clamp(20px, 2.5vw, 40px); top: 50%;
+  transform: translateY(-50%); width: 200px; z-index: 60;
+  opacity: 0; pointer-events: none; transition: opacity 0.5s ease;
+}
+.cs-rail.is-visible { opacity: 1; pointer-events: auto; }
+.cs-rail-inner { padding-left: 18px; border-left: 1px solid var(--line); }
+.cs-rail-list {
+  list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 2px;
+}
+.cs-rail-list li button {
+  display: flex; align-items: center; gap: 10px; width: 100%;
+  background: none; border: none; cursor: pointer; padding: 5px 0; text-align: left;
+}
+.cs-rail-num {
+  font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.12em;
+  color: var(--text-muted); flex-shrink: 0; transition: color 0.15s;
+}
+.cs-rail-name {
+  font-family: 'Geist', sans-serif; font-size: 12px; color: var(--text-muted);
+  line-height: 1.3; white-space: nowrap; transition: color 0.15s;
+}
+.cs-rail-list li button:hover .cs-rail-name,
+.cs-rail-list li button:hover .cs-rail-num { color: var(--text-soft); }
+.cs-rail-list li.is-active .cs-rail-num { color: var(--accent); }
+.cs-rail-list li.is-active .cs-rail-name { color: var(--text); font-weight: 500; }
+@media(max-width: 1280px) { .cs-rail { display: none; } }
+
+/* ---------- HERO ---------- */
+.cs-hero {
+  min-height: 100vh; display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 140px clamp(24px, 6vw, 80px) 100px; position: relative; overflow: hidden;
+}
+.cs-hero::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none; z-index: -1;
+  background:
+    radial-gradient(ellipse 60% 50% at 80% 10%, rgba(212,255,94,0.07), transparent 70%),
+    radial-gradient(ellipse 50% 40% at 10% 90%, rgba(255,255,255,0.03), transparent 70%);
+}
+.cs-back {
+  display: inline-flex; align-items: center; gap: 8px; margin-bottom: 32px; width: fit-content;
+  font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--text-muted); text-decoration: none; transition: color 0.2s ease, gap 0.2s ease;
+  opacity: 0; animation: csFadeUp 0.7s ease forwards 0.05s;
+}
+.cs-back:hover { color: var(--accent); gap: 13px; }
+nav .logo a.cs-back { margin-bottom: 0; opacity: 1; animation: none; color: var(--text-muted); }
+nav .logo a.cs-back:hover { color: var(--accent); }
+.cs-back .arr { display: inline-block; transition: transform 0.2s ease; }
+.cs-back:hover .arr { transform: translateX(-3px); }
+
+.cs-hero-eyebrow {
+  font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 26px;
+  opacity: 0; animation: csFadeUp 0.8s ease forwards 0.2s;
+}
+.cs-hero-eyebrow .sep { color: var(--text-muted); margin: 0 10px; letter-spacing: 0; }
+.cs-hero-title {
+  font-family: 'Geist', sans-serif; font-size: clamp(60px, 11vw, 130px); font-weight: 500;
+  line-height: 0.96; letter-spacing: -0.03em; color: var(--text); max-width: 920px;
+  opacity: 0; animation: csFadeUp 0.9s ease forwards 0.35s;
+}
+.cs-hero-title em {
+  font-style: normal; font-family: 'Geist', sans-serif; font-weight: 500; color: var(--text-soft);
+}
+.cs-hero-meta {
+  display: flex; flex-wrap: wrap; gap: 48px; margin-top: 58px; padding-top: 32px;
+  border-top: 1px solid var(--line);
+  opacity: 0; animation: csFadeUp 0.8s ease forwards 0.55s;
+}
+.cs-hero-meta-item label {
+  display: block; font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--text-muted); margin-bottom: 9px;
+}
+.cs-hero-meta-item span { font-family: 'Geist', sans-serif; font-size: 14px; font-weight: 300; color: var(--text-soft); }
+.cs-hero-meta-item .accent { color: var(--accent); }
+
+.cs-hero-scroll {
+  position: absolute; bottom: 40px; right: clamp(24px, 6vw, 80px);
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+  opacity: 0; animation: csFadeUp 0.8s ease forwards 1s;
+}
+.cs-hero-scroll span {
+  font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--text-muted); writing-mode: vertical-rl;
+}
+.cs-hero-scroll-line {
+  width: 1px; height: 58px;
+  background: linear-gradient(to bottom, var(--accent) 0%, transparent 100%);
+  animation: csScrollPulse 2.2s ease-in-out infinite;
+}
+
+/* ---------- SECTION SCAFFOLD ---------- */
+.cs-section { padding: clamp(80px, 12vw, 140px) 0; border-top: 1px solid var(--line); }
+.cs-wrap { max-width: 760px; margin: 0 auto; padding: 0 clamp(24px, 6vw, 48px); }
+.cs-wrap--wide { max-width: 1140px; }
+.cs-wrap--showcase { max-width: min(60vw, 1040px); }
+
+.cs-label {
+  display: flex; align-items: center; gap: 16px; margin-bottom: 46px;
+  font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--accent);
+}
+.cs-label::after { content: ''; flex: 1; max-width: 44px; height: 1px; background: var(--line); }
+
+.cs-display {
+  font-family: 'Geist', sans-serif; font-size: clamp(32px, 4.6vw, 52px); font-weight: 500;
+  line-height: 1.18; letter-spacing: -0.015em; color: var(--text); margin: 0 0 30px; max-width: 17ch;
+}
+.cs-display em {
+  font-style: normal; font-family: 'Geist', sans-serif; font-weight: 500; color: var(--text-soft);
+}
+.cs-lead {
+  font-family: 'Geist', sans-serif; font-size: 19px; font-weight: 300; line-height: 1.75;
+  color: var(--text-soft); margin: 0 0 28px; max-width: 620px;
+}
+.cs-p {
+  font-family: 'Geist', sans-serif; font-size: 16px; font-weight: 300; line-height: 1.85;
+  color: var(--text-soft); margin: 0 0 26px; max-width: 620px;
+}
+.cs-p:last-child { margin-bottom: 0; }
+.cs-p strong { color: var(--text); font-weight: 600; }
+.cs-em { font-style: normal; font-family: 'Geist', sans-serif; font-weight: 500; color: var(--text); }
+.cs-h3 {
+  font-family: 'Geist', sans-serif; font-size: clamp(22px, 3.2vw, 30px); font-weight: 600;
+  color: var(--text); margin: 0 0 16px;
+}
+.cs-lead {
+  font-family: 'Geist', sans-serif; font-size: 19px; font-weight: 500; line-height: 1.5;
+  color: var(--text); margin: 0 0 20px;
+}
+/* ---------- CLOSING QUOTE ---------- */
+.cs-quote {
+  margin: 64px 0 22px; padding: 0 0 0 24px; border-left: 2px solid var(--accent);
+  font-family: 'Geist', sans-serif; font-style: normal; font-size: clamp(18px, 2.4vw, 23px);
+  font-weight: 400; line-height: 1.6; color: var(--text); max-width: 640px;
+}
+.cs-thanks { font-size: 15px; color: var(--text-soft); }
+.cs-thanks-note {
+  margin: 72px 0 0; padding: 0; text-align: center;
+  display: flex; flex-direction: column; align-items: center; gap: 16px;
+}
+.cs-thanks-mark { color: var(--accent); display: inline-flex; align-items: center; gap: 14px; }
+.cs-thanks-dash { width: 32px; height: 1px; background: var(--line); display: inline-block; }
+.cs-thanks-note p {
+  margin: 0; font-family: 'Geist', sans-serif; font-size: 18px; font-weight: 500;
+  color: var(--text); letter-spacing: -0.01em;
+}
+.cs-cta-center { display: flex; justify-content: center; margin-top: 32px; }
+.cs-cta-center a.cs-cta { margin-top: 0; }
+/* ---------- CTA ---------- */
+.cs-cta {
+  display: inline-flex; align-items: center; gap: 10px; font-family: 'Geist Mono', monospace; font-size: 12px;
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--text); text-decoration: none;
+  padding: 14px 26px; border: 1px solid var(--line); border-radius: 100px;
+  transition: gap 0.2s ease, color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+.cs-cta:hover { color: var(--bg); background: var(--accent); border-color: var(--accent); gap: 14px; }
+a.cs-cta { margin-top: 28px; }
+.cs-divider { border: none; border-top: 1px solid var(--line); margin: clamp(48px, 5vw, 64px) auto; max-width: 760px; }
+/* ---------- REVEAL-ON-SCROLL ---------- */
+.reveal { opacity: 0; transform: translateY(26px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.is-visible { opacity: 1; transform: translateY(0); }
+@media (max-width: 760px) {
+  .cs-hero-meta { gap: 30px; margin-top: 32px; border-top: 1px solid var(--line); padding-top: 32px; }
+  .cs-hero { min-height: 100vh; justify-content: flex-start; padding: 260px 20px 60px; }
+  .cs-hero-scroll { display: none; }
+  .cs-hero-eyebrow { margin-top: auto; margin-bottom: 32px; white-space: nowrap; letter-spacing: 0.1em; font-size: 10px; }
+  .cs-hero-eyebrow .sep { margin: 0 6px; }
+  .cs-hero-title { font-size: clamp(46px, 11vw, 130px); }
+}
+
+/* ---------- ANCHOR GRID — role / team / timeline, and the three redesign reasons ---------- */
+.cs-anchor-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin: 40px 0 8px; }
+.cs-anchor { padding-top: 18px; border-top: 2px solid var(--accent); }
+.cs-anchor-num { font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; }
+.cs-anchor-title { font-family: 'Geist', sans-serif; font-size: 19px; font-weight: 600; color: var(--text); margin-bottom: 8px; }
+.cs-anchor-desc { font-family: 'Geist', sans-serif; font-size: 13.5px; font-weight: 300; line-height: 1.75; color: var(--text-soft); }
+.cs-phase-tag {
+  font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--accent); font-weight: 500; margin-bottom: 10px;
+}
+
+/* ---------- LISTS ---------- */
+.cs-list { list-style: none; padding: 0; margin: 0 0 32px; display: flex; flex-direction: column; gap: 11px; }
+.cs-list li {
+  position: relative; padding-left: 24px;
+  font-family: 'Geist', sans-serif; font-size: 16px; font-weight: 300; line-height: 1.7; color: var(--text-soft);
+}
+.cs-list li::before { content: '—'; position: absolute; left: 0; color: var(--accent); }
+.cs-list:last-child { margin-bottom: 0; }
+
+/* ---------- STATS — product scale ---------- */
+.cs-stats {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+  background: var(--line); border-radius: 10px; overflow: hidden; margin: 40px 0 8px;
+}
+.cs-stat { padding: 32px 24px; background: var(--bg-card); }
+.cs-stat-num {
+  font-family: 'Geist', sans-serif; font-size: clamp(34px, 5vw, 52px); font-weight: 500;
+  line-height: 1; letter-spacing: -0.03em; color: var(--text); margin-bottom: 14px;
+}
+.cs-stat-num .sym { color: var(--accent); }
+.cs-stat-label {
+  font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--text-muted);
+}
+
+/* ---------- CHIPS — industries and design principles ---------- */
+.cs-chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 28px 0 0; }
+.cs-chip {
+  display: inline-flex; align-items: center; min-height: 40px; padding: 0 18px; border-radius: 100px;
+  border: 1px solid var(--line); background: var(--bg-card);
+  font-family: 'Geist', sans-serif; font-size: 14px; font-weight: 400; color: var(--text-soft);
+}
+.cs-chips--lg .cs-chip { min-height: 48px; padding: 0 24px; font-size: 16px; color: var(--text); }
+
+/* ---------- CARDS — challenges and scope of intervention ---------- */
+.cs-cards {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1px; margin: 32px 0 8px;
+  background: var(--line); border-radius: 10px; overflow: hidden;
+}
+.cs-card { padding: 28px 26px 30px; background: var(--bg-card); }
+.cs-card-num {
+  font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 14px;
+}
+.cs-card-title { font-family: 'Geist', sans-serif; font-size: 16px; font-weight: 600; line-height: 1.4; color: var(--text); margin-bottom: 10px; }
+.cs-card-desc { font-family: 'Geist', sans-serif; font-size: 13.5px; font-weight: 300; line-height: 1.75; color: var(--text-soft); margin: 0; }
+.cs-cards--tight .cs-card { padding: 24px 26px 26px; }
+
+/* ---------- FIGURES — cropped design boards, click to expand ---------- */
+.cs-wrap--board { max-width: min(66vw, 1040px); padding: 0; }
+.cs-board { margin: 48px 0 0; }
+.cs-fig-frame {
+  position: relative; overflow: hidden; cursor: zoom-in; background: #fff;
+  border-radius: clamp(12px, 1.9vw, 24px);
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 30px 80px rgba(0,0,0,0.45);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.cs-fig-frame:hover { border-color: rgba(212,255,94,0.35); }
+.cs-fig-frame:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+.cs-fig-frame img { display: block; width: 100%; height: auto; }
+.cs-fig-zoom {
+  position: absolute; top: 14px; right: 14px; width: 36px; height: 36px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; color: var(--text);
+  background: rgba(10,10,10,0.72); border: 1px solid rgba(255,255,255,0.14);
+  -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+  opacity: 0; transform: scale(0.9); transition: opacity 0.2s ease, transform 0.2s ease;
+  pointer-events: none;
+}
+.cs-fig-frame:hover .cs-fig-zoom, .cs-fig-frame:focus-visible .cs-fig-zoom { opacity: 1; transform: scale(1); }
+@media (hover: none) { .cs-fig-zoom { opacity: 1; transform: none; } }
+.cs-board .cs-mock-cap {
+  margin-top: 14px; padding-left: 4px; display: flex; align-items: baseline; gap: 12px;
+}
+.cs-mock-cap-num { font-family: 'Geist Mono', monospace; font-size: 10px; color: var(--text-muted); letter-spacing: 0.08em; }
+.cs-mock-cap-title { font-family: 'Geist', sans-serif; font-size: 13px; color: var(--text-soft); font-weight: 300; }
+.cs-board--photo .cs-fig-frame { cursor: default; background: var(--bg-card); }
+.cs-board--photo .cs-fig-zoom { display: none; }
+
+/* Side-by-side: board + supporting list */
+.cs-split { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 40px; align-items: start; }
+.cs-split .cs-board { margin-top: 0; }
+.cs-split .cs-list { margin-top: 4px; }
+
+/* Users photo with industries sitting underneath */
+.cs-users-stage { margin-top: 48px; }
+.cs-users-stage .cs-board { margin-top: 0; }
+
+/* ---------- LIGHTBOX ---------- */
+.cs-lb {
+  position: fixed; inset: 0; z-index: 2000; display: none; overflow: auto;
+  background: rgba(6,6,6,0.94); -webkit-overflow-scrolling: touch; overscroll-behavior: contain;
+}
+.cs-lb.is-open { display: block; animation: csLbIn 0.25s ease; }
+@keyframes csLbIn { from { opacity: 0; } to { opacity: 1; } }
+.cs-lb-inner { min-height: 100%; display: flex; align-items: flex-start; justify-content: center; padding: 64px 0 40px; }
+.cs-lb img {
+  display: block; height: auto; background: #fff; border-radius: 12px;
+  width: max(min(1500px, 96vw), 900px); max-width: none;
+}
+.cs-lb-close {
+  position: fixed; top: max(16px, env(safe-area-inset-top)); right: max(16px, env(safe-area-inset-right)); z-index: 2001;
+  width: 44px; height: 44px; border-radius: 50%; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; color: var(--text);
+  background: rgba(20,20,20,0.9); border: 1px solid rgba(255,255,255,0.16);
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+.cs-lb-close:hover { color: var(--accent); border-color: var(--accent); }
+.cs-lb-hint {
+  position: fixed; left: 50%; bottom: max(16px, env(safe-area-inset-bottom)); transform: translateX(-50%);
+  padding: 8px 16px; border-radius: 100px; z-index: 2001; pointer-events: none;
+  font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text-soft); background: rgba(20,20,20,0.9); border: 1px solid var(--line); white-space: nowrap;
+}
+body.cs-lb-lock { overflow: hidden; }
+
+/* ---------- SECTION SUB-BLOCKS ---------- */
+/* Boards are wide, so the rail (fixed at the left edge) is hidden until there is room for both */
+.cs-sub { margin-top: 88px; }
+.cs-sub .cs-h3 { margin-bottom: 14px; }
+
+@media (max-width: 1400px) { .cs-rail { display: none; } }
+
+@media (max-width: 900px) {
+  .cs-wrap--board { max-width: none; padding: 0 16px; }
+  .cs-split { grid-template-columns: 1fr; gap: 32px; }
+}
+@media (max-width: 760px) {
+  .cs-anchor-grid { grid-template-columns: 1fr; gap: 32px; }
+  .cs-stats { grid-template-columns: 1fr; }
+  .cs-stat { padding: 24px 20px; }
+  .cs-cards { grid-template-columns: 1fr; }
+  .cs-card { padding: 24px 20px 26px; }
+  .cs-board { margin-top: 32px; }
+  .cs-sub { margin-top: 64px; }
+  .cs-chips--lg .cs-chip { min-height: 44px; padding: 0 18px; font-size: 15px; }
+  .cs-fig-zoom { top: 10px; right: 10px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal { transition: none; opacity: 1; transform: none; }
+  .cs-lb.is-open { animation: none; }
+  .cs-hero-eyebrow, .cs-hero-title, .cs-hero-meta, .cs-hero-scroll, .cs-back { animation: none; opacity: 1; }
+}
+.cs-board--photo { margin-top: 0; }
+</style>
+</head>
+<body>
+
+<div id="cs-progress"></div>
+
+<!-- CONTEXT RAIL — sticky scroll-spy: active section thesis + jump list -->
+<aside class="cs-rail" id="cs-rail" aria-hidden="true" aria-label="Section context">
+  <div class="cs-rail-inner">
+    <ul class="cs-rail-list" id="cs-rail-list"></ul>
+  </div>
+</aside>
+
+<nav>
+  <div class="logo">
+    <a class="cs-back" href="/"><span class="arr">←</span> Back to selected work</a>
+  </div>
+</nav>
+
+<!-- ═══════════════════════ HERO ═══════════════════════ -->
+<header class="cs-hero">
+  <div class="cs-hero-eyebrow">Case Study<span class="sep">·</span>EdTech<span class="sep">·</span>2024</div>
+  <h1 class="cs-hero-title">Up<em>-skill</em></h1>
+  <div class="cs-hero-meta">
+    <div class="cs-hero-meta-item"><label>Role</label><span>Product Designer</span></div>
+    <div class="cs-hero-meta-item"><label>Company</label><span>GoBetter <span class="accent">·</span> BetterPlace</span></div>
+    <div class="cs-hero-meta-item"><label>Timeline</label><span>3 months <span class="accent">·</span> Launched April 2024</span></div>
+  </div>
+  <div class="cs-hero-scroll">
+    <span>Scroll</span>
+    <div class="cs-hero-scroll-line"></div>
+  </div>
+</header>
+
+<!-- ═══════════════════════ 01 — OVERVIEW ═══════════════════════ -->
+<section class="cs-section" id="cs-overview">
+<div class="cs-wrap">
+
+  <div class="cs-label reveal"><span class="num">/01</span> Project Overview</div>
+  <h2 class="cs-display reveal">Crafting meaningful learning for <em>blue-collar workers.</em></h2>
+
+  <p class="cs-p reveal">Two years ago, Oust became part of BetterPlace, but it remained a separate product. BetterPlace has since rebranded as GoBetter HRMS solutions, and Oust, as an individual product, was discontinued. Instead, it merged into GoBetter as Up-skill.</p>
+  <p class="cs-p reveal">As part of that change, we completely redesigned the app. The revamped experience is more engaging, meaningful, and aspiring for frontline workers, and it helps the business grow, improves client satisfaction, and increases productivity and retention.</p>
+
+  <div class="cs-anchor-grid reveal">
+    <div class="cs-anchor">
+      <div class="cs-anchor-num">My role</div>
+      <div class="cs-anchor-title">Product designer</div>
+      <div class="cs-anchor-desc">Showing only the information that helps users act directly from the home page, with more emphasis on CTAs and engaging elements like coins and badges.</div>
+    </div>
+    <div class="cs-anchor">
+      <div class="cs-anchor-num">Team</div>
+      <div class="cs-anchor-title">Akhil Male</div>
+      <div class="cs-anchor-desc">With Bijoy Prasad Shah and Sugata Biswas.</div>
+    </div>
+    <div class="cs-anchor">
+      <div class="cs-anchor-num">Timeline</div>
+      <div class="cs-anchor-title">3 months</div>
+      <div class="cs-anchor-desc">From redesign kickoff to launch in April 2024.</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="cs-wrap cs-wrap--board">
+<figure class="cs-board reveal">
+  <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: The redesigned Up-skill experience" data-full="assets/skilling/intro-collage.jpg" data-alt="Collage of redesigned Up-skill app screens on the GoBetter brand">
+    <img src="assets/skilling/intro-collage.jpg" alt="Collage of redesigned Up-skill app screens on the GoBetter brand" width="1750" height="679" loading="lazy" decoding="async">
+    <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+  </div>
+  <figcaption class="cs-mock-cap"><span class="cs-mock-cap-num">0.1</span><span class="cs-mock-cap-title">The redesigned Up-skill experience</span></figcaption>
+</figure>
+</div>
+<div class="cs-wrap cs-wrap--board">
+<figure class="cs-board reveal">
+  <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: A wall of the new screens" data-full="assets/skilling/phones-strip.jpg" data-alt="Grid of redesigned Up-skill mobile screens including courses, assessments and playlists">
+    <img src="assets/skilling/phones-strip.jpg" alt="Grid of redesigned Up-skill mobile screens including courses, assessments and playlists" width="1750" height="799" loading="lazy" decoding="async">
+    <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+  </div>
+  <figcaption class="cs-mock-cap"><span class="cs-mock-cap-num">0.2</span><span class="cs-mock-cap-title">A wall of the new screens</span></figcaption>
+</figure>
+</div>
+
+</section>
+
+<!-- ═══════════════════════ 02 — USERS ═══════════════════════ -->
+<section class="cs-section" id="cs-users">
+<div class="cs-wrap">
+
+  <div class="cs-label reveal"><span class="num">/02</span> Context and Users</div>
+  <h2 class="cs-display reveal">Built for the people who keep industries <em>moving.</em></h2>
+
+  <p class="cs-p reveal">Oust set out to help blue-collar workers across India improve their skills. It offers courses, assessments, personalised playlists and even contests to make learning more interesting, in over 35 languages including the major Indian ones.</p>
+  <p class="cs-p reveal">Organisations in blue-collar industries use it to train employees on job-related topics: up-skilling, compliance and work processes, career development and re-skilling. In turn, it helps workers keep learning and growing, and opens new chances in their careers.</p>
+
+  <div class="cs-stats reveal">
+    <div class="cs-stat"><div class="cs-stat-num">1M<span class="sym">+</span></div><div class="cs-stat-label">Users</div></div>
+    <div class="cs-stat"><div class="cs-stat-num">1500<span class="sym">+</span></div><div class="cs-stat-label">Organisations</div></div>
+    <div class="cs-stat"><div class="cs-stat-num">30M<span class="sym">+</span></div><div class="cs-stat-label">Users up-skilled</div></div>
+  </div>
+
+  <h3 class="cs-h3 reveal" style="margin-top: 72px;">Who are our users?</h3>
+  <ul class="cs-list reveal">
+    <li>Use a range of equipment</li>
+    <li>Do not hold a university degree</li>
+    <li>Perform their role away from a desk</li>
+    <li>Tend to do hourly-paid shift work</li>
+  </ul>
+
+</div>
+
+<div class="cs-wrap cs-wrap--board cs-users-stage">
+<figure class="cs-board cs-board--photo reveal"><div class="cs-fig-frame"><img src="assets/skilling/users-photo.jpg" alt="Workers from across industries in their work gear" width="1750" height="635" loading="lazy" decoding="async"></div></figure>
+  <div class="cs-chips cs-chips--lg reveal" aria-label="Industries served">
+    <span class="cs-chip">Retail</span><span class="cs-chip">Hospitality</span><span class="cs-chip">E-commerce</span><span class="cs-chip">Construction</span><span class="cs-chip">Factory</span><span class="cs-chip">Delivery</span><span class="cs-chip">Security</span><span class="cs-chip">Supermarket</span><span class="cs-chip">Manufacturing</span>
+  </div>
+</div>
+
+</section>
+
+<!-- ═══════════════════════ 03 — WHY REDESIGN ═══════════════════════ -->
+<section class="cs-section" id="cs-why">
+<div class="cs-wrap">
+
+  <div class="cs-label reveal"><span class="num">/03</span> Why Redesign</div>
+  <h2 class="cs-display reveal">Three reasons the old app <em>had to change.</em></h2>
+
+  <div class="cs-anchor-grid reveal">
+    <div class="cs-anchor">
+      <div class="cs-anchor-num">01</div>
+      <div class="cs-anchor-title">Integrating Oust with GoBetter</div>
+      <div class="cs-anchor-desc">As BetterPlace rebranded into GoBetter, Oust stopped being a separate product. It became part of GoBetter, called Up-skill.</div>
+    </div>
+    <div class="cs-anchor">
+      <div class="cs-anchor-num">02</div>
+      <div class="cs-anchor-title">Expanding into various geographies</div>
+      <div class="cs-anchor-desc">As GoBetter expands internationally and looks for product-market fit there, a uniform, hassle-free experience for end users becomes essential.</div>
+    </div>
+    <div class="cs-anchor">
+      <div class="cs-anchor-num">03</div>
+      <div class="cs-anchor-title">Client dissatisfaction</div>
+      <div class="cs-anchor-desc">Customers asked for improvements. After the integration, none were made and the experience stayed as it was.</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="cs-wrap cs-wrap--board" style="margin-top: 88px;">
+  <div class="cs-split">
+<figure class="cs-board reveal">
+  <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: The old Oust screens" data-full="assets/skilling/old-designs.jpg" data-alt="Screens from the previous Oust app showing dense, outdated layouts">
+    <img src="assets/skilling/old-designs.jpg" alt="Screens from the previous Oust app showing dense, outdated layouts" width="925" height="1118" loading="lazy" decoding="async">
+    <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+  </div>
+  <figcaption class="cs-mock-cap"><span class="cs-mock-cap-num">3.1</span><span class="cs-mock-cap-title">The old Oust screens</span></figcaption>
+</figure>
+    <div>
+      <p class="cs-phase-tag reveal">Oust old designs</p>
+      <h3 class="cs-h3 reveal">What was holding it back</h3>
+      <ul class="cs-list reveal">
+        <li>Lack of familiarity</li>
+        <li>No clear navigation</li>
+        <li>Over-customisation</li>
+        <li>Poor discoverability</li>
+        <li>Very ambiguous for users</li>
+        <li>Seems very old and less motivating</li>
+        <li>Neither playful nor engaging</li>
+        <li>Non-hygienic</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+</section>
+
+<!-- ═══════════════════════ 04 — CHALLENGES ═══════════════════════ -->
+<section class="cs-section" id="cs-challenges">
+<div class="cs-wrap">
+
+  <div class="cs-label reveal"><span class="num">/04</span> Challenges</div>
+  <h2 class="cs-display reveal">The same friction, seen from <em>two sides.</em></h2>
+  <p class="cs-p reveal">Before designing anything, we mapped what wasn't working for the organisations that assign learning, and for the workers who have to complete it.</p>
+
+  <h3 class="cs-h3 reveal" style="margin-top: 56px;">Faced by organisations</h3>
+  <div class="cs-cards reveal">
+    <div class="cs-card">
+      <div class="cs-card-num">01</div>
+      <div class="cs-card-title">Low course completion rates</div>
+      <p class="cs-card-desc">Organisations struggle to make sure employees finish courses on time. Average completion sits at 13–15%, which is well short of what they need.</p>
+    </div>
+    <div class="cs-card">
+      <div class="cs-card-num">02</div>
+      <div class="cs-card-title">Unable to prioritise content by importance</div>
+      <p class="cs-card-desc">Admins couldn't push important modules forward, so end users didn't discover them and admins had to chase completion manually.</p>
+    </div>
+    <div class="cs-card">
+      <div class="cs-card-num">03</div>
+      <div class="cs-card-title">Challenges with content creation</div>
+      <p class="cs-card-desc">Without structure, format or guided navigation, admins found features and configurations hard to use, especially first-time users.</p>
+    </div>
+    <div class="cs-card">
+      <div class="cs-card-num">04</div>
+      <div class="cs-card-title">Low employee engagement in the app</div>
+      <p class="cs-card-desc">An outdated look and an unclear state left users with little idea of what to do, when, and why, so they engaged less.</p>
+    </div>
+    <div class="cs-card">
+      <div class="cs-card-num">05</div>
+      <div class="cs-card-title">Customisation concerns</div>
+      <p class="cs-card-desc">Admins could freely change backgrounds, CTAs and colours, but that freedom didn't protect brand identity, and it made the experience inconsistent for employees.</p>
+    </div>
+    <div class="cs-card">
+      <div class="cs-card-num">06</div>
+      <div class="cs-card-title">No web version of the app</div>
+      <p class="cs-card-desc">When modules are assigned only every few months, users hesitate to download the app, and admins would rather share a link that works on the web.</p>
+    </div>
+  </div>
+
+</div>
+
+<div class="cs-wrap cs-wrap--board" style="margin-top: 88px;">
+<figure class="cs-board cs-board--photo reveal"><div class="cs-fig-frame"><img src="assets/skilling/helmets.jpg" alt="A wall of coloured safety helmets" width="1750" height="799" loading="lazy" decoding="async"></div></figure>
+</div>
+
+<div class="cs-wrap">
+
+  <h3 class="cs-h3 reveal" style="margin-top: 88px;">Faced by users</h3>
+  <div class="cs-cards reveal">
+    <div class="cs-card">
+      <div class="cs-card-num">01</div>
+      <div class="cs-card-title">Little motivation to complete assigned modules</div>
+      <p class="cs-card-desc">A cluttered, outdated UI, weak content and no decision-making guidance drained motivation to engage.</p>
+    </div>
+    <div class="cs-card">
+      <div class="cs-card-num">02</div>
+      <div class="cs-card-title">Critical modules stay out of sight</div>
+      <p class="cs-card-desc">Nothing surfaced on the landing page. Users had to dig through My Learning, where modules were sorted by date rather than urgency.</p>
+    </div>
+    <div class="cs-card">
+      <div class="cs-card-num">03</div>
+      <div class="cs-card-title">No visibility into ongoing learning</div>
+      <p class="cs-card-desc">Coming back to resume a module meant hunting through the Learn listing and applying filters, which made users lose interest.</p>
+    </div>
+    <div class="cs-card">
+      <div class="cs-card-num">04</div>
+      <div class="cs-card-title">Confusing navigation</div>
+      <p class="cs-card-desc">Events and mandatory items were hard to find. New users in particular searched the calendar and still missed them.</p>
+    </div>
+    <div class="cs-card">
+      <div class="cs-card-num">05</div>
+      <div class="cs-card-title">Module types are hard to tell apart</div>
+      <p class="cs-card-desc">With no visual identity separating a course, an assessment and a playlist, users couldn't decide what to start first.</p>
+    </div>
+    <div class="cs-card">
+      <div class="cs-card-num">06</div>
+      <div class="cs-card-title">No guidance while performing tasks</div>
+      <p class="cs-card-desc">Assessments felt like filling out a form, with no clear instruction per question type and no hints along the way.</p>
+    </div>
+    <div class="cs-card">
+      <div class="cs-card-num">07</div>
+      <div class="cs-card-title">Inconsistent, unexpected UI</div>
+      <p class="cs-card-desc">Heavy admin customisation kept changing CTA types and colours, so it was never clear how to interact with the app.</p>
+    </div>
+    <div class="cs-card">
+      <div class="cs-card-num">08</div>
+      <div class="cs-card-title">Lengthy, low-engagement content</div>
+      <p class="cs-card-desc">Users had limited time, and playlists that felt never-ending made completing them difficult.</p>
+    </div>
+  </div>
+
+</div>
+</section>
+
+<!-- ═══════════════════════ 05 — SCOPE ═══════════════════════ -->
+<section class="cs-section" id="cs-scope">
+<div class="cs-wrap">
+
+  <div class="cs-label reveal"><span class="num">/05</span> Scope of Intervention</div>
+  <h2 class="cs-display reveal">Eight places to <em>intervene.</em></h2>
+  <p class="cs-p reveal">Those challenges gave us a clear brief. These are the areas we chose to focus on.</p>
+
+  <div class="cs-cards cs-cards--tight reveal">
+    <div class="cs-card">
+      <div class="cs-card-num">01</div>
+      <div class="cs-card-title">An action-focused home</div>
+      <p class="cs-card-desc">A dynamic homepage that treats each user intelligently by serving the critical things they need to do.</p>
+    </div>
+    <div class="cs-card">
+      <div class="cs-card-num">02</div>
+      <div class="cs-card-title">Distinct module types</div>
+      <p class="cs-card-desc">Learning modules that look different, so each one clearly defines its purpose in the learning journey.</p>
+    </div>
+    <div class="cs-card">
+      <div class="cs-card-num">03</div>
+      <div class="cs-card-title">Playful assessments</div>
+      <p class="cs-card-desc">An assessment experience that is more engaging and fun for the people taking it.</p>
+    </div>
+    <div class="cs-card">
+      <div class="cs-card-num">04</div>
+      <div class="cs-card-title">Clear, linear navigation</div>
+      <p class="cs-card-desc">Simple and intuitive, with guided navigation where workflows get complex.</p>
+    </div>
+    <div class="cs-card">
+      <div class="cs-card-num">05</div>
+      <div class="cs-card-title">Flexible theming</div>
+      <p class="cs-card-desc">A wide variety of theming that is contextual, effortless, and blends with each organisation's brand.</p>
+    </div>
+    <div class="cs-card">
+      <div class="cs-card-num">06</div>
+      <div class="cs-card-title">Encouraging feedback</div>
+      <p class="cs-card-desc">A feedback mechanism that is efficient, visual, informative and encouraging.</p>
+    </div>
+    <div class="cs-card">
+      <div class="cs-card-num">07</div>
+      <div class="cs-card-title">Short courses</div>
+      <p class="cs-card-desc">Bite-sized content lets users engage quickly and grasp it fast, leading to faster completion.</p>
+    </div>
+    <div class="cs-card">
+      <div class="cs-card-num">08</div>
+      <div class="cs-card-title">Recommendations</div>
+      <p class="cs-card-desc">Suggesting what to complete first or next removes ambiguity and speeds up task completion.</p>
+    </div>
+  </div>
+
+</div>
+
+<div class="cs-wrap cs-wrap--board" style="margin-top: 88px;">
+<figure class="cs-board cs-board--photo reveal"><div class="cs-fig-frame"><img src="assets/skilling/workers-smile.jpg" alt="Three smiling frontline workers in hard hats" width="1750" height="800" loading="lazy" decoding="async"></div></figure>
+</div>
+</section>
+
+<!-- ═══════════════════════ 06 — PROCESS ═══════════════════════ -->
+<section class="cs-section" id="cs-process">
+<div class="cs-wrap">
+
+  <div class="cs-label reveal"><span class="num">/06</span> Process</div>
+  <h2 class="cs-display reveal">Wireframes first, <em>then the UI.</em></h2>
+  <p class="cs-p reveal">We wireframed extensively before moving to UI. The wireframes helped us visualise and finalise the flow and design direction, gather feedback from leadership and stakeholders, and align on the design direction. A well-planned, chapter-by-chapter approach to the revamp cleared up confusion and built clarity early.</p>
+
+</div>
+<div class="cs-wrap cs-wrap--board">
+<figure class="cs-board reveal">
+  <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: Wireframes, chapter by chapter" data-full="assets/skilling/wireframes.jpg" data-alt="Grid of low-fidelity wireframes for the Up-skill app">
+    <img src="assets/skilling/wireframes.jpg" alt="Grid of low-fidelity wireframes for the Up-skill app" width="1750" height="1495" loading="lazy" decoding="async">
+    <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+  </div>
+  <figcaption class="cs-mock-cap"><span class="cs-mock-cap-num">6.1</span><span class="cs-mock-cap-title">Wireframes, chapter by chapter</span></figcaption>
+</figure>
+</div>
+
+<div class="cs-wrap">
+
+  <div class="cs-sub">
+    <h3 class="cs-h3 reveal">Design principles</h3>
+    <p class="cs-p reveal">Setting principles early kept us focused on our objectives and made sure the designs matched the outcomes we wanted.</p>
+    <div class="cs-chips cs-chips--lg reveal">
+      <span class="cs-chip">One at a time</span><span class="cs-chip">Media-first approach</span><span class="cs-chip">Action focused</span><span class="cs-chip">Instructive</span><span class="cs-chip">Building association &amp; familiarity</span><span class="cs-chip">Efficient feedback and progress</span><span class="cs-chip">Guided and personalised experience</span>
+    </div>
+  </div>
+
+  <div class="cs-sub">
+    <h3 class="cs-h3 reveal">User flow</h3>
+    <p class="cs-p reveal">We kept the main flow structure unchanged because of the existing backend architecture, but the principles we followed to restructure the homepage shaped the whole product. Navigation got simpler, a module launcher on the home page gives easy access to every module, and learning progress sits on top for visibility.</p>
+    <p class="cs-p reveal">Users mostly opened the app to finish pending modules. They landed on the homepage and then went to the Learn tab to complete them, and feeds only added friction along the way. So we moved feeds into a tab of their own and let the homepage focus on learning.</p>
+    <p class="cs-p reveal">Events were previously reachable only through the calendar, which users struggled to discover. They now have a distinct entry point on the homepage, with every event listed in one place.</p>
+  </div>
+
+</div>
+<div class="cs-wrap cs-wrap--board">
+<figure class="cs-board reveal">
+  <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: The Up-skill user flow" data-full="assets/skilling/user-flow.jpg" data-alt="Flowchart of the Up-skill user flow from the home page to courses, assessments, playlists and events">
+    <img src="assets/skilling/user-flow.jpg" alt="Flowchart of the Up-skill user flow from the home page to courses, assessments, playlists and events" width="1590" height="2320" loading="lazy" decoding="async">
+    <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+  </div>
+  <figcaption class="cs-mock-cap"><span class="cs-mock-cap-num">6.2</span><span class="cs-mock-cap-title">The Up-skill user flow</span></figcaption>
+</figure>
+</div>
+</section>
+
+<!-- ═══════════════════════ 07 — HOME ═══════════════════════ -->
+<section class="cs-section" id="cs-home">
+<div class="cs-wrap">
+
+  <div class="cs-label reveal"><span class="num">/07</span> Designing the Home</div>
+  <h2 class="cs-display reveal">Making learning <em>frontline friendly.</em></h2>
+  <p class="cs-p reveal">The home page helps you complete tasks with clear guidance and easy access to everything you need. Our aim was to help users find what they need, keep track of assigned and completed modules, and understand which tasks need attention, all from one screen.</p>
+
+  <div class="cs-cards reveal">
+    <div class="cs-card">
+      <div class="cs-card-num">01</div>
+      <div class="cs-card-title">Task-oriented, contextual content</div>
+      <p class="cs-card-desc">Whatever the tasks users need to accomplish will be on top, in priority order.</p>
+    </div>
+    <div class="cs-card">
+      <div class="cs-card-num">02</div>
+      <div class="cs-card-title">Instructive</div>
+      <p class="cs-card-desc">The homepage guides users through specific tasks by prioritising clarity, with efficient visual cues, a prominent CTA and strong visual hierarchy.</p>
+    </div>
+    <div class="cs-card">
+      <div class="cs-card-num">03</div>
+      <div class="cs-card-title">Quick access</div>
+      <p class="cs-card-desc">Clear, direct navigation to every independent module.</p>
+    </div>
+    <div class="cs-card">
+      <div class="cs-card-num">04</div>
+      <div class="cs-card-title">Learning progress indicator</div>
+      <p class="cs-card-desc">Overall progress on top gives users a view of their own learning path and encourages them to finish what remains.</p>
+    </div>
+  </div>
+
+</div>
+<div class="cs-wrap cs-wrap--board">
+<figure class="cs-board reveal">
+  <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: The home page, in context" data-full="assets/skilling/d-intro.jpg" data-alt="Home screen of the Up-skill app shown over a photo of a warehouse worker">
+    <img src="assets/skilling/d-intro.jpg" alt="Home screen of the Up-skill app shown over a photo of a warehouse worker" width="1590" height="1290" loading="lazy" decoding="async">
+    <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+  </div>
+  <figcaption class="cs-mock-cap"><span class="cs-mock-cap-num">7.1</span><span class="cs-mock-cap-title">The home page, in context</span></figcaption>
+</figure>
+</div>
+<div class="cs-wrap cs-wrap--board">
+<figure class="cs-board reveal">
+  <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: Home page" data-full="assets/skilling/d-home.jpg" data-alt="Up-skill home screen with progress indicator, quick access and assigned modules">
+    <img src="assets/skilling/d-home.jpg" alt="Up-skill home screen with progress indicator, quick access and assigned modules" width="1590" height="1516" loading="lazy" decoding="async">
+    <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+  </div>
+  <figcaption class="cs-mock-cap"><span class="cs-mock-cap-num">7.2</span><span class="cs-mock-cap-title">Home page</span></figcaption>
+</figure>
+</div>
+</section>
+
+<!-- ═══════════════════════ 08 — COURSES ═══════════════════════ -->
+<section class="cs-section" id="cs-courses">
+<div class="cs-wrap">
+
+  <div class="cs-label reveal"><span class="num">/08</span> Course-Based Learning</div>
+  <h2 class="cs-display reveal">Familiar controls. <em>Clearer paths.</em></h2>
+  <p class="cs-p reveal">A course is a lesson type that can hold multiple chapters, built from videos, images, audio transcripts, or a mix of them. Play controls and CTAs are common across learning apps, and our users mostly interact with video, so we kept them close to what people already know.</p>
+
+</div>
+<div class="cs-wrap cs-wrap--board">
+<figure class="cs-board reveal">
+  <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: Course page" data-full="assets/skilling/d-course.jpg" data-alt="Course detail screens showing chapters, progress and a Continue CTA">
+    <img src="assets/skilling/d-course.jpg" alt="Course detail screens showing chapters, progress and a Continue CTA" width="1590" height="625" loading="lazy" decoding="async">
+    <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+  </div>
+  <figcaption class="cs-mock-cap"><span class="cs-mock-cap-num">8.1</span><span class="cs-mock-cap-title">Course page</span></figcaption>
+</figure>
+</div>
+
+<div class="cs-wrap">
+  <div class="cs-cards reveal">
+    <div class="cs-card">
+      <div class="cs-card-num">01</div>
+      <div class="cs-card-title">Promoting pending courses</div>
+      <p class="cs-card-desc">A visual treatment and a running count-down capture attention and help users complete pending courses on time.</p>
+    </div>
+    <div class="cs-card">
+      <div class="cs-card-num">02</div>
+      <div class="cs-card-title">Set of courses</div>
+      <p class="cs-card-desc">When several courses are assigned at once, one is highlighted in the banner and the rest stack as a bundle, so nothing overwhelms the user.</p>
+    </div>
+    <div class="cs-card">
+      <div class="cs-card-num">03</div>
+      <div class="cs-card-title">Quick start</div>
+      <p class="cs-card-desc">A prominent play button starts learning quickly, while View details is there for those who want to know more first.</p>
+    </div>
+    <div class="cs-card">
+      <div class="cs-card-num">04</div>
+      <div class="cs-card-title">Scalable structure</div>
+      <p class="cs-card-desc">The card has a clear hierarchy. Badges, coins and social proof influence the decision to start, and length, chapters and topics are visible up front.</p>
+    </div>
+  </div>
+</div>
+<div class="cs-wrap cs-wrap--board">
+<figure class="cs-board reveal">
+  <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: Course cards" data-full="assets/skilling/d-course-cards.jpg" data-alt="Course cards and the home page states for pending, assigned and bundled courses">
+    <img src="assets/skilling/d-course-cards.jpg" alt="Course cards and the home page states for pending, assigned and bundled courses" width="1590" height="1336" loading="lazy" decoding="async">
+    <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+  </div>
+  <figcaption class="cs-mock-cap"><span class="cs-mock-cap-num">8.2</span><span class="cs-mock-cap-title">Course cards</span></figcaption>
+</figure>
+</div>
+
+<div class="cs-wrap">
+  <div class="cs-sub">
+    <p class="cs-phase-tag reveal">Consuming a course</p>
+    <h3 class="cs-h3 reveal">Learning via video</h3>
+    <p class="cs-p reveal">Because our users mostly interact with video-based content, the player keeps the familiar controls they already know.</p>
+  </div>
+</div>
+<div class="cs-wrap cs-wrap--board">
+<figure class="cs-board reveal">
+  <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: Video course" data-full="assets/skilling/d-video.jpg" data-alt="Three video course player screens in dark mode">
+    <img src="assets/skilling/d-video.jpg" alt="Three video course player screens in dark mode" width="1590" height="802" loading="lazy" decoding="async">
+    <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+  </div>
+  <figcaption class="cs-mock-cap"><span class="cs-mock-cap-num">8.3</span><span class="cs-mock-cap-title">Video course</span></figcaption>
+</figure>
+</div>
+
+<div class="cs-wrap">
+  <div class="cs-sub" style="margin-top: 72px;">
+    <h3 class="cs-h3 reveal">Text-based course with audio playback</h3>
+    <p class="cs-p reveal">Text content can come with or without audio transcripts. A transcript helps users consume the content effortlessly.</p>
+  </div>
+</div>
+<div class="cs-wrap cs-wrap--board">
+<figure class="cs-board reveal">
+  <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: Text and audio" data-full="assets/skilling/d-audio.jpg" data-alt="Text based course screens with audio transcript playback">
+    <img src="assets/skilling/d-audio.jpg" alt="Text based course screens with audio transcript playback" width="1590" height="1030" loading="lazy" decoding="async">
+    <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+  </div>
+  <figcaption class="cs-mock-cap"><span class="cs-mock-cap-num">8.4</span><span class="cs-mock-cap-title">Text and audio</span></figcaption>
+</figure>
+</div>
+
+<div class="cs-wrap">
+  <div class="cs-sub" style="margin-top: 72px;">
+    <h3 class="cs-h3 reveal">Visual indicators</h3>
+    <p class="cs-p reveal">Indicators now communicate any mandatory watch time assigned to a piece of content. While a mandatory time is running, the control actions stay locked for the user.</p>
+  </div>
+</div>
+<div class="cs-wrap cs-wrap--board">
+<figure class="cs-board reveal">
+  <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: Mandatory watch time" data-full="assets/skilling/d-indicators.jpg" data-alt="Video course screens showing a locked control state and a mandatory watch time message">
+    <img src="assets/skilling/d-indicators.jpg" alt="Video course screens showing a locked control state and a mandatory watch time message" width="1590" height="669" loading="lazy" decoding="async">
+    <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+  </div>
+  <figcaption class="cs-mock-cap"><span class="cs-mock-cap-num">8.5</span><span class="cs-mock-cap-title">Mandatory watch time</span></figcaption>
+</figure>
+</div>
+
+<div class="cs-wrap">
+  <div class="cs-sub" style="margin-top: 72px;">
+    <h3 class="cs-h3 reveal">Collecting user sentiment</h3>
+    <p class="cs-p reveal">Capturing learning experiences helps us understand the effectiveness and relevance of the delivered content. We simplified the feedback process so that sharing an experience takes just a tap.</p>
+  </div>
+</div>
+<div class="cs-wrap cs-wrap--board">
+<figure class="cs-board reveal">
+  <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: Rate the course" data-full="assets/skilling/d-sentiment.jpg" data-alt="Rate the course dialog with a star rating and submit button">
+    <img src="assets/skilling/d-sentiment.jpg" alt="Rate the course dialog with a star rating and submit button" width="1590" height="669" loading="lazy" decoding="async">
+    <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+  </div>
+  <figcaption class="cs-mock-cap"><span class="cs-mock-cap-num">8.6</span><span class="cs-mock-cap-title">Rate the course</span></figcaption>
+</figure>
+</div>
+
+<div class="cs-wrap cs-wrap--board" style="margin-top: 88px;">
+<figure class="cs-board cs-board--photo reveal"><div class="cs-fig-frame"><img src="assets/skilling/d-hand.jpg" alt="A worker holding a phone playing a course video" width="1750" height="1080" loading="lazy" decoding="async"></div></figure>
+</div>
+</section>
+
+<!-- ═══════════════════════ 09 — ASSESSMENTS ═══════════════════════ -->
+<section class="cs-section" id="cs-assess">
+<div class="cs-wrap">
+
+  <div class="cs-label reveal"><span class="num">/09</span> Assessments</div>
+  <h2 class="cs-display reveal">Assessments that feel less like <em>forms.</em></h2>
+  <p class="cs-p reveal">Assessments support a wide range of question types and give engaging feedback on every response. The old experience felt like filling out a form, with no clear instruction for each question type, so we rebuilt it to be playful and instructive.</p>
+
+</div>
+<div class="cs-wrap cs-wrap--board">
+<figure class="cs-board reveal">
+  <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: Making assessment playful and engaging" data-full="assets/skilling/d-assess-intro.jpg" data-alt="Assessment card and detail screen in the redesigned app">
+    <img src="assets/skilling/d-assess-intro.jpg" alt="Assessment card and detail screen in the redesigned app" width="1590" height="625" loading="lazy" decoding="async">
+    <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+  </div>
+  <figcaption class="cs-mock-cap"><span class="cs-mock-cap-num">9.1</span><span class="cs-mock-cap-title">Making assessment playful and engaging</span></figcaption>
+</figure>
+</div>
+
+<div class="cs-wrap">
+  <div class="cs-sub" style="margin-top: 72px;">
+    <h3 class="cs-h3 reveal">Crafting consistency</h3>
+    <p class="cs-p reveal">The assessment card is designed around the presence or absence of a banner image, which is normally an inconsistent element across assessments. A set of defined patterns and a contextual colour-picking mechanism keep it visually consistent and clean.</p>
+  </div>
+</div>
+<div class="cs-wrap cs-wrap--board">
+<figure class="cs-board reveal">
+  <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: Assessment cards" data-full="assets/skilling/d-consistency.jpg" data-alt="Assessment cards in the home page next to variants with and without banner images">
+    <img src="assets/skilling/d-consistency.jpg" alt="Assessment cards in the home page next to variants with and without banner images" width="1750" height="719" loading="lazy" decoding="async">
+    <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+  </div>
+  <figcaption class="cs-mock-cap"><span class="cs-mock-cap-num">9.2</span><span class="cs-mock-cap-title">Assessment cards</span></figcaption>
+</figure>
+</div>
+
+<div class="cs-wrap">
+  <div class="cs-sub" style="margin-top: 72px;">
+    <h3 class="cs-h3 reveal">Theming brand experience with ease</h3>
+    <p class="cs-p reveal">Letting organisations align the app with their brand is a key selling point, but excessive customisation and a lack of branding sense among admins had become a hygiene issue. Admins now choose a colour from a predefined palette that fits their brand or the subject's context, and a set of dynamic patterns keeps assessments from feeling like form filling, without affecting the product's visual hygiene.</p>
+  </div>
+</div>
+<div class="cs-wrap cs-wrap--board">
+<figure class="cs-board reveal">
+  <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: Colour palette and patterns" data-full="assets/skilling/d-theming.jpg" data-alt="Predefined colour palette and pattern icons for assessment theming">
+    <img src="assets/skilling/d-theming.jpg" alt="Predefined colour palette and pattern icons for assessment theming" width="1750" height="658" loading="lazy" decoding="async">
+    <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+  </div>
+  <figcaption class="cs-mock-cap"><span class="cs-mock-cap-num">9.3</span><span class="cs-mock-cap-title">Colour palette and patterns</span></figcaption>
+</figure>
+</div>
+
+<div class="cs-wrap">
+  <div class="cs-sub" style="margin-top: 72px;">
+    <h3 class="cs-h3 reveal">A playful assessment experience</h3>
+    <p class="cs-p reveal">Each assessment is structured to support the range of question types while making sure every response is captured intuitively.</p>
+  </div>
+</div>
+<div class="cs-wrap cs-wrap--board">
+<figure class="cs-board reveal">
+  <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: Themed assessment screens" data-full="assets/skilling/d-playful.jpg" data-alt="Assessment question screens in teal and purple themes">
+    <img src="assets/skilling/d-playful.jpg" alt="Assessment question screens in teal and purple themes" width="1590" height="891" loading="lazy" decoding="async">
+    <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+  </div>
+  <figcaption class="cs-mock-cap"><span class="cs-mock-cap-num">9.4</span><span class="cs-mock-cap-title">Themed assessment screens</span></figcaption>
+</figure>
+</div>
+<div class="cs-wrap cs-wrap--board">
+<figure class="cs-board reveal">
+  <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: Question types" data-full="assets/skilling/d-playful-b.jpg" data-alt="A field of assessment question screens including image choice and text responses">
+    <img src="assets/skilling/d-playful-b.jpg" alt="A field of assessment question screens including image choice and text responses" width="1750" height="1149" loading="lazy" decoding="async">
+    <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+  </div>
+  <figcaption class="cs-mock-cap"><span class="cs-mock-cap-num">9.5</span><span class="cs-mock-cap-title">Question types</span></figcaption>
+</figure>
+</div>
+<div class="cs-wrap cs-wrap--board">
+<figure class="cs-board reveal">
+  <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: Feedback on every answer" data-full="assets/skilling/d-assess-card.jpg" data-alt="Assessment progress, an explanation dialog and correct and incorrect answer states">
+    <img src="assets/skilling/d-assess-card.jpg" alt="Assessment progress, an explanation dialog and correct and incorrect answer states" width="1590" height="1001" loading="lazy" decoding="async">
+    <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+  </div>
+  <figcaption class="cs-mock-cap"><span class="cs-mock-cap-num">9.6</span><span class="cs-mock-cap-title">Feedback on every answer</span></figcaption>
+</figure>
+</div>
+
+<div class="cs-wrap">
+  <div class="cs-sub" style="margin-top: 72px;">
+    <h3 class="cs-h3 reveal">Responses with audio, video and image</h3>
+    <p class="cs-p reveal">Some questions ask for more than a tap. Users can record audio, capture video or upload an image, preview what they've recorded before submitting, and record again if they need to.</p>
+  </div>
+</div>
+<div class="cs-wrap cs-wrap--board">
+<figure class="cs-board reveal">
+  <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: Upload responses" data-full="assets/skilling/d-responses.jpg" data-alt="Assessment screens for recording audio, capturing video and uploading images">
+    <img src="assets/skilling/d-responses.jpg" alt="Assessment screens for recording audio, capturing video and uploading images" width="1590" height="930" loading="lazy" decoding="async">
+    <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+  </div>
+  <figcaption class="cs-mock-cap"><span class="cs-mock-cap-num">9.7</span><span class="cs-mock-cap-title">Upload responses</span></figcaption>
+</figure>
+</div>
+
+<div class="cs-wrap cs-wrap--board" style="margin-top: 88px;">
+<figure class="cs-board cs-board--photo reveal"><div class="cs-fig-frame"><img src="assets/skilling/photo-tablet.jpg" alt="Three workers in hard hats looking at a tablet" width="1590" height="799" loading="lazy" decoding="async"></div></figure>
+</div>
+</section>
+
+<!-- ═══════════════════════ 10 — PLAYLISTS ═══════════════════════ -->
+<section class="cs-section" id="cs-playlists">
+<div class="cs-wrap">
+
+  <div class="cs-label reveal"><span class="num">/10</span> Playlists and Progress</div>
+  <h2 class="cs-display reveal">A bundle of lessons, <em>made finishable.</em></h2>
+  <p class="cs-p reveal">A playlist combines courses and assessments for a specific learning purpose. It can hold multiple levels, each either a course or an assessment, based on admin configuration. Playlists take more time to complete, since they bundle several courses and assessments and can run long.</p>
+
+</div>
+<div class="cs-wrap cs-wrap--board">
+<figure class="cs-board reveal">
+  <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: Playlist" data-full="assets/skilling/d-playlist.jpg" data-alt="Playlist cover screen with levels and a Start Level CTA">
+    <img src="assets/skilling/d-playlist.jpg" alt="Playlist cover screen with levels and a Start Level CTA" width="1590" height="625" loading="lazy" decoding="async">
+    <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+  </div>
+  <figcaption class="cs-mock-cap"><span class="cs-mock-cap-num">10.1</span><span class="cs-mock-cap-title">Playlist</span></figcaption>
+</figure>
+</div>
+
+<div class="cs-wrap">
+  <div class="cs-sub" style="margin-top: 72px;">
+    <h3 class="cs-h3 reveal">The playlist card</h3>
+    <p class="cs-p reveal">The card gives a clear overview of the playlist's characteristics and purpose, visually indicating that it contains multiple lesson modules. The top card changes dynamically with the sequence, giving the user real-time visibility, showing the number of levels, and navigating seamlessly to the level page.</p>
+  </div>
+</div>
+<div class="cs-wrap cs-wrap--board">
+<figure class="cs-board reveal">
+  <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: Playlist on the home page" data-full="assets/skilling/d-playlist-card.jpg" data-alt="Home screen showing a playlist assigned card and the levels inside it">
+    <img src="assets/skilling/d-playlist-card.jpg" alt="Home screen showing a playlist assigned card and the levels inside it" width="1750" height="925" loading="lazy" decoding="async">
+    <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+  </div>
+  <figcaption class="cs-mock-cap"><span class="cs-mock-cap-num">10.2</span><span class="cs-mock-cap-title">Playlist on the home page</span></figcaption>
+</figure>
+</div>
+
+<div class="cs-wrap">
+  <div class="cs-sub" style="margin-top: 72px;">
+    <h3 class="cs-h3 reveal">Anatomy of the playlist</h3>
+    <p class="cs-p reveal">The cover area gives a prominent overview of the playlist with minimal distraction, and a dynamic guiding CTA shows progress along the lesson path. Below it, levels are listed in sequence and each one nests multiple chapters. By default only one level is expanded, so users can focus on that content and see their progress within it.</p>
+  </div>
+</div>
+<div class="cs-wrap cs-wrap--board">
+<figure class="cs-board reveal">
+  <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: Cover and guiding CTA" data-full="assets/skilling/d-playlist-cover.jpg" data-alt="Playlist cover with a Start Level CTA and the level list underneath">
+    <img src="assets/skilling/d-playlist-cover.jpg" alt="Playlist cover with a Start Level CTA and the level list underneath" width="1590" height="731" loading="lazy" decoding="async">
+    <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+  </div>
+  <figcaption class="cs-mock-cap"><span class="cs-mock-cap-num">10.3</span><span class="cs-mock-cap-title">Cover and guiding CTA</span></figcaption>
+</figure>
+</div>
+<div class="cs-wrap cs-wrap--board">
+<figure class="cs-board reveal">
+  <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: Levels and chapters" data-full="assets/skilling/d-playlist-anatomy.jpg" data-alt="Four playlist screens showing expanded and collapsed levels and completion states">
+    <img src="assets/skilling/d-playlist-anatomy.jpg" alt="Four playlist screens showing expanded and collapsed levels and completion states" width="1750" height="1292" loading="lazy" decoding="async">
+    <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+  </div>
+  <figcaption class="cs-mock-cap"><span class="cs-mock-cap-num">10.4</span><span class="cs-mock-cap-title">Levels and chapters</span></figcaption>
+</figure>
+</div>
+
+<div class="cs-wrap">
+  <div class="cs-sub" style="margin-top: 72px;">
+    <h3 class="cs-h3 reveal">Celebrating every small achievement</h3>
+    <p class="cs-p reveal">Concise feedback when users complete chapters, levels or playlists helps maintain their engagement and motivation. These moments act as checkpoints that drive engagement and progress.</p>
+  </div>
+</div>
+<div class="cs-wrap cs-wrap--board">
+<figure class="cs-board reveal">
+  <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: Success screens" data-full="assets/skilling/d-celebrate.jpg" data-alt="Success screens for completing a level and completing a playlist with earnings">
+    <img src="assets/skilling/d-celebrate.jpg" alt="Success screens for completing a level and completing a playlist with earnings" width="1590" height="704" loading="lazy" decoding="async">
+    <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+  </div>
+  <figcaption class="cs-mock-cap"><span class="cs-mock-cap-num">10.5</span><span class="cs-mock-cap-title">Success screens</span></figcaption>
+</figure>
+</div>
+
+<div class="cs-wrap">
+  <div class="cs-sub">
+    <p class="cs-phase-tag reveal">My learning</p>
+    <h3 class="cs-h3 reveal">A catalogue of the user's learning journey</h3>
+    <p class="cs-p reveal">My Learning is a central hub for browsing and accessing everything assigned to a user, organised so it's easy to find their way. It has a clear entry point from the quick access area of the home page. The top gives an overview of progress and achievements, and below it pending modules are categorised by type, with visual indicators for the criticality and status of each.</p>
+  </div>
+</div>
+<div class="cs-wrap cs-wrap--board">
+<figure class="cs-board reveal">
+  <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: My learning" data-full="assets/skilling/d-mylearning-intro.jpg" data-alt="My learning screen with standing rank, badges and pending modules">
+    <img src="assets/skilling/d-mylearning-intro.jpg" alt="My learning screen with standing rank, badges and pending modules" width="1590" height="554" loading="lazy" decoding="async">
+    <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+  </div>
+  <figcaption class="cs-mock-cap"><span class="cs-mock-cap-num">10.6</span><span class="cs-mock-cap-title">My learning</span></figcaption>
+</figure>
+</div>
+<div class="cs-wrap cs-wrap--board">
+<figure class="cs-board reveal">
+  <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: Pending, ranked and completed" data-full="assets/skilling/d-mylearning.jpg" data-alt="My learning screens for pending modules, a leaderboard and completed modules">
+    <img src="assets/skilling/d-mylearning.jpg" alt="My learning screens for pending modules, a leaderboard and completed modules" width="1590" height="2452" loading="lazy" decoding="async">
+    <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+  </div>
+  <figcaption class="cs-mock-cap"><span class="cs-mock-cap-num">10.7</span><span class="cs-mock-cap-title">Pending, ranked and completed</span></figcaption>
+</figure>
+</div>
+</section>
+
+<!-- ═══════════════════════ 11 — EVENTS & MICRO ═══════════════════════ -->
+<section class="cs-section" id="cs-events">
+<div class="cs-wrap">
+
+  <div class="cs-label reveal"><span class="num">/11</span> Events and Micro-learning</div>
+  <h2 class="cs-display reveal">Beyond the course: <em>live and bite-sized.</em></h2>
+  <p class="cs-p reveal">Two more ways to learn rounded out the experience. Live, instructor-led events bring a classroom into the app, and stories-style micro-courses fit learning into the short gaps of a shift.</p>
+
+</div>
+
+<div class="cs-wrap cs-wrap--board" style="margin-top: 56px;">
+<figure class="cs-board cs-board--photo reveal"><div class="cs-fig-frame"><img src="assets/skilling/photo-clap.jpg" alt="A team of workers applauding" width="1590" height="800" loading="lazy" decoding="async"></div></figure>
+</div>
+
+<div class="cs-wrap">
+  <div class="cs-sub" style="margin-top: 72px;">
+    <p class="cs-phase-tag reveal">Instructor-led</p>
+    <h3 class="cs-h3 reveal">Training using live classes and events</h3>
+    <p class="cs-p reveal">Live classes bring real-time instruction and interaction, like a classroom, but in a virtual setting. Events can also take place in a physical location. Although courses, assessments and playlists are asynchronous, events add a blended learning approach where trainers and learners interact directly.</p>
+    <p class="cs-p reveal">Event cards can appear on the homepage in three cases: to register for a new event, for an already registered event, and when an event is currently live. Visibility of upcoming and registered events stops users missing them, and the card's state, visual cues and CTA change to match it.</p>
+  </div>
+</div>
+<div class="cs-wrap cs-wrap--board">
+<figure class="cs-board reveal">
+  <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: Instructor-led events" data-full="assets/skilling/d-events-intro.jpg" data-alt="Event cards and a live class detail screen">
+    <img src="assets/skilling/d-events-intro.jpg" alt="Event cards and a live class detail screen" width="1590" height="625" loading="lazy" decoding="async">
+    <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+  </div>
+  <figcaption class="cs-mock-cap"><span class="cs-mock-cap-num">11.1</span><span class="cs-mock-cap-title">Instructor-led events</span></figcaption>
+</figure>
+</div>
+<div class="cs-wrap cs-wrap--board">
+<figure class="cs-board reveal">
+  <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: Events on the home page" data-full="assets/skilling/d-events-home.jpg" data-alt="Home screen with event cards in upcoming, registered and live states">
+    <img src="assets/skilling/d-events-home.jpg" alt="Home screen with event cards in upcoming, registered and live states" width="1590" height="774" loading="lazy" decoding="async">
+    <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+  </div>
+  <figcaption class="cs-mock-cap"><span class="cs-mock-cap-num">11.2</span><span class="cs-mock-cap-title">Events on the home page</span></figcaption>
+</figure>
+</div>
+<div class="cs-wrap cs-wrap--board">
+<figure class="cs-board reveal">
+  <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: All events" data-full="assets/skilling/d-events-all.jpg" data-alt="All events list with live, upcoming and past filters">
+    <img src="assets/skilling/d-events-all.jpg" alt="All events list with live, upcoming and past filters" width="1590" height="672" loading="lazy" decoding="async">
+    <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+  </div>
+  <figcaption class="cs-mock-cap"><span class="cs-mock-cap-num">11.3</span><span class="cs-mock-cap-title">All events</span></figcaption>
+</figure>
+</div>
+<div class="cs-wrap cs-wrap--board">
+<figure class="cs-board reveal">
+  <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: Event details" data-full="assets/skilling/d-events-detail.jpg" data-alt="Event detail screens showing the trainer, location, description and a register button">
+    <img src="assets/skilling/d-events-detail.jpg" alt="Event detail screens showing the trainer, location, description and a register button" width="1590" height="1174" loading="lazy" decoding="async">
+    <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+  </div>
+  <figcaption class="cs-mock-cap"><span class="cs-mock-cap-num">11.4</span><span class="cs-mock-cap-title">Event details</span></figcaption>
+</figure>
+</div>
+
+<div class="cs-wrap">
+  <div class="cs-sub">
+    <p class="cs-phase-tag reveal">Micro-learning</p>
+    <h3 class="cs-h3 reveal">Stories-style mini courses</h3>
+    <p class="cs-p reveal">To boost engagement and address challenges like short attention spans, we're testing stories-style micro-courses for a few select industries.</p>
+  </div>
+</div>
+<div class="cs-wrap cs-wrap--board">
+<figure class="cs-board reveal">
+  <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: Micro-learning" data-full="assets/skilling/d-micro-intro.jpg" data-alt="Stories-style mini course screens of a hospitality trainer">
+    <img src="assets/skilling/d-micro-intro.jpg" alt="Stories-style mini course screens of a hospitality trainer" width="1590" height="625" loading="lazy" decoding="async">
+    <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+  </div>
+  <figcaption class="cs-mock-cap"><span class="cs-mock-cap-num">11.5</span><span class="cs-mock-cap-title">Micro-learning</span></figcaption>
+</figure>
+</div>
+
+<div class="cs-wrap">
+  <div class="cs-sub" style="margin-top: 72px;">
+    <h3 class="cs-h3 reveal">Short courses</h3>
+    <p class="cs-p reveal">Short courses are bite-sized learning that cater to busy schedules and shrinking attention spans. Breaking down complex topics into digestible segments makes the learning faster and easier, and a short quiz at the end lets users check that they've grasped it.</p>
+  </div>
+</div>
+<div class="cs-wrap cs-wrap--board">
+<figure class="cs-board reveal">
+  <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: Short courses" data-full="assets/skilling/d-short.jpg" data-alt="Short course screens showing safety gear tips as full screen stories">
+    <img src="assets/skilling/d-short.jpg" alt="Short course screens showing safety gear tips as full screen stories" width="1590" height="932" loading="lazy" decoding="async">
+    <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+  </div>
+  <figcaption class="cs-mock-cap"><span class="cs-mock-cap-num">11.6</span><span class="cs-mock-cap-title">Short courses</span></figcaption>
+</figure>
+</div>
+<div class="cs-wrap cs-wrap--board">
+<figure class="cs-board reveal">
+  <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: A quick check" data-full="assets/skilling/d-short-quiz.jpg" data-alt="Short course quiz screens with a correct answer state">
+    <img src="assets/skilling/d-short-quiz.jpg" alt="Short course quiz screens with a correct answer state" width="1590" height="670" loading="lazy" decoding="async">
+    <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+  </div>
+  <figcaption class="cs-mock-cap"><span class="cs-mock-cap-num">11.7</span><span class="cs-mock-cap-title">A quick check</span></figcaption>
+</figure>
+</div>
+
+<div class="cs-wrap">
+  <hr class="cs-divider" style="margin-top: 96px;">
+
+  <div class="cs-thanks-note reveal">
+    <span class="cs-thanks-mark" aria-hidden="true">
+      <span class="cs-thanks-dash"></span>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c.4 5.9 5.7 11.2 11.6 11.6v.8C17.7 12.8 12.4 18.1 12 24h-.8C10.8 18.1 5.5 12.8-.4 12.4v-.8C5.5 11.2 10.8 5.9 11.2 0h.8z"/></svg>
+      <span class="cs-thanks-dash"></span>
+    </span>
+    <p>Thanks for following along.</p>
+  </div>
+  <div class="cs-cta-center reveal"><a class="cs-cta" href="/"><span class="arr">←</span> Back to selected work</a></div>
+</div>
+</section>
+
+<footer>
+  <div>© 2026 Akhil Male</div>
+  <div class="right"><a href="#">Back to top ↑</a></div>
+</footer>
+
+<!-- LIGHTBOX — expands a board to full resolution -->
+<div class="cs-lb" id="cs-lb" role="dialog" aria-modal="true" aria-label="Expanded design board" aria-hidden="true">
+  <button class="cs-lb-close" id="cs-lb-close" type="button" aria-label="Close">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 5l14 14M19 5L5 19"/></svg>
+  </button>
+  <div class="cs-lb-inner" id="cs-lb-inner"><img id="cs-lb-img" alt=""></div>
+  <div class="cs-lb-hint">Scroll to explore · Esc to close</div>
+</div>
+
+<script>
+
+/* Scroll progress bar */
+(function() {
+  const bar = document.getElementById('cs-progress');
+  if (!bar) return;
+  function update() {
+    const h = document.documentElement;
+    const pct = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
+    bar.style.width = (isFinite(pct) ? pct : 0) + '%';
+  }
+  window.addEventListener('scroll', update, { passive: true });
+  update();
+})();
+
+/* Context rail — scroll-spy: active section thesis + jump list to the rest */
+(function() {
+  var rail = document.getElementById('cs-rail');
+  var list = document.getElementById('cs-rail-list');
+  if (!rail || !list) return;
+
+  var SECTIONS = [
+    { id: 'cs-overview',   label: '01 — Overview' },
+    { id: 'cs-users',      label: '02 — Context and Users' },
+    { id: 'cs-why',        label: '03 — Why Redesign' },
+    { id: 'cs-challenges', label: '04 — Challenges' },
+    { id: 'cs-scope',      label: '05 — Scope' },
+    { id: 'cs-process',    label: '06 — Process' },
+    { id: 'cs-home',       label: '07 — Designing the Home' },
+    { id: 'cs-courses',    label: '08 — Course-Based Learning' },
+    { id: 'cs-assess',     label: '09 — Assessments' },
+    { id: 'cs-playlists',  label: '10 — Playlists and Progress' },
+    { id: 'cs-events',     label: '11 — Events and Micro-learning' }
+  ];
+
+  var activeId = null;
+  var heroGone = false;
+
+  function scrollToSection(id) {
+    var el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  list.innerHTML = SECTIONS.map(function(s) {
+    var parts = s.label.split(' — ');
+    return '<li data-id="' + s.id + '"><button type="button" data-target="' + s.id + '">' +
+           '<span class="cs-rail-num">' + parts[0] + '</span>' +
+           '<span class="cs-rail-name">' + parts[1] + '</span>' +
+           '</button></li>';
+  }).join('');
+  list.querySelectorAll('button').forEach(function(btn) {
+    btn.addEventListener('click', function(){ scrollToSection(this.getAttribute('data-target')); });
+  });
+
+  function setActive(sec) {
+    var prev = list.querySelector('li.is-active');
+    if (prev) prev.classList.remove('is-active');
+    var li = list.querySelector('li[data-id="' + sec.id + '"]');
+    if (li) li.classList.add('is-active');
+  }
+
+  /* Hide the rail while the hero is in view; reveal once scrolled past it */
+  var hero = document.querySelector('.cs-hero');
+  if (hero) {
+    var heroObs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (!e.isIntersecting) {
+          heroGone = true;
+          if (activeId) { rail.classList.add('is-visible'); rail.removeAttribute('aria-hidden'); }
+        } else {
+          heroGone = false;
+          rail.classList.remove('is-visible');
+          rail.setAttribute('aria-hidden', 'true');
+        }
+      });
+    }, { threshold: 0.05 });
+    heroObs.observe(hero);
+  } else {
+    heroGone = true;
+  }
+
+  function updateActiveSection() {
+    var triggerY = window.scrollY + window.innerHeight * 0.35;
+    var current = null;
+    SECTIONS.forEach(function(s) {
+      var el = document.getElementById(s.id);
+      if (el && el.offsetTop <= triggerY) current = s;
+    });
+    if (current && current.id !== activeId) {
+      activeId = current.id;
+      setActive(current);
+      if (heroGone) { rail.classList.add('is-visible'); rail.removeAttribute('aria-hidden'); }
+    }
+  }
+
+  window.addEventListener('scroll', updateActiveSection, { passive: true });
+  updateActiveSection();
+})();
+
+/* Reveal-on-scroll choreography */
+(function() {
+  const items = document.querySelectorAll('.reveal');
+  if (!items.length) return;
+  if ('IntersectionObserver' in window) {
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('is-visible'); obs.unobserve(e.target); }
+      });
+    }, { threshold: 0.08 });
+    items.forEach(el => obs.observe(el));
+    setTimeout(() => items.forEach(el => el.classList.add('is-visible')), 2500);
+  } else {
+    items.forEach(el => el.classList.add('is-visible'));
+  }
+})();
+
+/* Lightbox — expand any design board to full resolution */
+(function() {
+  var lb = document.getElementById('cs-lb');
+  var img = document.getElementById('cs-lb-img');
+  var closeBtn = document.getElementById('cs-lb-close');
+  if (!lb || !img) return;
+  var opener = null;
+
+  function open(frame) {
+    var src = frame.getAttribute('data-full');
+    if (!src) return;
+    opener = frame;
+    img.src = src;
+    img.alt = frame.getAttribute('data-alt') || '';
+    lb.classList.add('is-open');
+    lb.setAttribute('aria-hidden', 'false');
+    lb.scrollTop = 0; lb.scrollLeft = 0;
+    document.body.classList.add('cs-lb-lock');
+    closeBtn.focus();
+  }
+  function close() {
+    lb.classList.remove('is-open');
+    lb.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('cs-lb-lock');
+    img.removeAttribute('src');
+    if (opener) { opener.focus({ preventScroll: true }); opener = null; }
+  }
+
+  document.querySelectorAll('.cs-fig-frame[data-full]').forEach(function(frame) {
+    frame.addEventListener('click', function() { open(frame); });
+    frame.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(frame); }
+    });
+  });
+  closeBtn.addEventListener('click', close);
+  lb.addEventListener('click', function(e) { if (e.target === lb || e.target.id === 'cs-lb-inner') close(); });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && lb.classList.contains('is-open')) close();
+  });
+})();
+
+</script>
+<script>
+const navEl = document.querySelector('nav');
+window.addEventListener('scroll', () => { navEl.classList.toggle('is-scrolled', window.scrollY > 8); }, { passive: true });
+</script>
+</body>
+</html>
