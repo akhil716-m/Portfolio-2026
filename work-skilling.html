@@ -213,9 +213,6 @@ nav .logo a.cs-back:hover { color: var(--accent); }
 .cs-cta:hover { color: var(--bg); background: var(--accent); border-color: var(--accent); gap: 14px; }
 a.cs-cta { margin-top: 28px; }
 .cs-divider { border: none; border-top: 1px solid var(--line); margin: clamp(48px, 5vw, 64px) auto; max-width: 760px; }
-/* ---------- REVEAL-ON-SCROLL ---------- */
-.reveal { opacity: 0; transform: translateY(26px); transition: opacity 0.7s ease, transform 0.7s ease; }
-.reveal.is-visible { opacity: 1; transform: translateY(0); }
 @media (max-width: 760px) {
   .cs-hero-meta { gap: 30px; margin-top: 32px; border-top: 1px solid var(--line); padding-top: 32px; }
   .cs-hero { min-height: 100vh; justify-content: flex-start; padding: 260px 20px 60px; }
@@ -320,10 +317,10 @@ a.cs-cta { margin-top: 28px; }
 }
 .cs-lb.is-open { display: block; animation: csLbIn 0.25s ease; }
 @keyframes csLbIn { from { opacity: 0; } to { opacity: 1; } }
-.cs-lb-inner { min-height: 100%; display: flex; align-items: flex-start; justify-content: center; padding: 64px 0 40px; }
+.cs-lb-inner { min-height: 100%; padding: 64px 0 40px; }
 .cs-lb img {
   display: block; height: auto; background: #fff; border-radius: 12px;
-  width: max(min(1500px, 96vw), 900px); max-width: none;
+  width: max(min(1500px, 96vw), 900px); max-width: none; margin: 0 auto;
 }
 .cs-lb-close {
   position: fixed; top: max(16px, env(safe-area-inset-top)); right: max(16px, env(safe-area-inset-right)); z-index: 2001;
@@ -361,7 +358,6 @@ body.cs-lb-lock { overflow: hidden; }
   .cs-fig-zoom { top: 10px; right: 10px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .reveal { transition: none; opacity: 1; transform: none; }
   .cs-lb.is-open { animation: none; }
   .cs-hero-eyebrow, .cs-hero-title, .cs-hero-meta, .cs-hero-scroll, .cs-back { animation: none; opacity: 1; }
 }
@@ -741,11 +737,57 @@ body.cs-lb-lock { overflow: hidden; }
   .cs-acc-body { padding-right: 0; }
 }
 @media (prefers-reduced-motion: reduce) { .cs-panel.is-active { animation: none; } .cs-acc-chev, .cs-idx-link { transition: none; } }
+
+/* =====================================================================
+   TIER 4: MOTION, EACH PIECE WITH A JOB
+   - Hero phones rise once: hierarchy (the product arrives first)
+   - Act titles and section headlines unmask once: storytelling (a new beat begins)
+   - Boards and compositions settle in once: they are the evidence, so they arrive
+   - Lightbox grows out of the thumbnail you tapped: continuity (see JS)
+   - Controls press down on :active: feedback
+   - Progress is a scroll timeline, not a listener: it is the page position, nothing more
+   Body text does not animate. Everything honours prefers-reduced-motion.
+   ===================================================================== */
+
+/* Progress: transform only, driven by a CSS scroll timeline. Browsers without it simply don't show the bar. */
+#cs-progress { width: 100%; box-shadow: none; transition: none; transform: scaleX(0); transform-origin: 0 50%; display: none; }
+@supports (animation-timeline: scroll()) {
+  #cs-progress { display: block; animation: csProgress linear both; animation-timeline: scroll(root); }
+}
+@keyframes csProgress { to { transform: scaleX(1); } }
+#cs-sentinel { position: absolute; top: 0; left: 0; width: 1px; height: 8px; pointer-events: none; }
+
+/* Boards and compositions settle once */
+.js .settle { opacity: 0; transform: translateY(22px) scale(0.985); transition: opacity 0.8s ease, transform 0.9s cubic-bezier(0.16, 1, 0.3, 1); }
+.js .settle.is-visible { opacity: 1; transform: none; }
+
+/* Section headlines unmask once (clip from the bottom, rise into place) */
+.js .reveal-title { clip-path: inset(0 0 100% 0); transform: translateY(0.35em); transition: clip-path 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1); }
+.js .reveal-title.is-visible { clip-path: inset(-0.1em -0.1em -0.25em -0.1em); transform: none; }
+
+/* Feedback: controls press, boards lift under a pointer */
+.cs-tab:active, .cs-strip-btn:active, .cs-swatch:active, .cs-cta:active, .cs-lb-close:active { transform: scale(0.96); }
+.cs-fig-frame { transition: border-color 0.25s ease, background 0.25s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1); }
+@media (hover: hover) { .cs-fig-frame:hover { transform: translateY(-2px); } }
+.cs-fig-frame:active { transform: scale(0.995); }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .js .settle, .js .reveal-title { opacity: 1; transform: none; clip-path: none; transition: none; }
+  .cs-fig-frame { transition: none; }
+  .cs-fig-frame:hover, .cs-fig-frame:active, .cs-tab:active, .cs-strip-btn:active, .cs-swatch:active, .cs-cta:active { transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  /* hover and fade transitions on controls and chrome */
+  .cs-fig-zoom, .cs-rail, .cs-cta, .cs-back, .cs-back .arr, .cs-tab, .cs-chip, .cs-strip-btn, .cs-lb-close, .cs-idx-link, .cs-acc summary, .cs-rail-num, .cs-rail-name, .cs-rail-grp { transition: none; }
+  .cs-cta:hover, .cs-back:hover { gap: 8px; }
+}
 </style>
 </head>
 <body>
 
-<div id="cs-progress"></div>
+<div id="cs-progress" aria-hidden="true"></div>
+<div id="cs-sentinel" aria-hidden="true"></div>
 
 <!-- CONTEXT RAIL — sticky scroll-spy: active section thesis + jump list -->
 <aside class="cs-rail" id="cs-rail" aria-hidden="true" aria-label="Section context">
@@ -783,12 +825,12 @@ body.cs-lb-lock { overflow: hidden; }
 <section class="cs-section" id="cs-overview" data-wash="teal">
 <div class="cs-wrap">
 
-  <h2 class="cs-display reveal">Crafting meaningful learning for <em>blue-collar workers.</em></h2>
+  <h2 class="cs-display reveal-title">Crafting meaningful learning for <em>blue-collar workers.</em></h2>
 
-  <p class="cs-lead reveal">Oust became part of BetterPlace but stayed a separate product. When BetterPlace rebranded as GoBetter, Oust was retired and folded in as <span class="nb">Up-skill</span>.</p>
-  <p class="cs-p reveal">We redesigned the app completely. The new experience is more engaging and aspiring for frontline workers, and helps the business grow through client satisfaction, productivity and retention.</p>
+  <p class="cs-lead">Oust became part of BetterPlace but stayed a separate product. When BetterPlace rebranded as GoBetter, Oust was retired and folded in as <span class="nb">Up-skill</span>.</p>
+  <p class="cs-p">We redesigned the app completely. The new experience is more engaging and aspiring for frontline workers, and helps the business grow through client satisfaction, productivity and retention.</p>
 
-  <dl class="cs-facts cs-facts--2 reveal">
+  <dl class="cs-facts cs-facts--2">
     <div>
       <dt>Product designer</dt>
       <dd>Showing only the information that helps users act directly from the home page, with more emphasis on CTAs and engaging elements like coins and badges.</dd>
@@ -802,7 +844,7 @@ body.cs-lb-lock { overflow: hidden; }
 </div>
 
 <div class="cs-wrap cs-wrap--board">
-<figure class="cs-board reveal">
+<figure class="cs-board settle">
   <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: A wall of the new screens" data-full="assets/skilling/phones-strip.jpg" data-alt="Grid of redesigned Up-skill mobile screens including courses, assessments and playlists">
     <img src="assets/skilling/phones-strip.jpg" alt="Grid of redesigned Up-skill mobile screens including courses, assessments and playlists" width="1750" height="799" loading="lazy" decoding="async">
     <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
@@ -827,19 +869,19 @@ body.cs-lb-lock { overflow: hidden; }
 <section class="cs-section" id="cs-users" data-wash="amber">
 <div class="cs-wrap">
 
-  <h2 class="cs-display reveal">Built for the people who keep industries <em>moving.</em></h2>
+  <h2 class="cs-display reveal-title">Built for the people who keep industries <em>moving.</em></h2>
 
-  <p class="cs-lead reveal">Oust helps blue-collar workers across India build skills through courses, assessments, playlists and contests, in over 35 languages.</p>
-  <p class="cs-p reveal">Organisations use it to train teams on <span class="nb">up-skilling</span>, compliance, work processes and career development, so workers keep learning and open new career paths.</p>
+  <p class="cs-lead">Oust helps blue-collar workers across India build skills through courses, assessments, playlists and contests, in over 35 languages.</p>
+  <p class="cs-p">Organisations use it to train teams on <span class="nb">up-skilling</span>, compliance, work processes and career development, so workers keep learning and open new career paths.</p>
 
-  <div class="cs-stats reveal">
+  <div class="cs-stats">
     <div class="cs-stat"><div class="cs-stat-num">1M<span class="sym">+</span></div><div class="cs-stat-label">Users</div></div>
     <div class="cs-stat"><div class="cs-stat-num">1500<span class="sym">+</span></div><div class="cs-stat-label">Organisations</div></div>
     <div class="cs-stat"><div class="cs-stat-num">30M<span class="sym">+</span></div><div class="cs-stat-label">Users up-skilled</div></div>
   </div>
 
-  <h3 class="cs-h3 reveal" style="margin-top: 72px;">Who are our users?</h3>
-  <ul class="cs-list reveal">
+  <h3 class="cs-h3" style="margin-top: 72px;">Who are our users?</h3>
+  <ul class="cs-list">
     <li>Use a range of equipment</li>
     <li>Do not hold a university degree</li>
     <li>Perform their role away from a desk</li>
@@ -849,8 +891,8 @@ body.cs-lb-lock { overflow: hidden; }
 </div>
 
 <div class="cs-wrap cs-wrap--board cs-users-stage">
-<figure class="cs-board cs-board--photo reveal"><div class="cs-fig-frame"><img src="assets/skilling/users-photo.jpg" alt="Workers from across industries in their work gear" width="1750" height="635" loading="lazy" decoding="async"></div></figure>
-  <div class="cs-chips cs-chips--lg reveal" aria-label="Industries served">
+<figure class="cs-board cs-board--photo settle"><div class="cs-fig-frame"><img src="assets/skilling/users-photo.jpg" alt="Workers from across industries in their work gear" width="1750" height="635" loading="lazy" decoding="async"></div></figure>
+  <div class="cs-chips cs-chips--lg" aria-label="Industries served">
     <span class="cs-chip">Retail</span><span class="cs-chip">Hospitality</span><span class="cs-chip">E-commerce</span><span class="cs-chip">Construction</span><span class="cs-chip">Factory</span><span class="cs-chip">Delivery</span><span class="cs-chip">Security</span><span class="cs-chip">Supermarket</span><span class="cs-chip">Manufacturing</span>
   </div>
 </div>
@@ -861,9 +903,9 @@ body.cs-lb-lock { overflow: hidden; }
 <section class="cs-section" id="cs-why" data-wash="amber">
 <div class="cs-wrap">
 
-  <h2 class="cs-display reveal">Three reasons the old app <em>had to change.</em></h2>
+  <h2 class="cs-display reveal-title">Three reasons the old app <em>had to change.</em></h2>
 
-  <div class="cs-reasons reveal">
+  <div class="cs-reasons">
     <div class="cs-reason cs-reason--lead">
       <h3 class="cs-reason-title">Integrating Oust with GoBetter</h3>
       <p class="cs-reason-desc">As BetterPlace rebranded into GoBetter, Oust stopped being a separate product. It became part of GoBetter, called Up-skill.</p>
@@ -882,7 +924,7 @@ body.cs-lb-lock { overflow: hidden; }
 
 <div class="cs-wrap cs-wrap--board" style="margin-top: 88px;">
   <div class="cs-split cs-split--ba">
-    <div class="cs-ba reveal" data-tabs>
+    <div class="cs-ba settle" data-tabs>
       <div class="cs-tabs" role="tablist" aria-label="Compare the old and new screens"><button type="button" role="tab" class="cs-tab is-active" id="ba-t-0" aria-controls="ba-p-0" aria-selected="true">Home</button><button type="button" role="tab" class="cs-tab" id="ba-t-1" aria-controls="ba-p-1" aria-selected="false" tabindex="-1">Course</button><button type="button" role="tab" class="cs-tab" id="ba-t-2" aria-controls="ba-p-2" aria-selected="false" tabindex="-1">Result</button></div>
       <div class="cs-ba-stage">
       <div class="cs-ba-panel is-active" role="tabpanel" id="ba-p-0" aria-labelledby="ba-t-0">
@@ -930,13 +972,13 @@ body.cs-lb-lock { overflow: hidden; }
       </div>
     </div>
     <div>
-      <h3 class="cs-h3 reveal">What was holding it back</h3>
-      <div class="cs-chips cs-chips--issues reveal"><span class="cs-chip">Lack of familiarity</span><span class="cs-chip">No clear navigation</span><span class="cs-chip">Over-customisation</span><span class="cs-chip">Poor discoverability</span><span class="cs-chip">Very ambiguous for users</span><span class="cs-chip">Seems very old and less motivating</span><span class="cs-chip">Neither playful nor engaging</span><span class="cs-chip">Non-hygienic</span></div>
+      <h3 class="cs-h3">What was holding it back</h3>
+      <div class="cs-chips cs-chips--issues"><span class="cs-chip">Lack of familiarity</span><span class="cs-chip">No clear navigation</span><span class="cs-chip">Over-customisation</span><span class="cs-chip">Poor discoverability</span><span class="cs-chip">Very ambiguous for users</span><span class="cs-chip">Seems very old and less motivating</span><span class="cs-chip">Neither playful nor engaging</span><span class="cs-chip">Non-hygienic</span></div>
     </div>
   </div>
 </div>
 <div class="cs-wrap cs-wrap--board cs-wrap--inset">
-<figure class="cs-board reveal cs-board--inset">
+<figure class="cs-board settle cs-board--inset">
   <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: The old Oust screens" data-full="assets/skilling/old-designs.jpg" data-alt="Screens from the previous Oust app showing dense, outdated layouts">
     <img src="assets/skilling/old-designs.jpg" alt="Screens from the previous Oust app showing dense, outdated layouts" width="925" height="1118" loading="lazy" decoding="async">
     <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
@@ -951,14 +993,14 @@ body.cs-lb-lock { overflow: hidden; }
 <section class="cs-section" id="cs-challenges" data-wash="amber">
 <div class="cs-wrap">
 
-  <h2 class="cs-display reveal">The same friction, seen from <em>two sides.</em></h2>
-  <p class="cs-lead reveal">We mapped what wasn't working for the organisations that assign learning and for the workers who have to complete it.</p>
+  <h2 class="cs-display reveal-title">The same friction, seen from <em>two sides.</em></h2>
+  <p class="cs-lead">We mapped what wasn't working for the organisations that assign learning and for the workers who have to complete it.</p>
 
   
 </div>
 
 <div class="cs-wrap">
-  <div class="cs-challenges reveal" data-tabs style="margin-top: 48px;">
+  <div class="cs-challenges" data-tabs style="margin-top: 48px;">
     <div class="cs-tabs" role="tablist" aria-label="Challenges by group">
       <button type="button" role="tab" class="cs-tab is-active" id="ch-t-0" aria-controls="ch-p-0" aria-selected="true">Organisations <span class="cs-tab-count">6</span></button>
       <button type="button" role="tab" class="cs-tab" id="ch-t-1" aria-controls="ch-p-1" aria-selected="false" tabindex="-1">Users <span class="cs-tab-count">8</span></button>
@@ -1036,10 +1078,10 @@ body.cs-lb-lock { overflow: hidden; }
 <section class="cs-section" id="cs-scope" data-wash="amber">
 <div class="cs-wrap">
 
-  <h2 class="cs-display reveal">Eight places to <em>intervene.</em></h2>
-  <p class="cs-lead reveal">The challenges set the brief. These are the eight areas we focused on.</p>
+  <h2 class="cs-display reveal-title">Eight places to <em>intervene.</em></h2>
+  <p class="cs-lead">The challenges set the brief. These are the eight areas we focused on.</p>
 
-  <ul class="cs-idx reveal">
+  <ul class="cs-idx">
     <li><a class="cs-idx-row" href="#cs-home">
       <span class="cs-idx-main"><span class="cs-idx-title">An action-focused home</span><span class="cs-idx-desc">A dynamic homepage that treats each user intelligently by serving the critical things they need to do.</span></span>
       <span class="cs-idx-link">Designing the Home<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
@@ -1092,12 +1134,12 @@ body.cs-lb-lock { overflow: hidden; }
 <section class="cs-section" id="cs-process" data-wash="steel">
 <div class="cs-wrap">
 
-  <h2 class="cs-display reveal">Wireframes first, <em>then the UI.</em></h2>
-  <p class="cs-lead reveal">We wireframed before designing UI, chapter by chapter, to settle the flow and get leadership and stakeholder feedback early.</p>
+  <h2 class="cs-display reveal-title">Wireframes first, <em>then the UI.</em></h2>
+  <p class="cs-lead">We wireframed before designing UI, chapter by chapter, to settle the flow and get leadership and stakeholder feedback early.</p>
 
 </div>
 <div class="cs-wrap cs-wrap--board">
-<figure class="cs-board reveal">
+<figure class="cs-board settle">
   <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: Wireframes, chapter by chapter" data-full="assets/skilling/wireframes.jpg" data-alt="Grid of low-fidelity wireframes for the Up-skill app">
     <img src="assets/skilling/wireframes.jpg" alt="Grid of low-fidelity wireframes for the Up-skill app" width="1750" height="1495" loading="lazy" decoding="async">
     <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
@@ -1109,23 +1151,23 @@ body.cs-lb-lock { overflow: hidden; }
 <div class="cs-wrap">
 
   <div class="cs-sub">
-    <h3 class="cs-h3 reveal">Design principles</h3>
-    <p class="cs-p reveal">Setting principles early kept every design decision tied to the outcomes we wanted.</p>
-    <div class="cs-chips cs-chips--lg reveal">
+    <h3 class="cs-h3">Design principles</h3>
+    <p class="cs-p">Setting principles early kept every design decision tied to the outcomes we wanted.</p>
+    <div class="cs-chips cs-chips--lg">
       <span class="cs-chip">One at a time</span><span class="cs-chip">Media-first approach</span><span class="cs-chip">Action focused</span><span class="cs-chip">Instructive</span><span class="cs-chip">Building association &amp; familiarity</span><span class="cs-chip">Efficient feedback and progress</span><span class="cs-chip">Guided and personalised experience</span>
     </div>
   </div>
 
   <div class="cs-sub">
-    <h3 class="cs-h3 reveal">User flow</h3>
-    <p class="cs-p reveal">The backend limited us, so we kept the main flow and restructured the homepage around simpler navigation: a module launcher for easy access, and learning progress on top.</p>
-    <p class="cs-p reveal">Users mostly came to finish pending modules, and feeds only added friction on the way. Feeds now have their own tab, and the homepage focuses on learning.</p>
-    <p class="cs-p reveal">Events were hard to find in the calendar. They now have a distinct homepage entry point, with every event listed in one place.</p>
+    <h3 class="cs-h3">User flow</h3>
+    <p class="cs-p">The backend limited us, so we kept the main flow and restructured the homepage around simpler navigation: a module launcher for easy access, and learning progress on top.</p>
+    <p class="cs-p">Users mostly came to finish pending modules, and feeds only added friction on the way. Feeds now have their own tab, and the homepage focuses on learning.</p>
+    <p class="cs-p">Events were hard to find in the calendar. They now have a distinct homepage entry point, with every event listed in one place.</p>
   </div>
 
 </div>
 <div class="cs-wrap cs-wrap--board">
-<figure class="cs-board reveal">
+<figure class="cs-board settle">
   <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: The Up-skill user flow" data-full="assets/skilling/user-flow.jpg" data-alt="Flowchart of the Up-skill user flow from the home page to courses, assessments, playlists and events">
     <img src="assets/skilling/user-flow.jpg" alt="Flowchart of the Up-skill user flow from the home page to courses, assessments, playlists and events" width="1590" height="2320" loading="lazy" decoding="async">
     <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
@@ -1149,8 +1191,8 @@ body.cs-lb-lock { overflow: hidden; }
 <section class="cs-section" id="cs-home" data-wash="teal">
 <div class="cs-wrap">
 
-  <h2 class="cs-display reveal">Making learning <em>frontline friendly.</em></h2>
-  <p class="cs-lead reveal">One screen to find what you need, track assigned and completed modules, and see which tasks need attention.</p>
+  <h2 class="cs-display reveal-title">Making learning <em>frontline friendly.</em></h2>
+  <p class="cs-lead">One screen to find what you need, track assigned and completed modules, and see which tasks need attention.</p>
 
 </div>
 <div class="cs-wrap cs-wrap--board" style="margin-top: 72px;">
@@ -1182,7 +1224,7 @@ body.cs-lb-lock { overflow: hidden; }
   </div>
 </div>
 <div class="cs-wrap cs-wrap--board cs-wrap--inset">
-<figure class="cs-board reveal cs-board--inset">
+<figure class="cs-board settle cs-board--inset">
   <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: The full home board" data-full="assets/skilling/d-home.jpg" data-alt="Up-skill home screen with progress indicator, quick access and assigned modules">
     <img src="assets/skilling/d-home.jpg" alt="Up-skill home screen with progress indicator, quick access and assigned modules" width="1590" height="1516" loading="lazy" decoding="async">
     <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
@@ -1196,12 +1238,12 @@ body.cs-lb-lock { overflow: hidden; }
 <section class="cs-section" id="cs-courses" data-wash="teal">
 <div class="cs-wrap">
 
-  <h2 class="cs-display reveal">Familiar controls. <em>Clearer paths.</em></h2>
-  <p class="cs-lead reveal">A course holds multiple chapters of video, images or audio transcripts. Users mostly watch video, so we kept familiar controls and CTAs.</p>
+  <h2 class="cs-display reveal-title">Familiar controls. <em>Clearer paths.</em></h2>
+  <p class="cs-lead">A course holds multiple chapters of video, images or audio transcripts. Users mostly watch video, so we kept familiar controls and CTAs.</p>
 
 </div>
 <div class="cs-wrap cs-wrap--board">
-<figure class="cs-board reveal">
+<figure class="cs-board settle">
   <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: Course page" data-full="assets/skilling/d-course.jpg" data-alt="Course detail screens showing chapters, progress and a Continue CTA">
     <img src="assets/skilling/d-course.jpg" alt="Course detail screens showing chapters, progress and a Continue CTA" width="1590" height="625" loading="lazy" decoding="async">
     <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
@@ -1211,7 +1253,7 @@ body.cs-lb-lock { overflow: hidden; }
 </div>
 
 <div class="cs-wrap">
-  <dl class="cs-facts cs-facts--2 reveal">
+  <dl class="cs-facts cs-facts--2">
     <div>
       <dt>Promoting pending courses</dt>
       <dd>A visual treatment and a running count-down capture attention and help users complete pending courses on time.</dd>
@@ -1231,7 +1273,7 @@ body.cs-lb-lock { overflow: hidden; }
   </dl>
 </div>
 <div class="cs-wrap cs-wrap--board">
-<figure class="cs-board reveal">
+<figure class="cs-board settle">
   <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: Course cards" data-full="assets/skilling/d-course-cards.jpg" data-alt="Course cards and the home page states for pending, assigned and bundled courses">
     <img src="assets/skilling/d-course-cards.jpg" alt="Course cards and the home page states for pending, assigned and bundled courses" width="1590" height="1336" loading="lazy" decoding="async">
     <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
@@ -1241,7 +1283,7 @@ body.cs-lb-lock { overflow: hidden; }
 </div>
 
 <div class="cs-wrap cs-wrap--board" style="margin-top: 88px;">
-  <div class="cs-strip reveal" data-strip>
+  <div class="cs-strip settle" data-strip>
     <div class="cs-strip-head">
       <div>
         <h3 class="cs-h3">One course, four ways to take it in</h3>
@@ -1281,12 +1323,12 @@ body.cs-lb-lock { overflow: hidden; }
 <section class="cs-section" id="cs-assess" data-wash="indigo">
 <div class="cs-wrap">
 
-  <h2 class="cs-display reveal">Assessments that feel less like <em>forms.</em></h2>
-  <p class="cs-lead reveal">The old assessments felt like filling out a form. We rebuilt them to be playful, instructive and engaging on every question type.</p>
+  <h2 class="cs-display reveal-title">Assessments that feel less like <em>forms.</em></h2>
+  <p class="cs-lead">The old assessments felt like filling out a form. We rebuilt them to be playful, instructive and engaging on every question type.</p>
 
 </div>
 <div class="cs-wrap cs-wrap--board">
-<figure class="cs-board reveal">
+<figure class="cs-board settle">
   <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: Making assessment playful and engaging" data-full="assets/skilling/d-assess-intro.jpg" data-alt="Assessment card and detail screen in the redesigned app">
     <img src="assets/skilling/d-assess-intro.jpg" alt="Assessment card and detail screen in the redesigned app" width="1590" height="625" loading="lazy" decoding="async">
     <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
@@ -1297,12 +1339,12 @@ body.cs-lb-lock { overflow: hidden; }
 
 <div class="cs-wrap">
   <div class="cs-sub" style="margin-top: 72px;">
-    <h3 class="cs-h3 reveal">Crafting consistency</h3>
-    <p class="cs-p reveal">Assessment cards vary by whether they carry a banner image, which made them inconsistent. Defined patterns and a contextual colour picker keep them clean and consistent.</p>
+    <h3 class="cs-h3">Crafting consistency</h3>
+    <p class="cs-p">Assessment cards vary by whether they carry a banner image, which made them inconsistent. Defined patterns and a contextual colour picker keep them clean and consistent.</p>
   </div>
 </div>
 <div class="cs-wrap cs-wrap--board">
-<figure class="cs-board reveal">
+<figure class="cs-board settle">
   <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: Assessment cards" data-full="assets/skilling/d-consistency.jpg" data-alt="Assessment cards in the home page next to variants with and without banner images">
     <img src="assets/skilling/d-consistency.jpg" alt="Assessment cards in the home page next to variants with and without banner images" width="1750" height="719" loading="lazy" decoding="async">
     <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
@@ -1313,12 +1355,12 @@ body.cs-lb-lock { overflow: hidden; }
 
 <div class="cs-wrap">
   <div class="cs-sub" style="margin-top: 72px;">
-    <h3 class="cs-h3 reveal">Theming brand experience with ease</h3>
-    <p class="cs-p reveal">Brand alignment is a key selling point, but unrestrained customisation had become a hygiene issue. Admins now pick from a predefined palette, and dynamic patterns keep assessments from feeling like form filling.</p>
+    <h3 class="cs-h3">Theming brand experience with ease</h3>
+    <p class="cs-p">Brand alignment is a key selling point, but unrestrained customisation had become a hygiene issue. Admins now pick from a predefined palette, and dynamic patterns keep assessments from feeling like form filling.</p>
   </div>
 </div>
 <div class="cs-wrap cs-wrap--board">
-<figure class="cs-board reveal">
+<figure class="cs-board settle">
   <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: Colour palette and patterns" data-full="assets/skilling/d-theming.jpg" data-alt="Predefined colour palette and pattern icons for assessment theming">
     <img src="assets/skilling/d-theming.jpg" alt="Predefined colour palette and pattern icons for assessment theming" width="1750" height="658" loading="lazy" decoding="async">
     <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
@@ -1329,12 +1371,12 @@ body.cs-lb-lock { overflow: hidden; }
 
 <div class="cs-wrap">
   <div class="cs-sub" style="margin-top: 72px;">
-    <h3 class="cs-h3 reveal">A playful assessment experience</h3>
-    <p class="cs-p reveal">Each assessment supports the full range of question types and captures every response intuitively.</p>
+    <h3 class="cs-h3">A playful assessment experience</h3>
+    <p class="cs-p">Each assessment supports the full range of question types and captures every response intuitively.</p>
   </div>
 </div>
 <div class="cs-wrap cs-wrap--board">
-  <div class="cs-theme reveal" data-theme-switch>
+  <div class="cs-theme settle" data-theme-switch>
     <div class="cs-theme-stage">
       <span class="cs-theme-glow" aria-hidden="true"></span>
       <img class="is-active" data-theme="teal" src="assets/skilling/ui/theme-teal.webp" alt="Assessment question screen in the teal theme" width="520" height="1072" loading="lazy" decoding="async">
@@ -1354,7 +1396,7 @@ body.cs-lb-lock { overflow: hidden; }
   </div>
 </div>
 <div class="cs-wrap cs-wrap--board">
-<figure class="cs-board reveal">
+<figure class="cs-board settle">
   <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: Question types" data-full="assets/skilling/d-playful-b.jpg" data-alt="A field of assessment question screens including image choice and text responses">
     <img src="assets/skilling/d-playful-b.jpg" alt="A field of assessment question screens including image choice and text responses" width="1750" height="1149" loading="lazy" decoding="async">
     <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
@@ -1363,7 +1405,7 @@ body.cs-lb-lock { overflow: hidden; }
 </figure>
 </div>
 <div class="cs-wrap cs-wrap--board">
-<figure class="cs-board reveal">
+<figure class="cs-board settle">
   <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: Feedback on every answer" data-full="assets/skilling/d-assess-card.jpg" data-alt="Assessment progress, an explanation dialog and correct and incorrect answer states">
     <img src="assets/skilling/d-assess-card.jpg" alt="Assessment progress, an explanation dialog and correct and incorrect answer states" width="1590" height="1001" loading="lazy" decoding="async">
     <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
@@ -1374,12 +1416,12 @@ body.cs-lb-lock { overflow: hidden; }
 
 <div class="cs-wrap">
   <div class="cs-sub" style="margin-top: 72px;">
-    <h3 class="cs-h3 reveal">Responses with audio, video and image</h3>
-    <p class="cs-p reveal">Some questions need more than a tap. Users can record audio, capture video or upload an image, preview it before submitting, and record again.</p>
+    <h3 class="cs-h3">Responses with audio, video and image</h3>
+    <p class="cs-p">Some questions need more than a tap. Users can record audio, capture video or upload an image, preview it before submitting, and record again.</p>
   </div>
 </div>
 <div class="cs-wrap cs-wrap--board">
-<figure class="cs-board reveal">
+<figure class="cs-board settle">
   <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: Upload responses" data-full="assets/skilling/d-responses.jpg" data-alt="Assessment screens for recording audio, capturing video and uploading images">
     <img src="assets/skilling/d-responses.jpg" alt="Assessment screens for recording audio, capturing video and uploading images" width="1590" height="930" loading="lazy" decoding="async">
     <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
@@ -1389,7 +1431,7 @@ body.cs-lb-lock { overflow: hidden; }
 </div>
 
 <div class="cs-wrap cs-wrap--board" style="margin-top: 88px;">
-<figure class="cs-board cs-board--photo reveal"><div class="cs-fig-frame"><img src="assets/skilling/photo-tablet.jpg" alt="Three workers in hard hats looking at a tablet" width="1590" height="799" loading="lazy" decoding="async"></div></figure>
+<figure class="cs-board cs-board--photo settle"><div class="cs-fig-frame"><img src="assets/skilling/photo-tablet.jpg" alt="Three workers in hard hats looking at a tablet" width="1590" height="799" loading="lazy" decoding="async"></div></figure>
 </div>
 </section>
 
@@ -1397,12 +1439,12 @@ body.cs-lb-lock { overflow: hidden; }
 <section class="cs-section" id="cs-playlists" data-wash="green">
 <div class="cs-wrap">
 
-  <h2 class="cs-display reveal">A bundle of lessons, <em>made finishable.</em></h2>
-  <p class="cs-lead reveal">A playlist bundles courses and assessments into levels for one learning purpose, configured by the admin. Because it bundles so much, it can run long.</p>
+  <h2 class="cs-display reveal-title">A bundle of lessons, <em>made finishable.</em></h2>
+  <p class="cs-lead">A playlist bundles courses and assessments into levels for one learning purpose, configured by the admin. Because it bundles so much, it can run long.</p>
 
 </div>
 <div class="cs-wrap cs-wrap--board">
-<figure class="cs-board reveal">
+<figure class="cs-board settle">
   <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: Playlist" data-full="assets/skilling/d-playlist.jpg" data-alt="Playlist cover screen with levels and a Start Level CTA">
     <img src="assets/skilling/d-playlist.jpg" alt="Playlist cover screen with levels and a Start Level CTA" width="1590" height="625" loading="lazy" decoding="async">
     <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
@@ -1413,12 +1455,12 @@ body.cs-lb-lock { overflow: hidden; }
 
 <div class="cs-wrap">
   <div class="cs-sub" style="margin-top: 72px;">
-    <h3 class="cs-h3 reveal">The playlist card</h3>
-    <p class="cs-p reveal">The card shows a playlist's purpose and that it holds several lessons. The top card updates with the sequence and links straight to the current level.</p>
+    <h3 class="cs-h3">The playlist card</h3>
+    <p class="cs-p">The card shows a playlist's purpose and that it holds several lessons. The top card updates with the sequence and links straight to the current level.</p>
   </div>
 </div>
 <div class="cs-wrap cs-wrap--board">
-<figure class="cs-board reveal">
+<figure class="cs-board settle">
   <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: Playlist on the home page" data-full="assets/skilling/d-playlist-card.jpg" data-alt="Home screen showing a playlist assigned card and the levels inside it">
     <img src="assets/skilling/d-playlist-card.jpg" alt="Home screen showing a playlist assigned card and the levels inside it" width="1750" height="925" loading="lazy" decoding="async">
     <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
@@ -1429,12 +1471,12 @@ body.cs-lb-lock { overflow: hidden; }
 
 <div class="cs-wrap">
   <div class="cs-sub" style="margin-top: 72px;">
-    <h3 class="cs-h3 reveal">Anatomy of the playlist</h3>
-    <p class="cs-p reveal">The cover gives a clear overview with minimal distraction, and a guiding CTA shows progress. Levels below are listed in order and nest their chapters, with one expanded by default.</p>
+    <h3 class="cs-h3">Anatomy of the playlist</h3>
+    <p class="cs-p">The cover gives a clear overview with minimal distraction, and a guiding CTA shows progress. Levels below are listed in order and nest their chapters, with one expanded by default.</p>
   </div>
 </div>
 <div class="cs-wrap cs-wrap--board">
-<figure class="cs-board reveal">
+<figure class="cs-board settle">
   <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: Cover and guiding CTA" data-full="assets/skilling/d-playlist-cover.jpg" data-alt="Playlist cover with a Start Level CTA and the level list underneath">
     <img src="assets/skilling/d-playlist-cover.jpg" alt="Playlist cover with a Start Level CTA and the level list underneath" width="1590" height="731" loading="lazy" decoding="async">
     <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
@@ -1443,7 +1485,7 @@ body.cs-lb-lock { overflow: hidden; }
 </figure>
 </div>
 <div class="cs-wrap cs-wrap--board">
-<figure class="cs-board reveal">
+<figure class="cs-board settle">
   <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: Levels and chapters" data-full="assets/skilling/d-playlist-anatomy.jpg" data-alt="Four playlist screens showing expanded and collapsed levels and completion states">
     <img src="assets/skilling/d-playlist-anatomy.jpg" alt="Four playlist screens showing expanded and collapsed levels and completion states" width="1750" height="1292" loading="lazy" decoding="async">
     <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
@@ -1454,12 +1496,12 @@ body.cs-lb-lock { overflow: hidden; }
 
 <div class="cs-wrap">
   <div class="cs-sub" style="margin-top: 72px;">
-    <h3 class="cs-h3 reveal">Celebrating every small achievement</h3>
-    <p class="cs-p reveal">Concise feedback when users complete chapters, levels or playlists keeps them motivated and marks their progress.</p>
+    <h3 class="cs-h3">Celebrating every small achievement</h3>
+    <p class="cs-p">Concise feedback when users complete chapters, levels or playlists keeps them motivated and marks their progress.</p>
   </div>
 </div>
 <div class="cs-wrap cs-wrap--board cs-wrap--inset">
-<figure class="cs-board reveal cs-board--inset">
+<figure class="cs-board settle cs-board--inset">
   <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: Success screens" data-full="assets/skilling/d-celebrate.jpg" data-alt="Success screens for completing a level and completing a playlist with earnings">
     <img src="assets/skilling/d-celebrate.jpg" alt="Success screens for completing a level and completing a playlist with earnings" width="1590" height="704" loading="lazy" decoding="async">
     <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
@@ -1470,12 +1512,12 @@ body.cs-lb-lock { overflow: hidden; }
 
 <div class="cs-wrap">
   <div class="cs-sub">
-    <h3 class="cs-h3 reveal">A catalogue of the user's learning journey</h3>
-    <p class="cs-p reveal">My Learning is the hub for everything assigned, reached from quick access on the home page. Progress sits on top, with pending modules grouped by type and marked by criticality and status.</p>
+    <h3 class="cs-h3">A catalogue of the user's learning journey</h3>
+    <p class="cs-p">My Learning is the hub for everything assigned, reached from quick access on the home page. Progress sits on top, with pending modules grouped by type and marked by criticality and status.</p>
   </div>
 </div>
 <div class="cs-wrap cs-wrap--board">
-<figure class="cs-board reveal">
+<figure class="cs-board settle">
   <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: My learning" data-full="assets/skilling/d-mylearning-intro.jpg" data-alt="My learning screen with standing rank, badges and pending modules">
     <img src="assets/skilling/d-mylearning-intro.jpg" alt="My learning screen with standing rank, badges and pending modules" width="1590" height="554" loading="lazy" decoding="async">
     <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
@@ -1484,7 +1526,7 @@ body.cs-lb-lock { overflow: hidden; }
 </figure>
 </div>
 <div class="cs-wrap cs-wrap--board">
-<figure class="cs-board reveal">
+<figure class="cs-board settle">
   <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: Pending, ranked and completed" data-full="assets/skilling/d-mylearning.jpg" data-alt="My learning screens for pending modules, a leaderboard and completed modules">
     <img src="assets/skilling/d-mylearning.jpg" alt="My learning screens for pending modules, a leaderboard and completed modules" width="1590" height="2452" loading="lazy" decoding="async">
     <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
@@ -1498,24 +1540,24 @@ body.cs-lb-lock { overflow: hidden; }
 <section class="cs-section" id="cs-events" data-wash="amber">
 <div class="cs-wrap">
 
-  <h2 class="cs-display reveal">Beyond the course: <em>live and bite-sized.</em></h2>
-  <p class="cs-lead reveal">Two more ways to learn: live events that bring the classroom into the app, and stories-style micro-courses for short gaps in a shift.</p>
+  <h2 class="cs-display reveal-title">Beyond the course: <em>live and bite-sized.</em></h2>
+  <p class="cs-lead">Two more ways to learn: live events that bring the classroom into the app, and stories-style micro-courses for short gaps in a shift.</p>
 
 </div>
 
 <div class="cs-wrap cs-wrap--board" style="margin-top: 56px;">
-<figure class="cs-board cs-board--photo reveal"><div class="cs-fig-frame"><img src="assets/skilling/photo-clap.jpg" alt="A team of workers applauding" width="1590" height="800" loading="lazy" decoding="async"></div></figure>
+<figure class="cs-board cs-board--photo settle"><div class="cs-fig-frame"><img src="assets/skilling/photo-clap.jpg" alt="A team of workers applauding" width="1590" height="800" loading="lazy" decoding="async"></div></figure>
 </div>
 
 <div class="cs-wrap">
   <div class="cs-sub" style="margin-top: 72px;">
-    <h3 class="cs-h3 reveal">Training using live classes and events</h3>
-    <p class="cs-p reveal">Live classes bring real-time instruction and interaction, in a virtual setting or a physical location. Unlike courses, assessments and playlists, they let trainers and learners interact directly.</p>
-    <p class="cs-p reveal">Event cards appear on the homepage for new, registered and live events, and their state, cues and CTA change to match, so users don't miss them.</p>
+    <h3 class="cs-h3">Training using live classes and events</h3>
+    <p class="cs-p">Live classes bring real-time instruction and interaction, in a virtual setting or a physical location. Unlike courses, assessments and playlists, they let trainers and learners interact directly.</p>
+    <p class="cs-p">Event cards appear on the homepage for new, registered and live events, and their state, cues and CTA change to match, so users don't miss them.</p>
   </div>
 </div>
 <div class="cs-wrap cs-wrap--board">
-<figure class="cs-board reveal">
+<figure class="cs-board settle">
   <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: Instructor-led events" data-full="assets/skilling/d-events-intro.jpg" data-alt="Event cards and a live class detail screen">
     <img src="assets/skilling/d-events-intro.jpg" alt="Event cards and a live class detail screen" width="1590" height="625" loading="lazy" decoding="async">
     <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
@@ -1525,14 +1567,14 @@ body.cs-lb-lock { overflow: hidden; }
 </div>
 <div class="cs-wrap cs-wrap--board">
 <div class="cs-pair">
-<figure class="cs-board reveal">
+<figure class="cs-board settle">
   <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: Events on the home page" data-full="assets/skilling/d-events-home.jpg" data-alt="Home screen with event cards in upcoming, registered and live states">
     <img src="assets/skilling/d-events-home.jpg" alt="Home screen with event cards in upcoming, registered and live states" width="1590" height="774" loading="lazy" decoding="async">
     <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
   </div>
   <figcaption class="cs-mock-cap">Events on the home page</figcaption>
 </figure>
-<figure class="cs-board reveal">
+<figure class="cs-board settle">
   <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: All events" data-full="assets/skilling/d-events-all.jpg" data-alt="All events list with live, upcoming and past filters">
     <img src="assets/skilling/d-events-all.jpg" alt="All events list with live, upcoming and past filters" width="1590" height="672" loading="lazy" decoding="async">
     <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
@@ -1542,7 +1584,7 @@ body.cs-lb-lock { overflow: hidden; }
 </div>
 </div>
 <div class="cs-wrap cs-wrap--board">
-<figure class="cs-board reveal">
+<figure class="cs-board settle">
   <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: Event details" data-full="assets/skilling/d-events-detail.jpg" data-alt="Event detail screens showing the trainer, location, description and a register button">
     <img src="assets/skilling/d-events-detail.jpg" alt="Event detail screens showing the trainer, location, description and a register button" width="1590" height="1174" loading="lazy" decoding="async">
     <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
@@ -1553,12 +1595,12 @@ body.cs-lb-lock { overflow: hidden; }
 
 <div class="cs-wrap">
   <div class="cs-sub">
-    <h3 class="cs-h3 reveal">Stories-style mini courses</h3>
-    <p class="cs-p reveal">To boost engagement and fight short attention spans, we're testing stories-style micro-courses for a few select industries.</p>
+    <h3 class="cs-h3">Stories-style mini courses</h3>
+    <p class="cs-p">To boost engagement and fight short attention spans, we're testing stories-style micro-courses for a few select industries.</p>
   </div>
 </div>
 <div class="cs-wrap cs-wrap--board">
-<figure class="cs-board reveal">
+<figure class="cs-board settle">
   <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: Micro-learning" data-full="assets/skilling/d-micro-intro.jpg" data-alt="Stories-style mini course screens of a hospitality trainer">
     <img src="assets/skilling/d-micro-intro.jpg" alt="Stories-style mini course screens of a hospitality trainer" width="1590" height="625" loading="lazy" decoding="async">
     <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
@@ -1569,12 +1611,12 @@ body.cs-lb-lock { overflow: hidden; }
 
 <div class="cs-wrap">
   <div class="cs-sub" style="margin-top: 72px;">
-    <h3 class="cs-h3 reveal">Short courses</h3>
-    <p class="cs-p reveal">Short courses are bite-sized learning for busy schedules. Complex topics arrive in digestible segments, and a short quiz at the end checks understanding.</p>
+    <h3 class="cs-h3">Short courses</h3>
+    <p class="cs-p">Short courses are bite-sized learning for busy schedules. Complex topics arrive in digestible segments, and a short quiz at the end checks understanding.</p>
   </div>
 </div>
 <div class="cs-wrap cs-wrap--board">
-<figure class="cs-board reveal">
+<figure class="cs-board settle">
   <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: Short courses" data-full="assets/skilling/d-short.jpg" data-alt="Short course screens showing safety gear tips as full screen stories">
     <img src="assets/skilling/d-short.jpg" alt="Short course screens showing safety gear tips as full screen stories" width="1590" height="932" loading="lazy" decoding="async">
     <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
@@ -1583,7 +1625,7 @@ body.cs-lb-lock { overflow: hidden; }
 </figure>
 </div>
 <div class="cs-wrap cs-wrap--board cs-wrap--inset">
-<figure class="cs-board reveal cs-board--inset">
+<figure class="cs-board settle cs-board--inset">
   <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: A quick check" data-full="assets/skilling/d-short-quiz.jpg" data-alt="Short course quiz screens with a correct answer state">
     <img src="assets/skilling/d-short-quiz.jpg" alt="Short course quiz screens with a correct answer state" width="1590" height="670" loading="lazy" decoding="async">
     <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
@@ -1595,7 +1637,7 @@ body.cs-lb-lock { overflow: hidden; }
 <div class="cs-wrap">
   <hr class="cs-divider" style="margin-top: 96px;">
 
-  <div class="cs-thanks-note reveal">
+  <div class="cs-thanks-note">
     <span class="cs-thanks-mark" aria-hidden="true">
       <span class="cs-thanks-dash"></span>
       <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c.4 5.9 5.7 11.2 11.6 11.6v.8C17.7 12.8 12.4 18.1 12 24h-.8C10.8 18.1 5.5 12.8-.4 12.4v-.8C5.5 11.2 10.8 5.9 11.2 0h.8z"/></svg>
@@ -1603,7 +1645,7 @@ body.cs-lb-lock { overflow: hidden; }
     </span>
     <p>Thanks for following along.</p>
   </div>
-  <div class="cs-cta-center reveal"><a class="cs-cta" href="/"><span class="arr">←</span> Back to selected work</a></div>
+  <div class="cs-cta-center"><a class="cs-cta" href="/"><span class="arr">←</span> Back to selected work</a></div>
 </div>
 </section>
 
@@ -1622,21 +1664,20 @@ body.cs-lb-lock { overflow: hidden; }
 </div>
 
 <script>
+/* No window scroll listeners on this page: position-driven UI uses IntersectionObserver or CSS scroll timelines. */
+var CS_REDUCE = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-/* Scroll progress bar */
+/* Nav hairline: a 8px sentinel at the top of the page tells us whether we've left it */
 (function() {
-  const bar = document.getElementById('cs-progress');
-  if (!bar) return;
-  function update() {
-    const h = document.documentElement;
-    const pct = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
-    bar.style.width = (isFinite(pct) ? pct : 0) + '%';
-  }
-  window.addEventListener('scroll', update, { passive: true });
-  update();
+  var nav = document.querySelector('nav');
+  var sentinel = document.getElementById('cs-sentinel');
+  if (!nav || !sentinel || !('IntersectionObserver' in window)) return;
+  new IntersectionObserver(function(entries) {
+    nav.classList.toggle('is-scrolled', !entries[0].isIntersecting);
+  }).observe(sentinel);
 })();
 
-/* Context rail — scroll-spy: active section thesis + jump list to the rest */
+/* Context rail: grouped by act, active state from a thin observation band across the viewport */
 (function() {
   var rail = document.getElementById('cs-rail');
   var list = document.getElementById('cs-rail-list');
@@ -1659,16 +1700,11 @@ body.cs-lb-lock { overflow: hidden; }
     { id: 'cs-playlists',  num: '10', name: 'Playlists and Progress' },
     { id: 'cs-events',     num: '11', name: 'Events and Micro-learning' }
   ];
-  var grp = null;
-  SECTIONS.forEach(function(s) { if (s.group) grp = s.id; s.groupId = grp; });
+  var grp = null, byId = {};
+  SECTIONS.forEach(function(s) { if (s.group) grp = s.id; s.groupId = grp; byId[s.id] = s; });
 
   var activeId = null;
   var heroGone = false;
-
-  function scrollToSection(id) {
-    var el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
-  }
 
   list.innerHTML = SECTIONS.map(function(s) {
     if (s.group) {
@@ -1681,7 +1717,10 @@ body.cs-lb-lock { overflow: hidden; }
            '</button></li>';
   }).join('');
   list.querySelectorAll('button').forEach(function(btn) {
-    btn.addEventListener('click', function(){ scrollToSection(this.getAttribute('data-target')); });
+    btn.addEventListener('click', function() {
+      var el = document.getElementById(this.getAttribute('data-target'));
+      if (el) el.scrollIntoView({ behavior: CS_REDUCE ? 'auto' : 'smooth' });
+    });
   });
 
   function setActive(sec) {
@@ -1693,60 +1732,64 @@ body.cs-lb-lock { overflow: hidden; }
       if (g) g.classList.add('is-active');
     }
   }
+  function syncVisibility() {
+    var on = heroGone && !!activeId;
+    rail.classList.toggle('is-visible', on);
+    if (on) rail.removeAttribute('aria-hidden'); else rail.setAttribute('aria-hidden', 'true');
+  }
 
-  /* Hide the rail while the hero is in view; reveal once scrolled past it */
+  if (!('IntersectionObserver' in window)) return;
+
+  /* Hidden while the hero is in view */
   var hero = document.querySelector('.cs-hero');
   if (hero) {
-    var heroObs = new IntersectionObserver(function(entries) {
-      entries.forEach(function(e) {
-        if (!e.isIntersecting) {
-          heroGone = true;
-          if (activeId) { rail.classList.add('is-visible'); rail.removeAttribute('aria-hidden'); }
-        } else {
-          heroGone = false;
-          rail.classList.remove('is-visible');
-          rail.setAttribute('aria-hidden', 'true');
-        }
-      });
-    }, { threshold: 0.05 });
-    heroObs.observe(hero);
-  } else {
-    heroGone = true;
-  }
+    new IntersectionObserver(function(entries) {
+      heroGone = !entries[0].isIntersecting;
+      syncVisibility();
+    }, { threshold: 0.05 }).observe(hero);
+  } else { heroGone = true; }
 
-  function updateActiveSection() {
-    var triggerY = window.scrollY + window.innerHeight * 0.35;
-    var current = null;
-    SECTIONS.forEach(function(s) {
-      var el = document.getElementById(s.id);
-      if (el && el.offsetTop <= triggerY) current = s;
+  /* Whatever crosses a 1% band placed 35% down the viewport is the current section */
+  var io = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (!e.isIntersecting) return;
+      var sec = byId[e.target.id];
+      if (sec && sec.id !== activeId) { activeId = sec.id; setActive(sec); syncVisibility(); }
     });
-    if (current && current.id !== activeId) {
-      activeId = current.id;
-      setActive(current);
-      if (heroGone) { rail.classList.add('is-visible'); rail.removeAttribute('aria-hidden'); }
-    }
-  }
-
-  window.addEventListener('scroll', updateActiveSection, { passive: true });
-  updateActiveSection();
+  }, { rootMargin: '-35% 0px -64% 0px', threshold: 0 });
+  SECTIONS.forEach(function(s) { var el = document.getElementById(s.id); if (el) io.observe(el); });
 })();
 
-/* Reveal-on-scroll choreography */
+/* Reveals: only headlines and evidence animate, each once, when they enter the viewport.
+   A headline starts fully clipped, and the observer reports a fully clipped element as ratio 0,
+   so headlines are watched through their (unclipped) parent instead. */
 (function() {
-  const items = document.querySelectorAll('.reveal');
-  if (!items.length) return;
-  if ('IntersectionObserver' in window) {
-    const obs = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) { e.target.classList.add('is-visible'); obs.unobserve(e.target); }
-      });
-    }, { threshold: 0.08 });
-    items.forEach(el => obs.observe(el));
-    setTimeout(() => items.forEach(el => el.classList.add('is-visible')), 2500);
-  } else {
-    items.forEach(el => el.classList.add('is-visible'));
+  var evidence = document.querySelectorAll('.settle');
+  var titles = document.querySelectorAll('.reveal-title');
+  if (!('IntersectionObserver' in window)) {
+    evidence.forEach(function(el) { el.classList.add('is-visible'); });
+    titles.forEach(function(el) { el.classList.add('is-visible'); });
+    return;
   }
+  var ioEvidence = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) { if (e.isIntersecting) { e.target.classList.add('is-visible'); ioEvidence.unobserve(e.target); } });
+  }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+  evidence.forEach(function(el) { ioEvidence.observe(el); });
+
+  var groups = new Map();
+  titles.forEach(function(el) {
+    var parent = el.parentElement;
+    if (!groups.has(parent)) groups.set(parent, []);
+    groups.get(parent).push(el);
+  });
+  var ioTitles = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (!e.isIntersecting) return;
+      groups.get(e.target).forEach(function(t) { t.classList.add('is-visible'); });
+      ioTitles.unobserve(e.target);
+    });
+  }, { threshold: 0, rootMargin: '0px 0px -14% 0px' });
+  groups.forEach(function(_, parent) { ioTitles.observe(parent); });
 })();
 
 /* Act openers: the title mask-reveals once, when the photo is mostly in view */
@@ -1760,7 +1803,7 @@ body.cs-lb-lock { overflow: hidden; }
   acts.forEach(function(a) { io.observe(a); });
 })();
 
-/* Compare tabs: Oust vs Up-skill (accessible tablist with roving tabindex) */
+/* Tabs: compare (Oust vs Up-skill) and challenges. Accessible tablist with roving tabindex. */
 (function() {
   document.querySelectorAll('[data-tabs]').forEach(function(root) {
     var tabs = Array.prototype.slice.call(root.querySelectorAll('[role="tab"]'));
@@ -1810,9 +1853,8 @@ body.cs-lb-lock { overflow: hidden; }
   });
 })();
 
-/* Strip: previous / next buttons over a native scroll-snap track */
+/* Strip: previous / next buttons over a native scroll-snap track (element scroll, not window scroll) */
 (function() {
-  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   document.querySelectorAll('[data-strip]').forEach(function(root) {
     var track = root.querySelector('.cs-strip-track');
     var prev = root.querySelector('[data-dir="-1"]');
@@ -1828,11 +1870,10 @@ body.cs-lb-lock { overflow: hidden; }
     [prev, next].forEach(function(b) {
       b.addEventListener('click', function() {
         var dir = parseInt(b.getAttribute('data-dir'), 10);
-        track.scrollBy({ left: dir * Math.max(track.clientWidth * 0.8, 320), behavior: reduce ? 'auto' : 'smooth' });
+        track.scrollBy({ left: dir * Math.max(track.clientWidth * 0.8, 320), behavior: CS_REDUCE ? 'auto' : 'smooth' });
       });
     });
     track.addEventListener('scroll', queue, { passive: true });
-    window.addEventListener('resize', queue);
     /* Images load lazily, so the track's overflow changes after first paint: re-check whenever its content resizes. */
     if ('ResizeObserver' in window) {
       var ro = new ResizeObserver(queue);
@@ -1863,32 +1904,72 @@ body.cs-lb-lock { overflow: hidden; }
   });
 })();
 
-/* Lightbox — expand any design board to full resolution */
+/* Lightbox: the board grows out of the thumbnail you tapped and shrinks back into it (FLIP), so you never lose your place */
 (function() {
   var lb = document.getElementById('cs-lb');
   var img = document.getElementById('cs-lb-img');
   var closeBtn = document.getElementById('cs-lb-close');
   if (!lb || !img) return;
-  var opener = null;
+  var opener = null, thumb = null, closing = false;
+  var EASE = 'cubic-bezier(0.16, 1, 0.3, 1)';
+
+  function flip(from, to) {
+    var sx = from.width / to.width, sy = from.height / to.height;
+    return 'translate(' + (from.left - to.left) + 'px,' + (from.top - to.top) + 'px) scale(' + sx + ',' + sy + ')';
+  }
+  function inView(r) { return r.bottom > 0 && r.top < window.innerHeight && r.right > 0 && r.left < window.innerWidth; }
 
   function open(frame) {
     var src = frame.getAttribute('data-full');
-    if (!src) return;
-    opener = frame;
+    if (!src || closing) return;
+    opener = frame; thumb = frame.querySelector('img');
+    var first = thumb.getBoundingClientRect();
+    /* Known dimensions let the lightbox image lay out (and be measured) before it has loaded */
+    img.setAttribute('width', thumb.getAttribute('width') || '');
+    img.setAttribute('height', thumb.getAttribute('height') || '');
     img.src = src;
     img.alt = frame.getAttribute('data-alt') || '';
     lb.classList.add('is-open');
     lb.setAttribute('aria-hidden', 'false');
     lb.scrollTop = 0; lb.scrollLeft = 0;
     document.body.classList.add('cs-lb-lock');
-    closeBtn.focus();
+    var last = img.getBoundingClientRect();
+    if (!CS_REDUCE && img.animate && last.width > 0 && first.width > 0) {
+      thumb.style.visibility = 'hidden';
+      img.style.transformOrigin = '0 0';
+      img.animate([{ transform: flip(first, last) }, { transform: 'none' }], { duration: 520, easing: EASE });
+    }
+    closeBtn.focus({ preventScroll: true });
   }
-  function close() {
+
+  function finish() {
+    if (!closing && !lb.classList.contains('is-open')) return;   /* idempotent: the timed fallback and onfinish may both call it */
     lb.classList.remove('is-open');
     lb.setAttribute('aria-hidden', 'true');
     document.body.classList.remove('cs-lb-lock');
     img.removeAttribute('src');
-    if (opener) { opener.focus({ preventScroll: true }); opener = null; }
+    img.style.transformOrigin = '';
+    img.getAnimations().forEach(function(x) { x.cancel(); });
+    lb.getAnimations().forEach(function(x) { x.cancel(); });
+    if (thumb) thumb.style.visibility = '';
+    if (opener) { opener.focus({ preventScroll: true }); }
+    opener = null; thumb = null; closing = false;
+  }
+
+  function close() {
+    if (!lb.classList.contains('is-open') || closing) return;
+    closing = true;
+    var to = thumb ? thumb.getBoundingClientRect() : null;
+    if (!CS_REDUCE && img.animate && to && inView(to)) {
+      var from = img.getBoundingClientRect();
+      var a = img.animate([{ transform: 'none' }, { transform: flip(to, from) }], { duration: 340, easing: 'cubic-bezier(0.4, 0, 0.2, 1)', fill: 'forwards' });
+      lb.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 340, easing: 'ease', fill: 'forwards' });
+      a.onfinish = finish;
+      /* Never trust animation events alone: a backgrounded tab can delay them, and the lightbox must always close */
+      setTimeout(finish, 480);
+    } else {
+      finish();
+    }
   }
 
   document.querySelectorAll('.cs-fig-frame[data-full]').forEach(function(frame) {
@@ -1903,11 +1984,6 @@ body.cs-lb-lock { overflow: hidden; }
     if (e.key === 'Escape' && lb.classList.contains('is-open')) close();
   });
 })();
-
-</script>
-<script>
-const navEl = document.querySelector('nav');
-window.addEventListener('scroll', () => { navEl.classList.toggle('is-scrolled', window.scrollY > 8); }, { passive: true });
 </script>
 </body>
 </html>
