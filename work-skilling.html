@@ -843,8 +843,8 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
 
 /* =====================================================================
    CHALLENGES AND SCOPE
-   Challenges: the headline stat, then the 14 problem titles in two panels
-   (admins, workers). Scope: the eight changes placed on one lime line.
+   Challenges: the headline stat, then one first-person line for admins and one for workers
+   (one line per audience). Scope: the eight changes placed on one lime line.
    Static on purpose: no pinning, no scroll mechanics, nothing to open.
    ===================================================================== */
 .cs-jstat { display: flex; align-items: baseline; flex-wrap: wrap; gap: 6px 18px; margin: 0 0 44px; }
@@ -852,13 +852,11 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
 .cs-jstat-num .sym { color: var(--accent); }
 .cs-jstat-cap { margin: 0; font-size: var(--fs-body); color: var(--text-soft); }
 
-.cs-prob-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
-.cs-prob { padding: 22px 24px 8px; border: 1px solid var(--line); border-radius: var(--r-surface); background: var(--bg-soft); }
-.cs-prob-head { display: flex; align-items: baseline; justify-content: space-between; margin: 0 0 8px; font-family: 'Geist', sans-serif; font-size: var(--fs-h4); font-weight: 600; color: var(--text); }
-.cs-prob-n { font-size: var(--fs-small); font-weight: 500; color: var(--accent); }
-.cs-prob-list { list-style: none; margin: 0; padding: 0; }
-.cs-prob-list li { padding: 14px 0; border-top: 1px solid var(--line); font-size: var(--fs-small); line-height: 1.45; color: var(--text); }
-.cs-prob-list li:first-child { border-top: 0; }
+.cs-voices { margin-top: 48px; border-top: 1px solid var(--line); }
+.cs-voice { padding: 32px 0; border-bottom: 1px solid var(--line); }
+.cs-voice-who { display: flex; align-items: baseline; gap: 14px; margin: 0 0 14px; font-size: var(--fs-small); font-weight: 500; color: var(--text-soft); }
+.cs-voice-who span { color: var(--accent); }
+.cs-voice-line { margin: 0; font-family: 'Geist', sans-serif; font-size: clamp(24px, 3.4vw, 34px); font-weight: 500; line-height: 1.2; letter-spacing: -0.02em; color: var(--text); text-wrap: balance; }
 
 .cs-mend-track { position: relative; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); }
 .cs-mend-line { position: absolute; left: 0; right: 0; top: 32px; height: 2px; background: var(--accent); transform-origin: 0 50%; }
@@ -892,9 +890,6 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
 @media (prefers-reduced-motion: reduce) {
   .js .cs-mend .cs-mend-line, .js .cs-mend .cs-mend-list { transform: none; opacity: 1; transition: none; }
   .cs-mend-go, .cs-mend-go svg { transition: none; }
-}
-@media (max-width: 640px) {
-  .cs-prob-grid { grid-template-columns: 1fr; }
 }
 </style>
 </head>
@@ -1128,31 +1123,15 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
     <p class="cs-jstat-num">13-15<span class="sym">%</span></p>
     <p class="cs-jstat-cap">average course completion</p>
   </div>
-  <div class="cs-prob-grid settle">
-      <div class="cs-prob">
-        <p class="cs-prob-head"><span>Admins</span><span class="cs-prob-n">6</span></p>
-        <ul class="cs-prob-list">
-        <li>Low course completion rates</li>
-        <li>Unable to prioritise content by importance</li>
-        <li>Challenges with content creation</li>
-        <li>Low employee engagement in the app</li>
-        <li>Customisation concerns</li>
-        <li>No web version of the app</li>
-        </ul>
-      </div>
-      <div class="cs-prob">
-        <p class="cs-prob-head"><span>Workers</span><span class="cs-prob-n">8</span></p>
-        <ul class="cs-prob-list">
-        <li>Little motivation to complete assigned modules</li>
-        <li>Critical modules stay out of sight</li>
-        <li>No visibility into ongoing learning</li>
-        <li>Confusing navigation</li>
-        <li>Module types are hard to tell apart</li>
-        <li>No guidance while performing tasks</li>
-        <li>Inconsistent, unexpected UI</li>
-        <li>Lengthy, low-engagement content</li>
-        </ul>
-      </div>
+  <div class="cs-voices settle">
+    <div class="cs-voice">
+      <p class="cs-voice-who">Admins <span>6 problems</span></p>
+      <p class="cs-voice-line">I couldn't push what mattered, so I chased completion by hand.</p>
+    </div>
+    <div class="cs-voice">
+      <p class="cs-voice-who">Workers <span>8 problems</span></p>
+      <p class="cs-voice-line">Nothing told me what to do next, so I stopped.</p>
+    </div>
   </div>
 </div>
 
