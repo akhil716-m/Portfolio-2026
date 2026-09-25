@@ -20,6 +20,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="assets/skilling/ui/home.webp" type="image/webp" fetchpriority="high">
 <link rel="stylesheet" href="styles.css">
 <script type="text/javascript">
   (function(c,l,a,r,i,t,y){
@@ -28,6 +29,7 @@
       y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
   })(window, document, "clarity", "script", "ykaez3m42c");
 </script>
+<script>document.documentElement.classList.add('js')</script>
 <style>
 /* ============================================================
    CASE STUDY — UP-SKILL (GoBetter learning app)
@@ -284,20 +286,25 @@ a.cs-cta { margin-top: 28px; }
 
 /* ---------- FIGURES — cropped design boards, click to expand ---------- */
 .cs-wrap--board { max-width: min(66vw, 1040px); padding: 0; }
+.cs-wrap--inset { max-width: min(54vw, 760px); }
 .cs-board { margin: 48px 0 0; }
+/* Each board sits on a tinted tray taken from its chapter's wash, so the white PDF sheet reads as
+   a mounted print rather than a glaring slab. */
 .cs-fig-frame {
-  position: relative; overflow: hidden; cursor: zoom-in; background: #fff;
-  border-radius: clamp(12px, 1.9vw, 24px);
-  border: 1px solid rgba(255,255,255,0.08);
-  box-shadow: 0 30px 80px rgba(0,0,0,0.45);
-  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+  --pad: clamp(8px, 1.4vw, 18px);
+  position: relative; overflow: hidden; cursor: zoom-in;
+  padding: var(--pad);
+  border-radius: clamp(14px, 2vw, 22px);
+  background: rgba(var(--wash, 255,255,255), 0.06);
+  border: 1px solid rgba(255,255,255,0.07);
+  transition: border-color 0.25s ease, background 0.25s ease;
   -webkit-tap-highlight-color: transparent;
 }
 .cs-fig-frame:hover { border-color: rgba(212,255,94,0.35); }
 .cs-fig-frame:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
-.cs-fig-frame img { display: block; width: 100%; height: auto; }
+.cs-fig-frame img { display: block; width: 100%; height: auto; border-radius: clamp(8px, 1.1vw, 12px); filter: brightness(0.94); }
 .cs-fig-zoom {
-  position: absolute; top: 14px; right: 14px; width: 36px; height: 36px; border-radius: 50%;
+  position: absolute; top: calc(var(--pad) + 12px); right: calc(var(--pad) + 12px); width: 36px; height: 36px; border-radius: 50%;
   display: flex; align-items: center; justify-content: center; color: var(--text);
   background: rgba(10,10,10,0.72); border: 1px solid rgba(255,255,255,0.14);
   -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
@@ -307,12 +314,15 @@ a.cs-cta { margin-top: 28px; }
 .cs-fig-frame:hover .cs-fig-zoom, .cs-fig-frame:focus-visible .cs-fig-zoom { opacity: 1; transform: scale(1); }
 @media (hover: none) { .cs-fig-zoom { opacity: 1; transform: none; } }
 .cs-board .cs-mock-cap {
-  margin-top: 14px; padding-left: 4px; display: flex; align-items: baseline; gap: 12px;
+  margin-top: 14px; padding-left: 4px;
+  font-family: 'Geist', sans-serif; font-size: 13px; font-weight: 400; line-height: 1.4; color: var(--text-soft);
 }
-.cs-mock-cap-num { font-family: 'Geist Mono', monospace; font-size: 10px; color: var(--text-muted); letter-spacing: 0.08em; }
-.cs-mock-cap-title { font-family: 'Geist', sans-serif; font-size: 13px; color: var(--text-soft); font-weight: 300; }
-.cs-board--photo .cs-fig-frame { cursor: default; background: var(--bg-card); }
+.cs-board--photo .cs-fig-frame { cursor: default; padding: 0; background: none; border: 0; }
+.cs-board--photo .cs-fig-frame img { border-radius: clamp(14px, 2vw, 22px); filter: none; }
 .cs-board--photo .cs-fig-zoom { display: none; }
+.cs-pair { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(14px, 2vw, 24px); align-items: stretch; }
+.cs-pair .cs-board { margin-top: 0; display: flex; flex-direction: column; }
+.cs-pair .cs-fig-frame { flex: 1; display: flex; align-items: center; }
 
 /* Side-by-side: board + supporting list */
 .cs-split { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 40px; align-items: start; }
@@ -379,6 +389,244 @@ body.cs-lb-lock { overflow: hidden; }
   .cs-hero-eyebrow, .cs-hero-title, .cs-hero-meta, .cs-hero-scroll, .cs-back { animation: none; opacity: 1; }
 }
 .cs-board--photo { margin-top: 0; }
+
+/* =====================================================================
+   REFRESH — split hero, act openers, chapter washes, and the four
+   interactive compositions (compare, annotated phone, strip, theme).
+   ===================================================================== */
+[data-wash="amber"]  { --wash: 226,140,52; }
+[data-wash="teal"]   { --wash: 54,150,160; }
+[data-wash="steel"]  { --wash: 112,140,172; }
+[data-wash="indigo"] { --wash: 98,104,214; }
+[data-wash="green"]  { --wash: 62,160,122; }
+.cs-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* Each chapter gets a very low-alpha ambient tint from the product's own palette. Lime stays the only UI accent. */
+.cs-section[data-wash] { position: relative; }
+.cs-section[data-wash]::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 0;
+  background:
+    radial-gradient(48% 820px at 100% 0, rgba(var(--wash), 0.10), transparent 72%) 0 0 / 100% 2600px repeat-y,
+    radial-gradient(48% 820px at 0 0, rgba(var(--wash), 0.07), transparent 72%) 0 1300px / 100% 2600px repeat-y;
+}
+.cs-section[data-wash] > * { position: relative; z-index: 1; }
+
+/* ---------- HERO: product on the right, question on the left ---------- */
+.cs-hero {
+  display: grid; grid-template-columns: minmax(0, 1.02fr) minmax(0, 1fr); grid-template-rows: 1fr auto;
+  align-items: center; justify-content: normal; column-gap: clamp(32px, 5vw, 96px);
+  min-height: 100vh; min-height: 100dvh;
+  padding: clamp(88px, 12vh, 104px) clamp(24px, 6vw, 80px) 40px;
+}
+.cs-hero::before {
+  background:
+    radial-gradient(ellipse 46% 60% at 76% 55%, rgba(54,150,160,0.16), transparent 70%),
+    radial-gradient(ellipse 40% 40% at 8% 92%, rgba(255,255,255,0.03), transparent 70%);
+}
+.cs-hero-copy { grid-column: 1; grid-row: 1; }
+.cs-hero-title { max-width: none; }
+.cs-hero-sub {
+  margin: 28px 0 0; max-width: 30ch;
+  font-family: 'Geist', sans-serif; font-size: clamp(17px, 1.5vw, 20px); font-weight: 300; line-height: 1.6; color: var(--text-soft);
+  opacity: 0; animation: csFadeUp 0.8s ease forwards 0.5s;
+}
+.cs-hero-meta { grid-column: 1 / -1; grid-row: 2; margin-top: 0; padding-top: 28px; gap: 48px; }
+.cs-hero-stage { --H: min(68dvh, 620px, 42vw); grid-column: 2; grid-row: 1; position: relative; height: var(--H); }
+.cs-hero-ph {
+  position: absolute; bottom: 0; left: 50%; width: auto; max-width: none;
+  filter: drop-shadow(0 28px 40px rgba(0,0,0,0.5));
+  animation: csPhoneIn 1s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.cs-hero-ph--c { height: calc(var(--H) * 0.94); transform: translateX(-50%); z-index: 3; animation-delay: 0.45s; }
+.cs-hero-ph--l { height: calc(var(--H) * 0.78); margin-left: calc(var(--H) * -0.5); bottom: calc(var(--H) * 0.03); transform-origin: 50% 100%; transform: rotate(-6deg); z-index: 1; animation-delay: 0.7s; }
+.cs-hero-ph--r { height: calc(var(--H) * 0.78); margin-left: calc(var(--H) * 0.125); bottom: calc(var(--H) * 0.03); transform-origin: 50% 100%; transform: rotate(6deg); z-index: 2; animation-delay: 0.85s; }
+@keyframes csPhoneIn { from { opacity: 0; translate: 0 48px; } to { opacity: 1; translate: 0 0; } }
+
+/* ---------- ACT OPENERS: photo, one title, one line ---------- */
+.cs-act {
+  position: relative; isolation: isolate; overflow: hidden; display: flex; align-items: flex-end;
+  min-height: 88vh; min-height: 88dvh; border-top: 1px solid var(--line);
+  padding: clamp(96px, 14vh, 160px) 0 clamp(48px, 9vh, 88px);
+}
+.cs-act + .cs-section { border-top: 0; }
+.cs-act-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; filter: saturate(0.92) brightness(0.8); }
+.cs-act-scrim {
+  position: absolute; inset: 0; z-index: -1;
+  background:
+    radial-gradient(70% 60% at 0 100%, rgba(var(--wash), 0.24), transparent 70%),
+    linear-gradient(to top, rgba(10,10,10,0.96) 0%, rgba(10,10,10,0.62) 38%, rgba(10,10,10,0.14) 100%),
+    linear-gradient(to right, rgba(10,10,10,0.5), transparent 60%);
+}
+.cs-act-copy { width: 100%; max-width: min(66vw, 1040px); margin: 0 auto; }
+.cs-act-title {
+  font-family: 'Geist', sans-serif; font-size: clamp(56px, 9.5vw, 132px); font-weight: 500;
+  line-height: 0.98; letter-spacing: -0.035em; color: var(--text);
+}
+.cs-act-title em { font-style: normal; color: var(--text-soft); }
+.cs-act-mask { display: block; overflow: hidden; padding-bottom: 0.1em; }
+.cs-act-line { display: block; }
+.cs-act-sub {
+  margin: 20px 0 0; max-width: 34ch;
+  font-family: 'Geist', sans-serif; font-size: clamp(17px, 1.6vw, 21px); font-weight: 300; line-height: 1.55; color: rgba(237,237,237,0.82);
+}
+.js .cs-act-line { transform: translateY(105%); transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1); }
+.js .cs-act-sub { opacity: 0; transform: translateY(14px); transition: opacity 0.8s ease 0.35s, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.35s; }
+.js .cs-act.is-visible .cs-act-line { transform: none; }
+.js .cs-act.is-visible .cs-act-sub { opacity: 1; transform: none; }
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .cs-act-bg { animation: csActBg linear both; animation-timeline: view(); animation-range: entry 0% exit 100%; }
+  }
+}
+@keyframes csActBg { from { transform: translateY(-6%) scale(1.14); } to { transform: translateY(6%) scale(1.14); } }
+
+/* ---------- RAIL: grouped by act ---------- */
+.cs-rail-list li.cs-rail-group { margin-top: 14px; }
+.cs-rail-list li.cs-rail-group:first-child { margin-top: 0; }
+.cs-rail-grp { font-family: 'Geist Mono', monospace; font-size: 10px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-soft); transition: color 0.15s; }
+.cs-rail-list li.cs-rail-group.is-active .cs-rail-grp { color: var(--accent); }
+.cs-rail-list li.cs-rail-group button:hover .cs-rail-grp { color: var(--text); }
+
+/* ---------- COMPARE: Oust vs Up-skill, side by side ---------- */
+.cs-split--ba { grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); }
+.cs-ba {
+  padding: 20px 20px 26px; border-radius: 22px;
+  background: rgba(var(--wash), 0.06); border: 1px solid rgba(255,255,255,0.07);
+}
+.cs-tabs { display: flex; gap: 4px; width: fit-content; max-width: 100%; margin-bottom: 22px; padding: 4px; border-radius: 100px; background: rgba(255,255,255,0.05); }
+.cs-tab {
+  min-height: 44px; padding: 0 18px; border: 0; border-radius: 100px; cursor: pointer; background: none;
+  font-family: 'Geist', sans-serif; font-size: 13.5px; font-weight: 500; color: var(--text-soft);
+  transition: color 0.2s ease, background 0.2s ease;
+}
+.cs-tab:hover:not(.is-active) { color: var(--text); }
+.cs-tab.is-active { color: #0a0a0a; background: var(--accent); }
+.cs-tab:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.cs-ba-panel { display: grid; grid-template-columns: 1fr auto 1fr; align-items: end; column-gap: 10px; }
+.cs-ba-panel[hidden] { display: none; }
+.cs-ba-panel.is-active { animation: csFade 0.45s ease both; }
+@keyframes csFade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+.cs-ba-fig { margin: 0; text-align: center; min-width: 0; }
+.cs-ba-fig img { display: block; height: min(50dvh, 440px); width: auto; max-width: 100%; margin: 0 auto; object-fit: contain; filter: drop-shadow(0 18px 28px rgba(0,0,0,0.45)); }
+.cs-ba-fig:not(.cs-ba-fig--new) img { opacity: 0.9; }
+.cs-ba-fig figcaption { margin-top: 14px; font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-soft); }
+.cs-ba-fig--new figcaption { color: var(--accent); }
+.cs-ba-arrow { align-self: center; color: var(--text-soft); padding-bottom: 28px; }
+.cs-ba-note { grid-column: 1 / -1; margin: 22px 0 0; max-width: 52ch; font-family: 'Geist', sans-serif; font-size: 14.5px; font-weight: 400; line-height: 1.65; color: var(--text-soft); }
+
+/* ---------- ANNOTATED PHONE: the phone holds, the story steps ---------- */
+.cs-sticky { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 300px); gap: clamp(32px, 7vw, 100px); align-items: start; }
+.cs-sticky-steps { list-style: none; margin: 0; padding: 0; }
+.cs-step { min-height: 56vh; display: flex; flex-direction: column; justify-content: center; padding: 6vh 0; }
+.cs-step-title { margin: 0 0 12px; font-family: 'Geist', sans-serif; font-size: clamp(22px, 2.6vw, 30px); font-weight: 600; line-height: 1.2; letter-spacing: -0.015em; color: var(--text); }
+.cs-step-desc { margin: 0; max-width: 40ch; font-family: 'Geist', sans-serif; font-size: 17px; font-weight: 400; line-height: 1.7; color: var(--text-soft); }
+.js .cs-step { opacity: 0.3; transition: opacity 0.4s ease; }
+.js .cs-step.is-active { opacity: 1; }
+.cs-sticky-media { position: sticky; top: max(84px, calc(50dvh - min(37dvh, 320px))); }
+.cs-annot { position: relative; height: min(74dvh, 640px); aspect-ratio: 593 / 1260; margin-left: auto; }
+.cs-annot > img { display: block; width: 100%; height: 100%; filter: drop-shadow(0 28px 40px rgba(0,0,0,0.5)); }
+.cs-ring {
+  position: absolute; top: var(--t); left: var(--l); width: var(--w); height: var(--h);
+  border: 2px solid var(--accent); border-radius: 16px; box-shadow: 0 0 0 5px rgba(212,255,94,0.1);
+  opacity: 0; transform: scale(0.96); transition: opacity 0.35s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); pointer-events: none;
+}
+.js .cs-ring.is-active { opacity: 1; transform: none; }
+
+/* ---------- STRIP: one course, four ways to take it in ---------- */
+.cs-strip { --ph: 450px; }
+.cs-strip-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: 24px; }
+.cs-strip-head .cs-h3 { margin: 0; }
+.cs-strip-head .cs-phase-tag { margin-bottom: 8px; }
+.cs-strip-ctl { display: flex; gap: 8px; flex-shrink: 0; }
+.cs-strip-btn {
+  width: 44px; height: 44px; border-radius: 50%; cursor: pointer; display: grid; place-items: center;
+  color: var(--text); background: var(--bg-card); border: 1px solid var(--line);
+  transition: color 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
+}
+.cs-strip-btn:hover:not(:disabled) { color: var(--accent); border-color: var(--accent); }
+.cs-strip-btn:disabled { opacity: 0.35; cursor: default; }
+.cs-strip-btn:focus-visible, .cs-strip-track:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.cs-strip-track { display: flex; gap: 20px; overflow-x: auto; padding-bottom: 6px; scroll-snap-type: x mandatory; scrollbar-width: none; -webkit-overflow-scrolling: touch; border-radius: 12px; }
+.cs-strip-track::-webkit-scrollbar { display: none; }
+.cs-strip-item { flex: 0 0 auto; display: flex; flex-direction: column; scroll-snap-align: start; }
+.cs-strip-media {
+  display: flex; align-items: flex-end; gap: 14px; padding: 28px 32px;
+  border-radius: 22px; background: rgba(var(--wash), 0.08); border: 1px solid rgba(255,255,255,0.07);
+}
+.cs-strip-media img { display: block; height: var(--ph); width: auto; filter: drop-shadow(0 20px 30px rgba(0,0,0,0.45)); }
+.cs-strip-title { margin: 18px 0 6px; font-family: 'Geist', sans-serif; font-size: 16px; font-weight: 600; color: var(--text); }
+/* width:0 keeps the text from widening the item; min-width then sets the real measure, capped to the visible screen */
+.cs-strip-desc { width: 0; min-width: min(100%, 46ch, calc(100vw - 40px)); margin: 0; font-family: 'Geist', sans-serif; font-size: 14.5px; font-weight: 400; line-height: 1.65; color: var(--text-soft); }
+
+/* ---------- THEME SWITCHER: same question, three brands ---------- */
+@property --glow { syntax: '<color>'; inherits: true; initial-value: rgba(0,0,0,0); }
+.cs-theme {
+  --glow: rgba(65,105,102,0.55); transition: --glow 0.6s ease;
+  position: relative; overflow: hidden; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: clamp(24px, 5vw, 72px);
+  padding: clamp(24px, 4vw, 48px); border-radius: 24px; background: rgba(var(--wash), 0.06); border: 1px solid rgba(255,255,255,0.07);
+}
+.cs-theme[data-active="teal"]   { --glow: rgba(65,105,102,0.55); }
+.cs-theme[data-active="ocean"]  { --glow: rgba(27,99,127,0.62); }
+.cs-theme[data-active="violet"] { --glow: rgba(68,65,111,0.68); }
+.cs-theme-stage { position: relative; height: min(64dvh, 540px); aspect-ratio: 520 / 1072; margin: 0 auto; }
+.cs-theme-glow { position: absolute; inset: -14% -60% -8%; background: radial-gradient(50% 50% at 50% 55%, var(--glow), transparent 70%); pointer-events: none; }
+.cs-theme-stage img {
+  position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; transform: translateY(10px) scale(0.985);
+  transition: opacity 0.45s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); filter: drop-shadow(0 24px 40px rgba(0,0,0,0.5));
+}
+.cs-theme-stage img.is-active { opacity: 1; transform: none; }
+.cs-theme-copy { position: relative; }
+.cs-theme-title { margin: 0 0 12px; font-family: 'Geist', sans-serif; font-size: clamp(22px, 2.6vw, 30px); font-weight: 600; line-height: 1.2; letter-spacing: -0.015em; color: var(--text); }
+.cs-theme-desc { margin: 0; max-width: 38ch; font-family: 'Geist', sans-serif; font-size: 16px; font-weight: 400; line-height: 1.7; color: var(--text-soft); }
+.cs-swatches { display: flex; gap: 14px; margin-top: 28px; }
+.cs-swatch {
+  width: 44px; height: 44px; border-radius: 50%; cursor: pointer; border: 0; background: var(--sw);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.2); transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+.cs-swatch:hover { transform: scale(1.06); }
+.cs-swatch.is-active { box-shadow: inset 0 0 0 1px rgba(255,255,255,0.2), 0 0 0 3px var(--bg), 0 0 0 5px var(--accent); }
+.cs-swatch:focus-visible { outline: 2px solid var(--accent); outline-offset: 6px; }
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 900px) {
+  .cs-hero { grid-template-columns: 1fr; grid-template-rows: auto auto auto; align-items: start; row-gap: 36px; padding: 96px 20px 32px; min-height: 100dvh; justify-content: normal; }
+  .cs-hero-copy, .cs-hero-stage, .cs-hero-meta { grid-column: 1; }
+  .cs-hero-copy { grid-row: 1; } .cs-hero-stage { grid-row: 2; } .cs-hero-meta { grid-row: 3; gap: 24px 32px; }
+  .cs-hero-stage { --H: min(86vw, 470px); margin: 0 auto; width: 100%; }
+  .cs-hero-eyebrow { margin-top: 0; }
+  .cs-act { min-height: 72dvh; }
+  .cs-act-copy { max-width: none; padding: 0 20px; }
+  .cs-wrap--inset { max-width: none; padding: 0 16px; }
+  .cs-split--ba { grid-template-columns: 1fr; }
+  .cs-sticky { grid-template-columns: 1fr; gap: 24px; }
+  .cs-sticky-media { position: static; order: -1; }
+  .cs-annot { margin: 0 auto; height: min(62dvh, 520px); }
+  .cs-step { min-height: 0; padding: 18px 0; }
+  .js .cs-step { opacity: 1; }
+  .cs-ring { display: none; }
+  .cs-theme { grid-template-columns: 1fr; }
+  .cs-theme-stage { height: min(52dvh, 460px); }
+  .cs-pair { grid-template-columns: 1fr; }
+  .cs-strip { --ph: 380px; }
+}
+@media (max-width: 760px) {
+  .cs-hero-meta { border-top: 1px solid var(--line); padding-top: 24px; margin-top: 8px; }
+  .cs-hero-title { font-size: clamp(56px, 17vw, 96px); }
+  .cs-tabs { width: 100%; }
+  .cs-tab { flex: 1; padding: 0 8px; }
+  .cs-ba { padding: 16px 12px 22px; }
+  .cs-ba-fig img { height: min(44dvh, 340px); }
+  .cs-strip-media { padding: 20px 20px; }
+  .cs-strip-head { align-items: flex-start; }
+}
+@media (max-width: 420px) { .cs-strip { --ph: 320px; } }
+@media (prefers-reduced-motion: reduce) {
+  .cs-hero-ph, .cs-hero-sub { animation: none; opacity: 1; translate: none; }
+  .js .cs-act-line, .js .cs-act-sub { transition: none; transform: none; opacity: 1; }
+  .cs-ba-panel.is-active { animation: none; }
+  .cs-theme-stage img, .cs-ring, .cs-swatch { transition: none; }
+  .cs-theme { transition: none; }
+}
 </style>
 </head>
 <body>
@@ -400,21 +648,25 @@ body.cs-lb-lock { overflow: hidden; }
 
 <!-- ═══════════════════════ HERO ═══════════════════════ -->
 <header class="cs-hero">
-  <div class="cs-hero-eyebrow">Case Study<span class="sep">·</span>EdTech<span class="sep">·</span>2024</div>
-  <h1 class="cs-hero-title">Up<em>-skill</em></h1>
+  <div class="cs-hero-copy">
+    <div class="cs-hero-eyebrow">EdTech<span class="sep">·</span>2024</div>
+    <h1 class="cs-hero-title">Up<em>-skill</em></h1>
+    <p class="cs-hero-sub">A ground-up redesign of GoBetter's learning app for blue-collar workers, built around one question: what should I do next?</p>
+  </div>
+  <div class="cs-hero-stage">
+    <img class="cs-hero-ph cs-hero-ph--l" src="assets/skilling/ui/video-2.webp" alt="" width="520" height="1071" decoding="async">
+    <img class="cs-hero-ph cs-hero-ph--r" src="assets/skilling/ui/theme-ocean.webp" alt="" width="520" height="1072" decoding="async">
+    <img class="cs-hero-ph cs-hero-ph--c" src="assets/skilling/ui/home.webp" alt="The redesigned Up-skill home screen showing learning progress, quick access and the next assigned course" width="593" height="1260" fetchpriority="high" decoding="async">
+  </div>
   <div class="cs-hero-meta">
     <div class="cs-hero-meta-item"><label>Role</label><span>Product Designer</span></div>
-    <div class="cs-hero-meta-item"><label>Company</label><span>GoBetter <span class="accent">·</span> BetterPlace</span></div>
-    <div class="cs-hero-meta-item"><label>Timeline</label><span>3 months <span class="accent">·</span> Launched April 2024</span></div>
-  </div>
-  <div class="cs-hero-scroll">
-    <span>Scroll</span>
-    <div class="cs-hero-scroll-line"></div>
+    <div class="cs-hero-meta-item"><label>Company</label><span>GoBetter (formerly BetterPlace)</span></div>
+    <div class="cs-hero-meta-item"><label>Timeline</label><span>3 months, launched April 2024</span></div>
   </div>
 </header>
 
 <!-- ═══════════════════════ 01 — OVERVIEW ═══════════════════════ -->
-<section class="cs-section" id="cs-overview">
+<section class="cs-section" id="cs-overview" data-wash="teal">
 <div class="cs-wrap">
 
   <div class="cs-label reveal"><span class="num">/01</span> Project Overview</div>
@@ -445,27 +697,28 @@ body.cs-lb-lock { overflow: hidden; }
 
 <div class="cs-wrap cs-wrap--board">
 <figure class="cs-board reveal">
-  <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: The redesigned Up-skill experience" data-full="assets/skilling/intro-collage.jpg" data-alt="Collage of redesigned Up-skill app screens on the GoBetter brand">
-    <img src="assets/skilling/intro-collage.jpg" alt="Collage of redesigned Up-skill app screens on the GoBetter brand" width="1750" height="679" loading="lazy" decoding="async">
-    <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
-  </div>
-  <figcaption class="cs-mock-cap"><span class="cs-mock-cap-num">0.1</span><span class="cs-mock-cap-title">The redesigned Up-skill experience</span></figcaption>
-</figure>
-</div>
-<div class="cs-wrap cs-wrap--board">
-<figure class="cs-board reveal">
   <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: A wall of the new screens" data-full="assets/skilling/phones-strip.jpg" data-alt="Grid of redesigned Up-skill mobile screens including courses, assessments and playlists">
     <img src="assets/skilling/phones-strip.jpg" alt="Grid of redesigned Up-skill mobile screens including courses, assessments and playlists" width="1750" height="799" loading="lazy" decoding="async">
     <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
   </div>
-  <figcaption class="cs-mock-cap"><span class="cs-mock-cap-num">0.2</span><span class="cs-mock-cap-title">A wall of the new screens</span></figcaption>
+  <figcaption class="cs-mock-cap">A wall of the new screens</figcaption>
 </figure>
 </div>
 
 </section>
 
+<!-- ═══════════════════════ ACT — THE PROBLEM ═══════════════════════ -->
+<section class="cs-act" id="act-problem" data-wash="amber" aria-labelledby="act-problem-t">
+  <img class="cs-act-bg" src="assets/skilling/act-problem.jpg" alt="" width="2200" height="1004" loading="lazy" decoding="async">
+  <div class="cs-act-scrim" aria-hidden="true"></div>
+  <div class="cs-act-copy">
+    <h2 class="cs-act-title" id="act-problem-t"><span class="cs-act-mask"><span class="cs-act-line">The <em>problem</em></span></span></h2>
+    <p class="cs-act-sub">Completion sat at 13-15%. Workers couldn't see what mattered, and admins couldn't guide them.</p>
+  </div>
+</section>
+
 <!-- ═══════════════════════ 02 — USERS ═══════════════════════ -->
-<section class="cs-section" id="cs-users">
+<section class="cs-section" id="cs-users" data-wash="amber">
 <div class="cs-wrap">
 
   <div class="cs-label reveal"><span class="num">/02</span> Context and Users</div>
@@ -500,7 +753,7 @@ body.cs-lb-lock { overflow: hidden; }
 </section>
 
 <!-- ═══════════════════════ 03 — WHY REDESIGN ═══════════════════════ -->
-<section class="cs-section" id="cs-why">
+<section class="cs-section" id="cs-why" data-wash="amber">
 <div class="cs-wrap">
 
   <div class="cs-label reveal"><span class="num">/03</span> Why Redesign</div>
@@ -527,14 +780,54 @@ body.cs-lb-lock { overflow: hidden; }
 </div>
 
 <div class="cs-wrap cs-wrap--board" style="margin-top: 88px;">
-  <div class="cs-split">
-<figure class="cs-board reveal">
-  <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: The old Oust screens" data-full="assets/skilling/old-designs.jpg" data-alt="Screens from the previous Oust app showing dense, outdated layouts">
-    <img src="assets/skilling/old-designs.jpg" alt="Screens from the previous Oust app showing dense, outdated layouts" width="925" height="1118" loading="lazy" decoding="async">
-    <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
-  </div>
-  <figcaption class="cs-mock-cap"><span class="cs-mock-cap-num">3.1</span><span class="cs-mock-cap-title">The old Oust screens</span></figcaption>
-</figure>
+  <div class="cs-split cs-split--ba">
+    <div class="cs-ba reveal" data-tabs>
+      <div class="cs-tabs" role="tablist" aria-label="Compare the old and new screens"><button type="button" role="tab" class="cs-tab is-active" id="ba-t-0" aria-controls="ba-p-0" aria-selected="true">Home</button><button type="button" role="tab" class="cs-tab" id="ba-t-1" aria-controls="ba-p-1" aria-selected="false" tabindex="-1">Course</button><button type="button" role="tab" class="cs-tab" id="ba-t-2" aria-controls="ba-p-2" aria-selected="false" tabindex="-1">Result</button></div>
+      <div class="cs-ba-stage">
+      <div class="cs-ba-panel is-active" role="tabpanel" id="ba-p-0" aria-labelledby="ba-t-0">
+        <figure class="cs-ba-fig">
+          <img src="assets/skilling/ui/old-home.webp" alt="The old Oust home screen, led by a feed of company posts" loading="lazy" decoding="async">
+          <figcaption>Oust</figcaption>
+        </figure>
+        <span class="cs-ba-arrow" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+        <figure class="cs-ba-fig cs-ba-fig--new">
+          <img src="assets/skilling/ui/home.webp" alt="The new Up-skill home screen, led by learning progress and the next course" loading="lazy" decoding="async">
+          <figcaption>Up-skill</figcaption>
+        </figure>
+        <p class="cs-ba-note">A feed-first home with five tabs, becomes a task-first home: progress on top, quick access to every module, then the course to do next.</p>
+      </div>
+      <div class="cs-ba-panel" role="tabpanel" id="ba-p-1" aria-labelledby="ba-t-1" hidden>
+        <figure class="cs-ba-fig">
+          <img src="assets/skilling/ui/old-video.webp" alt="The old Oust course player with small controls and dense text" loading="lazy" decoding="async">
+          <figcaption>Oust</figcaption>
+        </figure>
+        <span class="cs-ba-arrow" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+        <figure class="cs-ba-fig cs-ba-fig--new">
+          <img src="assets/skilling/ui/video-2.webp" alt="The new Up-skill course player with segmented progress and a single control row" loading="lazy" decoding="async">
+          <figcaption>Up-skill</figcaption>
+        </figure>
+        <p class="cs-ba-note">A dense player with tiny controls, becomes full-screen media with chapter progress, coins and one row of controls.</p>
+      </div>
+      <div class="cs-ba-panel" role="tabpanel" id="ba-p-2" aria-labelledby="ba-t-2" hidden>
+        <figure class="cs-ba-fig">
+          <img src="assets/skilling/ui/old-assess.webp" alt="The old Oust assessment result screen with a red Over button" loading="lazy" decoding="async">
+          <figcaption>Oust</figcaption>
+        </figure>
+        <span class="cs-ba-arrow" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+        <figure class="cs-ba-fig cs-ba-fig--new">
+          <img src="assets/skilling/ui/new-success.webp" alt="The new Up-skill success screen with earnings and Review and Next actions" loading="lazy" decoding="async">
+          <figcaption>Up-skill</figcaption>
+        </figure>
+        <p class="cs-ba-note">A bare confirmation with a red "Over!" button, becomes feedback that rewards the effort and points to what comes next.</p>
+      </div>
+      </div>
+    </div>
     <div>
       <p class="cs-phase-tag reveal">Oust old designs</p>
       <h3 class="cs-h3 reveal">What was holding it back</h3>
@@ -551,11 +844,20 @@ body.cs-lb-lock { overflow: hidden; }
     </div>
   </div>
 </div>
+<div class="cs-wrap cs-wrap--board cs-wrap--inset">
+<figure class="cs-board reveal cs-board--inset">
+  <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: The old Oust screens" data-full="assets/skilling/old-designs.jpg" data-alt="Screens from the previous Oust app showing dense, outdated layouts">
+    <img src="assets/skilling/old-designs.jpg" alt="Screens from the previous Oust app showing dense, outdated layouts" width="925" height="1118" loading="lazy" decoding="async">
+    <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+  </div>
+  <figcaption class="cs-mock-cap">The old Oust screens</figcaption>
+</figure>
+</div>
 
 </section>
 
 <!-- ═══════════════════════ 04 — CHALLENGES ═══════════════════════ -->
-<section class="cs-section" id="cs-challenges">
+<section class="cs-section" id="cs-challenges" data-wash="amber">
 <div class="cs-wrap">
 
   <div class="cs-label reveal"><span class="num">/04</span> Challenges</div>
@@ -598,9 +900,6 @@ body.cs-lb-lock { overflow: hidden; }
 
 </div>
 
-<div class="cs-wrap cs-wrap--board" style="margin-top: 88px;">
-<figure class="cs-board cs-board--photo reveal"><div class="cs-fig-frame"><img src="assets/skilling/helmets.jpg" alt="A wall of coloured safety helmets" width="1750" height="799" loading="lazy" decoding="async"></div></figure>
-</div>
 
 <div class="cs-wrap">
 
@@ -652,7 +951,7 @@ body.cs-lb-lock { overflow: hidden; }
 </section>
 
 <!-- ═══════════════════════ 05 — SCOPE ═══════════════════════ -->
-<section class="cs-section" id="cs-scope">
+<section class="cs-section" id="cs-scope" data-wash="amber">
 <div class="cs-wrap">
 
   <div class="cs-label reveal"><span class="num">/05</span> Scope of Intervention</div>
@@ -704,13 +1003,20 @@ body.cs-lb-lock { overflow: hidden; }
 
 </div>
 
-<div class="cs-wrap cs-wrap--board" style="margin-top: 88px;">
-<figure class="cs-board cs-board--photo reveal"><div class="cs-fig-frame"><img src="assets/skilling/workers-smile.jpg" alt="Three smiling frontline workers in hard hats" width="1750" height="800" loading="lazy" decoding="async"></div></figure>
-</div>
+</section>
+
+<!-- ═══════════════════════ ACT — THE APPROACH ═══════════════════════ -->
+<section class="cs-act" id="act-approach" data-wash="steel" aria-labelledby="act-approach-t">
+  <img class="cs-act-bg" src="assets/skilling/act-approach.jpg" alt="" width="2200" height="1004" loading="lazy" decoding="async">
+  <div class="cs-act-scrim" aria-hidden="true"></div>
+  <div class="cs-act-copy">
+    <h2 class="cs-act-title" id="act-approach-t"><span class="cs-act-mask"><span class="cs-act-line">The <em>approach</em></span></span></h2>
+    <p class="cs-act-sub">Wireframe first, set principles early, then rebuild the flow chapter by chapter.</p>
+  </div>
 </section>
 
 <!-- ═══════════════════════ 06 — PROCESS ═══════════════════════ -->
-<section class="cs-section" id="cs-process">
+<section class="cs-section" id="cs-process" data-wash="steel">
 <div class="cs-wrap">
 
   <div class="cs-label reveal"><span class="num">/06</span> Process</div>
@@ -724,7 +1030,7 @@ body.cs-lb-lock { overflow: hidden; }
     <img src="assets/skilling/wireframes.jpg" alt="Grid of low-fidelity wireframes for the Up-skill app" width="1750" height="1495" loading="lazy" decoding="async">
     <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
   </div>
-  <figcaption class="cs-mock-cap"><span class="cs-mock-cap-num">6.1</span><span class="cs-mock-cap-title">Wireframes, chapter by chapter</span></figcaption>
+  <figcaption class="cs-mock-cap">Wireframes, chapter by chapter</figcaption>
 </figure>
 </div>
 
@@ -752,65 +1058,71 @@ body.cs-lb-lock { overflow: hidden; }
     <img src="assets/skilling/user-flow.jpg" alt="Flowchart of the Up-skill user flow from the home page to courses, assessments, playlists and events" width="1590" height="2320" loading="lazy" decoding="async">
     <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
   </div>
-  <figcaption class="cs-mock-cap"><span class="cs-mock-cap-num">6.2</span><span class="cs-mock-cap-title">The Up-skill user flow</span></figcaption>
+  <figcaption class="cs-mock-cap">The Up-skill user flow</figcaption>
 </figure>
 </div>
 </section>
 
+<!-- ═══════════════════════ ACT — THE PRODUCT ═══════════════════════ -->
+<section class="cs-act" id="act-product" data-wash="teal" aria-labelledby="act-product-t">
+  <img class="cs-act-bg" src="assets/skilling/act-product.jpg" alt="" width="2200" height="1004" loading="lazy" decoding="async">
+  <div class="cs-act-scrim" aria-hidden="true"></div>
+  <div class="cs-act-copy">
+    <h2 class="cs-act-title" id="act-product-t"><span class="cs-act-mask"><span class="cs-act-line">The <em>product</em></span></span></h2>
+    <p class="cs-act-sub">A home screen that says what to do next, then courses, assessments and playlists built around it.</p>
+  </div>
+</section>
+
 <!-- ═══════════════════════ 07 — HOME ═══════════════════════ -->
-<section class="cs-section" id="cs-home">
+<section class="cs-section" id="cs-home" data-wash="teal">
 <div class="cs-wrap">
 
   <div class="cs-label reveal"><span class="num">/07</span> Designing the Home</div>
   <h2 class="cs-display reveal">Making learning <em>frontline friendly.</em></h2>
   <p class="cs-p reveal">The home page helps you complete tasks with clear guidance and easy access to everything you need. Our aim was to help users find what they need, keep track of assigned and completed modules, and understand which tasks need attention, all from one screen.</p>
 
-  <div class="cs-cards reveal">
-    <div class="cs-card">
-      <div class="cs-card-num">01</div>
-      <div class="cs-card-title">Task-oriented, contextual content</div>
-      <p class="cs-card-desc">Whatever the tasks users need to accomplish will be on top, in priority order.</p>
-    </div>
-    <div class="cs-card">
-      <div class="cs-card-num">02</div>
-      <div class="cs-card-title">Instructive</div>
-      <p class="cs-card-desc">The homepage guides users through specific tasks by prioritising clarity, with efficient visual cues, a prominent CTA and strong visual hierarchy.</p>
-    </div>
-    <div class="cs-card">
-      <div class="cs-card-num">03</div>
-      <div class="cs-card-title">Quick access</div>
-      <p class="cs-card-desc">Clear, direct navigation to every independent module.</p>
-    </div>
-    <div class="cs-card">
-      <div class="cs-card-num">04</div>
-      <div class="cs-card-title">Learning progress indicator</div>
-      <p class="cs-card-desc">Overall progress on top gives users a view of their own learning path and encourages them to finish what remains.</p>
+</div>
+<div class="cs-wrap cs-wrap--board" style="margin-top: 72px;">
+  <div class="cs-sticky" data-sticky>
+    <ol class="cs-sticky-steps">
+      <li class="cs-step is-active" data-step="0">
+        <h3 class="cs-step-title">Learning progress indicator</h3>
+        <p class="cs-step-desc">Overall progress sits on top. It gives users a view of their own learning path and encourages them to finish what remains.</p>
+      </li>
+      <li class="cs-step" data-step="1">
+        <h3 class="cs-step-title">Quick access</h3>
+        <p class="cs-step-desc">Clear, direct navigation to every independent module: mini courses, courses, assessments and playlists.</p>
+      </li>
+      <li class="cs-step" data-step="2">
+        <h3 class="cs-step-title">Task-oriented, contextual content</h3>
+        <p class="cs-step-desc">Whatever users need to accomplish is on top, in priority order, so the next task is always the first thing they see.</p>
+      </li>
+      <li class="cs-step" data-step="3">
+        <h3 class="cs-step-title">Instructive</h3>
+        <p class="cs-step-desc">The homepage guides users through specific tasks with clear visual cues, a prominent CTA and a strong visual hierarchy.</p>
+      </li>
+    </ol>
+    <div class="cs-sticky-media">
+      <div class="cs-annot">
+        <img src="assets/skilling/ui/home.webp" alt="The Up-skill home screen" width="593" height="1260" loading="lazy" decoding="async">
+        <span class="cs-ring is-active" data-step="0" style="--t:20.6%;--h:10.3%;--l:10%;--w:80%"></span><span class="cs-ring" data-step="1" style="--t:33.3%;--h:10.2%;--l:8.3%;--w:89%"></span><span class="cs-ring" data-step="2" style="--t:52.2%;--h:27.8%;--l:10%;--w:80%"></span><span class="cs-ring" data-step="3" style="--t:54%;--h:17.5%;--l:11%;--w:78%"></span>
+      </div>
     </div>
   </div>
-
 </div>
-<div class="cs-wrap cs-wrap--board">
-<figure class="cs-board reveal">
-  <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: The home page, in context" data-full="assets/skilling/d-intro.jpg" data-alt="Home screen of the Up-skill app shown over a photo of a warehouse worker">
-    <img src="assets/skilling/d-intro.jpg" alt="Home screen of the Up-skill app shown over a photo of a warehouse worker" width="1590" height="1290" loading="lazy" decoding="async">
-    <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
-  </div>
-  <figcaption class="cs-mock-cap"><span class="cs-mock-cap-num">7.1</span><span class="cs-mock-cap-title">The home page, in context</span></figcaption>
-</figure>
-</div>
-<div class="cs-wrap cs-wrap--board">
-<figure class="cs-board reveal">
-  <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: Home page" data-full="assets/skilling/d-home.jpg" data-alt="Up-skill home screen with progress indicator, quick access and assigned modules">
+<div class="cs-wrap cs-wrap--board cs-wrap--inset">
+<figure class="cs-board reveal cs-board--inset">
+  <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: The full home board" data-full="assets/skilling/d-home.jpg" data-alt="Up-skill home screen with progress indicator, quick access and assigned modules">
     <img src="assets/skilling/d-home.jpg" alt="Up-skill home screen with progress indicator, quick access and assigned modules" width="1590" height="1516" loading="lazy" decoding="async">
     <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
   </div>
-  <figcaption class="cs-mock-cap"><span class="cs-mock-cap-num">7.2</span><span class="cs-mock-cap-title">Home page</span></figcaption>
+  <figcaption class="cs-mock-cap">The full home board</figcaption>
 </figure>
 </div>
 </section>
 
 <!-- ═══════════════════════ 08 — COURSES ═══════════════════════ -->
-<section class="cs-section" id="cs-courses">
+<section class="cs-section" id="cs-courses" data-wash="teal">
 <div class="cs-wrap">
 
   <div class="cs-label reveal"><span class="num">/08</span> Course-Based Learning</div>
@@ -824,7 +1136,7 @@ body.cs-lb-lock { overflow: hidden; }
     <img src="assets/skilling/d-course.jpg" alt="Course detail screens showing chapters, progress and a Continue CTA" width="1590" height="625" loading="lazy" decoding="async">
     <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
   </div>
-  <figcaption class="cs-mock-cap"><span class="cs-mock-cap-num">8.1</span><span class="cs-mock-cap-title">Course page</span></figcaption>
+  <figcaption class="cs-mock-cap">Course page</figcaption>
 </figure>
 </div>
 
@@ -858,82 +1170,50 @@ body.cs-lb-lock { overflow: hidden; }
     <img src="assets/skilling/d-course-cards.jpg" alt="Course cards and the home page states for pending, assigned and bundled courses" width="1590" height="1336" loading="lazy" decoding="async">
     <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
   </div>
-  <figcaption class="cs-mock-cap"><span class="cs-mock-cap-num">8.2</span><span class="cs-mock-cap-title">Course cards</span></figcaption>
-</figure>
-</div>
-
-<div class="cs-wrap">
-  <div class="cs-sub">
-    <p class="cs-phase-tag reveal">Consuming a course</p>
-    <h3 class="cs-h3 reveal">Learning via video</h3>
-    <p class="cs-p reveal">Because our users mostly interact with video-based content, the player keeps the familiar controls they already know.</p>
-  </div>
-</div>
-<div class="cs-wrap cs-wrap--board">
-<figure class="cs-board reveal">
-  <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: Video course" data-full="assets/skilling/d-video.jpg" data-alt="Three video course player screens in dark mode">
-    <img src="assets/skilling/d-video.jpg" alt="Three video course player screens in dark mode" width="1590" height="802" loading="lazy" decoding="async">
-    <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
-  </div>
-  <figcaption class="cs-mock-cap"><span class="cs-mock-cap-num">8.3</span><span class="cs-mock-cap-title">Video course</span></figcaption>
-</figure>
-</div>
-
-<div class="cs-wrap">
-  <div class="cs-sub" style="margin-top: 72px;">
-    <h3 class="cs-h3 reveal">Text-based course with audio playback</h3>
-    <p class="cs-p reveal">Text content can come with or without audio transcripts. A transcript helps users consume the content effortlessly.</p>
-  </div>
-</div>
-<div class="cs-wrap cs-wrap--board">
-<figure class="cs-board reveal">
-  <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: Text and audio" data-full="assets/skilling/d-audio.jpg" data-alt="Text based course screens with audio transcript playback">
-    <img src="assets/skilling/d-audio.jpg" alt="Text based course screens with audio transcript playback" width="1590" height="1030" loading="lazy" decoding="async">
-    <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
-  </div>
-  <figcaption class="cs-mock-cap"><span class="cs-mock-cap-num">8.4</span><span class="cs-mock-cap-title">Text and audio</span></figcaption>
-</figure>
-</div>
-
-<div class="cs-wrap">
-  <div class="cs-sub" style="margin-top: 72px;">
-    <h3 class="cs-h3 reveal">Visual indicators</h3>
-    <p class="cs-p reveal">Indicators now communicate any mandatory watch time assigned to a piece of content. While a mandatory time is running, the control actions stay locked for the user.</p>
-  </div>
-</div>
-<div class="cs-wrap cs-wrap--board">
-<figure class="cs-board reveal">
-  <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: Mandatory watch time" data-full="assets/skilling/d-indicators.jpg" data-alt="Video course screens showing a locked control state and a mandatory watch time message">
-    <img src="assets/skilling/d-indicators.jpg" alt="Video course screens showing a locked control state and a mandatory watch time message" width="1590" height="669" loading="lazy" decoding="async">
-    <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
-  </div>
-  <figcaption class="cs-mock-cap"><span class="cs-mock-cap-num">8.5</span><span class="cs-mock-cap-title">Mandatory watch time</span></figcaption>
-</figure>
-</div>
-
-<div class="cs-wrap">
-  <div class="cs-sub" style="margin-top: 72px;">
-    <h3 class="cs-h3 reveal">Collecting user sentiment</h3>
-    <p class="cs-p reveal">Capturing learning experiences helps us understand the effectiveness and relevance of the delivered content. We simplified the feedback process so that sharing an experience takes just a tap.</p>
-  </div>
-</div>
-<div class="cs-wrap cs-wrap--board">
-<figure class="cs-board reveal">
-  <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: Rate the course" data-full="assets/skilling/d-sentiment.jpg" data-alt="Rate the course dialog with a star rating and submit button">
-    <img src="assets/skilling/d-sentiment.jpg" alt="Rate the course dialog with a star rating and submit button" width="1590" height="669" loading="lazy" decoding="async">
-    <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
-  </div>
-  <figcaption class="cs-mock-cap"><span class="cs-mock-cap-num">8.6</span><span class="cs-mock-cap-title">Rate the course</span></figcaption>
+  <figcaption class="cs-mock-cap">Course cards</figcaption>
 </figure>
 </div>
 
 <div class="cs-wrap cs-wrap--board" style="margin-top: 88px;">
-<figure class="cs-board cs-board--photo reveal"><div class="cs-fig-frame"><img src="assets/skilling/d-hand.jpg" alt="A worker holding a phone playing a course video" width="1750" height="1080" loading="lazy" decoding="async"></div></figure>
+  <div class="cs-strip reveal" data-strip>
+    <div class="cs-strip-head">
+      <div>
+        <p class="cs-phase-tag">Consuming a course</p>
+        <h3 class="cs-h3">One course, four ways to take it in</h3>
+      </div>
+      <div class="cs-strip-ctl">
+        <button type="button" class="cs-strip-btn" data-dir="-1" aria-label="Previous"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
+        <button type="button" class="cs-strip-btn" data-dir="1" aria-label="Next"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+      </div>
+    </div>
+    <div class="cs-strip-track" tabindex="0" role="group" aria-label="Course screens, scroll sideways to see more">
+      <article class="cs-strip-item">
+        <div class="cs-strip-media "><img src="assets/skilling/ui/video-1.webp" alt="Course video playing full screen with a tap prompt" loading="lazy" decoding="async"><img src="assets/skilling/ui/video-2.webp" alt="Course video with playback controls and title" loading="lazy" decoding="async"><img src="assets/skilling/ui/video-3.webp" alt="Course video with the description opened over it" loading="lazy" decoding="async"></div>
+        <h4 class="cs-strip-title">Learning via video</h4>
+        <p class="cs-strip-desc">Video is full-screen by default. Tap to bring up the controls, chapter progress and coins, and open the description over the video.</p>
+      </article>
+      <article class="cs-strip-item">
+        <div class="cs-strip-media cs-strip-media--wide"><img src="assets/skilling/ui/audio-a.webp" alt="Text course screens with an audio transcript control" loading="lazy" decoding="async"></div>
+        <h4 class="cs-strip-title">Text with audio</h4>
+        <p class="cs-strip-desc">Text courses can come with or without an audio transcript, so users can listen instead of reading.</p>
+      </article>
+      <article class="cs-strip-item">
+        <div class="cs-strip-media "><img src="assets/skilling/ui/lock-1.webp" alt="Video with a mandatory watch time label" loading="lazy" decoding="async"><img src="assets/skilling/ui/lock-2.webp" alt="Video with a message that the user must watch until 7:23" loading="lazy" decoding="async"></div>
+        <h4 class="cs-strip-title">Mandatory watch time</h4>
+        <p class="cs-strip-desc">Indicators show any mandatory watch time. While it is running, the control actions stay locked.</p>
+      </article>
+      <article class="cs-strip-item">
+        <div class="cs-strip-media "><img src="assets/skilling/ui/rate-1.webp" alt="Rate the course dialog with empty stars" loading="lazy" decoding="async"><img src="assets/skilling/ui/rate-2.webp" alt="Rate the course dialog with four stars and reasons" loading="lazy" decoding="async"></div>
+        <h4 class="cs-strip-title">One-tap feedback</h4>
+        <p class="cs-strip-desc">Capturing how a course landed helps judge its effectiveness and relevance, so rating it takes a tap.</p>
+      </article>
+    </div>
+  </div>
 </div>
 </section>
 
 <!-- ═══════════════════════ 09 — ASSESSMENTS ═══════════════════════ -->
-<section class="cs-section" id="cs-assess">
+<section class="cs-section" id="cs-assess" data-wash="indigo">
 <div class="cs-wrap">
 
   <div class="cs-label reveal"><span class="num">/09</span> Assessments</div>
@@ -947,7 +1227,7 @@ body.cs-lb-lock { overflow: hidden; }
     <img src="assets/skilling/d-assess-intro.jpg" alt="Assessment card and detail screen in the redesigned app" width="1590" height="625" loading="lazy" decoding="async">
     <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
   </div>
-  <figcaption class="cs-mock-cap"><span class="cs-mock-cap-num">9.1</span><span class="cs-mock-cap-title">Making assessment playful and engaging</span></figcaption>
+  <figcaption class="cs-mock-cap">Making assessment playful and engaging</figcaption>
 </figure>
 </div>
 
@@ -963,7 +1243,7 @@ body.cs-lb-lock { overflow: hidden; }
     <img src="assets/skilling/d-consistency.jpg" alt="Assessment cards in the home page next to variants with and without banner images" width="1750" height="719" loading="lazy" decoding="async">
     <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
   </div>
-  <figcaption class="cs-mock-cap"><span class="cs-mock-cap-num">9.2</span><span class="cs-mock-cap-title">Assessment cards</span></figcaption>
+  <figcaption class="cs-mock-cap">Assessment cards</figcaption>
 </figure>
 </div>
 
@@ -979,7 +1259,7 @@ body.cs-lb-lock { overflow: hidden; }
     <img src="assets/skilling/d-theming.jpg" alt="Predefined colour palette and pattern icons for assessment theming" width="1750" height="658" loading="lazy" decoding="async">
     <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
   </div>
-  <figcaption class="cs-mock-cap"><span class="cs-mock-cap-num">9.3</span><span class="cs-mock-cap-title">Colour palette and patterns</span></figcaption>
+  <figcaption class="cs-mock-cap">Colour palette and patterns</figcaption>
 </figure>
 </div>
 
@@ -990,13 +1270,24 @@ body.cs-lb-lock { overflow: hidden; }
   </div>
 </div>
 <div class="cs-wrap cs-wrap--board">
-<figure class="cs-board reveal">
-  <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: Themed assessment screens" data-full="assets/skilling/d-playful.jpg" data-alt="Assessment question screens in teal and purple themes">
-    <img src="assets/skilling/d-playful.jpg" alt="Assessment question screens in teal and purple themes" width="1590" height="891" loading="lazy" decoding="async">
-    <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+  <div class="cs-theme reveal" data-theme-switch>
+    <div class="cs-theme-stage">
+      <span class="cs-theme-glow" aria-hidden="true"></span>
+      <img class="is-active" data-theme="teal" src="assets/skilling/ui/theme-teal.webp" alt="Assessment question screen in the teal theme" width="520" height="1072" loading="lazy" decoding="async">
+      <img data-theme="ocean" src="assets/skilling/ui/theme-ocean.webp" alt="Assessment question screen in the ocean blue theme" width="520" height="1072" loading="lazy" decoding="async">
+      <img data-theme="violet" src="assets/skilling/ui/theme-violet.webp" alt="Assessment question screen in the violet theme" width="520" height="1072" loading="lazy" decoding="async">
+    </div>
+    <div class="cs-theme-copy">
+      <p class="cs-phase-tag">Try a theme</p>
+      <h4 class="cs-theme-title">Same question, three brands</h4>
+      <p class="cs-theme-desc">Admins pick a colour from a predefined palette, and a dynamic pattern comes with it. The assessment feels playful and on-brand without touching the product's visual hygiene.</p>
+      <div class="cs-swatches" role="group" aria-label="Assessment theme">
+        <button type="button" class="cs-swatch is-active" data-theme="teal" aria-pressed="true" style="--sw:#416966"><span class="cs-sr">Teal</span></button>
+        <button type="button" class="cs-swatch" data-theme="ocean" aria-pressed="false" style="--sw:#1b637f"><span class="cs-sr">Ocean</span></button>
+        <button type="button" class="cs-swatch" data-theme="violet" aria-pressed="false" style="--sw:#44416f"><span class="cs-sr">Violet</span></button>
+      </div>
+    </div>
   </div>
-  <figcaption class="cs-mock-cap"><span class="cs-mock-cap-num">9.4</span><span class="cs-mock-cap-title">Themed assessment screens</span></figcaption>
-</figure>
 </div>
 <div class="cs-wrap cs-wrap--board">
 <figure class="cs-board reveal">
@@ -1004,7 +1295,7 @@ body.cs-lb-lock { overflow: hidden; }
     <img src="assets/skilling/d-playful-b.jpg" alt="A field of assessment question screens including image choice and text responses" width="1750" height="1149" loading="lazy" decoding="async">
     <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
   </div>
-  <figcaption class="cs-mock-cap"><span class="cs-mock-cap-num">9.5</span><span class="cs-mock-cap-title">Question types</span></figcaption>
+  <figcaption class="cs-mock-cap">Question types</figcaption>
 </figure>
 </div>
 <div class="cs-wrap cs-wrap--board">
@@ -1013,7 +1304,7 @@ body.cs-lb-lock { overflow: hidden; }
     <img src="assets/skilling/d-assess-card.jpg" alt="Assessment progress, an explanation dialog and correct and incorrect answer states" width="1590" height="1001" loading="lazy" decoding="async">
     <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
   </div>
-  <figcaption class="cs-mock-cap"><span class="cs-mock-cap-num">9.6</span><span class="cs-mock-cap-title">Feedback on every answer</span></figcaption>
+  <figcaption class="cs-mock-cap">Feedback on every answer</figcaption>
 </figure>
 </div>
 
@@ -1029,7 +1320,7 @@ body.cs-lb-lock { overflow: hidden; }
     <img src="assets/skilling/d-responses.jpg" alt="Assessment screens for recording audio, capturing video and uploading images" width="1590" height="930" loading="lazy" decoding="async">
     <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
   </div>
-  <figcaption class="cs-mock-cap"><span class="cs-mock-cap-num">9.7</span><span class="cs-mock-cap-title">Upload responses</span></figcaption>
+  <figcaption class="cs-mock-cap">Upload responses</figcaption>
 </figure>
 </div>
 
@@ -1039,7 +1330,7 @@ body.cs-lb-lock { overflow: hidden; }
 </section>
 
 <!-- ═══════════════════════ 10 — PLAYLISTS ═══════════════════════ -->
-<section class="cs-section" id="cs-playlists">
+<section class="cs-section" id="cs-playlists" data-wash="green">
 <div class="cs-wrap">
 
   <div class="cs-label reveal"><span class="num">/10</span> Playlists and Progress</div>
@@ -1053,7 +1344,7 @@ body.cs-lb-lock { overflow: hidden; }
     <img src="assets/skilling/d-playlist.jpg" alt="Playlist cover screen with levels and a Start Level CTA" width="1590" height="625" loading="lazy" decoding="async">
     <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
   </div>
-  <figcaption class="cs-mock-cap"><span class="cs-mock-cap-num">10.1</span><span class="cs-mock-cap-title">Playlist</span></figcaption>
+  <figcaption class="cs-mock-cap">Playlist</figcaption>
 </figure>
 </div>
 
@@ -1069,7 +1360,7 @@ body.cs-lb-lock { overflow: hidden; }
     <img src="assets/skilling/d-playlist-card.jpg" alt="Home screen showing a playlist assigned card and the levels inside it" width="1750" height="925" loading="lazy" decoding="async">
     <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
   </div>
-  <figcaption class="cs-mock-cap"><span class="cs-mock-cap-num">10.2</span><span class="cs-mock-cap-title">Playlist on the home page</span></figcaption>
+  <figcaption class="cs-mock-cap">Playlist on the home page</figcaption>
 </figure>
 </div>
 
@@ -1085,7 +1376,7 @@ body.cs-lb-lock { overflow: hidden; }
     <img src="assets/skilling/d-playlist-cover.jpg" alt="Playlist cover with a Start Level CTA and the level list underneath" width="1590" height="731" loading="lazy" decoding="async">
     <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
   </div>
-  <figcaption class="cs-mock-cap"><span class="cs-mock-cap-num">10.3</span><span class="cs-mock-cap-title">Cover and guiding CTA</span></figcaption>
+  <figcaption class="cs-mock-cap">Cover and guiding CTA</figcaption>
 </figure>
 </div>
 <div class="cs-wrap cs-wrap--board">
@@ -1094,7 +1385,7 @@ body.cs-lb-lock { overflow: hidden; }
     <img src="assets/skilling/d-playlist-anatomy.jpg" alt="Four playlist screens showing expanded and collapsed levels and completion states" width="1750" height="1292" loading="lazy" decoding="async">
     <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
   </div>
-  <figcaption class="cs-mock-cap"><span class="cs-mock-cap-num">10.4</span><span class="cs-mock-cap-title">Levels and chapters</span></figcaption>
+  <figcaption class="cs-mock-cap">Levels and chapters</figcaption>
 </figure>
 </div>
 
@@ -1104,13 +1395,13 @@ body.cs-lb-lock { overflow: hidden; }
     <p class="cs-p reveal">Concise feedback when users complete chapters, levels or playlists helps maintain their engagement and motivation. These moments act as checkpoints that drive engagement and progress.</p>
   </div>
 </div>
-<div class="cs-wrap cs-wrap--board">
-<figure class="cs-board reveal">
+<div class="cs-wrap cs-wrap--board cs-wrap--inset">
+<figure class="cs-board reveal cs-board--inset">
   <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: Success screens" data-full="assets/skilling/d-celebrate.jpg" data-alt="Success screens for completing a level and completing a playlist with earnings">
     <img src="assets/skilling/d-celebrate.jpg" alt="Success screens for completing a level and completing a playlist with earnings" width="1590" height="704" loading="lazy" decoding="async">
     <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
   </div>
-  <figcaption class="cs-mock-cap"><span class="cs-mock-cap-num">10.5</span><span class="cs-mock-cap-title">Success screens</span></figcaption>
+  <figcaption class="cs-mock-cap">Success screens</figcaption>
 </figure>
 </div>
 
@@ -1127,7 +1418,7 @@ body.cs-lb-lock { overflow: hidden; }
     <img src="assets/skilling/d-mylearning-intro.jpg" alt="My learning screen with standing rank, badges and pending modules" width="1590" height="554" loading="lazy" decoding="async">
     <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
   </div>
-  <figcaption class="cs-mock-cap"><span class="cs-mock-cap-num">10.6</span><span class="cs-mock-cap-title">My learning</span></figcaption>
+  <figcaption class="cs-mock-cap">My learning</figcaption>
 </figure>
 </div>
 <div class="cs-wrap cs-wrap--board">
@@ -1136,13 +1427,13 @@ body.cs-lb-lock { overflow: hidden; }
     <img src="assets/skilling/d-mylearning.jpg" alt="My learning screens for pending modules, a leaderboard and completed modules" width="1590" height="2452" loading="lazy" decoding="async">
     <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
   </div>
-  <figcaption class="cs-mock-cap"><span class="cs-mock-cap-num">10.7</span><span class="cs-mock-cap-title">Pending, ranked and completed</span></figcaption>
+  <figcaption class="cs-mock-cap">Pending, ranked and completed</figcaption>
 </figure>
 </div>
 </section>
 
 <!-- ═══════════════════════ 11 — EVENTS & MICRO ═══════════════════════ -->
-<section class="cs-section" id="cs-events">
+<section class="cs-section" id="cs-events" data-wash="amber">
 <div class="cs-wrap">
 
   <div class="cs-label reveal"><span class="num">/11</span> Events and Micro-learning</div>
@@ -1169,26 +1460,26 @@ body.cs-lb-lock { overflow: hidden; }
     <img src="assets/skilling/d-events-intro.jpg" alt="Event cards and a live class detail screen" width="1590" height="625" loading="lazy" decoding="async">
     <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
   </div>
-  <figcaption class="cs-mock-cap"><span class="cs-mock-cap-num">11.1</span><span class="cs-mock-cap-title">Instructor-led events</span></figcaption>
+  <figcaption class="cs-mock-cap">Instructor-led events</figcaption>
 </figure>
 </div>
 <div class="cs-wrap cs-wrap--board">
+<div class="cs-pair">
 <figure class="cs-board reveal">
   <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: Events on the home page" data-full="assets/skilling/d-events-home.jpg" data-alt="Home screen with event cards in upcoming, registered and live states">
     <img src="assets/skilling/d-events-home.jpg" alt="Home screen with event cards in upcoming, registered and live states" width="1590" height="774" loading="lazy" decoding="async">
     <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
   </div>
-  <figcaption class="cs-mock-cap"><span class="cs-mock-cap-num">11.2</span><span class="cs-mock-cap-title">Events on the home page</span></figcaption>
+  <figcaption class="cs-mock-cap">Events on the home page</figcaption>
 </figure>
-</div>
-<div class="cs-wrap cs-wrap--board">
 <figure class="cs-board reveal">
   <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: All events" data-full="assets/skilling/d-events-all.jpg" data-alt="All events list with live, upcoming and past filters">
     <img src="assets/skilling/d-events-all.jpg" alt="All events list with live, upcoming and past filters" width="1590" height="672" loading="lazy" decoding="async">
     <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
   </div>
-  <figcaption class="cs-mock-cap"><span class="cs-mock-cap-num">11.3</span><span class="cs-mock-cap-title">All events</span></figcaption>
+  <figcaption class="cs-mock-cap">All events</figcaption>
 </figure>
+</div>
 </div>
 <div class="cs-wrap cs-wrap--board">
 <figure class="cs-board reveal">
@@ -1196,7 +1487,7 @@ body.cs-lb-lock { overflow: hidden; }
     <img src="assets/skilling/d-events-detail.jpg" alt="Event detail screens showing the trainer, location, description and a register button" width="1590" height="1174" loading="lazy" decoding="async">
     <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
   </div>
-  <figcaption class="cs-mock-cap"><span class="cs-mock-cap-num">11.4</span><span class="cs-mock-cap-title">Event details</span></figcaption>
+  <figcaption class="cs-mock-cap">Event details</figcaption>
 </figure>
 </div>
 
@@ -1213,7 +1504,7 @@ body.cs-lb-lock { overflow: hidden; }
     <img src="assets/skilling/d-micro-intro.jpg" alt="Stories-style mini course screens of a hospitality trainer" width="1590" height="625" loading="lazy" decoding="async">
     <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
   </div>
-  <figcaption class="cs-mock-cap"><span class="cs-mock-cap-num">11.5</span><span class="cs-mock-cap-title">Micro-learning</span></figcaption>
+  <figcaption class="cs-mock-cap">Micro-learning</figcaption>
 </figure>
 </div>
 
@@ -1229,16 +1520,16 @@ body.cs-lb-lock { overflow: hidden; }
     <img src="assets/skilling/d-short.jpg" alt="Short course screens showing safety gear tips as full screen stories" width="1590" height="932" loading="lazy" decoding="async">
     <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
   </div>
-  <figcaption class="cs-mock-cap"><span class="cs-mock-cap-num">11.6</span><span class="cs-mock-cap-title">Short courses</span></figcaption>
+  <figcaption class="cs-mock-cap">Short courses</figcaption>
 </figure>
 </div>
-<div class="cs-wrap cs-wrap--board">
-<figure class="cs-board reveal">
+<div class="cs-wrap cs-wrap--board cs-wrap--inset">
+<figure class="cs-board reveal cs-board--inset">
   <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: A quick check" data-full="assets/skilling/d-short-quiz.jpg" data-alt="Short course quiz screens with a correct answer state">
     <img src="assets/skilling/d-short-quiz.jpg" alt="Short course quiz screens with a correct answer state" width="1590" height="670" loading="lazy" decoding="async">
     <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
   </div>
-  <figcaption class="cs-mock-cap"><span class="cs-mock-cap-num">11.7</span><span class="cs-mock-cap-title">A quick check</span></figcaption>
+  <figcaption class="cs-mock-cap">A quick check</figcaption>
 </figure>
 </div>
 
@@ -1292,19 +1583,25 @@ body.cs-lb-lock { overflow: hidden; }
   var list = document.getElementById('cs-rail-list');
   if (!rail || !list) return;
 
+  /* Items in document order. `group` entries are the act openers; each section remembers the act it belongs to. */
   var SECTIONS = [
-    { id: 'cs-overview',   label: '01 — Overview' },
-    { id: 'cs-users',      label: '02 — Context and Users' },
-    { id: 'cs-why',        label: '03 — Why Redesign' },
-    { id: 'cs-challenges', label: '04 — Challenges' },
-    { id: 'cs-scope',      label: '05 — Scope' },
-    { id: 'cs-process',    label: '06 — Process' },
-    { id: 'cs-home',       label: '07 — Designing the Home' },
-    { id: 'cs-courses',    label: '08 — Course-Based Learning' },
-    { id: 'cs-assess',     label: '09 — Assessments' },
-    { id: 'cs-playlists',  label: '10 — Playlists and Progress' },
-    { id: 'cs-events',     label: '11 — Events and Micro-learning' }
+    { id: 'cs-overview',   num: '01', name: 'Overview' },
+    { id: 'act-problem',   group: 'The problem' },
+    { id: 'cs-users',      num: '02', name: 'Context and Users' },
+    { id: 'cs-why',        num: '03', name: 'Why Redesign' },
+    { id: 'cs-challenges', num: '04', name: 'Challenges' },
+    { id: 'cs-scope',      num: '05', name: 'Scope' },
+    { id: 'act-approach',  group: 'The approach' },
+    { id: 'cs-process',    num: '06', name: 'Process' },
+    { id: 'act-product',   group: 'The product' },
+    { id: 'cs-home',       num: '07', name: 'Designing the Home' },
+    { id: 'cs-courses',    num: '08', name: 'Course-Based Learning' },
+    { id: 'cs-assess',     num: '09', name: 'Assessments' },
+    { id: 'cs-playlists',  num: '10', name: 'Playlists and Progress' },
+    { id: 'cs-events',     num: '11', name: 'Events and Micro-learning' }
   ];
+  var grp = null;
+  SECTIONS.forEach(function(s) { if (s.group) grp = s.id; s.groupId = grp; });
 
   var activeId = null;
   var heroGone = false;
@@ -1315,10 +1612,13 @@ body.cs-lb-lock { overflow: hidden; }
   }
 
   list.innerHTML = SECTIONS.map(function(s) {
-    var parts = s.label.split(' — ');
+    if (s.group) {
+      return '<li class="cs-rail-group" data-id="' + s.id + '"><button type="button" data-target="' + s.id + '">' +
+             '<span class="cs-rail-grp">' + s.group + '</span></button></li>';
+    }
     return '<li data-id="' + s.id + '"><button type="button" data-target="' + s.id + '">' +
-           '<span class="cs-rail-num">' + parts[0] + '</span>' +
-           '<span class="cs-rail-name">' + parts[1] + '</span>' +
+           '<span class="cs-rail-num">' + s.num + '</span>' +
+           '<span class="cs-rail-name">' + s.name + '</span>' +
            '</button></li>';
   }).join('');
   list.querySelectorAll('button').forEach(function(btn) {
@@ -1326,10 +1626,13 @@ body.cs-lb-lock { overflow: hidden; }
   });
 
   function setActive(sec) {
-    var prev = list.querySelector('li.is-active');
-    if (prev) prev.classList.remove('is-active');
+    list.querySelectorAll('li.is-active').forEach(function(li) { li.classList.remove('is-active'); });
     var li = list.querySelector('li[data-id="' + sec.id + '"]');
     if (li) li.classList.add('is-active');
+    if (sec.groupId) {
+      var g = list.querySelector('li[data-id="' + sec.groupId + '"]');
+      if (g) g.classList.add('is-active');
+    }
   }
 
   /* Hide the rail while the hero is in view; reveal once scrolled past it */
@@ -1385,6 +1688,120 @@ body.cs-lb-lock { overflow: hidden; }
   } else {
     items.forEach(el => el.classList.add('is-visible'));
   }
+})();
+
+/* Act openers: the title mask-reveals once, when the photo is mostly in view */
+(function() {
+  var acts = document.querySelectorAll('.cs-act');
+  if (!acts.length) return;
+  if (!('IntersectionObserver' in window)) { acts.forEach(function(a) { a.classList.add('is-visible'); }); return; }
+  var io = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) { if (e.isIntersecting) { e.target.classList.add('is-visible'); io.unobserve(e.target); } });
+  }, { threshold: 0.35 });
+  acts.forEach(function(a) { io.observe(a); });
+})();
+
+/* Compare tabs: Oust vs Up-skill (accessible tablist with roving tabindex) */
+(function() {
+  document.querySelectorAll('[data-tabs]').forEach(function(root) {
+    var tabs = Array.prototype.slice.call(root.querySelectorAll('[role="tab"]'));
+    var panels = Array.prototype.slice.call(root.querySelectorAll('[role="tabpanel"]'));
+    function activate(i, focus) {
+      tabs.forEach(function(t, k) {
+        var on = k === i;
+        t.classList.toggle('is-active', on);
+        t.setAttribute('aria-selected', on ? 'true' : 'false');
+        t.tabIndex = on ? 0 : -1;
+      });
+      panels.forEach(function(p, k) {
+        var on = k === i;
+        p.classList.toggle('is-active', on);
+        if (on) p.removeAttribute('hidden'); else p.setAttribute('hidden', '');
+      });
+      if (focus) tabs[i].focus();
+    }
+    tabs.forEach(function(t, i) {
+      t.addEventListener('click', function() { activate(i); });
+      t.addEventListener('keydown', function(e) {
+        var n = tabs.length, k = null;
+        if (e.key === 'ArrowRight') k = (i + 1) % n;
+        else if (e.key === 'ArrowLeft') k = (i - 1 + n) % n;
+        else if (e.key === 'Home') k = 0;
+        else if (e.key === 'End') k = n - 1;
+        if (k !== null) { e.preventDefault(); activate(k, true); }
+      });
+    });
+  });
+})();
+
+/* Annotated phone: the step crossing the middle of the screen owns the highlight */
+(function() {
+  document.querySelectorAll('[data-sticky]').forEach(function(root) {
+    var steps = root.querySelectorAll('.cs-step');
+    var rings = root.querySelectorAll('.cs-ring');
+    if (!steps.length || !('IntersectionObserver' in window)) return;
+    function set(n) {
+      steps.forEach(function(s) { s.classList.toggle('is-active', s.getAttribute('data-step') === n); });
+      rings.forEach(function(r) { r.classList.toggle('is-active', r.getAttribute('data-step') === n); });
+    }
+    var io = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) { if (e.isIntersecting) set(e.target.getAttribute('data-step')); });
+    }, { rootMargin: '-42% 0px -42% 0px', threshold: 0 });
+    steps.forEach(function(s) { io.observe(s); });
+  });
+})();
+
+/* Strip: previous / next buttons over a native scroll-snap track */
+(function() {
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll('[data-strip]').forEach(function(root) {
+    var track = root.querySelector('.cs-strip-track');
+    var prev = root.querySelector('[data-dir="-1"]');
+    var next = root.querySelector('[data-dir="1"]');
+    if (!track || !prev || !next) return;
+    var raf = null;
+    function sync() {
+      raf = null;
+      prev.disabled = track.scrollLeft <= 4;
+      next.disabled = track.scrollLeft >= track.scrollWidth - track.clientWidth - 4;
+    }
+    function queue() { if (!raf) raf = requestAnimationFrame(sync); }
+    [prev, next].forEach(function(b) {
+      b.addEventListener('click', function() {
+        var dir = parseInt(b.getAttribute('data-dir'), 10);
+        track.scrollBy({ left: dir * Math.max(track.clientWidth * 0.8, 320), behavior: reduce ? 'auto' : 'smooth' });
+      });
+    });
+    track.addEventListener('scroll', queue, { passive: true });
+    window.addEventListener('resize', queue);
+    /* Images load lazily, so the track's overflow changes after first paint: re-check whenever its content resizes. */
+    if ('ResizeObserver' in window) {
+      var ro = new ResizeObserver(queue);
+      ro.observe(track);
+      Array.prototype.forEach.call(track.children, function(c) { ro.observe(c); });
+    }
+    track.querySelectorAll('img').forEach(function(im) { im.addEventListener('load', queue); });
+    sync();
+  });
+})();
+
+/* Theme switcher: same question, three brand palettes */
+(function() {
+  document.querySelectorAll('[data-theme-switch]').forEach(function(root) {
+    var imgs = root.querySelectorAll('.cs-theme-stage img');
+    var swatches = root.querySelectorAll('.cs-swatch');
+    function set(name) {
+      root.setAttribute('data-active', name);
+      imgs.forEach(function(i) { i.classList.toggle('is-active', i.getAttribute('data-theme') === name); });
+      swatches.forEach(function(b) {
+        var on = b.getAttribute('data-theme') === name;
+        b.classList.toggle('is-active', on);
+        b.setAttribute('aria-pressed', on ? 'true' : 'false');
+      });
+    }
+    swatches.forEach(function(b) { b.addEventListener('click', function() { set(b.getAttribute('data-theme')); }); });
+    set('teal');
+  });
 })();
 
 /* Lightbox — expand any design board to full resolution */
