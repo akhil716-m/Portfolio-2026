@@ -843,29 +843,39 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
 
 /* =====================================================================
    CHALLENGES AND SCOPE
-   Challenges: the headline stat, then the pain points of admins and frontline workers, each with a one-line why
-   (one line per audience). Scope: the eight changes placed on one lime line.
+   Challenges: two groups of pain points (admins, workers) as tiles, led by the
+   13-15% stat and the old app screens. Scope: the eight changes placed on one lime line.
    Static on purpose: no pinning, no scroll mechanics, nothing to open.
    ===================================================================== */
-.cs-jstat { display: flex; align-items: baseline; flex-wrap: wrap; gap: 6px 18px; margin: 0 0 44px; }
-.cs-jstat-num { margin: 0; font-family: 'Geist', sans-serif; font-size: clamp(44px, 6vw, 56px); font-weight: 500; line-height: 1; letter-spacing: -0.035em; color: var(--text); }
-.cs-jstat-num .sym { color: var(--accent); }
-.cs-jstat-cap { margin: 0; font-size: var(--fs-body); color: var(--text-soft); }
-
-.cs-voices { margin-top: 56px; }
-.cs-voice { padding: 40px 0 8px; border-top: 1px solid var(--line); }
-.cs-voice + .cs-voice { margin-top: 24px; }
-.cs-voice-who { display: flex; align-items: baseline; gap: 14px; margin: 0 0 16px; font-size: var(--fs-small); font-weight: 500; color: var(--text-soft); }
-.cs-voice-who span { color: var(--warm); }
-.cs-voice-line { max-width: 20em; margin: 0 0 32px; font-family: 'Geist', sans-serif; font-size: clamp(24px, 3.4vw, 34px); font-weight: 500; line-height: 1.2; letter-spacing: -0.02em; color: var(--text); text-wrap: balance; }
-.cs-pain-list { list-style: none; margin: 0; padding: 0; }
-.cs-pain { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); column-gap: 32px; align-items: baseline; padding: 18px 0; border-top: 1px solid var(--line); }
-.cs-pain-title { position: relative; margin: 0; padding-left: 20px; font-family: 'Geist', sans-serif; font-size: var(--fs-small); font-weight: 600; line-height: 1.4; color: var(--text); }
-.cs-pain-title::before { content: ''; position: absolute; left: 0; top: 0.5em; width: 8px; height: 8px; border-radius: 50%; background: var(--warm); box-shadow: 0 0 0 4px rgba(232, 197, 152, 0.14); }
-.cs-pain-why { margin: 0; font-size: 14px; line-height: 1.55; color: var(--text-soft); }
-@media (max-width: 640px) {
-  .cs-pain { grid-template-columns: 1fr; row-gap: 6px; }
-  .cs-pain-why { padding-left: 20px; }
+.cs-pgroup + .cs-pgroup { margin-top: 72px; }
+.cs-pgroup-who { display: flex; align-items: baseline; gap: 14px; margin: 0 0 14px; font-size: var(--fs-small); font-weight: 500; color: var(--text-soft); }
+.cs-pgroup-who span { color: var(--accent); }
+.cs-pgroup-line { max-width: 20em; margin: 0; font-family: 'Geist', sans-serif; font-size: clamp(26px, 3.6vw, 36px); font-weight: 500; line-height: 1.15; letter-spacing: -0.02em; color: var(--text); text-wrap: balance; }
+.cs-pgrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 32px; }
+.cs-ptile { position: relative; padding: 24px 24px 26px; border: 1px solid var(--line); border-radius: var(--r-surface); background: var(--bg-soft); }
+.cs-ptile--feat, .cs-ptile--wide { grid-column: 1 / -1; }
+.cs-ptile-idx { margin: 0 0 18px; font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.08em; color: var(--accent); }
+.cs-ptile-title { margin: 0 0 8px; font-family: 'Geist', sans-serif; font-size: var(--fs-h4); font-weight: 600; line-height: 1.3; letter-spacing: -0.01em; color: var(--text); }
+.cs-ptile-why { margin: 0; font-size: 14px; line-height: 1.55; color: var(--text-soft); }
+/* the two lead pain points carry the visual: the number for admins, the old app for workers */
+.cs-ptile--feat .cs-ptile-title { font-size: clamp(20px, 2.4vw, 24px); }
+.cs-ptile--stat { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 24px 40px; min-height: 240px; background: radial-gradient(110% 120% at 100% 100%, var(--glow), transparent 62%), var(--bg-soft); }
+.cs-ptile--stat .cs-ptile-text { align-self: start; max-width: 26em; }
+.cs-ptile-stat { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; margin: 0; }
+.cs-ptile-num { font-family: 'Geist', sans-serif; font-size: clamp(56px, 9vw, 88px); font-weight: 500; line-height: 1; letter-spacing: -0.04em; color: var(--text); }
+.cs-ptile-num .sym { color: var(--accent); }
+.cs-ptile-cap { font-size: var(--fs-small); color: var(--text-soft); }
+.cs-ptile--shot { overflow: hidden; min-height: 300px; padding-right: 312px; }
+.cs-ptile-shots { position: absolute; top: 28px; right: 28px; display: flex; gap: 12px; }
+.cs-ptile-shots img { display: block; width: 120px; height: auto; border-radius: 16px 16px 0 0; border: 1px solid var(--line); }
+.cs-ptile-shots img + img { margin-top: 36px; }
+@media (max-width: 720px) {
+  .cs-pgrid { grid-template-columns: 1fr; }
+  .cs-ptile--stat { grid-template-columns: 1fr; min-height: 0; }
+  .cs-ptile-stat { align-items: flex-start; }
+  .cs-ptile--shot { min-height: 0; padding-right: 24px; }
+  .cs-ptile-shots { position: static; margin: 24px 0 -26px; max-height: 200px; overflow: hidden; }
+  .cs-ptile-shots img { width: calc(50% - 6px); }
 }
 
 .cs-mend-track { position: relative; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); }
@@ -1124,41 +1134,124 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
 <div class="cs-wrap">
 
   <h2 class="cs-display reveal-title">Where the journey <em>kept breaking.</em></h2>
-  <p class="cs-lead">Fourteen problems across two audiences: the admins who assign courses and the workers who are meant to finish them.</p>
+  <p class="cs-lead">These fourteen pain points are why we redesigned it: six for the admins who assign courses, eight for the frontline workers who are meant to finish them.</p>
 
 </div>
 
 <div class="cs-wrap" style="margin-top: 48px;">
-  <div class="cs-jstat settle">
-    <p class="cs-jstat-num">13-15<span class="sym">%</span></p>
-    <p class="cs-jstat-cap">average course completion</p>
-  </div>
-  <div class="cs-voices">
-    <div class="cs-voice">
-      <p class="cs-voice-who">Admins <span>6 pain points</span></p>
-      <p class="cs-voice-line">I couldn't push what mattered, so I chased completion by hand.</p>
-      <ul class="cs-pain-list">
-      <li class="cs-pain"><p class="cs-pain-title">Low course completion rates</p><p class="cs-pain-why">Average completion sits at 13-15%, well short of what organisations need.</p></li>
-      <li class="cs-pain"><p class="cs-pain-title">Unable to prioritise content by importance</p><p class="cs-pain-why">Important modules couldn't be pushed, so admins chased completion by hand.</p></li>
-      <li class="cs-pain"><p class="cs-pain-title">Challenges with content creation</p><p class="cs-pain-why">No structure or guided navigation made features hard to use, especially the first time.</p></li>
-      <li class="cs-pain"><p class="cs-pain-title">Low employee engagement in the app</p><p class="cs-pain-why">An outdated look and unclear state left users unsure what to do, and why.</p></li>
-      <li class="cs-pain"><p class="cs-pain-title">Customisation concerns</p><p class="cs-pain-why">Free colour and CTA changes didn't protect brand identity, and felt inconsistent to employees.</p></li>
-      <li class="cs-pain"><p class="cs-pain-title">No web version of the app</p><p class="cs-pain-why">With modules assigned every few months, users hesitate to download an app.</p></li>
-      </ul>
+  <div class="cs-pgroup settle">
+    <p class="cs-pgroup-who">Admins <span>6 pain points</span></p>
+    <p class="cs-pgroup-line">I couldn't push what mattered, so I chased completion by hand.</p>
+    <div class="cs-pgrid">
+      <article class="cs-ptile cs-ptile--feat cs-ptile--stat">
+        <div class="cs-ptile-text">
+          <p class="cs-ptile-idx">01</p>
+          <h3 class="cs-ptile-title">Low course completion rates</h3>
+          <p class="cs-ptile-why">Average completion sits at 13-15%, well short of what organisations need.</p>
+        </div>
+        <p class="cs-ptile-stat" aria-label="13 to 15 percent average completion"><span class="cs-ptile-num">13-15<span class="sym">%</span></span><span class="cs-ptile-cap">average completion</span></p>
+      </article>
+      <article class="cs-ptile">
+        <div class="cs-ptile-text">
+          <p class="cs-ptile-idx">02</p>
+          <h3 class="cs-ptile-title">Unable to prioritise content by importance</h3>
+          <p class="cs-ptile-why">Important modules couldn't be pushed, so admins chased completion by hand.</p>
+        </div>
+      </article>
+      <article class="cs-ptile">
+        <div class="cs-ptile-text">
+          <p class="cs-ptile-idx">03</p>
+          <h3 class="cs-ptile-title">Challenges with content creation</h3>
+          <p class="cs-ptile-why">No structure or guided navigation made features hard to use, especially the first time.</p>
+        </div>
+      </article>
+      <article class="cs-ptile">
+        <div class="cs-ptile-text">
+          <p class="cs-ptile-idx">04</p>
+          <h3 class="cs-ptile-title">Low employee engagement in the app</h3>
+          <p class="cs-ptile-why">An outdated look and unclear state left users unsure what to do, and why.</p>
+        </div>
+      </article>
+      <article class="cs-ptile">
+        <div class="cs-ptile-text">
+          <p class="cs-ptile-idx">05</p>
+          <h3 class="cs-ptile-title">Customisation concerns</h3>
+          <p class="cs-ptile-why">Free colour and CTA changes didn't protect brand identity, and felt inconsistent to employees.</p>
+        </div>
+      </article>
+      <article class="cs-ptile cs-ptile--wide">
+        <div class="cs-ptile-text">
+          <p class="cs-ptile-idx">06</p>
+          <h3 class="cs-ptile-title">No web version of the app</h3>
+          <p class="cs-ptile-why">With modules assigned every few months, users hesitate to download an app.</p>
+        </div>
+      </article>
     </div>
-    <div class="cs-voice">
-      <p class="cs-voice-who">Frontline workers <span>8 pain points</span></p>
-      <p class="cs-voice-line">Nothing told me what to do next, so I stopped.</p>
-      <ul class="cs-pain-list">
-      <li class="cs-pain"><p class="cs-pain-title">Little motivation to complete assigned modules</p><p class="cs-pain-why">A cluttered, outdated UI and no guidance on what to pick drained motivation.</p></li>
-      <li class="cs-pain"><p class="cs-pain-title">Critical modules stay out of sight</p><p class="cs-pain-why">Nothing surfaced on the landing page; My Learning sorted by date, not urgency.</p></li>
-      <li class="cs-pain"><p class="cs-pain-title">No visibility into ongoing learning</p><p class="cs-pain-why">Resuming a module meant hunting through the Learn listing and filters.</p></li>
-      <li class="cs-pain"><p class="cs-pain-title">Confusing navigation</p><p class="cs-pain-why">Events and mandatory items were hard to find, even in the calendar.</p></li>
-      <li class="cs-pain"><p class="cs-pain-title">Module types are hard to tell apart</p><p class="cs-pain-why">A course, an assessment and a playlist looked alike, so nobody knew what to start first.</p></li>
-      <li class="cs-pain"><p class="cs-pain-title">No guidance while performing tasks</p><p class="cs-pain-why">Assessments felt like forms, with no hints along the way.</p></li>
-      <li class="cs-pain"><p class="cs-pain-title">Inconsistent, unexpected UI</p><p class="cs-pain-why">Heavy customisation kept changing CTAs and colours, so it was never clear how to interact.</p></li>
-      <li class="cs-pain"><p class="cs-pain-title">Lengthy, low-engagement content</p><p class="cs-pain-why">Users had little time, and never-ending playlists made finishing hard.</p></li>
-      </ul>
+  </div>
+  <div class="cs-pgroup settle">
+    <p class="cs-pgroup-who">Frontline workers <span>8 pain points</span></p>
+    <p class="cs-pgroup-line">Nothing told me what to do next, so I stopped.</p>
+    <div class="cs-pgrid">
+      <article class="cs-ptile cs-ptile--feat cs-ptile--shot">
+        <div class="cs-ptile-text">
+          <p class="cs-ptile-idx">01</p>
+          <h3 class="cs-ptile-title">Critical modules stay out of sight</h3>
+          <p class="cs-ptile-why">Nothing surfaced on the landing page; My Learning sorted by date, not urgency.</p>
+        </div>
+        <div class="cs-ptile-shots" aria-hidden="true">
+          <img src="assets/skilling/ui/old-home.webp" alt="" width="317" height="515" loading="lazy" decoding="async">
+          <img src="assets/skilling/ui/old-assess.webp" alt="" width="317" height="680" loading="lazy" decoding="async">
+        </div>
+      </article>
+      <article class="cs-ptile">
+        <div class="cs-ptile-text">
+          <p class="cs-ptile-idx">02</p>
+          <h3 class="cs-ptile-title">Little motivation to complete assigned modules</h3>
+          <p class="cs-ptile-why">A cluttered, outdated UI and no guidance on what to pick drained motivation.</p>
+        </div>
+      </article>
+      <article class="cs-ptile">
+        <div class="cs-ptile-text">
+          <p class="cs-ptile-idx">03</p>
+          <h3 class="cs-ptile-title">No visibility into ongoing learning</h3>
+          <p class="cs-ptile-why">Resuming a module meant hunting through the Learn listing and filters.</p>
+        </div>
+      </article>
+      <article class="cs-ptile">
+        <div class="cs-ptile-text">
+          <p class="cs-ptile-idx">04</p>
+          <h3 class="cs-ptile-title">Confusing navigation</h3>
+          <p class="cs-ptile-why">Events and mandatory items were hard to find, even in the calendar.</p>
+        </div>
+      </article>
+      <article class="cs-ptile">
+        <div class="cs-ptile-text">
+          <p class="cs-ptile-idx">05</p>
+          <h3 class="cs-ptile-title">Module types are hard to tell apart</h3>
+          <p class="cs-ptile-why">A course, an assessment and a playlist looked alike, so nobody knew what to start first.</p>
+        </div>
+      </article>
+      <article class="cs-ptile">
+        <div class="cs-ptile-text">
+          <p class="cs-ptile-idx">06</p>
+          <h3 class="cs-ptile-title">No guidance while performing tasks</h3>
+          <p class="cs-ptile-why">Assessments felt like forms, with no hints along the way.</p>
+        </div>
+      </article>
+      <article class="cs-ptile">
+        <div class="cs-ptile-text">
+          <p class="cs-ptile-idx">07</p>
+          <h3 class="cs-ptile-title">Inconsistent, unexpected UI</h3>
+          <p class="cs-ptile-why">Heavy customisation kept changing CTAs and colours, so it was never clear how to interact.</p>
+        </div>
+      </article>
+      <article class="cs-ptile cs-ptile--wide">
+        <div class="cs-ptile-text">
+          <p class="cs-ptile-idx">08</p>
+          <h3 class="cs-ptile-title">Lengthy, low-engagement content</h3>
+          <p class="cs-ptile-why">Users had little time, and never-ending playlists made finishing hard.</p>
+        </div>
+      </article>
     </div>
   </div>
 </div>
