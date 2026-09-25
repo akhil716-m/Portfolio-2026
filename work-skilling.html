@@ -782,6 +782,96 @@ body.cs-lb-lock { overflow: hidden; }
   .cs-fig-zoom, .cs-rail, .cs-cta, .cs-back, .cs-back .arr, .cs-tab, .cs-chip, .cs-strip-btn, .cs-lb-close, .cs-idx-link, .cs-acc summary, .cs-rail-num, .cs-rail-name, .cs-rail-grp { transition: none; }
   .cs-cta:hover, .cs-back:hover { gap: 8px; }
 }
+
+/* =====================================================================
+   TIER 5: RESPONSIVE
+   - Chapter bar takes over from the side rail wherever there is no room for it (1400px and below)
+   - Boards use the room the rail no longer needs
+   - One gutter on every screen, safe-area aware
+   - Every tap target is at least 44px
+   - Phone-only strips on mobile where the phones can be cut out cleanly
+   ===================================================================== */
+:root { --gutter: clamp(20px, 4.5vw, 40px); }
+
+/* Chapter bar */
+.cs-chapter { position: relative; visibility: hidden; opacity: 0; transition: opacity 0.3s ease, visibility 0.3s ease; }
+.cs-chapter.is-visible { visibility: visible; opacity: 1; }
+@media (min-width: 1401px) { .cs-chapter { display: none; } }
+.cs-chapter-btn {
+  display: inline-flex; align-items: center; gap: 10px; min-height: 44px; max-width: min(58vw, 300px); padding: 0 16px; cursor: pointer;
+  border-radius: 100px; border: 1px solid var(--line); background: rgba(20,20,20,0.72); color: var(--text);
+  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+  font-family: 'Geist', sans-serif; font-size: 14px; font-weight: 500; transition: border-color 0.2s ease;
+}
+.cs-chapter-btn:hover { border-color: var(--accent); }
+.cs-chapter-btn:active { transform: scale(0.97); }
+.cs-chapter-btn:focus-visible, .cs-chapter-item:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.cs-chapter-num { font-family: 'Geist Mono', monospace; font-size: var(--fs-micro); font-weight: 400; color: var(--accent); }
+.cs-chapter-num:empty { display: none; }
+.cs-chapter-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cs-chapter-chev { flex: none; color: var(--text-soft); transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1); }
+.cs-chapter-btn[aria-expanded="true"] .cs-chapter-chev { transform: rotate(180deg); }
+.cs-chapter-menu {
+  position: absolute; top: calc(100% + 8px); right: 0; z-index: 5;
+  width: min(340px, calc(100vw - 2 * var(--gutter))); max-height: min(72dvh, 540px); overflow-y: auto; overscroll-behavior: contain; padding: 8px;
+  border-radius: var(--r-surface); background: rgba(12,12,12,0.985); border: 1px solid var(--line);
+  -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); box-shadow: 0 24px 60px rgba(0,0,0,0.5);
+  animation: csFade 0.25s ease both;
+}
+.cs-chapter-menu[hidden] { display: none; }
+.cs-chapter-list { list-style: none; margin: 0; padding: 0; }
+.cs-chapter-group, .cs-chapter-item {
+  display: flex; align-items: center; gap: 12px; width: 100%; min-height: 44px; padding: 0 12px; text-align: left; cursor: pointer;
+  border: 0; border-radius: var(--r-inner); background: none; transition: background 0.15s ease, color 0.15s ease;
+}
+.cs-chapter-group { margin-top: 6px; font-family: 'Geist Mono', monospace; font-size: var(--fs-micro); font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-soft); }
+.cs-chapter-list li:first-child .cs-chapter-group { margin-top: 0; }
+.cs-chapter-item { font-family: 'Geist', sans-serif; font-size: 15px; color: var(--text-soft); }
+.cs-chapter-item .n { flex: none; width: 22px; font-family: 'Geist Mono', monospace; font-size: var(--fs-micro); color: var(--text-muted); }
+.cs-chapter-group:hover, .cs-chapter-item:hover { background: rgba(255,255,255,0.05); color: var(--text); }
+.cs-chapter-item.is-active, .cs-chapter-group.is-active { color: var(--text); background: rgba(255,255,255,0.07); }
+.cs-chapter-item.is-active .n, .cs-chapter-group.is-active { color: var(--accent); }
+
+/* Tap targets: the back link and the footer link were 19px and 16px tall */
+nav .logo a.cs-back { min-height: 44px; padding-right: 12px; }
+footer .right a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 4px; }
+
+/* Phone strips (mobile only): the phones from a board, swipeable */
+.cs-mobile-only { display: none; }
+.cs-phones { padding: 20px; border-radius: var(--r-surface); background: rgba(var(--wash), 0.08); border: 1px solid rgba(255,255,255,0.07); }
+.cs-phones-track { display: flex; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; -webkit-overflow-scrolling: touch; border-radius: var(--r-inner); }
+.cs-phones-track::-webkit-scrollbar { display: none; }
+.cs-phones-track:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+.cs-phones-track img { flex: none; scroll-snap-align: center; display: block; height: min(54dvh, 420px); width: auto; filter: drop-shadow(0 18px 28px rgba(0,0,0,0.45)); }
+
+/* Boards and the act copy use the room a hidden rail leaves */
+@media (max-width: 1400px) {
+  .cs-wrap--board, .cs-act-copy { max-width: min(88vw, 1040px); }
+  .cs-wrap--inset { max-width: min(72vw, 760px); }
+}
+@media (min-width: 901px) {
+  .cs-step { min-height: 56dvh; padding: 6dvh 0; }
+}
+
+/* One gutter, everywhere it matters */
+@media (max-width: 900px) {
+  .cs-wrap, .cs-wrap--board, .cs-wrap--inset { padding-left: var(--gutter); padding-right: var(--gutter); }
+  .cs-wrap--board, .cs-wrap--inset, .cs-act-copy { max-width: none; }
+  .cs-act-copy { padding: 0 var(--gutter); }
+  .cs-hero { padding-left: var(--gutter); padding-right: var(--gutter); }
+  nav { padding-left: max(var(--gutter), env(safe-area-inset-left)); padding-right: max(var(--gutter), env(safe-area-inset-right)); }
+  footer { padding-left: max(var(--gutter), env(safe-area-inset-left)); padding-right: max(var(--gutter), env(safe-area-inset-right)); padding-bottom: max(32px, env(safe-area-inset-bottom)); }
+}
+@media (max-width: 760px) {
+  .cs-back-long { display: none; }
+  .cs-mobile-only { display: block; }
+  .cs-wrap--desk { display: none; }
+  /* Board text is baked into the image: give the lightbox enough width to be readable when panned */
+  .cs-lb img { width: 1200px; }
+  footer { grid-template-columns: 1fr; gap: 8px; }
+  footer .right { text-align: left; }
+}
+@media (prefers-reduced-motion: reduce) { .cs-chapter, .cs-chapter-chev, .cs-chapter-btn, .cs-chapter-group, .cs-chapter-item { transition: none; } .cs-chapter-menu { animation: none; } .cs-chapter-btn:active { transform: none; } }
 </style>
 </head>
 <body>
@@ -798,7 +888,18 @@ body.cs-lb-lock { overflow: hidden; }
 
 <nav>
   <div class="logo">
-    <a class="cs-back" href="/"><span class="arr">←</span> Back to selected work</a>
+    <a class="cs-back" href="/" aria-label="Back to selected work"><span class="arr">←</span> Back<span class="cs-back-long"> to selected work</span></a>
+  </div>
+  <!-- CHAPTER BAR: stands in for the side rail wherever there is no room for it -->
+  <div class="cs-chapter" id="cs-chapter">
+    <button type="button" class="cs-chapter-btn" id="cs-chapter-btn" aria-expanded="false" aria-controls="cs-chapter-menu">
+      <span class="cs-chapter-num" id="cs-chapter-num"></span>
+      <span class="cs-chapter-name" id="cs-chapter-name">Chapters</span>
+      <svg class="cs-chapter-chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+    </button>
+    <div class="cs-chapter-menu" id="cs-chapter-menu" hidden>
+      <ul class="cs-chapter-list" id="cs-chapter-list"></ul>
+    </div>
   </div>
 </nav>
 
@@ -1615,8 +1716,8 @@ body.cs-lb-lock { overflow: hidden; }
     <p class="cs-p">Short courses are bite-sized learning for busy schedules. Complex topics arrive in digestible segments, and a short quiz at the end checks understanding.</p>
   </div>
 </div>
-<div class="cs-wrap cs-wrap--board">
-<figure class="cs-board settle">
+<div class="cs-wrap cs-wrap--board cs-wrap--desk">
+<figure class="cs-board settle cs-board--desk">
   <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: Short courses" data-full="assets/skilling/d-short.jpg" data-alt="Short course screens showing safety gear tips as full screen stories">
     <img src="assets/skilling/d-short.jpg" alt="Short course screens showing safety gear tips as full screen stories" width="1590" height="932" loading="lazy" decoding="async">
     <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
@@ -1624,14 +1725,26 @@ body.cs-lb-lock { overflow: hidden; }
   <figcaption class="cs-mock-cap">Short courses</figcaption>
 </figure>
 </div>
-<div class="cs-wrap cs-wrap--board cs-wrap--inset">
-<figure class="cs-board settle cs-board--inset">
+<div class="cs-wrap cs-wrap--board cs-mobile-only">
+  <figure class="cs-board settle">
+    <div class="cs-phones"><div class="cs-phones-track" tabindex="0" role="group" aria-label="Short course stories, scroll sideways"><img src="assets/skilling/ui/story-1.webp" alt="Short course story about wearing safety gloves" width="520" height="1071" loading="lazy" decoding="async"><img src="assets/skilling/ui/story-2.webp" alt="Short course story about gloves and glasses when welding" width="520" height="1071" loading="lazy" decoding="async"><img src="assets/skilling/ui/story-3.webp" alt="Short course story about keeping hands safe with a power tool" width="520" height="1071" loading="lazy" decoding="async"></div></div>
+    <figcaption class="cs-mock-cap">Short courses</figcaption>
+  </figure>
+</div>
+<div class="cs-wrap cs-wrap--board cs-wrap--inset cs-wrap--desk">
+<figure class="cs-board settle cs-board--inset cs-board--desk">
   <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: A quick check" data-full="assets/skilling/d-short-quiz.jpg" data-alt="Short course quiz screens with a correct answer state">
     <img src="assets/skilling/d-short-quiz.jpg" alt="Short course quiz screens with a correct answer state" width="1590" height="670" loading="lazy" decoding="async">
     <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
   </div>
   <figcaption class="cs-mock-cap">A quick check</figcaption>
 </figure>
+</div>
+<div class="cs-wrap cs-wrap--board cs-mobile-only">
+  <figure class="cs-board settle">
+    <div class="cs-phones"><div class="cs-phones-track" tabindex="0" role="group" aria-label="Short course quiz, scroll sideways"><img src="assets/skilling/ui/quiz-1.webp" alt="Short course quiz question about wearing gloves" width="520" height="1071" loading="lazy" decoding="async"><img src="assets/skilling/ui/quiz-2.webp" alt="Quiz question with the correct answer marked" width="520" height="1071" loading="lazy" decoding="async"></div></div>
+    <figcaption class="cs-mock-cap">A quick check</figcaption>
+  </figure>
 </div>
 
 <div class="cs-wrap">
@@ -1723,6 +1836,35 @@ var CS_REDUCE = window.matchMedia && window.matchMedia('(prefers-reduced-motion:
     });
   });
 
+  /* Chapter bar (below 1400px, where the rail has no room): the same sections, as a menu */
+  var chapter = document.getElementById('cs-chapter');
+  var cbtn = document.getElementById('cs-chapter-btn');
+  var cmenu = document.getElementById('cs-chapter-menu');
+  var clist = document.getElementById('cs-chapter-list');
+  var cnum = document.getElementById('cs-chapter-num');
+  var cname = document.getElementById('cs-chapter-name');
+  function setMenu(open) {
+    cmenu.hidden = !open;
+    cbtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    if (open) { var a = clist.querySelector('.is-active'); if (a) a.scrollIntoView({ block: 'nearest' }); }
+  }
+  if (chapter && cbtn && cmenu && clist) {
+    clist.innerHTML = SECTIONS.map(function(s) {
+      if (s.group) return '<li><button type="button" class="cs-chapter-group" data-target="' + s.id + '">' + s.group + '</button></li>';
+      return '<li><button type="button" class="cs-chapter-item" data-target="' + s.id + '"><span class="n">' + s.num + '</span><span>' + s.name + '</span></button></li>';
+    }).join('');
+    cbtn.addEventListener('click', function() { setMenu(cmenu.hidden); });
+    clist.addEventListener('click', function(e) {
+      var b = e.target.closest('button[data-target]');
+      if (!b) return;
+      var el = document.getElementById(b.getAttribute('data-target'));
+      setMenu(false);
+      if (el) el.scrollIntoView({ behavior: CS_REDUCE ? 'auto' : 'smooth' });
+    });
+    document.addEventListener('pointerdown', function(e) { if (!cmenu.hidden && !chapter.contains(e.target)) setMenu(false); });
+    document.addEventListener('keydown', function(e) { if (e.key === 'Escape' && !cmenu.hidden) { setMenu(false); cbtn.focus(); } });
+  }
+
   function setActive(sec) {
     list.querySelectorAll('li.is-active').forEach(function(li) { li.classList.remove('is-active'); });
     var li = list.querySelector('li[data-id="' + sec.id + '"]');
@@ -1731,11 +1873,19 @@ var CS_REDUCE = window.matchMedia && window.matchMedia('(prefers-reduced-motion:
       var g = list.querySelector('li[data-id="' + sec.groupId + '"]');
       if (g) g.classList.add('is-active');
     }
+    if (chapter && cname) {
+      cnum.textContent = sec.group ? '' : sec.num;
+      cname.textContent = sec.group || sec.name;
+      clist.querySelectorAll('.is-active').forEach(function(b) { b.classList.remove('is-active'); });
+      var cb = clist.querySelector('button[data-target="' + sec.id + '"]');
+      if (cb) cb.classList.add('is-active');
+    }
   }
   function syncVisibility() {
     var on = heroGone && !!activeId;
     rail.classList.toggle('is-visible', on);
     if (on) rail.removeAttribute('aria-hidden'); else rail.setAttribute('aria-hidden', 'true');
+    if (chapter) { chapter.classList.toggle('is-visible', on); if (!on && !cmenu.hidden) setMenu(false); }
   }
 
   if (!('IntersectionObserver' in window)) return;
