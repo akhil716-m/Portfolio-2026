@@ -843,44 +843,46 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
 
 /* =====================================================================
    CHALLENGES AND SCOPE: ONE JOURNEY, BROKEN THEN MENDED
-   Challenges is a swimlane (admins / workers) across five stages, with the
-   journey line broken at every stage. Scope is the same five stages with the
-   line mended in lime, and each intervention sitting where its break was.
+   Challenges: a split layout. The journey line is frozen on the left (broken
+   between stages, the current stage lit) with the result at its foot, while
+   the problems scroll past on the right one stage at a time, in full.
+   Scope: the same five stages with the line mended in lime.
    ===================================================================== */
-.cs-jstat { display: flex; align-items: baseline; flex-wrap: wrap; gap: 8px 24px; margin: 0 0 44px; }
-.cs-jstat-num { margin: 0; font-family: 'Geist', sans-serif; font-size: clamp(56px, 8vw, 96px); font-weight: 500; line-height: 1; letter-spacing: -0.04em; color: var(--text); }
+.cs-jsplit { display: grid; grid-template-columns: minmax(220px, 300px) minmax(0, 1fr); gap: clamp(40px, 7vw, 96px); align-items: start; }
+.cs-jrail { position: sticky; top: max(96px, calc(50dvh - 240px)); }
+.cs-jstages { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+.cs-jstages a {
+  display: flex; align-items: center; gap: 18px; min-height: 52px; text-decoration: none;
+  font-family: 'Geist', sans-serif; font-size: var(--fs-h4); font-weight: 500; color: var(--text-muted); transition: color 0.3s ease;
+}
+/* one short segment per stage, with a gap between each: the journey line, broken */
+.cs-jstages a::before { content: ''; flex: none; width: 3px; height: 52px; border-radius: 2px; background: var(--line); transition: background 0.3s ease; }
+.cs-jstages li.is-past a { color: var(--text-soft); }
+.cs-jstages li.is-past a::before { background: var(--text-muted); }
+.cs-jstages li.is-active a { color: var(--text); }
+.cs-jstages li.is-active a::before { background: var(--accent); }
+.cs-jstages a:hover { color: var(--text); }
+.cs-jstages a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; border-radius: 4px; }
+.cs-jstat { margin-top: 40px; padding-top: 28px; border-top: 1px solid var(--line); }
+.cs-jstat-num { margin: 0 0 6px; font-family: 'Geist', sans-serif; font-size: clamp(52px, 5.6vw, 72px); font-weight: 500; line-height: 1; letter-spacing: -0.04em; color: var(--text); }
 .cs-jstat-num .sym { color: var(--accent); }
-.cs-jstat-cap { margin: 0; font-size: var(--fs-lead); color: var(--text-soft); }
+.cs-jstat-cap { margin: 0; font-size: var(--fs-small); color: var(--text-soft); }
 
-.cs-jmap { display: grid; grid-template-columns: 84px repeat(5, minmax(0, 1fr)); grid-template-rows: auto auto auto; }
-.cs-jlane { align-self: start; padding-top: 18px; font-family: 'Geist', sans-serif; font-size: var(--fs-small); font-weight: 500; color: var(--text-muted); }
-.cs-jlane--a { grid-column: 1; grid-row: 2; }
-.cs-jlane--w { grid-column: 1; grid-row: 3; border-top: 1px solid var(--line); }
-.cs-jstage { grid-column: var(--c); grid-row: 1 / span 3; display: grid; grid-template-rows: subgrid; min-width: 0; }
-/* the journey line: one segment per stage, with a gap between them (the breaks) */
-.cs-jhead { position: relative; margin: 0; padding: 0 14px 14px 0; font-family: 'Geist', sans-serif; font-size: var(--fs-h4); font-weight: 600; line-height: 1.2; color: var(--text); }
-.cs-jhead::after { content: ''; position: absolute; left: 0; right: 14px; bottom: 0; height: 2px; background: var(--text-muted); }
-.cs-jcell { display: flex; flex-direction: column; gap: 6px; min-width: 0; min-height: 44px; padding: 18px 14px 20px 0; }
-.cs-jcell--w { border-top: 1px solid var(--line); }
-.cs-jitem {
-  display: block; width: 100%; min-height: 44px; padding: 6px 0 6px 12px; text-align: left; cursor: pointer; background: none; border: 0;
-  border-left: 2px solid var(--line); font-family: 'Geist', sans-serif; font-size: var(--fs-small); font-weight: 500; line-height: 1.4; color: var(--text-soft);
-  transition: color 0.2s ease, border-color 0.2s ease;
-}
-.cs-jitem:hover { color: var(--text); }
-.cs-jitem.is-active { color: var(--text); border-left-color: var(--accent); }
-.cs-jitem:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-.cs-jdesc { display: block; margin-top: 6px; font-weight: 400; line-height: 1.6; color: var(--text-soft); }
-.cs-jitem.is-active .cs-jdesc { color: var(--text-soft); }
-@media (min-width: 1001px) { .js .cs-jdesc { display: none; } }
-.cs-jdetail {
-  display: grid; grid-template-columns: minmax(120px, 190px) minmax(0, 1fr); gap: 8px 36px; margin-top: 32px; padding: 26px 30px;
-  border-radius: var(--r-surface); background: rgba(var(--wash), 0.07); border: 1px solid rgba(255,255,255,0.07);
-}
-.cs-jdetail-meta { margin: 0; padding-top: 6px; font-family: 'Geist Mono', monospace; font-size: var(--fs-micro); letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted); }
-.cs-jdetail-title { margin: 0 0 8px; font-family: 'Geist', sans-serif; font-size: var(--fs-h3); font-weight: 500; line-height: 1.25; letter-spacing: -0.01em; color: var(--text); }
-.cs-jdetail-desc { margin: 0; max-width: 56ch; font-size: var(--fs-body); line-height: 1.7; color: var(--text-soft); }
-.cs-jdetail.is-swap .cs-jdetail-body { animation: csFade 0.35s ease both; }
+/* two vertical indexes side by side is clutter: the chapter rail steps back while this tracker is on screen */
+.cs-rail.is-visible.is-dim { opacity: 0.22; }
+.cs-jsteps { display: flex; flex-direction: column; }
+.cs-jstep { padding-bottom: clamp(64px, 12dvh, 120px); }
+.cs-jstep:last-child { padding-bottom: 0; }
+.js .cs-jstep { opacity: 0.35; transition: opacity 0.4s ease; }
+.js .cs-jstep.is-active { opacity: 1; }
+.cs-jstep-title { margin: 0 0 8px; font-family: 'Geist', sans-serif; font-size: clamp(30px, 3.4vw, 40px); font-weight: 500; letter-spacing: -0.02em; line-height: 1.1; color: var(--text); }
+.cs-jstep-sub { margin: 0 0 8px; font-size: var(--fs-body); line-height: 1.6; color: var(--text-soft); }
+.cs-jlane-block { margin-top: 32px; }
+.cs-jlane-title { margin: 0 0 14px; font-family: 'Geist', sans-serif; font-size: var(--fs-small); font-weight: 500; color: var(--text-muted); }
+.cs-jissue { margin: 0 0 22px; padding: 2px 0 2px 22px; border-left: 2px solid var(--line); }
+.cs-jissue:last-child { margin-bottom: 0; }
+.cs-jissue-title { margin: 0 0 6px; font-family: 'Geist', sans-serif; font-size: var(--fs-h3); font-weight: 500; line-height: 1.25; letter-spacing: -0.01em; color: var(--text); }
+.cs-jissue-desc { margin: 0; max-width: 54ch; font-size: var(--fs-body); line-height: 1.7; color: var(--text-soft); }
 
 .cs-mend-track { position: relative; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); }
 .cs-mend-line { position: absolute; left: 0; right: 0; top: 32px; height: 2px; background: var(--accent); transform-origin: 0 50%; }
@@ -900,17 +902,16 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
 .js .cs-mend .cs-mend-list { opacity: 0; transform: translateY(12px); }
 .js .cs-mend.is-visible .cs-mend-list { opacity: 1; transform: none; transition: opacity 0.7s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); transition-delay: calc(var(--i) * 140ms + 450ms); }
 
-/* Below 1000px there is no room for five columns: the map becomes a swipeable row of stages, the scope a vertical line */
+/* Below 1000px there is no room for a frozen column: the tracker goes, each stage carries its own segment,
+   and the scope becomes a vertical line */
 @media (max-width: 1000px) {
-  .cs-jmap { display: flex; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; -webkit-overflow-scrolling: touch; padding-bottom: 6px; }
-  .cs-jmap::-webkit-scrollbar { display: none; }
-  .cs-jlane { display: none; }
-  .cs-jstage { display: block; flex: 0 0 min(300px, 80%); scroll-snap-align: start; }
-  .cs-jhead::after { right: 0; }
-  .cs-jcell::before { content: attr(data-lane); display: block; margin-bottom: 8px; font-family: 'Geist Mono', monospace; font-size: var(--fs-micro); letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); }
-  .cs-jcell:empty { display: none; }
-  .cs-jcell--w { border-top: 0; }
-  .cs-jdetail { display: none; }
+  .cs-jsplit { display: block; }
+  .cs-jrail { position: static; margin-bottom: 48px; }
+  .cs-jstages { display: none; }
+  .cs-jstat { margin-top: 0; padding-top: 0; border-top: 0; }
+  .js .cs-jstep { opacity: 1; }
+  .cs-jstep { padding-bottom: 56px; }
+  .cs-jstep-title::before { content: ''; display: block; width: 32px; height: 3px; margin-bottom: 16px; border-radius: 2px; background: var(--accent); }
   .cs-mend-track { display: block; padding-left: 26px; }
   .cs-mend-line { left: 0; right: auto; top: 0; bottom: 0; width: 2px; height: auto; transform-origin: 50% 0; }
   .js .cs-mend .cs-mend-line { transform: scaleY(0); }
@@ -919,11 +920,10 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
   .cs-mend-head { height: auto; margin-bottom: 14px; }
   .cs-mend-list { padding: 0; gap: 22px; }
 }
-@media (max-width: 900px) { .cs-jmap { margin-left: calc(var(--gutter) * -1); margin-right: calc(var(--gutter) * -1); padding-left: var(--gutter); padding-right: var(--gutter); scroll-padding-left: var(--gutter); } }
 @media (prefers-reduced-motion: reduce) {
   .js .cs-mend .cs-mend-line, .js .cs-mend .cs-mend-list { transform: none; opacity: 1; transition: none; }
-  .cs-jitem, .cs-mend-go, .cs-mend-go svg { transition: none; }
-  .cs-jdetail.is-swap .cs-jdetail-body { animation: none; }
+  .js .cs-jstep { transition: none; }
+  .cs-jstages a, .cs-jstages a::before, .cs-mend-go, .cs-mend-go svg { transition: none; }
 }
 </style>
 </head>
@@ -1152,49 +1152,118 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
 
 </div>
 
-<div class="cs-wrap cs-wrap--board" style="margin-top: 56px;">
-  <figure class="cs-journey settle" data-journey aria-label="Challenges mapped across the learning journey">
-    <div class="cs-jstat">
-      <p class="cs-jstat-num">13-15<span class="sym">%</span></p>
-      <p class="cs-jstat-cap">average course completion</p>
-    </div>
-    <div class="cs-jmap">
-      <div class="cs-jlane cs-jlane--a">Admins</div>
-      <div class="cs-jlane cs-jlane--w">Workers</div>
-      <div class="cs-jstage" style="--c:2" role="group" aria-label="Assign">
-        <p class="cs-jhead">Assign</p>
-        <div class="cs-jcell" data-lane="Admins" role="group" aria-label="Admins"><button type="button" class="cs-jitem" data-lane="Admins" data-stage="Assign" data-full="Unable to prioritise content by importance" aria-pressed="false"><span class="cs-jtitle">Can't prioritise what matters</span><span class="cs-jdesc">Admins couldn't push important modules forward, so end users didn't discover them and admins had to chase completion manually.</span></button><button type="button" class="cs-jitem" data-lane="Admins" data-stage="Assign" data-full="Challenges with content creation" aria-pressed="false"><span class="cs-jtitle">Content creation is hard</span><span class="cs-jdesc">Without structure, format or guided navigation, admins found features and configurations hard to use, especially first-time users.</span></button><button type="button" class="cs-jitem" data-lane="Admins" data-stage="Assign" data-full="Customisation concerns" aria-pressed="false"><span class="cs-jtitle">Customisation concerns</span><span class="cs-jdesc">Admins could freely change backgrounds, CTAs and colours, but that freedom didn't protect brand identity, and it made the experience inconsistent for employees.</span></button></div>
-        <div class="cs-jcell cs-jcell--w" data-lane="Workers" role="group" aria-label="Workers"></div>
-      </div>
-      <div class="cs-jstage" style="--c:3" role="group" aria-label="Discover">
-        <p class="cs-jhead">Discover</p>
-        <div class="cs-jcell" data-lane="Admins" role="group" aria-label="Admins"><button type="button" class="cs-jitem" data-lane="Admins" data-stage="Discover" data-full="No web version of the app" aria-pressed="false"><span class="cs-jtitle">No web version of the app</span><span class="cs-jdesc">When modules are assigned only every few months, users hesitate to download the app, and admins would rather share a link that works on the web.</span></button></div>
-        <div class="cs-jcell cs-jcell--w" data-lane="Workers" role="group" aria-label="Workers"><button type="button" class="cs-jitem" data-lane="Workers" data-stage="Discover" data-full="Critical modules stay out of sight" aria-pressed="false"><span class="cs-jtitle">Critical modules stay out of sight</span><span class="cs-jdesc">Nothing surfaced on the landing page. Users had to dig through My Learning, where modules were sorted by date rather than urgency.</span></button><button type="button" class="cs-jitem" data-lane="Workers" data-stage="Discover" data-full="Confusing navigation" aria-pressed="false"><span class="cs-jtitle">Confusing navigation</span><span class="cs-jdesc">Events and mandatory items were hard to find. New users in particular searched the calendar and still missed them.</span></button><button type="button" class="cs-jitem" data-lane="Workers" data-stage="Discover" data-full="Module types are hard to tell apart" aria-pressed="false"><span class="cs-jtitle">Module types are hard to tell apart</span><span class="cs-jdesc">With no visual identity separating a course, an assessment and a playlist, users couldn't decide what to start first.</span></button></div>
-      </div>
-      <div class="cs-jstage" style="--c:4" role="group" aria-label="Start">
-        <p class="cs-jhead">Start</p>
-        <div class="cs-jcell" data-lane="Admins" role="group" aria-label="Admins"><button type="button" class="cs-jitem" data-lane="Admins" data-stage="Start" data-full="Low employee engagement in the app" aria-pressed="false"><span class="cs-jtitle">Low engagement in the app</span><span class="cs-jdesc">An outdated look and an unclear state left users with little idea of what to do, when, and why, so they engaged less.</span></button></div>
-        <div class="cs-jcell cs-jcell--w" data-lane="Workers" role="group" aria-label="Workers"><button type="button" class="cs-jitem" data-lane="Workers" data-stage="Start" data-full="Little motivation to complete assigned modules" aria-pressed="false"><span class="cs-jtitle">Little motivation to complete modules</span><span class="cs-jdesc">A cluttered, outdated UI, weak content and no decision-making guidance drained motivation to engage.</span></button><button type="button" class="cs-jitem" data-lane="Workers" data-stage="Start" data-full="Inconsistent, unexpected UI" aria-pressed="false"><span class="cs-jtitle">Inconsistent, unexpected UI</span><span class="cs-jdesc">Heavy admin customisation kept changing CTA types and colours, so it was never clear how to interact with the app.</span></button></div>
-      </div>
-      <div class="cs-jstage" style="--c:5" role="group" aria-label="Continue">
-        <p class="cs-jhead">Continue</p>
-        <div class="cs-jcell" data-lane="Admins" role="group" aria-label="Admins"></div>
-        <div class="cs-jcell cs-jcell--w" data-lane="Workers" role="group" aria-label="Workers"><button type="button" class="cs-jitem" data-lane="Workers" data-stage="Continue" data-full="No visibility into ongoing learning" aria-pressed="false"><span class="cs-jtitle">No visibility into ongoing learning</span><span class="cs-jdesc">Coming back to resume a module meant hunting through the Learn listing and applying filters, which made users lose interest.</span></button><button type="button" class="cs-jitem" data-lane="Workers" data-stage="Continue" data-full="Lengthy, low-engagement content" aria-pressed="false"><span class="cs-jtitle">Lengthy, low-engagement content</span><span class="cs-jdesc">Users had limited time, and playlists that felt never-ending made completing them difficult.</span></button></div>
-      </div>
-      <div class="cs-jstage" style="--c:6" role="group" aria-label="Finish">
-        <p class="cs-jhead">Finish</p>
-        <div class="cs-jcell" data-lane="Admins" role="group" aria-label="Admins"><button type="button" class="cs-jitem" data-lane="Admins" data-stage="Finish" data-full="Low course completion rates" aria-pressed="false" data-default><span class="cs-jtitle">Low course completion rates</span><span class="cs-jdesc">Organisations struggle to make sure employees finish courses on time. Average completion sits at 13-15%, which is well short of what they need.</span></button></div>
-        <div class="cs-jcell cs-jcell--w" data-lane="Workers" role="group" aria-label="Workers"><button type="button" class="cs-jitem" data-lane="Workers" data-stage="Finish" data-full="No guidance while performing tasks" aria-pressed="false"><span class="cs-jtitle">No guidance while performing tasks</span><span class="cs-jdesc">Assessments felt like filling out a form, with no clear instruction per question type and no hints along the way.</span></button></div>
+<div class="cs-wrap cs-wrap--board" style="margin-top: 64px;">
+  <div class="cs-jsplit" data-jsplit>
+    <div class="cs-jrail">
+      <ol class="cs-jstages" aria-label="Journey stages"><li><a href="#j-assign" data-step="0">Assign</a></li><li><a href="#j-discover" data-step="1">Discover</a></li><li><a href="#j-start" data-step="2">Start</a></li><li><a href="#j-continue" data-step="3">Continue</a></li><li><a href="#j-finish" data-step="4">Finish</a></li></ol>
+      <div class="cs-jstat">
+        <p class="cs-jstat-num">13-15<span class="sym">%</span></p>
+        <p class="cs-jstat-cap">average course completion</p>
       </div>
     </div>
-    <div class="cs-jdetail" aria-live="polite">
-      <p class="cs-jdetail-meta"></p>
-      <div class="cs-jdetail-body">
-        <p class="cs-jdetail-title"></p>
-        <p class="cs-jdetail-desc"></p>
-      </div>
+    <div class="cs-jsteps">
+      <section class="cs-jstep" id="j-assign" data-step="0" aria-labelledby="j-assign-t">
+        <h3 class="cs-jstep-title" id="j-assign-t">Assign</h3>
+        <p class="cs-jstep-sub">An admin puts a course in front of workers.</p>
+        <div class="cs-jlane-block">
+          <p class="cs-jlane-title">Admins</p>
+          <div class="cs-jissue">
+            <h4 class="cs-jissue-title">Unable to prioritise content by importance</h4>
+            <p class="cs-jissue-desc">Admins couldn't push important modules forward, so end users didn't discover them and admins had to chase completion manually.</p>
+          </div>
+          <div class="cs-jissue">
+            <h4 class="cs-jissue-title">Challenges with content creation</h4>
+            <p class="cs-jissue-desc">Without structure, format or guided navigation, admins found features and configurations hard to use, especially first-time users.</p>
+          </div>
+          <div class="cs-jissue">
+            <h4 class="cs-jissue-title">Customisation concerns</h4>
+            <p class="cs-jissue-desc">Admins could freely change backgrounds, CTAs and colours, but that freedom didn't protect brand identity, and it made the experience inconsistent for employees.</p>
+          </div>
+        </div>
+      </section>
+      <section class="cs-jstep" id="j-discover" data-step="1" aria-labelledby="j-discover-t">
+        <h3 class="cs-jstep-title" id="j-discover-t">Discover</h3>
+        <p class="cs-jstep-sub">A worker opens the app and looks for what to do.</p>
+        <div class="cs-jlane-block">
+          <p class="cs-jlane-title">Admins</p>
+          <div class="cs-jissue">
+            <h4 class="cs-jissue-title">No web version of the app</h4>
+            <p class="cs-jissue-desc">When modules are assigned only every few months, users hesitate to download the app, and admins would rather share a link that works on the web.</p>
+          </div>
+        </div>
+        <div class="cs-jlane-block">
+          <p class="cs-jlane-title">Workers</p>
+          <div class="cs-jissue">
+            <h4 class="cs-jissue-title">Critical modules stay out of sight</h4>
+            <p class="cs-jissue-desc">Nothing surfaced on the landing page. Users had to dig through My Learning, where modules were sorted by date rather than urgency.</p>
+          </div>
+          <div class="cs-jissue">
+            <h4 class="cs-jissue-title">Confusing navigation</h4>
+            <p class="cs-jissue-desc">Events and mandatory items were hard to find. New users in particular searched the calendar and still missed them.</p>
+          </div>
+          <div class="cs-jissue">
+            <h4 class="cs-jissue-title">Module types are hard to tell apart</h4>
+            <p class="cs-jissue-desc">With no visual identity separating a course, an assessment and a playlist, users couldn't decide what to start first.</p>
+          </div>
+        </div>
+      </section>
+      <section class="cs-jstep" id="j-start" data-step="2" aria-labelledby="j-start-t">
+        <h3 class="cs-jstep-title" id="j-start-t">Start</h3>
+        <p class="cs-jstep-sub">They decide whether to begin.</p>
+        <div class="cs-jlane-block">
+          <p class="cs-jlane-title">Admins</p>
+          <div class="cs-jissue">
+            <h4 class="cs-jissue-title">Low employee engagement in the app</h4>
+            <p class="cs-jissue-desc">An outdated look and an unclear state left users with little idea of what to do, when, and why, so they engaged less.</p>
+          </div>
+        </div>
+        <div class="cs-jlane-block">
+          <p class="cs-jlane-title">Workers</p>
+          <div class="cs-jissue">
+            <h4 class="cs-jissue-title">Little motivation to complete assigned modules</h4>
+            <p class="cs-jissue-desc">A cluttered, outdated UI, weak content and no decision-making guidance drained motivation to engage.</p>
+          </div>
+          <div class="cs-jissue">
+            <h4 class="cs-jissue-title">Inconsistent, unexpected UI</h4>
+            <p class="cs-jissue-desc">Heavy admin customisation kept changing CTA types and colours, so it was never clear how to interact with the app.</p>
+          </div>
+        </div>
+      </section>
+      <section class="cs-jstep" id="j-continue" data-step="3" aria-labelledby="j-continue-t">
+        <h3 class="cs-jstep-title" id="j-continue-t">Continue</h3>
+        <p class="cs-jstep-sub">They come back and carry on.</p>
+        <div class="cs-jlane-block">
+          <p class="cs-jlane-title">Workers</p>
+          <div class="cs-jissue">
+            <h4 class="cs-jissue-title">No visibility into ongoing learning</h4>
+            <p class="cs-jissue-desc">Coming back to resume a module meant hunting through the Learn listing and applying filters, which made users lose interest.</p>
+          </div>
+          <div class="cs-jissue">
+            <h4 class="cs-jissue-title">Lengthy, low-engagement content</h4>
+            <p class="cs-jissue-desc">Users had limited time, and playlists that felt never-ending made completing them difficult.</p>
+          </div>
+        </div>
+      </section>
+      <section class="cs-jstep" id="j-finish" data-step="4" aria-labelledby="j-finish-t">
+        <h3 class="cs-jstep-title" id="j-finish-t">Finish</h3>
+        <p class="cs-jstep-sub">They complete it and are assessed.</p>
+        <div class="cs-jlane-block">
+          <p class="cs-jlane-title">Admins</p>
+          <div class="cs-jissue">
+            <h4 class="cs-jissue-title">Low course completion rates</h4>
+            <p class="cs-jissue-desc">Organisations struggle to make sure employees finish courses on time. Average completion sits at 13-15%, which is well short of what they need.</p>
+          </div>
+        </div>
+        <div class="cs-jlane-block">
+          <p class="cs-jlane-title">Workers</p>
+          <div class="cs-jissue">
+            <h4 class="cs-jissue-title">No guidance while performing tasks</h4>
+            <p class="cs-jissue-desc">Assessments felt like filling out a form, with no clear instruction per question type and no hints along the way.</p>
+          </div>
+        </div>
+      </section>
     </div>
-  </figure>
+  </div>
 </div>
 </section>
 
@@ -2163,28 +2232,24 @@ var CS_REDUCE = window.matchMedia && window.matchMedia('(prefers-reduced-motion:
   });
 })();
 
-/* Journey map: pick a challenge to read it (on small screens the detail is shown inline instead) */
+/* Challenges tracker: the stage crossing the middle of the screen lights up on the frozen journey line */
 (function() {
-  document.querySelectorAll('[data-journey]').forEach(function(root) {
-    var items = Array.prototype.slice.call(root.querySelectorAll('.cs-jitem'));
-    var detail = root.querySelector('.cs-jdetail');
-    if (!items.length || !detail) return;
-    var meta = detail.querySelector('.cs-jdetail-meta');
-    var title = detail.querySelector('.cs-jdetail-title');
-    var desc = detail.querySelector('.cs-jdetail-desc');
-    function select(it) {
-      items.forEach(function(x) {
-        var on = x === it;
-        x.classList.toggle('is-active', on);
-        x.setAttribute('aria-pressed', on ? 'true' : 'false');
-      });
-      meta.textContent = it.getAttribute('data-lane') + ' at ' + it.getAttribute('data-stage');
-      title.textContent = it.getAttribute('data-full');
-      desc.textContent = it.querySelector('.cs-jdesc').textContent;
-      detail.classList.remove('is-swap'); void detail.offsetWidth; detail.classList.add('is-swap');
+  document.querySelectorAll('[data-jsplit]').forEach(function(root) {
+    var steps = Array.prototype.slice.call(root.querySelectorAll('.cs-jstep'));
+    var lis = Array.prototype.slice.call(root.querySelectorAll('.cs-jstages li'));
+    if (!steps.length || !lis.length) return;
+    function set(n) {
+      steps.forEach(function(st, k) { st.classList.toggle('is-active', k === n); });
+      lis.forEach(function(li, k) { li.classList.toggle('is-active', k === n); li.classList.toggle('is-past', k < n); });
     }
-    items.forEach(function(it) { it.addEventListener('click', function() { select(it); }); });
-    select(root.querySelector('.cs-jitem[data-default]') || items[0]);
+    set(0);
+    if (!('IntersectionObserver' in window)) return;
+    var rail = document.getElementById('cs-rail');
+    if (rail) new IntersectionObserver(function(entries) { rail.classList.toggle('is-dim', entries[0].isIntersecting); }, { threshold: 0 }).observe(root);
+    var io = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) { if (e.isIntersecting) set(parseInt(e.target.getAttribute('data-step'), 10)); });
+    }, { rootMargin: '-38% 0px -52% 0px', threshold: 0 });
+    steps.forEach(function(st) { io.observe(st); });
   });
 })();
 </script>
