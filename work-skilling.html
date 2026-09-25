@@ -842,43 +842,23 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
 @media (prefers-reduced-motion: reduce) { .cs-chapter, .cs-chapter-chev, .cs-chapter-btn, .cs-chapter-group, .cs-chapter-item { transition: none; } .cs-chapter-menu { animation: none; } .cs-chapter-btn:active { transform: none; } }
 
 /* =====================================================================
-   CHALLENGES AND SCOPE: ONE JOURNEY, BROKEN THEN MENDED
-   Challenges: five stages on a line that is broken between each, one sentence
-   per stage. Scope: the same five stages with the line mended in lime.
-   Static on purpose: no pinning, no scroll mechanics.
+   CHALLENGES AND SCOPE
+   Challenges: the headline stat, then the 14 problem titles in two panels
+   (admins, workers). Scope: the eight changes placed on one lime line.
+   Static on purpose: no pinning, no scroll mechanics, nothing to open.
    ===================================================================== */
 .cs-jstat { display: flex; align-items: baseline; flex-wrap: wrap; gap: 6px 18px; margin: 0 0 44px; }
 .cs-jstat-num { margin: 0; font-family: 'Geist', sans-serif; font-size: clamp(44px, 6vw, 56px); font-weight: 500; line-height: 1; letter-spacing: -0.035em; color: var(--text); }
 .cs-jstat-num .sym { color: var(--accent); }
 .cs-jstat-cap { margin: 0; font-size: var(--fs-body); color: var(--text-soft); }
 
-/* one row per stage, kept inside the reading column */
-.cs-break-track { list-style: none; margin: 0; padding: 0; }
-.cs-break-stage { position: relative; display: grid; grid-template-columns: 96px minmax(0, 1fr) auto; column-gap: 20px; align-items: baseline; padding: 0 0 28px 24px; }
-.cs-break-stage:last-child { padding-bottom: 0; }
-/* the journey line: one short segment per stage with a gap between them. That gap is the break */
-.cs-break-stage::before { content: ''; position: absolute; left: 0; top: 4px; bottom: 16px; width: 3px; border-radius: 2px; background: var(--text-muted); }
-.cs-break-stage:last-child::before { bottom: 0; }
-.cs-break-head { margin: 0; font-family: 'Geist', sans-serif; font-size: var(--fs-small); font-weight: 600; line-height: 1.4; color: var(--text); }
-.cs-break-text { margin: 0; font-family: 'Geist', sans-serif; font-size: clamp(17px, 1.5vw, 19px); font-weight: 500; line-height: 1.4; letter-spacing: -0.01em; color: var(--text); }
-.cs-break-count { margin: 0; font-size: var(--fs-small); line-height: 1.4; color: var(--text-muted); white-space: nowrap; }
-
-/* everything the line summarises, kept in full, behind one plain control */
-.cs-jall { margin-top: 48px; border-top: 1px solid var(--line); }
-.cs-jall summary {
-  list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 60px;
-  font-family: 'Geist', sans-serif; font-size: var(--fs-small); font-weight: 600; color: var(--text); transition: color 0.2s ease;
-}
-.cs-jall summary::-webkit-details-marker { display: none; }
-.cs-jall summary:hover { color: var(--accent); }
-.cs-jall summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 6px; }
-.cs-jall-chev { flex: none; color: var(--text-soft); transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
-.cs-jall[open] .cs-jall-chev { transform: rotate(180deg); }
-.cs-jall-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; padding: 16px 0 4px; }
-.cs-jall-lane { margin: 0 0 20px; font-size: var(--fs-small); font-weight: 500; color: var(--text-muted); }
-.cs-jall-item { margin: 0 0 26px; }
-.cs-jall-title { margin: 0 0 4px; font-family: 'Geist', sans-serif; font-size: var(--fs-small); font-weight: 600; line-height: 1.4; color: var(--text); }
-.cs-jall-desc { margin: 0; font-size: 14px; line-height: 1.65; color: var(--text-soft); }
+.cs-prob-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.cs-prob { padding: 22px 24px 8px; border: 1px solid var(--line); border-radius: var(--r-surface); background: var(--bg-soft); }
+.cs-prob-head { display: flex; align-items: baseline; justify-content: space-between; margin: 0 0 8px; font-family: 'Geist', sans-serif; font-size: var(--fs-h4); font-weight: 600; color: var(--text); }
+.cs-prob-n { font-size: var(--fs-small); font-weight: 500; color: var(--accent); }
+.cs-prob-list { list-style: none; margin: 0; padding: 0; }
+.cs-prob-list li { padding: 14px 0; border-top: 1px solid var(--line); font-size: var(--fs-small); line-height: 1.45; color: var(--text); }
+.cs-prob-list li:first-child { border-top: 0; }
 
 .cs-mend-track { position: relative; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); }
 .cs-mend-line { position: absolute; left: 0; right: 0; top: 32px; height: 2px; background: var(--accent); transform-origin: 0 50%; }
@@ -911,12 +891,10 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
 }
 @media (prefers-reduced-motion: reduce) {
   .js .cs-mend .cs-mend-line, .js .cs-mend .cs-mend-list { transform: none; opacity: 1; transition: none; }
-  .cs-jall summary, .cs-jall-chev, .cs-mend-go, .cs-mend-go svg { transition: none; }
+  .cs-mend-go, .cs-mend-go svg { transition: none; }
 }
 @media (max-width: 640px) {
-  .cs-break-stage { grid-template-columns: 1fr; row-gap: 4px; }
-  .cs-break-text { font-size: 17px; }
-  .cs-jall-cols { grid-template-columns: 1fr; gap: 32px; }
+  .cs-prob-grid { grid-template-columns: 1fr; }
 }
 </style>
 </head>
@@ -1141,112 +1119,43 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
 <div class="cs-wrap">
 
   <h2 class="cs-display reveal-title">Where the journey <em>kept breaking.</em></h2>
-  <p class="cs-lead">Every problem sat between an admin assigning a course and a worker finishing it. Here is where each one landed.</p>
+  <p class="cs-lead">Fourteen problems across two audiences: the admins who assign courses and the workers who are meant to finish them.</p>
 
 </div>
 
 <div class="cs-wrap" style="margin-top: 48px;">
-  <div class="cs-break settle">
-    <div class="cs-jstat">
-      <p class="cs-jstat-num">13-15<span class="sym">%</span></p>
-      <p class="cs-jstat-cap">average course completion</p>
-    </div>
-    <ol class="cs-break-track">
-        <li class="cs-break-stage">
-          <p class="cs-break-head">Assign</p>
-          <p class="cs-break-text">Admins couldn't prioritise, create or brand their content.</p>
-          <p class="cs-break-count">3 problems</p>
-        </li>
-        <li class="cs-break-stage">
-          <p class="cs-break-head">Discover</p>
-          <p class="cs-break-text">Workers couldn't see what mattered.</p>
-          <p class="cs-break-count">4 problems</p>
-        </li>
-        <li class="cs-break-stage">
-          <p class="cs-break-head">Start</p>
-          <p class="cs-break-text">A cluttered app gave little reason to begin.</p>
-          <p class="cs-break-count">3 problems</p>
-        </li>
-        <li class="cs-break-stage">
-          <p class="cs-break-head">Continue</p>
-          <p class="cs-break-text">Resuming was a hunt, and playlists felt never-ending.</p>
-          <p class="cs-break-count">2 problems</p>
-        </li>
-        <li class="cs-break-stage">
-          <p class="cs-break-head">Finish</p>
-          <p class="cs-break-text">Assessments felt like forms, with no hints along the way.</p>
-          <p class="cs-break-count">2 problems</p>
-        </li>
-    </ol>
+  <div class="cs-jstat settle">
+    <p class="cs-jstat-num">13-15<span class="sym">%</span></p>
+    <p class="cs-jstat-cap">average course completion</p>
   </div>
-  <details class="cs-jall">
-    <summary><span>Read all 14 problems in full</span><svg class="cs-jall-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
-    <div class="cs-jall-cols">
-        <div class="cs-jall-col">
-          <p class="cs-jall-lane">Admins</p>
-          <div class="cs-jall-item">
-            <h4 class="cs-jall-title">Low course completion rates</h4>
-            <p class="cs-jall-desc">Organisations struggle to make sure employees finish courses on time. Average completion sits at 13-15%, which is well short of what they need.</p>
-          </div>
-          <div class="cs-jall-item">
-            <h4 class="cs-jall-title">Unable to prioritise content by importance</h4>
-            <p class="cs-jall-desc">Admins couldn't push important modules forward, so end users didn't discover them and admins had to chase completion manually.</p>
-          </div>
-          <div class="cs-jall-item">
-            <h4 class="cs-jall-title">Challenges with content creation</h4>
-            <p class="cs-jall-desc">Without structure, format or guided navigation, admins found features and configurations hard to use, especially first-time users.</p>
-          </div>
-          <div class="cs-jall-item">
-            <h4 class="cs-jall-title">Low employee engagement in the app</h4>
-            <p class="cs-jall-desc">An outdated look and an unclear state left users with little idea of what to do, when, and why, so they engaged less.</p>
-          </div>
-          <div class="cs-jall-item">
-            <h4 class="cs-jall-title">Customisation concerns</h4>
-            <p class="cs-jall-desc">Admins could freely change backgrounds, CTAs and colours, but that freedom didn't protect brand identity, and it made the experience inconsistent for employees.</p>
-          </div>
-          <div class="cs-jall-item">
-            <h4 class="cs-jall-title">No web version of the app</h4>
-            <p class="cs-jall-desc">When modules are assigned only every few months, users hesitate to download the app, and admins would rather share a link that works on the web.</p>
-          </div>
-        </div>
-        <div class="cs-jall-col">
-          <p class="cs-jall-lane">Workers</p>
-          <div class="cs-jall-item">
-            <h4 class="cs-jall-title">Little motivation to complete assigned modules</h4>
-            <p class="cs-jall-desc">A cluttered, outdated UI, weak content and no decision-making guidance drained motivation to engage.</p>
-          </div>
-          <div class="cs-jall-item">
-            <h4 class="cs-jall-title">Critical modules stay out of sight</h4>
-            <p class="cs-jall-desc">Nothing surfaced on the landing page. Users had to dig through My Learning, where modules were sorted by date rather than urgency.</p>
-          </div>
-          <div class="cs-jall-item">
-            <h4 class="cs-jall-title">No visibility into ongoing learning</h4>
-            <p class="cs-jall-desc">Coming back to resume a module meant hunting through the Learn listing and applying filters, which made users lose interest.</p>
-          </div>
-          <div class="cs-jall-item">
-            <h4 class="cs-jall-title">Confusing navigation</h4>
-            <p class="cs-jall-desc">Events and mandatory items were hard to find. New users in particular searched the calendar and still missed them.</p>
-          </div>
-          <div class="cs-jall-item">
-            <h4 class="cs-jall-title">Module types are hard to tell apart</h4>
-            <p class="cs-jall-desc">With no visual identity separating a course, an assessment and a playlist, users couldn't decide what to start first.</p>
-          </div>
-          <div class="cs-jall-item">
-            <h4 class="cs-jall-title">No guidance while performing tasks</h4>
-            <p class="cs-jall-desc">Assessments felt like filling out a form, with no clear instruction per question type and no hints along the way.</p>
-          </div>
-          <div class="cs-jall-item">
-            <h4 class="cs-jall-title">Inconsistent, unexpected UI</h4>
-            <p class="cs-jall-desc">Heavy admin customisation kept changing CTA types and colours, so it was never clear how to interact with the app.</p>
-          </div>
-          <div class="cs-jall-item">
-            <h4 class="cs-jall-title">Lengthy, low-engagement content</h4>
-            <p class="cs-jall-desc">Users had limited time, and playlists that felt never-ending made completing them difficult.</p>
-          </div>
-        </div>
-    </div>
-  </details>
+  <div class="cs-prob-grid settle">
+      <div class="cs-prob">
+        <p class="cs-prob-head"><span>Admins</span><span class="cs-prob-n">6</span></p>
+        <ul class="cs-prob-list">
+        <li>Low course completion rates</li>
+        <li>Unable to prioritise content by importance</li>
+        <li>Challenges with content creation</li>
+        <li>Low employee engagement in the app</li>
+        <li>Customisation concerns</li>
+        <li>No web version of the app</li>
+        </ul>
+      </div>
+      <div class="cs-prob">
+        <p class="cs-prob-head"><span>Workers</span><span class="cs-prob-n">8</span></p>
+        <ul class="cs-prob-list">
+        <li>Little motivation to complete assigned modules</li>
+        <li>Critical modules stay out of sight</li>
+        <li>No visibility into ongoing learning</li>
+        <li>Confusing navigation</li>
+        <li>Module types are hard to tell apart</li>
+        <li>No guidance while performing tasks</li>
+        <li>Inconsistent, unexpected UI</li>
+        <li>Lengthy, low-engagement content</li>
+        </ul>
+      </div>
+  </div>
 </div>
+
 </section>
 
 <!-- ═══════════════════════ 05 — SCOPE ═══════════════════════ -->
@@ -1254,7 +1163,7 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
 <div class="cs-wrap">
 
   <h2 class="cs-display reveal-title">Eight places to <em>intervene.</em></h2>
-  <p class="cs-lead">The challenges set the brief. Here is where each of the eight changes lands on the same journey.</p>
+  <p class="cs-lead">The challenges set the brief. Here is where each of the eight changes lands on the learning journey.</p>
 
 </div>
 
