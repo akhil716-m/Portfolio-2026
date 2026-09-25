@@ -864,20 +864,20 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
 }
 .cs-ptile--feat, .cs-ptile--wide { grid-column: 1 / -1; }
 .cs-ptile-idx { margin: 0 0 12px; font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.08em; color: var(--text-muted); }
-.cs-ptile-title { margin: 0 0 6px; font-family: 'Geist', sans-serif; font-size: var(--fs-h4); font-weight: 600; line-height: 1.3; letter-spacing: -0.01em; color: var(--text); }
-.cs-ptile-why { margin: 0; font-size: var(--fs-small); line-height: 1.5; color: var(--text-soft); }
+.cs-ptile-title { margin: 0 0 6px; font-family: 'Geist', sans-serif; font-size: 16px; font-weight: 500; line-height: 1.3; letter-spacing: -0.005em; color: var(--text); }
+.cs-ptile-why { margin: 0; font-size: 14px; line-height: 1.55; color: var(--text-soft); }
 /* the two lead pain points carry the visual: the number for admins, the old app for workers */
 .cs-ptile--feat { background: radial-gradient(80% 90% at var(--glow-at), rgba(var(--pain-red), 0.13), transparent 70%), var(--bg-soft); }
 .cs-ptile--stat { background: radial-gradient(40% 70% at 84% 64%, rgba(var(--pain-gold), 0.06), transparent 72%), radial-gradient(80% 90% at var(--glow-at), rgba(var(--pain-red), 0.13), transparent 70%), var(--bg-soft); }
 .cs-ptile--shot { background: radial-gradient(34% 80% at 84% 40%, rgba(var(--pain-red), 0.08), transparent 72%), radial-gradient(80% 90% at var(--glow-at), rgba(var(--pain-red), 0.13), transparent 70%), var(--bg-soft); }
-.cs-ptile--feat .cs-ptile-title { font-size: var(--fs-lead); }
-.cs-ptile--stat { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 24px 40px; min-height: 200px; }
-.cs-ptile--stat .cs-ptile-text { align-self: start; max-width: 26em; }
+.cs-ptile--feat .cs-ptile-title { font-size: 18px; }
+.cs-ptile--stat { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 24px 40px; min-height: 200px; }
+.cs-ptile--stat .cs-ptile-text { max-width: 26em; }
 .cs-ptile-stat { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; margin: 0; }
 .cs-ptile-num { font-family: 'Geist', sans-serif; font-size: var(--fs-stat); font-weight: 500; line-height: 1; letter-spacing: -0.04em; color: var(--text); }
 .cs-ptile-num .sym { background: linear-gradient(135deg, rgb(var(--pain-gold)), rgb(var(--pain-red))); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .cs-ptile-cap { font-size: var(--fs-small); color: var(--text-soft); }
-.cs-ptile--shot { overflow: hidden; min-height: 260px; padding-right: 250px; }
+.cs-ptile--shot { display: flex; flex-direction: column; justify-content: center; overflow: hidden; min-height: 260px; padding-right: 250px; }
 .cs-ptile-shots { position: absolute; top: 24px; right: 32px; }
 .cs-ptile-shots img { display: block; width: 170px; height: auto; border-radius: 16px 16px 0 0; border: 1px solid var(--line); }
 /* half-width tiles: the top of an old screen peeks up from the bottom edge */
