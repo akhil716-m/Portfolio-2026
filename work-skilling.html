@@ -19,7 +19,7 @@
 <meta name="twitter:image" content="https://akhilmale.in/assets/og-image.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="assets/skilling/ui/home.webp" type="image/webp" fetchpriority="high">
 <link rel="stylesheet" href="styles.css">
 <script type="text/javascript">
@@ -627,6 +627,58 @@ body.cs-lb-lock { overflow: hidden; }
   .cs-theme-stage img, .cs-ring, .cs-swatch { transition: none; }
   .cs-theme { transition: none; }
 }
+
+/* =====================================================================
+   TIER 2: TYPE SCALE + CONTRAST
+   One scale for the whole page. Body copy is weight 400 (300 is too thin
+   on dark), and nothing is set below 12px.
+   Page-local on purpose: the muted/soft greys are one step lighter here
+   so small text passes WCAG AA (muted was 2.66:1, now 5.7:1). If the
+   other case studies should follow, promote these to styles.css.
+   ===================================================================== */
+:root {
+  --text-soft: #a6a6a6;   /* was #8a8a8a: body copy, 8.3:1 on the page background */
+  --text-muted: #8a8a8a;  /* was #555555: labels and captions, 5.7:1 (5.2:1 on cards) */
+  --fs-display: clamp(34px, 4.6vw, 56px);
+  --fs-h3: clamp(21px, 2.1vw, 24px);
+  --fs-h4: 17px;
+  --fs-lead: clamp(18px, 1.5vw, 20px);
+  --fs-body: 17px;
+  --fs-small: 14.5px;
+  --fs-micro: 12px;
+}
+
+/* Display, headings, lead, body */
+.cs-display { font-size: var(--fs-display); line-height: 1.12; letter-spacing: -0.02em; max-width: 19ch; text-wrap: balance; }
+.cs-h3, .cs-step-title, .cs-theme-title, .cs-act-sub { text-wrap: balance; }
+.nb { white-space: nowrap; }
+.cs-h3, .cs-step-title, .cs-theme-title { font-size: var(--fs-h3); font-weight: 500; line-height: 1.25; letter-spacing: -0.01em; }
+.cs-anchor-title, .cs-card-title, .cs-strip-title { font-size: var(--fs-h4); font-weight: 600; line-height: 1.35; }
+.cs-lead { font-size: var(--fs-lead); font-weight: 400; line-height: 1.6; color: var(--text); max-width: 52ch; margin: 0 0 22px; }
+.cs-p { font-size: var(--fs-body); font-weight: 400; line-height: 1.75; color: var(--text-soft); max-width: 60ch; }
+.cs-list li { font-size: var(--fs-body); font-weight: 400; }
+.cs-step-desc, .cs-theme-desc { font-size: var(--fs-body); font-weight: 400; }
+.cs-hero-sub, .cs-act-sub { font-size: var(--fs-lead); font-weight: 400; }
+.cs-lead + .cs-p { margin-top: 0; }
+
+/* Small text: descriptions, captions, notes, chips, tabs */
+.cs-anchor-desc, .cs-card-desc, .cs-strip-desc, .cs-ba-note, .cs-board .cs-mock-cap { font-size: var(--fs-small); font-weight: 400; line-height: 1.65; }
+.cs-hero-meta-item span { font-size: var(--fs-small); font-weight: 400; }
+.cs-chip, .cs-tab { font-size: var(--fs-small); }
+.cs-chips--lg .cs-chip { font-size: 16px; }
+
+/* Micro labels (mono, caps): a hard 12px floor */
+.cs-label, .cs-hero-eyebrow, .cs-phase-tag, .cs-card-num, .cs-anchor-num, .cs-stat-label,
+.cs-hero-meta-item label, .cs-back, .cs-rail-num, .cs-rail-grp, .cs-rail-name,
+.cs-ba-fig figcaption, .cs-lb-hint, footer, footer .right a { font-size: var(--fs-micro); }
+.cs-rail-num { letter-spacing: 0.06em; }
+.cs-rail-grp { letter-spacing: 0.12em; }
+
+@media (max-width: 760px) {
+  :root { --fs-body: 16.5px; }
+  .cs-display { max-width: none; }
+  .cs-chips--lg .cs-chip { font-size: 15px; }
+}
 </style>
 </head>
 <body>
@@ -672,8 +724,8 @@ body.cs-lb-lock { overflow: hidden; }
   <div class="cs-label reveal"><span class="num">/01</span> Project Overview</div>
   <h2 class="cs-display reveal">Crafting meaningful learning for <em>blue-collar workers.</em></h2>
 
-  <p class="cs-p reveal">Two years ago, Oust became part of BetterPlace, but it remained a separate product. BetterPlace has since rebranded as GoBetter HRMS solutions, and Oust, as an individual product, was discontinued. Instead, it merged into GoBetter as Up-skill.</p>
-  <p class="cs-p reveal">As part of that change, we completely redesigned the app. The revamped experience is more engaging, meaningful, and aspiring for frontline workers, and it helps the business grow, improves client satisfaction, and increases productivity and retention.</p>
+  <p class="cs-lead reveal">Oust became part of BetterPlace but stayed a separate product. When BetterPlace rebranded as GoBetter, Oust was retired and folded in as <span class="nb">Up-skill</span>.</p>
+  <p class="cs-p reveal">We redesigned the app completely. The new experience is more engaging and aspiring for frontline workers, and helps the business grow through client satisfaction, productivity and retention.</p>
 
   <div class="cs-anchor-grid reveal">
     <div class="cs-anchor">
@@ -724,8 +776,8 @@ body.cs-lb-lock { overflow: hidden; }
   <div class="cs-label reveal"><span class="num">/02</span> Context and Users</div>
   <h2 class="cs-display reveal">Built for the people who keep industries <em>moving.</em></h2>
 
-  <p class="cs-p reveal">Oust set out to help blue-collar workers across India improve their skills. It offers courses, assessments, personalised playlists and even contests to make learning more interesting, in over 35 languages including the major Indian ones.</p>
-  <p class="cs-p reveal">Organisations in blue-collar industries use it to train employees on job-related topics: up-skilling, compliance and work processes, career development and re-skilling. In turn, it helps workers keep learning and growing, and opens new chances in their careers.</p>
+  <p class="cs-lead reveal">Oust helps blue-collar workers across India build skills through courses, assessments, playlists and contests, in over 35 languages.</p>
+  <p class="cs-p reveal">Organisations use it to train teams on <span class="nb">up-skilling</span>, compliance, work processes and career development, so workers keep learning and open new career paths.</p>
 
   <div class="cs-stats reveal">
     <div class="cs-stat"><div class="cs-stat-num">1M<span class="sym">+</span></div><div class="cs-stat-label">Users</div></div>
@@ -796,7 +848,7 @@ body.cs-lb-lock { overflow: hidden; }
           <img src="assets/skilling/ui/home.webp" alt="The new Up-skill home screen, led by learning progress and the next course" loading="lazy" decoding="async">
           <figcaption>Up-skill</figcaption>
         </figure>
-        <p class="cs-ba-note">A feed-first home with five tabs, becomes a task-first home: progress on top, quick access to every module, then the course to do next.</p>
+        <p class="cs-ba-note">A feed-first home with five tabs became a task-first home: progress on top, quick access to every module, then the next course.</p>
       </div>
       <div class="cs-ba-panel" role="tabpanel" id="ba-p-1" aria-labelledby="ba-t-1" hidden>
         <figure class="cs-ba-fig">
@@ -810,7 +862,7 @@ body.cs-lb-lock { overflow: hidden; }
           <img src="assets/skilling/ui/video-2.webp" alt="The new Up-skill course player with segmented progress and a single control row" loading="lazy" decoding="async">
           <figcaption>Up-skill</figcaption>
         </figure>
-        <p class="cs-ba-note">A dense player with tiny controls, becomes full-screen media with chapter progress, coins and one row of controls.</p>
+        <p class="cs-ba-note">A dense player with tiny controls became full-screen media with chapter progress, coins and one row of controls.</p>
       </div>
       <div class="cs-ba-panel" role="tabpanel" id="ba-p-2" aria-labelledby="ba-t-2" hidden>
         <figure class="cs-ba-fig">
@@ -824,7 +876,7 @@ body.cs-lb-lock { overflow: hidden; }
           <img src="assets/skilling/ui/new-success.webp" alt="The new Up-skill success screen with earnings and Review and Next actions" loading="lazy" decoding="async">
           <figcaption>Up-skill</figcaption>
         </figure>
-        <p class="cs-ba-note">A bare confirmation with a red "Over!" button, becomes feedback that rewards the effort and points to what comes next.</p>
+        <p class="cs-ba-note">A bare confirmation with a red &ldquo;Over!&rdquo; button became feedback that rewards effort and points to what comes next.</p>
       </div>
       </div>
     </div>
@@ -862,7 +914,7 @@ body.cs-lb-lock { overflow: hidden; }
 
   <div class="cs-label reveal"><span class="num">/04</span> Challenges</div>
   <h2 class="cs-display reveal">The same friction, seen from <em>two sides.</em></h2>
-  <p class="cs-p reveal">Before designing anything, we mapped what wasn't working for the organisations that assign learning, and for the workers who have to complete it.</p>
+  <p class="cs-lead reveal">We mapped what wasn't working for the organisations that assign learning and for the workers who have to complete it.</p>
 
   <h3 class="cs-h3 reveal" style="margin-top: 56px;">Faced by organisations</h3>
   <div class="cs-cards reveal">
@@ -956,7 +1008,7 @@ body.cs-lb-lock { overflow: hidden; }
 
   <div class="cs-label reveal"><span class="num">/05</span> Scope of Intervention</div>
   <h2 class="cs-display reveal">Eight places to <em>intervene.</em></h2>
-  <p class="cs-p reveal">Those challenges gave us a clear brief. These are the areas we chose to focus on.</p>
+  <p class="cs-lead reveal">The challenges set the brief. These are the eight areas we focused on.</p>
 
   <div class="cs-cards cs-cards--tight reveal">
     <div class="cs-card">
@@ -1021,7 +1073,7 @@ body.cs-lb-lock { overflow: hidden; }
 
   <div class="cs-label reveal"><span class="num">/06</span> Process</div>
   <h2 class="cs-display reveal">Wireframes first, <em>then the UI.</em></h2>
-  <p class="cs-p reveal">We wireframed extensively before moving to UI. The wireframes helped us visualise and finalise the flow and design direction, gather feedback from leadership and stakeholders, and align on the design direction. A well-planned, chapter-by-chapter approach to the revamp cleared up confusion and built clarity early.</p>
+  <p class="cs-lead reveal">We wireframed before designing UI, chapter by chapter, to settle the flow and get leadership and stakeholder feedback early.</p>
 
 </div>
 <div class="cs-wrap cs-wrap--board">
@@ -1038,7 +1090,7 @@ body.cs-lb-lock { overflow: hidden; }
 
   <div class="cs-sub">
     <h3 class="cs-h3 reveal">Design principles</h3>
-    <p class="cs-p reveal">Setting principles early kept us focused on our objectives and made sure the designs matched the outcomes we wanted.</p>
+    <p class="cs-p reveal">Setting principles early kept every design decision tied to the outcomes we wanted.</p>
     <div class="cs-chips cs-chips--lg reveal">
       <span class="cs-chip">One at a time</span><span class="cs-chip">Media-first approach</span><span class="cs-chip">Action focused</span><span class="cs-chip">Instructive</span><span class="cs-chip">Building association &amp; familiarity</span><span class="cs-chip">Efficient feedback and progress</span><span class="cs-chip">Guided and personalised experience</span>
     </div>
@@ -1046,9 +1098,9 @@ body.cs-lb-lock { overflow: hidden; }
 
   <div class="cs-sub">
     <h3 class="cs-h3 reveal">User flow</h3>
-    <p class="cs-p reveal">We kept the main flow structure unchanged because of the existing backend architecture, but the principles we followed to restructure the homepage shaped the whole product. Navigation got simpler, a module launcher on the home page gives easy access to every module, and learning progress sits on top for visibility.</p>
-    <p class="cs-p reveal">Users mostly opened the app to finish pending modules. They landed on the homepage and then went to the Learn tab to complete them, and feeds only added friction along the way. So we moved feeds into a tab of their own and let the homepage focus on learning.</p>
-    <p class="cs-p reveal">Events were previously reachable only through the calendar, which users struggled to discover. They now have a distinct entry point on the homepage, with every event listed in one place.</p>
+    <p class="cs-p reveal">The backend limited us, so we kept the main flow and restructured the homepage around simpler navigation: a module launcher for easy access, and learning progress on top.</p>
+    <p class="cs-p reveal">Users mostly came to finish pending modules, and feeds only added friction on the way. Feeds now have their own tab, and the homepage focuses on learning.</p>
+    <p class="cs-p reveal">Events were hard to find in the calendar. They now have a distinct homepage entry point, with every event listed in one place.</p>
   </div>
 
 </div>
@@ -1079,7 +1131,7 @@ body.cs-lb-lock { overflow: hidden; }
 
   <div class="cs-label reveal"><span class="num">/07</span> Designing the Home</div>
   <h2 class="cs-display reveal">Making learning <em>frontline friendly.</em></h2>
-  <p class="cs-p reveal">The home page helps you complete tasks with clear guidance and easy access to everything you need. Our aim was to help users find what they need, keep track of assigned and completed modules, and understand which tasks need attention, all from one screen.</p>
+  <p class="cs-lead reveal">One screen to find what you need, track assigned and completed modules, and see which tasks need attention.</p>
 
 </div>
 <div class="cs-wrap cs-wrap--board" style="margin-top: 72px;">
@@ -1127,7 +1179,7 @@ body.cs-lb-lock { overflow: hidden; }
 
   <div class="cs-label reveal"><span class="num">/08</span> Course-Based Learning</div>
   <h2 class="cs-display reveal">Familiar controls. <em>Clearer paths.</em></h2>
-  <p class="cs-p reveal">A course is a lesson type that can hold multiple chapters, built from videos, images, audio transcripts, or a mix of them. Play controls and CTAs are common across learning apps, and our users mostly interact with video, so we kept them close to what people already know.</p>
+  <p class="cs-lead reveal">A course holds multiple chapters of video, images or audio transcripts. Users mostly watch video, so we kept familiar controls and CTAs.</p>
 
 </div>
 <div class="cs-wrap cs-wrap--board">
@@ -1218,7 +1270,7 @@ body.cs-lb-lock { overflow: hidden; }
 
   <div class="cs-label reveal"><span class="num">/09</span> Assessments</div>
   <h2 class="cs-display reveal">Assessments that feel less like <em>forms.</em></h2>
-  <p class="cs-p reveal">Assessments support a wide range of question types and give engaging feedback on every response. The old experience felt like filling out a form, with no clear instruction for each question type, so we rebuilt it to be playful and instructive.</p>
+  <p class="cs-lead reveal">The old assessments felt like filling out a form. We rebuilt them to be playful, instructive and engaging on every question type.</p>
 
 </div>
 <div class="cs-wrap cs-wrap--board">
@@ -1234,7 +1286,7 @@ body.cs-lb-lock { overflow: hidden; }
 <div class="cs-wrap">
   <div class="cs-sub" style="margin-top: 72px;">
     <h3 class="cs-h3 reveal">Crafting consistency</h3>
-    <p class="cs-p reveal">The assessment card is designed around the presence or absence of a banner image, which is normally an inconsistent element across assessments. A set of defined patterns and a contextual colour-picking mechanism keep it visually consistent and clean.</p>
+    <p class="cs-p reveal">Assessment cards vary by whether they carry a banner image, which made them inconsistent. Defined patterns and a contextual colour picker keep them clean and consistent.</p>
   </div>
 </div>
 <div class="cs-wrap cs-wrap--board">
@@ -1250,7 +1302,7 @@ body.cs-lb-lock { overflow: hidden; }
 <div class="cs-wrap">
   <div class="cs-sub" style="margin-top: 72px;">
     <h3 class="cs-h3 reveal">Theming brand experience with ease</h3>
-    <p class="cs-p reveal">Letting organisations align the app with their brand is a key selling point, but excessive customisation and a lack of branding sense among admins had become a hygiene issue. Admins now choose a colour from a predefined palette that fits their brand or the subject's context, and a set of dynamic patterns keeps assessments from feeling like form filling, without affecting the product's visual hygiene.</p>
+    <p class="cs-p reveal">Brand alignment is a key selling point, but unrestrained customisation had become a hygiene issue. Admins now pick from a predefined palette, and dynamic patterns keep assessments from feeling like form filling.</p>
   </div>
 </div>
 <div class="cs-wrap cs-wrap--board">
@@ -1266,7 +1318,7 @@ body.cs-lb-lock { overflow: hidden; }
 <div class="cs-wrap">
   <div class="cs-sub" style="margin-top: 72px;">
     <h3 class="cs-h3 reveal">A playful assessment experience</h3>
-    <p class="cs-p reveal">Each assessment is structured to support the range of question types while making sure every response is captured intuitively.</p>
+    <p class="cs-p reveal">Each assessment supports the full range of question types and captures every response intuitively.</p>
   </div>
 </div>
 <div class="cs-wrap cs-wrap--board">
@@ -1280,7 +1332,7 @@ body.cs-lb-lock { overflow: hidden; }
     <div class="cs-theme-copy">
       <p class="cs-phase-tag">Try a theme</p>
       <h4 class="cs-theme-title">Same question, three brands</h4>
-      <p class="cs-theme-desc">Admins pick a colour from a predefined palette, and a dynamic pattern comes with it. The assessment feels playful and on-brand without touching the product's visual hygiene.</p>
+      <p class="cs-theme-desc">Admins pick a colour from a predefined palette, and a pattern comes with it. Playful and on-brand, without touching the product's visual hygiene.</p>
       <div class="cs-swatches" role="group" aria-label="Assessment theme">
         <button type="button" class="cs-swatch is-active" data-theme="teal" aria-pressed="true" style="--sw:#416966"><span class="cs-sr">Teal</span></button>
         <button type="button" class="cs-swatch" data-theme="ocean" aria-pressed="false" style="--sw:#1b637f"><span class="cs-sr">Ocean</span></button>
@@ -1311,7 +1363,7 @@ body.cs-lb-lock { overflow: hidden; }
 <div class="cs-wrap">
   <div class="cs-sub" style="margin-top: 72px;">
     <h3 class="cs-h3 reveal">Responses with audio, video and image</h3>
-    <p class="cs-p reveal">Some questions ask for more than a tap. Users can record audio, capture video or upload an image, preview what they've recorded before submitting, and record again if they need to.</p>
+    <p class="cs-p reveal">Some questions need more than a tap. Users can record audio, capture video or upload an image, preview it before submitting, and record again.</p>
   </div>
 </div>
 <div class="cs-wrap cs-wrap--board">
@@ -1335,7 +1387,7 @@ body.cs-lb-lock { overflow: hidden; }
 
   <div class="cs-label reveal"><span class="num">/10</span> Playlists and Progress</div>
   <h2 class="cs-display reveal">A bundle of lessons, <em>made finishable.</em></h2>
-  <p class="cs-p reveal">A playlist combines courses and assessments for a specific learning purpose. It can hold multiple levels, each either a course or an assessment, based on admin configuration. Playlists take more time to complete, since they bundle several courses and assessments and can run long.</p>
+  <p class="cs-lead reveal">A playlist bundles courses and assessments into levels for one learning purpose, configured by the admin. Because it bundles so much, it can run long.</p>
 
 </div>
 <div class="cs-wrap cs-wrap--board">
@@ -1351,7 +1403,7 @@ body.cs-lb-lock { overflow: hidden; }
 <div class="cs-wrap">
   <div class="cs-sub" style="margin-top: 72px;">
     <h3 class="cs-h3 reveal">The playlist card</h3>
-    <p class="cs-p reveal">The card gives a clear overview of the playlist's characteristics and purpose, visually indicating that it contains multiple lesson modules. The top card changes dynamically with the sequence, giving the user real-time visibility, showing the number of levels, and navigating seamlessly to the level page.</p>
+    <p class="cs-p reveal">The card shows a playlist's purpose and that it holds several lessons. The top card updates with the sequence and links straight to the current level.</p>
   </div>
 </div>
 <div class="cs-wrap cs-wrap--board">
@@ -1367,7 +1419,7 @@ body.cs-lb-lock { overflow: hidden; }
 <div class="cs-wrap">
   <div class="cs-sub" style="margin-top: 72px;">
     <h3 class="cs-h3 reveal">Anatomy of the playlist</h3>
-    <p class="cs-p reveal">The cover area gives a prominent overview of the playlist with minimal distraction, and a dynamic guiding CTA shows progress along the lesson path. Below it, levels are listed in sequence and each one nests multiple chapters. By default only one level is expanded, so users can focus on that content and see their progress within it.</p>
+    <p class="cs-p reveal">The cover gives a clear overview with minimal distraction, and a guiding CTA shows progress. Levels below are listed in order and nest their chapters, with one expanded by default.</p>
   </div>
 </div>
 <div class="cs-wrap cs-wrap--board">
@@ -1392,7 +1444,7 @@ body.cs-lb-lock { overflow: hidden; }
 <div class="cs-wrap">
   <div class="cs-sub" style="margin-top: 72px;">
     <h3 class="cs-h3 reveal">Celebrating every small achievement</h3>
-    <p class="cs-p reveal">Concise feedback when users complete chapters, levels or playlists helps maintain their engagement and motivation. These moments act as checkpoints that drive engagement and progress.</p>
+    <p class="cs-p reveal">Concise feedback when users complete chapters, levels or playlists keeps them motivated and marks their progress.</p>
   </div>
 </div>
 <div class="cs-wrap cs-wrap--board cs-wrap--inset">
@@ -1409,7 +1461,7 @@ body.cs-lb-lock { overflow: hidden; }
   <div class="cs-sub">
     <p class="cs-phase-tag reveal">My learning</p>
     <h3 class="cs-h3 reveal">A catalogue of the user's learning journey</h3>
-    <p class="cs-p reveal">My Learning is a central hub for browsing and accessing everything assigned to a user, organised so it's easy to find their way. It has a clear entry point from the quick access area of the home page. The top gives an overview of progress and achievements, and below it pending modules are categorised by type, with visual indicators for the criticality and status of each.</p>
+    <p class="cs-p reveal">My Learning is the hub for everything assigned, reached from quick access on the home page. Progress sits on top, with pending modules grouped by type and marked by criticality and status.</p>
   </div>
 </div>
 <div class="cs-wrap cs-wrap--board">
@@ -1438,7 +1490,7 @@ body.cs-lb-lock { overflow: hidden; }
 
   <div class="cs-label reveal"><span class="num">/11</span> Events and Micro-learning</div>
   <h2 class="cs-display reveal">Beyond the course: <em>live and bite-sized.</em></h2>
-  <p class="cs-p reveal">Two more ways to learn rounded out the experience. Live, instructor-led events bring a classroom into the app, and stories-style micro-courses fit learning into the short gaps of a shift.</p>
+  <p class="cs-lead reveal">Two more ways to learn: live events that bring the classroom into the app, and stories-style micro-courses for short gaps in a shift.</p>
 
 </div>
 
@@ -1450,8 +1502,8 @@ body.cs-lb-lock { overflow: hidden; }
   <div class="cs-sub" style="margin-top: 72px;">
     <p class="cs-phase-tag reveal">Instructor-led</p>
     <h3 class="cs-h3 reveal">Training using live classes and events</h3>
-    <p class="cs-p reveal">Live classes bring real-time instruction and interaction, like a classroom, but in a virtual setting. Events can also take place in a physical location. Although courses, assessments and playlists are asynchronous, events add a blended learning approach where trainers and learners interact directly.</p>
-    <p class="cs-p reveal">Event cards can appear on the homepage in three cases: to register for a new event, for an already registered event, and when an event is currently live. Visibility of upcoming and registered events stops users missing them, and the card's state, visual cues and CTA change to match it.</p>
+    <p class="cs-p reveal">Live classes bring real-time instruction and interaction, in a virtual setting or a physical location. Unlike courses, assessments and playlists, they let trainers and learners interact directly.</p>
+    <p class="cs-p reveal">Event cards appear on the homepage for new, registered and live events, and their state, cues and CTA change to match, so users don't miss them.</p>
   </div>
 </div>
 <div class="cs-wrap cs-wrap--board">
@@ -1495,7 +1547,7 @@ body.cs-lb-lock { overflow: hidden; }
   <div class="cs-sub">
     <p class="cs-phase-tag reveal">Micro-learning</p>
     <h3 class="cs-h3 reveal">Stories-style mini courses</h3>
-    <p class="cs-p reveal">To boost engagement and address challenges like short attention spans, we're testing stories-style micro-courses for a few select industries.</p>
+    <p class="cs-p reveal">To boost engagement and fight short attention spans, we're testing stories-style micro-courses for a few select industries.</p>
   </div>
 </div>
 <div class="cs-wrap cs-wrap--board">
@@ -1511,7 +1563,7 @@ body.cs-lb-lock { overflow: hidden; }
 <div class="cs-wrap">
   <div class="cs-sub" style="margin-top: 72px;">
     <h3 class="cs-h3 reveal">Short courses</h3>
-    <p class="cs-p reveal">Short courses are bite-sized learning that cater to busy schedules and shrinking attention spans. Breaking down complex topics into digestible segments makes the learning faster and easier, and a short quiz at the end lets users check that they've grasped it.</p>
+    <p class="cs-p reveal">Short courses are bite-sized learning for busy schedules. Complex topics arrive in digestible segments, and a short quiz at the end checks understanding.</p>
   </div>
 </div>
 <div class="cs-wrap cs-wrap--board">
