@@ -626,7 +626,7 @@ body.cs-lb-lock { overflow: hidden; }
 .cs-h3, .cs-step-title, .cs-theme-title, .cs-act-sub { text-wrap: balance; }
 .nb { white-space: nowrap; }
 .cs-h3, .cs-step-title, .cs-theme-title { font-size: var(--fs-h3); font-weight: 500; line-height: 1.25; letter-spacing: -0.01em; }
-.cs-strip-title, .cs-facts dt, .cs-idx-title, .cs-acc summary { font-size: var(--fs-h4); font-weight: 600; line-height: 1.35; }
+.cs-strip-title, .cs-facts dt { font-size: var(--fs-h4); font-weight: 600; line-height: 1.35; }
 .cs-lead { font-size: var(--fs-lead); font-weight: 400; line-height: 1.6; color: var(--text); max-width: 52ch; margin: 0 0 22px; }
 .cs-p { font-size: var(--fs-body); font-weight: 400; line-height: 1.75; color: var(--text-soft); max-width: 60ch; }
 .cs-list li { font-size: var(--fs-body); font-weight: 400; }
@@ -635,7 +635,7 @@ body.cs-lb-lock { overflow: hidden; }
 .cs-lead + .cs-p { margin-top: 0; }
 
 /* Small text: descriptions, captions, notes, chips, tabs */
-.cs-facts dd, .cs-reason-desc, .cs-acc-body, .cs-idx-desc, .cs-strip-desc, .cs-ba-note, .cs-board .cs-mock-cap { font-size: var(--fs-small); font-weight: 400; line-height: 1.65; }
+.cs-facts dd, .cs-reason-desc, .cs-strip-desc, .cs-ba-note, .cs-board .cs-mock-cap { font-size: var(--fs-small); font-weight: 400; line-height: 1.65; }
 .cs-hero-meta-item span { font-size: var(--fs-small); font-weight: 400; }
 .cs-chip, .cs-tab { font-size: var(--fs-small); }
 .cs-chips--lg .cs-chip { font-size: 16px; }
@@ -697,35 +697,6 @@ body.cs-lb-lock { overflow: hidden; }
 .cs-reason--lead .cs-reason-desc { font-size: var(--fs-lead); line-height: 1.6; }
 .cs-chips--issues { margin-top: 20px; }
 
-/* Challenges: tabs over an accordion */
-.cs-panel[hidden] { display: none; }
-.cs-panel.is-active { animation: csFade 0.45s ease both; }
-.cs-tab-count { margin-left: 8px; font-family: 'Geist Mono', monospace; font-size: var(--fs-micro); color: var(--text-muted); }
-.cs-tab.is-active .cs-tab-count { color: rgba(10,10,10,0.62); }
-.cs-acc { margin-top: 24px; }
-.cs-acc-item + .cs-acc-item { border-top: 1px solid var(--line); }
-.cs-acc summary {
-  list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 24px;
-  min-height: 56px; padding: 14px 0; color: var(--text); transition: color 0.2s ease;
-}
-.cs-acc summary::-webkit-details-marker { display: none; }
-.cs-acc summary:hover { color: var(--accent); }
-.cs-acc summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 6px; }
-.cs-acc-chev { flex: none; color: var(--text-soft); transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
-.cs-acc-item[open] .cs-acc-chev { transform: rotate(180deg); }
-.cs-acc-body { margin: 0; padding: 0 44px 22px 0; max-width: 62ch; color: var(--text-soft); }
-
-/* Scope: an index that links each intervention to the chapter that answers it */
-.cs-idx { list-style: none; margin: 36px 0 0; padding: 0; }
-.cs-idx li + li { border-top: 1px solid var(--line); }
-.cs-idx-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px 32px; align-items: center; min-height: 44px; padding: 22px 0; color: inherit; text-decoration: none; }
-.cs-idx-main { display: flex; flex-direction: column; gap: 6px; }
-.cs-idx-title { color: var(--text); }
-.cs-idx-desc { max-width: 52ch; color: var(--text-soft); }
-.cs-idx-link { display: inline-flex; align-items: center; gap: 8px; font-size: var(--fs-small); color: var(--text-soft); white-space: nowrap; transition: color 0.2s ease, gap 0.2s ease; }
-.cs-idx-row:hover .cs-idx-link { color: var(--accent); gap: 12px; }
-.cs-idx-row:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 6px; }
-
 @media (max-width: 760px) {
   .cs-stats { grid-template-columns: 1fr; }
   .cs-stat, .cs-stat:first-child { padding: 22px 0; border-left: 0; }
@@ -733,10 +704,7 @@ body.cs-lb-lock { overflow: hidden; }
   .cs-facts--2 { grid-template-columns: 1fr; gap: 28px; }
   .cs-reasons { grid-template-columns: 1fr; }
   .cs-reason--lead { grid-row: auto; }
-  .cs-idx-row { grid-template-columns: 1fr; }
-  .cs-acc-body { padding-right: 0; }
 }
-@media (prefers-reduced-motion: reduce) { .cs-panel.is-active { animation: none; } .cs-acc-chev, .cs-idx-link { transition: none; } }
 
 /* =====================================================================
    TIER 4: MOTION, EACH PIECE WITH A JOB
@@ -779,7 +747,7 @@ body.cs-lb-lock { overflow: hidden; }
 }
 @media (prefers-reduced-motion: reduce) {
   /* hover and fade transitions on controls and chrome */
-  .cs-fig-zoom, .cs-rail, .cs-cta, .cs-back, .cs-back .arr, .cs-tab, .cs-chip, .cs-strip-btn, .cs-lb-close, .cs-idx-link, .cs-acc summary, .cs-rail-num, .cs-rail-name, .cs-rail-grp { transition: none; }
+  .cs-fig-zoom, .cs-rail, .cs-cta, .cs-back, .cs-back .arr, .cs-tab, .cs-chip, .cs-strip-btn, .cs-lb-close, .cs-rail-num, .cs-rail-name, .cs-rail-grp { transition: none; }
   .cs-cta:hover, .cs-back:hover { gap: 8px; }
 }
 
@@ -872,6 +840,91 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
   footer .right { text-align: left; }
 }
 @media (prefers-reduced-motion: reduce) { .cs-chapter, .cs-chapter-chev, .cs-chapter-btn, .cs-chapter-group, .cs-chapter-item { transition: none; } .cs-chapter-menu { animation: none; } .cs-chapter-btn:active { transform: none; } }
+
+/* =====================================================================
+   CHALLENGES AND SCOPE: ONE JOURNEY, BROKEN THEN MENDED
+   Challenges is a swimlane (admins / workers) across five stages, with the
+   journey line broken at every stage. Scope is the same five stages with the
+   line mended in lime, and each intervention sitting where its break was.
+   ===================================================================== */
+.cs-jstat { display: flex; align-items: baseline; flex-wrap: wrap; gap: 8px 24px; margin: 0 0 44px; }
+.cs-jstat-num { margin: 0; font-family: 'Geist', sans-serif; font-size: clamp(56px, 8vw, 96px); font-weight: 500; line-height: 1; letter-spacing: -0.04em; color: var(--text); }
+.cs-jstat-num .sym { color: var(--accent); }
+.cs-jstat-cap { margin: 0; font-size: var(--fs-lead); color: var(--text-soft); }
+
+.cs-jmap { display: grid; grid-template-columns: 84px repeat(5, minmax(0, 1fr)); grid-template-rows: auto auto auto; }
+.cs-jlane { align-self: start; padding-top: 18px; font-family: 'Geist', sans-serif; font-size: var(--fs-small); font-weight: 500; color: var(--text-muted); }
+.cs-jlane--a { grid-column: 1; grid-row: 2; }
+.cs-jlane--w { grid-column: 1; grid-row: 3; border-top: 1px solid var(--line); }
+.cs-jstage { grid-column: var(--c); grid-row: 1 / span 3; display: grid; grid-template-rows: subgrid; min-width: 0; }
+/* the journey line: one segment per stage, with a gap between them (the breaks) */
+.cs-jhead { position: relative; margin: 0; padding: 0 14px 14px 0; font-family: 'Geist', sans-serif; font-size: var(--fs-h4); font-weight: 600; line-height: 1.2; color: var(--text); }
+.cs-jhead::after { content: ''; position: absolute; left: 0; right: 14px; bottom: 0; height: 2px; background: var(--text-muted); }
+.cs-jcell { display: flex; flex-direction: column; gap: 6px; min-width: 0; min-height: 44px; padding: 18px 14px 20px 0; }
+.cs-jcell--w { border-top: 1px solid var(--line); }
+.cs-jitem {
+  display: block; width: 100%; min-height: 44px; padding: 6px 0 6px 12px; text-align: left; cursor: pointer; background: none; border: 0;
+  border-left: 2px solid var(--line); font-family: 'Geist', sans-serif; font-size: var(--fs-small); font-weight: 500; line-height: 1.4; color: var(--text-soft);
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+.cs-jitem:hover { color: var(--text); }
+.cs-jitem.is-active { color: var(--text); border-left-color: var(--accent); }
+.cs-jitem:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.cs-jdesc { display: block; margin-top: 6px; font-weight: 400; line-height: 1.6; color: var(--text-soft); }
+.cs-jitem.is-active .cs-jdesc { color: var(--text-soft); }
+@media (min-width: 1001px) { .js .cs-jdesc { display: none; } }
+.cs-jdetail {
+  display: grid; grid-template-columns: minmax(120px, 190px) minmax(0, 1fr); gap: 8px 36px; margin-top: 32px; padding: 26px 30px;
+  border-radius: var(--r-surface); background: rgba(var(--wash), 0.07); border: 1px solid rgba(255,255,255,0.07);
+}
+.cs-jdetail-meta { margin: 0; padding-top: 6px; font-family: 'Geist Mono', monospace; font-size: var(--fs-micro); letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted); }
+.cs-jdetail-title { margin: 0 0 8px; font-family: 'Geist', sans-serif; font-size: var(--fs-h3); font-weight: 500; line-height: 1.25; letter-spacing: -0.01em; color: var(--text); }
+.cs-jdetail-desc { margin: 0; max-width: 56ch; font-size: var(--fs-body); line-height: 1.7; color: var(--text-soft); }
+.cs-jdetail.is-swap .cs-jdetail-body { animation: csFade 0.35s ease both; }
+
+.cs-mend-track { position: relative; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); }
+.cs-mend-line { position: absolute; left: 0; right: 0; top: 32px; height: 2px; background: var(--accent); transform-origin: 0 50%; }
+.cs-mend-head { height: 32px; margin: 0; padding-right: 14px; font-family: 'Geist', sans-serif; font-size: var(--fs-h4); font-weight: 600; line-height: 1.2; color: var(--text); }
+.cs-mend-list { list-style: none; display: flex; flex-direction: column; gap: 24px; margin: 0; padding: 24px 14px 0 0; }
+.cs-mend-item { display: block; min-height: 44px; color: inherit; text-decoration: none; }
+.cs-mend-title { display: block; margin-bottom: 6px; font-family: 'Geist', sans-serif; font-size: var(--fs-h4); font-weight: 600; line-height: 1.35; color: var(--text); }
+.cs-mend-desc { display: block; font-size: var(--fs-small); line-height: 1.6; color: var(--text-soft); }
+.cs-mend-go { display: block; margin-top: 10px; font-size: var(--fs-small); line-height: 1.4; color: var(--text-muted); transition: color 0.2s ease; }
+.cs-mend-go svg { display: inline-block; vertical-align: -3px; margin-left: 6px; transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1); }
+.cs-mend-item:hover .cs-mend-go { color: var(--accent); }
+.cs-mend-item:hover .cs-mend-go svg { transform: translateX(4px); }
+.cs-mend-item:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; border-radius: 6px; }
+/* the line draws itself once, then each stage's interventions arrive left to right */
+.js .cs-mend .cs-mend-line { transform: scaleX(0); }
+.js .cs-mend.is-visible .cs-mend-line { transform: none; transition: transform 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.15s; }
+.js .cs-mend .cs-mend-list { opacity: 0; transform: translateY(12px); }
+.js .cs-mend.is-visible .cs-mend-list { opacity: 1; transform: none; transition: opacity 0.7s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); transition-delay: calc(var(--i) * 140ms + 450ms); }
+
+/* Below 1000px there is no room for five columns: the map becomes a swipeable row of stages, the scope a vertical line */
+@media (max-width: 1000px) {
+  .cs-jmap { display: flex; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; -webkit-overflow-scrolling: touch; padding-bottom: 6px; }
+  .cs-jmap::-webkit-scrollbar { display: none; }
+  .cs-jlane { display: none; }
+  .cs-jstage { display: block; flex: 0 0 min(300px, 80%); scroll-snap-align: start; }
+  .cs-jhead::after { right: 0; }
+  .cs-jcell::before { content: attr(data-lane); display: block; margin-bottom: 8px; font-family: 'Geist Mono', monospace; font-size: var(--fs-micro); letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); }
+  .cs-jcell:empty { display: none; }
+  .cs-jcell--w { border-top: 0; }
+  .cs-jdetail { display: none; }
+  .cs-mend-track { display: block; padding-left: 26px; }
+  .cs-mend-line { left: 0; right: auto; top: 0; bottom: 0; width: 2px; height: auto; transform-origin: 50% 0; }
+  .js .cs-mend .cs-mend-line { transform: scaleY(0); }
+  .js .cs-mend.is-visible .cs-mend-line { transform: none; }
+  .cs-mend-stage { padding-bottom: 32px; }
+  .cs-mend-head { height: auto; margin-bottom: 14px; }
+  .cs-mend-list { padding: 0; gap: 22px; }
+}
+@media (max-width: 900px) { .cs-jmap { margin-left: calc(var(--gutter) * -1); margin-right: calc(var(--gutter) * -1); padding-left: var(--gutter); padding-right: var(--gutter); scroll-padding-left: var(--gutter); } }
+@media (prefers-reduced-motion: reduce) {
+  .js .cs-mend .cs-mend-line, .js .cs-mend .cs-mend-list { transform: none; opacity: 1; transition: none; }
+  .cs-jitem, .cs-mend-go, .cs-mend-go svg { transition: none; }
+  .cs-jdetail.is-swap .cs-jdetail-body { animation: none; }
+}
 </style>
 </head>
 <body>
@@ -1094,85 +1147,55 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
 <section class="cs-section" id="cs-challenges" data-wash="amber">
 <div class="cs-wrap">
 
-  <h2 class="cs-display reveal-title">The same friction, seen from <em>two sides.</em></h2>
-  <p class="cs-lead">We mapped what wasn't working for the organisations that assign learning and for the workers who have to complete it.</p>
+  <h2 class="cs-display reveal-title">Where the journey <em>kept breaking.</em></h2>
+  <p class="cs-lead">Every problem sat between an admin assigning a course and a worker finishing it. Here is where each one landed.</p>
 
-  
 </div>
 
-<div class="cs-wrap">
-  <div class="cs-challenges" data-tabs style="margin-top: 48px;">
-    <div class="cs-tabs" role="tablist" aria-label="Challenges by group">
-      <button type="button" role="tab" class="cs-tab is-active" id="ch-t-0" aria-controls="ch-p-0" aria-selected="true">Organisations <span class="cs-tab-count">6</span></button>
-      <button type="button" role="tab" class="cs-tab" id="ch-t-1" aria-controls="ch-p-1" aria-selected="false" tabindex="-1">Users <span class="cs-tab-count">8</span></button>
+<div class="cs-wrap cs-wrap--board" style="margin-top: 56px;">
+  <figure class="cs-journey settle" data-journey aria-label="Challenges mapped across the learning journey">
+    <div class="cs-jstat">
+      <p class="cs-jstat-num">13-15<span class="sym">%</span></p>
+      <p class="cs-jstat-cap">average course completion</p>
     </div>
-    <div class="cs-panel is-active" role="tabpanel" id="ch-p-0" aria-labelledby="ch-t-0">
-      <div class="cs-acc">
-        <details class="cs-acc-item" name="ch-org" open>
-          <summary>Low course completion rates<svg class="cs-acc-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
-          <p class="cs-acc-body">Organisations struggle to make sure employees finish courses on time. Average completion sits at 13-15%, which is well short of what they need.</p>
-        </details>
-        <details class="cs-acc-item" name="ch-org">
-          <summary>Unable to prioritise content by importance<svg class="cs-acc-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
-          <p class="cs-acc-body">Admins couldn't push important modules forward, so end users didn't discover them and admins had to chase completion manually.</p>
-        </details>
-        <details class="cs-acc-item" name="ch-org">
-          <summary>Challenges with content creation<svg class="cs-acc-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
-          <p class="cs-acc-body">Without structure, format or guided navigation, admins found features and configurations hard to use, especially first-time users.</p>
-        </details>
-        <details class="cs-acc-item" name="ch-org">
-          <summary>Low employee engagement in the app<svg class="cs-acc-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
-          <p class="cs-acc-body">An outdated look and an unclear state left users with little idea of what to do, when, and why, so they engaged less.</p>
-        </details>
-        <details class="cs-acc-item" name="ch-org">
-          <summary>Customisation concerns<svg class="cs-acc-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
-          <p class="cs-acc-body">Admins could freely change backgrounds, CTAs and colours, but that freedom didn't protect brand identity, and it made the experience inconsistent for employees.</p>
-        </details>
-        <details class="cs-acc-item" name="ch-org">
-          <summary>No web version of the app<svg class="cs-acc-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
-          <p class="cs-acc-body">When modules are assigned only every few months, users hesitate to download the app, and admins would rather share a link that works on the web.</p>
-        </details>
+    <div class="cs-jmap">
+      <div class="cs-jlane cs-jlane--a">Admins</div>
+      <div class="cs-jlane cs-jlane--w">Workers</div>
+      <div class="cs-jstage" style="--c:2" role="group" aria-label="Assign">
+        <p class="cs-jhead">Assign</p>
+        <div class="cs-jcell" data-lane="Admins" role="group" aria-label="Admins"><button type="button" class="cs-jitem" data-lane="Admins" data-stage="Assign" data-full="Unable to prioritise content by importance" aria-pressed="false"><span class="cs-jtitle">Can't prioritise what matters</span><span class="cs-jdesc">Admins couldn't push important modules forward, so end users didn't discover them and admins had to chase completion manually.</span></button><button type="button" class="cs-jitem" data-lane="Admins" data-stage="Assign" data-full="Challenges with content creation" aria-pressed="false"><span class="cs-jtitle">Content creation is hard</span><span class="cs-jdesc">Without structure, format or guided navigation, admins found features and configurations hard to use, especially first-time users.</span></button><button type="button" class="cs-jitem" data-lane="Admins" data-stage="Assign" data-full="Customisation concerns" aria-pressed="false"><span class="cs-jtitle">Customisation concerns</span><span class="cs-jdesc">Admins could freely change backgrounds, CTAs and colours, but that freedom didn't protect brand identity, and it made the experience inconsistent for employees.</span></button></div>
+        <div class="cs-jcell cs-jcell--w" data-lane="Workers" role="group" aria-label="Workers"></div>
+      </div>
+      <div class="cs-jstage" style="--c:3" role="group" aria-label="Discover">
+        <p class="cs-jhead">Discover</p>
+        <div class="cs-jcell" data-lane="Admins" role="group" aria-label="Admins"><button type="button" class="cs-jitem" data-lane="Admins" data-stage="Discover" data-full="No web version of the app" aria-pressed="false"><span class="cs-jtitle">No web version of the app</span><span class="cs-jdesc">When modules are assigned only every few months, users hesitate to download the app, and admins would rather share a link that works on the web.</span></button></div>
+        <div class="cs-jcell cs-jcell--w" data-lane="Workers" role="group" aria-label="Workers"><button type="button" class="cs-jitem" data-lane="Workers" data-stage="Discover" data-full="Critical modules stay out of sight" aria-pressed="false"><span class="cs-jtitle">Critical modules stay out of sight</span><span class="cs-jdesc">Nothing surfaced on the landing page. Users had to dig through My Learning, where modules were sorted by date rather than urgency.</span></button><button type="button" class="cs-jitem" data-lane="Workers" data-stage="Discover" data-full="Confusing navigation" aria-pressed="false"><span class="cs-jtitle">Confusing navigation</span><span class="cs-jdesc">Events and mandatory items were hard to find. New users in particular searched the calendar and still missed them.</span></button><button type="button" class="cs-jitem" data-lane="Workers" data-stage="Discover" data-full="Module types are hard to tell apart" aria-pressed="false"><span class="cs-jtitle">Module types are hard to tell apart</span><span class="cs-jdesc">With no visual identity separating a course, an assessment and a playlist, users couldn't decide what to start first.</span></button></div>
+      </div>
+      <div class="cs-jstage" style="--c:4" role="group" aria-label="Start">
+        <p class="cs-jhead">Start</p>
+        <div class="cs-jcell" data-lane="Admins" role="group" aria-label="Admins"><button type="button" class="cs-jitem" data-lane="Admins" data-stage="Start" data-full="Low employee engagement in the app" aria-pressed="false"><span class="cs-jtitle">Low engagement in the app</span><span class="cs-jdesc">An outdated look and an unclear state left users with little idea of what to do, when, and why, so they engaged less.</span></button></div>
+        <div class="cs-jcell cs-jcell--w" data-lane="Workers" role="group" aria-label="Workers"><button type="button" class="cs-jitem" data-lane="Workers" data-stage="Start" data-full="Little motivation to complete assigned modules" aria-pressed="false"><span class="cs-jtitle">Little motivation to complete modules</span><span class="cs-jdesc">A cluttered, outdated UI, weak content and no decision-making guidance drained motivation to engage.</span></button><button type="button" class="cs-jitem" data-lane="Workers" data-stage="Start" data-full="Inconsistent, unexpected UI" aria-pressed="false"><span class="cs-jtitle">Inconsistent, unexpected UI</span><span class="cs-jdesc">Heavy admin customisation kept changing CTA types and colours, so it was never clear how to interact with the app.</span></button></div>
+      </div>
+      <div class="cs-jstage" style="--c:5" role="group" aria-label="Continue">
+        <p class="cs-jhead">Continue</p>
+        <div class="cs-jcell" data-lane="Admins" role="group" aria-label="Admins"></div>
+        <div class="cs-jcell cs-jcell--w" data-lane="Workers" role="group" aria-label="Workers"><button type="button" class="cs-jitem" data-lane="Workers" data-stage="Continue" data-full="No visibility into ongoing learning" aria-pressed="false"><span class="cs-jtitle">No visibility into ongoing learning</span><span class="cs-jdesc">Coming back to resume a module meant hunting through the Learn listing and applying filters, which made users lose interest.</span></button><button type="button" class="cs-jitem" data-lane="Workers" data-stage="Continue" data-full="Lengthy, low-engagement content" aria-pressed="false"><span class="cs-jtitle">Lengthy, low-engagement content</span><span class="cs-jdesc">Users had limited time, and playlists that felt never-ending made completing them difficult.</span></button></div>
+      </div>
+      <div class="cs-jstage" style="--c:6" role="group" aria-label="Finish">
+        <p class="cs-jhead">Finish</p>
+        <div class="cs-jcell" data-lane="Admins" role="group" aria-label="Admins"><button type="button" class="cs-jitem" data-lane="Admins" data-stage="Finish" data-full="Low course completion rates" aria-pressed="false" data-default><span class="cs-jtitle">Low course completion rates</span><span class="cs-jdesc">Organisations struggle to make sure employees finish courses on time. Average completion sits at 13-15%, which is well short of what they need.</span></button></div>
+        <div class="cs-jcell cs-jcell--w" data-lane="Workers" role="group" aria-label="Workers"><button type="button" class="cs-jitem" data-lane="Workers" data-stage="Finish" data-full="No guidance while performing tasks" aria-pressed="false"><span class="cs-jtitle">No guidance while performing tasks</span><span class="cs-jdesc">Assessments felt like filling out a form, with no clear instruction per question type and no hints along the way.</span></button></div>
       </div>
     </div>
-    <div class="cs-panel" role="tabpanel" id="ch-p-1" aria-labelledby="ch-t-1" hidden>
-      <div class="cs-acc">
-        <details class="cs-acc-item" name="ch-usr" open>
-          <summary>Little motivation to complete assigned modules<svg class="cs-acc-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
-          <p class="cs-acc-body">A cluttered, outdated UI, weak content and no decision-making guidance drained motivation to engage.</p>
-        </details>
-        <details class="cs-acc-item" name="ch-usr">
-          <summary>Critical modules stay out of sight<svg class="cs-acc-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
-          <p class="cs-acc-body">Nothing surfaced on the landing page. Users had to dig through My Learning, where modules were sorted by date rather than urgency.</p>
-        </details>
-        <details class="cs-acc-item" name="ch-usr">
-          <summary>No visibility into ongoing learning<svg class="cs-acc-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
-          <p class="cs-acc-body">Coming back to resume a module meant hunting through the Learn listing and applying filters, which made users lose interest.</p>
-        </details>
-        <details class="cs-acc-item" name="ch-usr">
-          <summary>Confusing navigation<svg class="cs-acc-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
-          <p class="cs-acc-body">Events and mandatory items were hard to find. New users in particular searched the calendar and still missed them.</p>
-        </details>
-        <details class="cs-acc-item" name="ch-usr">
-          <summary>Module types are hard to tell apart<svg class="cs-acc-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
-          <p class="cs-acc-body">With no visual identity separating a course, an assessment and a playlist, users couldn't decide what to start first.</p>
-        </details>
-        <details class="cs-acc-item" name="ch-usr">
-          <summary>No guidance while performing tasks<svg class="cs-acc-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
-          <p class="cs-acc-body">Assessments felt like filling out a form, with no clear instruction per question type and no hints along the way.</p>
-        </details>
-        <details class="cs-acc-item" name="ch-usr">
-          <summary>Inconsistent, unexpected UI<svg class="cs-acc-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
-          <p class="cs-acc-body">Heavy admin customisation kept changing CTA types and colours, so it was never clear how to interact with the app.</p>
-        </details>
-        <details class="cs-acc-item" name="ch-usr">
-          <summary>Lengthy, low-engagement content<svg class="cs-acc-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
-          <p class="cs-acc-body">Users had limited time, and playlists that felt never-ending made completing them difficult.</p>
-        </details>
+    <div class="cs-jdetail" aria-live="polite">
+      <p class="cs-jdetail-meta"></p>
+      <div class="cs-jdetail-body">
+        <p class="cs-jdetail-title"></p>
+        <p class="cs-jdetail-desc"></p>
       </div>
     </div>
-  </div>
+  </figure>
 </div>
-
 </section>
 
 <!-- ═══════════════════════ 05 — SCOPE ═══════════════════════ -->
@@ -1180,45 +1203,50 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
 <div class="cs-wrap">
 
   <h2 class="cs-display reveal-title">Eight places to <em>intervene.</em></h2>
-  <p class="cs-lead">The challenges set the brief. These are the eight areas we focused on.</p>
-
-  <ul class="cs-idx">
-    <li><a class="cs-idx-row" href="#cs-home">
-      <span class="cs-idx-main"><span class="cs-idx-title">An action-focused home</span><span class="cs-idx-desc">A dynamic homepage that treats each user intelligently by serving the critical things they need to do.</span></span>
-      <span class="cs-idx-link">Designing the Home<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-    </a></li>
-    <li><a class="cs-idx-row" href="#cs-courses">
-      <span class="cs-idx-main"><span class="cs-idx-title">Distinct module types</span><span class="cs-idx-desc">Learning modules that look different, so each one clearly defines its purpose in the learning journey.</span></span>
-      <span class="cs-idx-link">Course-Based Learning<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-    </a></li>
-    <li><a class="cs-idx-row" href="#cs-assess">
-      <span class="cs-idx-main"><span class="cs-idx-title">Playful assessments</span><span class="cs-idx-desc">An assessment experience that is more engaging and fun for the people taking it.</span></span>
-      <span class="cs-idx-link">Assessments<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-    </a></li>
-    <li><a class="cs-idx-row" href="#cs-process">
-      <span class="cs-idx-main"><span class="cs-idx-title">Clear, linear navigation</span><span class="cs-idx-desc">Simple and intuitive, with guided navigation where workflows get complex.</span></span>
-      <span class="cs-idx-link">Process<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-    </a></li>
-    <li><a class="cs-idx-row" href="#cs-assess">
-      <span class="cs-idx-main"><span class="cs-idx-title">Flexible theming</span><span class="cs-idx-desc">A wide variety of theming that is contextual, effortless, and blends with each organisation's brand.</span></span>
-      <span class="cs-idx-link">Assessments<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-    </a></li>
-    <li><a class="cs-idx-row" href="#cs-playlists">
-      <span class="cs-idx-main"><span class="cs-idx-title">Encouraging feedback</span><span class="cs-idx-desc">A feedback mechanism that is efficient, visual, informative and encouraging.</span></span>
-      <span class="cs-idx-link">Playlists and Progress<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-    </a></li>
-    <li><a class="cs-idx-row" href="#cs-events">
-      <span class="cs-idx-main"><span class="cs-idx-title">Short courses</span><span class="cs-idx-desc">Bite-sized content lets users engage quickly and grasp it fast, leading to faster completion.</span></span>
-      <span class="cs-idx-link">Events and Micro-learning<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-    </a></li>
-    <li><a class="cs-idx-row" href="#cs-home">
-      <span class="cs-idx-main"><span class="cs-idx-title">Recommendations</span><span class="cs-idx-desc">Suggesting what to complete first or next removes ambiguity and speeds up task completion.</span></span>
-      <span class="cs-idx-link">Designing the Home<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-    </a></li>
-  </ul>
+  <p class="cs-lead">The challenges set the brief. Here is where each of the eight changes lands on the same journey.</p>
 
 </div>
 
+<div class="cs-wrap cs-wrap--board" style="margin-top: 56px;">
+  <div class="cs-mend settle">
+    <div class="cs-mend-track">
+      <span class="cs-mend-line" aria-hidden="true"></span>
+      <div class="cs-mend-stage" style="--i:0">
+        <p class="cs-mend-head">Assign</p>
+        <ul class="cs-mend-list">
+          <li><a class="cs-mend-item" href="#cs-assess"><span class="cs-mend-title">Flexible theming</span><span class="cs-mend-desc">A wide variety of theming that is contextual, effortless, and blends with each organisation's brand.</span><span class="cs-mend-go">Assessments<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></li>
+        </ul>
+      </div>
+      <div class="cs-mend-stage" style="--i:1">
+        <p class="cs-mend-head">Discover</p>
+        <ul class="cs-mend-list">
+          <li><a class="cs-mend-item" href="#cs-home"><span class="cs-mend-title">An action-focused home</span><span class="cs-mend-desc">A dynamic homepage that treats each user intelligently by serving the critical things they need to do.</span><span class="cs-mend-go">Designing the Home<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></li>
+          <li><a class="cs-mend-item" href="#cs-process"><span class="cs-mend-title">Clear, linear navigation</span><span class="cs-mend-desc">Simple and intuitive, with guided navigation where workflows get complex.</span><span class="cs-mend-go">Process<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></li>
+          <li><a class="cs-mend-item" href="#cs-courses"><span class="cs-mend-title">Distinct module types</span><span class="cs-mend-desc">Learning modules that look different, so each one clearly defines its purpose in the learning journey.</span><span class="cs-mend-go">Course-Based Learning<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></li>
+        </ul>
+      </div>
+      <div class="cs-mend-stage" style="--i:2">
+        <p class="cs-mend-head">Start</p>
+        <ul class="cs-mend-list">
+          <li><a class="cs-mend-item" href="#cs-home"><span class="cs-mend-title">Recommendations</span><span class="cs-mend-desc">Suggesting what to complete first or next removes ambiguity and speeds up task completion.</span><span class="cs-mend-go">Designing the Home<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></li>
+        </ul>
+      </div>
+      <div class="cs-mend-stage" style="--i:3">
+        <p class="cs-mend-head">Continue</p>
+        <ul class="cs-mend-list">
+          <li><a class="cs-mend-item" href="#cs-events"><span class="cs-mend-title">Short courses</span><span class="cs-mend-desc">Bite-sized content lets users engage quickly and grasp it fast, leading to faster completion.</span><span class="cs-mend-go">Events and Micro-learning<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></li>
+        </ul>
+      </div>
+      <div class="cs-mend-stage" style="--i:4">
+        <p class="cs-mend-head">Finish</p>
+        <ul class="cs-mend-list">
+          <li><a class="cs-mend-item" href="#cs-assess"><span class="cs-mend-title">Playful assessments</span><span class="cs-mend-desc">An assessment experience that is more engaging and fun for the people taking it.</span><span class="cs-mend-go">Assessments<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></li>
+          <li><a class="cs-mend-item" href="#cs-playlists"><span class="cs-mend-title">Encouraging feedback</span><span class="cs-mend-desc">A feedback mechanism that is efficient, visual, informative and encouraging.</span><span class="cs-mend-go">Playlists and Progress<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
 </section>
 
 <!-- ═══════════════════════ ACT — THE APPROACH ═══════════════════════ -->
@@ -2132,6 +2160,31 @@ var CS_REDUCE = window.matchMedia && window.matchMedia('(prefers-reduced-motion:
   lb.addEventListener('click', function(e) { if (e.target === lb || e.target.id === 'cs-lb-inner') close(); });
   document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape' && lb.classList.contains('is-open')) close();
+  });
+})();
+
+/* Journey map: pick a challenge to read it (on small screens the detail is shown inline instead) */
+(function() {
+  document.querySelectorAll('[data-journey]').forEach(function(root) {
+    var items = Array.prototype.slice.call(root.querySelectorAll('.cs-jitem'));
+    var detail = root.querySelector('.cs-jdetail');
+    if (!items.length || !detail) return;
+    var meta = detail.querySelector('.cs-jdetail-meta');
+    var title = detail.querySelector('.cs-jdetail-title');
+    var desc = detail.querySelector('.cs-jdetail-desc');
+    function select(it) {
+      items.forEach(function(x) {
+        var on = x === it;
+        x.classList.toggle('is-active', on);
+        x.setAttribute('aria-pressed', on ? 'true' : 'false');
+      });
+      meta.textContent = it.getAttribute('data-lane') + ' at ' + it.getAttribute('data-stage');
+      title.textContent = it.getAttribute('data-full');
+      desc.textContent = it.querySelector('.cs-jdesc').textContent;
+      detail.classList.remove('is-swap'); void detail.offsetWidth; detail.classList.add('is-swap');
+    }
+    items.forEach(function(it) { it.addEventListener('click', function() { select(it); }); });
+    select(root.querySelector('.cs-jitem[data-default]') || items[0]);
   });
 })();
 </script>
