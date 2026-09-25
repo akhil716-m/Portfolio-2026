@@ -617,6 +617,8 @@ body.cs-lb-lock { overflow: hidden; }
   --fs-statement: clamp(22px, 2.6vw, 28px);   /* one-line statements: reason lead, pain-point group lines */
   --fs-stat: clamp(44px, 6vw, 72px);           /* big numbers */
   --fs-h4: 17px;
+  --pain-red: 200, 84, 64;      /* muted brick */
+  --pain-gold: 222, 170, 66;    /* muted gold */
   --fs-lead: clamp(18px, 1.5vw, 20px);
   --fs-body: 17px;
   --fs-small: 14.5px;
@@ -851,33 +853,44 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
    ===================================================================== */
 .cs-pgroup + .cs-pgroup { margin-top: 64px; }
 .cs-pgroup-who { display: flex; align-items: baseline; gap: 14px; margin: 0 0 14px; font-size: var(--fs-small); font-weight: 500; color: var(--text-soft); }
-.cs-pgroup-who span { color: var(--accent); }
+.cs-pgroup-who span { color: rgb(var(--pain-gold)); }
 .cs-pgroup-line { max-width: 20em; margin: 0; font-family: 'Geist', sans-serif; font-size: var(--fs-statement); font-weight: 500; line-height: 1.2; letter-spacing: -0.02em; color: var(--text); text-wrap: balance; }
 .cs-pgrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 28px; }
-.cs-ptile { position: relative; padding: 20px 22px 22px; border: 1px solid var(--line); border-radius: var(--r-surface); background: var(--bg-soft); }
+/* pain points sit on a soft brick-to-gold glow; the glow corner and colour order change tile to tile */
+.cs-ptile {
+  --c1: var(--pain-red); --c2: var(--pain-gold); --gx: 100%; --gy: 0%;
+  position: relative; padding: 20px 22px 22px; border: 1px solid rgba(var(--pain-red), 0.16); border-radius: var(--r-surface);
+  background: radial-gradient(90% 130% at var(--gx) var(--gy), rgba(var(--c1), 0.20), rgba(var(--c2), 0.07) 48%, transparent 74%), var(--bg-soft);
+}
+.cs-ptile:nth-child(3n+2) { --c1: var(--pain-gold); --c2: var(--pain-red); --gx: 0%; --gy: 100%; }
+.cs-ptile:nth-child(3n) { --gx: 100%; --gy: 100%; }
 .cs-ptile--feat, .cs-ptile--wide { grid-column: 1 / -1; }
-.cs-ptile-idx { margin: 0 0 12px; font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.08em; color: var(--accent); }
+.cs-ptile-idx { margin: 0 0 12px; font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.08em; color: var(--text-muted); }
 .cs-ptile-title { margin: 0 0 6px; font-family: 'Geist', sans-serif; font-size: var(--fs-h4); font-weight: 600; line-height: 1.3; letter-spacing: -0.01em; color: var(--text); }
 .cs-ptile-why { margin: 0; font-size: var(--fs-small); line-height: 1.5; color: var(--text-soft); }
 /* the two lead pain points carry the visual: the number for admins, the old app for workers */
+.cs-ptile--feat { --c1: var(--pain-red); --c2: var(--pain-gold); --gx: 100%; --gy: 100%; background: radial-gradient(85% 140% at 100% 100%, rgba(var(--pain-red), 0.30), rgba(var(--pain-gold), 0.10) 52%, transparent 76%), var(--bg-soft); }
 .cs-ptile--feat .cs-ptile-title { font-size: var(--fs-lead); }
-.cs-ptile--stat { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 24px 40px; min-height: 200px; background: radial-gradient(110% 120% at 100% 100%, var(--glow), transparent 62%), var(--bg-soft); }
+.cs-ptile--stat { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 24px 40px; min-height: 200px; }
 .cs-ptile--stat .cs-ptile-text { align-self: start; max-width: 26em; }
 .cs-ptile-stat { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; margin: 0; }
 .cs-ptile-num { font-family: 'Geist', sans-serif; font-size: var(--fs-stat); font-weight: 500; line-height: 1; letter-spacing: -0.04em; color: var(--text); }
-.cs-ptile-num .sym { color: var(--accent); }
+.cs-ptile-num .sym { background: linear-gradient(135deg, rgb(var(--pain-gold)), rgb(var(--pain-red))); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .cs-ptile-cap { font-size: var(--fs-small); color: var(--text-soft); }
-.cs-ptile--shot { overflow: hidden; min-height: 260px; padding-right: 300px; }
-.cs-ptile-shots { position: absolute; top: 24px; right: 24px; display: flex; gap: 12px; }
-.cs-ptile-shots img { display: block; width: 120px; height: auto; border-radius: 16px 16px 0 0; border: 1px solid var(--line); }
-.cs-ptile-shots img + img { margin-top: 36px; }
+.cs-ptile--shot { overflow: hidden; min-height: 260px; padding-right: 250px; }
+.cs-ptile-shots { position: absolute; top: 24px; right: 32px; }
+.cs-ptile-shots img { display: block; width: 170px; height: auto; border-radius: 16px 16px 0 0; border: 1px solid var(--line); }
+/* half-width tiles: the top of an old screen peeks up from the bottom edge */
+.cs-ptile--peek { overflow: hidden; padding-bottom: 168px; }
+.cs-ptile-peek { position: absolute; left: 22px; right: 22px; bottom: 0; height: 130px; overflow: hidden; }
+.cs-ptile-peek img { display: block; width: 150px; height: auto; margin-left: auto; border-radius: 14px 14px 0 0; border: 1px solid var(--line); }
 @media (max-width: 720px) {
   .cs-pgrid { grid-template-columns: 1fr; }
   .cs-ptile--stat { grid-template-columns: 1fr; min-height: 0; }
   .cs-ptile-stat { align-items: flex-start; }
-  .cs-ptile--shot { min-height: 0; padding-right: 24px; }
-  .cs-ptile-shots { position: static; margin: 24px 0 -26px; max-height: 200px; overflow: hidden; }
-  .cs-ptile-shots img { width: calc(50% - 6px); }
+  .cs-ptile--shot { min-height: 0; padding-right: 22px; }
+  .cs-ptile-shots { position: static; margin: 24px 0 -22px; max-height: 190px; overflow: hidden; }
+  .cs-ptile-shots img { width: 150px; margin: 0 auto; }
 }
 
 .cs-mend-track { position: relative; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); }
@@ -1202,7 +1215,6 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
         </div>
         <div class="cs-ptile-shots" aria-hidden="true">
           <img src="assets/skilling/ui/old-home.webp" alt="" width="317" height="515" loading="lazy" decoding="async">
-          <img src="assets/skilling/ui/old-assess.webp" alt="" width="317" height="680" loading="lazy" decoding="async">
         </div>
       </article>
       <article class="cs-ptile">
@@ -1233,19 +1245,21 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
           <p class="cs-ptile-why">A course, an assessment and a playlist looked alike, so nobody knew what to start first.</p>
         </div>
       </article>
-      <article class="cs-ptile">
+      <article class="cs-ptile cs-ptile--peek">
         <div class="cs-ptile-text">
           <p class="cs-ptile-idx">06</p>
           <h3 class="cs-ptile-title">No guidance while performing tasks</h3>
           <p class="cs-ptile-why">Assessments felt like forms, with no hints along the way.</p>
         </div>
+        <div class="cs-ptile-peek" aria-hidden="true"><img src="assets/skilling/ui/old-assess.webp" alt="" width="317" height="680" loading="lazy" decoding="async"></div>
       </article>
-      <article class="cs-ptile">
+      <article class="cs-ptile cs-ptile--peek">
         <div class="cs-ptile-text">
           <p class="cs-ptile-idx">07</p>
           <h3 class="cs-ptile-title">Inconsistent, unexpected UI</h3>
           <p class="cs-ptile-why">Heavy customisation kept changing CTAs and colours, so it was never clear how to interact.</p>
         </div>
+        <div class="cs-ptile-peek" aria-hidden="true"><img src="assets/skilling/ui/old-video.webp" alt="" width="317" height="680" loading="lazy" decoding="async"></div>
       </article>
       <article class="cs-ptile cs-ptile--wide">
         <div class="cs-ptile-text">
