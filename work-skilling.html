@@ -847,35 +847,38 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
    per stage. Scope: the same five stages with the line mended in lime.
    Static on purpose: no pinning, no scroll mechanics.
    ===================================================================== */
-.cs-jstat { display: flex; align-items: baseline; flex-wrap: wrap; gap: 8px 24px; margin: 0 0 64px; }
-.cs-jstat-num { margin: 0; font-family: 'Geist', sans-serif; font-size: clamp(56px, 8vw, 96px); font-weight: 500; line-height: 1; letter-spacing: -0.04em; color: var(--text); }
+.cs-jstat { display: flex; align-items: baseline; flex-wrap: wrap; gap: 6px 18px; margin: 0 0 44px; }
+.cs-jstat-num { margin: 0; font-family: 'Geist', sans-serif; font-size: clamp(44px, 6vw, 56px); font-weight: 500; line-height: 1; letter-spacing: -0.035em; color: var(--text); }
 .cs-jstat-num .sym { color: var(--accent); }
-.cs-jstat-cap { margin: 0; font-size: var(--fs-lead); color: var(--text-soft); }
+.cs-jstat-cap { margin: 0; font-size: var(--fs-body); color: var(--text-soft); }
 
-.cs-break-track { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); }
-.cs-break-stage { min-width: 0; }
-.cs-break-head { margin: 0 0 14px; font-family: 'Geist', sans-serif; font-size: var(--fs-h4); font-weight: 600; line-height: 1.2; color: var(--text); }
-/* the line, with a visible gap between stages: that gap is the break */
-.cs-break-line { display: block; height: 3px; margin-right: 16px; border-radius: 2px; background: var(--text-muted); }
-.cs-break-text { margin: 22px 16px 0 0; font-family: 'Geist', sans-serif; font-size: clamp(18px, 1.7vw, 22px); font-weight: 500; line-height: 1.3; letter-spacing: -0.01em; color: var(--text); }
-.cs-break-count { margin: 14px 0 0; font-size: var(--fs-small); color: var(--text-muted); }
+/* one row per stage, kept inside the reading column */
+.cs-break-track { list-style: none; margin: 0; padding: 0; }
+.cs-break-stage { position: relative; display: grid; grid-template-columns: 96px minmax(0, 1fr) auto; column-gap: 20px; align-items: baseline; padding: 0 0 28px 24px; }
+.cs-break-stage:last-child { padding-bottom: 0; }
+/* the journey line: one short segment per stage with a gap between them. That gap is the break */
+.cs-break-stage::before { content: ''; position: absolute; left: 0; top: 4px; bottom: 16px; width: 3px; border-radius: 2px; background: var(--text-muted); }
+.cs-break-stage:last-child::before { bottom: 0; }
+.cs-break-head { margin: 0; font-family: 'Geist', sans-serif; font-size: var(--fs-small); font-weight: 600; line-height: 1.4; color: var(--text); }
+.cs-break-text { margin: 0; font-family: 'Geist', sans-serif; font-size: clamp(17px, 1.5vw, 19px); font-weight: 500; line-height: 1.4; letter-spacing: -0.01em; color: var(--text); }
+.cs-break-count { margin: 0; font-size: var(--fs-small); line-height: 1.4; color: var(--text-muted); white-space: nowrap; }
 
-/* everything the map summarises, kept in full, behind one plain control */
-.cs-jall { margin-top: 64px; border-top: 1px solid var(--line); }
+/* everything the line summarises, kept in full, behind one plain control */
+.cs-jall { margin-top: 48px; border-top: 1px solid var(--line); }
 .cs-jall summary {
-  list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 68px;
-  font-family: 'Geist', sans-serif; font-size: var(--fs-h4); font-weight: 600; color: var(--text); transition: color 0.2s ease;
+  list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 60px;
+  font-family: 'Geist', sans-serif; font-size: var(--fs-small); font-weight: 600; color: var(--text); transition: color 0.2s ease;
 }
 .cs-jall summary::-webkit-details-marker { display: none; }
 .cs-jall summary:hover { color: var(--accent); }
 .cs-jall summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 6px; }
 .cs-jall-chev { flex: none; color: var(--text-soft); transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
 .cs-jall[open] .cs-jall-chev { transform: rotate(180deg); }
-.cs-jall-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; padding: 20px 0 8px; }
-.cs-jall-lane { margin: 0 0 24px; font-size: var(--fs-small); font-weight: 500; color: var(--text-muted); }
-.cs-jall-item { margin: 0 0 30px; }
-.cs-jall-title { margin: 0 0 6px; font-family: 'Geist', sans-serif; font-size: var(--fs-h4); font-weight: 600; line-height: 1.35; color: var(--text); }
-.cs-jall-desc { margin: 0; font-size: var(--fs-small); line-height: 1.65; color: var(--text-soft); }
+.cs-jall-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; padding: 16px 0 4px; }
+.cs-jall-lane { margin: 0 0 20px; font-size: var(--fs-small); font-weight: 500; color: var(--text-muted); }
+.cs-jall-item { margin: 0 0 26px; }
+.cs-jall-title { margin: 0 0 4px; font-family: 'Geist', sans-serif; font-size: var(--fs-small); font-weight: 600; line-height: 1.4; color: var(--text); }
+.cs-jall-desc { margin: 0; font-size: 14px; line-height: 1.65; color: var(--text-soft); }
 
 .cs-mend-track { position: relative; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); }
 .cs-mend-line { position: absolute; left: 0; right: 0; top: 32px; height: 2px; background: var(--accent); transform-origin: 0 50%; }
@@ -898,13 +901,6 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
 /* Below 1000px there is no room for five columns: each stage stacks with its own short segment,
    and the scope becomes a vertical line */
 @media (max-width: 1000px) {
-  .cs-break-track { display: block; }
-  .cs-break-stage { position: relative; padding: 0 0 36px 24px; }
-  .cs-break-stage::before { content: ''; position: absolute; left: 0; top: 4px; bottom: 16px; width: 3px; border-radius: 2px; background: var(--text-muted); }
-  .cs-break-line { display: none; }
-  .cs-break-head { margin-bottom: 8px; }
-  .cs-break-text { margin: 0; font-size: 20px; }
-  .cs-jall-cols { grid-template-columns: 1fr; gap: 40px; }
   .cs-mend-track { display: block; padding-left: 26px; }
   .cs-mend-line { left: 0; right: auto; top: 0; bottom: 0; width: 2px; height: auto; transform-origin: 50% 0; }
   .js .cs-mend .cs-mend-line { transform: scaleY(0); }
@@ -916,6 +912,11 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
 @media (prefers-reduced-motion: reduce) {
   .js .cs-mend .cs-mend-line, .js .cs-mend .cs-mend-list { transform: none; opacity: 1; transition: none; }
   .cs-jall summary, .cs-jall-chev, .cs-mend-go, .cs-mend-go svg { transition: none; }
+}
+@media (max-width: 640px) {
+  .cs-break-stage { grid-template-columns: 1fr; row-gap: 4px; }
+  .cs-break-text { font-size: 17px; }
+  .cs-jall-cols { grid-template-columns: 1fr; gap: 32px; }
 }
 </style>
 </head>
@@ -1144,7 +1145,7 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
 
 </div>
 
-<div class="cs-wrap cs-wrap--board" style="margin-top: 56px;">
+<div class="cs-wrap" style="margin-top: 48px;">
   <div class="cs-break settle">
     <div class="cs-jstat">
       <p class="cs-jstat-num">13-15<span class="sym">%</span></p>
@@ -1153,31 +1154,26 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
     <ol class="cs-break-track">
         <li class="cs-break-stage">
           <p class="cs-break-head">Assign</p>
-          <span class="cs-break-line" aria-hidden="true"></span>
           <p class="cs-break-text">Admins couldn't prioritise, create or brand their content.</p>
           <p class="cs-break-count">3 problems</p>
         </li>
         <li class="cs-break-stage">
           <p class="cs-break-head">Discover</p>
-          <span class="cs-break-line" aria-hidden="true"></span>
           <p class="cs-break-text">Workers couldn't see what mattered.</p>
           <p class="cs-break-count">4 problems</p>
         </li>
         <li class="cs-break-stage">
           <p class="cs-break-head">Start</p>
-          <span class="cs-break-line" aria-hidden="true"></span>
           <p class="cs-break-text">A cluttered app gave little reason to begin.</p>
           <p class="cs-break-count">3 problems</p>
         </li>
         <li class="cs-break-stage">
           <p class="cs-break-head">Continue</p>
-          <span class="cs-break-line" aria-hidden="true"></span>
           <p class="cs-break-text">Resuming was a hunt, and playlists felt never-ending.</p>
           <p class="cs-break-count">2 problems</p>
         </li>
         <li class="cs-break-stage">
           <p class="cs-break-head">Finish</p>
-          <span class="cs-break-line" aria-hidden="true"></span>
           <p class="cs-break-text">Assessments felt like forms, with no hints along the way.</p>
           <p class="cs-break-count">2 problems</p>
         </li>
