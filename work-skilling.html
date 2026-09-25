@@ -617,6 +617,7 @@ body.cs-lb-lock { overflow: hidden; }
   --fs-statement: clamp(22px, 2.6vw, 28px);   /* one-line statements: reason lead, pain-point group lines */
   --fs-stat: clamp(44px, 6vw, 72px);           /* big numbers */
   --fs-h4: 17px;
+  --glow-at: 100% 100%;             /* where the pain-point glow sits: 0% 0% top-left, 100% 0% top-right, 100% 100% bottom-right */
   --pain-red: 200, 84, 64;      /* muted brick */
   --pain-gold: 222, 170, 66;    /* muted gold */
   --fs-lead: clamp(18px, 1.5vw, 20px);
@@ -859,16 +860,16 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
 /* pain points: a faint brick glow in the top-left corner */
 .cs-ptile {
   position: relative; padding: 20px 22px 22px; border: 1px solid rgba(255, 255, 255, 0.06); border-radius: var(--r-surface);
-  background: radial-gradient(75% 85% at 0% 0%, rgba(var(--pain-red), 0.10), transparent 70%), var(--bg-soft);
+  background: radial-gradient(75% 85% at var(--glow-at), rgba(var(--pain-red), 0.10), transparent 70%), var(--bg-soft);
 }
 .cs-ptile--feat, .cs-ptile--wide { grid-column: 1 / -1; }
 .cs-ptile-idx { margin: 0 0 12px; font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.08em; color: var(--text-muted); }
 .cs-ptile-title { margin: 0 0 6px; font-family: 'Geist', sans-serif; font-size: var(--fs-h4); font-weight: 600; line-height: 1.3; letter-spacing: -0.01em; color: var(--text); }
 .cs-ptile-why { margin: 0; font-size: var(--fs-small); line-height: 1.5; color: var(--text-soft); }
 /* the two lead pain points carry the visual: the number for admins, the old app for workers */
-.cs-ptile--feat { background: radial-gradient(80% 90% at 0% 0%, rgba(var(--pain-red), 0.13), transparent 70%), var(--bg-soft); }
-.cs-ptile--stat { background: radial-gradient(40% 70% at 84% 64%, rgba(var(--pain-gold), 0.06), transparent 72%), radial-gradient(80% 90% at 0% 0%, rgba(var(--pain-red), 0.13), transparent 70%), var(--bg-soft); }
-.cs-ptile--shot { background: radial-gradient(34% 80% at 84% 40%, rgba(var(--pain-red), 0.08), transparent 72%), radial-gradient(80% 90% at 0% 0%, rgba(var(--pain-red), 0.13), transparent 70%), var(--bg-soft); }
+.cs-ptile--feat { background: radial-gradient(80% 90% at var(--glow-at), rgba(var(--pain-red), 0.13), transparent 70%), var(--bg-soft); }
+.cs-ptile--stat { background: radial-gradient(40% 70% at 84% 64%, rgba(var(--pain-gold), 0.06), transparent 72%), radial-gradient(80% 90% at var(--glow-at), rgba(var(--pain-red), 0.13), transparent 70%), var(--bg-soft); }
+.cs-ptile--shot { background: radial-gradient(34% 80% at 84% 40%, rgba(var(--pain-red), 0.08), transparent 72%), radial-gradient(80% 90% at var(--glow-at), rgba(var(--pain-red), 0.13), transparent 70%), var(--bg-soft); }
 .cs-ptile--feat .cs-ptile-title { font-size: var(--fs-lead); }
 .cs-ptile--stat { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 24px 40px; min-height: 200px; }
 .cs-ptile--stat .cs-ptile-text { align-self: start; max-width: 26em; }
