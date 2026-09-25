@@ -856,20 +856,20 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
 .cs-pgroup-who span { color: rgb(var(--pain-gold)); }
 .cs-pgroup-line { max-width: 20em; margin: 0; font-family: 'Geist', sans-serif; font-size: var(--fs-statement); font-weight: 500; line-height: 1.2; letter-spacing: -0.02em; color: var(--text); text-wrap: balance; }
 .cs-pgrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 28px; }
-/* pain points sit on a soft brick-to-gold glow; the glow corner and colour order change tile to tile */
+/* pain points: one quiet brick wash falling from the top-left, and a thin gold light along the top edge */
 .cs-ptile {
-  --c1: var(--pain-red); --c2: var(--pain-gold); --gx: 100%; --gy: 0%;
-  position: relative; padding: 20px 22px 22px; border: 1px solid rgba(var(--pain-red), 0.16); border-radius: var(--r-surface);
-  background: radial-gradient(90% 130% at var(--gx) var(--gy), rgba(var(--c1), 0.20), rgba(var(--c2), 0.07) 48%, transparent 74%), var(--bg-soft);
+  position: relative; padding: 20px 22px 22px; border: 1px solid rgba(255, 255, 255, 0.06); border-radius: var(--r-surface);
+  background: linear-gradient(160deg, rgba(var(--pain-red), 0.16) 0%, rgba(var(--pain-red), 0.05) 42%, transparent 72%), var(--bg-soft);
 }
-.cs-ptile:nth-child(3n+2) { --c1: var(--pain-gold); --c2: var(--pain-red); --gx: 0%; --gy: 100%; }
-.cs-ptile:nth-child(3n) { --gx: 100%; --gy: 100%; }
+.cs-ptile::after { content: ''; position: absolute; top: -1px; left: 24px; right: 24px; height: 1px; background: linear-gradient(90deg, transparent, rgba(var(--pain-gold), 0.55) 30%, rgba(var(--pain-red), 0.45) 70%, transparent); pointer-events: none; }
 .cs-ptile--feat, .cs-ptile--wide { grid-column: 1 / -1; }
 .cs-ptile-idx { margin: 0 0 12px; font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.08em; color: var(--text-muted); }
 .cs-ptile-title { margin: 0 0 6px; font-family: 'Geist', sans-serif; font-size: var(--fs-h4); font-weight: 600; line-height: 1.3; letter-spacing: -0.01em; color: var(--text); }
 .cs-ptile-why { margin: 0; font-size: var(--fs-small); line-height: 1.5; color: var(--text-soft); }
 /* the two lead pain points carry the visual: the number for admins, the old app for workers */
-.cs-ptile--feat { --c1: var(--pain-red); --c2: var(--pain-gold); --gx: 100%; --gy: 100%; background: radial-gradient(85% 140% at 100% 100%, rgba(var(--pain-red), 0.30), rgba(var(--pain-gold), 0.10) 52%, transparent 76%), var(--bg-soft); }
+.cs-ptile--feat { background: linear-gradient(160deg, rgba(var(--pain-red), 0.22) 0%, rgba(var(--pain-red), 0.07) 42%, transparent 74%), var(--bg-soft); }
+.cs-ptile--stat { background: radial-gradient(45% 80% at 82% 62%, rgba(var(--pain-gold), 0.13), transparent 72%), linear-gradient(160deg, rgba(var(--pain-red), 0.22) 0%, rgba(var(--pain-red), 0.07) 42%, transparent 74%), var(--bg-soft); }
+.cs-ptile--shot { background: radial-gradient(38% 90% at 84% 40%, rgba(var(--pain-red), 0.16), transparent 72%), linear-gradient(160deg, rgba(var(--pain-red), 0.22) 0%, rgba(var(--pain-red), 0.07) 42%, transparent 74%), var(--bg-soft); }
 .cs-ptile--feat .cs-ptile-title { font-size: var(--fs-lead); }
 .cs-ptile--stat { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 24px 40px; min-height: 200px; }
 .cs-ptile--stat .cs-ptile-text { align-self: start; max-width: 26em; }
