@@ -642,7 +642,7 @@ body.cs-lb-lock { overflow: hidden; }
 .cs-list-who { margin: 10px 0 18px; font-size: var(--fs-small); font-weight: 500; color: var(--text-muted); }
 
 /* Small text: descriptions, captions, notes, chips, tabs */
-.cs-facts dd, .cs-reason-desc, .cs-strip-desc, .cs-ba-note, .cs-board .cs-mock-cap { font-size: var(--fs-small); font-weight: 400; line-height: 1.65; }
+.cs-facts dd, .cs-strip-desc, .cs-ba-note, .cs-board .cs-mock-cap { font-size: var(--fs-small); font-weight: 400; line-height: 1.65; }
 .cs-hero-meta-item span { font-size: var(--fs-small); font-weight: 400; }
 .cs-chip, .cs-tab { font-size: var(--fs-small); }
 .cs-chips--lg .cs-chip { font-size: 16px; }
@@ -695,23 +695,22 @@ body.cs-lb-lock { overflow: hidden; }
 .cs-facts dt { color: var(--text); margin-bottom: 8px; }
 .cs-facts dd { margin: 0; color: var(--text-soft); }
 
-/* Why redesign: one dominant reason, two supporting */
-.cs-reasons { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); grid-template-rows: auto auto; column-gap: clamp(32px, 6vw, 72px); row-gap: 36px; margin: 40px 0 8px; }
-.cs-reason { border-top: 1px solid var(--line); padding-top: 18px; }
-.cs-reason--lead { grid-row: 1 / span 2; border-top: 2px solid var(--accent); padding-top: 22px; }
-.cs-reason-title { margin: 0 0 8px; font-family: 'Geist', sans-serif; font-size: var(--fs-h4); font-weight: 600; line-height: 1.35; color: var(--text); }
-.cs-reason--lead .cs-reason-title { font-size: var(--fs-statement); font-weight: 500; letter-spacing: -0.02em; line-height: 1.15; margin-bottom: 16px; text-wrap: balance; }
-.cs-reason-desc { margin: 0; color: var(--text-soft); }
-.cs-reason--lead .cs-reason-desc { font-size: var(--fs-lead); line-height: 1.6; }
-.cs-chips--issues { margin-top: 20px; }
+/* Why redesign: three equal forces, then the question that leads into the old screens */
+.cs-forces { list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 32px; row-gap: 32px; margin: 48px 0 0; padding: 0; }
+.cs-force { border-top: 1px solid var(--line); padding-top: 20px; }
+.cs-force-n { margin: 0 0 16px; font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.08em; color: var(--accent); }
+.cs-force-title { margin: 0 0 10px; font-family: 'Geist', sans-serif; font-size: var(--fs-h4); font-weight: 500; line-height: 1.35; color: var(--text); text-wrap: balance; }
+.cs-force-desc { margin: 0; font-size: var(--fs-small); line-height: 1.65; color: var(--text-soft); }
+.cs-bridge { margin: 96px 0 0; max-width: 20em; font-family: 'Geist', sans-serif; font-size: var(--fs-statement); font-weight: 500; line-height: 1.2; letter-spacing: -0.02em; color: var(--text-muted); text-wrap: balance; }
+.cs-bridge span { color: var(--text); }
 
 @media (max-width: 760px) {
   .cs-stats { grid-template-columns: 1fr; }
   .cs-stat, .cs-stat:first-child { padding: 22px 0; border-left: 0; }
   .cs-stat + .cs-stat { border-top: 1px solid var(--line); }
   .cs-facts--2, .cs-facts--3 { grid-template-columns: 1fr; gap: 28px; }
-  .cs-reasons { grid-template-columns: 1fr; }
-  .cs-reason--lead { grid-row: auto; }
+  .cs-forces { grid-template-columns: 1fr; row-gap: 28px; }
+  .cs-bridge { margin-top: 72px; }
 }
 
 /* =====================================================================
@@ -1067,80 +1066,30 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
 <section class="cs-section" id="cs-why" data-wash="amber">
 <div class="cs-wrap">
 
-  <h2 class="cs-display reveal-title">Three reasons the old app <em>had to change.</em></h2>
+  <h2 class="cs-display reveal-title">Three forces made the redesign <em>necessary.</em></h2>
 
-  <div class="cs-reasons">
-    <div class="cs-reason cs-reason--lead">
-      <h3 class="cs-reason-title">Integrating Oust with GoBetter</h3>
-      <p class="cs-reason-desc">As BetterPlace rebranded into GoBetter, Oust stopped being a separate product. It became part of GoBetter, called Up-skill.</p>
-    </div>
-    <div class="cs-reason">
-      <h3 class="cs-reason-title">Expanding into various geographies</h3>
-      <p class="cs-reason-desc">As GoBetter expands internationally and looks for product-market fit there, a uniform, hassle-free experience for end users becomes essential.</p>
-    </div>
-    <div class="cs-reason">
-      <h3 class="cs-reason-title">Client dissatisfaction</h3>
-      <p class="cs-reason-desc">Customers asked for improvements. After the integration, none were made and the experience stayed as it was.</p>
-    </div>
-  </div>
+  <ol class="cs-forces">
+    <li class="cs-force">
+      <p class="cs-force-n">01</p>
+      <h3 class="cs-force-title">Oust was becoming <span class="nb">Up-skill</span></h3>
+      <p class="cs-force-desc">BetterPlace was rebranding as GoBetter, and Oust was being folded into the new <span class="nb">Up-skill</span> experience. This meant the existing product had to evolve with the new brand and product direction.</p>
+    </li>
+    <li class="cs-force">
+      <p class="cs-force-n">02</p>
+      <h3 class="cs-force-title">The product was expanding</h3>
+      <p class="cs-force-desc">As GoBetter expanded into new geographies, we needed a more consistent and scalable experience for end users.</p>
+    </li>
+    <li class="cs-force">
+      <p class="cs-force-n">03</p>
+      <h3 class="cs-force-title">Customers were already asking for change</h3>
+      <p class="cs-force-desc">Organisations were dissatisfied with the existing experience and had requested improvements, but the product had remained largely unchanged after the integration.</p>
+    </li>
+  </ol>
+
+  <p class="cs-bridge reveal-title">But the bigger question was: <span>what was actually broken?</span></p>
 
 </div>
 
-<div class="cs-wrap cs-wrap--board" style="margin-top: 88px;">
-  <div class="cs-split cs-split--ba">
-    <div class="cs-ba settle" data-tabs>
-      <div class="cs-tabs" role="tablist" aria-label="Compare the old and new screens"><button type="button" role="tab" class="cs-tab is-active" id="ba-t-0" aria-controls="ba-p-0" aria-selected="true">Home</button><button type="button" role="tab" class="cs-tab" id="ba-t-1" aria-controls="ba-p-1" aria-selected="false" tabindex="-1">Course</button><button type="button" role="tab" class="cs-tab" id="ba-t-2" aria-controls="ba-p-2" aria-selected="false" tabindex="-1">Result</button></div>
-      <div class="cs-ba-stage">
-      <div class="cs-ba-panel is-active" role="tabpanel" id="ba-p-0" aria-labelledby="ba-t-0">
-        <figure class="cs-ba-fig">
-          <img src="assets/skilling/ui/old-home.webp" alt="The old Oust home screen, led by a feed of company posts" loading="lazy" decoding="async">
-          <figcaption>Oust</figcaption>
-        </figure>
-        <span class="cs-ba-arrow" aria-hidden="true">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-        </span>
-        <figure class="cs-ba-fig cs-ba-fig--new">
-          <img src="assets/skilling/ui/home.webp" alt="The new Up-skill home screen, led by learning progress and the next course" loading="lazy" decoding="async">
-          <figcaption>Up-skill</figcaption>
-        </figure>
-        <p class="cs-ba-note">A feed-first home with five tabs became a task-first home: progress on top, quick access to every module, then the next course.</p>
-      </div>
-      <div class="cs-ba-panel" role="tabpanel" id="ba-p-1" aria-labelledby="ba-t-1" hidden>
-        <figure class="cs-ba-fig">
-          <img src="assets/skilling/ui/old-video.webp" alt="The old Oust course player with small controls and dense text" loading="lazy" decoding="async">
-          <figcaption>Oust</figcaption>
-        </figure>
-        <span class="cs-ba-arrow" aria-hidden="true">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-        </span>
-        <figure class="cs-ba-fig cs-ba-fig--new">
-          <img src="assets/skilling/ui/video-2.webp" alt="The new Up-skill course player with segmented progress and a single control row" loading="lazy" decoding="async">
-          <figcaption>Up-skill</figcaption>
-        </figure>
-        <p class="cs-ba-note">A dense player with tiny controls became full-screen media with chapter progress, coins and one row of controls.</p>
-      </div>
-      <div class="cs-ba-panel" role="tabpanel" id="ba-p-2" aria-labelledby="ba-t-2" hidden>
-        <figure class="cs-ba-fig">
-          <img src="assets/skilling/ui/old-assess.webp" alt="The old Oust assessment result screen with a red Over button" loading="lazy" decoding="async">
-          <figcaption>Oust</figcaption>
-        </figure>
-        <span class="cs-ba-arrow" aria-hidden="true">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-        </span>
-        <figure class="cs-ba-fig cs-ba-fig--new">
-          <img src="assets/skilling/ui/new-success.webp" alt="The new Up-skill success screen with earnings and Review and Next actions" loading="lazy" decoding="async">
-          <figcaption>Up-skill</figcaption>
-        </figure>
-        <p class="cs-ba-note">A bare confirmation with a red &ldquo;Over!&rdquo; button became feedback that rewards effort and points to what comes next.</p>
-      </div>
-      </div>
-    </div>
-    <div>
-      <h3 class="cs-h3">What was holding it back</h3>
-      <div class="cs-chips cs-chips--issues"><span class="cs-chip">Lack of familiarity</span><span class="cs-chip">No clear navigation</span><span class="cs-chip">Over-customisation</span><span class="cs-chip">Poor discoverability</span><span class="cs-chip">Very ambiguous for users</span><span class="cs-chip">Seems very old and less motivating</span><span class="cs-chip">Neither playful nor engaging</span><span class="cs-chip">Non-hygienic</span></div>
-    </div>
-  </div>
-</div>
 <div class="cs-wrap cs-wrap--board cs-wrap--inset">
 <figure class="cs-board settle cs-board--inset">
   <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: The old Oust screens" data-full="assets/skilling/old-designs.jpg" data-alt="Screens from the previous Oust app showing dense, outdated layouts">
@@ -1914,7 +1863,7 @@ var CS_REDUCE = window.matchMedia && window.matchMedia('(prefers-reduced-motion:
     { id: 'cs-overview',   num: '01', name: 'Overview' },
     { id: 'act-problem',   group: 'The problem' },
     { id: 'cs-users',      num: '02', name: 'Context and Users' },
-    { id: 'cs-why',        num: '03', name: 'Why Redesign' },
+    { id: 'cs-why',        num: '03', name: 'Why We Redesigned' },
     { id: 'cs-challenges', num: '04', name: 'Challenges' },
     { id: 'cs-scope',      num: '05', name: 'Scope' },
     { id: 'act-approach',  group: 'The approach' },
