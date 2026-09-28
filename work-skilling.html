@@ -688,6 +688,7 @@ body.cs-lb-lock { overflow: hidden; }
 /* Facts: ruled definition pairs (role, team, course details) */
 .cs-facts { display: grid; gap: 36px 48px; margin: 40px 0 8px; }
 .cs-facts--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.cs-facts--3 { grid-template-columns: minmax(max-content, 1fr) minmax(0, 2.4fr) minmax(max-content, 1fr); column-gap: 40px; }
 .cs-facts > div { border-top: 1px solid var(--line); padding-top: 18px; }
 .cs-facts dt { color: var(--text); margin-bottom: 8px; }
 .cs-facts dd { margin: 0; color: var(--text-soft); }
@@ -706,7 +707,7 @@ body.cs-lb-lock { overflow: hidden; }
   .cs-stats { grid-template-columns: 1fr; }
   .cs-stat, .cs-stat:first-child { padding: 22px 0; border-left: 0; }
   .cs-stat + .cs-stat { border-top: 1px solid var(--line); }
-  .cs-facts--2 { grid-template-columns: 1fr; gap: 28px; }
+  .cs-facts--2, .cs-facts--3 { grid-template-columns: 1fr; gap: 28px; }
   .cs-reasons { grid-template-columns: 1fr; }
   .cs-reason--lead { grid-row: auto; }
 }
@@ -982,17 +983,21 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
 
   <h2 class="cs-display reveal-title">Crafting meaningful learning for <em>blue-collar workers.</em></h2>
 
-  <p class="cs-lead">Oust became part of BetterPlace but stayed a separate product. When BetterPlace rebranded as GoBetter, Oust was retired and folded in as <span class="nb">Up-skill</span>.</p>
-  <p class="cs-p">We redesigned the app completely. The new experience is more engaging and aspiring for frontline workers, and helps the business grow through client satisfaction, productivity and retention.</p>
+  <p class="cs-lead">Oust was built to help frontline workers learn and grow through courses, assessments, playlists and other learning formats. But as the product evolved, the experience became harder to navigate, difficult to prioritise, and less motivating to engage with.</p>
+  <p class="cs-p">When BetterPlace rebranded as GoBetter and Oust was folded into the new <strong class="nb">Up-skill</strong> experience, we saw an opportunity to rethink more than its visual identity — <strong>we could rethink how learning itself was experienced.</strong></p>
 
-  <dl class="cs-facts cs-facts--2">
+  <dl class="cs-facts cs-facts--3">
     <div>
-      <dt>Product designer</dt>
-      <dd>Showing only the information that helps users act directly from the home page, with more emphasis on CTAs and engaging elements like coins and badges.</dd>
+      <dt>My role</dt>
+      <dd>Product Designer</dd>
     </div>
     <div>
-      <dt>Akhil Male</dt>
-      <dd>Working with Bijoy Prasad Shah and Sugata Biswas.</dd>
+      <dt>Team</dt>
+      <dd>Akhil Male · Bijoy Prasad Shah · Sugata Biswas</dd>
+    </div>
+    <div>
+      <dt>Timeline</dt>
+      <dd>3 months · 2024</dd>
     </div>
   </dl>
 
