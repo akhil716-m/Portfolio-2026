@@ -313,10 +313,11 @@ a.cs-cta { margin-top: 28px; }
 }
 .cs-lb.is-open { display: block; animation: csLbIn 0.25s ease; }
 @keyframes csLbIn { from { opacity: 0; } to { opacity: 1; } }
-.cs-lb-inner { min-height: 100%; padding: 64px 0 40px; }
+/* Auto margins in a flex column centre a board that fits the screen, and fall back to 0 (top/left, scrollable) when it is taller or wider */
+.cs-lb-inner { box-sizing: border-box; min-height: 100%; padding: 64px 0; display: flex; flex-direction: column; }
 .cs-lb img {
   display: block; height: auto; background: #fff; border-radius: 12px;
-  width: max(min(1500px, 96vw), 900px); max-width: none; margin: 0 auto;
+  width: max(min(1500px, 96vw), 900px); max-width: none; margin: auto; flex: none;
 }
 .cs-lb-close {
   position: fixed; top: max(16px, env(safe-area-inset-top)); right: max(16px, env(safe-area-inset-right)); z-index: 2001;
