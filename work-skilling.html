@@ -438,12 +438,8 @@ body.cs-lb-lock { overflow: hidden; }
 }
 @keyframes csActBg { from { transform: translateY(-6%) scale(1.14); } to { transform: translateY(6%) scale(1.14); } }
 
-/* ---------- RAIL: grouped by act ---------- */
-.cs-rail-list li.cs-rail-group { margin-top: 14px; }
-.cs-rail-list li.cs-rail-group:first-child { margin-top: 0; }
-.cs-rail-grp { font-family: 'Geist Mono', monospace; font-size: 10px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-soft); transition: color 0.15s; }
-.cs-rail-list li.cs-rail-group.is-active .cs-rail-grp { color: var(--accent); }
-.cs-rail-list li.cs-rail-group button:hover .cs-rail-grp { color: var(--text); }
+/* ---------- RAIL: a little extra space between one act's sections and the next ---------- */
+.cs-rail-list li.cs-rail-lead { margin-top: 14px; }
 
 /* ---------- COMPARE: Oust vs Up-skill, side by side ---------- */
 .cs-split--ba { grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); }
@@ -633,10 +629,9 @@ body.cs-lb-lock { overflow: hidden; }
 
 /* Micro labels (mono, caps): a hard 12px floor */
 .cs-hero-eyebrow, .cs-phase-tag, .cs-stat-label,
-.cs-hero-meta-item label, .cs-back, .cs-rail-num, .cs-rail-grp, .cs-rail-name,
+.cs-hero-meta-item label, .cs-back, .cs-rail-num, .cs-rail-name,
 .cs-ba-fig figcaption, .cs-lb-hint, footer, footer .right a { font-size: var(--fs-micro); }
 .cs-rail-num { letter-spacing: 0.06em; }
-.cs-rail-grp { letter-spacing: 0.12em; }
 
 @media (max-width: 760px) {
   :root { --fs-body: 16.5px; }
@@ -738,7 +733,7 @@ body.cs-lb-lock { overflow: hidden; }
 }
 @media (prefers-reduced-motion: reduce) {
   /* hover and fade transitions on controls and chrome */
-  .cs-fig-zoom, .cs-rail, .cs-cta, .cs-back, .cs-back .arr, .cs-tab, .cs-chip, .cs-strip-btn, .cs-lb-close, .cs-rail-num, .cs-rail-name, .cs-rail-grp { transition: none; }
+  .cs-fig-zoom, .cs-rail, .cs-cta, .cs-back, .cs-back .arr, .cs-tab, .cs-chip, .cs-strip-btn, .cs-lb-close, .cs-rail-num, .cs-rail-name { transition: none; }
   .cs-cta:hover, .cs-back:hover { gap: 8px; }
 }
 
@@ -779,17 +774,16 @@ body.cs-lb-lock { overflow: hidden; }
 }
 .cs-chapter-menu[hidden] { display: none; }
 .cs-chapter-list { list-style: none; margin: 0; padding: 0; }
-.cs-chapter-group, .cs-chapter-item {
+.cs-chapter-item {
   display: flex; align-items: center; gap: 12px; width: 100%; min-height: 44px; padding: 0 12px; text-align: left; cursor: pointer;
   border: 0; border-radius: var(--r-inner); background: none; transition: background 0.15s ease, color 0.15s ease;
+  font-family: 'Geist', sans-serif; font-size: 15px; color: var(--text-soft);
 }
-.cs-chapter-group { margin-top: 6px; font-family: 'Geist Mono', monospace; font-size: var(--fs-micro); font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-soft); }
-.cs-chapter-list li:first-child .cs-chapter-group { margin-top: 0; }
-.cs-chapter-item { font-family: 'Geist', sans-serif; font-size: 15px; color: var(--text-soft); }
+.cs-chapter-list li.cs-rail-lead .cs-chapter-item { margin-top: 6px; }
 .cs-chapter-item .n { flex: none; width: 22px; font-family: 'Geist Mono', monospace; font-size: var(--fs-micro); color: var(--text-muted); }
-.cs-chapter-group:hover, .cs-chapter-item:hover { background: rgba(255,255,255,0.05); color: var(--text); }
-.cs-chapter-item.is-active, .cs-chapter-group.is-active { color: var(--text); background: rgba(255,255,255,0.07); }
-.cs-chapter-item.is-active .n, .cs-chapter-group.is-active { color: var(--accent); }
+.cs-chapter-item:hover { background: rgba(255,255,255,0.05); color: var(--text); }
+.cs-chapter-item.is-active { color: var(--text); background: rgba(255,255,255,0.07); }
+.cs-chapter-item.is-active .n { color: var(--accent); }
 
 /* Tap targets: the back link and the footer link were 19px and 16px tall */
 nav .logo a.cs-back { min-height: 44px; padding-right: 12px; }
@@ -830,7 +824,7 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
   footer { grid-template-columns: 1fr; gap: 8px; }
   footer .right { text-align: left; }
 }
-@media (prefers-reduced-motion: reduce) { .cs-chapter, .cs-chapter-chev, .cs-chapter-btn, .cs-chapter-group, .cs-chapter-item { transition: none; } .cs-chapter-menu { animation: none; } .cs-chapter-btn:active { transform: none; } }
+@media (prefers-reduced-motion: reduce) { .cs-chapter, .cs-chapter-chev, .cs-chapter-btn, .cs-chapter-item { transition: none; } .cs-chapter-menu { animation: none; } .cs-chapter-btn:active { transform: none; } }
 
 /* =====================================================================
    CHALLENGES AND SCOPE
@@ -1795,12 +1789,13 @@ var CS_REDUCE = window.matchMedia && window.matchMedia('(prefers-reduced-motion:
   var activeId = null;
   var heroGone = false;
 
-  list.innerHTML = SECTIONS.map(function(s) {
-    if (s.group) {
-      return '<li class="cs-rail-group" data-id="' + s.id + '"><button type="button" data-target="' + s.id + '">' +
-             '<span class="cs-rail-grp">' + s.group + '</span></button></li>';
-    }
-    return '<li data-id="' + s.id + '"><button type="button" data-target="' + s.id + '">' +
+  /* Act openers (full-bleed chapter covers, with their own title on screen) get no row here — the numbered
+     sections either side are enough to navigate by, and the current one stays highlighted through the cover.
+     A little extra space still marks where one act's sections end and the next begin. */
+  var prevGroupId = null;
+  list.innerHTML = SECTIONS.filter(function(s) { return !s.group; }).map(function(s) {
+    var lead = s.groupId !== prevGroupId; prevGroupId = s.groupId;
+    return '<li data-id="' + s.id + '"' + (lead ? ' class="cs-rail-lead"' : '') + '><button type="button" data-target="' + s.id + '">' +
            '<span class="cs-rail-num">' + s.num + '</span>' +
            '<span class="cs-rail-name">' + s.name + '</span>' +
            '</button></li>';
@@ -1825,9 +1820,10 @@ var CS_REDUCE = window.matchMedia && window.matchMedia('(prefers-reduced-motion:
     if (open) { var a = clist.querySelector('.is-active'); if (a) a.scrollIntoView({ block: 'nearest' }); }
   }
   if (chapter && cbtn && cmenu && clist) {
-    clist.innerHTML = SECTIONS.map(function(s) {
-      if (s.group) return '<li><button type="button" class="cs-chapter-group" data-target="' + s.id + '">' + s.group + '</button></li>';
-      return '<li><button type="button" class="cs-chapter-item" data-target="' + s.id + '"><span class="n">' + s.num + '</span><span>' + s.name + '</span></button></li>';
+    var prevChapterGroup = null;
+    clist.innerHTML = SECTIONS.filter(function(s) { return !s.group; }).map(function(s) {
+      var lead = s.groupId !== prevChapterGroup; prevChapterGroup = s.groupId;
+      return '<li' + (lead ? ' class="cs-rail-lead"' : '') + '><button type="button" class="cs-chapter-item" data-target="' + s.id + '"><span class="n">' + s.num + '</span><span>' + s.name + '</span></button></li>';
     }).join('');
     cbtn.addEventListener('click', function() { setMenu(cmenu.hidden); });
     clist.addEventListener('click', function(e) {
@@ -1845,13 +1841,9 @@ var CS_REDUCE = window.matchMedia && window.matchMedia('(prefers-reduced-motion:
     list.querySelectorAll('li.is-active').forEach(function(li) { li.classList.remove('is-active'); });
     var li = list.querySelector('li[data-id="' + sec.id + '"]');
     if (li) li.classList.add('is-active');
-    if (sec.groupId) {
-      var g = list.querySelector('li[data-id="' + sec.groupId + '"]');
-      if (g) g.classList.add('is-active');
-    }
     if (chapter && cname) {
-      cnum.textContent = sec.group ? '' : sec.num;
-      cname.textContent = sec.group || sec.name;
+      cnum.textContent = sec.num;
+      cname.textContent = sec.name;
       clist.querySelectorAll('.is-active').forEach(function(b) { b.classList.remove('is-active'); });
       var cb = clist.querySelector('button[data-target="' + sec.id + '"]');
       if (cb) cb.classList.add('is-active');
@@ -1875,12 +1867,14 @@ var CS_REDUCE = window.matchMedia && window.matchMedia('(prefers-reduced-motion:
     }, { threshold: 0.05 }).observe(hero);
   } else { heroGone = true; }
 
-  /* Whatever crosses a 1% band placed 35% down the viewport is the current section */
+  /* Whatever crosses a 1% band placed 35% down the viewport is the current section.
+     Act openers carry their own on-screen title, so crossing one leaves the last numbered
+     section highlighted rather than switching to an empty/group state. */
   var io = new IntersectionObserver(function(entries) {
     entries.forEach(function(e) {
       if (!e.isIntersecting) return;
       var sec = byId[e.target.id];
-      if (sec && sec.id !== activeId) { activeId = sec.id; setActive(sec); syncVisibility(); }
+      if (sec && !sec.group && sec.id !== activeId) { activeId = sec.id; setActive(sec); syncVisibility(); }
     });
   }, { rootMargin: '-35% 0px -64% 0px', threshold: 0 });
   SECTIONS.forEach(function(s) { var el = document.getElementById(s.id); if (el) io.observe(el); });
