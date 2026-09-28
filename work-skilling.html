@@ -847,10 +847,13 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
 .cs-pain-n { margin: 0 0 16px; font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.08em; color: rgb(var(--pain)); }
 .cs-pain-title { margin: 0 0 10px; font-family: 'Geist', sans-serif; font-size: var(--fs-h4); font-weight: 500; line-height: 1.35; color: var(--text); text-wrap: balance; }
 .cs-pain-desc { margin: 0; font-size: var(--fs-small); line-height: 1.65; color: var(--text-soft); }
-.cs-stats--one { grid-template-columns: 1fr; margin-top: 48px; }
-.cs-stat--pain .sym { color: rgb(var(--pain)); }
+.cs-pgroup-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px 32px; flex-wrap: wrap; }
+.cs-pgroup-stat { display: flex; flex-direction: column; align-items: flex-end; gap: 10px; margin: 0; }
+.cs-pgroup-num { font-family: 'Geist', sans-serif; font-size: clamp(36px, 4vw, 48px); font-weight: 500; line-height: 1; letter-spacing: -0.04em; color: var(--text); }
+.cs-pgroup-num .sym { color: rgb(var(--pain)); }
 @media (max-width: 720px) {
   .cs-pains { grid-template-columns: 1fr; row-gap: 28px; }
+  .cs-pgroup-stat { align-items: flex-start; }
 }
 
 .cs-mend-track { position: relative; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); }
@@ -1068,13 +1071,15 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
 </div>
 
 <div class="cs-wrap">
-  <div class="cs-stats cs-stats--one settle">
-    <div class="cs-stat cs-stat--pain"><div class="cs-stat-num">13-15<span class="sym">%</span></div><div class="cs-stat-label">Average course completion</div></div>
-  </div>
 
   <div class="cs-pgroup settle">
-    <p class="cs-pgroup-who">Admins</p>
-    <p class="cs-pgroup-tag">Driving learning was difficult.</p>
+    <div class="cs-pgroup-head">
+      <div>
+        <p class="cs-pgroup-who">Admins</p>
+        <p class="cs-pgroup-tag">Driving learning was difficult.</p>
+      </div>
+      <p class="cs-pgroup-stat"><span class="cs-pgroup-num">13-15<span class="sym">%</span></span><span class="cs-stat-label">Average course completion</span></p>
+    </div>
     <ol class="cs-pains">
       <li class="cs-pain">
         <p class="cs-pain-n">01</p>
