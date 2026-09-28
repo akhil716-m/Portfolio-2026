@@ -866,15 +866,10 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
   content: ''; position: absolute; top: 12px; left: 0; right: 0; height: 2px;
   background-image: radial-gradient(circle, var(--line) 1px, transparent 1.3px); background-size: 8px 2px; background-repeat: repeat-x;
 }
-.cs-mend-item { display: block; min-height: 44px; color: inherit; text-decoration: none; }
-.cs-mend-item--plain { cursor: default; }
+/* Plain blocks now — each intervention names its own chapter in prose elsewhere, so no per-item link */
+.cs-mend-item { display: block; min-height: 44px; }
 .cs-mend-title { display: block; margin-bottom: 6px; font-family: 'Geist', sans-serif; font-size: var(--fs-h4); font-weight: 600; line-height: 1.35; color: var(--text); }
 .cs-mend-desc { display: block; font-size: var(--fs-small); line-height: 1.6; color: var(--text-soft); }
-.cs-mend-go { display: block; margin-top: 10px; font-size: var(--fs-small); line-height: 1.4; color: var(--text-muted); transition: color 0.2s ease; }
-.cs-mend-go svg { display: inline-block; vertical-align: -3px; margin-left: 6px; transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1); }
-.cs-mend-item:hover .cs-mend-go { color: var(--accent); }
-.cs-mend-item:hover .cs-mend-go svg { transform: translateX(4px); }
-.cs-mend-item:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; border-radius: 6px; }
 /* the line draws itself once, then each stage's interventions arrive left to right */
 .js .cs-mend .cs-mend-line { transform: scaleX(0); }
 .js .cs-mend.is-visible .cs-mend-line { transform: none; transition: transform 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.15s; }
@@ -894,7 +889,6 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
 }
 @media (prefers-reduced-motion: reduce) {
   .js .cs-mend .cs-mend-line, .js .cs-mend .cs-mend-list { transform: none; opacity: 1; transition: none; }
-  .cs-mend-go, .cs-mend-go svg { transition: none; }
 }
 </style>
 </head>
@@ -1189,35 +1183,35 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
       <div class="cs-mend-stage" style="--i:0">
         <p class="cs-mend-head"><span class="cs-mend-n">01</span>Assign</p>
         <ul class="cs-mend-list">
-          <li><a class="cs-mend-item" href="#cs-assess"><span class="cs-mend-title">Flexible theming</span><span class="cs-mend-desc">Give organisations brand flexibility without compromising the consistency of the experience.</span><span class="cs-mend-go">Assessments<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></li>
+          <li><div class="cs-mend-item"><span class="cs-mend-title">Flexible theming</span><span class="cs-mend-desc">Give organisations brand flexibility without compromising the consistency of the experience.</span></div></li>
         </ul>
       </div>
       <div class="cs-mend-stage" style="--i:1">
         <p class="cs-mend-head"><span class="cs-mend-n">02</span>Discover</p>
         <ul class="cs-mend-list">
-          <li><a class="cs-mend-item" href="#cs-home"><span class="cs-mend-title">An action-focused home</span><span class="cs-mend-desc">Surface the most important things users need to do, instead of making them search for them.</span><span class="cs-mend-go">Designing the Home<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></li>
-          <li><a class="cs-mend-item" href="#cs-process"><span class="cs-mend-title">Clear, linear navigation</span><span class="cs-mend-desc">Make the product easier to navigate, with guidance when workflows become complex.</span><span class="cs-mend-go">Design approach<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></li>
-          <li><a class="cs-mend-item" href="#cs-courses"><span class="cs-mend-title">Distinct module types</span><span class="cs-mend-desc">Help users immediately understand whether they're looking at a course, assessment or playlist.</span><span class="cs-mend-go">Course-Based Learning<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></li>
+          <li><div class="cs-mend-item"><span class="cs-mend-title">An action-focused home</span><span class="cs-mend-desc">Surface the most important things users need to do, instead of making them search for them.</span></div></li>
+          <li><div class="cs-mend-item"><span class="cs-mend-title">Clear, linear navigation</span><span class="cs-mend-desc">Make the product easier to navigate, with guidance when workflows become complex.</span></div></li>
+          <li><div class="cs-mend-item"><span class="cs-mend-title">Distinct module types</span><span class="cs-mend-desc">Help users immediately understand whether they're looking at a course, assessment or playlist.</span></div></li>
         </ul>
       </div>
       <div class="cs-mend-stage" style="--i:2">
         <p class="cs-mend-head"><span class="cs-mend-n">03</span>Start</p>
         <ul class="cs-mend-list">
-          <li><a class="cs-mend-item" href="#cs-home"><span class="cs-mend-title">Recommendations</span><span class="cs-mend-desc">Help users understand what to complete first or next.</span><span class="cs-mend-go">Designing the Home<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></li>
+          <li><div class="cs-mend-item"><span class="cs-mend-title">Recommendations</span><span class="cs-mend-desc">Help users understand what to complete first or next.</span></div></li>
         </ul>
       </div>
       <div class="cs-mend-stage" style="--i:3">
         <p class="cs-mend-head"><span class="cs-mend-n">04</span>Continue</p>
         <ul class="cs-mend-list">
-          <li><a class="cs-mend-item" href="#cs-events"><span class="cs-mend-title">Short courses</span><span class="cs-mend-desc">Break lengthy learning into smaller, easier-to-consume experiences.</span><span class="cs-mend-go">Events and Micro-learning<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></li>
-          <li><div class="cs-mend-item cs-mend-item--plain"><span class="cs-mend-title">Events &amp; micro-learning</span><span class="cs-mend-desc">Make learning accessible beyond long-form courses.</span></div></li>
+          <li><div class="cs-mend-item"><span class="cs-mend-title">Short courses</span><span class="cs-mend-desc">Break lengthy learning into smaller, easier-to-consume experiences.</span></div></li>
+          <li><div class="cs-mend-item"><span class="cs-mend-title">Events &amp; micro-learning</span><span class="cs-mend-desc">Make learning accessible beyond long-form courses.</span></div></li>
         </ul>
       </div>
       <div class="cs-mend-stage" style="--i:4">
         <p class="cs-mend-head"><span class="cs-mend-n">05</span>Finish</p>
         <ul class="cs-mend-list">
-          <li><a class="cs-mend-item" href="#cs-assess"><span class="cs-mend-title">Playful assessments</span><span class="cs-mend-desc">Make assessments more engaging while supporting different question types.</span><span class="cs-mend-go">Assessments<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></li>
-          <li><a class="cs-mend-item" href="#cs-playlists"><span class="cs-mend-title">Encouraging feedback</span><span class="cs-mend-desc">Make feedback visual, informative and useful.</span><span class="cs-mend-go">Playlists and Progress<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></li>
+          <li><div class="cs-mend-item"><span class="cs-mend-title">Playful assessments</span><span class="cs-mend-desc">Make assessments more engaging while supporting different question types.</span></div></li>
+          <li><div class="cs-mend-item"><span class="cs-mend-title">Encouraging feedback</span><span class="cs-mend-desc">Make feedback visual, informative and useful.</span></div></li>
         </ul>
       </div>
     </div>
