@@ -666,8 +666,8 @@ body.cs-lb-lock { overflow: hidden; }
 
 /* Stats: big numerals on hairlines instead of three boxes */
 .cs-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; background: none; border-radius: 0; overflow: visible; margin: 44px 0 8px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-.cs-stat { background: none; padding: 36px 0 32px 28px; border-left: 1px solid var(--line); }
-.cs-stat:first-child { padding-left: 0; border-left: 0; }
+.cs-stat { background: none; padding: 36px 24px 32px; border-left: 1px solid var(--line); text-align: center; }
+.cs-stat:first-child { border-left: 0; }
 .cs-stat-num { font-size: var(--fs-stat); letter-spacing: -0.035em; }
 
 /* Facts: ruled definition pairs (role, team, course details) */
@@ -689,7 +689,7 @@ body.cs-lb-lock { overflow: hidden; }
 
 @media (max-width: 760px) {
   .cs-stats { grid-template-columns: 1fr; }
-  .cs-stat, .cs-stat:first-child { padding: 22px 0; border-left: 0; }
+  .cs-stat, .cs-stat:first-child { padding: 22px 0; border-left: 0; text-align: center; }
   .cs-stat + .cs-stat { border-top: 1px solid var(--line); }
   .cs-facts--2, .cs-facts--3 { grid-template-columns: 1fr; gap: 28px; }
   .cs-forces { grid-template-columns: 1fr; row-gap: 28px; }
