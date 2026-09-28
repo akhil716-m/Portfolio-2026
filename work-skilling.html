@@ -633,7 +633,7 @@ body.cs-lb-lock { overflow: hidden; }
 .cs-strip-title, .cs-facts dt { font-size: var(--fs-h4); font-weight: 600; line-height: 1.35; }
 .cs-lead { font-size: var(--fs-lead); font-weight: 400; line-height: 1.6; color: var(--text-soft); max-width: 52ch; margin: 0 0 22px; }
 /* body copy stays grey; only the one thing that needs attention is lifted, in the accent, never bold white */
-.cs-lead strong, .cs-p strong, .cs-ptile-why strong { color: var(--accent); font-weight: 500; }
+.cs-lead strong, .cs-p strong { color: var(--accent); font-weight: 500; }
 .cs-p { font-size: var(--fs-body); font-weight: 400; line-height: 1.75; color: var(--text-soft); max-width: 60ch; }
 .cs-list li { font-size: var(--fs-body); font-weight: 400; }
 .cs-step-desc, .cs-theme-desc { font-size: var(--fs-body); font-weight: 400; }
@@ -872,9 +872,9 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
 .cs-ptile--stat { background: radial-gradient(40% 70% at 84% 64%, rgba(var(--pain-gold), 0.06), transparent 72%), radial-gradient(80% 90% at var(--glow-at), rgba(var(--pain-red), 0.13), transparent 70%), var(--bg-soft); }
 .cs-ptile--shot { background: radial-gradient(34% 80% at 84% 40%, rgba(var(--pain-red), 0.08), transparent 72%), radial-gradient(80% 90% at var(--glow-at), rgba(var(--pain-red), 0.13), transparent 70%), var(--bg-soft); }
 .cs-ptile--feat .cs-ptile-title { font-size: 18px; }
-.cs-ptile--stat { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 24px 40px; }
-.cs-ptile--stat .cs-ptile-text { max-width: 26em; }
-.cs-ptile-stat { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; margin: 0; }
+/* the number leads, the title and description explain it under a hairline */
+.cs-ptile-stat { display: flex; align-items: baseline; flex-wrap: wrap; gap: 6px 16px; margin: 0 0 20px; padding-bottom: 22px; border-bottom: 1px solid rgba(255, 255, 255, 0.06); }
+.cs-ptile--stat .cs-ptile-text { max-width: 34em; }
 .cs-ptile-num { font-family: 'Geist', sans-serif; font-size: var(--fs-stat); font-weight: 500; line-height: 1; letter-spacing: -0.04em; color: var(--text); }
 .cs-ptile-num .sym { background: linear-gradient(135deg, rgb(var(--pain-gold)), rgb(var(--pain-red))); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .cs-ptile-cap { font-size: var(--fs-small); color: var(--text-soft); }
@@ -887,8 +887,6 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
 .cs-ptile-peek img { display: block; width: 150px; height: auto; margin-left: auto; border-radius: 14px 14px 0 0; border: 1px solid var(--line); }
 @media (max-width: 720px) {
   .cs-pgrid { grid-template-columns: 1fr; }
-  .cs-ptile--stat { grid-template-columns: 1fr; min-height: 0; }
-  .cs-ptile-stat { align-items: flex-start; }
   .cs-ptile--shot { min-height: 0; padding-right: 22px; }
   .cs-ptile-shots { position: static; margin: 24px 0 -22px; max-height: 190px; overflow: hidden; }
   .cs-ptile-shots img { width: 150px; margin: 0 auto; }
@@ -1116,12 +1114,12 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
     <p class="cs-pgroup-tag">Driving learning was difficult.</p>
     <div class="cs-pgrid">
       <article class="cs-ptile cs-ptile--feat cs-ptile--stat">
+        <p class="cs-ptile-idx">01</p>
+        <p class="cs-ptile-stat" aria-label="13 to 15 percent average completion"><span class="cs-ptile-num">13-15<span class="sym">%</span></span><span class="cs-ptile-cap">average course completion</span></p>
         <div class="cs-ptile-text">
-          <p class="cs-ptile-idx">01</p>
           <h3 class="cs-ptile-title">Low course completion rates</h3>
-          <p class="cs-ptile-why">Average completion was only <strong>13-15%</strong>, making it difficult for organisations to ensure learning was completed.</p>
+          <p class="cs-ptile-why">Average completion was only 13-15%, making it difficult for organisations to ensure learning was completed.</p>
         </div>
-        <p class="cs-ptile-stat" aria-label="13 to 15 percent average completion"><span class="cs-ptile-num">13-15<span class="sym">%</span></span><span class="cs-ptile-cap">average completion</span></p>
       </article>
       <article class="cs-ptile">
         <div class="cs-ptile-text">
