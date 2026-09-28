@@ -55,11 +55,22 @@
 /* ---------- CONTEXT RAIL — sticky scroll-spy nav (section thesis + jump list) ---------- */
 .cs-rail {
   position: fixed; left: clamp(20px, 2.5vw, 40px); top: 50%;
-  transform: translateY(-50%); width: 200px; z-index: 60;
+  transform: translateY(-50%); width: max-content; z-index: 60;
   opacity: 0; pointer-events: none; transition: opacity 0.5s ease;
 }
 .cs-rail.is-visible { opacity: 1; pointer-events: auto; }
-.cs-rail-inner { padding-left: 18px; border-left: 1px solid var(--line); }
+.cs-rail-inner { margin-left: -14px; padding: 14px 18px 14px 14px; border-radius: 14px; border: 1px solid transparent; transition: background 0.3s ease, border-color 0.3s ease; }
+/* At rest the rail is only a column of short ticks; hovering (or tabbing into) it opens the labels on a dark panel */
+.cs-rail:hover .cs-rail-inner, .cs-rail:focus-within .cs-rail-inner { background: rgba(10,10,10,0.86); border-color: var(--line); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); }
+.cs-rail-tick { position: relative; flex: none; width: 20px; height: 2px; }
+.cs-rail-tick::before { content: ''; position: absolute; left: 0; top: 0; width: 10px; height: 2px; border-radius: 1px; background: rgba(255,255,255,0.22); transition: width 0.25s ease, background 0.25s ease; }
+.cs-rail-group .cs-rail-tick::before { display: none; }
+.cs-rail-list li.is-active:not(.cs-rail-group) .cs-rail-tick::before { width: 20px; background: var(--accent); }
+.cs-rail-num, .cs-rail-name, .cs-rail-grp { opacity: 0; transition: opacity 0.25s ease, color 0.15s; }
+.cs-rail:hover .cs-rail-num, .cs-rail:hover .cs-rail-name, .cs-rail:hover .cs-rail-grp,
+.cs-rail:focus-within .cs-rail-num, .cs-rail:focus-within .cs-rail-name, .cs-rail:focus-within .cs-rail-grp { opacity: 1; }
+/* Out of the way while a full-bleed act opener fills the screen */
+.cs-rail.is-visible.is-muted { opacity: 0; pointer-events: none; }
 .cs-rail-list {
   list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 2px;
 }
@@ -752,7 +763,7 @@ body.cs-lb-lock { overflow: hidden; }
 }
 @media (prefers-reduced-motion: reduce) {
   /* hover and fade transitions on controls and chrome */
-  .cs-fig-zoom, .cs-rail, .cs-cta, .cs-back, .cs-back .arr, .cs-tab, .cs-chip, .cs-strip-btn, .cs-lb-close, .cs-rail-num, .cs-rail-name, .cs-rail-grp { transition: none; }
+  .cs-rail-inner, .cs-rail-tick::before, .cs-fig-zoom, .cs-rail, .cs-cta, .cs-back, .cs-back .arr, .cs-tab, .cs-chip, .cs-strip-btn, .cs-lb-close, .cs-rail-num, .cs-rail-name, .cs-rail-grp { transition: none; }
   .cs-cta:hover, .cs-back:hover { gap: 8px; }
 }
 
@@ -1854,10 +1865,10 @@ var CS_REDUCE = window.matchMedia && window.matchMedia('(prefers-reduced-motion:
   list.innerHTML = SECTIONS.map(function(s) {
     if (s.group) {
       return '<li class="cs-rail-group" data-id="' + s.id + '"><button type="button" data-target="' + s.id + '">' +
-             '<span class="cs-rail-grp">' + s.group + '</span></button></li>';
+             '<span class="cs-rail-tick" aria-hidden="true"></span><span class="cs-rail-grp">' + s.group + '</span></button></li>';
     }
     return '<li data-id="' + s.id + '"><button type="button" data-target="' + s.id + '">' +
-           '<span class="cs-rail-num">' + s.num + '</span>' +
+           '<span class="cs-rail-tick" aria-hidden="true"></span><span class="cs-rail-num">' + s.num + '</span>' +
            '<span class="cs-rail-name">' + s.name + '</span>' +
            '</button></li>';
   }).join('');
@@ -1940,6 +1951,14 @@ var CS_REDUCE = window.matchMedia && window.matchMedia('(prefers-reduced-motion:
     });
   }, { rootMargin: '-35% 0px -64% 0px', threshold: 0 });
   SECTIONS.forEach(function(s) { var el = document.getElementById(s.id); if (el) io.observe(el); });
+
+  /* Mute the rail while an act opener crosses the middle of the screen */
+  var overActs = {};
+  var ioActs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) { overActs[e.target.id] = e.isIntersecting; });
+    rail.classList.toggle('is-muted', Object.keys(overActs).some(function(k) { return overActs[k]; }));
+  }, { rootMargin: '-30% 0px -30% 0px', threshold: 0 });
+  document.querySelectorAll('.cs-act').forEach(function(el) { ioActs.observe(el); });
 })();
 
 /* Reveals: only headlines and evidence animate, each once, when they enter the viewport.
