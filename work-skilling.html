@@ -276,9 +276,10 @@ a.cs-cta { margin-top: 28px; }
   transition: border-color 0.25s ease, background 0.25s ease;
   -webkit-tap-highlight-color: transparent;
 }
-.cs-fig-frame:hover { border-color: rgba(212,255,94,0.35); }
+.cs-fig-frame:hover { border-color: rgba(255,255,255,0.16); background: rgba(var(--wash, 255,255,255), 0.09); }
+.cs-fig-frame:hover img { filter: brightness(1); }
 .cs-fig-frame:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
-.cs-fig-frame img { display: block; width: 100%; height: auto; border-radius: clamp(8px, 1.1vw, 12px); filter: brightness(0.94); }
+.cs-fig-frame img { display: block; width: 100%; height: auto; border-radius: clamp(8px, 1.1vw, 12px); filter: brightness(0.94); transition: filter 0.3s ease; }
 .cs-fig-zoom {
   position: absolute; top: calc(var(--pad) + 12px); right: calc(var(--pad) + 12px); width: 36px; height: 36px; border-radius: 50%;
   display: flex; align-items: center; justify-content: center; color: var(--text);
@@ -1007,7 +1008,6 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
     <img src="assets/skilling/phones-strip.jpg" alt="Grid of redesigned Up-skill mobile screens including courses, assessments and playlists" width="1750" height="799" loading="lazy" decoding="async">
     <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
   </div>
-  <figcaption class="cs-mock-cap">A wall of the new screens</figcaption>
 </figure>
 </div>
 
