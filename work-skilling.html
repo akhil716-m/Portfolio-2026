@@ -838,7 +838,7 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
    Static on purpose: no pinning, no scroll mechanics, nothing to open.
    ===================================================================== */
 .cs-pgroup { margin-top: 64px; }
-.cs-pgroup-who { margin: 0; font-family: 'Geist', sans-serif; font-size: var(--fs-h4); font-weight: 500; color: var(--text); }
+.cs-pgroup-who { margin: 0; font-family: 'Geist', sans-serif; font-size: var(--fs-h4); font-weight: 500; line-height: 1.5; color: var(--text); }
 .cs-pgroup-tag { margin: 4px 0 0; font-size: var(--fs-small); color: var(--text-soft); }
 /* Pain points use the page's ruled-list pattern (like the three forces); a short brick rule and number mark each one as a problem */
 .cs-pains { list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 32px; row-gap: 36px; margin: 28px 0 0; padding: 0; }
@@ -847,9 +847,11 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
 .cs-pain-n { margin: 0 0 16px; font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.08em; color: rgb(var(--pain)); }
 .cs-pain-title { margin: 0 0 10px; font-family: 'Geist', sans-serif; font-size: var(--fs-h4); font-weight: 500; line-height: 1.35; color: var(--text); text-wrap: balance; }
 .cs-pain-desc { margin: 0; font-size: var(--fs-small); line-height: 1.65; color: var(--text-soft); }
-.cs-pgroup-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px 32px; flex-wrap: wrap; }
-.cs-pgroup-stat { display: flex; flex-direction: column; align-items: flex-end; gap: 10px; margin: 0; }
-.cs-pgroup-num { font-family: 'Geist', sans-serif; font-size: clamp(36px, 4vw, 48px); font-weight: 500; line-height: 1; letter-spacing: -0.04em; color: var(--text); }
+.cs-pgroup-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px 32px; flex-wrap: wrap; }
+.cs-pgroup-stat { display: flex; flex-direction: column; align-items: flex-end; margin: 0; }
+/* same size as the group name it sits beside */
+.cs-pgroup-num { font-family: 'Geist', sans-serif; font-size: var(--fs-h4); font-weight: 500; line-height: 1.5; color: var(--text); }
+.cs-pgroup-stat .cs-stat-label { font-size: 10px; line-height: 1.6; letter-spacing: 0.1em; margin-top: 6px; }
 .cs-pgroup-num .sym { color: rgb(var(--pain)); }
 @media (max-width: 720px) {
   .cs-pains { grid-template-columns: 1fr; row-gap: 28px; }
