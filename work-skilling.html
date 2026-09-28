@@ -429,7 +429,8 @@ body.cs-lb-lock { overflow: hidden; }
     linear-gradient(to top, rgba(10,10,10,0.96) 0%, rgba(10,10,10,0.62) 38%, rgba(10,10,10,0.14) 100%),
     linear-gradient(to right, rgba(10,10,10,0.5), transparent 60%);
 }
-.cs-act-copy { width: 100%; max-width: min(66vw, 1040px); margin: 0 auto; }
+/* Act openers are full-bleed chapter covers: their copy sits on the same left edge as the hero */
+.cs-act-copy { width: 100%; margin: 0; padding: 0 clamp(24px, 6vw, 80px); }
 .cs-act-title {
   font-family: 'Geist', sans-serif; font-size: clamp(56px, 9.5vw, 132px); font-weight: 500;
   line-height: 0.98; letter-spacing: -0.035em; color: var(--text);
@@ -821,7 +822,7 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
 
 /* Boards and the act copy use the room a hidden rail leaves */
 @media (max-width: 1400px) {
-  .cs-wrap--board, .cs-act-copy { max-width: min(88vw, 1040px); }
+  .cs-wrap--board { max-width: min(88vw, 1040px); }
   .cs-wrap--inset { max-width: min(72vw, 760px); }
 }
 @media (min-width: 901px) {
@@ -831,7 +832,7 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
 /* One gutter, everywhere it matters */
 @media (max-width: 900px) {
   .cs-wrap, .cs-wrap--board, .cs-wrap--inset { padding-left: var(--gutter); padding-right: var(--gutter); }
-  .cs-wrap--board, .cs-wrap--inset, .cs-act-copy { max-width: none; }
+  .cs-wrap--board, .cs-wrap--inset { max-width: none; }
   .cs-act-copy { padding: 0 var(--gutter); }
   .cs-hero { padding-left: var(--gutter); padding-right: var(--gutter); }
   nav { padding-left: max(var(--gutter), env(safe-area-inset-left)); padding-right: max(var(--gutter), env(safe-area-inset-right)); }
@@ -1944,11 +1945,15 @@ var CS_REDUCE = window.matchMedia && window.matchMedia('(prefers-reduced-motion:
   SECTIONS.forEach(function(s) { var el = document.getElementById(s.id); if (el) io.observe(el); });
 
   /* Mute the rail while an act opener crosses the middle of the screen */
-  var overActs = {};
+  var actRects = {};
+  var steps = []; for (var t = 0; t <= 50; t++) steps.push(t / 50);
   var ioActs = new IntersectionObserver(function(entries) {
-    entries.forEach(function(e) { overActs[e.target.id] = e.isIntersecting; });
-    rail.classList.toggle('is-muted', Object.keys(overActs).some(function(k) { return overActs[k]; }));
-  }, { rootMargin: '-30% 0px -30% 0px', threshold: 0 });
+    entries.forEach(function(e) { actRects[e.target.id] = e.isIntersecting ? e.boundingClientRect : null; });
+    var r = rail.getBoundingClientRect();
+    rail.classList.toggle('is-muted', Object.keys(actRects).some(function(k) {
+      var a = actRects[k]; return !!a && a.bottom > r.top + 12 && a.top < r.bottom - 12;
+    }));
+  }, { threshold: steps });
   document.querySelectorAll('.cs-act').forEach(function(el) { ioActs.observe(el); });
 })();
 
