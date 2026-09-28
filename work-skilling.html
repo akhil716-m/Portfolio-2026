@@ -438,8 +438,6 @@ body.cs-lb-lock { overflow: hidden; }
 }
 @keyframes csActBg { from { transform: translateY(-6%) scale(1.14); } to { transform: translateY(6%) scale(1.14); } }
 
-/* ---------- RAIL: a little extra space between one act's sections and the next ---------- */
-.cs-rail-list li.cs-rail-lead { margin-top: 14px; }
 
 /* ---------- COMPARE: Oust vs Up-skill, side by side ---------- */
 .cs-split--ba { grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); }
@@ -779,7 +777,6 @@ body.cs-lb-lock { overflow: hidden; }
   border: 0; border-radius: var(--r-inner); background: none; transition: background 0.15s ease, color 0.15s ease;
   font-family: 'Geist', sans-serif; font-size: 15px; color: var(--text-soft);
 }
-.cs-chapter-list li.cs-rail-lead .cs-chapter-item { margin-top: 6px; }
 .cs-chapter-item .n { flex: none; width: 22px; font-family: 'Geist Mono', monospace; font-size: var(--fs-micro); color: var(--text-muted); }
 .cs-chapter-item:hover { background: rgba(255,255,255,0.05); color: var(--text); }
 .cs-chapter-item.is-active { color: var(--text); background: rgba(255,255,255,0.07); }
@@ -1787,19 +1784,16 @@ var CS_REDUCE = window.matchMedia && window.matchMedia('(prefers-reduced-motion:
     { id: 'cs-playlists',  num: '10', name: 'Playlists and Progress' },
     { id: 'cs-events',     num: '11', name: 'Events and Micro-learning' }
   ];
-  var grp = null, byId = {};
-  SECTIONS.forEach(function(s) { if (s.group) grp = s.id; s.groupId = grp; byId[s.id] = s; });
+  var byId = {};
+  SECTIONS.forEach(function(s) { byId[s.id] = s; });
 
   var activeId = null;
   var heroGone = false;
 
   /* Act openers (full-bleed chapter covers, with their own title on screen) get no row here — the numbered
-     sections either side are enough to navigate by, and the current one stays highlighted through the cover.
-     A little extra space still marks where one act's sections end and the next begin. */
-  var prevGroupId = null;
+     sections either side are enough to navigate by, and the current one stays highlighted through the cover. */
   list.innerHTML = SECTIONS.filter(function(s) { return !s.group; }).map(function(s) {
-    var lead = s.groupId !== prevGroupId; prevGroupId = s.groupId;
-    return '<li data-id="' + s.id + '"' + (lead ? ' class="cs-rail-lead"' : '') + '><button type="button" data-target="' + s.id + '">' +
+    return '<li data-id="' + s.id + '"><button type="button" data-target="' + s.id + '">' +
            '<span class="cs-rail-num">' + s.num + '</span>' +
            '<span class="cs-rail-name">' + s.name + '</span>' +
            '</button></li>';
@@ -1824,10 +1818,8 @@ var CS_REDUCE = window.matchMedia && window.matchMedia('(prefers-reduced-motion:
     if (open) { var a = clist.querySelector('.is-active'); if (a) a.scrollIntoView({ block: 'nearest' }); }
   }
   if (chapter && cbtn && cmenu && clist) {
-    var prevChapterGroup = null;
     clist.innerHTML = SECTIONS.filter(function(s) { return !s.group; }).map(function(s) {
-      var lead = s.groupId !== prevChapterGroup; prevChapterGroup = s.groupId;
-      return '<li' + (lead ? ' class="cs-rail-lead"' : '') + '><button type="button" class="cs-chapter-item" data-target="' + s.id + '"><span class="n">' + s.num + '</span><span>' + s.name + '</span></button></li>';
+      return '<li><button type="button" class="cs-chapter-item" data-target="' + s.id + '"><span class="n">' + s.num + '</span><span>' + s.name + '</span></button></li>';
     }).join('');
     cbtn.addEventListener('click', function() { setMenu(cmenu.hidden); });
     clist.addEventListener('click', function(e) {
