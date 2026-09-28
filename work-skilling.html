@@ -601,9 +601,7 @@ body.cs-lb-lock { overflow: hidden; }
   --fs-statement: clamp(22px, 2.6vw, 28px);   /* one-line statements: reason lead, pain-point group lines */
   --fs-stat: clamp(44px, 6vw, 72px);           /* big numbers */
   --fs-h4: 17px;
-  --glow-at: 100% 100%;             /* where the pain-point glow sits: 0% 0% top-left, 100% 0% top-right, 100% 100% bottom-right */
-  --pain-red: 200, 84, 64;      /* muted brick */
-  --pain-gold: 222, 170, 66;    /* muted gold */
+  --pain: 232, 116, 92;        /* problems: a muted brick, the counterpart to lime for solutions */
   --fs-lead: clamp(18px, 1.5vw, 20px);
   --fs-body: 17px;
   --fs-small: 14.5px;
@@ -839,42 +837,20 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
    13-15% stat and the old app screens. Scope: the eight changes placed on one lime line.
    Static on purpose: no pinning, no scroll mechanics, nothing to open.
    ===================================================================== */
-.cs-pgroup + .cs-pgroup { margin-top: 64px; }
+.cs-pgroup { margin-top: 64px; }
 .cs-pgroup-who { margin: 0; font-family: 'Geist', sans-serif; font-size: var(--fs-h4); font-weight: 500; color: var(--text); }
 .cs-pgroup-tag { margin: 4px 0 0; font-size: var(--fs-small); color: var(--text-soft); }
-.cs-pgrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 16px; }
-/* pain points: a faint brick glow in the top-left corner */
-.cs-ptile {
-  position: relative; padding: 20px 22px 22px; border: 1px solid rgba(255, 255, 255, 0.06); border-radius: var(--r-surface);
-  background: radial-gradient(75% 85% at var(--glow-at), rgba(var(--pain-red), 0.10), transparent 70%), var(--bg-soft);
-}
-.cs-ptile--feat, .cs-ptile--wide { grid-column: 1 / -1; }
-.cs-ptile-idx { margin: 0 0 12px; font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.08em; color: var(--text-muted); }
-.cs-ptile-title { margin: 0 0 6px; font-family: 'Geist', sans-serif; font-size: 16px; font-weight: 500; line-height: 1.3; letter-spacing: -0.005em; color: var(--text); }
-.cs-ptile-why { margin: 0; font-size: 14px; line-height: 1.55; color: var(--text-soft); }
-/* the two lead pain points carry the visual: the number for admins, the old app for workers */
-.cs-ptile--feat { background: radial-gradient(80% 90% at var(--glow-at), rgba(var(--pain-red), 0.13), transparent 70%), var(--bg-soft); }
-.cs-ptile--stat { background: radial-gradient(40% 70% at 84% 64%, rgba(var(--pain-gold), 0.06), transparent 72%), radial-gradient(80% 90% at var(--glow-at), rgba(var(--pain-red), 0.13), transparent 70%), var(--bg-soft); }
-.cs-ptile--shot { background: radial-gradient(34% 80% at 84% 40%, rgba(var(--pain-red), 0.08), transparent 72%), radial-gradient(80% 90% at var(--glow-at), rgba(var(--pain-red), 0.13), transparent 70%), var(--bg-soft); }
-.cs-ptile--feat .cs-ptile-title { font-size: 18px; }
-/* the number leads, the title and description explain it under a hairline */
-.cs-ptile-stat { display: flex; align-items: baseline; flex-wrap: wrap; gap: 6px 16px; margin: 0 0 20px; padding-bottom: 22px; border-bottom: 1px solid rgba(255, 255, 255, 0.06); }
-.cs-ptile--stat .cs-ptile-text { max-width: 34em; }
-.cs-ptile-num { font-family: 'Geist', sans-serif; font-size: var(--fs-stat); font-weight: 500; line-height: 1; letter-spacing: -0.04em; color: var(--text); }
-.cs-ptile-num .sym { background: linear-gradient(135deg, rgb(var(--pain-gold)), rgb(var(--pain-red))); -webkit-background-clip: text; background-clip: text; color: transparent; }
-.cs-ptile-cap { font-size: var(--fs-small); color: var(--text-soft); }
-.cs-ptile--shot { display: flex; flex-direction: column; justify-content: center; overflow: hidden; min-height: 260px; padding-right: 250px; }
-.cs-ptile-shots { position: absolute; top: 24px; right: 32px; }
-.cs-ptile-shots img { display: block; width: 170px; height: auto; border-radius: 16px 16px 0 0; border: 1px solid var(--line); }
-/* half-width tiles: the top of an old screen peeks up from the bottom edge */
-.cs-ptile--peek { overflow: hidden; padding-bottom: 168px; }
-.cs-ptile-peek { position: absolute; left: 22px; right: 22px; bottom: 0; height: 130px; overflow: hidden; }
-.cs-ptile-peek img { display: block; width: 150px; height: auto; margin-left: auto; border-radius: 14px 14px 0 0; border: 1px solid var(--line); }
+/* Pain points use the page's ruled-list pattern (like the three forces); a short brick rule and number mark each one as a problem */
+.cs-pains { list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 32px; row-gap: 36px; margin: 28px 0 0; padding: 0; }
+.cs-pain { position: relative; border-top: 1px solid var(--line); padding-top: 20px; }
+.cs-pain::before { content: ''; position: absolute; left: 0; top: -1px; width: 28px; height: 2px; background: rgb(var(--pain)); }
+.cs-pain-n { margin: 0 0 16px; font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.08em; color: rgb(var(--pain)); }
+.cs-pain-title { margin: 0 0 10px; font-family: 'Geist', sans-serif; font-size: var(--fs-h4); font-weight: 500; line-height: 1.35; color: var(--text); text-wrap: balance; }
+.cs-pain-desc { margin: 0; font-size: var(--fs-small); line-height: 1.65; color: var(--text-soft); }
+.cs-stats--one { grid-template-columns: 1fr; margin-top: 48px; }
+.cs-stat--pain .sym { color: rgb(var(--pain)); }
 @media (max-width: 720px) {
-  .cs-pgrid { grid-template-columns: 1fr; }
-  .cs-ptile--shot { min-height: 0; padding-right: 22px; }
-  .cs-ptile-shots { position: static; margin: 24px 0 -22px; max-height: 190px; overflow: hidden; }
-  .cs-ptile-shots img { width: 150px; margin: 0 auto; }
+  .cs-pains { grid-template-columns: 1fr; row-gap: 28px; }
 }
 
 .cs-mend-track { position: relative; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); }
@@ -1091,122 +1067,93 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
 
 </div>
 
-<div class="cs-wrap" style="margin-top: 48px;">
+<div class="cs-wrap">
+  <div class="cs-stats cs-stats--one settle">
+    <div class="cs-stat cs-stat--pain"><div class="cs-stat-num">13-15<span class="sym">%</span></div><div class="cs-stat-label">Average course completion</div></div>
+  </div>
+
   <div class="cs-pgroup settle">
     <p class="cs-pgroup-who">Admins</p>
     <p class="cs-pgroup-tag">Driving learning was difficult.</p>
-    <div class="cs-pgrid">
-      <article class="cs-ptile cs-ptile--feat cs-ptile--stat">
-        <p class="cs-ptile-idx">01</p>
-        <p class="cs-ptile-stat" aria-label="13 to 15 percent average completion"><span class="cs-ptile-num">13-15<span class="sym">%</span></span><span class="cs-ptile-cap">average course completion</span></p>
-        <div class="cs-ptile-text">
-          <h3 class="cs-ptile-title">Low course completion rates</h3>
-          <p class="cs-ptile-why">Average completion was only 13-15%, making it difficult for organisations to ensure learning was completed.</p>
-        </div>
-      </article>
-      <article class="cs-ptile">
-        <div class="cs-ptile-text">
-          <p class="cs-ptile-idx">02</p>
-          <h3 class="cs-ptile-title">Unable to prioritise content by importance</h3>
-          <p class="cs-ptile-why">Admins couldn't effectively surface critical modules, making it harder to drive timely completion.</p>
-        </div>
-      </article>
-      <article class="cs-ptile">
-        <div class="cs-ptile-text">
-          <p class="cs-ptile-idx">03</p>
-          <h3 class="cs-ptile-title">Challenges with content creation</h3>
-          <p class="cs-ptile-why">Limited structure and guided navigation made content creation difficult, especially for first-time and recurring users.</p>
-        </div>
-      </article>
-      <article class="cs-ptile">
-        <div class="cs-ptile-text">
-          <p class="cs-ptile-idx">04</p>
-          <h3 class="cs-ptile-title">Low employee engagement</h3>
-          <p class="cs-ptile-why">An outdated experience and unclear guidance made it difficult for employees to understand what to do and why.</p>
-        </div>
-      </article>
-      <article class="cs-ptile">
-        <div class="cs-ptile-text">
-          <p class="cs-ptile-idx">05</p>
-          <h3 class="cs-ptile-title">Customisation without enough structure</h3>
-          <p class="cs-ptile-why">Flexible colour and CTA customisation could lead to inconsistent experiences and weakened brand identity.</p>
-        </div>
-      </article>
-      <article class="cs-ptile cs-ptile--wide">
-        <div class="cs-ptile-text">
-          <p class="cs-ptile-idx">06</p>
-          <h3 class="cs-ptile-title">No web version</h3>
-          <p class="cs-ptile-why">For infrequent learning, asking workers to download an app created unnecessary friction.</p>
-        </div>
-      </article>
-    </div>
+    <ol class="cs-pains">
+      <li class="cs-pain">
+        <p class="cs-pain-n">01</p>
+        <h3 class="cs-pain-title">Low course completion rates</h3>
+        <p class="cs-pain-desc">Average completion was only 13-15%, making it difficult for organisations to ensure learning was completed.</p>
+      </li>
+      <li class="cs-pain">
+        <p class="cs-pain-n">02</p>
+        <h3 class="cs-pain-title">Unable to prioritise content by importance</h3>
+        <p class="cs-pain-desc">Admins couldn't effectively surface critical modules, making it harder to drive timely completion.</p>
+      </li>
+      <li class="cs-pain">
+        <p class="cs-pain-n">03</p>
+        <h3 class="cs-pain-title">Challenges with content creation</h3>
+        <p class="cs-pain-desc">Limited structure and guided navigation made content creation difficult, especially for first-time and recurring users.</p>
+      </li>
+      <li class="cs-pain">
+        <p class="cs-pain-n">04</p>
+        <h3 class="cs-pain-title">Low employee engagement</h3>
+        <p class="cs-pain-desc">An outdated experience and unclear guidance made it difficult for employees to understand what to do and why.</p>
+      </li>
+      <li class="cs-pain">
+        <p class="cs-pain-n">05</p>
+        <h3 class="cs-pain-title">Customisation without enough structure</h3>
+        <p class="cs-pain-desc">Flexible colour and CTA customisation could lead to inconsistent experiences and weakened brand identity.</p>
+      </li>
+      <li class="cs-pain">
+        <p class="cs-pain-n">06</p>
+        <h3 class="cs-pain-title">No web version</h3>
+        <p class="cs-pain-desc">For infrequent learning, asking workers to download an app created unnecessary friction.</p>
+      </li>
+    </ol>
   </div>
+
   <div class="cs-pgroup settle">
     <p class="cs-pgroup-who">Frontline workers</p>
     <p class="cs-pgroup-tag">Finding and completing learning was difficult.</p>
-    <div class="cs-pgrid">
-      <article class="cs-ptile cs-ptile--feat cs-ptile--shot">
-        <div class="cs-ptile-text">
-          <p class="cs-ptile-idx">01</p>
-          <h3 class="cs-ptile-title">Critical modules were hard to discover</h3>
-          <p class="cs-ptile-why">Important assigned modules weren't surfaced on the landing page, while learning content was primarily sorted by assigned date.</p>
-        </div>
-        <div class="cs-ptile-shots" aria-hidden="true">
-          <img src="assets/skilling/ui/old-home.webp" alt="" width="317" height="515" loading="lazy" decoding="async">
-        </div>
-      </article>
-      <article class="cs-ptile">
-        <div class="cs-ptile-text">
-          <p class="cs-ptile-idx">02</p>
-          <h3 class="cs-ptile-title">Low motivation to complete assigned modules</h3>
-          <p class="cs-ptile-why">A cluttered, outdated interface and limited guidance made learning less engaging.</p>
-        </div>
-      </article>
-      <article class="cs-ptile">
-        <div class="cs-ptile-text">
-          <p class="cs-ptile-idx">03</p>
-          <h3 class="cs-ptile-title">Limited visibility into ongoing learning</h3>
-          <p class="cs-ptile-why">Resuming a module required users to navigate through the learning listing and filters.</p>
-        </div>
-      </article>
-      <article class="cs-ptile">
-        <div class="cs-ptile-text">
-          <p class="cs-ptile-idx">04</p>
-          <h3 class="cs-ptile-title">Confusing navigation</h3>
-          <p class="cs-ptile-why">Events and mandatory learning were difficult to discover, creating friction in finding what needed attention.</p>
-        </div>
-      </article>
-      <article class="cs-ptile">
-        <div class="cs-ptile-text">
-          <p class="cs-ptile-idx">05</p>
-          <h3 class="cs-ptile-title">Module types were difficult to distinguish</h3>
-          <p class="cs-ptile-why">Courses, assessments and playlists lacked enough visual distinction, making it harder to understand what to start.</p>
-        </div>
-      </article>
-      <article class="cs-ptile cs-ptile--peek">
-        <div class="cs-ptile-text">
-          <p class="cs-ptile-idx">06</p>
-          <h3 class="cs-ptile-title">Limited guidance while completing tasks</h3>
-          <p class="cs-ptile-why">Assessments lacked clear instructions, hints and guidance for different question types.</p>
-        </div>
-        <div class="cs-ptile-peek" aria-hidden="true"><img src="assets/skilling/ui/old-assess.webp" alt="" width="317" height="680" loading="lazy" decoding="async"></div>
-      </article>
-      <article class="cs-ptile cs-ptile--peek">
-        <div class="cs-ptile-text">
-          <p class="cs-ptile-idx">07</p>
-          <h3 class="cs-ptile-title">Inconsistent and unexpected UI</h3>
-          <p class="cs-ptile-why">Excessive customisation changed CTAs and colours, making interactions less predictable.</p>
-        </div>
-        <div class="cs-ptile-peek" aria-hidden="true"><img src="assets/skilling/ui/old-video.webp" alt="" width="317" height="680" loading="lazy" decoding="async"></div>
-      </article>
-      <article class="cs-ptile cs-ptile--wide">
-        <div class="cs-ptile-text">
-          <p class="cs-ptile-idx">08</p>
-          <h3 class="cs-ptile-title">Lengthy, low-engagement content</h3>
-          <p class="cs-ptile-why">Long playlists and limited time made it difficult for users to complete learning.</p>
-        </div>
-      </article>
-    </div>
+    <ol class="cs-pains">
+      <li class="cs-pain">
+        <p class="cs-pain-n">01</p>
+        <h3 class="cs-pain-title">Critical modules were hard to discover</h3>
+        <p class="cs-pain-desc">Important assigned modules weren't surfaced on the landing page, while learning content was primarily sorted by assigned date.</p>
+      </li>
+      <li class="cs-pain">
+        <p class="cs-pain-n">02</p>
+        <h3 class="cs-pain-title">Low motivation to complete assigned modules</h3>
+        <p class="cs-pain-desc">A cluttered, outdated interface and limited guidance made learning less engaging.</p>
+      </li>
+      <li class="cs-pain">
+        <p class="cs-pain-n">03</p>
+        <h3 class="cs-pain-title">Limited visibility into ongoing learning</h3>
+        <p class="cs-pain-desc">Resuming a module required users to navigate through the learning listing and filters.</p>
+      </li>
+      <li class="cs-pain">
+        <p class="cs-pain-n">04</p>
+        <h3 class="cs-pain-title">Confusing navigation</h3>
+        <p class="cs-pain-desc">Events and mandatory learning were difficult to discover, creating friction in finding what needed attention.</p>
+      </li>
+      <li class="cs-pain">
+        <p class="cs-pain-n">05</p>
+        <h3 class="cs-pain-title">Module types were difficult to distinguish</h3>
+        <p class="cs-pain-desc">Courses, assessments and playlists lacked enough visual distinction, making it harder to understand what to start.</p>
+      </li>
+      <li class="cs-pain">
+        <p class="cs-pain-n">06</p>
+        <h3 class="cs-pain-title">Limited guidance while completing tasks</h3>
+        <p class="cs-pain-desc">Assessments lacked clear instructions, hints and guidance for different question types.</p>
+      </li>
+      <li class="cs-pain">
+        <p class="cs-pain-n">07</p>
+        <h3 class="cs-pain-title">Inconsistent and unexpected UI</h3>
+        <p class="cs-pain-desc">Excessive customisation changed CTAs and colours, making interactions less predictable.</p>
+      </li>
+      <li class="cs-pain">
+        <p class="cs-pain-n">08</p>
+        <h3 class="cs-pain-title">Lengthy, low-engagement content</h3>
+        <p class="cs-pain-desc">Long playlists and limited time made it difficult for users to complete learning.</p>
+      </li>
+    </ol>
   </div>
 </div>
 
