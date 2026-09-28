@@ -633,7 +633,7 @@ body.cs-lb-lock { overflow: hidden; }
 .cs-strip-title, .cs-facts dt { font-size: var(--fs-h4); font-weight: 600; line-height: 1.35; }
 .cs-lead { font-size: var(--fs-lead); font-weight: 400; line-height: 1.6; color: var(--text-soft); max-width: 52ch; margin: 0 0 22px; }
 /* body copy stays grey; only the one thing that needs attention is lifted, in the accent, never bold white */
-.cs-lead strong, .cs-p strong { color: var(--accent); font-weight: 500; }
+.cs-lead strong, .cs-p strong, .cs-ptile-why strong { color: var(--accent); font-weight: 500; }
 .cs-p { font-size: var(--fs-body); font-weight: 400; line-height: 1.75; color: var(--text-soft); max-width: 60ch; }
 .cs-list li { font-size: var(--fs-body); font-weight: 400; }
 .cs-step-desc, .cs-theme-desc { font-size: var(--fs-body); font-weight: 400; }
@@ -1117,7 +1117,7 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
         <div class="cs-ptile-text">
           <p class="cs-ptile-idx">01</p>
           <h3 class="cs-ptile-title">Low course completion rates</h3>
-          <p class="cs-ptile-why">Average completion sits at 13-15%, well short of what organisations need.</p>
+          <p class="cs-ptile-why">Average completion was only <strong>13-15%</strong>, making it difficult for organisations to ensure learning was completed.</p>
         </div>
         <p class="cs-ptile-stat" aria-label="13 to 15 percent average completion"><span class="cs-ptile-num">13-15<span class="sym">%</span></span><span class="cs-ptile-cap">average completion</span></p>
       </article>
@@ -1125,35 +1125,35 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
         <div class="cs-ptile-text">
           <p class="cs-ptile-idx">02</p>
           <h3 class="cs-ptile-title">Unable to prioritise content by importance</h3>
-          <p class="cs-ptile-why">Important modules couldn't be pushed, so admins chased completion by hand.</p>
+          <p class="cs-ptile-why">Admins couldn't effectively surface critical modules, making it harder to drive timely completion.</p>
         </div>
       </article>
       <article class="cs-ptile">
         <div class="cs-ptile-text">
           <p class="cs-ptile-idx">03</p>
           <h3 class="cs-ptile-title">Challenges with content creation</h3>
-          <p class="cs-ptile-why">No structure or guided navigation made features hard to use, especially the first time.</p>
+          <p class="cs-ptile-why">Limited structure and guided navigation made content creation difficult, especially for first-time and recurring users.</p>
         </div>
       </article>
       <article class="cs-ptile">
         <div class="cs-ptile-text">
           <p class="cs-ptile-idx">04</p>
-          <h3 class="cs-ptile-title">Low employee engagement in the app</h3>
-          <p class="cs-ptile-why">An outdated look and unclear state left users unsure what to do, and why.</p>
+          <h3 class="cs-ptile-title">Low employee engagement</h3>
+          <p class="cs-ptile-why">An outdated experience and unclear guidance made it difficult for employees to understand what to do and why.</p>
         </div>
       </article>
       <article class="cs-ptile">
         <div class="cs-ptile-text">
           <p class="cs-ptile-idx">05</p>
-          <h3 class="cs-ptile-title">Customisation concerns</h3>
-          <p class="cs-ptile-why">Free colour and CTA changes didn't protect brand identity, and felt inconsistent to employees.</p>
+          <h3 class="cs-ptile-title">Customisation without enough structure</h3>
+          <p class="cs-ptile-why">Flexible colour and CTA customisation could lead to inconsistent experiences and weakened brand identity.</p>
         </div>
       </article>
       <article class="cs-ptile cs-ptile--wide">
         <div class="cs-ptile-text">
           <p class="cs-ptile-idx">06</p>
-          <h3 class="cs-ptile-title">No web version of the app</h3>
-          <p class="cs-ptile-why">With modules assigned every few months, users hesitate to download an app.</p>
+          <h3 class="cs-ptile-title">No web version</h3>
+          <p class="cs-ptile-why">For infrequent learning, asking workers to download an app created unnecessary friction.</p>
         </div>
       </article>
     </div>
@@ -1164,8 +1164,8 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
       <article class="cs-ptile cs-ptile--feat cs-ptile--shot">
         <div class="cs-ptile-text">
           <p class="cs-ptile-idx">01</p>
-          <h3 class="cs-ptile-title">Critical modules stay out of sight</h3>
-          <p class="cs-ptile-why">Nothing surfaced on the landing page; My Learning sorted by date, not urgency.</p>
+          <h3 class="cs-ptile-title">Critical modules were hard to discover</h3>
+          <p class="cs-ptile-why">Important assigned modules weren't surfaced on the landing page, while learning content was primarily sorted by assigned date.</p>
         </div>
         <div class="cs-ptile-shots" aria-hidden="true">
           <img src="assets/skilling/ui/old-home.webp" alt="" width="317" height="515" loading="lazy" decoding="async">
@@ -1174,44 +1174,44 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
       <article class="cs-ptile">
         <div class="cs-ptile-text">
           <p class="cs-ptile-idx">02</p>
-          <h3 class="cs-ptile-title">Little motivation to complete assigned modules</h3>
-          <p class="cs-ptile-why">A cluttered, outdated UI and no guidance on what to pick drained motivation.</p>
+          <h3 class="cs-ptile-title">Low motivation to complete assigned modules</h3>
+          <p class="cs-ptile-why">A cluttered, outdated interface and limited guidance made learning less engaging.</p>
         </div>
       </article>
       <article class="cs-ptile">
         <div class="cs-ptile-text">
           <p class="cs-ptile-idx">03</p>
-          <h3 class="cs-ptile-title">No visibility into ongoing learning</h3>
-          <p class="cs-ptile-why">Resuming a module meant hunting through the Learn listing and filters.</p>
+          <h3 class="cs-ptile-title">Limited visibility into ongoing learning</h3>
+          <p class="cs-ptile-why">Resuming a module required users to navigate through the learning listing and filters.</p>
         </div>
       </article>
       <article class="cs-ptile">
         <div class="cs-ptile-text">
           <p class="cs-ptile-idx">04</p>
           <h3 class="cs-ptile-title">Confusing navigation</h3>
-          <p class="cs-ptile-why">Events and mandatory items were hard to find, even in the calendar.</p>
+          <p class="cs-ptile-why">Events and mandatory learning were difficult to discover, creating friction in finding what needed attention.</p>
         </div>
       </article>
       <article class="cs-ptile">
         <div class="cs-ptile-text">
           <p class="cs-ptile-idx">05</p>
-          <h3 class="cs-ptile-title">Module types are hard to tell apart</h3>
-          <p class="cs-ptile-why">A course, an assessment and a playlist looked alike, so nobody knew what to start first.</p>
+          <h3 class="cs-ptile-title">Module types were difficult to distinguish</h3>
+          <p class="cs-ptile-why">Courses, assessments and playlists lacked enough visual distinction, making it harder to understand what to start.</p>
         </div>
       </article>
       <article class="cs-ptile cs-ptile--peek">
         <div class="cs-ptile-text">
           <p class="cs-ptile-idx">06</p>
-          <h3 class="cs-ptile-title">No guidance while performing tasks</h3>
-          <p class="cs-ptile-why">Assessments felt like forms, with no hints along the way.</p>
+          <h3 class="cs-ptile-title">Limited guidance while completing tasks</h3>
+          <p class="cs-ptile-why">Assessments lacked clear instructions, hints and guidance for different question types.</p>
         </div>
         <div class="cs-ptile-peek" aria-hidden="true"><img src="assets/skilling/ui/old-assess.webp" alt="" width="317" height="680" loading="lazy" decoding="async"></div>
       </article>
       <article class="cs-ptile cs-ptile--peek">
         <div class="cs-ptile-text">
           <p class="cs-ptile-idx">07</p>
-          <h3 class="cs-ptile-title">Inconsistent, unexpected UI</h3>
-          <p class="cs-ptile-why">Heavy customisation kept changing CTAs and colours, so it was never clear how to interact.</p>
+          <h3 class="cs-ptile-title">Inconsistent and unexpected UI</h3>
+          <p class="cs-ptile-why">Excessive customisation changed CTAs and colours, making interactions less predictable.</p>
         </div>
         <div class="cs-ptile-peek" aria-hidden="true"><img src="assets/skilling/ui/old-video.webp" alt="" width="317" height="680" loading="lazy" decoding="async"></div>
       </article>
@@ -1219,7 +1219,7 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
         <div class="cs-ptile-text">
           <p class="cs-ptile-idx">08</p>
           <h3 class="cs-ptile-title">Lengthy, low-engagement content</h3>
-          <p class="cs-ptile-why">Users had little time, and never-ending playlists made finishing hard.</p>
+          <p class="cs-ptile-why">Long playlists and limited time made it difficult for users to complete learning.</p>
         </div>
       </article>
     </div>
