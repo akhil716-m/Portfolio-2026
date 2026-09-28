@@ -90,9 +90,7 @@
 }
 .cs-hero::before {
   content: ''; position: absolute; inset: 0; pointer-events: none; z-index: -1;
-  background:
-    radial-gradient(ellipse 60% 50% at 80% 10%, rgba(212,255,94,0.07), transparent 70%),
-    radial-gradient(ellipse 50% 40% at 10% 90%, rgba(255,255,255,0.03), transparent 70%);
+  background: none;
 }
 .cs-back {
   display: inline-flex; align-items: center; gap: 8px; margin-bottom: 32px; width: fit-content;
@@ -373,31 +371,12 @@ body.cs-lb-lock { overflow: hidden; }
 [data-wash="green"]  { --wash: 62,160,122; }
 .cs-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
-/* Each chapter gets a very low-alpha ambient tint from the product's own palette. Lime stays the only UI accent. */
-.cs-section[data-wash] { position: relative; }
-.cs-section[data-wash]::before {
-  content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 0;
-  background:
-    radial-gradient(48% 820px at 100% 0, rgba(var(--wash), 0.10), transparent 72%) 0 0 / 100% 2600px repeat-y,
-    radial-gradient(48% 820px at 0 0, rgba(var(--wash), 0.07), transparent 72%) 0 1300px / 100% 2600px repeat-y;
-}
-.cs-section[data-wash] > * { position: relative; z-index: 1; }
-/* Straight after an act opener the chapter tint fades in, so the photo hands over to plain page colour */
-.cs-act + .cs-section[data-wash]::before { -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 900px); mask-image: linear-gradient(to bottom, transparent 0, #000 900px); }
-/* ...and just before one it fades out, so no tint edge meets the photo's top */
-.cs-section[data-wash]:has(+ .cs-act)::before { -webkit-mask-image: linear-gradient(to top, transparent 0, #000 700px); mask-image: linear-gradient(to top, transparent 0, #000 700px); }
-
 /* ---------- HERO: product on the right, question on the left ---------- */
 .cs-hero {
   display: grid; grid-template-columns: minmax(0, 1.02fr) minmax(0, 1fr); grid-template-rows: 1fr auto;
   align-items: center; justify-content: normal; column-gap: clamp(32px, 5vw, 96px);
   min-height: 100vh; min-height: 100dvh;
   padding: clamp(88px, 12vh, 104px) clamp(24px, 6vw, 80px) 40px;
-}
-.cs-hero::before {
-  background:
-    radial-gradient(ellipse 46% 60% at 76% 55%, rgba(54,150,160,0.16), transparent 70%),
-    radial-gradient(ellipse 40% 40% at 8% 92%, rgba(255,255,255,0.03), transparent 70%);
 }
 .cs-hero-copy { grid-column: 1; grid-row: 1; }
 .cs-hero-title { max-width: none; }
@@ -430,8 +409,8 @@ body.cs-lb-lock { overflow: hidden; }
   position: absolute; inset: 0; z-index: -1;
   /* Neutral only, and eased: the photo melts into the page colour at the top and bottom edges, so there is no seam and no tint band */
   background:
-    linear-gradient(to top, var(--bg) 0%, rgba(10,10,10,0.97) 7%, rgba(10,10,10,0.86) 18%, rgba(10,10,10,0.64) 34%, rgba(10,10,10,0.38) 54%, rgba(10,10,10,0.18) 74%, rgba(10,10,10,0.08) 100%),
-    linear-gradient(to bottom, var(--bg) 0%, rgba(10,10,10,0.94) 8%, rgba(10,10,10,0.76) 18%, rgba(10,10,10,0.48) 30%, rgba(10,10,10,0.2) 44%, rgba(10,10,10,0) 58%),
+    linear-gradient(to top, var(--bg) 0%, rgba(10,10,10,0.86) 6%, rgba(10,10,10,0.62) 16%, rgba(10,10,10,0.38) 30%, rgba(10,10,10,0.16) 48%, rgba(10,10,10,0.04) 70%, rgba(10,10,10,0) 100%),
+    linear-gradient(to bottom, var(--bg) 0%, rgba(10,10,10,0.6) 6%, rgba(10,10,10,0.24) 14%, rgba(10,10,10,0) 24%),
     linear-gradient(to right, rgba(10,10,10,0.5) 0%, rgba(10,10,10,0.2) 35%, rgba(10,10,10,0) 60%);
 }
 /* Act openers are full-bleed chapter covers: their copy sits on the same left edge as the hero */
@@ -547,7 +526,7 @@ body.cs-lb-lock { overflow: hidden; }
 .cs-theme[data-active="ocean"]  { --glow: rgba(27,99,127,0.62); }
 .cs-theme[data-active="violet"] { --glow: rgba(68,65,111,0.68); }
 .cs-theme-stage { position: relative; height: min(64dvh, 540px); aspect-ratio: 520 / 1072; margin: 0 auto; }
-.cs-theme-glow { position: absolute; inset: -14% -60% -8%; background: radial-gradient(50% 50% at 50% 55%, var(--glow), transparent 70%); pointer-events: none; }
+.cs-theme-glow { display: none; }
 .cs-theme-stage img {
   position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; transform: translateY(10px) scale(0.985);
   transition: opacity 0.45s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); filter: drop-shadow(0 24px 40px rgba(0,0,0,0.5));
