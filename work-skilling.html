@@ -382,6 +382,10 @@ body.cs-lb-lock { overflow: hidden; }
     radial-gradient(48% 820px at 0 0, rgba(var(--wash), 0.07), transparent 72%) 0 1300px / 100% 2600px repeat-y;
 }
 .cs-section[data-wash] > * { position: relative; z-index: 1; }
+/* Straight after an act opener the chapter tint fades in, so the photo hands over to plain page colour */
+.cs-act + .cs-section[data-wash]::before { -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 900px); mask-image: linear-gradient(to bottom, transparent 0, #000 900px); }
+/* ...and just before one it fades out, so no tint edge meets the photo's top */
+.cs-section[data-wash]:has(+ .cs-act)::before { -webkit-mask-image: linear-gradient(to top, transparent 0, #000 700px); mask-image: linear-gradient(to top, transparent 0, #000 700px); }
 
 /* ---------- HERO: product on the right, question on the left ---------- */
 .cs-hero {
@@ -417,17 +421,18 @@ body.cs-lb-lock { overflow: hidden; }
 /* ---------- ACT OPENERS: photo, one title, one line ---------- */
 .cs-act {
   position: relative; isolation: isolate; overflow: hidden; display: flex; align-items: flex-end;
-  min-height: 88vh; min-height: 88dvh; border-top: 1px solid var(--line);
+  min-height: 88vh; min-height: 88dvh;
   padding: clamp(96px, 14vh, 160px) 0 clamp(48px, 9vh, 88px);
 }
 .cs-act + .cs-section { border-top: 0; }
 .cs-act-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; filter: saturate(0.92) brightness(0.8); }
 .cs-act-scrim {
   position: absolute; inset: 0; z-index: -1;
+  /* Neutral only, and eased: the photo melts into the page colour at the top and bottom edges, so there is no seam and no tint band */
   background:
-    radial-gradient(70% 60% at 0 100%, rgba(var(--wash), 0.24), transparent 70%),
-    linear-gradient(to top, rgba(10,10,10,0.96) 0%, rgba(10,10,10,0.62) 38%, rgba(10,10,10,0.14) 100%),
-    linear-gradient(to right, rgba(10,10,10,0.5), transparent 60%);
+    linear-gradient(to top, var(--bg) 0%, rgba(10,10,10,0.97) 7%, rgba(10,10,10,0.86) 18%, rgba(10,10,10,0.64) 34%, rgba(10,10,10,0.38) 54%, rgba(10,10,10,0.18) 74%, rgba(10,10,10,0.08) 100%),
+    linear-gradient(to bottom, var(--bg) 0%, rgba(10,10,10,0.94) 8%, rgba(10,10,10,0.76) 18%, rgba(10,10,10,0.48) 30%, rgba(10,10,10,0.2) 44%, rgba(10,10,10,0) 58%),
+    linear-gradient(to right, rgba(10,10,10,0.5) 0%, rgba(10,10,10,0.2) 35%, rgba(10,10,10,0) 60%);
 }
 /* Act openers are full-bleed chapter covers: their copy sits on the same left edge as the hero */
 .cs-act-copy { width: 100%; margin: 0; padding: 0 clamp(24px, 6vw, 80px); }
