@@ -567,11 +567,17 @@ body.cs-lb-lock { overflow: hidden; }
 /* Card builder: the home-page assessment card, rebuilt live so a pattern pick recolours it */
 @property --c1 { syntax: '<color>'; inherits: true; initial-value: #3c8a84; }
 .cs-theme--card { --c1: #3c8a84; transition: --c1 0.5s ease; }
+.cs-theme { margin-top: 40px; }
 .cs-acard { width: min(100%, 380px); margin: 0 auto; padding: 16px 16px 18px; border-radius: 22px; background: #fff; color: #0d1726; font-family: 'Geist', sans-serif; box-shadow: 0 24px 60px rgba(0,0,0,0.45); }
 .cs-acard-panel {
   display: grid; grid-template-columns: 42% 1fr; gap: 14px; align-items: center; padding: 12px; border-radius: 16px;
   background: linear-gradient(135deg, var(--c1), color-mix(in srgb, var(--c1) 55%, #000));
 }
+.cs-brand { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); }
+.cs-brand-stage { position: relative; width: min(100%, 540px); height: min(64dvh, 540px); margin: 0 auto; }
+.cs-brand-stage .cs-theme-stage { position: absolute; left: 0; top: 0; height: 100%; margin: 0; }
+.cs-brand-stage .cs-acard { position: absolute; right: 0; bottom: -2%; width: 300px; margin: 0; }
+.cs-brand-stage .cs-acard-meta { font-size: 12px; }
 .cs-acard-tile { position: relative; aspect-ratio: 1; border-radius: 12px; overflow: hidden; }
 .cs-acard-tile img { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; transform: scale(0.94) rotate(-4deg); transition: opacity 0.35s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
 .cs-acard-tile img.is-active { opacity: 1; transform: none; }
@@ -627,6 +633,9 @@ body.cs-lb-lock { overflow: hidden; }
   .cs-phone-status { display: none; }
   .cs-theme { grid-template-columns: 1fr; }
   .cs-theme-stage { height: min(52dvh, 460px); }
+  .cs-brand-stage { height: auto; width: 100%; }
+  .cs-brand-stage .cs-theme-stage { position: relative; height: min(52dvh, 460px); margin: 0 auto; }
+  .cs-brand-stage .cs-acard { position: relative; right: auto; bottom: auto; width: min(100%, 320px); margin: -72px auto 0; }
   .cs-pair { grid-template-columns: 1fr; }
   .cs-strip { --ph: 380px; }
 }
@@ -1042,7 +1051,7 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
 
 <!-- ═══════════════════════ ACT — THE PROBLEM ═══════════════════════ -->
 <section class="cs-act" id="act-problem" data-wash="amber" aria-labelledby="act-problem-t">
-  <img class="cs-act-bg" src="assets/skilling/act-problem.jpg" alt="" width="2200" height="1004" loading="lazy" decoding="async">
+  <img class="cs-act-bg" src="assets/skilling/act-problem.jpg" alt="" width="2800" height="1278" loading="lazy" decoding="async">
   <div class="cs-act-scrim" aria-hidden="true"></div>
   <div class="cs-act-copy">
     <h2 class="cs-act-title" id="act-problem-t"><span class="cs-act-mask"><span class="cs-act-line">The <em>problem</em></span></span></h2>
@@ -1078,7 +1087,7 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
 </div>
 
 <div class="cs-wrap cs-wrap--board cs-users-stage">
-<figure class="cs-board cs-board--photo settle"><div class="cs-fig-frame"><img src="assets/skilling/users-photo.jpg" alt="Workers from across industries in their work gear" width="1750" height="635" loading="lazy" decoding="async"></div></figure>
+<figure class="cs-board cs-board--photo settle"><div class="cs-fig-frame"><img src="assets/skilling/users-photo.jpg" alt="Workers from across industries in their work gear" width="2600" height="943" loading="lazy" decoding="async"></div></figure>
 </div>
 <div class="cs-wrap">
   <div class="cs-chips cs-chips--lg cs-chips--center" aria-label="Industries served">
@@ -1284,7 +1293,7 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
 
 <!-- ═══════════════════════ ACT — THE APPROACH ═══════════════════════ -->
 <section class="cs-act" id="act-approach" data-wash="steel" aria-labelledby="act-approach-t">
-  <img class="cs-act-bg" src="assets/skilling/act-approach.jpg" alt="" width="2200" height="1004" loading="lazy" decoding="async">
+  <img class="cs-act-bg" src="assets/skilling/act-approach.jpg" alt="" width="2800" height="1280" loading="lazy" decoding="async">
   <div class="cs-act-scrim" aria-hidden="true"></div>
   <div class="cs-act-copy">
     <h2 class="cs-act-title" id="act-approach-t"><span class="cs-act-mask"><span class="cs-act-line">The <em>approach</em></span></span></h2>
@@ -1577,68 +1586,46 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
   </div>
 </div>
 <div class="cs-wrap cs-wrap--board">
-  <div class="cs-theme cs-theme--card settle" data-theme-switch>
-    <div class="cs-acard" aria-label="An assessment card as it appears on the home page">
-      <div class="cs-acard-panel">
-        <div class="cs-acard-tile"><img class="is-active" data-theme="p1" src="assets/skilling/ui/pattern-01.webp" alt="" width="240" height="240" loading="lazy" decoding="async"><img data-theme="p2" src="assets/skilling/ui/pattern-02.webp" alt="" width="240" height="240" loading="lazy" decoding="async"><img data-theme="p3" src="assets/skilling/ui/pattern-03.webp" alt="" width="240" height="240" loading="lazy" decoding="async"><img data-theme="p4" src="assets/skilling/ui/pattern-04.webp" alt="" width="240" height="240" loading="lazy" decoding="async"><img data-theme="p5" src="assets/skilling/ui/pattern-05.webp" alt="" width="240" height="240" loading="lazy" decoding="async"><img data-theme="p6" src="assets/skilling/ui/pattern-06.webp" alt="" width="240" height="240" loading="lazy" decoding="async"><img data-theme="p7" src="assets/skilling/ui/pattern-07.webp" alt="" width="240" height="240" loading="lazy" decoding="async"><img data-theme="p8" src="assets/skilling/ui/pattern-08.webp" alt="" width="240" height="240" loading="lazy" decoding="async"></div>
-        <div class="cs-acard-meta">
-          <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1.5"/><circle cx="4.5" cy="12" r="1.5"/><circle cx="4.5" cy="18" r="1.5"/></svg>8 Questions</span>
-          <span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9.5 2.5h5"/></svg>15 mins</span>
-          <span class="cs-acard-coin"><i aria-hidden="true"></i>12</span>
-          <span class="cs-acard-cta"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l12-7.5z"/></svg>Start assessment</span>
+  <div class="cs-theme cs-theme--card cs-brand settle" data-theme-switch>
+    <div class="cs-brand-stage">
+      <div class="cs-theme-stage">
+        <img class="is-active" data-theme="p1" src="assets/skilling/ui/theme-01.webp" alt="The same assessment question in the teal brand" width="520" height="1070" loading="lazy" decoding="async">
+        <img data-theme="p2" src="assets/skilling/ui/theme-11.webp" alt="The same assessment question in the berry brand" width="520" height="1070" loading="lazy" decoding="async">
+        <img data-theme="p3" src="assets/skilling/ui/theme-07.webp" alt="The same assessment question in the sky brand" width="520" height="1070" loading="lazy" decoding="async">
+        <img data-theme="p4" src="assets/skilling/ui/theme-06.webp" alt="The same assessment question in the indigo brand" width="520" height="1070" loading="lazy" decoding="async">
+        <img data-theme="p5" src="assets/skilling/ui/theme-05.webp" alt="The same assessment question in the ochre brand" width="520" height="1070" loading="lazy" decoding="async">
+        <img data-theme="p6" src="assets/skilling/ui/theme-08.webp" alt="The same assessment question in the plum brand" width="520" height="1070" loading="lazy" decoding="async">
+        <img data-theme="p7" src="assets/skilling/ui/theme-10.webp" alt="The same assessment question in the coral brand" width="520" height="1070" loading="lazy" decoding="async">
+        <img data-theme="p8" src="assets/skilling/ui/theme-14.webp" alt="The same assessment question in the steel brand" width="520" height="1070" loading="lazy" decoding="async">
+      </div>
+      <div class="cs-acard" aria-label="An assessment card as it appears on the home page">
+        <div class="cs-acard-panel">
+          <div class="cs-acard-tile"><img class="is-active" data-theme="p1" src="assets/skilling/ui/pattern-01.webp" alt="" width="240" height="240" loading="lazy" decoding="async"><img data-theme="p2" src="assets/skilling/ui/pattern-02.webp" alt="" width="240" height="240" loading="lazy" decoding="async"><img data-theme="p3" src="assets/skilling/ui/pattern-03.webp" alt="" width="240" height="240" loading="lazy" decoding="async"><img data-theme="p4" src="assets/skilling/ui/pattern-04.webp" alt="" width="240" height="240" loading="lazy" decoding="async"><img data-theme="p5" src="assets/skilling/ui/pattern-05.webp" alt="" width="240" height="240" loading="lazy" decoding="async"><img data-theme="p6" src="assets/skilling/ui/pattern-06.webp" alt="" width="240" height="240" loading="lazy" decoding="async"><img data-theme="p7" src="assets/skilling/ui/pattern-07.webp" alt="" width="240" height="240" loading="lazy" decoding="async"><img data-theme="p8" src="assets/skilling/ui/pattern-08.webp" alt="" width="240" height="240" loading="lazy" decoding="async"></div>
+          <div class="cs-acard-meta">
+            <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1.5"/><circle cx="4.5" cy="12" r="1.5"/><circle cx="4.5" cy="18" r="1.5"/></svg>8 Questions</span>
+            <span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9.5 2.5h5"/></svg>15 mins</span>
+            <span class="cs-acard-coin"><i aria-hidden="true"></i>12</span>
+            <span class="cs-acard-cta"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l12-7.5z"/></svg>Start assessment</span>
+          </div>
         </div>
+        <p class="cs-acard-title">How to deliver happiness with your each task</p>
+        <p class="cs-acard-link">View details <span aria-hidden="true">&rsaquo;</span></p>
+        <p class="cs-acard-proof"><i aria-hidden="true"></i><i aria-hidden="true"></i><i aria-hidden="true"></i>24 people completed</p>
       </div>
-      <p class="cs-acard-title">How to deliver happiness with your each task</p>
-      <p class="cs-acard-link">View details <span aria-hidden="true">&rsaquo;</span></p>
-      <p class="cs-acard-proof"><i aria-hidden="true"></i><i aria-hidden="true"></i><i aria-hidden="true"></i>24 people completed</p>
     </div>
     <div class="cs-theme-copy">
-      <p class="cs-phase-tag">Pick a pattern</p>
-      <h4 class="cs-theme-title">One card, eight brands</h4>
-      <p class="cs-theme-desc">Each colour in the palette comes with its own pattern. The card takes on the brand, but its structure never changes.</p>
-      <div class="cs-swatches" role="group" aria-label="Card pattern">
-        <button type="button" class="cs-swatch cs-swatch--tile is-active" data-theme="p1" data-label="Teal pattern" data-color="#3c8a84" aria-pressed="true" style="--sw:url(assets/skilling/ui/pattern-ex-01.webp)"><span class="cs-sr">Teal</span></button>
-        <button type="button" class="cs-swatch cs-swatch--tile" data-theme="p2" data-label="Berry pattern" data-color="#ae4860" aria-pressed="false" style="--sw:url(assets/skilling/ui/pattern-ex-02.webp)"><span class="cs-sr">Berry</span></button>
-        <button type="button" class="cs-swatch cs-swatch--tile" data-theme="p3" data-label="Sky pattern" data-color="#6096c6" aria-pressed="false" style="--sw:url(assets/skilling/ui/pattern-ex-03.webp)"><span class="cs-sr">Sky</span></button>
-        <button type="button" class="cs-swatch cs-swatch--tile" data-theme="p4" data-label="Indigo pattern" data-color="#6066ae" aria-pressed="false" style="--sw:url(assets/skilling/ui/pattern-ex-04.webp)"><span class="cs-sr">Indigo</span></button>
-        <button type="button" class="cs-swatch cs-swatch--tile" data-theme="p5" data-label="Ochre pattern" data-color="#ae845a" aria-pressed="false" style="--sw:url(assets/skilling/ui/pattern-ex-05.webp)"><span class="cs-sr">Ochre</span></button>
-        <button type="button" class="cs-swatch cs-swatch--tile" data-theme="p6" data-label="Plum pattern" data-color="#665a7e" aria-pressed="false" style="--sw:url(assets/skilling/ui/pattern-ex-06.webp)"><span class="cs-sr">Plum</span></button>
-        <button type="button" class="cs-swatch cs-swatch--tile" data-theme="p7" data-label="Coral pattern" data-color="#de5a4e" aria-pressed="false" style="--sw:url(assets/skilling/ui/pattern-ex-07.webp)"><span class="cs-sr">Coral</span></button>
-        <button type="button" class="cs-swatch cs-swatch--tile" data-theme="p8" data-label="Steel pattern" data-color="#6c96c0" aria-pressed="false" style="--sw:url(assets/skilling/ui/pattern-ex-08.webp)"><span class="cs-sr">Steel</span></button>
-      </div>
-      <p class="cs-theme-type" data-theme-label aria-live="polite">Teal pattern</p>
-    </div>
-  </div>
-</div>
-<div class="cs-wrap cs-wrap--board">
-  <div class="cs-theme settle" data-theme-switch>
-    <div class="cs-theme-stage">
-      <img class="is-active" data-theme="t1" src="assets/skilling/ui/theme-01.webp" alt="The same assessment question in the teal theme" width="520" height="1070" loading="lazy" decoding="async">
-      <img data-theme="t14" src="assets/skilling/ui/theme-14.webp" alt="The same assessment question in the slate theme" width="520" height="1070" loading="lazy" decoding="async">
-      <img data-theme="t7" src="assets/skilling/ui/theme-07.webp" alt="The same assessment question in the navy theme" width="520" height="1070" loading="lazy" decoding="async">
-      <img data-theme="t6" src="assets/skilling/ui/theme-06.webp" alt="The same assessment question in the indigo theme" width="520" height="1070" loading="lazy" decoding="async">
-      <img data-theme="t13" src="assets/skilling/ui/theme-13.webp" alt="The same assessment question in the violet theme" width="520" height="1070" loading="lazy" decoding="async">
-      <img data-theme="t8" src="assets/skilling/ui/theme-08.webp" alt="The same assessment question in the plum theme" width="520" height="1070" loading="lazy" decoding="async">
-      <img data-theme="t9" src="assets/skilling/ui/theme-09.webp" alt="The same assessment question in the magenta theme" width="520" height="1070" loading="lazy" decoding="async">
-      <img data-theme="t11" src="assets/skilling/ui/theme-11.webp" alt="The same assessment question in the maroon theme" width="520" height="1070" loading="lazy" decoding="async">
-      <img data-theme="t10" src="assets/skilling/ui/theme-10.webp" alt="The same assessment question in the red theme" width="520" height="1070" loading="lazy" decoding="async">
-      <img data-theme="t5" src="assets/skilling/ui/theme-05.webp" alt="The same assessment question in the rust theme" width="520" height="1070" loading="lazy" decoding="async">
-    </div>
-    <div class="cs-theme-copy">
-      <p class="cs-phase-tag">Try a theme</p>
-      <h4 class="cs-theme-title">Same question, ten brands</h4>
-      <p class="cs-theme-desc">The whole assessment takes on the brand's colour, and its pattern comes along. The question, the options and the flow stay exactly the same.</p>
-      <div class="cs-swatches" role="group" aria-label="Assessment theme">
-        <button type="button" class="cs-swatch is-active" data-theme="t1" data-label="Teal" aria-pressed="true" style="--sw:#1b4242"><span class="cs-sr">Teal</span></button>
-        <button type="button" class="cs-swatch" data-theme="t14" data-label="Slate" aria-pressed="false" style="--sw:#2e4458"><span class="cs-sr">Slate</span></button>
-        <button type="button" class="cs-swatch" data-theme="t7" data-label="Navy" aria-pressed="false" style="--sw:#144272"><span class="cs-sr">Navy</span></button>
-        <button type="button" class="cs-swatch" data-theme="t6" data-label="Indigo" aria-pressed="false" style="--sw:#3f3b6c"><span class="cs-sr">Indigo</span></button>
-        <button type="button" class="cs-swatch" data-theme="t13" data-label="Violet" aria-pressed="false" style="--sw:#4f2770"><span class="cs-sr">Violet</span></button>
-        <button type="button" class="cs-swatch" data-theme="t8" data-label="Plum" aria-pressed="false" style="--sw:#3e2c41"><span class="cs-sr">Plum</span></button>
-        <button type="button" class="cs-swatch" data-theme="t9" data-label="Magenta" aria-pressed="false" style="--sw:#54123b"><span class="cs-sr">Magenta</span></button>
-        <button type="button" class="cs-swatch" data-theme="t11" data-label="Maroon" aria-pressed="false" style="--sw:#6e3244"><span class="cs-sr">Maroon</span></button>
-        <button type="button" class="cs-swatch" data-theme="t10" data-label="Red" aria-pressed="false" style="--sw:#7d2f2a"><span class="cs-sr">Red</span></button>
-        <button type="button" class="cs-swatch" data-theme="t5" data-label="Rust" aria-pressed="false" style="--sw:#5c3d2e"><span class="cs-sr">Rust</span></button>
+      <p class="cs-phase-tag">Pick a brand</p>
+      <h4 class="cs-theme-title">One pick, a whole brand</h4>
+      <p class="cs-theme-desc">Admins choose a colour from the palette and its pattern comes along. The card on home and every question inside take on the brand, while the structure stays exactly the same.</p>
+      <div class="cs-swatches" role="group" aria-label="Brand">
+        <button type="button" class="cs-swatch cs-swatch--tile is-active" data-theme="p1" data-label="Teal" data-color="#3c8a84" aria-pressed="true" style="--sw:url(assets/skilling/ui/pattern-ex-01.webp)"><span class="cs-sr">Teal</span></button>
+        <button type="button" class="cs-swatch cs-swatch--tile" data-theme="p2" data-label="Berry" data-color="#ae4860" aria-pressed="false" style="--sw:url(assets/skilling/ui/pattern-ex-02.webp)"><span class="cs-sr">Berry</span></button>
+        <button type="button" class="cs-swatch cs-swatch--tile" data-theme="p3" data-label="Sky" data-color="#6096c6" aria-pressed="false" style="--sw:url(assets/skilling/ui/pattern-ex-03.webp)"><span class="cs-sr">Sky</span></button>
+        <button type="button" class="cs-swatch cs-swatch--tile" data-theme="p4" data-label="Indigo" data-color="#6066ae" aria-pressed="false" style="--sw:url(assets/skilling/ui/pattern-ex-04.webp)"><span class="cs-sr">Indigo</span></button>
+        <button type="button" class="cs-swatch cs-swatch--tile" data-theme="p5" data-label="Ochre" data-color="#ae845a" aria-pressed="false" style="--sw:url(assets/skilling/ui/pattern-ex-05.webp)"><span class="cs-sr">Ochre</span></button>
+        <button type="button" class="cs-swatch cs-swatch--tile" data-theme="p6" data-label="Plum" data-color="#665a7e" aria-pressed="false" style="--sw:url(assets/skilling/ui/pattern-ex-06.webp)"><span class="cs-sr">Plum</span></button>
+        <button type="button" class="cs-swatch cs-swatch--tile" data-theme="p7" data-label="Coral" data-color="#de5a4e" aria-pressed="false" style="--sw:url(assets/skilling/ui/pattern-ex-07.webp)"><span class="cs-sr">Coral</span></button>
+        <button type="button" class="cs-swatch cs-swatch--tile" data-theme="p8" data-label="Steel" data-color="#6c96c0" aria-pressed="false" style="--sw:url(assets/skilling/ui/pattern-ex-08.webp)"><span class="cs-sr">Steel</span></button>
       </div>
       <p class="cs-theme-type" data-theme-label aria-live="polite">Teal</p>
     </div>
@@ -1715,7 +1702,7 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
 </div>
 
 <div class="cs-wrap cs-wrap--board" style="margin-top: 88px;">
-<figure class="cs-board cs-board--photo settle"><div class="cs-fig-frame"><img src="assets/skilling/photo-tablet.jpg" alt="Three workers in hard hats looking at a tablet" width="1590" height="799" loading="lazy" decoding="async"></div></figure>
+<figure class="cs-board cs-board--photo settle"><div class="cs-fig-frame"><img src="assets/skilling/photo-tablet.jpg" alt="Three workers in hard hats looking at a tablet" width="2400" height="1206" loading="lazy" decoding="async"></div></figure>
 </div>
 </section>
 
@@ -1823,7 +1810,7 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
 </div>
 
 <div class="cs-wrap cs-wrap--board" style="margin-top: 56px;">
-<figure class="cs-board cs-board--photo settle"><div class="cs-fig-frame"><img src="assets/skilling/photo-clap.jpg" alt="A team of workers applauding" width="1590" height="800" loading="lazy" decoding="async"></div></figure>
+<figure class="cs-board cs-board--photo settle"><div class="cs-fig-frame"><img src="assets/skilling/photo-clap.jpg" alt="A team of workers applauding" width="2400" height="1208" loading="lazy" decoding="async"></div></figure>
 </div>
 
 <div class="cs-wrap">
