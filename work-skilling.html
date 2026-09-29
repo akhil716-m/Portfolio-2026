@@ -714,6 +714,14 @@ body.cs-lb-lock { overflow: hidden; }
 .cs-force-n { margin: 0 0 16px; font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.08em; color: var(--accent); }
 .cs-force-title { margin: 0 0 10px; font-family: 'Geist', sans-serif; font-size: var(--fs-h4); font-weight: 500; line-height: 1.35; color: var(--text); text-wrap: balance; }
 .cs-force-desc { margin: 0; font-size: var(--fs-small); line-height: 1.65; color: var(--text-soft); }
+/* Course page states: three screens side by side, captioned */
+.cs-screens { list-style: none; margin: 36px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(16px, 2.4vw, 32px); }
+.cs-screens figure { margin: 0; }
+.cs-screens img, .cs-forces--media img { display: block; width: 100%; height: auto; border-radius: var(--r-inner); border: 1px solid rgba(255,255,255,0.07); }
+.cs-screens figcaption { margin-top: 14px; font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-soft); }
+.cs-screens figcaption span { margin-right: 10px; color: var(--accent); }
+.cs-forces--media { margin-top: 36px; align-items: start; }
+.cs-forces--media img { margin-top: 22px; }
 .cs-bridge { margin: 96px 0 0; max-width: 20em; font-family: 'Geist', sans-serif; font-size: var(--fs-statement); font-weight: 500; line-height: 1.2; letter-spacing: -0.02em; color: var(--text-muted); text-wrap: balance; }
 .cs-bridge span { color: var(--text); }
 
@@ -722,6 +730,9 @@ body.cs-lb-lock { overflow: hidden; }
   .cs-stat, .cs-stat:first-child { padding: 22px 0; border-left: 0; text-align: center; }
   .cs-stat + .cs-stat { border-top: 1px solid var(--line); }
   .cs-facts--2, .cs-facts--3 { grid-template-columns: 1fr; gap: 28px; }
+  .cs-screens { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 64%; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding-bottom: 4px; }
+  .cs-screens::-webkit-scrollbar { display: none; }
+  .cs-screens li { scroll-snap-align: start; }
   .cs-forces { grid-template-columns: 1fr; row-gap: 28px; }
   .cs-bridge { margin-top: 72px; }
 }
@@ -1382,42 +1393,47 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
   <p class="cs-lead">A course holds multiple chapters of video, images or audio transcripts. Users mostly watch video, so we kept familiar controls and CTAs.</p>
 
 </div>
-<div class="cs-wrap cs-wrap--board">
-<figure class="cs-board settle">
-  <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: Course page" data-full="assets/skilling/d-course.jpg" data-alt="Course detail screens showing chapters, progress and a Continue CTA">
-    <img src="assets/skilling/d-course.jpg" alt="Course detail screens showing chapters, progress and a Continue CTA" width="1590" height="625" loading="lazy" decoding="async">
-    <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+<div class="cs-wrap">
+  <div class="cs-sub">
+    <h3 class="cs-h3">One page for the whole course.</h3>
+    <p class="cs-p">The top gives a clear overview of the course, with one prominent CTA and the deadline. Below it, every chapter shows whether it is locked, in progress or completed, so users always know where they stand.</p>
   </div>
-</figure>
+</div>
+<div class="cs-wrap cs-wrap--board cs-wrap--inset">
+  <ol class="cs-screens settle">
+      <li><figure><img src="assets/skilling/ui/course-detail-1.webp" alt="Course page before starting: Start Chapter 1, with chapters 2 and 3 locked" width="540" height="1200" loading="lazy" decoding="async"><figcaption><span>01</span>Not started</figcaption></figure></li>
+      <li><figure><img src="assets/skilling/ui/course-detail-2.webp" alt="Course page in progress: chapter 1 completed, chapter 2 partly watched, chapter 3 locked" width="540" height="1200" loading="lazy" decoding="async"><figcaption><span>02</span>In progress</figcaption></figure></li>
+      <li><figure><img src="assets/skilling/ui/course-detail-3.webp" alt="Course page with all three chapters completed" width="540" height="1200" loading="lazy" decoding="async"><figcaption><span>03</span>Completed</figcaption></figure></li>
+  </ol>
 </div>
 
 <div class="cs-wrap">
-  <dl class="cs-facts cs-facts--2">
-    <div>
-      <dt>Promoting pending courses</dt>
-      <dd>A visual treatment and a running count-down capture attention and help users complete pending courses on time.</dd>
-    </div>
-    <div>
-      <dt>Set of courses</dt>
-      <dd>When several courses are assigned at once, one is highlighted in the banner and the rest stack as a bundle, so nothing overwhelms the user.</dd>
-    </div>
-    <div>
-      <dt>Quick start</dt>
-      <dd>A prominent play button starts learning quickly, while View details is there for those who want to know more first.</dd>
-    </div>
-    <div>
-      <dt>Scalable structure</dt>
-      <dd>The card has a clear hierarchy. Badges, coins and social proof influence the decision to start, and length, chapters and topics are visible up front.</dd>
-    </div>
-  </dl>
-</div>
-<div class="cs-wrap cs-wrap--board">
-<figure class="cs-board settle">
-  <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: Course cards" data-full="assets/skilling/d-course-cards.jpg" data-alt="Course cards and the home page states for pending, assigned and bundled courses">
-    <img src="assets/skilling/d-course-cards.jpg" alt="Course cards and the home page states for pending, assigned and bundled courses" width="1590" height="1336" loading="lazy" decoding="async">
-    <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+  <div class="cs-sub">
+    <h3 class="cs-h3">How courses show up on home.</h3>
+    <p class="cs-p">A course can arrive on its own, close to its deadline, or as part of a set. The card keeps the same structure in each case and only changes what needs attention.</p>
   </div>
-</figure>
+</div>
+<div class="cs-wrap cs-wrap--board cs-wrap--inset">
+  <ol class="cs-forces cs-forces--media">
+    <li class="cs-force">
+      <p class="cs-force-n">01</p>
+      <h3 class="cs-force-title">A new course</h3>
+      <p class="cs-force-desc">A prominent play button starts learning quickly. Badges, coins, length, chapters and topics sit up front, with View details for those who want to know more first.</p>
+      <img src="assets/skilling/ui/course-new.webp" alt="Home page card for a newly assigned course" width="720" height="789" loading="lazy" decoding="async">
+    </li>
+    <li class="cs-force">
+      <p class="cs-force-n">02</p>
+      <h3 class="cs-force-title">Close to the deadline</h3>
+      <p class="cs-force-desc">A tinted banner and a running countdown capture attention and help users finish pending courses on time.</p>
+      <img src="assets/skilling/ui/course-deadline.webp" alt="Home page banner for a mandatory course with a countdown to its deadline" width="720" height="906" loading="lazy" decoding="async">
+    </li>
+    <li class="cs-force">
+      <p class="cs-force-n">03</p>
+      <h3 class="cs-force-title">Several at once</h3>
+      <p class="cs-force-desc">One course is highlighted and the rest stack behind View all assigned courses, so a long list never overwhelms.</p>
+      <img src="assets/skilling/ui/course-set.webp" alt="Home page card for four pending courses with a link to view all of them" width="720" height="940" loading="lazy" decoding="async">
+    </li>
+  </ol>
 </div>
 
 <div class="cs-wrap cs-wrap--board" style="margin-top: 88px;">
@@ -1443,7 +1459,7 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
         <p class="cs-strip-desc">Text courses can come with or without an audio transcript, so users can listen instead of reading.</p>
       </article>
       <article class="cs-strip-item">
-        <div class="cs-strip-media "><img src="assets/skilling/ui/lock-1.webp" alt="Video with a mandatory watch time label" loading="lazy" decoding="async"><img src="assets/skilling/ui/lock-2.webp" alt="Video with a message that the user must watch until 7:23" loading="lazy" decoding="async"></div>
+        <div class="cs-strip-media cs-strip-media--wide"><img src="assets/skilling/ui/lock-a.webp" alt="Course video with a mandatory 07:23 watch time, and the message shown when the user tries to skip ahead" loading="lazy" decoding="async"></div>
         <h4 class="cs-strip-title">Mandatory watch time</h4>
         <p class="cs-strip-desc">Indicators show any mandatory watch time. While it is running, the control actions stay locked.</p>
       </article>
