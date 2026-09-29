@@ -1738,66 +1738,91 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
   <p class="cs-lead">A playlist bundles courses and assessments into levels for one learning purpose, configured by the admin. Because it bundles so much, it can run long.</p>
 
 </div>
-<div class="cs-wrap cs-wrap--board">
-<figure class="cs-board settle">
-  <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: Playlist" data-full="assets/skilling/d-playlist.jpg" data-alt="Playlist cover screen with levels and a Start Level CTA">
-    <img src="assets/skilling/d-playlist.jpg" alt="Playlist cover screen with levels and a Start Level CTA" width="1590" height="625" loading="lazy" decoding="async">
-    <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+<div class="cs-pin" data-pin style="--steps: 5">
+  <div class="cs-pin-stage">
+      <div class="cs-annot cs-phone">
+        <div class="cs-phone-screen">
+          <div class="cs-phone-view is-current">
+            <div class="cs-phone-feed">
+              <img src="assets/skilling/ui/pl-v-home.webp" alt="Home page with a playlist assigned card, its current level and a See all levels link" width="293" height="644" loading="lazy" decoding="async">
+              <span class="cs-ring" data-step="1" style="--t:46.58%;--h:40.06%;--l:0%;--w:100%"></span>
+            </div>
+          </div>
+          <div class="cs-phone-view">
+            <div class="cs-phone-feed">
+              <img src="assets/skilling/ui/pl-v-cover.webp" alt="Playlist cover with the guiding Start CTA and the levels listed below" width="294" height="641" loading="lazy" decoding="async">
+              <span class="cs-ring" data-step="2" style="--t:0%;--h:50.55%;--l:0%;--w:100%"></span><span class="cs-ring" data-step="3" style="--t:50.55%;--h:49.45%;--l:0%;--w:100%"></span>
+            </div>
+          </div>
+          <div class="cs-phone-view">
+            <div class="cs-phone-feed">
+              <img src="assets/skilling/ui/pl-v-level.webp" alt="Playlist with level 1 open, showing completed, next and locked chapters" width="296" height="658" loading="lazy" decoding="async">
+              <span class="cs-ring" data-step="4" style="--t:15.05%;--h:49.39%;--l:0%;--w:100%"></span>
+            </div>
+          </div>
+          <div class="cs-phone-view">
+            <div class="cs-phone-feed">
+              <img src="assets/skilling/ui/pl-v-done.webp" alt="Playlist with finished levels grouped under Completed levels" width="296" height="658" loading="lazy" decoding="async">
+              <span class="cs-ring" data-step="5" style="--t:13.98%;--h:58.81%;--l:0%;--w:100%"></span>
+            </div>
+          </div>
+        </div>
+        <img class="cs-phone-bezel" src="assets/skilling/ui/home-bezel.webp" alt="" width="900" height="1852" loading="lazy" decoding="async">
+      </div>
+    <ol class="cs-notes">
+      <li class="cs-step cs-step--left" data-step="1" data-view="0" data-y="0">
+        <span class="cs-step-n">01</span>
+        <h3 class="cs-step-title">The playlist card</h3>
+        <p class="cs-step-desc">The card shows a playlist's purpose and that it holds several lessons, and links straight to the current level.</p>
+      </li>
+      <li class="cs-step cs-step--right" data-step="2" data-view="1" data-y="0">
+        <span class="cs-step-n">02</span>
+        <h3 class="cs-step-title">A cover with one guiding CTA</h3>
+        <p class="cs-step-desc">The cover gives a clear overview with minimal distraction. The CTA follows progress, naming the level and chapter to start next.</p>
+      </li>
+      <li class="cs-step cs-step--left" data-step="3" data-view="1" data-y="0">
+        <span class="cs-step-n">03</span>
+        <h3 class="cs-step-title">Levels, in order</h3>
+        <p class="cs-step-desc">Levels are listed in order and nest their chapters. Only one is open by default, so users focus on where they are.</p>
+      </li>
+      <li class="cs-step cs-step--right" data-step="4" data-view="2" data-y="0">
+        <span class="cs-step-n">04</span>
+        <h3 class="cs-step-title">Progress inside a level</h3>
+        <p class="cs-step-desc">Within the open level, chapters show what is completed, what is next and what is still locked.</p>
+      </li>
+      <li class="cs-step cs-step--left" data-step="5" data-view="3" data-y="0">
+        <span class="cs-step-n">05</span>
+        <h3 class="cs-step-title">Completed levels fold away</h3>
+        <p class="cs-step-desc">Finished levels gather into one Completed levels group, keeping the next level in focus.</p>
+      </li>
+    </ol>
   </div>
-</figure>
 </div>
 
-<div class="cs-wrap">
-  <div class="cs-sub" style="margin-top: 72px;">
-    <h3 class="cs-h3">The playlist card</h3>
-    <p class="cs-p">The card shows a playlist's purpose and that it holds several lessons. The top card updates with the sequence and links straight to the current level.</p>
+<div class="cs-wrap cs-wrap--board" style="margin-top: 88px;">
+  <div class="cs-strip settle" data-strip>
+    <div class="cs-strip-head">
+      <div>
+        <h3 class="cs-h3">Around the playlist</h3>
+      </div>
+      <div class="cs-strip-ctl">
+        <button type="button" class="cs-strip-btn" data-dir="-1" aria-label="Previous"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
+        <button type="button" class="cs-strip-btn" data-dir="1" aria-label="Next"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+      </div>
+    </div>
+    <div class="cs-strip-track" tabindex="0" role="group" aria-label="Playlist screens, scroll sideways to see more">
+      <article class="cs-strip-item">
+        <div class="cs-strip-media cs-strip-media--wide"><img src="assets/skilling/ui/pl-cards.webp" alt="Playlist cards for a level with an assessment and a level with pending chapters" loading="lazy" decoding="async"></div>
+        <h4 class="cs-strip-title">Cards that follow the sequence</h4>
+        <p class="cs-strip-desc">The top card changes with the sequence, whether the next level is a course or an assessment, and counts the levels still pending.</p>
+      </article>
+      <article class="cs-strip-item">
+        <div class="cs-strip-media cs-strip-media--wide"><img src="assets/skilling/ui/pl-celebrate.webp" alt="Success screens for completing a level and completing a playlist, with earnings" loading="lazy" decoding="async"></div>
+        <h4 class="cs-strip-title">Celebrating every small achievement</h4>
+        <p class="cs-strip-desc">Concise feedback when users complete chapters, levels or playlists keeps them motivated and marks their progress.</p>
+      </article>
+    </div>
   </div>
-</div>
-<div class="cs-wrap cs-wrap--board">
-<figure class="cs-board settle">
-  <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: Playlist on the home page" data-full="assets/skilling/d-playlist-card.jpg" data-alt="Home screen showing a playlist assigned card and the levels inside it">
-    <img src="assets/skilling/d-playlist-card.jpg" alt="Home screen showing a playlist assigned card and the levels inside it" width="1750" height="925" loading="lazy" decoding="async">
-    <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
-  </div>
-</figure>
-</div>
-
-<div class="cs-wrap">
-  <div class="cs-sub" style="margin-top: 72px;">
-    <h3 class="cs-h3">Anatomy of the playlist</h3>
-    <p class="cs-p">The cover gives a clear overview with minimal distraction, and a guiding CTA shows progress. Levels below are listed in order and nest their chapters, with one expanded by default.</p>
-  </div>
-</div>
-<div class="cs-wrap cs-wrap--board">
-<figure class="cs-board settle">
-  <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: Cover and guiding CTA" data-full="assets/skilling/d-playlist-cover.jpg" data-alt="Playlist cover with a Start Level CTA and the level list underneath">
-    <img src="assets/skilling/d-playlist-cover.jpg" alt="Playlist cover with a Start Level CTA and the level list underneath" width="1590" height="731" loading="lazy" decoding="async">
-    <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
-  </div>
-</figure>
-</div>
-<div class="cs-wrap cs-wrap--board">
-<figure class="cs-board settle">
-  <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: Levels and chapters" data-full="assets/skilling/d-playlist-anatomy.jpg" data-alt="Four playlist screens showing expanded and collapsed levels and completion states">
-    <img src="assets/skilling/d-playlist-anatomy.jpg" alt="Four playlist screens showing expanded and collapsed levels and completion states" width="1750" height="1292" loading="lazy" decoding="async">
-    <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
-  </div>
-</figure>
-</div>
-
-<div class="cs-wrap">
-  <div class="cs-sub" style="margin-top: 72px;">
-    <h3 class="cs-h3">Celebrating every small achievement</h3>
-    <p class="cs-p">Concise feedback when users complete chapters, levels or playlists keeps them motivated and marks their progress.</p>
-  </div>
-</div>
-<div class="cs-wrap cs-wrap--board cs-wrap--inset">
-<figure class="cs-board settle cs-board--inset">
-  <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: Success screens" data-full="assets/skilling/d-celebrate.jpg" data-alt="Success screens for completing a level and completing a playlist with earnings">
-    <img src="assets/skilling/d-celebrate.jpg" alt="Success screens for completing a level and completing a playlist with earnings" width="1590" height="704" loading="lazy" decoding="async">
-    <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
-  </div>
-</figure>
 </div>
 
 <div class="cs-wrap">
