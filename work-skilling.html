@@ -294,6 +294,14 @@ a.cs-cta { margin-top: 28px; }
 .cs-board--photo .cs-fig-frame { cursor: default; padding: 0; background: none; border: 0; }
 .cs-board--photo .cs-fig-frame img { border-radius: clamp(14px, 2vw, 22px); filter: none; }
 .cs-board--photo .cs-fig-zoom { display: none; }
+/* Tall board: the source is a full top-to-bottom scroll capture, far taller than it is wide.
+   Crop the inline preview to a sane height and fade its cut edge; the untouched full image
+   still opens in the (scrollable) lightbox via data-full. */
+.cs-board--tall .cs-fig-frame { aspect-ratio: 950 / 2300; }
+.cs-board--tall .cs-fig-frame::after {
+  content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 26%;
+  background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, var(--bg) 100%); pointer-events: none;
+}
 .cs-pair { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(14px, 2vw, 24px); align-items: stretch; }
 .cs-pair .cs-board { margin-top: 0; display: flex; flex-direction: column; }
 .cs-pair .cs-fig-frame { flex: 1; display: flex; align-items: center; }
@@ -475,12 +483,13 @@ body.cs-lb-lock { overflow: hidden; }
 .js .cs-step { opacity: 0.3; transition: opacity 0.4s ease; }
 .js .cs-step.is-active { opacity: 1; }
 .cs-sticky-media { position: sticky; top: max(84px, calc(50dvh - min(37dvh, 320px))); }
-.cs-annot { position: relative; height: min(74dvh, 640px); aspect-ratio: 593 / 1260; margin-left: auto; }
+.cs-annot { position: relative; height: min(74dvh, 640px); aspect-ratio: 900 / 1852; margin-left: auto; }
 .cs-annot > img { display: block; width: 100%; height: 100%; filter: drop-shadow(0 28px 40px rgba(0,0,0,0.5)); }
+.cs-annot-mask { position: absolute; inset: 0; border-radius: 9% / 4.3%; overflow: hidden; pointer-events: none; }
 .cs-ring {
   position: absolute; top: var(--t); left: var(--l); width: var(--w); height: var(--h);
-  border: 2px solid var(--accent); border-radius: 16px; box-shadow: 0 0 0 5px rgba(212,255,94,0.1);
-  opacity: 0; transform: scale(0.96); transition: opacity 0.35s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); pointer-events: none;
+  box-shadow: 0 0 0 9999px rgba(6,6,6,0.72), inset 0 0 0 1px rgba(255,255,255,0.22);
+  opacity: 0; transform: scale(0.97); transition: opacity 0.4s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); pointer-events: none;
 }
 .js .cs-ring.is-active { opacity: 1; transform: none; }
 
@@ -1314,16 +1323,18 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
     </ol>
     <div class="cs-sticky-media">
       <div class="cs-annot">
-        <img src="assets/skilling/ui/home.webp" alt="The Up-skill home screen" width="593" height="1260" loading="lazy" decoding="async">
-        <span class="cs-ring is-active" data-step="0" style="--t:20.6%;--h:10.3%;--l:10%;--w:80%"></span><span class="cs-ring" data-step="1" style="--t:33.3%;--h:10.2%;--l:8.3%;--w:89%"></span><span class="cs-ring" data-step="2" style="--t:52.2%;--h:27.8%;--l:10%;--w:80%"></span><span class="cs-ring" data-step="3" style="--t:54%;--h:17.5%;--l:11%;--w:78%"></span>
+        <img src="assets/skilling/ui/home.webp" alt="The Up-skill home screen" width="900" height="1852" loading="lazy" decoding="async">
+        <div class="cs-annot-mask">
+          <span class="cs-ring is-active" data-step="0" style="--t:20.6%;--h:10.3%;--l:10%;--w:80%"></span><span class="cs-ring" data-step="1" style="--t:33.3%;--h:10.2%;--l:8.3%;--w:89%"></span><span class="cs-ring" data-step="2" style="--t:52.2%;--h:27.8%;--l:10%;--w:80%"></span><span class="cs-ring" data-step="3" style="--t:54%;--h:17.5%;--l:11%;--w:78%"></span>
+        </div>
       </div>
     </div>
   </div>
 </div>
 <div class="cs-wrap cs-wrap--board cs-wrap--inset">
-<figure class="cs-board settle cs-board--inset">
-  <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: The full home board" data-full="assets/skilling/d-home.jpg" data-alt="Up-skill home screen with progress indicator, quick access and assigned modules">
-    <img src="assets/skilling/d-home.jpg" alt="Up-skill home screen with progress indicator, quick access and assigned modules" width="1590" height="1516" loading="lazy" decoding="async">
+<figure class="cs-board settle cs-board--inset cs-board--tall">
+  <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: The full home screen, top to bottom" data-full="assets/skilling/d-home.jpg" data-alt="The Up-skill home screen scrolled from top to bottom: progress, quick access, new course, upcoming event, pending assessment and new playlist">
+    <img src="assets/skilling/d-home.jpg" alt="The Up-skill home screen scrolled from top to bottom: progress, quick access, new course, upcoming event, pending assessment and new playlist" width="950" height="5428" loading="lazy" decoding="async">
     <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
   </div>
 </figure>
