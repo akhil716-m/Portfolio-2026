@@ -505,7 +505,9 @@ body.cs-lb-lock { overflow: hidden; }
 .cs-phone-bar { position: absolute; left: 0; right: 0; }
 .cs-phone-bar img { display: block; width: 100%; height: auto; }
 .cs-phone-status { top: 0; opacity: 0; transition: opacity 0.4s ease; }
-.cs-phone.is-scrolled .cs-phone-status { opacity: 1; }
+.cs-phone-view.is-scrolled .cs-phone-status, .cs-phone-status--on { opacity: 1; }
+.cs-phone-view { position: absolute; inset: 0; opacity: 0; transition: opacity 0.5s ease; }
+.cs-phone-view.is-current { opacity: 1; }
 .cs-phone-nav { bottom: 0; }
 .cs-phone-bar::after { content: ''; position: absolute; inset: 0; background: var(--dim); opacity: 0; transition: opacity 0.4s ease; }
 .cs-phone.is-lit .cs-phone-bar::after { opacity: 1; }
@@ -612,7 +614,7 @@ body.cs-lb-lock { overflow: hidden; }
   .cs-hero-ph, .cs-hero-sub { animation: none; opacity: 1; translate: none; }
   .js .cs-act-line, .js .cs-act-sub { transition: none; transform: none; opacity: 1; }
   .cs-ba-panel.is-active { animation: none; }
-  .cs-theme-stage img, .cs-ring, .cs-swatch, .cs-phone-feed, .cs-phone-status, .cs-step, .cs-phone-bar::after { transition: none; }
+  .cs-theme-stage img, .cs-ring, .cs-swatch, .cs-phone-feed, .cs-phone-status, .cs-phone-view, .cs-step, .cs-phone-bar::after { transition: none; }
   .cs-theme { transition: none; }
 }
 
@@ -714,14 +716,6 @@ body.cs-lb-lock { overflow: hidden; }
 .cs-force-n { margin: 0 0 16px; font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.08em; color: var(--accent); }
 .cs-force-title { margin: 0 0 10px; font-family: 'Geist', sans-serif; font-size: var(--fs-h4); font-weight: 500; line-height: 1.35; color: var(--text); text-wrap: balance; }
 .cs-force-desc { margin: 0; font-size: var(--fs-small); line-height: 1.65; color: var(--text-soft); }
-/* Course page states: three screens side by side, captioned */
-.cs-screens { list-style: none; margin: 36px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(16px, 2.4vw, 32px); }
-.cs-screens figure { margin: 0; }
-.cs-screens img, .cs-forces--media img { display: block; width: 100%; height: auto; border-radius: var(--r-inner); border: 1px solid rgba(255,255,255,0.07); }
-.cs-screens figcaption { margin-top: 14px; font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-soft); }
-.cs-screens figcaption span { margin-right: 10px; color: var(--accent); }
-.cs-forces--media { margin-top: 36px; align-items: start; }
-.cs-forces--media img { margin-top: 22px; }
 .cs-bridge { margin: 96px 0 0; max-width: 20em; font-family: 'Geist', sans-serif; font-size: var(--fs-statement); font-weight: 500; line-height: 1.2; letter-spacing: -0.02em; color: var(--text-muted); text-wrap: balance; }
 .cs-bridge span { color: var(--text); }
 
@@ -730,9 +724,6 @@ body.cs-lb-lock { overflow: hidden; }
   .cs-stat, .cs-stat:first-child { padding: 22px 0; border-left: 0; text-align: center; }
   .cs-stat + .cs-stat { border-top: 1px solid var(--line); }
   .cs-facts--2, .cs-facts--3 { grid-template-columns: 1fr; gap: 28px; }
-  .cs-screens { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 64%; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding-bottom: 4px; }
-  .cs-screens::-webkit-scrollbar { display: none; }
-  .cs-screens li { scroll-snap-align: start; }
   .cs-forces { grid-template-columns: 1fr; row-gap: 28px; }
   .cs-bridge { margin-top: 72px; }
 }
@@ -1340,12 +1331,14 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
   <div class="cs-pin-stage">
       <div class="cs-annot cs-phone">
         <div class="cs-phone-screen">
-          <div class="cs-phone-feed">
-            <img src="assets/skilling/ui/home-feed.jpg" alt="The Up-skill home feed: progress, quick access, new course, upcoming event, pending assessment and new playlist" width="816" height="4848" loading="lazy" decoding="async">
-            <span class="cs-ring" data-step="1" style="--t:7.015%;--h:4.258%;--l:5.761%;--w:88.3%"></span><span class="cs-ring" data-step="2" style="--t:11.894%;--h:3.939%;--l:3.6%;--w:96.4%"></span><span class="cs-ring" data-step="3" style="--t:16.818%;--h:18.03%;--l:2.16%;--w:95.68%"></span><span class="cs-ring" data-step="4" style="--t:35.606%;--h:21.364%;--l:2.16%;--w:95.68%"></span><span class="cs-ring" data-step="5" style="--t:57.652%;--h:15.455%;--l:2.16%;--w:95.68%"></span><span class="cs-ring" data-step="6" style="--t:73.788%;--h:22.121%;--l:2.16%;--w:95.68%"></span>
+          <div class="cs-phone-view is-current">
+            <div class="cs-phone-feed">
+              <img src="assets/skilling/ui/home-feed.jpg" alt="The Up-skill home feed: progress, quick access, new course, upcoming event, pending assessment and new playlist" width="816" height="4848" loading="lazy" decoding="async">
+              <span class="cs-ring" data-step="1" style="--t:7.015%;--h:4.258%;--l:5.761%;--w:88.3%"></span><span class="cs-ring" data-step="2" style="--t:11.894%;--h:3.939%;--l:3.6%;--w:96.4%"></span><span class="cs-ring" data-step="3" style="--t:16.818%;--h:18.03%;--l:2.16%;--w:95.68%"></span><span class="cs-ring" data-step="4" style="--t:35.606%;--h:21.364%;--l:2.16%;--w:95.68%"></span><span class="cs-ring" data-step="5" style="--t:57.652%;--h:15.455%;--l:2.16%;--w:95.68%"></span><span class="cs-ring" data-step="6" style="--t:73.788%;--h:22.121%;--l:2.16%;--w:95.68%"></span>
+            </div>
+            <div class="cs-phone-bar cs-phone-status"><img src="assets/skilling/ui/home-status.webp" alt="" width="816" height="93" loading="lazy" decoding="async"></div>
+            <div class="cs-phone-bar cs-phone-nav"><img src="assets/skilling/ui/home-nav.webp" alt="" width="816" height="181" loading="lazy" decoding="async"></div>
           </div>
-          <div class="cs-phone-bar cs-phone-status"><img src="assets/skilling/ui/home-status.webp" alt="" width="816" height="93" loading="lazy" decoding="async"></div>
-          <div class="cs-phone-bar cs-phone-nav"><img src="assets/skilling/ui/home-nav.webp" alt="" width="816" height="181" loading="lazy" decoding="async"></div>
         </div>
         <img class="cs-phone-bezel" src="assets/skilling/ui/home-bezel.webp" alt="" width="900" height="1852" loading="lazy" decoding="async">
       </div>
@@ -1393,47 +1386,88 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
   <p class="cs-lead">A course holds multiple chapters of video, images or audio transcripts. Users mostly watch video, so we kept familiar controls and CTAs.</p>
 
 </div>
-<div class="cs-wrap">
-  <div class="cs-sub">
-    <h3 class="cs-h3">One page for the whole course.</h3>
-    <p class="cs-p">The top gives a clear overview of the course, with one prominent CTA and the deadline. Below it, every chapter shows whether it is locked, in progress or completed, so users always know where they stand.</p>
+<div class="cs-pin" data-pin>
+  <div class="cs-pin-stage">
+      <div class="cs-annot cs-phone">
+        <div class="cs-phone-screen">
+          <div class="cs-phone-view is-current">
+            <div class="cs-phone-feed">
+              <img src="assets/skilling/ui/course-v-new.jpg" alt="Home page with a newly assigned course card" width="816" height="2267" loading="lazy" decoding="async">
+              <span class="cs-ring" data-step="1" style="--t:35.6%;--h:39.45%;--l:2.16%;--w:95.68%"></span>
+            </div>
+            <div class="cs-phone-bar cs-phone-status cs-phone-status--on"><img src="assets/skilling/ui/home-status-c.webp" alt="" width="816" height="93" loading="lazy" decoding="async"></div>
+            <div class="cs-phone-bar cs-phone-nav"><img src="assets/skilling/ui/home-nav.webp" alt="" width="816" height="181" loading="lazy" decoding="async"></div>
+          </div>
+          <div class="cs-phone-view">
+            <div class="cs-phone-feed">
+              <img src="assets/skilling/ui/course-v-deadline.jpg" alt="Home page with a mandatory course close to its deadline and a countdown" width="816" height="2267" loading="lazy" decoding="async">
+              <span class="cs-ring" data-step="2" style="--t:35.6%;--h:45.3%;--l:0%;--w:100%"></span>
+            </div>
+            <div class="cs-phone-bar cs-phone-status cs-phone-status--on"><img src="assets/skilling/ui/home-status-c.webp" alt="" width="816" height="93" loading="lazy" decoding="async"></div>
+            <div class="cs-phone-bar cs-phone-nav"><img src="assets/skilling/ui/home-nav.webp" alt="" width="816" height="181" loading="lazy" decoding="async"></div>
+          </div>
+          <div class="cs-phone-view">
+            <div class="cs-phone-feed">
+              <img src="assets/skilling/ui/course-v-set.jpg" alt="Home page with four pending courses and a link to view all of them" width="816" height="2267" loading="lazy" decoding="async">
+              <span class="cs-ring" data-step="3" style="--t:35.6%;--h:47%;--l:2.16%;--w:95.68%"></span>
+            </div>
+            <div class="cs-phone-bar cs-phone-status cs-phone-status--on"><img src="assets/skilling/ui/home-status-c.webp" alt="" width="816" height="93" loading="lazy" decoding="async"></div>
+            <div class="cs-phone-bar cs-phone-nav"><img src="assets/skilling/ui/home-nav.webp" alt="" width="816" height="181" loading="lazy" decoding="async"></div>
+          </div>
+          <div class="cs-phone-view">
+            <div class="cs-phone-feed">
+              <img src="assets/skilling/ui/course-v-detail-1.jpg" alt="Course page before starting, with Start Chapter 1 and later chapters locked" width="816" height="1813" loading="lazy" decoding="async">
+              <span class="cs-ring" data-step="4" style="--t:18.75%;--h:33.1%;--l:2.16%;--w:95.68%"></span>
+            </div>
+          </div>
+          <div class="cs-phone-view">
+            <div class="cs-phone-feed">
+              <img src="assets/skilling/ui/course-v-detail-2.jpg" alt="Course page in progress: chapter 1 completed, chapter 2 partly watched, chapter 3 locked" width="816" height="1813" loading="lazy" decoding="async">
+              <span class="cs-ring" data-step="5" style="--t:54.8%;--h:35.5%;--l:4.5%;--w:91%"></span>
+            </div>
+          </div>
+          <div class="cs-phone-view">
+            <div class="cs-phone-feed">
+              <img src="assets/skilling/ui/course-v-detail-3.jpg" alt="Course page with every chapter completed" width="816" height="1813" loading="lazy" decoding="async">
+              <span class="cs-ring" data-step="6" style="--t:44.6%;--h:35.6%;--l:4.5%;--w:91%"></span>
+            </div>
+          </div>
+        </div>
+        <img class="cs-phone-bezel" src="assets/skilling/ui/home-bezel.webp" alt="" width="900" height="1852" loading="lazy" decoding="async">
+      </div>
+    <ol class="cs-notes">
+      <li class="cs-step cs-step--left" data-step="1" data-view="0" data-y="7.5">
+        <span class="cs-step-n">01</span>
+        <h3 class="cs-step-title">A new course</h3>
+        <p class="cs-step-desc">A prominent play button starts learning quickly. Badges, coins, length, chapters and topics sit up front, with View details for those who want to know more first.</p>
+      </li>
+      <li class="cs-step cs-step--right" data-step="2" data-view="1" data-y="11.25">
+        <span class="cs-step-n">02</span>
+        <h3 class="cs-step-title">Close to the deadline</h3>
+        <p class="cs-step-desc">A tinted banner and a running countdown capture attention and help users finish pending courses on time.</p>
+      </li>
+      <li class="cs-step cs-step--left" data-step="3" data-view="2" data-y="13">
+        <span class="cs-step-n">03</span>
+        <h3 class="cs-step-title">Several at once</h3>
+        <p class="cs-step-desc">One course is highlighted and the rest stack behind View all assigned courses, so a long list never overwhelms.</p>
+      </li>
+      <li class="cs-step cs-step--right" data-step="4" data-view="3" data-y="0">
+        <span class="cs-step-n">04</span>
+        <h3 class="cs-step-title">The course at a glance</h3>
+        <p class="cs-step-desc">The top of the course page gives a clear overview, with one prominent CTA and the deadline right under it.</p>
+      </li>
+      <li class="cs-step cs-step--left" data-step="5" data-view="4" data-y="0">
+        <span class="cs-step-n">05</span>
+        <h3 class="cs-step-title">Progress, chapter by chapter</h3>
+        <p class="cs-step-desc">Each chapter shows whether it is locked, in progress or completed, so users always know where they stand.</p>
+      </li>
+      <li class="cs-step cs-step--right" data-step="6" data-view="5" data-y="0">
+        <span class="cs-step-n">06</span>
+        <h3 class="cs-step-title">Done, and on record</h3>
+        <p class="cs-step-desc">Once every chapter is complete, the CTA steps aside and the page becomes a record of what was finished.</p>
+      </li>
+    </ol>
   </div>
-</div>
-<div class="cs-wrap cs-wrap--board cs-wrap--inset">
-  <ol class="cs-screens settle">
-      <li><figure><img src="assets/skilling/ui/course-detail-1.webp" alt="Course page before starting: Start Chapter 1, with chapters 2 and 3 locked" width="540" height="1200" loading="lazy" decoding="async"><figcaption><span>01</span>Not started</figcaption></figure></li>
-      <li><figure><img src="assets/skilling/ui/course-detail-2.webp" alt="Course page in progress: chapter 1 completed, chapter 2 partly watched, chapter 3 locked" width="540" height="1200" loading="lazy" decoding="async"><figcaption><span>02</span>In progress</figcaption></figure></li>
-      <li><figure><img src="assets/skilling/ui/course-detail-3.webp" alt="Course page with all three chapters completed" width="540" height="1200" loading="lazy" decoding="async"><figcaption><span>03</span>Completed</figcaption></figure></li>
-  </ol>
-</div>
-
-<div class="cs-wrap">
-  <div class="cs-sub">
-    <h3 class="cs-h3">How courses show up on home.</h3>
-    <p class="cs-p">A course can arrive on its own, close to its deadline, or as part of a set. The card keeps the same structure in each case and only changes what needs attention.</p>
-  </div>
-</div>
-<div class="cs-wrap cs-wrap--board cs-wrap--inset">
-  <ol class="cs-forces cs-forces--media">
-    <li class="cs-force">
-      <p class="cs-force-n">01</p>
-      <h3 class="cs-force-title">A new course</h3>
-      <p class="cs-force-desc">A prominent play button starts learning quickly. Badges, coins, length, chapters and topics sit up front, with View details for those who want to know more first.</p>
-      <img src="assets/skilling/ui/course-new.webp" alt="Home page card for a newly assigned course" width="720" height="789" loading="lazy" decoding="async">
-    </li>
-    <li class="cs-force">
-      <p class="cs-force-n">02</p>
-      <h3 class="cs-force-title">Close to the deadline</h3>
-      <p class="cs-force-desc">A tinted banner and a running countdown capture attention and help users finish pending courses on time.</p>
-      <img src="assets/skilling/ui/course-deadline.webp" alt="Home page banner for a mandatory course with a countdown to its deadline" width="720" height="906" loading="lazy" decoding="async">
-    </li>
-    <li class="cs-force">
-      <p class="cs-force-n">03</p>
-      <h3 class="cs-force-title">Several at once</h3>
-      <p class="cs-force-desc">One course is highlighted and the rest stack behind View all assigned courses, so a long list never overwhelms.</p>
-      <img src="assets/skilling/ui/course-set.webp" alt="Home page card for four pending courses with a link to view all of them" width="720" height="940" loading="lazy" decoding="async">
-    </li>
-  </ol>
 </div>
 
 <div class="cs-wrap cs-wrap--board" style="margin-top: 88px;">
@@ -2032,7 +2066,7 @@ var CS_REDUCE = window.matchMedia && window.matchMedia('(prefers-reduced-motion:
     var stage = root.querySelector('.cs-pin-stage');
     var phone = root.querySelector('.cs-phone');
     var screen = root.querySelector('.cs-phone-screen');
-    var feed = root.querySelector('.cs-phone-feed');
+    var views = [].slice.call(root.querySelectorAll('.cs-phone-view'));
     var notes = [].slice.call(root.querySelectorAll('.cs-step'));
     var rings = [].slice.call(root.querySelectorAll('.cs-ring'));
     var wide = window.matchMedia('(min-width: 901px)');
@@ -2040,19 +2074,24 @@ var CS_REDUCE = window.matchMedia && window.matchMedia('(prefers-reduced-motion:
     function set(k) {
       if (k === cur) return;
       cur = k;
-      var y = k ? parseFloat(notes[k - 1].getAttribute('data-y')) || 0 : 0;
-      phone.style.setProperty('--y', y + '%');
-      phone.classList.toggle('is-scrolled', y > 0);
+      var note = notes[k - 1];
+      var y = note ? parseFloat(note.getAttribute('data-y')) || 0 : 0;
+      var v = note ? parseInt(note.getAttribute('data-view'), 10) || 0 : 0;
+      views.forEach(function(view, i) {
+        view.classList.toggle('is-current', i === v);
+        if (i === v) { view.style.setProperty('--y', y + '%'); view.classList.toggle('is-scrolled', y > 0); }
+      });
       phone.classList.toggle('is-lit', k > 0);
       notes.forEach(function(n, i) { n.classList.toggle('is-active', i === k - 1); });
-      rings.forEach(function(r, i) { r.classList.toggle('is-active', i === k - 1); });
+      rings.forEach(function(r) { r.classList.toggle('is-active', r.getAttribute('data-step') === String(k)); });
     }
     // Each note sits level with the area it points at, once the feed has scrolled for that step
     function layout() {
       if (!wide.matches) return;
-      var st = stage.getBoundingClientRect(), sc = screen.getBoundingClientRect(), fh = feed.offsetHeight;
+      var st = stage.getBoundingClientRect(), sc = screen.getBoundingClientRect();
       notes.forEach(function(n, i) {
-        var r = rings[i];
+        var r = root.querySelector('.cs-ring[data-step="' + n.getAttribute('data-step') + '"]');
+        var fh = views[parseInt(n.getAttribute('data-view'), 10) || 0].querySelector('.cs-phone-feed').offsetHeight;
         var y = (parseFloat(n.getAttribute('data-y')) || 0) / 100 * fh;
         var t = parseFloat(r.style.getPropertyValue('--t')) / 100 * fh;
         var h = parseFloat(r.style.getPropertyValue('--h')) / 100 * fh;
@@ -2081,7 +2120,7 @@ var CS_REDUCE = window.matchMedia && window.matchMedia('(prefers-reduced-motion:
     function relayout() { layout(); queue(); }
     window.addEventListener('scroll', queue, { passive: true });
     window.addEventListener('resize', relayout);
-    feed.querySelector('img').addEventListener('load', layout);
+    root.querySelectorAll('.cs-phone-feed img').forEach(function(img) { img.addEventListener('load', layout); });
     window.addEventListener('load', layout);
     relayout();
   });
