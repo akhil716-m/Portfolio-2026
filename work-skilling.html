@@ -561,7 +561,7 @@ body.cs-lb-lock { overflow: hidden; }
 .cs-theme-copy { position: relative; }
 .cs-theme-title { margin: 0 0 12px; font-family: 'Geist', sans-serif; font-size: clamp(22px, 2.6vw, 30px); font-weight: 600; line-height: 1.2; letter-spacing: -0.015em; color: var(--text); }
 .cs-theme-desc { margin: 0; max-width: 38ch; font-family: 'Geist', sans-serif; font-size: 16px; font-weight: 400; line-height: 1.7; color: var(--text-soft); }
-.cs-swatches { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 28px; }
+.cs-swatches { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
 .cs-theme-type { margin: 20px 0 0; font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-soft); }
 
 /* Card builder: the home-page assessment card, rebuilt live so a pattern pick recolours it */
@@ -594,8 +594,14 @@ body.cs-lb-lock { overflow: hidden; }
 .cs-swatch:hover { transform: scale(1.06); }
 .cs-swatch.is-active { box-shadow: inset 0 0 0 1px rgba(255,255,255,0.2), 0 0 0 3px var(--bg), 0 0 0 5px var(--accent); }
 .cs-swatch:focus-visible { outline: 2px solid var(--accent); outline-offset: 6px; }
-.cs-swatches .cs-swatch { width: 36px; height: 36px; }
+.cs-swatches .cs-swatch { width: 34px; height: 34px; }
 .cs-swatches .cs-swatch--tile { width: 40px; height: 40px; }
+.cs-swatches .cs-swatch--text {
+  width: auto; height: 36px; padding: 0 14px; border-radius: 999px; background: rgba(255,255,255,0.05); box-shadow: inset 0 0 0 1px var(--line);
+  font-family: 'Geist', sans-serif; font-size: 13px; font-weight: 500; color: var(--text-soft);
+}
+.cs-swatches .cs-swatch--text:hover { transform: none; color: var(--text); }
+.cs-swatches .cs-swatch--text.is-active { color: var(--text); background: rgba(212,255,94,0.08); box-shadow: inset 0 0 0 1px var(--accent); }
 .cs-swatch.cs-swatch--tile { border-radius: 11px; background-size: cover; background-position: center; }
 
 /* ---------- RESPONSIVE ---------- */
@@ -1591,15 +1597,50 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
       <h4 class="cs-theme-title">One card, eight brands</h4>
       <p class="cs-theme-desc">Each colour in the palette comes with its own pattern. The card takes on the brand, but its structure never changes.</p>
       <div class="cs-swatches" role="group" aria-label="Card pattern">
-        <button type="button" class="cs-swatch cs-swatch--tile is-active" data-theme="p1" data-color="#3c8a84" aria-pressed="true" style="--sw:url(assets/skilling/ui/pattern-ex-01.webp)"><span class="cs-sr">Teal</span></button>
-        <button type="button" class="cs-swatch cs-swatch--tile" data-theme="p2" data-color="#ae4860" aria-pressed="false" style="--sw:url(assets/skilling/ui/pattern-ex-02.webp)"><span class="cs-sr">Berry</span></button>
-        <button type="button" class="cs-swatch cs-swatch--tile" data-theme="p3" data-color="#6096c6" aria-pressed="false" style="--sw:url(assets/skilling/ui/pattern-ex-03.webp)"><span class="cs-sr">Sky</span></button>
-        <button type="button" class="cs-swatch cs-swatch--tile" data-theme="p4" data-color="#6066ae" aria-pressed="false" style="--sw:url(assets/skilling/ui/pattern-ex-04.webp)"><span class="cs-sr">Indigo</span></button>
-        <button type="button" class="cs-swatch cs-swatch--tile" data-theme="p5" data-color="#ae845a" aria-pressed="false" style="--sw:url(assets/skilling/ui/pattern-ex-05.webp)"><span class="cs-sr">Ochre</span></button>
-        <button type="button" class="cs-swatch cs-swatch--tile" data-theme="p6" data-color="#665a7e" aria-pressed="false" style="--sw:url(assets/skilling/ui/pattern-ex-06.webp)"><span class="cs-sr">Plum</span></button>
-        <button type="button" class="cs-swatch cs-swatch--tile" data-theme="p7" data-color="#de5a4e" aria-pressed="false" style="--sw:url(assets/skilling/ui/pattern-ex-07.webp)"><span class="cs-sr">Coral</span></button>
-        <button type="button" class="cs-swatch cs-swatch--tile" data-theme="p8" data-color="#6c96c0" aria-pressed="false" style="--sw:url(assets/skilling/ui/pattern-ex-08.webp)"><span class="cs-sr">Steel</span></button>
+        <button type="button" class="cs-swatch cs-swatch--tile is-active" data-theme="p1" data-label="Teal pattern" data-color="#3c8a84" aria-pressed="true" style="--sw:url(assets/skilling/ui/pattern-ex-01.webp)"><span class="cs-sr">Teal</span></button>
+        <button type="button" class="cs-swatch cs-swatch--tile" data-theme="p2" data-label="Berry pattern" data-color="#ae4860" aria-pressed="false" style="--sw:url(assets/skilling/ui/pattern-ex-02.webp)"><span class="cs-sr">Berry</span></button>
+        <button type="button" class="cs-swatch cs-swatch--tile" data-theme="p3" data-label="Sky pattern" data-color="#6096c6" aria-pressed="false" style="--sw:url(assets/skilling/ui/pattern-ex-03.webp)"><span class="cs-sr">Sky</span></button>
+        <button type="button" class="cs-swatch cs-swatch--tile" data-theme="p4" data-label="Indigo pattern" data-color="#6066ae" aria-pressed="false" style="--sw:url(assets/skilling/ui/pattern-ex-04.webp)"><span class="cs-sr">Indigo</span></button>
+        <button type="button" class="cs-swatch cs-swatch--tile" data-theme="p5" data-label="Ochre pattern" data-color="#ae845a" aria-pressed="false" style="--sw:url(assets/skilling/ui/pattern-ex-05.webp)"><span class="cs-sr">Ochre</span></button>
+        <button type="button" class="cs-swatch cs-swatch--tile" data-theme="p6" data-label="Plum pattern" data-color="#665a7e" aria-pressed="false" style="--sw:url(assets/skilling/ui/pattern-ex-06.webp)"><span class="cs-sr">Plum</span></button>
+        <button type="button" class="cs-swatch cs-swatch--tile" data-theme="p7" data-label="Coral pattern" data-color="#de5a4e" aria-pressed="false" style="--sw:url(assets/skilling/ui/pattern-ex-07.webp)"><span class="cs-sr">Coral</span></button>
+        <button type="button" class="cs-swatch cs-swatch--tile" data-theme="p8" data-label="Steel pattern" data-color="#6c96c0" aria-pressed="false" style="--sw:url(assets/skilling/ui/pattern-ex-08.webp)"><span class="cs-sr">Steel</span></button>
       </div>
+      <p class="cs-theme-type" data-theme-label aria-live="polite">Teal pattern</p>
+    </div>
+  </div>
+</div>
+<div class="cs-wrap cs-wrap--board">
+  <div class="cs-theme settle" data-theme-switch>
+    <div class="cs-theme-stage">
+      <img class="is-active" data-theme="t1" src="assets/skilling/ui/theme-01.webp" alt="The same assessment question in the teal theme" width="520" height="1070" loading="lazy" decoding="async">
+      <img data-theme="t14" src="assets/skilling/ui/theme-14.webp" alt="The same assessment question in the slate theme" width="520" height="1070" loading="lazy" decoding="async">
+      <img data-theme="t7" src="assets/skilling/ui/theme-07.webp" alt="The same assessment question in the navy theme" width="520" height="1070" loading="lazy" decoding="async">
+      <img data-theme="t6" src="assets/skilling/ui/theme-06.webp" alt="The same assessment question in the indigo theme" width="520" height="1070" loading="lazy" decoding="async">
+      <img data-theme="t13" src="assets/skilling/ui/theme-13.webp" alt="The same assessment question in the violet theme" width="520" height="1070" loading="lazy" decoding="async">
+      <img data-theme="t8" src="assets/skilling/ui/theme-08.webp" alt="The same assessment question in the plum theme" width="520" height="1070" loading="lazy" decoding="async">
+      <img data-theme="t9" src="assets/skilling/ui/theme-09.webp" alt="The same assessment question in the magenta theme" width="520" height="1070" loading="lazy" decoding="async">
+      <img data-theme="t11" src="assets/skilling/ui/theme-11.webp" alt="The same assessment question in the maroon theme" width="520" height="1070" loading="lazy" decoding="async">
+      <img data-theme="t10" src="assets/skilling/ui/theme-10.webp" alt="The same assessment question in the red theme" width="520" height="1070" loading="lazy" decoding="async">
+      <img data-theme="t5" src="assets/skilling/ui/theme-05.webp" alt="The same assessment question in the rust theme" width="520" height="1070" loading="lazy" decoding="async">
+    </div>
+    <div class="cs-theme-copy">
+      <p class="cs-phase-tag">Try a theme</p>
+      <h4 class="cs-theme-title">Same question, ten brands</h4>
+      <p class="cs-theme-desc">The whole assessment takes on the brand's colour, and its pattern comes along. The question, the options and the flow stay exactly the same.</p>
+      <div class="cs-swatches" role="group" aria-label="Assessment theme">
+        <button type="button" class="cs-swatch is-active" data-theme="t1" data-label="Teal" aria-pressed="true" style="--sw:#1b4242"><span class="cs-sr">Teal</span></button>
+        <button type="button" class="cs-swatch" data-theme="t14" data-label="Slate" aria-pressed="false" style="--sw:#2e4458"><span class="cs-sr">Slate</span></button>
+        <button type="button" class="cs-swatch" data-theme="t7" data-label="Navy" aria-pressed="false" style="--sw:#144272"><span class="cs-sr">Navy</span></button>
+        <button type="button" class="cs-swatch" data-theme="t6" data-label="Indigo" aria-pressed="false" style="--sw:#3f3b6c"><span class="cs-sr">Indigo</span></button>
+        <button type="button" class="cs-swatch" data-theme="t13" data-label="Violet" aria-pressed="false" style="--sw:#4f2770"><span class="cs-sr">Violet</span></button>
+        <button type="button" class="cs-swatch" data-theme="t8" data-label="Plum" aria-pressed="false" style="--sw:#3e2c41"><span class="cs-sr">Plum</span></button>
+        <button type="button" class="cs-swatch" data-theme="t9" data-label="Magenta" aria-pressed="false" style="--sw:#54123b"><span class="cs-sr">Magenta</span></button>
+        <button type="button" class="cs-swatch" data-theme="t11" data-label="Maroon" aria-pressed="false" style="--sw:#6e3244"><span class="cs-sr">Maroon</span></button>
+        <button type="button" class="cs-swatch" data-theme="t10" data-label="Red" aria-pressed="false" style="--sw:#7d2f2a"><span class="cs-sr">Red</span></button>
+        <button type="button" class="cs-swatch" data-theme="t5" data-label="Rust" aria-pressed="false" style="--sw:#5c3d2e"><span class="cs-sr">Rust</span></button>
+      </div>
+      <p class="cs-theme-type" data-theme-label aria-live="polite">Teal</p>
     </div>
   </div>
 </div>
@@ -1624,21 +1665,20 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
       <img data-theme="s9" src="assets/skilling/ui/assess-09.webp" alt="Yes or no question in the brick theme" width="520" height="1071" loading="lazy" decoding="async">
     </div>
     <div class="cs-theme-copy">
-      <p class="cs-phase-tag">Try a theme</p>
-      <h4 class="cs-theme-title">Nine brands, every question type</h4>
-      <p class="cs-theme-desc">Each assessment takes on its brand's colour and pattern, while the questions stay familiar: upload, tap, pick, answer yes or no, or write.</p>
-      <div class="cs-swatches" role="group" aria-label="Assessment theme">
-        <button type="button" class="cs-swatch is-active" data-theme="s1" data-label="01 &middot; Image response" aria-pressed="true" style="--sw:#4b5232"><span class="cs-sr">Olive, Image response</span></button>
-        <button type="button" class="cs-swatch" data-theme="s2" data-label="02 &middot; Tap on the image" aria-pressed="false" style="--sw:#144272"><span class="cs-sr">Navy, Tap on the image</span></button>
-        <button type="button" class="cs-swatch" data-theme="s3" data-label="03 &middot; Pick an image" aria-pressed="false" style="--sw:#03506f"><span class="cs-sr">Ocean, Pick an image</span></button>
-        <button type="button" class="cs-swatch" data-theme="s4" data-label="04 &middot; Upload an image" aria-pressed="false" style="--sw:#2e4458"><span class="cs-sr">Slate, Upload an image</span></button>
-        <button type="button" class="cs-swatch" data-theme="s5" data-label="05 &middot; Yes or no, with video" aria-pressed="false" style="--sw:#514154"><span class="cs-sr">Plum, Yes or no, with video</span></button>
-        <button type="button" class="cs-swatch" data-theme="s6" data-label="06 &middot; Pick one, with video" aria-pressed="false" style="--sw:#36716b"><span class="cs-sr">Jade, Pick one, with video</span></button>
-        <button type="button" class="cs-swatch" data-theme="s7" data-label="07 &middot; Write a response, with video" aria-pressed="false" style="--sw:#634f4f"><span class="cs-sr">Clay, Write a response, with video</span></button>
-        <button type="button" class="cs-swatch" data-theme="s8" data-label="08 &middot; Write a response" aria-pressed="false" style="--sw:#3f3b6c"><span class="cs-sr">Indigo, Write a response</span></button>
-        <button type="button" class="cs-swatch" data-theme="s9" data-label="09 &middot; Yes or no" aria-pressed="false" style="--sw:#7d2f2a"><span class="cs-sr">Brick, Yes or no</span></button>
+      <p class="cs-phase-tag">Ways to answer</p>
+      <h4 class="cs-theme-title">Nine ways to take an assessment</h4>
+      <p class="cs-theme-desc">Questions can ask for an image, a tap on a photo, a pick from options, a yes or no, or a written answer, with or without a video to watch first.</p>
+      <div class="cs-swatches" role="group" aria-label="Answer type">
+        <button type="button" class="cs-swatch cs-swatch--text is-active" data-theme="s1" aria-pressed="true">Image response</button>
+        <button type="button" class="cs-swatch cs-swatch--text" data-theme="s2" aria-pressed="false">Tap on the image</button>
+        <button type="button" class="cs-swatch cs-swatch--text" data-theme="s3" aria-pressed="false">Pick an image</button>
+        <button type="button" class="cs-swatch cs-swatch--text" data-theme="s4" aria-pressed="false">Upload an image</button>
+        <button type="button" class="cs-swatch cs-swatch--text" data-theme="s5" aria-pressed="false">Yes or no, with video</button>
+        <button type="button" class="cs-swatch cs-swatch--text" data-theme="s6" aria-pressed="false">Pick one, with video</button>
+        <button type="button" class="cs-swatch cs-swatch--text" data-theme="s7" aria-pressed="false">Write a response, with video</button>
+        <button type="button" class="cs-swatch cs-swatch--text" data-theme="s8" aria-pressed="false">Write a response</button>
+        <button type="button" class="cs-swatch cs-swatch--text" data-theme="s9" aria-pressed="false">Yes or no</button>
       </div>
-      <p class="cs-theme-type" data-theme-label aria-live="polite">01 &middot; Image response</p>
     </div>
   </div>
 </div>
