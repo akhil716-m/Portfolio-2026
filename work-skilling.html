@@ -551,10 +551,7 @@ body.cs-lb-lock { overflow: hidden; }
   position: relative; overflow: hidden; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: clamp(24px, 5vw, 72px);
   padding: clamp(24px, 4vw, 48px); border-radius: 24px; background: rgba(var(--wash), 0.06); border: 1px solid rgba(255,255,255,0.07);
 }
-.cs-theme[data-active="teal"]   { --glow: rgba(65,105,102,0.55); }
-.cs-theme[data-active="ocean"]  { --glow: rgba(27,99,127,0.62); }
-.cs-theme[data-active="violet"] { --glow: rgba(68,65,111,0.68); }
-.cs-theme-stage { position: relative; height: min(64dvh, 540px); aspect-ratio: 520 / 1072; margin: 0 auto; }
+.cs-theme-stage { position: relative; height: min(64dvh, 540px); aspect-ratio: 520 / 1071; margin: 0 auto; }
 .cs-theme-glow { display: none; }
 .cs-theme-stage img {
   position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; transform: translateY(10px) scale(0.985);
@@ -564,7 +561,32 @@ body.cs-lb-lock { overflow: hidden; }
 .cs-theme-copy { position: relative; }
 .cs-theme-title { margin: 0 0 12px; font-family: 'Geist', sans-serif; font-size: clamp(22px, 2.6vw, 30px); font-weight: 600; line-height: 1.2; letter-spacing: -0.015em; color: var(--text); }
 .cs-theme-desc { margin: 0; max-width: 38ch; font-family: 'Geist', sans-serif; font-size: 16px; font-weight: 400; line-height: 1.7; color: var(--text-soft); }
-.cs-swatches { display: flex; gap: 14px; margin-top: 28px; }
+.cs-swatches { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 28px; }
+.cs-theme-type { margin: 20px 0 0; font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-soft); }
+
+/* Card builder: the home-page assessment card, rebuilt live so a pattern pick recolours it */
+@property --c1 { syntax: '<color>'; inherits: true; initial-value: #3c8a84; }
+.cs-theme--card { --c1: #3c8a84; transition: --c1 0.5s ease; }
+.cs-acard { width: min(100%, 380px); margin: 0 auto; padding: 16px 16px 18px; border-radius: 22px; background: #fff; color: #0d1726; font-family: 'Geist', sans-serif; box-shadow: 0 24px 60px rgba(0,0,0,0.45); }
+.cs-acard-panel {
+  display: grid; grid-template-columns: 42% 1fr; gap: 14px; align-items: center; padding: 12px; border-radius: 16px;
+  background: linear-gradient(135deg, var(--c1), color-mix(in srgb, var(--c1) 55%, #000));
+}
+.cs-acard-tile { position: relative; aspect-ratio: 1; border-radius: 12px; overflow: hidden; }
+.cs-acard-tile img { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; transform: scale(0.94) rotate(-4deg); transition: opacity 0.35s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+.cs-acard-tile img.is-active { opacity: 1; transform: none; }
+.cs-acard-meta { display: flex; flex-direction: column; align-items: flex-start; gap: 7px; color: #fff; font-size: 12.5px; line-height: 1.2; }
+.cs-acard-meta > span { display: inline-flex; align-items: center; gap: 7px; }
+.cs-acard-meta svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; }
+.cs-acard-coin { padding: 2px 8px 2px 3px; border: 1px solid rgba(255,255,255,0.5); border-radius: 999px; }
+.cs-acard-coin i { width: 12px; height: 12px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #ffe27a, #f2b300); }
+.cs-acard-cta { margin-top: 4px; padding: 8px 12px; border-radius: 10px; background: #fff; color: #0d1726; font-weight: 600; }
+.cs-acard-cta svg { width: 11px; height: 11px; fill: currentColor; stroke: none; }
+.cs-acard-title { margin: 14px 2px 6px; font-size: 14.5px; font-weight: 600; line-height: 1.35; }
+.cs-acard-link { margin: 0 2px 10px; font-size: 12.5px; color: #4b5563; text-decoration: underline; text-underline-offset: 3px; }
+.cs-acard-proof { display: flex; align-items: center; margin: 0 2px; font-size: 12.5px; color: #4b5563; }
+.cs-acard-proof i { width: 18px; height: 18px; margin-right: -6px; border-radius: 50%; border: 2px solid #fff; background: linear-gradient(135deg, #9aa3ad, #4b5563); }
+.cs-acard-proof i:last-of-type { margin-right: 8px; }
 .cs-swatch {
   width: 44px; height: 44px; border-radius: 50%; cursor: pointer; border: 0; background: var(--sw);
   box-shadow: inset 0 0 0 1px rgba(255,255,255,0.2); transition: box-shadow 0.25s ease, transform 0.25s ease;
@@ -572,6 +594,9 @@ body.cs-lb-lock { overflow: hidden; }
 .cs-swatch:hover { transform: scale(1.06); }
 .cs-swatch.is-active { box-shadow: inset 0 0 0 1px rgba(255,255,255,0.2), 0 0 0 3px var(--bg), 0 0 0 5px var(--accent); }
 .cs-swatch:focus-visible { outline: 2px solid var(--accent); outline-offset: 6px; }
+.cs-swatches .cs-swatch { width: 36px; height: 36px; }
+.cs-swatches .cs-swatch--tile { width: 40px; height: 40px; }
+.cs-swatch.cs-swatch--tile { border-radius: 11px; background-size: cover; background-position: center; }
 
 /* ---------- RESPONSIVE ---------- */
 @media (max-width: 900px) {
@@ -614,8 +639,8 @@ body.cs-lb-lock { overflow: hidden; }
   .cs-hero-ph, .cs-hero-sub { animation: none; opacity: 1; translate: none; }
   .js .cs-act-line, .js .cs-act-sub { transition: none; transform: none; opacity: 1; }
   .cs-ba-panel.is-active { animation: none; }
-  .cs-theme-stage img, .cs-ring, .cs-swatch, .cs-phone-feed, .cs-phone-status, .cs-phone-view, .cs-step, .cs-phone-bar::after { transition: none; }
-  .cs-theme { transition: none; }
+  .cs-theme-stage img, .cs-acard-tile img, .cs-ring, .cs-swatch, .cs-phone-feed, .cs-phone-status, .cs-phone-view, .cs-step, .cs-phone-bar::after { transition: none; }
+  .cs-theme, .cs-theme--card { transition: none; }
 }
 
 /* =====================================================================
@@ -1546,12 +1571,37 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
   </div>
 </div>
 <div class="cs-wrap cs-wrap--board">
-<figure class="cs-board settle">
-  <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: Colour palette and patterns" data-full="assets/skilling/d-theming.jpg" data-alt="Predefined colour palette and pattern icons for assessment theming">
-    <img src="assets/skilling/d-theming.jpg" alt="Predefined colour palette and pattern icons for assessment theming" width="1750" height="658" loading="lazy" decoding="async">
-    <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+  <div class="cs-theme cs-theme--card settle" data-theme-switch>
+    <div class="cs-acard" aria-label="An assessment card as it appears on the home page">
+      <div class="cs-acard-panel">
+        <div class="cs-acard-tile"><img class="is-active" data-theme="p1" src="assets/skilling/ui/pattern-01.webp" alt="" width="240" height="240" loading="lazy" decoding="async"><img data-theme="p2" src="assets/skilling/ui/pattern-02.webp" alt="" width="240" height="240" loading="lazy" decoding="async"><img data-theme="p3" src="assets/skilling/ui/pattern-03.webp" alt="" width="240" height="240" loading="lazy" decoding="async"><img data-theme="p4" src="assets/skilling/ui/pattern-04.webp" alt="" width="240" height="240" loading="lazy" decoding="async"><img data-theme="p5" src="assets/skilling/ui/pattern-05.webp" alt="" width="240" height="240" loading="lazy" decoding="async"><img data-theme="p6" src="assets/skilling/ui/pattern-06.webp" alt="" width="240" height="240" loading="lazy" decoding="async"><img data-theme="p7" src="assets/skilling/ui/pattern-07.webp" alt="" width="240" height="240" loading="lazy" decoding="async"><img data-theme="p8" src="assets/skilling/ui/pattern-08.webp" alt="" width="240" height="240" loading="lazy" decoding="async"></div>
+        <div class="cs-acard-meta">
+          <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1.5"/><circle cx="4.5" cy="12" r="1.5"/><circle cx="4.5" cy="18" r="1.5"/></svg>8 Questions</span>
+          <span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9.5 2.5h5"/></svg>15 mins</span>
+          <span class="cs-acard-coin"><i aria-hidden="true"></i>12</span>
+          <span class="cs-acard-cta"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l12-7.5z"/></svg>Start assessment</span>
+        </div>
+      </div>
+      <p class="cs-acard-title">How to deliver happiness with your each task</p>
+      <p class="cs-acard-link">View details <span aria-hidden="true">&rsaquo;</span></p>
+      <p class="cs-acard-proof"><i aria-hidden="true"></i><i aria-hidden="true"></i><i aria-hidden="true"></i>24 people completed</p>
+    </div>
+    <div class="cs-theme-copy">
+      <p class="cs-phase-tag">Pick a pattern</p>
+      <h4 class="cs-theme-title">One card, eight brands</h4>
+      <p class="cs-theme-desc">Each colour in the palette comes with its own pattern. The card takes on the brand, but its structure never changes.</p>
+      <div class="cs-swatches" role="group" aria-label="Card pattern">
+        <button type="button" class="cs-swatch cs-swatch--tile is-active" data-theme="p1" data-color="#3c8a84" aria-pressed="true" style="--sw:url(assets/skilling/ui/pattern-ex-01.webp)"><span class="cs-sr">Teal</span></button>
+        <button type="button" class="cs-swatch cs-swatch--tile" data-theme="p2" data-color="#ae4860" aria-pressed="false" style="--sw:url(assets/skilling/ui/pattern-ex-02.webp)"><span class="cs-sr">Berry</span></button>
+        <button type="button" class="cs-swatch cs-swatch--tile" data-theme="p3" data-color="#6096c6" aria-pressed="false" style="--sw:url(assets/skilling/ui/pattern-ex-03.webp)"><span class="cs-sr">Sky</span></button>
+        <button type="button" class="cs-swatch cs-swatch--tile" data-theme="p4" data-color="#6066ae" aria-pressed="false" style="--sw:url(assets/skilling/ui/pattern-ex-04.webp)"><span class="cs-sr">Indigo</span></button>
+        <button type="button" class="cs-swatch cs-swatch--tile" data-theme="p5" data-color="#ae845a" aria-pressed="false" style="--sw:url(assets/skilling/ui/pattern-ex-05.webp)"><span class="cs-sr">Ochre</span></button>
+        <button type="button" class="cs-swatch cs-swatch--tile" data-theme="p6" data-color="#665a7e" aria-pressed="false" style="--sw:url(assets/skilling/ui/pattern-ex-06.webp)"><span class="cs-sr">Plum</span></button>
+        <button type="button" class="cs-swatch cs-swatch--tile" data-theme="p7" data-color="#de5a4e" aria-pressed="false" style="--sw:url(assets/skilling/ui/pattern-ex-07.webp)"><span class="cs-sr">Coral</span></button>
+        <button type="button" class="cs-swatch cs-swatch--tile" data-theme="p8" data-color="#6c96c0" aria-pressed="false" style="--sw:url(assets/skilling/ui/pattern-ex-08.webp)"><span class="cs-sr">Steel</span></button>
+      </div>
+    </div>
   </div>
-</figure>
 </div>
 
 <div class="cs-wrap">
@@ -1563,20 +1613,32 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
 <div class="cs-wrap cs-wrap--board">
   <div class="cs-theme settle" data-theme-switch>
     <div class="cs-theme-stage">
-      <span class="cs-theme-glow" aria-hidden="true"></span>
-      <img class="is-active" data-theme="teal" src="assets/skilling/ui/theme-teal.webp" alt="Assessment question screen in the teal theme" width="520" height="1072" loading="lazy" decoding="async">
-      <img data-theme="ocean" src="assets/skilling/ui/theme-ocean.webp" alt="Assessment question screen in the ocean blue theme" width="520" height="1072" loading="lazy" decoding="async">
-      <img data-theme="violet" src="assets/skilling/ui/theme-violet.webp" alt="Assessment question screen in the violet theme" width="520" height="1072" loading="lazy" decoding="async">
+      <img class="is-active" data-theme="s1" src="assets/skilling/ui/assess-01.webp" alt="Image response question in the olive theme" width="520" height="1071" loading="lazy" decoding="async">
+      <img data-theme="s2" src="assets/skilling/ui/assess-02.webp" alt="Tap on the image question in the navy theme" width="520" height="1071" loading="lazy" decoding="async">
+      <img data-theme="s3" src="assets/skilling/ui/assess-03.webp" alt="Pick an image question in the ocean theme" width="520" height="1071" loading="lazy" decoding="async">
+      <img data-theme="s4" src="assets/skilling/ui/assess-04.webp" alt="Upload an image question in the slate theme" width="520" height="1071" loading="lazy" decoding="async">
+      <img data-theme="s5" src="assets/skilling/ui/assess-05.webp" alt="Yes or no, with video question in the plum theme" width="520" height="1071" loading="lazy" decoding="async">
+      <img data-theme="s6" src="assets/skilling/ui/assess-06.webp" alt="Pick one, with video question in the jade theme" width="520" height="1071" loading="lazy" decoding="async">
+      <img data-theme="s7" src="assets/skilling/ui/assess-07.webp" alt="Write a response, with video question in the clay theme" width="520" height="1071" loading="lazy" decoding="async">
+      <img data-theme="s8" src="assets/skilling/ui/assess-08.webp" alt="Write a response question in the indigo theme" width="520" height="1071" loading="lazy" decoding="async">
+      <img data-theme="s9" src="assets/skilling/ui/assess-09.webp" alt="Yes or no question in the brick theme" width="520" height="1071" loading="lazy" decoding="async">
     </div>
     <div class="cs-theme-copy">
       <p class="cs-phase-tag">Try a theme</p>
-      <h4 class="cs-theme-title">Same question, three brands</h4>
-      <p class="cs-theme-desc">Admins pick a colour from a predefined palette, and a pattern comes with it. Playful and on-brand, without touching the product's visual hygiene.</p>
+      <h4 class="cs-theme-title">Nine brands, every question type</h4>
+      <p class="cs-theme-desc">Each assessment takes on its brand's colour and pattern, while the questions stay familiar: upload, tap, pick, answer yes or no, or write.</p>
       <div class="cs-swatches" role="group" aria-label="Assessment theme">
-        <button type="button" class="cs-swatch is-active" data-theme="teal" aria-pressed="true" style="--sw:#416966"><span class="cs-sr">Teal</span></button>
-        <button type="button" class="cs-swatch" data-theme="ocean" aria-pressed="false" style="--sw:#1b637f"><span class="cs-sr">Ocean</span></button>
-        <button type="button" class="cs-swatch" data-theme="violet" aria-pressed="false" style="--sw:#44416f"><span class="cs-sr">Violet</span></button>
+        <button type="button" class="cs-swatch is-active" data-theme="s1" data-label="01 &middot; Image response" aria-pressed="true" style="--sw:#4b5232"><span class="cs-sr">Olive, Image response</span></button>
+        <button type="button" class="cs-swatch" data-theme="s2" data-label="02 &middot; Tap on the image" aria-pressed="false" style="--sw:#144272"><span class="cs-sr">Navy, Tap on the image</span></button>
+        <button type="button" class="cs-swatch" data-theme="s3" data-label="03 &middot; Pick an image" aria-pressed="false" style="--sw:#03506f"><span class="cs-sr">Ocean, Pick an image</span></button>
+        <button type="button" class="cs-swatch" data-theme="s4" data-label="04 &middot; Upload an image" aria-pressed="false" style="--sw:#2e4458"><span class="cs-sr">Slate, Upload an image</span></button>
+        <button type="button" class="cs-swatch" data-theme="s5" data-label="05 &middot; Yes or no, with video" aria-pressed="false" style="--sw:#514154"><span class="cs-sr">Plum, Yes or no, with video</span></button>
+        <button type="button" class="cs-swatch" data-theme="s6" data-label="06 &middot; Pick one, with video" aria-pressed="false" style="--sw:#36716b"><span class="cs-sr">Jade, Pick one, with video</span></button>
+        <button type="button" class="cs-swatch" data-theme="s7" data-label="07 &middot; Write a response, with video" aria-pressed="false" style="--sw:#634f4f"><span class="cs-sr">Clay, Write a response, with video</span></button>
+        <button type="button" class="cs-swatch" data-theme="s8" data-label="08 &middot; Write a response" aria-pressed="false" style="--sw:#3f3b6c"><span class="cs-sr">Indigo, Write a response</span></button>
+        <button type="button" class="cs-swatch" data-theme="s9" data-label="09 &middot; Yes or no" aria-pressed="false" style="--sw:#7d2f2a"><span class="cs-sr">Brick, Yes or no</span></button>
       </div>
+      <p class="cs-theme-type" data-theme-label aria-live="polite">01 &middot; Image response</p>
     </div>
   </div>
 </div>
@@ -2158,10 +2220,11 @@ var CS_REDUCE = window.matchMedia && window.matchMedia('(prefers-reduced-motion:
   });
 })();
 
-/* Theme switcher: same question, three brand palettes */
+/* Theme switchers: a swatch shows its images, and can recolour (data-color) and caption (data-label) */
 (function() {
   document.querySelectorAll('[data-theme-switch]').forEach(function(root) {
-    var imgs = root.querySelectorAll('.cs-theme-stage img');
+    var imgs = root.querySelectorAll('img[data-theme]');
+    var label = root.querySelector('[data-theme-label]');
     var swatches = root.querySelectorAll('.cs-swatch');
     function set(name) {
       root.setAttribute('data-active', name);
@@ -2170,10 +2233,12 @@ var CS_REDUCE = window.matchMedia && window.matchMedia('(prefers-reduced-motion:
         var on = b.getAttribute('data-theme') === name;
         b.classList.toggle('is-active', on);
         b.setAttribute('aria-pressed', on ? 'true' : 'false');
+        if (on && b.getAttribute('data-color')) root.style.setProperty('--c1', b.getAttribute('data-color'));
+        if (on && label) label.innerHTML = b.getAttribute('data-label');
       });
     }
     swatches.forEach(function(b) { b.addEventListener('click', function() { set(b.getAttribute('data-theme')); }); });
-    set('teal');
+    set(swatches[0].getAttribute('data-theme'));
   });
 })();
 
