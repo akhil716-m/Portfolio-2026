@@ -467,7 +467,7 @@ body.cs-lb-lock { overflow: hidden; }
 .cs-ba-note { grid-column: 1 / -1; margin: 22px 0 0; max-width: 52ch; font-family: 'Geist', sans-serif; font-size: 14.5px; font-weight: 400; line-height: 1.65; color: var(--text-soft); }
 
 /* ---------- PINNED PHONE: the home screen holds centre stage, notes come in left and right ---------- */
-.cs-pin { position: relative; height: calc(100dvh + 6 * 62dvh); margin-top: 24px; }
+.cs-pin { position: relative; height: calc(100dvh + var(--steps, 6) * 62dvh); margin-top: 24px; }
 .cs-pin-stage {
   --ph: min(80dvh, 700px); --pw: calc(var(--ph) * 900 / 1852); --gap: clamp(32px, 3.5vw, 56px);
   position: sticky; top: 0; height: 100dvh; display: flex; align-items: center; justify-content: center;
@@ -576,8 +576,16 @@ body.cs-lb-lock { overflow: hidden; }
 .cs-brand { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); }
 .cs-brand-stage { position: relative; width: min(100%, 540px); height: min(64dvh, 540px); margin: 0 auto; }
 .cs-brand-stage .cs-theme-stage { position: absolute; left: 0; top: 0; height: 100%; margin: 0; }
-.cs-brand-stage .cs-acard { position: absolute; right: 0; bottom: -2%; width: 300px; margin: 0; }
-.cs-brand-stage .cs-acard-meta { font-size: 12px; }
+.cs-brand-stage .cs-acard { position: absolute; right: 0; bottom: 2%; width: 276px; margin: 0; }
+.cs-brand-stage .cs-acard { padding: 10px 10px 12px; border-radius: 18px; box-shadow: 0 18px 44px rgba(0,0,0,0.42); }
+.cs-brand-stage .cs-acard-panel { padding: 9px; gap: 10px; border-radius: 13px; grid-template-columns: 40% 1fr; }
+.cs-brand-stage .cs-acard-tile { border-radius: 10px; }
+.cs-brand-stage .cs-acard-meta { font-size: 11px; gap: 5px; }
+.cs-brand-stage .cs-acard-meta svg { width: 12px; height: 12px; }
+.cs-brand-stage .cs-acard-cta { padding: 6px 9px; border-radius: 8px; }
+.cs-brand-stage .cs-acard-title { margin: 10px 2px 4px; font-size: 12.5px; }
+.cs-brand-stage .cs-acard-link, .cs-brand-stage .cs-acard-proof { font-size: 11px; }
+.cs-brand-stage .cs-acard-link { margin-bottom: 8px; }
 .cs-acard-tile { position: relative; aspect-ratio: 1; border-radius: 12px; overflow: hidden; }
 .cs-acard-tile img { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; transform: scale(0.94) rotate(-4deg); transition: opacity 0.35s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
 .cs-acard-tile img.is-active { opacity: 1; transform: none; }
@@ -586,13 +594,12 @@ body.cs-lb-lock { overflow: hidden; }
 .cs-acard-meta svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; }
 .cs-acard-coin { padding: 2px 8px 2px 3px; border: 1px solid rgba(255,255,255,0.5); border-radius: 999px; }
 .cs-acard-coin i { width: 12px; height: 12px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #ffe27a, #f2b300); }
-.cs-acard-cta { margin-top: 4px; padding: 8px 12px; border-radius: 10px; background: #fff; color: #0d1726; font-weight: 600; }
+.cs-acard-cta { white-space: nowrap; margin-top: 4px; padding: 8px 12px; border-radius: 10px; background: #fff; color: #0d1726; font-weight: 600; }
 .cs-acard-cta svg { width: 11px; height: 11px; fill: currentColor; stroke: none; }
 .cs-acard-title { margin: 14px 2px 6px; font-size: 14.5px; font-weight: 600; line-height: 1.35; }
 .cs-acard-link { margin: 0 2px 10px; font-size: 12.5px; color: #4b5563; text-decoration: underline; text-underline-offset: 3px; }
 .cs-acard-proof { display: flex; align-items: center; margin: 0 2px; font-size: 12.5px; color: #4b5563; }
-.cs-acard-proof i { width: 18px; height: 18px; margin-right: -6px; border-radius: 50%; border: 2px solid #fff; background: linear-gradient(135deg, #9aa3ad, #4b5563); }
-.cs-acard-proof i:last-of-type { margin-right: 8px; }
+.cs-acard-proof img { height: 18px; width: auto; margin-right: 8px; }
 .cs-swatch {
   width: 44px; height: 44px; border-radius: 50%; cursor: pointer; border: 0; background: var(--sw);
   box-shadow: inset 0 0 0 1px rgba(255,255,255,0.2); transition: box-shadow 0.25s ease, transform 0.25s ease;
@@ -635,7 +642,7 @@ body.cs-lb-lock { overflow: hidden; }
   .cs-theme-stage { height: min(52dvh, 460px); }
   .cs-brand-stage { height: auto; width: 100%; }
   .cs-brand-stage .cs-theme-stage { position: relative; height: min(52dvh, 460px); margin: 0 auto; }
-  .cs-brand-stage .cs-acard { position: relative; right: auto; bottom: auto; width: min(100%, 320px); margin: -72px auto 0; }
+  .cs-brand-stage .cs-acard { position: relative; right: auto; bottom: auto; width: min(100%, 276px); margin: -64px auto 0; }
   .cs-pair { grid-template-columns: 1fr; }
   .cs-strip { --ph: 380px; }
 }
@@ -1555,13 +1562,53 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
   <p class="cs-lead">The old assessments felt like filling out a form. We rebuilt them to be playful, instructive and engaging on every question type.</p>
 
 </div>
-<div class="cs-wrap cs-wrap--board">
-<figure class="cs-board settle">
-  <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: Making assessment playful and engaging" data-full="assets/skilling/d-assess-intro.jpg" data-alt="Assessment card and detail screen in the redesigned app">
-    <img src="assets/skilling/d-assess-intro.jpg" alt="Assessment card and detail screen in the redesigned app" width="1590" height="625" loading="lazy" decoding="async">
-    <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+<div class="cs-pin" data-pin style="--steps: 3">
+  <div class="cs-pin-stage">
+      <div class="cs-annot cs-phone">
+        <div class="cs-phone-screen">
+          <div class="cs-phone-view is-current">
+            <div class="cs-phone-feed">
+              <img src="assets/skilling/ui/assess-v-home.jpg" alt="Home page with a list of six assigned assessments" width="816" height="2267" loading="lazy" decoding="async">
+              <span class="cs-ring" data-step="1" style="--t:35.4%;--h:30.5%;--l:0%;--w:100%"></span>
+            </div>
+            <div class="cs-phone-bar cs-phone-status cs-phone-status--on"><img src="assets/skilling/ui/home-status-c.webp" alt="" width="816" height="93" loading="lazy" decoding="async"></div>
+            <div class="cs-phone-bar cs-phone-nav"><img src="assets/skilling/ui/home-nav.webp" alt="" width="816" height="181" loading="lazy" decoding="async"></div>
+          </div>
+          <div class="cs-phone-view">
+            <div class="cs-phone-feed">
+              <img src="assets/skilling/ui/assess-v-deadline.jpg" alt="Home page with an assessment close to its deadline and a countdown" width="816" height="2267" loading="lazy" decoding="async">
+              <span class="cs-ring" data-step="2" style="--t:35.4%;--h:33.9%;--l:0%;--w:100%"></span>
+            </div>
+            <div class="cs-phone-bar cs-phone-status cs-phone-status--on"><img src="assets/skilling/ui/home-status-c.webp" alt="" width="816" height="93" loading="lazy" decoding="async"></div>
+            <div class="cs-phone-bar cs-phone-nav"><img src="assets/skilling/ui/home-nav.webp" alt="" width="816" height="181" loading="lazy" decoding="async"></div>
+          </div>
+          <div class="cs-phone-view">
+            <div class="cs-phone-feed">
+              <img src="assets/skilling/ui/assess-v-detail.jpg" alt="Assessment detail page with the number of questions, estimated time and a Start Assessment button" width="816" height="1813" loading="lazy" decoding="async">
+              <span class="cs-ring" data-step="3" style="--t:27.5%;--h:29.5%;--l:0%;--w:100%"></span>
+            </div>
+          </div>
+        </div>
+        <img class="cs-phone-bezel" src="assets/skilling/ui/home-bezel.webp" alt="" width="900" height="1852" loading="lazy" decoding="async">
+      </div>
+    <ol class="cs-notes">
+      <li class="cs-step cs-step--left" data-step="1" data-view="0" data-y="7.5">
+        <span class="cs-step-n">01</span>
+        <h3 class="cs-step-title">Assigned assessments</h3>
+        <p class="cs-step-desc">Each assessment on home shows its questions, time and reward up front, with Start assessment one tap away.</p>
+      </li>
+      <li class="cs-step cs-step--right" data-step="2" data-view="1" data-y="7.5">
+        <span class="cs-step-n">02</span>
+        <h3 class="cs-step-title">Close to the deadline</h3>
+        <p class="cs-step-desc">An assessment that is due soon moves to the top, with a tinted banner and a live countdown.</p>
+      </li>
+      <li class="cs-step cs-step--left" data-step="3" data-view="2" data-y="0">
+        <span class="cs-step-n">03</span>
+        <h3 class="cs-step-title">Before starting</h3>
+        <p class="cs-step-desc">The detail page sets expectations: how many questions, how long it takes and who has already completed it.</p>
+      </li>
+    </ol>
   </div>
-</figure>
 </div>
 
 <div class="cs-wrap">
@@ -1610,7 +1657,7 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
         </div>
         <p class="cs-acard-title">How to deliver happiness with your each task</p>
         <p class="cs-acard-link">View details <span aria-hidden="true">&rsaquo;</span></p>
-        <p class="cs-acard-proof"><i aria-hidden="true"></i><i aria-hidden="true"></i><i aria-hidden="true"></i>24 people completed</p>
+        <p class="cs-acard-proof"><img src="assets/skilling/ui/avatars.webp" alt="" width="112" height="55" loading="lazy" decoding="async">24 people completed</p>
       </div>
     </div>
     <div class="cs-theme-copy">
