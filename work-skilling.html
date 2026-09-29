@@ -294,14 +294,6 @@ a.cs-cta { margin-top: 28px; }
 .cs-board--photo .cs-fig-frame { cursor: default; padding: 0; background: none; border: 0; }
 .cs-board--photo .cs-fig-frame img { border-radius: clamp(14px, 2vw, 22px); filter: none; }
 .cs-board--photo .cs-fig-zoom { display: none; }
-/* Tall board: the source is a full top-to-bottom scroll capture, far taller than it is wide.
-   Crop the inline preview to a sane height and fade its cut edge; the untouched full image
-   still opens in the (scrollable) lightbox via data-full. */
-.cs-board--tall .cs-fig-frame { aspect-ratio: 950 / 2300; }
-.cs-board--tall .cs-fig-frame::after {
-  content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 26%;
-  background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, var(--bg) 100%); pointer-events: none;
-}
 .cs-pair { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(14px, 2vw, 24px); align-items: stretch; }
 .cs-pair .cs-board { margin-top: 0; display: flex; flex-direction: column; }
 .cs-pair .cs-fig-frame { flex: 1; display: flex; align-items: center; }
@@ -484,8 +476,18 @@ body.cs-lb-lock { overflow: hidden; }
 .js .cs-step.is-active { opacity: 1; }
 .cs-sticky-media { position: sticky; top: max(84px, calc(50dvh - min(37dvh, 320px))); }
 .cs-annot { position: relative; height: min(74dvh, 640px); aspect-ratio: 900 / 1852; margin-left: auto; }
-.cs-annot > img { display: block; width: 100%; height: 100%; filter: drop-shadow(0 28px 40px rgba(0,0,0,0.5)); }
-.cs-annot-mask { position: absolute; inset: 0; border-radius: 9% / 4.3%; overflow: hidden; pointer-events: none; }
+/* Scrolling phone: a bezel with a cut-out screen over a tall feed that scrolls to each step */
+.cs-phone { --y: 0%; --dim: rgba(6,6,6,0.72); filter: drop-shadow(0 28px 40px rgba(0,0,0,0.5)); }
+.cs-phone-bezel { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.cs-phone-screen { position: absolute; left: 4.735%; top: 1.905%; width: 90.694%; height: 96.27%; border-radius: 10.62% / 4.864%; overflow: hidden; background: #fff; }
+.cs-phone-feed { position: relative; transform: translateY(calc(-1 * var(--y))); transition: transform 0.9s cubic-bezier(0.65, 0, 0.35, 1); }
+.cs-phone-feed img { display: block; width: 100%; height: auto; }
+.cs-phone-bar { position: absolute; left: 0; right: 0; }
+.cs-phone-bar img { display: block; width: 100%; height: auto; }
+.cs-phone-status { top: 0; opacity: 0; transition: opacity 0.4s ease; }
+.cs-phone.is-scrolled .cs-phone-status { opacity: 1; }
+.cs-phone-nav { bottom: 0; }
+.js .cs-phone-bar::after { content: ''; position: absolute; inset: 0; background: var(--dim); }
 .cs-ring {
   position: absolute; top: var(--t); left: var(--l); width: var(--w); height: var(--h);
   box-shadow: 0 0 0 9999px rgba(6,6,6,0.72), inset 0 0 0 1px rgba(255,255,255,0.22);
@@ -565,6 +567,9 @@ body.cs-lb-lock { overflow: hidden; }
   .cs-step { min-height: 0; padding: 18px 0; }
   .js .cs-step { opacity: 1; }
   .cs-ring { display: none; }
+  .cs-phone-feed { transform: none; }
+  .js .cs-phone-bar::after { content: none; }
+  .cs-phone-status { display: none; }
   .cs-theme { grid-template-columns: 1fr; }
   .cs-theme-stage { height: min(52dvh, 460px); }
   .cs-pair { grid-template-columns: 1fr; }
@@ -585,7 +590,7 @@ body.cs-lb-lock { overflow: hidden; }
   .cs-hero-ph, .cs-hero-sub { animation: none; opacity: 1; translate: none; }
   .js .cs-act-line, .js .cs-act-sub { transition: none; transform: none; opacity: 1; }
   .cs-ba-panel.is-active { animation: none; }
-  .cs-theme-stage img, .cs-ring, .cs-swatch { transition: none; }
+  .cs-theme-stage img, .cs-ring, .cs-swatch, .cs-phone-feed, .cs-phone-status { transition: none; }
   .cs-theme { transition: none; }
 }
 
@@ -1304,40 +1309,45 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
 <div class="cs-wrap cs-wrap--board" style="margin-top: 72px;">
   <div class="cs-sticky" data-sticky>
     <ol class="cs-sticky-steps">
-      <li class="cs-step is-active" data-step="0">
+      <li class="cs-step is-active" data-step="0" data-y="0">
         <h3 class="cs-step-title">Learning progress indicator</h3>
         <p class="cs-step-desc">Overall progress sits on top. It gives users a view of their own learning path and encourages them to finish what remains.</p>
       </li>
-      <li class="cs-step" data-step="1">
+      <li class="cs-step" data-step="1" data-y="0">
         <h3 class="cs-step-title">Quick access</h3>
         <p class="cs-step-desc">Clear, direct navigation to every independent module: mini courses, courses, assessments and playlists.</p>
       </li>
-      <li class="cs-step" data-step="2">
+      <li class="cs-step" data-step="2" data-y="9.273">
         <h3 class="cs-step-title">Task-oriented, contextual content</h3>
         <p class="cs-step-desc">Whatever users need to accomplish is on top, in priority order, so the next task is always the first thing they see.</p>
       </li>
-      <li class="cs-step" data-step="3">
+      <li class="cs-step" data-step="3" data-y="29.727">
         <h3 class="cs-step-title">Instructive</h3>
-        <p class="cs-step-desc">The homepage guides users through specific tasks with clear visual cues, a prominent CTA and a strong visual hierarchy.</p>
+        <p class="cs-step-desc">Each card guides users to one clear action, with visual cues, a prominent CTA and a strong visual hierarchy.</p>
+      </li>
+      <li class="cs-step" data-step="4" data-y="48.833">
+        <h3 class="cs-step-title">Pending assessments</h3>
+        <p class="cs-step-desc">Assessments due soon show their questions, time and reward up front, with a single CTA to start.</p>
+      </li>
+      <li class="cs-step" data-step="5" data-y="63.242">
+        <h3 class="cs-step-title">Playlists</h3>
+        <p class="cs-step-desc">Assigned playlists show the level and chapter a user is on, so they pick up right where they left off.</p>
       </li>
     </ol>
     <div class="cs-sticky-media">
-      <div class="cs-annot">
-        <img src="assets/skilling/ui/home.webp" alt="The Up-skill home screen" width="900" height="1852" loading="lazy" decoding="async">
-        <div class="cs-annot-mask">
-          <span class="cs-ring is-active" data-step="0" style="--t:20.6%;--h:10.3%;--l:10%;--w:80%"></span><span class="cs-ring" data-step="1" style="--t:33.3%;--h:10.2%;--l:8.3%;--w:89%"></span><span class="cs-ring" data-step="2" style="--t:52.2%;--h:27.8%;--l:10%;--w:80%"></span><span class="cs-ring" data-step="3" style="--t:54%;--h:17.5%;--l:11%;--w:78%"></span>
+      <div class="cs-annot cs-phone">
+        <div class="cs-phone-screen">
+          <div class="cs-phone-feed">
+            <img src="assets/skilling/ui/home-feed.jpg" alt="The Up-skill home feed: progress, quick access, new course, upcoming event, pending assessment and new playlist" width="816" height="4848" loading="lazy" decoding="async">
+            <span class="cs-ring is-active" data-step="0" style="--t:7.015%;--h:4.258%;--l:5.761%;--w:88.3%"></span><span class="cs-ring" data-step="1" style="--t:11.894%;--h:3.939%;--l:3.6%;--w:96.4%"></span><span class="cs-ring" data-step="2" style="--t:16.818%;--h:18.03%;--l:2.16%;--w:95.68%"></span><span class="cs-ring" data-step="3" style="--t:35.606%;--h:21.364%;--l:2.16%;--w:95.68%"></span><span class="cs-ring" data-step="4" style="--t:57.652%;--h:15.455%;--l:2.16%;--w:95.68%"></span><span class="cs-ring" data-step="5" style="--t:73.788%;--h:22.121%;--l:2.16%;--w:95.68%"></span>
+          </div>
+          <div class="cs-phone-bar cs-phone-status"><img src="assets/skilling/ui/home-status.webp" alt="" width="816" height="93" loading="lazy" decoding="async"></div>
+          <div class="cs-phone-bar cs-phone-nav"><img src="assets/skilling/ui/home-nav.webp" alt="" width="816" height="181" loading="lazy" decoding="async"></div>
         </div>
+        <img class="cs-phone-bezel" src="assets/skilling/ui/home-bezel.webp" alt="" width="900" height="1852" loading="lazy" decoding="async">
       </div>
     </div>
   </div>
-</div>
-<div class="cs-wrap cs-wrap--board cs-wrap--inset">
-<figure class="cs-board settle cs-board--inset cs-board--tall">
-  <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: The full home screen, top to bottom" data-full="assets/skilling/d-home.jpg" data-alt="The Up-skill home screen scrolled from top to bottom: progress, quick access, new course, upcoming event, pending assessment and new playlist">
-    <img src="assets/skilling/d-home.jpg" alt="The Up-skill home screen scrolled from top to bottom: progress, quick access, new course, upcoming event, pending assessment and new playlist" width="950" height="5428" loading="lazy" decoding="async">
-    <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
-  </div>
-</figure>
 </div>
 </section>
 
@@ -1980,9 +1990,18 @@ var CS_REDUCE = window.matchMedia && window.matchMedia('(prefers-reduced-motion:
   document.querySelectorAll('[data-sticky]').forEach(function(root) {
     var steps = root.querySelectorAll('.cs-step');
     var rings = root.querySelectorAll('.cs-ring');
+    var phone = root.querySelector('.cs-phone');
     if (!steps.length || !('IntersectionObserver' in window)) return;
     function set(n) {
-      steps.forEach(function(s) { s.classList.toggle('is-active', s.getAttribute('data-step') === n); });
+      steps.forEach(function(s) {
+        var on = s.getAttribute('data-step') === n;
+        s.classList.toggle('is-active', on);
+        if (on && phone) {
+          var y = parseFloat(s.getAttribute('data-y')) || 0;
+          phone.style.setProperty('--y', y + '%');
+          phone.classList.toggle('is-scrolled', y > 0);
+        }
+      });
       rings.forEach(function(r) { r.classList.toggle('is-active', r.getAttribute('data-step') === n); });
     }
     var io = new IntersectionObserver(function(entries) {
