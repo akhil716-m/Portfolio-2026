@@ -469,32 +469,33 @@ body.cs-lb-lock { overflow: hidden; }
 /* ---------- PINNED PHONE: the home screen holds centre stage, notes come in left and right ---------- */
 .cs-pin { position: relative; height: calc(100dvh + 6 * 62dvh); margin-top: 24px; }
 .cs-pin-stage {
-  --ph: min(80dvh, 700px); --pw: calc(var(--ph) * 900 / 1852); --gap: clamp(40px, 5vw, 72px);
+  --ph: min(80dvh, 700px); --pw: calc(var(--ph) * 900 / 1852); --gap: clamp(32px, 3.5vw, 56px);
   position: sticky; top: 0; height: 100dvh; display: flex; align-items: center; justify-content: center;
 }
 .cs-annot { position: relative; height: var(--ph, min(74dvh, 640px)); aspect-ratio: 900 / 1852; flex: none; }
 .cs-notes { list-style: none; margin: 0; padding: 0; }
 .cs-step {
-  position: absolute; top: var(--ny, 50%); width: min(30ch, calc(50% - var(--pw) / 2 - var(--gap) - 24px));
-  transform: translateY(-50%);
+  position: absolute; top: var(--ny, 50%); width: min(26ch, calc(50% - var(--pw) / 2 - var(--gap) - 24px));
 }
 .cs-step--left { right: calc(50% + var(--pw) / 2 + var(--gap)); text-align: right; }
 .cs-step--right { left: calc(50% + var(--pw) / 2 + var(--gap)); }
-/* A hairline from the note to the lit area, ending in an accent dot */
-.cs-step::before, .cs-step::after { content: ''; position: absolute; top: 50%; }
-.cs-step::before { width: calc(var(--gap) - 8px); height: 1px; background: rgba(255,255,255,0.28); }
-.cs-step::after { width: 7px; height: 7px; margin-top: -3px; border-radius: 50%; background: var(--accent); }
-.cs-step--left::before { left: calc(100% + 12px); }
-.cs-step--left::after { left: calc(100% + var(--gap) + 2px); }
-.cs-step--right::before { right: calc(100% + 12px); }
-.cs-step--right::after { right: calc(100% + var(--gap) + 2px); }
-.cs-step-n { display: block; margin: 0 0 10px; font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.08em; color: var(--accent); }
-.cs-step-title { margin: 0 0 10px; font-family: 'Geist', sans-serif; color: var(--text); }
-.cs-step-desc { margin: 0; font-family: 'Geist', sans-serif; line-height: 1.7; color: var(--text-soft); }
+/* A hairline from the note's title to the edge of the lit area, ending in an accent dot on it.
+   --len is measured in JS so the dot always lands on the highlight. */
+.cs-step-title { position: relative; }
+.cs-step-title::before, .cs-step-title::after { content: ''; position: absolute; top: 50%; }
+.cs-step-title::before { width: var(--len, var(--gap)); height: 1px; background: rgba(255,255,255,0.32); }
+.cs-step-title::after { width: 7px; height: 7px; margin-top: -3px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 3px rgba(212,255,94,0.18); }
+.cs-step--left .cs-step-title::before { left: calc(100% + 12px); }
+.cs-step--left .cs-step-title::after { left: calc(100% + 12px + var(--len, var(--gap)) - 3px); }
+.cs-step--right .cs-step-title::before { right: calc(100% + 12px); }
+.cs-step--right .cs-step-title::after { right: calc(100% + 12px + var(--len, var(--gap)) - 3px); }
+.cs-step-n { display: block; margin: 0 0 8px; font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.08em; color: var(--accent); }
+.cs-step-title { margin: 0 0 8px; font-family: 'Geist', sans-serif; font-size: var(--fs-h4); font-weight: 500; line-height: 1.35; color: var(--text); }
+.cs-step-desc { margin: 0; font-family: 'Geist', sans-serif; font-size: var(--fs-small); line-height: 1.65; color: var(--text-soft); }
 .js .cs-step { opacity: 0; transition: opacity 0.35s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
-.js .cs-step--left { transform: translate(-14px, -50%); }
-.js .cs-step--right { transform: translate(14px, -50%); }
-.js .cs-step.is-active { opacity: 1; transform: translateY(-50%); transition-delay: 0.3s; }
+.js .cs-step--left { transform: translateX(-12px); }
+.js .cs-step--right { transform: translateX(12px); }
+.js .cs-step.is-active { opacity: 1; transform: none; transition-delay: 0.3s; }
 /* Scrolling phone: a bezel with a cut-out screen over a tall feed that scrolls to each step */
 .cs-phone { --y: 0%; --dim: rgba(6,6,6,0.72); filter: drop-shadow(0 28px 40px rgba(0,0,0,0.5)); }
 .cs-phone-bezel { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
@@ -586,7 +587,7 @@ body.cs-lb-lock { overflow: hidden; }
   .cs-annot { margin: 0 auto; height: min(62dvh, 520px); }
   .cs-notes { width: 100%; padding: 0 var(--gutter, 20px); box-sizing: border-box; }
   .cs-step, .js .cs-step, .js .cs-step.is-active { position: static; width: auto; opacity: 1; transform: none; text-align: left; padding: 18px 0; }
-  .cs-step::before, .cs-step::after { content: none; }
+  .cs-step-title::before, .cs-step-title::after { content: none; }
   .cs-ring { display: none; }
   .cs-phone-feed { transform: none; }
   .cs-phone-bar::after { content: none; }
@@ -642,7 +643,7 @@ body.cs-lb-lock { overflow: hidden; }
 .cs-display { font-size: var(--fs-display); line-height: 1.12; letter-spacing: -0.02em; max-width: 19ch; text-wrap: balance; }
 .cs-h3, .cs-step-title, .cs-theme-title, .cs-act-sub { text-wrap: balance; }
 .nb { white-space: nowrap; }
-.cs-h3, .cs-step-title, .cs-theme-title { font-size: var(--fs-h3); font-weight: 500; line-height: 1.25; letter-spacing: -0.01em; }
+.cs-h3, .cs-theme-title { font-size: var(--fs-h3); font-weight: 500; line-height: 1.25; letter-spacing: -0.01em; }
 .cs-strip-title, .cs-facts dt { font-size: var(--fs-h4); font-weight: 600; line-height: 1.35; }
 /* intro paragraphs use the same size, weight, measure and spacing as body paragraphs */
 .cs-lead { font-size: var(--fs-body); font-weight: 400; line-height: 1.75; color: var(--text-soft); max-width: 60ch; margin: 0 0 26px; }
@@ -650,7 +651,7 @@ body.cs-lb-lock { overflow: hidden; }
 .cs-lead strong, .cs-p strong { color: var(--accent); font-weight: 500; }
 .cs-p { font-size: var(--fs-body); font-weight: 400; line-height: 1.75; color: var(--text-soft); max-width: 60ch; }
 .cs-list li { font-size: var(--fs-body); font-weight: 400; }
-.cs-step-desc, .cs-theme-desc { font-size: var(--fs-body); font-weight: 400; }
+.cs-theme-desc { font-size: var(--fs-body); font-weight: 400; }
 .cs-hero-sub, .cs-act-sub { font-size: var(--fs-lead); font-weight: 400; }
 .cs-lead + .cs-p { margin-top: 0; }
 .cs-list-who { margin: 10px 0 18px; font-size: var(--fs-small); font-weight: 500; color: var(--text-muted); }
@@ -2041,7 +2042,16 @@ var CS_REDUCE = window.matchMedia && window.matchMedia('(prefers-reduced-motion:
         var h = parseFloat(r.style.getPropertyValue('--h')) / 100 * fh;
         var c = sc.top - st.top + t - y + h / 2;
         c = Math.max(sc.top - st.top + 60, Math.min(sc.bottom - st.top - 60, c));
-        n.style.setProperty('--ny', c + 'px');
+        // the title's middle, not the note's, sits level with the lit area
+        var title = n.querySelector('.cs-step-title');
+        n.style.setProperty('--ny', (c - title.offsetTop - title.offsetHeight / 2) + 'px');
+        // run the line from the title to the near edge of the lit area
+        var l = parseFloat(r.style.getPropertyValue('--l')) / 100 * sc.width;
+        var w = parseFloat(r.style.getPropertyValue('--w')) / 100 * sc.width;
+        var len = n.classList.contains('cs-step--left')
+          ? (sc.left + l) - (st.left + n.offsetLeft + n.offsetWidth) - 12
+          : (st.left + n.offsetLeft) - (sc.left + l + w) - 12;
+        n.style.setProperty('--len', Math.max(16, len) + 'px');
       });
     }
     function tick() {
@@ -2056,6 +2066,7 @@ var CS_REDUCE = window.matchMedia && window.matchMedia('(prefers-reduced-motion:
     window.addEventListener('scroll', queue, { passive: true });
     window.addEventListener('resize', relayout);
     feed.querySelector('img').addEventListener('load', layout);
+    window.addEventListener('load', layout);
     relayout();
   });
 })();
