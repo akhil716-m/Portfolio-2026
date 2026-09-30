@@ -507,7 +507,10 @@ body.cs-lb-lock { overflow: hidden; }
 .cs-phone-status { top: 0; opacity: 0; transition: opacity 0.4s ease; }
 .cs-phone-view.is-scrolled .cs-phone-status, .cs-phone-status--on { opacity: 1; }
 .cs-phone-view { position: absolute; inset: 0; opacity: 0; transform: translateY(14px) scale(0.99); transition: opacity 0.55s ease, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1); }
-.cs-phone-view.is-current { opacity: 1; transform: none; }
+.cs-phone-view.is-current { opacity: 1; transform: none; z-index: 1; }
+.cs-phone-view:not(.is-current) { transition-delay: 0.6s; }
+/* another state of the same page swaps in place, without the rise */
+.cs-phone-view--same { transform: none; }
 .cs-phone-nav { bottom: 0; }
 .cs-phone-bar::after { content: ''; position: absolute; inset: 0; background: var(--dim); opacity: 0; transition: opacity 0.4s ease; }
 .cs-phone.is-lit .cs-phone-bar::after { opacity: 1; }
@@ -1753,8 +1756,8 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
         <div class="cs-phone-screen">
           <div class="cs-phone-view is-current">
             <div class="cs-phone-feed">
-              <img src="assets/skilling/ui/pl-v-home.jpg" alt="Home page with playlist cards: one starting with an assessment, one with a countdown to complete it, and two newly assigned playlists" width="816" height="4293" loading="lazy" decoding="async">
-              <span class="cs-ring cs-ring--frame" data-step="1" style="--t:19.139%;--h:41.518%;--l:0%;--w:100%"></span><span class="cs-ring cs-ring--frame" data-step="2" style="--t:58.482%;--h:41.518%;--l:0%;--w:100%"></span>
+              <img src="assets/skilling/ui/pl-v-home.jpg" alt="Home page with playlist cards: one starting with an assessment, one with a countdown to complete it, and newly assigned playlists" width="816" height="4293" loading="lazy" decoding="async">
+              <span class="cs-ring" data-step="1" style="--t:19.535%;--h:22.175%;--l:0%;--w:100%"></span><span class="cs-ring" data-step="2" style="--t:42.767%;--h:23.865%;--l:0%;--w:100%"></span><span class="cs-ring" data-step="3" style="--t:67.846%;--h:26.531%;--l:0%;--w:100%"></span>
             </div>
             <div class="cs-phone-bar cs-phone-status"><img src="assets/skilling/ui/home-status.webp" alt="" width="816" height="93" loading="lazy" decoding="async"></div>
             <div class="cs-phone-bar cs-phone-nav"><img src="assets/skilling/ui/home-nav.webp" alt="" width="816" height="181" loading="lazy" decoding="async"></div>
@@ -1762,22 +1765,16 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
           <div class="cs-phone-view">
             <div class="cs-phone-feed">
               <img src="assets/skilling/ui/pl-v-start.jpg" alt="Playlist cover with Start Level-1 Chapter 1, and level 1 open with its chapters locked" width="816" height="2598" loading="lazy" decoding="async">
-              <span class="cs-ring cs-ring--frame" data-step="3" style="--t:0%;--h:68.617%;--l:0%;--w:100%"></span>
-            </div>
-          </div>
-          <div class="cs-phone-view">
-            <div class="cs-phone-feed">
-              <img src="assets/skilling/ui/pl-v-progress.jpg" alt="Playlist cover with Continue Level-1 Chapter 2, and the first chapter of level 1 completed" width="816" height="2598" loading="lazy" decoding="async">
               <span class="cs-ring cs-ring--frame" data-step="4" style="--t:0%;--h:68.617%;--l:0%;--w:100%"></span>
             </div>
           </div>
-          <div class="cs-phone-view">
+          <div class="cs-phone-view cs-phone-view--same">
             <div class="cs-phone-feed">
-              <img src="assets/skilling/ui/pl-v-level.jpg" alt="Playlist with level 1 finished and listed under Completed levels, and level 2 open" width="816" height="3008" loading="lazy" decoding="async">
-              <span class="cs-ring cs-ring--frame" data-step="5" style="--t:0%;--h:59.257%;--l:0%;--w:100%"></span>
+              <img src="assets/skilling/ui/pl-v-progress.jpg" alt="Playlist cover with Continue Level-1 Chapter 2, and the first chapter of level 1 completed" width="816" height="2598" loading="lazy" decoding="async">
+              <span class="cs-ring cs-ring--frame" data-step="5" style="--t:0%;--h:68.617%;--l:0%;--w:100%"></span>
             </div>
           </div>
-          <div class="cs-phone-view">
+          <div class="cs-phone-view cs-phone-view--same">
             <div class="cs-phone-feed">
               <img src="assets/skilling/ui/pl-v-done.jpg" alt="Playlist with two levels folded into Completed levels, 2 of 4 done, and level 3 open" width="816" height="2058" loading="lazy" decoding="async">
               <span class="cs-ring cs-ring--frame" data-step="6" style="--t:0%;--h:86.602%;--l:0%;--w:100%"></span>
@@ -1787,35 +1784,35 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
         <img class="cs-phone-bezel" src="assets/skilling/ui/home-bezel.webp" alt="" width="900" height="1852" loading="lazy" decoding="async">
       </div>
     <ol class="cs-notes">
-      <li class="cs-step cs-step--left" data-step="1" data-view="0" data-y="19.139">
+      <li class="cs-step cs-step--left" data-step="1" data-view="0" data-y="9.873">
         <span class="cs-step-n">01</span>
-        <h3 class="cs-step-title">Cards that follow the sequence</h3>
-        <p class="cs-step-desc">The playlist card on home changes with what comes next, a course or an assessment, and counts down when the playlist has a deadline.</p>
+        <h3 class="cs-step-title">Starting with an assessment</h3>
+        <p class="cs-step-desc">When a playlist opens with an assessment, the card shows its questions and time, with Start playlist right on it.</p>
       </li>
-      <li class="cs-step cs-step--right" data-step="2" data-view="0" data-y="58.482">
+      <li class="cs-step cs-step--right" data-step="2" data-view="0" data-y="33.949">
         <span class="cs-step-n">02</span>
-        <h3 class="cs-step-title">More than one playlist</h3>
-        <p class="cs-step-desc">Newly assigned playlists stack on home, each linking to its levels, with one place to see them all.</p>
+        <h3 class="cs-step-title">Racing a deadline</h3>
+        <p class="cs-step-desc">A playlist with a deadline counts down the time left and shows how many levels are pending and done.</p>
       </li>
-      <li class="cs-step cs-step--left" data-step="3" data-view="1" data-y="0">
+      <li class="cs-step cs-step--left" data-step="3" data-view="0" data-y="58.482">
         <span class="cs-step-n">03</span>
-        <h3 class="cs-step-title">A cover with one guiding CTA</h3>
-        <p class="cs-step-desc">The cover gives a clear overview with minimal distraction. Levels are listed in order, and Start names the level and chapter to begin with.</p>
+        <h3 class="cs-step-title">Newly assigned</h3>
+        <p class="cs-step-desc">A new playlist opens on its current level, with See all levels to look ahead and one link to every assigned playlist.</p>
       </li>
-      <li class="cs-step cs-step--right" data-step="4" data-view="2" data-y="0">
+      <li class="cs-step cs-step--right" data-step="4" data-view="1" data-y="0">
         <span class="cs-step-n">04</span>
+        <h3 class="cs-step-title">A cover with one guiding CTA</h3>
+        <p class="cs-step-desc">The cover gives a clear overview. Levels are listed in order, and Start names the level and chapter to begin with.</p>
+      </li>
+      <li class="cs-step cs-step--left" data-step="5" data-view="2" data-y="0">
+        <span class="cs-step-n">05</span>
         <h3 class="cs-step-title">Progress inside a level</h3>
         <p class="cs-step-desc">Finished chapters are ticked and the rest stay locked. The CTA turns into Continue and points to the next chapter.</p>
       </li>
-      <li class="cs-step cs-step--left" data-step="5" data-view="3" data-y="0">
-        <span class="cs-step-n">05</span>
-        <h3 class="cs-step-title">A level, done</h3>
-        <p class="cs-step-desc">A finished level moves under Completed levels, and the next one opens on its own.</p>
-      </li>
-      <li class="cs-step cs-step--right" data-step="6" data-view="4" data-y="0">
+      <li class="cs-step cs-step--right" data-step="6" data-view="3" data-y="0">
         <span class="cs-step-n">06</span>
         <h3 class="cs-step-title">Completed levels fold away</h3>
-        <p class="cs-step-desc">Completed levels collapse into one group with a count, keeping the current level in focus.</p>
+        <p class="cs-step-desc">Finished levels collapse into one group with a count and the next level opens, keeping the current one in focus.</p>
       </li>
     </ol>
   </div>
@@ -2270,6 +2267,14 @@ var CS_REDUCE = window.matchMedia && window.matchMedia('(prefers-reduced-motion:
     var rings = [].slice.call(root.querySelectorAll('.cs-ring'));
     var wide = window.matchMedia('(min-width: 901px)');
     var cur = -1, raf = null;
+    if ('IntersectionObserver' in window) {
+      var pre = new IntersectionObserver(function(es) {
+        if (!es[0].isIntersecting) return;
+        pre.disconnect();
+        root.querySelectorAll('.cs-phone-screen img').forEach(function(im) { im.loading = 'eager'; if (im.decode) im.decode().catch(function() {}); });
+      }, { rootMargin: '150% 0px' });
+      pre.observe(root);
+    }
     function set(k) {
       if (k === cur) return;
       cur = k;
