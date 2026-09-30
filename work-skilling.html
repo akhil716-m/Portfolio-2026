@@ -1903,41 +1903,23 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
     <p class="cs-p">Event cards appear on the homepage for new, registered and live events, and their state, cues and CTA change to match, so users don't miss them.</p>
   </div>
 </div>
-<div class="cs-pin" data-pin style="--steps: 5">
+<div class="cs-pin" data-pin style="--steps: 2">
   <div class="cs-pin-stage">
       <div class="cs-annot cs-phone">
         <div class="cs-phone-screen">
           <div class="cs-phone-view is-current">
             <div class="cs-phone-feed">
               <img src="assets/skilling/ui/ev-v-upcoming.jpg" alt="Home page with an upcoming mandatory offline event and a Register button" width="816" height="1783" loading="lazy" decoding="async">
-              <span class="cs-ring" data-step="1" style="--t:15.984%;--h:54.795%;--l:0%;--w:100%"></span>
+              <span class="cs-ring cs-ring--frame" data-step="1" style="--t:0%;--h:100%;--l:0%;--w:100%"></span>
             </div>
           </div>
           <div class="cs-phone-view">
             <div class="cs-phone-feed">
               <img src="assets/skilling/ui/ev-v-live.jpg" alt="Home page with a live event the user has registered for, and a View location button" width="816" height="2400" loading="lazy" decoding="async">
-              <span class="cs-ring" data-step="2" style="--t:32.708%;--h:40%;--l:0%;--w:100%"></span>
+              <span class="cs-ring cs-ring--frame" data-step="2" style="--t:17.583%;--h:74.271%;--l:0%;--w:100%"></span>
             </div>
             <div class="cs-phone-bar cs-phone-status"><img src="assets/skilling/ui/home-status.webp" alt="" width="816" height="93" loading="lazy" decoding="async"></div>
             <div class="cs-phone-bar cs-phone-nav"><img src="assets/skilling/ui/ev-nav.webp" alt="" width="816" height="190" loading="lazy" decoding="async"></div>
-          </div>
-          <div class="cs-phone-view">
-            <div class="cs-phone-feed">
-              <img src="assets/skilling/ui/ev-v-all.jpg" alt="My Events listing every event with its state" width="816" height="1783" loading="lazy" decoding="async">
-              <span class="cs-ring cs-ring--frame" data-step="3" style="--t:0%;--h:99.972%;--l:0%;--w:100%"></span>
-            </div>
-          </div>
-          <div class="cs-phone-view">
-            <div class="cs-phone-feed">
-              <img src="assets/skilling/ui/ev-v-offline.jpg" alt="Offline event detail with date, time, venue and map, attendees, description and View location" width="816" height="1783" loading="lazy" decoding="async">
-              <span class="cs-ring cs-ring--frame" data-step="4" style="--t:0%;--h:99.972%;--l:0%;--w:100%"></span>
-            </div>
-          </div>
-          <div class="cs-phone-view cs-phone-view--same">
-            <div class="cs-phone-feed">
-              <img src="assets/skilling/ui/ev-v-webinar.jpg" alt="Webinar detail with a join link, attendees, description, the trainer and Register now" width="816" height="1783" loading="lazy" decoding="async">
-              <span class="cs-ring cs-ring--frame" data-step="5" style="--t:0%;--h:99.972%;--l:0%;--w:100%"></span>
-            </div>
           </div>
         </div>
         <img class="cs-phone-bezel" src="assets/skilling/ui/home-bezel.webp" alt="" width="900" height="1852" loading="lazy" decoding="async">
@@ -1953,22 +1935,33 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
         <h3 class="cs-step-title">Live, and already in</h3>
         <p class="cs-step-desc">Once the user has registered and the event starts, the card flags it as live and the CTA turns into View location.</p>
       </li>
-      <li class="cs-step cs-step--left" data-step="3" data-view="2" data-y="0">
-        <span class="cs-step-n">03</span>
-        <h3 class="cs-step-title">Every event in one list</h3>
-        <p class="cs-step-desc">My Events gathers every event with its state, from open for registration to already registered and over.</p>
-      </li>
-      <li class="cs-step cs-step--right" data-step="4" data-view="3" data-y="0">
-        <span class="cs-step-n">04</span>
-        <h3 class="cs-step-title">An offline event</h3>
-        <p class="cs-step-desc">The detail page puts the date, time and venue first, with a map, who is attending, the trainer's contact, notes and attachments.</p>
-      </li>
-      <li class="cs-step cs-step--left" data-step="5" data-view="4" data-y="0">
-        <span class="cs-step-n">05</span>
-        <h3 class="cs-step-title">A webinar</h3>
-        <p class="cs-step-desc">A webinar swaps the venue for a join link, and Register now stays pinned at the bottom.</p>
-      </li>
     </ol>
+  </div>
+</div>
+
+<div class="cs-wrap cs-wrap--board" style="margin-top: 88px;">
+  <div class="cs-strip settle" data-strip>
+    <div class="cs-strip-head">
+      <div>
+        <h3 class="cs-h3">Around events</h3>
+      </div>
+      <div class="cs-strip-ctl">
+        <button type="button" class="cs-strip-btn" data-dir="-1" aria-label="Previous"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
+        <button type="button" class="cs-strip-btn" data-dir="1" aria-label="Next"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+      </div>
+    </div>
+    <div class="cs-strip-track" tabindex="0" role="group" aria-label="Event screens, scroll sideways to see more">
+      <article class="cs-strip-item">
+        <div class="cs-strip-media"><img src="assets/skilling/ui/ev-all.webp" alt="My Events listing every event with its state" width="520" height="1071" loading="lazy" decoding="async"></div>
+        <h4 class="cs-strip-title">Every event in one list</h4>
+        <p class="cs-strip-desc">My Events gathers every event with its state, from open for registration to already registered and over.</p>
+      </article>
+      <article class="cs-strip-item">
+        <div class="cs-strip-media"><img src="assets/skilling/ui/ev-offline.webp" alt="Offline event detail with date, time, venue and map, attendees and View location" width="520" height="1071" loading="lazy" decoding="async"><img src="assets/skilling/ui/ev-webinar.webp" alt="Webinar detail with a join link, attendees, the trainer and Register now" width="520" height="1071" loading="lazy" decoding="async"></div>
+        <h4 class="cs-strip-title">Offline or webinar</h4>
+        <p class="cs-strip-desc">The detail page puts the date, time and venue first, with a map and the trainer's contact. A webinar swaps the venue for a join link.</p>
+      </article>
+    </div>
   </div>
 </div>
 
