@@ -517,6 +517,8 @@ body.cs-lb-lock { overflow: hidden; }
   opacity: 0; transform: scale(0.97); transition: opacity 0.4s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); pointer-events: none;
 }
 .js .cs-ring.is-active { opacity: 1; transform: none; transition-delay: 0.35s; }
+/* a frame note annotates the whole screen, so nothing is dimmed */
+.cs-ring--frame { box-shadow: none; }
 
 /* ---------- STRIP: one course, four ways to take it in ---------- */
 .cs-strip { --ph: 450px; }
@@ -1745,62 +1747,75 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
   <p class="cs-lead">A playlist bundles courses and assessments into levels for one learning purpose, configured by the admin. Because it bundles so much, it can run long.</p>
 
 </div>
-<div class="cs-pin" data-pin style="--steps: 5">
+<div class="cs-pin" data-pin style="--steps: 6">
   <div class="cs-pin-stage">
       <div class="cs-annot cs-phone">
         <div class="cs-phone-screen">
           <div class="cs-phone-view is-current">
             <div class="cs-phone-feed">
-              <img src="assets/skilling/ui/pl-v-home.webp" alt="Home page with a playlist assigned card, its current level and a See all levels link" width="293" height="644" loading="lazy" decoding="async">
-              <span class="cs-ring" data-step="1" style="--t:46.58%;--h:40.06%;--l:0%;--w:100%"></span>
+              <img src="assets/skilling/ui/pl-v-home.jpg" alt="Home page with playlist cards: one starting with an assessment, one with a countdown to complete it, and two newly assigned playlists" width="816" height="4293" loading="lazy" decoding="async">
+              <span class="cs-ring cs-ring--frame" data-step="1" style="--t:19.139%;--h:41.518%;--l:0%;--w:100%"></span><span class="cs-ring cs-ring--frame" data-step="2" style="--t:58.482%;--h:41.518%;--l:0%;--w:100%"></span>
+            </div>
+            <div class="cs-phone-bar cs-phone-status"><img src="assets/skilling/ui/home-status.webp" alt="" width="816" height="93" loading="lazy" decoding="async"></div>
+            <div class="cs-phone-bar cs-phone-nav"><img src="assets/skilling/ui/home-nav.webp" alt="" width="816" height="181" loading="lazy" decoding="async"></div>
+          </div>
+          <div class="cs-phone-view">
+            <div class="cs-phone-feed">
+              <img src="assets/skilling/ui/pl-v-start.jpg" alt="Playlist cover with Start Level-1 Chapter 1, and level 1 open with its chapters locked" width="816" height="2598" loading="lazy" decoding="async">
+              <span class="cs-ring cs-ring--frame" data-step="3" style="--t:0%;--h:68.617%;--l:0%;--w:100%"></span>
             </div>
           </div>
           <div class="cs-phone-view">
             <div class="cs-phone-feed">
-              <img src="assets/skilling/ui/pl-v-cover.webp" alt="Playlist cover with the guiding Start CTA and the levels listed below" width="294" height="641" loading="lazy" decoding="async">
-              <span class="cs-ring" data-step="2" style="--t:0%;--h:50.55%;--l:0%;--w:100%"></span><span class="cs-ring" data-step="3" style="--t:50.55%;--h:49.45%;--l:0%;--w:100%"></span>
+              <img src="assets/skilling/ui/pl-v-progress.jpg" alt="Playlist cover with Continue Level-1 Chapter 2, and the first chapter of level 1 completed" width="816" height="2598" loading="lazy" decoding="async">
+              <span class="cs-ring cs-ring--frame" data-step="4" style="--t:0%;--h:68.617%;--l:0%;--w:100%"></span>
             </div>
           </div>
           <div class="cs-phone-view">
             <div class="cs-phone-feed">
-              <img src="assets/skilling/ui/pl-v-level.webp" alt="Playlist with level 1 open, showing completed, next and locked chapters" width="296" height="658" loading="lazy" decoding="async">
-              <span class="cs-ring" data-step="4" style="--t:15.05%;--h:49.39%;--l:0%;--w:100%"></span>
+              <img src="assets/skilling/ui/pl-v-level.jpg" alt="Playlist with level 1 finished and listed under Completed levels, and level 2 open" width="816" height="3008" loading="lazy" decoding="async">
+              <span class="cs-ring cs-ring--frame" data-step="5" style="--t:0%;--h:59.257%;--l:0%;--w:100%"></span>
             </div>
           </div>
           <div class="cs-phone-view">
             <div class="cs-phone-feed">
-              <img src="assets/skilling/ui/pl-v-done.webp" alt="Playlist with finished levels grouped under Completed levels" width="296" height="658" loading="lazy" decoding="async">
-              <span class="cs-ring" data-step="5" style="--t:13.98%;--h:58.81%;--l:0%;--w:100%"></span>
+              <img src="assets/skilling/ui/pl-v-done.jpg" alt="Playlist with two levels folded into Completed levels, 2 of 4 done, and level 3 open" width="816" height="2058" loading="lazy" decoding="async">
+              <span class="cs-ring cs-ring--frame" data-step="6" style="--t:0%;--h:86.602%;--l:0%;--w:100%"></span>
             </div>
           </div>
         </div>
         <img class="cs-phone-bezel" src="assets/skilling/ui/home-bezel.webp" alt="" width="900" height="1852" loading="lazy" decoding="async">
       </div>
     <ol class="cs-notes">
-      <li class="cs-step cs-step--left" data-step="1" data-view="0" data-y="0">
+      <li class="cs-step cs-step--left" data-step="1" data-view="0" data-y="19.139">
         <span class="cs-step-n">01</span>
-        <h3 class="cs-step-title">The playlist card</h3>
-        <p class="cs-step-desc">The card shows a playlist's purpose and that it holds several lessons, and links straight to the current level.</p>
+        <h3 class="cs-step-title">Cards that follow the sequence</h3>
+        <p class="cs-step-desc">The playlist card on home changes with what comes next, a course or an assessment, and counts down when the playlist has a deadline.</p>
       </li>
-      <li class="cs-step cs-step--right" data-step="2" data-view="1" data-y="0">
+      <li class="cs-step cs-step--right" data-step="2" data-view="0" data-y="58.482">
         <span class="cs-step-n">02</span>
-        <h3 class="cs-step-title">A cover with one guiding CTA</h3>
-        <p class="cs-step-desc">The cover gives a clear overview with minimal distraction. The CTA follows progress, naming the level and chapter to start next.</p>
+        <h3 class="cs-step-title">More than one playlist</h3>
+        <p class="cs-step-desc">Newly assigned playlists stack on home, each linking to its levels, with one place to see them all.</p>
       </li>
       <li class="cs-step cs-step--left" data-step="3" data-view="1" data-y="0">
         <span class="cs-step-n">03</span>
-        <h3 class="cs-step-title">Levels, in order</h3>
-        <p class="cs-step-desc">Levels are listed in order and nest their chapters. Only one is open by default, so users focus on where they are.</p>
+        <h3 class="cs-step-title">A cover with one guiding CTA</h3>
+        <p class="cs-step-desc">The cover gives a clear overview with minimal distraction. Levels are listed in order, and Start names the level and chapter to begin with.</p>
       </li>
       <li class="cs-step cs-step--right" data-step="4" data-view="2" data-y="0">
         <span class="cs-step-n">04</span>
         <h3 class="cs-step-title">Progress inside a level</h3>
-        <p class="cs-step-desc">Within the open level, chapters show what is completed, what is next and what is still locked.</p>
+        <p class="cs-step-desc">Finished chapters are ticked and the rest stay locked. The CTA turns into Continue and points to the next chapter.</p>
       </li>
       <li class="cs-step cs-step--left" data-step="5" data-view="3" data-y="0">
         <span class="cs-step-n">05</span>
+        <h3 class="cs-step-title">A level, done</h3>
+        <p class="cs-step-desc">A finished level moves under Completed levels, and the next one opens on its own.</p>
+      </li>
+      <li class="cs-step cs-step--right" data-step="6" data-view="4" data-y="0">
+        <span class="cs-step-n">06</span>
         <h3 class="cs-step-title">Completed levels fold away</h3>
-        <p class="cs-step-desc">Finished levels gather into one Completed levels group, keeping the next level in focus.</p>
+        <p class="cs-step-desc">Completed levels collapse into one group with a count, keeping the current level in focus.</p>
       </li>
     </ol>
   </div>
@@ -1818,11 +1833,6 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
       </div>
     </div>
     <div class="cs-strip-track" tabindex="0" role="group" aria-label="Playlist screens, scroll sideways to see more">
-      <article class="cs-strip-item">
-        <div class="cs-strip-media cs-strip-media--wide"><img src="assets/skilling/ui/pl-cards.webp" alt="Playlist cards for a level with an assessment and a level with pending chapters" loading="lazy" decoding="async"></div>
-        <h4 class="cs-strip-title">Cards that follow the sequence</h4>
-        <p class="cs-strip-desc">The top card changes with the sequence, whether the next level is a course or an assessment, and counts the levels still pending.</p>
-      </article>
       <article class="cs-strip-item">
         <div class="cs-strip-media cs-strip-media--wide"><img src="assets/skilling/ui/pl-celebrate.webp" alt="Success screens for completing a level and completing a playlist, with earnings" loading="lazy" decoding="async"></div>
         <h4 class="cs-strip-title">Celebrating every small achievement</h4>
@@ -2275,7 +2285,8 @@ var CS_REDUCE = window.matchMedia && window.matchMedia('(prefers-reduced-motion:
         view.classList.toggle('is-current', i === v);
         if (i === v) { view.style.setProperty('--y', y + '%'); view.classList.toggle('is-scrolled', y > 0); }
       });
-      phone.classList.toggle('is-lit', k > 0);
+      var lit = root.querySelector('.cs-ring[data-step="' + k + '"]');
+      phone.classList.toggle('is-lit', !!lit && !lit.classList.contains('cs-ring--frame'));
       notes.forEach(function(n, i) { n.classList.toggle('is-active', i === k - 1); });
       rings.forEach(function(r) { r.classList.toggle('is-active', r.getAttribute('data-step') === String(k)); });
     }
