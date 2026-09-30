@@ -1701,13 +1701,35 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
     </div>
   </div>
 </div>
-<div class="cs-wrap cs-wrap--board">
-<figure class="cs-board settle">
-  <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: Feedback on every answer" data-full="assets/skilling/d-assess-card.jpg" data-alt="Assessment progress, an explanation dialog and correct and incorrect answer states">
-    <img src="assets/skilling/d-assess-card.jpg" alt="Assessment progress, an explanation dialog and correct and incorrect answer states" width="1590" height="1001" loading="lazy" decoding="async">
-    <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+<div class="cs-wrap cs-wrap--board" style="margin-top: 88px;">
+  <div class="cs-strip settle" data-strip>
+    <div class="cs-strip-head">
+      <div>
+        <h3 class="cs-h3">Feedback on every answer</h3>
+      </div>
+      <div class="cs-strip-ctl">
+        <button type="button" class="cs-strip-btn" data-dir="-1" aria-label="Previous"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
+        <button type="button" class="cs-strip-btn" data-dir="1" aria-label="Next"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+      </div>
+    </div>
+    <div class="cs-strip-track" tabindex="0" role="group" aria-label="Answer states, scroll sideways to see more">
+      <article class="cs-strip-item">
+        <div class="cs-strip-media"><img src="assets/skilling/ui/answer-05.webp" alt="Question with 01:30 left on its timer" width="520" height="1071" loading="lazy" decoding="async"><img src="assets/skilling/ui/answer-04.webp" alt="The same question with 00:03 left and the timer bar turned red" width="520" height="1071" loading="lazy" decoding="async"></div>
+        <h4 class="cs-strip-title">A timer on every question</h4>
+        <p class="cs-strip-desc">A bar under the progress drains as time runs out and turns red in the last seconds, so the pace is always visible.</p>
+      </article>
+      <article class="cs-strip-item">
+        <div class="cs-strip-media"><img src="assets/skilling/ui/answer-03.webp" alt="Question with one option selected and outlined" width="520" height="1071" loading="lazy" decoding="async"></div>
+        <h4 class="cs-strip-title">A clear selection</h4>
+        <p class="cs-strip-desc">The chosen option is outlined, so users can see their pick before it is checked.</p>
+      </article>
+      <article class="cs-strip-item">
+        <div class="cs-strip-media"><img src="assets/skilling/ui/answer-01.webp" alt="Correct answer highlighted in green with a Correct answer banner" width="520" height="1071" loading="lazy" decoding="async"><img src="assets/skilling/ui/answer-02.webp" alt="Incorrect answer in red, the right option outlined in green and an Incorrect answer banner" width="520" height="1071" loading="lazy" decoding="async"></div>
+        <h4 class="cs-strip-title">Right or wrong, straight away</h4>
+        <p class="cs-strip-desc">A correct pick turns green. A wrong one turns red and the right option is outlined, so every answer teaches something.</p>
+      </article>
+    </div>
   </div>
-</figure>
 </div>
 
 <div class="cs-wrap">
