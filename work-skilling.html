@@ -514,6 +514,8 @@ body.cs-lb-lock { overflow: hidden; }
 .cs-phone-view:not(.is-current) { transition-delay: 0.6s; }
 /* another state of the same page swaps in place, without the rise */
 .cs-phone-view--same { transform: none; }
+.cs-phone-view:not(.is-current) .cs-ring { transition-delay: 0.6s; }
+.js .cs-phone-view.is-arriving .cs-ring { transition: none; }
 .cs-phone-nav { bottom: 0; }
 .cs-phone-bar::after { content: ''; position: absolute; inset: 0; background: var(--dim); opacity: 0; transition: opacity 0.4s ease; }
 .cs-phone.is-lit .cs-phone-bar::after { opacity: 1; }
@@ -1390,7 +1392,7 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
           <div class="cs-phone-view is-current">
             <div class="cs-phone-feed">
               <img src="assets/skilling/ui/home-feed.jpg" alt="The Up-skill home feed: progress, quick access, new course, upcoming event, pending assessment and new playlist" width="816" height="4848" loading="lazy" decoding="async">
-              <span class="cs-ring" data-step="1" style="--t:7.015%;--h:4.258%;--l:5.761%;--w:88.3%"></span><span class="cs-ring" data-step="2" style="--t:11.894%;--h:3.939%;--l:3.6%;--w:96.4%"></span><span class="cs-ring" data-step="3" style="--t:16.818%;--h:18.03%;--l:2.16%;--w:95.68%"></span><span class="cs-ring" data-step="4" style="--t:35.606%;--h:21.364%;--l:2.16%;--w:95.68%"></span><span class="cs-ring" data-step="5" style="--t:57.652%;--h:15.455%;--l:2.16%;--w:95.68%"></span><span class="cs-ring" data-step="6" style="--t:73.788%;--h:22.121%;--l:2.16%;--w:95.68%"></span>
+              <span class="cs-ring" data-step="1" style="--t:7.015%;--h:4.258%;--l:2.8%;--w:94.4%"></span><span class="cs-ring" data-step="2" style="--t:11.894%;--h:3.939%;--l:3.6%;--w:96.4%"></span><span class="cs-ring" data-step="3" style="--t:16.818%;--h:18.03%;--l:2.16%;--w:95.68%"></span><span class="cs-ring" data-step="4" style="--t:35.606%;--h:21.364%;--l:2.16%;--w:95.68%"></span><span class="cs-ring" data-step="5" style="--t:57.652%;--h:15.455%;--l:2.16%;--w:95.68%"></span><span class="cs-ring" data-step="6" style="--t:73.788%;--h:22.121%;--l:2.16%;--w:95.68%"></span>
             </div>
             <div class="cs-phone-bar cs-phone-status"><img src="assets/skilling/ui/home-status.webp" alt="" width="816" height="93" loading="lazy" decoding="async"></div>
             <div class="cs-phone-bar cs-phone-nav"><img src="assets/skilling/ui/home-nav.webp" alt="" width="816" height="181" loading="lazy" decoding="async"></div>
@@ -1575,7 +1577,7 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
   <div class="cs-pin-stage">
       <div class="cs-annot cs-phone">
         <div class="cs-phone-screen">
-          <div class="cs-phone-view is-current">
+          <div class="cs-phone-view cs-phone-view--same is-current">
             <div class="cs-phone-feed">
               <img src="assets/skilling/ui/assess-v-home.jpg" alt="Home page with a list of six assigned assessments" width="816" height="2267" loading="lazy" decoding="async">
               <span class="cs-ring" data-step="1" style="--t:35.4%;--h:30.5%;--l:0%;--w:100%"></span>
@@ -1583,7 +1585,7 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
             <div class="cs-phone-bar cs-phone-status cs-phone-status--on"><img src="assets/skilling/ui/home-status-c.webp" alt="" width="816" height="93" loading="lazy" decoding="async"></div>
             <div class="cs-phone-bar cs-phone-nav"><img src="assets/skilling/ui/home-nav.webp" alt="" width="816" height="181" loading="lazy" decoding="async"></div>
           </div>
-          <div class="cs-phone-view">
+          <div class="cs-phone-view cs-phone-view--same">
             <div class="cs-phone-feed">
               <img src="assets/skilling/ui/assess-v-deadline.jpg" alt="Home page with an assessment close to its deadline and a countdown" width="816" height="2267" loading="lazy" decoding="async">
               <span class="cs-ring" data-step="2" style="--t:35.875%;--h:31.03%;--l:0%;--w:100%"></span>
@@ -1594,7 +1596,7 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
           <div class="cs-phone-view">
             <div class="cs-phone-feed">
               <img src="assets/skilling/ui/assess-v-detail.jpg" alt="Assessment detail page with the number of questions, estimated time and a Start Assessment button" width="816" height="1813" loading="lazy" decoding="async">
-              <span class="cs-ring" data-step="3" style="--t:0%;--h:100%;--l:0%;--w:100%"></span>
+              <span class="cs-ring cs-ring--frame" data-step="3" style="--t:0%;--h:100%;--l:0%;--w:100%"></span>
             </div>
           </div>
         </div>
@@ -2269,6 +2271,9 @@ var CS_REDUCE = window.matchMedia && window.matchMedia('(prefers-reduced-motion:
           // an incoming screen starts where its step needs it, instead of scrolling there while fading in
           var f = view.querySelector('.cs-phone-feed');
           f.style.transition = 'none'; view.style.setProperty('--y', y + '%'); void f.offsetHeight; f.style.transition = '';
+          view.classList.add('is-arriving');
+          clearTimeout(view._arrive);
+          view._arrive = setTimeout(function() { view.classList.remove('is-arriving'); }, 700);
         }
         view.classList.toggle('is-current', i === v);
         if (i === v) { view.style.setProperty('--y', y + '%'); view.classList.toggle('is-scrolled', y > 0); }
