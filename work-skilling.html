@@ -503,18 +503,19 @@ body.cs-lb-lock { overflow: hidden; }
 .cs-phone-screen { contain: layout paint; }
 .cs-phone-bezel { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
 .cs-phone-screen { position: absolute; left: 4.735%; top: 1.905%; width: 90.694%; height: 96.27%; border-radius: 10.62% / 4.864%; overflow: hidden; background: #fff; }
-.cs-phone-feed { position: relative; transform: translateY(calc(-1 * var(--y))); transition: transform 0.9s cubic-bezier(0.65, 0, 0.35, 1); }
+.cs-phone-feed { position: relative; transform: translateY(calc(-1 * var(--y))); transition: transform 0.75s cubic-bezier(0.65, 0, 0.35, 1); }
 .cs-phone-feed img { display: block; width: 100%; height: auto; }
 .cs-phone-bar { position: absolute; left: 0; right: 0; }
 .cs-phone-bar img { display: block; width: 100%; height: auto; }
 .cs-phone-status { top: 0; opacity: 0; transition: opacity 0.4s ease; }
 .cs-phone-view.is-scrolled .cs-phone-status, .cs-phone-status--on { opacity: 1; }
 .cs-phone-view { position: absolute; inset: 0; opacity: 0; transform: translateY(14px) scale(0.99); transition: opacity 0.55s ease, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1); }
-.cs-phone-view.is-current { opacity: 1; transform: none; z-index: 1; }
-.cs-phone-view:not(.is-current) { transition-delay: 0.6s; }
+.cs-phone-view.is-current { opacity: 1; transform: none; z-index: 2; }
+/* the screen being replaced holds still underneath until the new one is in; older screens have already gone */
+.cs-phone-view.is-leaving { z-index: 1; transition-delay: 0.5s; }
 /* another state of the same page swaps in place, without the rise */
 .cs-phone-view--same { transform: none; }
-.cs-phone-view:not(.is-current) .cs-ring { transition-delay: 0.6s; }
+.cs-phone-view.is-leaving .cs-ring { transition-delay: 0.5s; }
 .js .cs-phone-view.is-arriving .cs-ring { transition: none; }
 .cs-phone-nav { bottom: 0; }
 .cs-phone-bar::after { content: ''; position: absolute; inset: 0; background: var(--dim); opacity: 0; transition: opacity 0.4s ease; }
@@ -1391,8 +1392,8 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
         <div class="cs-phone-screen">
           <div class="cs-phone-view is-current">
             <div class="cs-phone-feed">
-              <img src="assets/skilling/ui/home-feed.jpg" alt="The Up-skill home feed: progress, quick access, new course, upcoming event, pending assessment and new playlist" width="816" height="4848" loading="lazy" decoding="async">
-              <span class="cs-ring" data-step="1" style="--t:7.015%;--h:4.258%;--l:2.8%;--w:94.4%"></span><span class="cs-ring" data-step="2" style="--t:11.894%;--h:3.939%;--l:3.6%;--w:96.4%"></span><span class="cs-ring" data-step="3" style="--t:16.818%;--h:18.03%;--l:2.16%;--w:95.68%"></span><span class="cs-ring" data-step="4" style="--t:35.606%;--h:21.364%;--l:2.16%;--w:95.68%"></span><span class="cs-ring" data-step="5" style="--t:57.652%;--h:15.455%;--l:2.16%;--w:95.68%"></span><span class="cs-ring" data-step="6" style="--t:73.788%;--h:22.121%;--l:2.16%;--w:95.68%"></span>
+              <img src="assets/skilling/ui/home-feed.jpg" alt="The Up-skill home feed: progress, quick access, new course, upcoming event, pending assessment and new playlist" width="816" height="4987" loading="lazy" decoding="async">
+              <span class="cs-ring" data-step="1" style="--t:6.818%;--h:4.131%;--l:2.8%;--w:94.4%"></span><span class="cs-ring" data-step="2" style="--t:11.57%;--h:3.83%;--l:3.6%;--w:96.4%"></span><span class="cs-ring" data-step="3" style="--t:17.104%;--h:16.342%;--l:2.16%;--w:95.68%"></span><span class="cs-ring" data-step="4" style="--t:35.252%;--h:19.852%;--l:2.16%;--w:95.68%"></span><span class="cs-ring" data-step="5" style="--t:56.707%;--h:14.137%;--l:2.16%;--w:95.68%"></span><span class="cs-ring" data-step="6" style="--t:72.348%;--h:22.158%;--l:2.16%;--w:95.68%"></span>
             </div>
             <div class="cs-phone-bar cs-phone-status"><img src="assets/skilling/ui/home-status.webp" alt="" width="816" height="93" loading="lazy" decoding="async"></div>
             <div class="cs-phone-bar cs-phone-nav"><img src="assets/skilling/ui/home-nav.webp" alt="" width="816" height="181" loading="lazy" decoding="async"></div>
@@ -1411,22 +1412,22 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
         <h3 class="cs-step-title">Quick access</h3>
         <p class="cs-step-desc">Clear, direct navigation to every independent module: mini courses, courses, assessments and playlists.</p>
       </li>
-      <li class="cs-step cs-step--left" data-step="3" data-y="9.273">
+      <li class="cs-step cs-step--left" data-step="3" data-y="8.287">
         <span class="cs-step-n">03</span>
         <h3 class="cs-step-title">Task-oriented, contextual content</h3>
         <p class="cs-step-desc">Whatever users need to accomplish is on top, in priority order, so the next task is always the first thing they see.</p>
       </li>
-      <li class="cs-step cs-step--right" data-step="4" data-y="29.727">
+      <li class="cs-step cs-step--right" data-step="4" data-y="28.188">
         <span class="cs-step-n">04</span>
         <h3 class="cs-step-title">Instructive</h3>
         <p class="cs-step-desc">Each card guides users to one clear action, with visual cues, a prominent CTA and a strong visual hierarchy.</p>
       </li>
-      <li class="cs-step cs-step--left" data-step="5" data-y="48.833">
+      <li class="cs-step cs-step--left" data-step="5" data-y="46.787">
         <span class="cs-step-n">05</span>
         <h3 class="cs-step-title">Pending assessments</h3>
         <p class="cs-step-desc">Assessments due soon show their questions, time and reward up front, with a single CTA to start.</p>
       </li>
-      <li class="cs-step cs-step--right" data-step="6" data-y="63.242">
+      <li class="cs-step cs-step--right" data-step="6" data-y="64.257">
         <span class="cs-step-n">06</span>
         <h3 class="cs-step-title">Playlists</h3>
         <p class="cs-step-desc">Assigned playlists show the level and chapter a user is on, so they pick up right where they left off.</p>
@@ -1448,26 +1449,26 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
   <div class="cs-pin-stage">
       <div class="cs-annot cs-phone">
         <div class="cs-phone-screen">
-          <div class="cs-phone-view is-current">
+          <div class="cs-phone-view cs-phone-view--same is-current">
             <div class="cs-phone-feed">
               <img src="assets/skilling/ui/course-v-new.jpg" alt="Home page with a newly assigned course card" width="816" height="2267" loading="lazy" decoding="async">
-              <span class="cs-ring" data-step="1" style="--t:35.6%;--h:39.45%;--l:2.16%;--w:95.68%"></span>
+              <span class="cs-ring" data-step="1" style="--t:37.274%;--h:36.039%;--l:2.16%;--w:95.68%"></span>
             </div>
             <div class="cs-phone-bar cs-phone-status cs-phone-status--on"><img src="assets/skilling/ui/home-status-c.webp" alt="" width="816" height="93" loading="lazy" decoding="async"></div>
             <div class="cs-phone-bar cs-phone-nav"><img src="assets/skilling/ui/home-nav.webp" alt="" width="816" height="181" loading="lazy" decoding="async"></div>
           </div>
-          <div class="cs-phone-view">
+          <div class="cs-phone-view cs-phone-view--same">
             <div class="cs-phone-feed">
               <img src="assets/skilling/ui/course-v-deadline.jpg" alt="Home page with a mandatory course close to its deadline and a countdown" width="816" height="2267" loading="lazy" decoding="async">
-              <span class="cs-ring" data-step="2" style="--t:35.875%;--h:42.63%;--l:0%;--w:100%"></span>
+              <span class="cs-ring" data-step="2" style="--t:37.539%;--h:39.303%;--l:0%;--w:100%"></span>
             </div>
             <div class="cs-phone-bar cs-phone-status cs-phone-status--on"><img src="assets/skilling/ui/home-status-c.webp" alt="" width="816" height="93" loading="lazy" decoding="async"></div>
             <div class="cs-phone-bar cs-phone-nav"><img src="assets/skilling/ui/home-nav.webp" alt="" width="816" height="181" loading="lazy" decoding="async"></div>
           </div>
-          <div class="cs-phone-view">
+          <div class="cs-phone-view cs-phone-view--same">
             <div class="cs-phone-feed">
               <img src="assets/skilling/ui/course-v-set.jpg" alt="Home page with four pending courses and a link to view all of them" width="816" height="2267" loading="lazy" decoding="async">
-              <span class="cs-ring" data-step="3" style="--t:35.6%;--h:47%;--l:2.16%;--w:95.68%"></span>
+              <span class="cs-ring" data-step="3" style="--t:37.274%;--h:43.449%;--l:2.16%;--w:95.68%"></span>
             </div>
             <div class="cs-phone-bar cs-phone-status cs-phone-status--on"><img src="assets/skilling/ui/home-status-c.webp" alt="" width="816" height="93" loading="lazy" decoding="async"></div>
             <div class="cs-phone-bar cs-phone-nav"><img src="assets/skilling/ui/home-nav.webp" alt="" width="816" height="181" loading="lazy" decoding="async"></div>
@@ -1475,36 +1476,36 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
           <div class="cs-phone-view">
             <div class="cs-phone-feed">
               <img src="assets/skilling/ui/course-v-detail-1.jpg" alt="Course page before starting, with Start Chapter 1 and later chapters locked" width="816" height="1813" loading="lazy" decoding="async">
-              <span class="cs-ring" data-step="4" style="--t:0%;--h:51.88%;--l:0%;--w:100%"></span>
+              <span class="cs-ring cs-ring--frame" data-step="4" style="--t:0%;--h:98.32%;--l:0%;--w:100%"></span>
             </div>
           </div>
-          <div class="cs-phone-view">
+          <div class="cs-phone-view cs-phone-view--same">
             <div class="cs-phone-feed">
               <img src="assets/skilling/ui/course-v-detail-2.jpg" alt="Course page in progress: chapter 1 completed, chapter 2 partly watched, chapter 3 locked" width="816" height="1813" loading="lazy" decoding="async">
-              <span class="cs-ring" data-step="5" style="--t:51.88%;--h:48.12%;--l:0%;--w:100%"></span>
+              <span class="cs-ring cs-ring--frame" data-step="5" style="--t:0%;--h:98.32%;--l:0%;--w:100%"></span>
             </div>
           </div>
-          <div class="cs-phone-view">
+          <div class="cs-phone-view cs-phone-view--same">
             <div class="cs-phone-feed">
               <img src="assets/skilling/ui/course-v-detail-3.jpg" alt="Course page with every chapter completed" width="816" height="1813" loading="lazy" decoding="async">
-              <span class="cs-ring" data-step="6" style="--t:41.62%;--h:58.38%;--l:0%;--w:100%"></span>
+              <span class="cs-ring cs-ring--frame" data-step="6" style="--t:0%;--h:98.32%;--l:0%;--w:100%"></span>
             </div>
           </div>
         </div>
         <img class="cs-phone-bezel" src="assets/skilling/ui/home-bezel.webp" alt="" width="900" height="1852" loading="lazy" decoding="async">
       </div>
     <ol class="cs-notes">
-      <li class="cs-step cs-step--left" data-step="1" data-view="0" data-y="7.5">
+      <li class="cs-step cs-step--left" data-step="1" data-view="0" data-y="17.9">
         <span class="cs-step-n">01</span>
         <h3 class="cs-step-title">A new course</h3>
         <p class="cs-step-desc">A prominent play button starts learning quickly. Badges, coins, length, chapters and topics sit up front, with View details for those who want to know more first.</p>
       </li>
-      <li class="cs-step cs-step--right" data-step="2" data-view="1" data-y="11.25">
+      <li class="cs-step cs-step--right" data-step="2" data-view="1" data-y="19.8">
         <span class="cs-step-n">02</span>
         <h3 class="cs-step-title">Close to the deadline</h3>
         <p class="cs-step-desc">A tinted banner and a running countdown capture attention and help users finish pending courses on time.</p>
       </li>
-      <li class="cs-step cs-step--left" data-step="3" data-view="2" data-y="13">
+      <li class="cs-step cs-step--left" data-step="3" data-view="2" data-y="21.39">
         <span class="cs-step-n">03</span>
         <h3 class="cs-step-title">Several at once</h3>
         <p class="cs-step-desc">One course is highlighted and the rest stack behind View all assigned courses, so a long list never overwhelms.</p>
@@ -1580,7 +1581,7 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
           <div class="cs-phone-view cs-phone-view--same is-current">
             <div class="cs-phone-feed">
               <img src="assets/skilling/ui/assess-v-home.jpg" alt="Home page with a list of six assigned assessments" width="816" height="2267" loading="lazy" decoding="async">
-              <span class="cs-ring" data-step="1" style="--t:35.4%;--h:30.5%;--l:0%;--w:100%"></span>
+              <span class="cs-ring" data-step="1" style="--t:37.583%;--h:27.084%;--l:0%;--w:100%"></span>
             </div>
             <div class="cs-phone-bar cs-phone-status cs-phone-status--on"><img src="assets/skilling/ui/home-status-c.webp" alt="" width="816" height="93" loading="lazy" decoding="async"></div>
             <div class="cs-phone-bar cs-phone-nav"><img src="assets/skilling/ui/home-nav.webp" alt="" width="816" height="181" loading="lazy" decoding="async"></div>
@@ -1588,7 +1589,7 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
           <div class="cs-phone-view cs-phone-view--same">
             <div class="cs-phone-feed">
               <img src="assets/skilling/ui/assess-v-deadline.jpg" alt="Home page with an assessment close to its deadline and a countdown" width="816" height="2267" loading="lazy" decoding="async">
-              <span class="cs-ring" data-step="2" style="--t:35.875%;--h:31.03%;--l:0%;--w:100%"></span>
+              <span class="cs-ring" data-step="2" style="--t:37.539%;--h:27.658%;--l:0%;--w:100%"></span>
             </div>
             <div class="cs-phone-bar cs-phone-status cs-phone-status--on"><img src="assets/skilling/ui/home-status-c.webp" alt="" width="816" height="93" loading="lazy" decoding="async"></div>
             <div class="cs-phone-bar cs-phone-nav"><img src="assets/skilling/ui/home-nav.webp" alt="" width="816" height="181" loading="lazy" decoding="async"></div>
@@ -2266,7 +2267,10 @@ var CS_REDUCE = window.matchMedia && window.matchMedia('(prefers-reduced-motion:
       var note = notes[k - 1];
       var y = note ? parseFloat(note.getAttribute('data-y')) || 0 : 0;
       var v = note ? parseInt(note.getAttribute('data-view'), 10) || 0 : 0;
+      last = Date.now();
       views.forEach(function(view, i) {
+        // only the screen being replaced is held underneath; older ones clear at once, so they never show through
+        view.classList.toggle('is-leaving', i !== v && view.classList.contains('is-current'));
         if (i === v && !view.classList.contains('is-current')) {
           // an incoming screen starts where its step needs it, instead of scrolling there while fading in
           var f = view.querySelector('.cs-phone-feed');
@@ -2307,8 +2311,9 @@ var CS_REDUCE = window.matchMedia && window.matchMedia('(prefers-reduced-motion:
         n.style.setProperty('--len', Math.max(16, len) + 'px');
       });
     }
-    // A fast scroll never jumps straight to a far step: the phone walks there one step at a time
-    var target = 0, walking = null, HOLD = 650;   // long enough for the note and highlight to finish arriving
+    // A fast scroll never jumps straight to a far step: the phone walks there one step at a time,
+    // and every step stays up for at least HOLD, counted from when it arrived
+    var target = 0, walking = null, last = 0, HOLD = 850;   // long enough for the screen, note and highlight to finish arriving
     function walk() {
       walking = null;
       if (cur === target) return;
@@ -2318,7 +2323,7 @@ var CS_REDUCE = window.matchMedia && window.matchMedia('(prefers-reduced-motion:
     function go(k) {
       target = k;
       if (cur < 0) { set(k); return; }
-      if (!walking) walk();
+      if (!walking && cur !== target) walking = setTimeout(walk, Math.max(0, HOLD - (Date.now() - last)));
     }
     function tick() {
       raf = null;
