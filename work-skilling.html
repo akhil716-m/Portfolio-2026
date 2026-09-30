@@ -1917,37 +1917,73 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
     <p class="cs-p">Event cards appear on the homepage for new, registered and live events, and their state, cues and CTA change to match, so users don't miss them.</p>
   </div>
 </div>
-<div class="cs-wrap cs-wrap--board">
-<figure class="cs-board settle">
-  <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: Instructor-led events" data-full="assets/skilling/d-events-intro.jpg" data-alt="Event cards and a live class detail screen">
-    <img src="assets/skilling/d-events-intro.jpg" alt="Event cards and a live class detail screen" width="1590" height="625" loading="lazy" decoding="async">
-    <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+<div class="cs-pin" data-pin style="--steps: 5">
+  <div class="cs-pin-stage">
+      <div class="cs-annot cs-phone">
+        <div class="cs-phone-screen">
+          <div class="cs-phone-view is-current">
+            <div class="cs-phone-feed">
+              <img src="assets/skilling/ui/ev-v-upcoming.jpg" alt="Home page with an upcoming mandatory offline event and a Register button" width="816" height="1783" loading="lazy" decoding="async">
+              <span class="cs-ring" data-step="1" style="--t:15.984%;--h:54.795%;--l:0%;--w:100%"></span>
+            </div>
+          </div>
+          <div class="cs-phone-view">
+            <div class="cs-phone-feed">
+              <img src="assets/skilling/ui/ev-v-live.jpg" alt="Home page with a live event the user has registered for, and a View location button" width="816" height="2400" loading="lazy" decoding="async">
+              <span class="cs-ring" data-step="2" style="--t:32.708%;--h:40%;--l:0%;--w:100%"></span>
+            </div>
+            <div class="cs-phone-bar cs-phone-status"><img src="assets/skilling/ui/home-status.webp" alt="" width="816" height="93" loading="lazy" decoding="async"></div>
+            <div class="cs-phone-bar cs-phone-nav"><img src="assets/skilling/ui/ev-nav.webp" alt="" width="816" height="190" loading="lazy" decoding="async"></div>
+          </div>
+          <div class="cs-phone-view">
+            <div class="cs-phone-feed">
+              <img src="assets/skilling/ui/ev-v-all.jpg" alt="My Events listing every event with its state" width="816" height="1783" loading="lazy" decoding="async">
+              <span class="cs-ring cs-ring--frame" data-step="3" style="--t:0%;--h:99.972%;--l:0%;--w:100%"></span>
+            </div>
+          </div>
+          <div class="cs-phone-view">
+            <div class="cs-phone-feed">
+              <img src="assets/skilling/ui/ev-v-offline.jpg" alt="Offline event detail with date, time, venue and map, attendees, description and View location" width="816" height="1783" loading="lazy" decoding="async">
+              <span class="cs-ring cs-ring--frame" data-step="4" style="--t:0%;--h:99.972%;--l:0%;--w:100%"></span>
+            </div>
+          </div>
+          <div class="cs-phone-view cs-phone-view--same">
+            <div class="cs-phone-feed">
+              <img src="assets/skilling/ui/ev-v-webinar.jpg" alt="Webinar detail with a join link, attendees, description, the trainer and Register now" width="816" height="1783" loading="lazy" decoding="async">
+              <span class="cs-ring cs-ring--frame" data-step="5" style="--t:0%;--h:99.972%;--l:0%;--w:100%"></span>
+            </div>
+          </div>
+        </div>
+        <img class="cs-phone-bezel" src="assets/skilling/ui/home-bezel.webp" alt="" width="900" height="1852" loading="lazy" decoding="async">
+      </div>
+    <ol class="cs-notes">
+      <li class="cs-step cs-step--left" data-step="1" data-view="0" data-y="0">
+        <span class="cs-step-n">01</span>
+        <h3 class="cs-step-title">Upcoming, one tap to register</h3>
+        <p class="cs-step-desc">An upcoming event on home shows whether it is mandatory, offline or a webinar, when it runs and who has registered, with Register right on the card.</p>
+      </li>
+      <li class="cs-step cs-step--right" data-step="2" data-view="1" data-y="17.583">
+        <span class="cs-step-n">02</span>
+        <h3 class="cs-step-title">Live, and already in</h3>
+        <p class="cs-step-desc">Once the user has registered and the event starts, the card flags it as live and the CTA turns into View location.</p>
+      </li>
+      <li class="cs-step cs-step--left" data-step="3" data-view="2" data-y="0">
+        <span class="cs-step-n">03</span>
+        <h3 class="cs-step-title">Every event in one list</h3>
+        <p class="cs-step-desc">My Events gathers every event with its state, from open for registration to already registered and over.</p>
+      </li>
+      <li class="cs-step cs-step--right" data-step="4" data-view="3" data-y="0">
+        <span class="cs-step-n">04</span>
+        <h3 class="cs-step-title">An offline event</h3>
+        <p class="cs-step-desc">The detail page puts the date, time and venue first, with a map, who is attending, the trainer's contact, notes and attachments.</p>
+      </li>
+      <li class="cs-step cs-step--left" data-step="5" data-view="4" data-y="0">
+        <span class="cs-step-n">05</span>
+        <h3 class="cs-step-title">A webinar</h3>
+        <p class="cs-step-desc">A webinar swaps the venue for a join link, and Register now stays pinned at the bottom.</p>
+      </li>
+    </ol>
   </div>
-</figure>
-</div>
-<div class="cs-wrap cs-wrap--board">
-<div class="cs-pair">
-<figure class="cs-board settle">
-  <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: Events on the home page" data-full="assets/skilling/d-events-home.jpg" data-alt="Home screen with event cards in upcoming, registered and live states">
-    <img src="assets/skilling/d-events-home.jpg" alt="Home screen with event cards in upcoming, registered and live states" width="1590" height="774" loading="lazy" decoding="async">
-    <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
-  </div>
-</figure>
-<figure class="cs-board settle">
-  <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: All events" data-full="assets/skilling/d-events-all.jpg" data-alt="All events list with live, upcoming and past filters">
-    <img src="assets/skilling/d-events-all.jpg" alt="All events list with live, upcoming and past filters" width="1590" height="672" loading="lazy" decoding="async">
-    <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
-  </div>
-</figure>
-</div>
-</div>
-<div class="cs-wrap cs-wrap--board">
-<figure class="cs-board settle">
-  <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: Event details" data-full="assets/skilling/d-events-detail.jpg" data-alt="Event detail screens showing the trainer, location, description and a register button">
-    <img src="assets/skilling/d-events-detail.jpg" alt="Event detail screens showing the trainer, location, description and a register button" width="1590" height="1174" loading="lazy" decoding="async">
-    <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
-  </div>
-</figure>
 </div>
 
 <div class="cs-wrap">
