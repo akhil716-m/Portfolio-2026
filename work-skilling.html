@@ -294,9 +294,6 @@ a.cs-cta { margin-top: 28px; }
 .cs-board--photo .cs-fig-frame { cursor: default; padding: 0; background: none; border: 0; }
 .cs-board--photo .cs-fig-frame img { border-radius: clamp(14px, 2vw, 22px); filter: none; }
 .cs-board--photo .cs-fig-zoom { display: none; }
-.cs-pair { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(14px, 2vw, 24px); align-items: stretch; }
-.cs-pair .cs-board { margin-top: 0; display: flex; flex-direction: column; }
-.cs-pair .cs-fig-frame { flex: 1; display: flex; align-items: center; }
 
 /* Side-by-side: board + supporting list */
 .cs-split { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 40px; align-items: start; }
@@ -655,7 +652,6 @@ body.cs-lb-lock { overflow: hidden; }
   .cs-brand-stage { height: auto; width: 100%; }
   .cs-brand-stage .cs-theme-stage { position: relative; height: min(52dvh, 460px); margin: 0 auto; }
   .cs-brand-stage .cs-acard { position: relative; right: auto; bottom: auto; width: min(100%, 276px); margin: -64px auto 0; }
-  .cs-pair { grid-template-columns: 1fr; }
   .cs-strip { --ph: 380px; }
 }
 @media (max-width: 760px) {
@@ -883,14 +879,6 @@ body.cs-lb-lock { overflow: hidden; }
 nav .logo a.cs-back { min-height: 44px; padding-right: 12px; }
 footer .right a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 4px; }
 
-/* Phone strips (mobile only): the phones from a board, swipeable */
-.cs-mobile-only { display: none; }
-.cs-phones { padding: 20px; border-radius: var(--r-surface); background: rgba(var(--wash), 0.08); border: 1px solid rgba(255,255,255,0.07); }
-.cs-phones-track { display: flex; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; -webkit-overflow-scrolling: touch; border-radius: var(--r-inner); }
-.cs-phones-track::-webkit-scrollbar { display: none; }
-.cs-phones-track:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
-.cs-phones-track img { flex: none; scroll-snap-align: center; display: block; height: min(54dvh, 420px); width: auto; filter: drop-shadow(0 18px 28px rgba(0,0,0,0.45)); }
-
 /* Boards and the act copy use the room a hidden rail leaves */
 @media (max-width: 1400px) {
   .cs-wrap--board { max-width: min(88vw, 1040px); }
@@ -908,8 +896,6 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
 }
 @media (max-width: 760px) {
   .cs-back-long { display: none; }
-  .cs-mobile-only { display: block; }
-  .cs-wrap--desk { display: none; }
   /* Board text is baked into the image: give the lightbox enough width to be readable when panned */
   .cs-lb img { width: 1200px; }
   footer { grid-template-columns: 1fr; gap: 8px; }
@@ -1988,50 +1974,64 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
 
 <div class="cs-wrap">
   <div class="cs-sub">
-    <h3 class="cs-h3">Stories-style mini courses</h3>
-    <p class="cs-p">To boost engagement and fight short attention spans, we're testing stories-style micro-courses for a few select industries.</p>
+    <h3 class="cs-h3">Stories-style short courses</h3>
+    <p class="cs-p">To boost engagement and fight short attention spans, we're testing stories-style short courses for a few select industries. Complex topics arrive in bite-sized slides, and a short quiz at the end checks understanding.</p>
   </div>
 </div>
-<div class="cs-wrap cs-wrap--board">
-<figure class="cs-board settle">
-  <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: Micro-learning" data-full="assets/skilling/d-micro-intro.jpg" data-alt="Stories-style mini course screens of a hospitality trainer">
-    <img src="assets/skilling/d-micro-intro.jpg" alt="Stories-style mini course screens of a hospitality trainer" width="1590" height="625" loading="lazy" decoding="async">
-    <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+<div class="cs-pin" data-pin style="--steps: 4">
+  <div class="cs-pin-stage">
+      <div class="cs-annot cs-phone">
+        <div class="cs-phone-screen">
+          <div class="cs-phone-view is-current">
+            <div class="cs-phone-feed">
+              <img src="assets/skilling/ui/sc-v-home.jpg" alt="Home page with Mini Course first in quick access, ringed like a story" width="816" height="1783" loading="lazy" decoding="async">
+              <span class="cs-ring" data-step="1" style="--t:33.371%;--h:8.805%;--l:3.7%;--w:24.8%"></span>
+            </div>
+          </div>
+          <div class="cs-phone-view">
+            <div class="cs-phone-feed">
+              <img src="assets/skilling/ui/sc-v-1.jpg" alt="Short course slide: a pair of work gloves with the line Gloves on: work safely, always" width="816" height="1783" loading="lazy" decoding="async">
+              <span class="cs-ring cs-ring--frame" data-step="2" style="--t:0%;--h:100%;--l:0%;--w:100%"></span>
+            </div>
+          </div>
+          <div class="cs-phone-view cs-phone-view--same">
+            <div class="cs-phone-feed">
+              <img src="assets/skilling/ui/sc-v-2.jpg" alt="Short course slide: welding sparks with the line Safety first: gloves, glasses essential" width="816" height="1783" loading="lazy" decoding="async">
+              <span class="cs-ring cs-ring--frame" data-step="3" style="--t:0%;--h:100%;--l:0%;--w:100%"></span>
+            </div>
+          </div>
+          <div class="cs-phone-view cs-phone-view--same">
+            <div class="cs-phone-feed">
+              <img src="assets/skilling/ui/sc-v-3.jpg" alt="Short course slide: a gloved hand at a power tool with the line Keep hands safe, wear gloves" width="816" height="1783" loading="lazy" decoding="async">
+              <span class="cs-ring cs-ring--frame" data-step="4" style="--t:0%;--h:100%;--l:0%;--w:100%"></span>
+            </div>
+          </div>
+        </div>
+        <img class="cs-phone-bezel" src="assets/skilling/ui/home-bezel.webp" alt="" width="900" height="1852" loading="lazy" decoding="async">
+      </div>
+    <ol class="cs-notes">
+      <li class="cs-step cs-step--left" data-step="1" data-view="0" data-y="0">
+        <span class="cs-step-n">01</span>
+        <h3 class="cs-step-title">One tap from home</h3>
+        <p class="cs-step-desc">Mini courses sit first in quick access, ringed like a story, so something new is always easy to spot and start.</p>
+      </li>
+      <li class="cs-step cs-step--right" data-step="2" data-view="1" data-y="0">
+        <span class="cs-step-n">02</span>
+        <h3 class="cs-step-title">One tip per slide</h3>
+        <p class="cs-step-desc">Each slide pairs a full-screen photo with a single short line, and bars at the top show how far along the user is.</p>
+      </li>
+      <li class="cs-step cs-step--left" data-step="3" data-view="2" data-y="0">
+        <span class="cs-step-n">03</span>
+        <h3 class="cs-step-title">Tap through, like stories</h3>
+        <p class="cs-step-desc">Users tap to move on or close at any time, the same way they already use stories on social apps.</p>
+      </li>
+      <li class="cs-step cs-step--right" data-step="4" data-view="3" data-y="0">
+        <span class="cs-step-n">04</span>
+        <h3 class="cs-step-title">Done within a break</h3>
+        <p class="cs-step-desc">A whole course fits in a few slides, short enough to finish between tasks on a shift.</p>
+      </li>
+    </ol>
   </div>
-</figure>
-</div>
-
-<div class="cs-wrap">
-  <div class="cs-sub" style="margin-top: 72px;">
-    <h3 class="cs-h3">Short courses</h3>
-    <p class="cs-p">Short courses are bite-sized learning for busy schedules. Complex topics arrive in digestible segments, and a short quiz at the end checks understanding.</p>
-  </div>
-</div>
-<div class="cs-wrap cs-wrap--board cs-wrap--desk">
-<figure class="cs-board settle cs-board--desk">
-  <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: Short courses" data-full="assets/skilling/d-short.jpg" data-alt="Short course screens showing safety gear tips as full screen stories">
-    <img src="assets/skilling/d-short.jpg" alt="Short course screens showing safety gear tips as full screen stories" width="1590" height="932" loading="lazy" decoding="async">
-    <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
-  </div>
-</figure>
-</div>
-<div class="cs-wrap cs-wrap--board cs-mobile-only">
-  <figure class="cs-board settle">
-    <div class="cs-phones"><div class="cs-phones-track" tabindex="0" role="group" aria-label="Short course stories, scroll sideways"><img src="assets/skilling/ui/story-1.webp" alt="Short course story about wearing safety gloves" width="520" height="1071" loading="lazy" decoding="async"><img src="assets/skilling/ui/story-2.webp" alt="Short course story about gloves and glasses when welding" width="520" height="1071" loading="lazy" decoding="async"><img src="assets/skilling/ui/story-3.webp" alt="Short course story about keeping hands safe with a power tool" width="520" height="1071" loading="lazy" decoding="async"></div></div>
-  </figure>
-</div>
-<div class="cs-wrap cs-wrap--board cs-wrap--inset cs-wrap--desk">
-<figure class="cs-board settle cs-board--inset cs-board--desk">
-  <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: A quick check" data-full="assets/skilling/d-short-quiz.jpg" data-alt="Short course quiz screens with a correct answer state">
-    <img src="assets/skilling/d-short-quiz.jpg" alt="Short course quiz screens with a correct answer state" width="1590" height="670" loading="lazy" decoding="async">
-    <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
-  </div>
-</figure>
-</div>
-<div class="cs-wrap cs-wrap--board cs-mobile-only">
-  <figure class="cs-board settle">
-    <div class="cs-phones"><div class="cs-phones-track" tabindex="0" role="group" aria-label="Short course quiz, scroll sideways"><img src="assets/skilling/ui/quiz-1.webp" alt="Short course quiz question about wearing gloves" width="520" height="1071" loading="lazy" decoding="async"><img src="assets/skilling/ui/quiz-2.webp" alt="Quiz question with the correct answer marked" width="520" height="1071" loading="lazy" decoding="async"></div></div>
-  </figure>
 </div>
 
 <div class="cs-wrap">
