@@ -503,7 +503,7 @@ body.cs-lb-lock { overflow: hidden; }
 .cs-phone-screen { contain: layout paint; }
 .cs-phone-bezel { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
 .cs-phone-screen { position: absolute; left: 4.735%; top: 1.905%; width: 90.694%; height: 96.27%; border-radius: 10.62% / 4.864%; overflow: hidden; background: #fff; }
-.cs-phone-feed { position: relative; transform: translateY(calc(-1 * var(--y))); transition: transform 0.75s cubic-bezier(0.65, 0, 0.35, 1); }
+.cs-phone-feed { position: relative; transform: translateY(calc(-1 * var(--y))); transition: transform 0.9s cubic-bezier(0.4, 0, 0.2, 1); }
 .cs-phone-feed img { display: block; width: 100%; height: auto; }
 .cs-phone-bar { position: absolute; left: 0; right: 0; }
 .cs-phone-bar img { display: block; width: 100%; height: auto; }
@@ -2280,9 +2280,18 @@ var CS_REDUCE = window.matchMedia && window.matchMedia('(prefers-reduced-motion:
           view._arrive = setTimeout(function() { view.classList.remove('is-arriving'); }, 700);
         }
         view.classList.toggle('is-current', i === v);
-        if (i === v) { view.style.setProperty('--y', y + '%'); view.classList.toggle('is-scrolled', y > 0); }
+        if (i === v) {
+          // a longer scroll inside the phone takes longer, so a long way never whips past; the step holds until it lands
+          var from = parseFloat(view.style.getPropertyValue('--y')) || 0;
+          var fd = view.querySelector('.cs-phone-feed');
+          var dist = Math.abs(y - from) / 100 * fd.offsetHeight;
+          move = dist > 0 ? Math.min(1700, Math.max(900, 600 + dist * 1.5)) : 0;
+          fd.style.transitionDuration = move ? move + 'ms' : '';
+          view.style.setProperty('--y', y + '%'); view.classList.toggle('is-scrolled', y > 0);
+        }
       });
       var lit = root.querySelector('.cs-ring[data-step="' + k + '"]');
+      rings.forEach(function(r) { r.style.transitionDelay = r === lit && move > 900 ? (move - 450) + 'ms' : ''; });
       phone.classList.toggle('is-lit', !!lit && !lit.classList.contains('cs-ring--frame'));
       notes.forEach(function(n, i) { n.classList.toggle('is-active', i === k - 1); });
       rings.forEach(function(r) { r.classList.toggle('is-active', r.getAttribute('data-step') === String(k)); });
@@ -2313,17 +2322,18 @@ var CS_REDUCE = window.matchMedia && window.matchMedia('(prefers-reduced-motion:
     }
     // A fast scroll never jumps straight to a far step: the phone walks there one step at a time,
     // and every step stays up for at least HOLD, counted from when it arrived
-    var target = 0, walking = null, last = 0, HOLD = 850;   // long enough for the screen, note and highlight to finish arriving
+    var target = 0, walking = null, last = 0, move = 0, HOLD = 850;   // long enough for the screen, note and highlight to finish arriving
+    function hold() { return Math.max(HOLD, move + 300); }   // a long inner scroll lands before the next step starts
     function walk() {
       walking = null;
       if (cur === target) return;
       set(cur + (target > cur ? 1 : -1));
-      if (cur !== target) walking = setTimeout(walk, HOLD);
+      if (cur !== target) walking = setTimeout(walk, hold());
     }
     function go(k) {
       target = k;
       if (cur < 0) { set(k); return; }
-      if (!walking && cur !== target) walking = setTimeout(walk, Math.max(0, HOLD - (Date.now() - last)));
+      if (!walking && cur !== target) walking = setTimeout(walk, Math.max(0, hold() - (Date.now() - last)));
     }
     function tick() {
       raf = null;
