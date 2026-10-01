@@ -898,14 +898,8 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
 .cs-pain-n { margin: 0 0 16px; font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.08em; color: rgb(var(--pain)); }
 .cs-pain-title { margin: 0 0 10px; font-family: 'Geist', sans-serif; font-size: var(--fs-h4); font-weight: 500; line-height: 1.35; color: var(--text); text-wrap: balance; }
 .cs-pain-desc { margin: 0; font-size: var(--fs-small); line-height: 1.65; color: var(--text-soft); }
-/* no box: the group's hue marks the title with a short upright bar (the pain dashes, turned) and glows softly behind the illustration */
+/* open header: the group name on the left, its illustration on the right */
 .cs-pgroup-head { display: flex; align-items: center; justify-content: space-between; gap: 16px 32px; flex-wrap: wrap; }
-.cs-pgroup-head > div:first-child { border-left: 2px solid rgb(var(--pain)); padding: 2px 0 2px 18px; }
-.cs-pgroup-viz { position: relative; isolation: isolate; }
-.cs-pgroup-viz::before {
-  content: ''; position: absolute; inset: -40% -30%; z-index: -1; pointer-events: none;
-  background: radial-gradient(closest-side, rgba(var(--pain), 0.14), transparent);
-}
 /* same size as the group name it sits beside */
 .cs-pgroup-num { font-family: 'Geist', sans-serif; font-size: var(--fs-h3); font-weight: 500; line-height: 1.25; letter-spacing: -0.01em; color: var(--text); }
 /* panel illustrations */
