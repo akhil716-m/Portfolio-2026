@@ -407,22 +407,22 @@ body.cs-lb-lock { overflow: hidden; }
    under the scrim so it fades into the page like the photo does, and rises gently into place */
 /* the backdrop borrows the app's own home-header gradient: sky blue top right, warm cream bottom left */
 .cs-act-bg--fill {
-  filter: none; animation: none !important; transform: none;   /* a flat fill needs no parallax, and unscaled it ends exactly at the seam */
+  inset: 3px 0; filter: none; animation: none !important; transform: none;   /* no parallax; kept 3px inside the edges so the opaque scrim, not the fill, meets the page */
   background:
-    radial-gradient(75% 95% at 92% 0%, #8ccbe8 0%, rgba(140,203,232,0) 100%),
-    radial-gradient(70% 90% at 0% 100%, #e8c497 0%, rgba(232,196,151,0) 100%),
-    #b9d6dc;
+    radial-gradient(70% 80% at 90% 25%, #93d0ec 0%, rgba(147,208,236,0) 100%),
+    radial-gradient(55% 60% at 5% 40%, #ecd8b8 0%, rgba(236,216,184,0) 100%),
+    linear-gradient(to bottom, #b5dbea 0%, #8fbfd6 100%);
 }
 .cs-act-cutout {
   position: absolute; right: clamp(16px, 6vw, 120px); bottom: 0; z-index: -1;
   width: auto; height: 82%; max-width: none; pointer-events: none;
 }
-/* lighter veil than the photo breakers: only short fades at the top and bottom seams, and a soft shade behind the title */
+/* lighter veil than the photo breakers: long eased fades into the page at the top and bottom, and a soft shade behind the title */
 #act-product .cs-act-scrim {
   background:
-    linear-gradient(to top, var(--bg) 0%, rgba(10,10,10,0.55) 7%, rgba(10,10,10,0.18) 18%, rgba(10,10,10,0) 32%),
-    linear-gradient(to bottom, var(--bg) 0%, rgba(10,10,10,0.35) 6%, rgba(10,10,10,0) 14%),
-    radial-gradient(65% 60% at 14% 86%, rgba(10,10,10,0.55), rgba(10,10,10,0));
+    linear-gradient(to top, rgba(10,10,10,1) 0.0%, rgba(10,10,10,0.96) 4.7%, rgba(10,10,10,0.86) 9.3%, rgba(10,10,10,0.71) 14.0%, rgba(10,10,10,0.53) 18.7%, rgba(10,10,10,0.36) 23.3%, rgba(10,10,10,0.21) 28.0%, rgba(10,10,10,0.1) 32.7%, rgba(10,10,10,0.03) 37.3%, rgba(10,10,10,0) 42.0%),
+    linear-gradient(to bottom, rgba(10,10,10,1) 0.0%, rgba(10,10,10,0.96) 3.3%, rgba(10,10,10,0.86) 6.7%, rgba(10,10,10,0.71) 10.0%, rgba(10,10,10,0.53) 13.3%, rgba(10,10,10,0.36) 16.7%, rgba(10,10,10,0.21) 20.0%, rgba(10,10,10,0.1) 23.3%, rgba(10,10,10,0.03) 26.7%, rgba(10,10,10,0) 30.0%),
+    radial-gradient(60% 55% at 12% 84%, rgba(10,10,10,0.3), rgba(10,10,10,0));
 }
 @supports (animation-timeline: view()) {
   @media (prefers-reduced-motion: no-preference) {
