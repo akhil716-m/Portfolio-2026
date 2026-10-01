@@ -892,17 +892,19 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
 .cs-pgroup-who { margin: 0; font-family: 'Geist', sans-serif; font-size: var(--fs-h3); font-weight: 500; line-height: 1.25; letter-spacing: -0.01em; color: var(--text); }
 .cs-pgroup-tag { margin: 6px 0 0; font-size: var(--fs-small); color: var(--text-soft); }
 /* Pain points use the page's ruled-list pattern (like the three forces); a short brick rule and number mark each one as a problem */
-.cs-pains { list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 32px; row-gap: 36px; margin: 40px 0 0; padding: 0; }
+.cs-pains { list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 32px; row-gap: 36px; margin: 36px 0 0; padding: 0; }
 .cs-pain { position: relative; border-top: 1px solid var(--line); padding-top: 20px; }
 .cs-pain::before { content: ''; position: absolute; left: 0; top: -1px; width: 28px; height: 2px; background: rgb(var(--pain)); }
 .cs-pain-n { margin: 0 0 16px; font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.08em; color: rgb(var(--pain)); }
 .cs-pain-title { margin: 0 0 10px; font-family: 'Geist', sans-serif; font-size: var(--fs-h4); font-weight: 500; line-height: 1.35; color: var(--text); text-wrap: balance; }
 .cs-pain-desc { margin: 0; font-size: var(--fs-small); line-height: 1.65; color: var(--text-soft); }
-/* the same quiet surface as the image frames and carousel cards; colour stays in the label, the chart and the dashes */
-.cs-pgroup-head {
-  display: flex; align-items: center; justify-content: space-between; gap: 16px 32px; flex-wrap: wrap;
-  padding: 18px 24px; border-radius: var(--r-surface);
-  background: rgba(var(--wash, 255,255,255), 0.06); border: 1px solid rgba(255,255,255,0.07);
+/* no box: the group's hue marks the title with a short upright bar (the pain dashes, turned) and glows softly behind the illustration */
+.cs-pgroup-head { display: flex; align-items: center; justify-content: space-between; gap: 16px 32px; flex-wrap: wrap; }
+.cs-pgroup-head > div:first-child { border-left: 2px solid rgb(var(--pain)); padding: 2px 0 2px 18px; }
+.cs-pgroup-viz { position: relative; isolation: isolate; }
+.cs-pgroup-viz::before {
+  content: ''; position: absolute; inset: -40% -30%; z-index: -1; pointer-events: none;
+  background: radial-gradient(closest-side, rgba(var(--pain), 0.14), transparent);
 }
 /* same size as the group name it sits beside */
 .cs-pgroup-num { font-family: 'Geist', sans-serif; font-size: var(--fs-h3); font-weight: 500; line-height: 1.25; letter-spacing: -0.01em; color: var(--text); }
@@ -934,7 +936,6 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
 .cs-pgroup-num .sym { color: rgb(var(--pain)); }
 @media (max-width: 720px) {
   .cs-pains { grid-template-columns: 1fr; row-gap: 28px; }
-  .cs-pgroup-head { padding: 20px; }
   .cs-pgroup + .cs-pgroup { margin-top: 80px; }
 }
 
