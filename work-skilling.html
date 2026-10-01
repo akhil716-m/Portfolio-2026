@@ -929,29 +929,34 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
 .cs-pain-n { margin: 0 0 16px; font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.08em; color: rgb(var(--pain)); }
 .cs-pain-title { margin: 0 0 10px; font-family: 'Geist', sans-serif; font-size: var(--fs-h4); font-weight: 500; line-height: 1.35; color: var(--text); text-wrap: balance; }
 .cs-pain-desc { margin: 0; font-size: var(--fs-small); line-height: 1.65; color: var(--text-soft); }
-.cs-pgroup-head { display: flex; align-items: center; justify-content: space-between; gap: 16px 32px; flex-wrap: wrap; }
+/* the same quiet surface as the image frames and carousel cards; colour stays in the label, the chart and the dashes */
+.cs-pgroup-head {
+  display: flex; align-items: center; justify-content: space-between; gap: 16px 32px; flex-wrap: wrap;
+  padding: 24px 28px; border-radius: var(--r-surface);
+  background: rgba(var(--wash, 255,255,255), 0.06); border: 1px solid rgba(255,255,255,0.07);
+}
 /* same size as the group name it sits beside */
 .cs-pgroup-num { font-family: 'Geist', sans-serif; font-size: var(--fs-h3); font-weight: 500; line-height: 1.25; letter-spacing: -0.01em; color: var(--text); }
 /* panel illustrations */
-.cs-pgroup-viz { flex: none; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.cs-pgroup-viz { flex: none; display: flex; flex-direction: column; align-items: center; gap: 10px; }
 .cs-pgroup-viz .cs-stat-label { font-size: 10px; letter-spacing: 0.1em; }
 /* admins: a ring filled to 14%, the share of courses that were finished */
 .cs-ring-chart {
   --done: 14%;
-  position: relative; width: 132px; height: 132px; display: grid; place-items: center;
+  position: relative; width: 104px; height: 104px; display: grid; place-items: center;
 }
 /* the ring is cut out with a mask, so the tinted panel shows through the middle */
 .cs-ring-chart::before {
   content: ''; position: absolute; inset: 0; border-radius: 50%;
   background: conic-gradient(rgb(var(--pain)) 0 var(--done), rgba(255,255,255,0.1) var(--done) 100%);
-  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 12px), #000 calc(100% - 11px));
-          mask: radial-gradient(farthest-side, transparent calc(100% - 12px), #000 calc(100% - 11px));
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 9px), #000 calc(100% - 8px));
+          mask: radial-gradient(farthest-side, transparent calc(100% - 9px), #000 calc(100% - 8px));
 }
-.cs-ring-chart .cs-pgroup-num { position: relative; }
+.cs-ring-chart .cs-pgroup-num { position: relative; font-size: var(--fs-h4); }
 /* workers: three of the old screens, fanned */
-.cs-pgroup-viz--fan { flex-direction: row; gap: 0; height: 168px; padding: 0 18px; align-items: flex-end; }
+.cs-pgroup-viz--fan { flex-direction: row; gap: 0; height: 132px; padding: 0 14px; align-items: center; }
 .cs-pgroup-viz--fan img {
-  height: 150px; width: auto; border-radius: 10px; margin-left: -26px;
+  height: 118px; width: auto; border-radius: 8px; margin-left: -20px;
   box-shadow: 0 14px 28px rgba(0,0,0,0.45); border: 1px solid rgba(255,255,255,0.08);
 }
 .cs-pgroup-viz--fan img:first-child { margin-left: 0; transform: rotate(-9deg) translateY(4px); }
@@ -960,8 +965,7 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
 .cs-pgroup-num .sym { color: rgb(var(--pain)); }
 @media (max-width: 720px) {
   .cs-pains { grid-template-columns: 1fr; row-gap: 28px; }
-  .cs-pgroup-viz { width: 100%; }
-  .cs-ring-chart { width: 112px; height: 112px; }
+  .cs-pgroup-head { padding: 20px; }
   .cs-pgroup + .cs-pgroup { margin-top: 80px; }
 }
 
