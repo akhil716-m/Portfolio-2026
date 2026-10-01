@@ -904,11 +904,11 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
 }
 
 .cs-mend-track { position: relative; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); }
-/* the journey: a thin lime track with a stop at each stage and an arrow at the end */
-.cs-mend-line { position: absolute; left: 0; right: 0; top: 32px; height: 1px; background: linear-gradient(90deg, var(--accent), rgba(212, 255, 94, 0.35)); transform-origin: 0 50%; }
+/* the journey: a grey track and arrow, with the stages marked in lime */
+.cs-mend-line { position: absolute; left: 0; right: 0; top: 32px; height: 1px; background: rgba(255,255,255,0.22); transform-origin: 0 50%; }
 .cs-mend-line::after {
   content: ''; position: absolute; right: 0; top: 50%; width: 7px; height: 7px; margin-top: -4px;
-  border-top: 1px solid var(--accent); border-right: 1px solid var(--accent); transform: rotate(45deg); opacity: 0.6;
+  border-top: 1px solid rgba(255,255,255,0.35); border-right: 1px solid rgba(255,255,255,0.35); transform: rotate(45deg);
 }
 .cs-mend-stage { position: relative; }
 .cs-mend-stage::before {
@@ -1259,7 +1259,7 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
 <section class="cs-section" id="cs-scope" data-wash="amber">
 <div class="cs-wrap">
 
-  <h2 class="cs-display reveal-title">Turning the problems into a <em>focused set of interventions.</em></h2>
+  <h2 class="cs-display reveal-title">Where we chose <em>to step in.</em></h2>
   <p class="cs-lead">The problems spanned the entire learning journey, from how organisations assign learning to how workers discover, start, continue and complete it. We focused on the moments where clearer guidance, structure and engagement could make the biggest difference.</p>
 
 </div>
