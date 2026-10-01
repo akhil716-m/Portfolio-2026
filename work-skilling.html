@@ -407,7 +407,7 @@ body.cs-lb-lock { overflow: hidden; }
    under the scrim so it fades into the page like the photo does, and rises gently into place */
 /* the backdrop borrows the app's own home-header gradient: sky blue top right, warm cream bottom left */
 .cs-act-bg--fill {
-  filter: none;
+  filter: none; animation: none !important; transform: none;   /* a flat fill needs no parallax, and unscaled it ends exactly at the seam */
   background:
     radial-gradient(75% 95% at 92% 0%, #8ccbe8 0%, rgba(140,203,232,0) 100%),
     radial-gradient(70% 90% at 0% 100%, #e8c497 0%, rgba(232,196,151,0) 100%),
@@ -416,7 +416,13 @@ body.cs-lb-lock { overflow: hidden; }
 .cs-act-cutout {
   position: absolute; right: clamp(16px, 6vw, 120px); bottom: 0; z-index: -1;
   width: auto; height: 82%; max-width: none; pointer-events: none;
-  filter: saturate(0.92) brightness(0.8);
+}
+/* lighter veil than the photo breakers: only short fades at the top and bottom seams, and a soft shade behind the title */
+#act-product .cs-act-scrim {
+  background:
+    linear-gradient(to top, var(--bg) 0%, rgba(10,10,10,0.55) 7%, rgba(10,10,10,0.18) 18%, rgba(10,10,10,0) 32%),
+    linear-gradient(to bottom, var(--bg) 0%, rgba(10,10,10,0.35) 6%, rgba(10,10,10,0) 14%),
+    radial-gradient(65% 60% at 14% 86%, rgba(10,10,10,0.55), rgba(10,10,10,0));
 }
 @supports (animation-timeline: view()) {
   @media (prefers-reduced-motion: no-preference) {
