@@ -540,8 +540,9 @@ body.cs-lb-lock { overflow: hidden; }
 }
 .cs-strip-btn:hover:not(:disabled) { color: var(--accent); border-color: var(--accent); }
 .cs-strip-btn:disabled { opacity: 0.35; cursor: default; }
-/* nothing to scroll: no arrows */
-.cs-strip.is-static .cs-strip-ctl { visibility: hidden; }
+/* nothing to scroll: the block narrows to its cards and centres, so the heading starts where the first card does; no arrows */
+.cs-strip.is-static { width: fit-content; max-width: 100%; margin-inline: auto; }
+.cs-strip.is-static .cs-strip-ctl { display: none; }
 .cs-strip-btn:focus-visible, .cs-strip-track:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 /* when every card fits, the row sits centred; once it overflows, "safe" keeps it scrolling from the start */
 .cs-strip-track { display: flex; justify-content: safe center; gap: 20px; overflow-x: auto; padding-bottom: 6px; scroll-snap-type: x mandatory; scrollbar-width: none; -webkit-overflow-scrolling: touch; border-radius: 12px; }
