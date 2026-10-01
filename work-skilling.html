@@ -81,11 +81,6 @@
 .cs-rail-list li button:hover .cs-rail-num { color: var(--text-soft); }
 .cs-rail-list li.is-active .cs-rail-num { color: var(--accent); }
 .cs-rail-list li.is-active .cs-rail-name { color: var(--text); font-weight: 500; }
-/* sections inside Product: indented under it, no number */
-.cs-rail-list li.is-sub button { padding-left: 44px; }
-.cs-rail-list li.is-sub .cs-rail-name { font-size: 11.5px; }
-.cs-rail-list li.is-parent-active .cs-rail-name { color: var(--text-soft); }
-.cs-rail-list li.is-parent-active .cs-rail-num { color: var(--text-soft); }
 @media(max-width: 1280px) { .cs-rail { display: none; } }
 
 /* ---------- HERO ---------- */
@@ -885,7 +880,6 @@ body.cs-lb-lock { overflow: hidden; }
 }
 .cs-chapter-item .n { flex: none; width: 22px; font-family: 'Geist Mono', monospace; font-size: var(--fs-micro); color: var(--text-muted); }
 .cs-chapter-item:hover { background: rgba(255,255,255,0.05); color: var(--text); }
-.cs-chapter-item.is-sub { padding-left: 34px; font-size: 14px; }
 .cs-chapter-item.is-active { color: var(--text); background: rgba(255,255,255,0.07); }
 .cs-chapter-item.is-active .n { color: var(--accent); }
 
@@ -2164,14 +2158,13 @@ var CS_REDUCE = window.matchMedia && window.matchMedia('(prefers-reduced-motion:
     { id: 'cs-scope',      num: '05', name: 'Scope' },
     { id: 'act-approach',  group: 'The approach' },
     { id: 'cs-process',    num: '06', name: 'Design approach' },
-    { id: 'act-product',   num: '07', name: 'Product' },
-    /* everything designed, as a subgroup of Product */
-    { id: 'cs-home',       sub: true, name: 'Designing the Home' },
-    { id: 'cs-courses',    sub: true, name: 'Course-Based Learning' },
-    { id: 'cs-assess',     sub: true, name: 'Assessments' },
-    { id: 'cs-playlists',  sub: true, name: 'Playlists' },
-    { id: 'cs-mylearning', sub: true, name: 'My Learning' },
-    { id: 'cs-events',     sub: true, name: 'Events and Micro-learning' }
+    { id: 'act-product',   group: 'The product' },
+    { id: 'cs-home',       num: '07', name: 'Designing the Home' },
+    { id: 'cs-courses',    num: '08', name: 'Course-Based Learning' },
+    { id: 'cs-assess',     num: '09', name: 'Assessments' },
+    { id: 'cs-playlists',  num: '10', name: 'Playlists' },
+    { id: 'cs-mylearning', num: '11', name: 'My Learning' },
+    { id: 'cs-events',     num: '12', name: 'Events and Micro-learning' }
   ];
   var byId = {};
   SECTIONS.forEach(function(s) { byId[s.id] = s; });
@@ -2182,8 +2175,8 @@ var CS_REDUCE = window.matchMedia && window.matchMedia('(prefers-reduced-motion:
   /* Act openers (full-bleed chapter covers, with their own title on screen) get no row here — the numbered
      sections either side are enough to navigate by, and the current one stays highlighted through the cover. */
   list.innerHTML = SECTIONS.filter(function(s) { return !s.group; }).map(function(s) {
-    return '<li data-id="' + s.id + '"' + (s.sub ? ' class="is-sub"' : '') + '><button type="button" data-target="' + s.id + '">' +
-           (s.sub ? '' : '<span class="cs-rail-num">' + s.num + '</span>') +
+    return '<li data-id="' + s.id + '"><button type="button" data-target="' + s.id + '">' +
+           '<span class="cs-rail-num">' + s.num + '</span>' +
            '<span class="cs-rail-name">' + s.name + '</span>' +
            '</button></li>';
   }).join('');
@@ -2208,7 +2201,7 @@ var CS_REDUCE = window.matchMedia && window.matchMedia('(prefers-reduced-motion:
   }
   if (chapter && cbtn && cmenu && clist) {
     clist.innerHTML = SECTIONS.filter(function(s) { return !s.group; }).map(function(s) {
-      return '<li><button type="button" class="cs-chapter-item' + (s.sub ? ' is-sub' : '') + '" data-target="' + s.id + '"><span class="n">' + (s.sub ? '' : s.num) + '</span><span>' + s.name + '</span></button></li>';
+      return '<li><button type="button" class="cs-chapter-item" data-target="' + s.id + '"><span class="n">' + s.num + '</span><span>' + s.name + '</span></button></li>';
     }).join('');
     cbtn.addEventListener('click', function() { setMenu(cmenu.hidden); });
     clist.addEventListener('click', function(e) {
@@ -2226,11 +2219,8 @@ var CS_REDUCE = window.matchMedia && window.matchMedia('(prefers-reduced-motion:
     list.querySelectorAll('li.is-active').forEach(function(li) { li.classList.remove('is-active'); });
     var li = list.querySelector('li[data-id="' + sec.id + '"]');
     if (li) li.classList.add('is-active');
-    // the group's own row stays lit while one of its sections is current
-    var parent = list.querySelector('li[data-id="act-product"]');
-    if (parent) parent.classList.toggle('is-parent-active', !!sec.sub);
     if (chapter && cname) {
-      cnum.textContent = sec.sub ? '' : sec.num;
+      cnum.textContent = sec.num;
       cname.textContent = sec.name;
       clist.querySelectorAll('.is-active').forEach(function(b) { b.classList.remove('is-active'); });
       var cb = clist.querySelector('button[data-target="' + sec.id + '"]');
