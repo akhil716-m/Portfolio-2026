@@ -881,8 +881,8 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
 
 /* =====================================================================
    CHALLENGES AND SCOPE
-   Challenges: two groups of pain points (admins, workers) as tiles, led by the
-   13-15% stat and the old app screens. Scope: the eight changes placed on one lime line.
+   Challenges: two groups of pain points (admins, workers), each under a plain
+   name and line. Scope: the eight changes placed on one lime line.
    Static on purpose: no pinning, no scroll mechanics, nothing to open.
    ===================================================================== */
 .cs-pgroup { margin-top: 64px; }
@@ -898,36 +898,6 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
 .cs-pain-n { margin: 0 0 16px; font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.08em; color: rgb(var(--pain)); }
 .cs-pain-title { margin: 0 0 10px; font-family: 'Geist', sans-serif; font-size: var(--fs-h4); font-weight: 500; line-height: 1.35; color: var(--text); text-wrap: balance; }
 .cs-pain-desc { margin: 0; font-size: var(--fs-small); line-height: 1.65; color: var(--text-soft); }
-/* open header: the group name on the left, its illustration on the right */
-.cs-pgroup-head { display: flex; align-items: center; justify-content: space-between; gap: 16px 32px; flex-wrap: wrap; }
-/* same size as the group name it sits beside */
-.cs-pgroup-num { font-family: 'Geist', sans-serif; font-size: var(--fs-h3); font-weight: 500; line-height: 1.25; letter-spacing: -0.01em; color: var(--text); }
-/* panel illustrations */
-.cs-pgroup-viz { flex: none; display: flex; flex-direction: column; align-items: center; gap: 8px; }
-.cs-pgroup-viz .cs-stat-label { font-size: 9px; letter-spacing: 0.08em; }
-/* admins: a ring filled to 14%, the share of courses that were finished */
-.cs-ring-chart {
-  --done: 14%;
-  position: relative; width: 68px; height: 68px; display: grid; place-items: center;
-}
-/* the ring is cut out with a mask, so the tinted panel shows through the middle */
-.cs-ring-chart::before {
-  content: ''; position: absolute; inset: 0; border-radius: 50%;
-  background: conic-gradient(rgb(var(--pain)) 0 var(--done), rgba(255,255,255,0.1) var(--done) 100%);
-  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 6px), #000 calc(100% - 5px));
-          mask: radial-gradient(farthest-side, transparent calc(100% - 6px), #000 calc(100% - 5px));
-}
-.cs-ring-chart .cs-pgroup-num { position: relative; font-size: 13px; }
-/* workers: three of the old screens, fanned */
-.cs-pgroup-viz--fan { flex-direction: row; gap: 0; height: 92px; padding: 0 12px; align-items: center; }
-.cs-pgroup-viz--fan img {
-  height: 82px; width: auto; border-radius: 6px; margin-left: -14px;
-  box-shadow: 0 14px 28px rgba(0,0,0,0.45); border: 1px solid rgba(255,255,255,0.08);
-}
-.cs-pgroup-viz--fan img:first-child { margin-left: 0; transform: rotate(-9deg) translateY(4px); }
-.cs-pgroup-viz--fan img:nth-child(2) { position: relative; z-index: 1; transform: translateY(-8px); }
-.cs-pgroup-viz--fan img:last-child { transform: rotate(9deg) translateY(4px); }
-.cs-pgroup-num .sym { color: rgb(var(--pain)); }
 @media (max-width: 720px) {
   .cs-pains { grid-template-columns: 1fr; row-gap: 28px; }
   .cs-pgroup + .cs-pgroup { margin-top: 80px; }
@@ -1181,16 +1151,8 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
 <div class="cs-wrap">
 
   <div class="cs-pgroup cs-pgroup--admins settle">
-    <div class="cs-pgroup-head">
-      <div>
-        <p class="cs-pgroup-who">Admins</p>
-        <p class="cs-pgroup-tag">Driving learning was difficult.</p>
-      </div>
-      <div class="cs-pgroup-viz cs-pgroup-viz--ring">
-        <div class="cs-ring-chart" role="img" aria-label="Average course completion: 13-15%"><span class="cs-pgroup-num">13-15<span class="sym">%</span></span></div>
-        <span class="cs-stat-label">Avg course completion</span>
-      </div>
-    </div>
+    <p class="cs-pgroup-who">Admins</p>
+    <p class="cs-pgroup-tag">Driving learning was difficult.</p>
     <ol class="cs-pains">
       <li class="cs-pain">
         <p class="cs-pain-n">01</p>
@@ -1226,17 +1188,8 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
   </div>
 
   <div class="cs-pgroup cs-pgroup--workers settle">
-    <div class="cs-pgroup-head">
-      <div>
-        <p class="cs-pgroup-who">Frontline workers</p>
-        <p class="cs-pgroup-tag">Finding and completing learning was difficult.</p>
-      </div>
-      <div class="cs-pgroup-viz cs-pgroup-viz--fan" aria-hidden="true">
-        <img src="assets/skilling/ui/old-11.webp" alt="" width="418" height="900" loading="lazy" decoding="async">
-        <img src="assets/skilling/ui/old-12.webp" alt="" width="418" height="900" loading="lazy" decoding="async">
-        <img src="assets/skilling/ui/old-04.webp" alt="" width="416" height="900" loading="lazy" decoding="async">
-      </div>
-    </div>
+    <p class="cs-pgroup-who">Frontline workers</p>
+    <p class="cs-pgroup-tag">Finding and completing learning was difficult.</p>
     <ol class="cs-pains">
       <li class="cs-pain">
         <p class="cs-pain-n">01</p>
