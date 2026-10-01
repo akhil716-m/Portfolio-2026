@@ -904,8 +904,23 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
 }
 
 .cs-mend-track { position: relative; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); }
-.cs-mend-line { position: absolute; left: 0; right: 0; top: 32px; height: 2px; background: var(--accent); transform-origin: 0 50%; }
-.cs-mend-head { height: 32px; margin: 0; padding-right: 14px; display: flex; align-items: center; gap: 10px; font-family: 'Geist', sans-serif; font-size: var(--fs-h4); font-weight: 600; line-height: 1.2; color: var(--text); }
+/* the journey: a thin lime track with a stop at each stage and an arrow at the end */
+.cs-mend-line { position: absolute; left: 0; right: 0; top: 32px; height: 1px; background: linear-gradient(90deg, var(--accent), rgba(212, 255, 94, 0.35)); transform-origin: 0 50%; }
+.cs-mend-line::after {
+  content: ''; position: absolute; right: 0; top: 50%; width: 7px; height: 7px; margin-top: -4px;
+  border-top: 1px solid var(--accent); border-right: 1px solid var(--accent); transform: rotate(45deg); opacity: 0.6;
+}
+.cs-mend-stage { position: relative; }
+.cs-mend-stage::before {
+  content: ''; position: absolute; left: 0; top: 32px; width: 9px; height: 9px; margin-top: -4px; border-radius: 50%;
+  background: var(--accent); box-shadow: 0 0 0 4px var(--bg);
+}
+/* who meets the problem: admins in brick, workers in amber, the same hues as the challenge groups */
+.cs-mend-who { display: flex; align-items: center; gap: 6px; margin-bottom: 8px; font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); }
+.cs-mend-who i { width: 6px; height: 6px; border-radius: 50%; background: rgb(var(--pain)); }
+.cs-mend-who i.w { background: rgb(236, 178, 72); }
+.cs-mend-who i + i { margin-left: -9px; box-shadow: 0 0 0 2px var(--bg); }
+.cs-mend-head { height: 32px; margin: 0; padding-right: 14px; padding-bottom: 6px; display: flex; align-items: center; gap: 10px; font-family: 'Geist', sans-serif; font-size: var(--fs-h4); font-weight: 600; line-height: 1.2; color: var(--text); }
 .cs-mend-n { font-family: 'Geist Mono', monospace; font-size: 11px; font-weight: 500; letter-spacing: 0.08em; color: var(--accent); }
 /* one 5-step workflow: numbered stages, each intervention a row, dotted rules marking the steps within a stage */
 .cs-mend-list { list-style: none; margin: 0; padding: 24px 14px 0 0; }
@@ -924,6 +939,8 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
 .js .cs-mend .cs-mend-line { transform: scaleX(0); }
 .js .cs-mend.is-visible .cs-mend-line { transform: none; transition: transform 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.15s; }
 .js .cs-mend .cs-mend-list { opacity: 0; transform: translateY(12px); }
+.js .cs-mend .cs-mend-stage::before { transform: scale(0); }
+.js .cs-mend.is-visible .cs-mend-stage::before { transform: none; transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); transition-delay: calc(var(--i) * 140ms + 300ms); }
 .js .cs-mend.is-visible .cs-mend-list { opacity: 1; transform: none; transition: opacity 0.7s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); transition-delay: calc(var(--i) * 140ms + 450ms); }
 
 /* Below 1000px there is no room for five columns: each stage stacks with its own short segment,
@@ -934,11 +951,13 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
   .js .cs-mend .cs-mend-line { transform: scaleY(0); }
   .js .cs-mend.is-visible .cs-mend-line { transform: none; }
   .cs-mend-stage { padding-bottom: 32px; }
-  .cs-mend-head { height: auto; margin-bottom: 14px; }
+  .cs-mend-head { height: auto; margin-bottom: 14px; padding-bottom: 0; }
+  .cs-mend-stage::before { left: -30px; top: 12px; }
+  .cs-mend-line::after { display: none; }
   .cs-mend-list { padding: 0; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .js .cs-mend .cs-mend-line, .js .cs-mend .cs-mend-list { transform: none; opacity: 1; transition: none; }
+  .js .cs-mend .cs-mend-line, .js .cs-mend .cs-mend-list, .js .cs-mend .cs-mend-stage::before { transform: none; opacity: 1; transition: none; }
 }
 </style>
 </head>
@@ -1253,35 +1272,35 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
       <div class="cs-mend-stage" style="--i:0">
         <p class="cs-mend-head"><span class="cs-mend-n">01</span>Assign</p>
         <ul class="cs-mend-list">
-          <li><div class="cs-mend-item"><span class="cs-mend-title">Flexible theming</span><span class="cs-mend-desc">Give organisations brand flexibility without compromising the consistency of the experience.</span></div></li>
+          <li><div class="cs-mend-item"><span class="cs-mend-who"><i></i>Admins</span><span class="cs-mend-title">Flexible theming</span><span class="cs-mend-desc">Give organisations brand flexibility without compromising the consistency of the experience.</span></div></li>
         </ul>
       </div>
       <div class="cs-mend-stage" style="--i:1">
         <p class="cs-mend-head"><span class="cs-mend-n">02</span>Discover</p>
         <ul class="cs-mend-list">
-          <li><div class="cs-mend-item"><span class="cs-mend-title">An action-focused home</span><span class="cs-mend-desc">Surface the most important things users need to do, instead of making them search for them.</span></div></li>
-          <li><div class="cs-mend-item"><span class="cs-mend-title">Clear, linear navigation</span><span class="cs-mend-desc">Make the product easier to navigate, with guidance when workflows become complex.</span></div></li>
-          <li><div class="cs-mend-item"><span class="cs-mend-title">Distinct module types</span><span class="cs-mend-desc">Help users immediately understand whether they're looking at a course, assessment or playlist.</span></div></li>
+          <li><div class="cs-mend-item"><span class="cs-mend-who"><i class="w"></i>Workers</span><span class="cs-mend-title">An action-focused home</span><span class="cs-mend-desc">Surface the most important things users need to do, instead of making them search for them.</span></div></li>
+          <li><div class="cs-mend-item"><span class="cs-mend-who"><i></i><i class="w"></i>Admins + workers</span><span class="cs-mend-title">Clear, linear navigation</span><span class="cs-mend-desc">Make the product easier to navigate, with guidance when workflows become complex.</span></div></li>
+          <li><div class="cs-mend-item"><span class="cs-mend-who"><i class="w"></i>Workers</span><span class="cs-mend-title">Distinct module types</span><span class="cs-mend-desc">Help users immediately understand whether they're looking at a course, assessment or playlist.</span></div></li>
         </ul>
       </div>
       <div class="cs-mend-stage" style="--i:2">
         <p class="cs-mend-head"><span class="cs-mend-n">03</span>Start</p>
         <ul class="cs-mend-list">
-          <li><div class="cs-mend-item"><span class="cs-mend-title">Recommendations</span><span class="cs-mend-desc">Help users understand what to complete first or next.</span></div></li>
+          <li><div class="cs-mend-item"><span class="cs-mend-who"><i class="w"></i>Workers</span><span class="cs-mend-title">Recommendations</span><span class="cs-mend-desc">Help users understand what to complete first or next.</span></div></li>
         </ul>
       </div>
       <div class="cs-mend-stage" style="--i:3">
         <p class="cs-mend-head"><span class="cs-mend-n">04</span>Continue</p>
         <ul class="cs-mend-list">
-          <li><div class="cs-mend-item"><span class="cs-mend-title">Short courses</span><span class="cs-mend-desc">Break lengthy learning into smaller, easier-to-consume experiences.</span></div></li>
-          <li><div class="cs-mend-item"><span class="cs-mend-title">Events &amp; micro-learning</span><span class="cs-mend-desc">Make learning accessible beyond long-form courses.</span></div></li>
+          <li><div class="cs-mend-item"><span class="cs-mend-who"><i class="w"></i>Workers</span><span class="cs-mend-title">Short courses</span><span class="cs-mend-desc">Break lengthy learning into smaller, easier-to-consume experiences.</span></div></li>
+          <li><div class="cs-mend-item"><span class="cs-mend-who"><i class="w"></i>Workers</span><span class="cs-mend-title">Events &amp; micro-learning</span><span class="cs-mend-desc">Make learning accessible beyond long-form courses.</span></div></li>
         </ul>
       </div>
       <div class="cs-mend-stage" style="--i:4">
         <p class="cs-mend-head"><span class="cs-mend-n">05</span>Finish</p>
         <ul class="cs-mend-list">
-          <li><div class="cs-mend-item"><span class="cs-mend-title">Playful assessments</span><span class="cs-mend-desc">Make assessments more engaging while supporting different question types.</span></div></li>
-          <li><div class="cs-mend-item"><span class="cs-mend-title">Encouraging feedback</span><span class="cs-mend-desc">Make feedback visual, informative and useful.</span></div></li>
+          <li><div class="cs-mend-item"><span class="cs-mend-who"><i class="w"></i>Workers</span><span class="cs-mend-title">Playful assessments</span><span class="cs-mend-desc">Make assessments more engaging while supporting different question types.</span></div></li>
+          <li><div class="cs-mend-item"><span class="cs-mend-who"><i class="w"></i>Workers</span><span class="cs-mend-title">Encouraging feedback</span><span class="cs-mend-desc">Make feedback visual, informative and useful.</span></div></li>
         </ul>
       </div>
     </div>
