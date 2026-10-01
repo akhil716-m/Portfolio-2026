@@ -202,6 +202,8 @@ nav .logo a.cs-back:hover { color: var(--accent); }
   color: var(--text); letter-spacing: -0.01em;
 }
 .cs-cta-center { display: flex; justify-content: center; margin-top: 32px; }
+/* the closing lines sit centred, like the sign-off below them */
+.cs-section--closing .cs-display, .cs-section--closing .cs-lead { text-align: center; margin-inline: auto; }
 .cs-cta-center a.cs-cta { margin-top: 0; }
 /* ---------- CTA ---------- */
 .cs-cta {
@@ -2066,7 +2068,7 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
 </section>
 
 <!-- ═══════════════════════ 13 — CONCLUSION ═══════════════════════ -->
-<section class="cs-section" id="cs-conclusion" data-wash="green">
+<section class="cs-section cs-section--closing" id="cs-conclusion" data-wash="green">
 <div class="cs-wrap">
 
   <h2 class="cs-display reveal-title">A clearer path from <em>assigned to finish.</em></h2>
@@ -2136,9 +2138,7 @@ var CS_REDUCE = window.matchMedia && window.matchMedia('(prefers-reduced-motion:
     { id: 'cs-assess',     num: '09', name: 'Assessments' },
     { id: 'cs-playlists',  num: '10', name: 'Playlists' },
     { id: 'cs-mylearning', num: '11', name: 'My Learning' },
-    { id: 'cs-events',     num: '12', name: 'Events and Micro-learning' },
-    { id: 'act-conclusion', group: 'The conclusion' },
-    { id: 'cs-conclusion', num: '13', name: 'Conclusion' }
+    { id: 'cs-events',     num: '12', name: 'Events and Micro-learning' }
   ];
   var byId = {};
   SECTIONS.forEach(function(s) { byId[s.id] = s; });
