@@ -263,7 +263,6 @@ a.cs-cta { margin-top: 28px; }
 
 /* ---------- FIGURES — cropped design boards, click to expand ---------- */
 .cs-wrap--board { max-width: min(66vw, 1040px); padding: 0; }
-.cs-wrap--inset { max-width: min(54vw, 760px); }
 .cs-board { margin: 48px 0 0; }
 /* Each board sits on a tinted tray taken from its chapter's wash, so the white PDF sheet reads as
    a mounted print rather than a glaring slab. */
@@ -553,6 +552,8 @@ body.cs-lb-lock { overflow: hidden; }
   border-radius: 22px; background: rgba(var(--wash), 0.08); border: 1px solid rgba(255,255,255,0.07);
 }
 .cs-strip-media img { display: block; height: var(--ph); width: auto; filter: drop-shadow(0 20px 30px rgba(0,0,0,0.45)); }
+/* raw screenshots, no phone frame: rounded like a screen */
+.cs-strip-media--shots img { border-radius: 18px; }
 .cs-strip-title { margin: 18px 0 6px; font-family: 'Geist', sans-serif; font-size: 16px; font-weight: 600; color: var(--text); }
 /* width:0 keeps the text from widening the item; min-width then sets the real measure, capped to the visible screen */
 .cs-strip-desc { width: 0; min-width: min(100%, 46ch, calc(100vw - 40px)); margin: 0; font-family: 'Geist', sans-serif; font-size: 14.5px; font-weight: 400; line-height: 1.65; color: var(--text-soft); }
@@ -641,7 +642,6 @@ body.cs-lb-lock { overflow: hidden; }
   .cs-hero-eyebrow { margin-top: 0; }
   .cs-act { min-height: 72dvh; }
   .cs-act-copy { max-width: none; padding: 0 20px; }
-  .cs-wrap--inset { max-width: none; padding: 0 16px; }
   .cs-split--ba { grid-template-columns: 1fr; }
   .cs-pin { height: auto; margin-top: 40px; }
   .cs-pin-stage { position: static; height: auto; flex-direction: column; gap: 32px; }
@@ -888,13 +888,12 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
 /* Boards and the act copy use the room a hidden rail leaves */
 @media (max-width: 1400px) {
   .cs-wrap--board { max-width: min(88vw, 1040px); }
-  .cs-wrap--inset { max-width: min(72vw, 760px); }
 }
 
 /* One gutter, everywhere it matters */
 @media (max-width: 900px) {
-  .cs-wrap, .cs-wrap--board, .cs-wrap--inset { padding-left: var(--gutter); padding-right: var(--gutter); }
-  .cs-wrap--board, .cs-wrap--inset { max-width: none; }
+  .cs-wrap, .cs-wrap--board { padding-left: var(--gutter); padding-right: var(--gutter); }
+  .cs-wrap--board { max-width: none; }
   .cs-act-copy { padding: 0 var(--gutter); }
   .cs-hero { padding-left: var(--gutter); padding-right: var(--gutter); }
   nav { padding-left: max(var(--gutter), env(safe-area-inset-left)); padding-right: max(var(--gutter), env(safe-area-inset-right)); }
@@ -1136,13 +1135,50 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
 
 </div>
 
-<div class="cs-wrap cs-wrap--board cs-wrap--inset">
-<figure class="cs-board settle cs-board--inset">
-  <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: The old Oust screens" data-full="assets/skilling/old-designs.jpg" data-alt="Screens from the previous Oust app showing dense, outdated layouts">
-    <img src="assets/skilling/old-designs.jpg" alt="Screens from the previous Oust app showing dense, outdated layouts" width="925" height="1118" loading="lazy" decoding="async">
-    <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+<div class="cs-wrap cs-wrap--board">
+  <div class="cs-strip settle" data-strip>
+    <div class="cs-strip-head">
+      <div>
+        <h3 class="cs-h3">Inside the old Oust app</h3>
+      </div>
+      <div class="cs-strip-ctl">
+        <button type="button" class="cs-strip-btn" data-dir="-1" aria-label="Previous"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
+        <button type="button" class="cs-strip-btn" data-dir="1" aria-label="Next"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+      </div>
+    </div>
+    <div class="cs-strip-track" tabindex="0" role="group" aria-label="Problems with the old app, scroll sideways to see more">
+      <article class="cs-strip-item">
+        <div class="cs-strip-media cs-strip-media--shots"><img src="assets/skilling/ui/old-12.webp" alt="Old home mixing feeds, a banner and a welcome card" width="418" height="900" loading="lazy" decoding="async"><img src="assets/skilling/ui/old-11.webp" alt="Old Explore tab with learning behind Playlist, Course and Assessment tabs" width="416" height="900" loading="lazy" decoding="async"></div>
+        <h4 class="cs-strip-title">Hard to find your way</h4>
+        <p class="cs-strip-desc">There was no clear way around. Feeds, banners and tasks shared one home, and pending work sat behind tabs, so users struggled to find what to do next.</p>
+      </article>
+      <article class="cs-strip-item">
+        <div class="cs-strip-media cs-strip-media--shots"><img src="assets/skilling/ui/old-03.webp" alt="Old question with both answers greyed out" width="416" height="900" loading="lazy" decoding="async"><img src="assets/skilling/ui/old-04.webp" alt="Old question covered by a pop-up asking users to check a video in their feeds" width="416" height="900" loading="lazy" decoding="async"></div>
+        <h4 class="cs-strip-title">Unfamiliar and ambiguous</h4>
+        <p class="cs-strip-desc">Patterns users knew from everyday apps were missing. Greyed-out answers, an unlabelled arrow and pop-ups over questions left them unsure what to do.</p>
+      </article>
+      <article class="cs-strip-item">
+        <div class="cs-strip-media cs-strip-media--shots"><img src="assets/skilling/ui/old-06.webp" alt="Old course intro fully restyled in a client brand" width="415" height="900" loading="lazy" decoding="async"><img src="assets/skilling/ui/old-08.webp" alt="Old leaderboard with maroon, orange and blue rows" width="416" height="900" loading="lazy" decoding="async"></div>
+        <h4 class="cs-strip-title">Over-customised</h4>
+        <p class="cs-strip-desc">Organisations could restyle almost everything, so colours, type and layouts changed from one screen to the next.</p>
+      </article>
+      <article class="cs-strip-item">
+        <div class="cs-strip-media cs-strip-media--shots"><img src="assets/skilling/ui/old-02.webp" alt="Old assessment detail with a progress bar, a question count and coins" width="416" height="900" loading="lazy" decoding="async"><img src="assets/skilling/ui/old-09.webp" alt="Old course detail with small icons, a lone coin count and an arrow button" width="416" height="900" loading="lazy" decoding="async"></div>
+        <h4 class="cs-strip-title">Dated and demotivating</h4>
+        <p class="cs-strip-desc">Sparse detail pages with small icons and a lone coin count felt old, and gave users little reason to start.</p>
+      </article>
+      <article class="cs-strip-item">
+        <div class="cs-strip-media cs-strip-media--shots"><img src="assets/skilling/ui/old-01.webp" alt="Old question where the chosen answer only gets a small tick" width="416" height="900" loading="lazy" decoding="async"><img src="assets/skilling/ui/old-05.webp" alt="Old result screen that ends on a red OVER button" width="415" height="900" loading="lazy" decoding="async"></div>
+        <h4 class="cs-strip-title">Neither playful nor engaging</h4>
+        <p class="cs-strip-desc">Feedback was minimal. A chosen answer got a small tick and results ended on OVER, with nothing to celebrate or come back for.</p>
+      </article>
+      <article class="cs-strip-item">
+        <div class="cs-strip-media cs-strip-media--shots"><img src="assets/skilling/ui/old-07.webp" alt="Old video lesson with overlapping text and controls" width="415" height="900" loading="lazy" decoding="async"><img src="assets/skilling/ui/old-10.webp" alt="Old playlist map with a winding road and small labels" width="416" height="900" loading="lazy" decoding="async"></div>
+        <h4 class="cs-strip-title">Unpolished</h4>
+        <p class="cs-strip-desc">Misaligned elements, mixed icon styles and uneven spacing made screens feel unfinished.</p>
+      </article>
+    </div>
   </div>
-</figure>
 </div>
 
 </section>
