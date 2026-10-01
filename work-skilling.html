@@ -540,8 +540,11 @@ body.cs-lb-lock { overflow: hidden; }
 }
 .cs-strip-btn:hover:not(:disabled) { color: var(--accent); border-color: var(--accent); }
 .cs-strip-btn:disabled { opacity: 0.35; cursor: default; }
+/* nothing to scroll: no arrows */
+.cs-strip.is-static .cs-strip-ctl { visibility: hidden; }
 .cs-strip-btn:focus-visible, .cs-strip-track:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
-.cs-strip-track { display: flex; gap: 20px; overflow-x: auto; padding-bottom: 6px; scroll-snap-type: x mandatory; scrollbar-width: none; -webkit-overflow-scrolling: touch; border-radius: 12px; }
+/* when every card fits, the row sits centred; once it overflows, "safe" keeps it scrolling from the start */
+.cs-strip-track { display: flex; justify-content: safe center; gap: 20px; overflow-x: auto; padding-bottom: 6px; scroll-snap-type: x mandatory; scrollbar-width: none; -webkit-overflow-scrolling: touch; border-radius: 12px; }
 .cs-strip-track::-webkit-scrollbar { display: none; }
 .cs-strip-item { flex: 0 0 auto; display: flex; flex-direction: column; scroll-snap-align: start; }
 .cs-strip-media {
@@ -2407,6 +2410,7 @@ var CS_REDUCE = window.matchMedia && window.matchMedia('(prefers-reduced-motion:
       raf = null;
       prev.disabled = track.scrollLeft <= 4;
       next.disabled = track.scrollLeft >= track.scrollWidth - track.clientWidth - 4;
+      root.classList.toggle('is-static', track.scrollWidth <= track.clientWidth + 4);
     }
     function queue() { if (!raf) raf = requestAnimationFrame(sync); }
     [prev, next].forEach(function(b) {
