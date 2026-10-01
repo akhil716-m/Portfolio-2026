@@ -379,7 +379,7 @@ body.cs-lb-lock { overflow: hidden; }
 .cs-act + .cs-section { border-top: 0; }
 .cs-act-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; filter: saturate(0.92) brightness(0.8); }
 .cs-act-scrim {
-  position: absolute; inset: 0; z-index: -1;
+  position: absolute; inset: -2px 0; z-index: -1;   /* 2px past the edges, so no sliver of the scaled photo shows at the seam */
   /* Neutral only, and eased: the photo melts into the page colour at the top and bottom edges, so there is no seam and no tint band */
   background:
     linear-gradient(to top, var(--bg) 0%, rgba(10,10,10,0.86) 6%, rgba(10,10,10,0.62) 16%, rgba(10,10,10,0.38) 30%, rgba(10,10,10,0.16) 48%, rgba(10,10,10,0.04) 70%, rgba(10,10,10,0) 100%),
@@ -403,6 +403,30 @@ body.cs-lb-lock { overflow: hidden; }
   }
 }
 @keyframes csActBg { from { transform: translateY(-6%) scale(1.14); } to { transform: translateY(6%) scale(1.14); } }
+/* The product opener adds a cut-out (hand and phone) over its photo: it stands on the bottom edge, right of centre,
+   under the scrim so it fades into the page like the photo does, and rises gently into place */
+/* the backdrop borrows the app's own home-header gradient: sky blue top right, warm cream bottom left */
+.cs-act-bg--fill {
+  filter: none;
+  background:
+    radial-gradient(75% 95% at 92% 0%, #8ccbe8 0%, rgba(140,203,232,0) 100%),
+    radial-gradient(70% 90% at 0% 100%, #e8c497 0%, rgba(232,196,151,0) 100%),
+    #b9d6dc;
+}
+.cs-act-cutout {
+  position: absolute; right: clamp(16px, 6vw, 120px); bottom: 0; z-index: -1;
+  width: auto; height: 82%; max-width: none; pointer-events: none;
+  filter: saturate(0.92) brightness(0.8);
+}
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .cs-act-cutout { animation: csActCut linear both; animation-timeline: view(); animation-range: entry 0% cover 50%; }
+  }
+}
+@keyframes csActCut { from { transform: translateY(10%); } to { transform: none; } }
+@media (max-width: 900px) {
+  .cs-act-cutout { right: -8vw; height: 74%; }
+}
 
 
 /* ---------- COMPARE: Oust vs Up-skill, side by side ---------- */
@@ -1347,7 +1371,8 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
 
 <!-- ═══════════════════════ ACT — THE PRODUCT ═══════════════════════ -->
 <section class="cs-act" id="act-product" data-wash="teal" aria-labelledby="act-product-t">
-  <img class="cs-act-bg" src="assets/skilling/act-product.jpg" alt="" width="2200" height="1004" loading="lazy" decoding="async">
+  <div class="cs-act-bg cs-act-bg--fill" aria-hidden="true"></div>
+  <img class="cs-act-cutout" src="assets/skilling/act-product.webp" alt="" width="1039" height="1500" loading="lazy" decoding="async">
   <div class="cs-act-scrim" aria-hidden="true"></div>
   <div class="cs-act-copy">
     <h2 class="cs-act-title" id="act-product-t"><span class="cs-act-mask"><span class="cs-act-line">The <em>product</em></span></span></h2>
