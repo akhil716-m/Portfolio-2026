@@ -21,6 +21,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
+<link rel="preload" as="image" href="assets/skilling/ui/hero-playlist.webp" type="image/webp" fetchpriority="high">
 <script type="text/javascript">
   (function(c,l,a,r,i,t,y){
       c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
@@ -367,6 +368,43 @@ body.cs-lb-lock { overflow: hidden; }
 [data-wash="steel"]  { --wash: 112,140,172; }
 [data-wash="indigo"] { --wash: 98,104,214; }
 [data-wash="green"]  { --wash: 62,160,122; }
+
+/* ---------- HERO: the title on the left; on the right, one phone cropped by a soft panel, with a card lifted out of another screen ---------- */
+.cs-hero {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-rows: 1fr auto;
+  align-items: center; justify-content: normal; column-gap: clamp(32px, 5vw, 96px);
+  min-height: 100vh; min-height: 100dvh;
+  padding: clamp(88px, 12vh, 104px) clamp(24px, 6vw, 80px) 40px;
+}
+.cs-hero-copy { grid-column: 1; grid-row: 1; }
+.cs-hero-sub {
+  margin: 28px 0 0; max-width: 30ch;
+  font-family: 'Geist', sans-serif; font-size: var(--fs-lead); font-weight: 300; line-height: 1.6; color: var(--text-soft);
+  opacity: 0; animation: csFadeUp 0.8s ease forwards 0.5s;
+}
+.cs-hero-meta { grid-column: 1 / -1; grid-row: 2; margin-top: 0; padding-top: 28px; }
+.cs-hero-stage {
+  --H: min(70dvh, 620px, 42vw);
+  grid-column: 2; grid-row: 1; justify-self: end; position: relative;
+  width: min(100%, var(--H)); height: var(--H);
+}
+.cs-hero-panel {
+  position: absolute; inset: 0; overflow: hidden; border-radius: var(--r-surface);
+  background: linear-gradient(180deg, #96b8c2 0%, #769ca8 100%);
+  opacity: 0; animation: csFadeUp 0.9s ease forwards 0.3s;
+}
+.cs-hero-ph {
+  position: absolute; left: 20%; top: 11%; height: 116%; width: auto; max-width: none;
+  filter: drop-shadow(0 30px 40px rgba(20, 40, 48, 0.35));
+  animation: csPhoneIn 1s cubic-bezier(0.16, 1, 0.3, 1) both 0.45s;
+}
+.cs-hero-card {
+  position: absolute; left: 44%; top: 64%; width: 62%; height: auto; max-width: none;
+  filter: drop-shadow(0 18px 30px rgba(0, 0, 0, 0.35));
+  animation: csCardIn 0.9s cubic-bezier(0.16, 1, 0.3, 1) both 0.85s;
+}
+@keyframes csPhoneIn { from { opacity: 0; translate: 0 48px; } to { opacity: 1; translate: 0 0; } }
+@keyframes csCardIn { from { opacity: 0; translate: 0 18px; scale: 0.96; } to { opacity: 1; translate: 0 0; scale: 1; } }
 .cs-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
 
@@ -613,6 +651,12 @@ body.cs-lb-lock { overflow: hidden; }
 
 /* ---------- RESPONSIVE ---------- */
 @media (max-width: 900px) {
+  .cs-hero { grid-template-columns: 1fr; grid-template-rows: auto auto auto; align-items: start; row-gap: 36px; padding: 96px 20px 32px; justify-content: normal; }
+  .cs-hero-copy, .cs-hero-stage, .cs-hero-meta { grid-column: 1; }
+  .cs-hero-copy { grid-row: 1; } .cs-hero-stage { grid-row: 2; } .cs-hero-meta { grid-row: 3; }
+  .cs-hero-stage { --H: min(92vw, 480px); justify-self: center; width: min(100%, calc(var(--H) * 0.92)); }
+  .cs-hero-card { left: auto; right: -4%; width: 66%; }
+  .cs-hero-eyebrow { margin-top: 0; }
   .cs-act { min-height: 72dvh; }
   .cs-act-copy { max-width: none; padding: 0 20px; }
   .cs-split--ba { grid-template-columns: 1fr; }
@@ -643,6 +687,7 @@ body.cs-lb-lock { overflow: hidden; }
 }
 @media (max-width: 420px) { .cs-strip { --ph: 320px; } }
 @media (prefers-reduced-motion: reduce) {
+  .cs-hero-ph, .cs-hero-card, .cs-hero-panel, .cs-hero-sub { animation: none; opacity: 1; translate: none; scale: none; transform: none; }
   .js .cs-act-line, .js .cs-act-sub { transition: none; transform: none; opacity: 1; }
   .cs-ba-panel.is-active { animation: none; }
   .cs-theme-stage img, .cs-acard-tile img, .cs-ring, .cs-swatch, .cs-phone-feed, .cs-phone-status, .cs-phone-view, .cs-step, .cs-phone-bar::after { transition: none; }
@@ -1008,8 +1053,17 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
 
 <!-- ═══════════════════════ HERO ═══════════════════════ -->
 <header class="cs-hero">
-  <div class="cs-hero-eyebrow">Case Study<span class="sep">·</span>EdTech<span class="sep">·</span>2024</div>
-  <h1 class="cs-hero-title">Up<em>-skill</em></h1>
+  <div class="cs-hero-copy">
+    <div class="cs-hero-eyebrow">Case Study<span class="sep">·</span>EdTech<span class="sep">·</span>2024</div>
+    <h1 class="cs-hero-title">Up<em>-skill</em></h1>
+    <p class="cs-hero-sub">A ground-up redesign of GoBetter's learning app for blue-collar workers, built around one question: what should I do next?</p>
+  </div>
+  <div class="cs-hero-stage">
+    <div class="cs-hero-panel">
+      <img class="cs-hero-ph" src="assets/skilling/ui/hero-playlist.webp" alt="A playlist in the redesigned Up-skill app, with its next level and a Start button" width="680" height="1399" fetchpriority="high" decoding="async">
+    </div>
+    <img class="cs-hero-card" src="assets/skilling/ui/hero-card.webp" alt="Learning progress card: 3 of 18 modules done" width="819" height="224" decoding="async">
+  </div>
   <div class="cs-hero-meta">
     <div class="cs-hero-meta-item"><label>Role</label><span>Product Designer</span></div>
     <div class="cs-hero-meta-item"><label>Company</label><span>GoBetter (formerly BetterPlace)</span></div>
