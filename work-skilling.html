@@ -915,11 +915,10 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
   content: ''; position: absolute; left: 0; top: 32px; width: 9px; height: 9px; margin-top: -4px; border-radius: 50%;
   background: var(--accent); box-shadow: 0 0 0 4px var(--bg);
 }
-/* who meets the problem: admins in brick, workers in amber, the same hues as the challenge groups */
+/* who meets the problem: a hard hat for workers, a briefcase for admins (Lucide glyphs), in the label's own grey */
 .cs-mend-who { display: flex; align-items: center; gap: 6px; margin-bottom: 8px; font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); }
-.cs-mend-who i { width: 6px; height: 6px; border-radius: 50%; background: rgb(var(--pain)); }
-.cs-mend-who i.w { background: rgb(236, 178, 72); }
-.cs-mend-who i + i { margin-left: -9px; box-shadow: 0 0 0 2px var(--bg); }
+.cs-mend-who svg { flex: none; width: 13px; height: 13px; fill: none; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+.cs-mend-who svg + svg { margin-left: -2px; }
 .cs-mend-head { height: 32px; margin: 0; padding-right: 14px; padding-bottom: 6px; display: flex; align-items: center; gap: 10px; font-family: 'Geist', sans-serif; font-size: var(--fs-h4); font-weight: 600; line-height: 1.2; color: var(--text); }
 .cs-mend-n { font-family: 'Geist Mono', monospace; font-size: 11px; font-weight: 500; letter-spacing: 0.08em; color: var(--accent); }
 /* one 5-step workflow: numbered stages, each intervention a row, dotted rules marking the steps within a stage */
@@ -1266,41 +1265,46 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
 </div>
 
 <div class="cs-wrap cs-wrap--board" style="margin-top: 56px;">
+  <!-- Lucide hard-hat and briefcase-business (ISC) -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="i-worker" viewBox="0 0 24 24"><path d="M10 10V5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v5"/><path d="M14 6a6 6 0 0 1 6 6v3"/><path d="M4 15v-3a6 6 0 0 1 6-6"/><rect x="2" y="15" width="20" height="4" rx="1"/></symbol>
+    <symbol id="i-admin" viewBox="0 0 24 24"><path d="M12 12h.01"/><path d="M16 6V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><path d="M22 13a18.15 18.15 0 0 1-20 0"/><rect width="20" height="14" x="2" y="6" rx="2"/></symbol>
+  </svg>
   <div class="cs-mend settle">
     <div class="cs-mend-track">
       <span class="cs-mend-line" aria-hidden="true"></span>
       <div class="cs-mend-stage" style="--i:0">
         <p class="cs-mend-head"><span class="cs-mend-n">01</span>Assign</p>
         <ul class="cs-mend-list">
-          <li><div class="cs-mend-item"><span class="cs-mend-who"><i></i>Admins</span><span class="cs-mend-title">Flexible theming</span><span class="cs-mend-desc">Give organisations brand flexibility without compromising the consistency of the experience.</span></div></li>
+          <li><div class="cs-mend-item"><span class="cs-mend-who"><svg aria-hidden="true"><use href="#i-admin"/></svg>Admins</span><span class="cs-mend-title">Flexible theming</span><span class="cs-mend-desc">Give organisations brand flexibility without compromising the consistency of the experience.</span></div></li>
         </ul>
       </div>
       <div class="cs-mend-stage" style="--i:1">
         <p class="cs-mend-head"><span class="cs-mend-n">02</span>Discover</p>
         <ul class="cs-mend-list">
-          <li><div class="cs-mend-item"><span class="cs-mend-who"><i class="w"></i>Workers</span><span class="cs-mend-title">An action-focused home</span><span class="cs-mend-desc">Surface the most important things users need to do, instead of making them search for them.</span></div></li>
-          <li><div class="cs-mend-item"><span class="cs-mend-who"><i></i><i class="w"></i>Admins + workers</span><span class="cs-mend-title">Clear, linear navigation</span><span class="cs-mend-desc">Make the product easier to navigate, with guidance when workflows become complex.</span></div></li>
-          <li><div class="cs-mend-item"><span class="cs-mend-who"><i class="w"></i>Workers</span><span class="cs-mend-title">Distinct module types</span><span class="cs-mend-desc">Help users immediately understand whether they're looking at a course, assessment or playlist.</span></div></li>
+          <li><div class="cs-mend-item"><span class="cs-mend-who"><svg aria-hidden="true"><use href="#i-worker"/></svg>Workers</span><span class="cs-mend-title">An action-focused home</span><span class="cs-mend-desc">Surface the most important things users need to do, instead of making them search for them.</span></div></li>
+          <li><div class="cs-mend-item"><span class="cs-mend-who"><svg aria-hidden="true"><use href="#i-admin"/></svg><svg aria-hidden="true"><use href="#i-worker"/></svg>Admins + workers</span><span class="cs-mend-title">Clear, linear navigation</span><span class="cs-mend-desc">Make the product easier to navigate, with guidance when workflows become complex.</span></div></li>
+          <li><div class="cs-mend-item"><span class="cs-mend-who"><svg aria-hidden="true"><use href="#i-worker"/></svg>Workers</span><span class="cs-mend-title">Distinct module types</span><span class="cs-mend-desc">Help users immediately understand whether they're looking at a course, assessment or playlist.</span></div></li>
         </ul>
       </div>
       <div class="cs-mend-stage" style="--i:2">
         <p class="cs-mend-head"><span class="cs-mend-n">03</span>Start</p>
         <ul class="cs-mend-list">
-          <li><div class="cs-mend-item"><span class="cs-mend-who"><i class="w"></i>Workers</span><span class="cs-mend-title">Recommendations</span><span class="cs-mend-desc">Help users understand what to complete first or next.</span></div></li>
+          <li><div class="cs-mend-item"><span class="cs-mend-who"><svg aria-hidden="true"><use href="#i-worker"/></svg>Workers</span><span class="cs-mend-title">Recommendations</span><span class="cs-mend-desc">Help users understand what to complete first or next.</span></div></li>
         </ul>
       </div>
       <div class="cs-mend-stage" style="--i:3">
         <p class="cs-mend-head"><span class="cs-mend-n">04</span>Continue</p>
         <ul class="cs-mend-list">
-          <li><div class="cs-mend-item"><span class="cs-mend-who"><i class="w"></i>Workers</span><span class="cs-mend-title">Short courses</span><span class="cs-mend-desc">Break lengthy learning into smaller, easier-to-consume experiences.</span></div></li>
-          <li><div class="cs-mend-item"><span class="cs-mend-who"><i class="w"></i>Workers</span><span class="cs-mend-title">Events &amp; micro-learning</span><span class="cs-mend-desc">Make learning accessible beyond long-form courses.</span></div></li>
+          <li><div class="cs-mend-item"><span class="cs-mend-who"><svg aria-hidden="true"><use href="#i-worker"/></svg>Workers</span><span class="cs-mend-title">Short courses</span><span class="cs-mend-desc">Break lengthy learning into smaller, easier-to-consume experiences.</span></div></li>
+          <li><div class="cs-mend-item"><span class="cs-mend-who"><svg aria-hidden="true"><use href="#i-worker"/></svg>Workers</span><span class="cs-mend-title">Events &amp; micro-learning</span><span class="cs-mend-desc">Make learning accessible beyond long-form courses.</span></div></li>
         </ul>
       </div>
       <div class="cs-mend-stage" style="--i:4">
         <p class="cs-mend-head"><span class="cs-mend-n">05</span>Finish</p>
         <ul class="cs-mend-list">
-          <li><div class="cs-mend-item"><span class="cs-mend-who"><i class="w"></i>Workers</span><span class="cs-mend-title">Playful assessments</span><span class="cs-mend-desc">Make assessments more engaging while supporting different question types.</span></div></li>
-          <li><div class="cs-mend-item"><span class="cs-mend-who"><i class="w"></i>Workers</span><span class="cs-mend-title">Encouraging feedback</span><span class="cs-mend-desc">Make feedback visual, informative and useful.</span></div></li>
+          <li><div class="cs-mend-item"><span class="cs-mend-who"><svg aria-hidden="true"><use href="#i-worker"/></svg>Workers</span><span class="cs-mend-title">Playful assessments</span><span class="cs-mend-desc">Make assessments more engaging while supporting different question types.</span></div></li>
+          <li><div class="cs-mend-item"><span class="cs-mend-who"><svg aria-hidden="true"><use href="#i-worker"/></svg>Workers</span><span class="cs-mend-title">Encouraging feedback</span><span class="cs-mend-desc">Make feedback visual, informative and useful.</span></div></li>
         </ul>
       </div>
     </div>
