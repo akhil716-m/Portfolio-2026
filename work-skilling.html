@@ -20,7 +20,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="preload" as="image" href="assets/skilling/ui/home.webp" type="image/webp" fetchpriority="high">
 <link rel="stylesheet" href="styles.css">
 <script type="text/javascript">
   (function(c,l,a,r,i,t,y){
@@ -90,7 +89,9 @@
 }
 .cs-hero::before {
   content: ''; position: absolute; inset: 0; pointer-events: none; z-index: -1;
-  background: none;
+  background:
+    radial-gradient(ellipse 60% 50% at 80% 10%, rgba(212,255,94,0.07), transparent 70%),
+    radial-gradient(ellipse 50% 40% at 10% 90%, rgba(232,197,152,0.05), transparent 70%);
 }
 .cs-back {
   display: inline-flex; align-items: center; gap: 8px; margin-bottom: 32px; width: fit-content;
@@ -368,31 +369,6 @@ body.cs-lb-lock { overflow: hidden; }
 [data-wash="green"]  { --wash: 62,160,122; }
 .cs-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
-/* ---------- HERO: product on the right, question on the left ---------- */
-.cs-hero {
-  display: grid; grid-template-columns: minmax(0, 1.02fr) minmax(0, 1fr); grid-template-rows: 1fr auto;
-  align-items: center; justify-content: normal; column-gap: clamp(32px, 5vw, 96px);
-  min-height: 100vh; min-height: 100dvh;
-  padding: clamp(88px, 12vh, 104px) clamp(24px, 6vw, 80px) 40px;
-}
-.cs-hero-copy { grid-column: 1; grid-row: 1; }
-.cs-hero-title { max-width: none; }
-.cs-hero-sub {
-  margin: 28px 0 0; max-width: 30ch;
-  font-family: 'Geist', sans-serif; font-size: clamp(17px, 1.5vw, 20px); font-weight: 300; line-height: 1.6; color: var(--text-soft);
-  opacity: 0; animation: csFadeUp 0.8s ease forwards 0.5s;
-}
-.cs-hero-meta { grid-column: 1 / -1; grid-row: 2; margin-top: 0; padding-top: 28px; gap: 48px; }
-.cs-hero-stage { --H: min(68dvh, 620px, 42vw); grid-column: 2; grid-row: 1; position: relative; height: var(--H); }
-.cs-hero-ph {
-  position: absolute; bottom: 0; left: 50%; width: auto; max-width: none;
-  filter: drop-shadow(0 28px 40px rgba(0,0,0,0.5));
-  animation: csPhoneIn 1s cubic-bezier(0.16, 1, 0.3, 1) both;
-}
-.cs-hero-ph--c { height: calc(var(--H) * 0.94); transform: translateX(-50%); z-index: 3; animation-delay: 0.45s; }
-.cs-hero-ph--l { height: calc(var(--H) * 0.78); margin-left: calc(var(--H) * -0.5); bottom: calc(var(--H) * 0.03); transform-origin: 50% 100%; transform: rotate(-6deg); z-index: 1; animation-delay: 0.7s; }
-.cs-hero-ph--r { height: calc(var(--H) * 0.78); margin-left: calc(var(--H) * 0.125); bottom: calc(var(--H) * 0.03); transform-origin: 50% 100%; transform: rotate(6deg); z-index: 2; animation-delay: 0.85s; }
-@keyframes csPhoneIn { from { opacity: 0; translate: 0 48px; } to { opacity: 1; translate: 0 0; } }
 
 /* ---------- ACT OPENERS: photo, one title, one line ---------- */
 .cs-act {
@@ -637,11 +613,6 @@ body.cs-lb-lock { overflow: hidden; }
 
 /* ---------- RESPONSIVE ---------- */
 @media (max-width: 900px) {
-  .cs-hero { grid-template-columns: 1fr; grid-template-rows: auto auto auto; align-items: start; row-gap: 36px; padding: 96px 20px 32px; min-height: 100dvh; justify-content: normal; }
-  .cs-hero-copy, .cs-hero-stage, .cs-hero-meta { grid-column: 1; }
-  .cs-hero-copy { grid-row: 1; } .cs-hero-stage { grid-row: 2; } .cs-hero-meta { grid-row: 3; gap: 24px 32px; }
-  .cs-hero-stage { --H: min(86vw, 470px); margin: 0 auto; width: 100%; }
-  .cs-hero-eyebrow { margin-top: 0; }
   .cs-act { min-height: 72dvh; }
   .cs-act-copy { max-width: none; padding: 0 20px; }
   .cs-split--ba { grid-template-columns: 1fr; }
@@ -663,8 +634,6 @@ body.cs-lb-lock { overflow: hidden; }
   .cs-strip { --ph: 380px; }
 }
 @media (max-width: 760px) {
-  .cs-hero-meta { border-top: 1px solid var(--line); padding-top: 24px; margin-top: 8px; }
-  .cs-hero-title { font-size: clamp(56px, 17vw, 96px); }
   .cs-tabs { width: 100%; }
   .cs-tab { flex: 1; padding: 0 8px; }
   .cs-ba { padding: 16px 12px 22px; }
@@ -674,7 +643,6 @@ body.cs-lb-lock { overflow: hidden; }
 }
 @media (max-width: 420px) { .cs-strip { --ph: 320px; } }
 @media (prefers-reduced-motion: reduce) {
-  .cs-hero-ph, .cs-hero-sub { animation: none; opacity: 1; translate: none; }
   .js .cs-act-line, .js .cs-act-sub { transition: none; transform: none; opacity: 1; }
   .cs-ba-panel.is-active { animation: none; }
   .cs-theme-stage img, .cs-acard-tile img, .cs-ring, .cs-swatch, .cs-phone-feed, .cs-phone-status, .cs-phone-view, .cs-step, .cs-phone-bar::after { transition: none; }
@@ -717,12 +685,13 @@ body.cs-lb-lock { overflow: hidden; }
 .cs-p { font-size: var(--fs-body); font-weight: 400; line-height: 1.75; color: var(--text-soft); max-width: 60ch; }
 .cs-list li { font-size: var(--fs-body); font-weight: 400; }
 .cs-theme-desc { font-size: var(--fs-body); font-weight: 400; }
-.cs-hero-sub, .cs-act-sub { font-size: var(--fs-lead); font-weight: 400; }
+.cs-act-sub { font-size: var(--fs-lead); font-weight: 400; }
 .cs-lead + .cs-p { margin-top: 0; }
 .cs-list-who { margin: 10px 0 18px; font-size: var(--fs-small); font-weight: 500; color: var(--text-muted); }
 
 /* Small text: descriptions, captions, notes, chips, tabs */
 .cs-facts dd, .cs-strip-desc, .cs-ba-note, .cs-hero-meta-item span { font-size: var(--fs-small); font-weight: 400; }
+.cs-hero-meta-item span { font-weight: 300; }
 .cs-chip, .cs-tab { font-size: var(--fs-small); }
 .cs-chips--lg .cs-chip { font-size: 16px; }
 
@@ -1039,20 +1008,16 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
 
 <!-- ═══════════════════════ HERO ═══════════════════════ -->
 <header class="cs-hero">
-  <div class="cs-hero-copy">
-    <div class="cs-hero-eyebrow">EdTech<span class="sep">·</span>2024</div>
-    <h1 class="cs-hero-title">Up<em>-skill</em></h1>
-    <p class="cs-hero-sub">A ground-up redesign of GoBetter's learning app for blue-collar workers, built around one question: what should I do next?</p>
-  </div>
-  <div class="cs-hero-stage">
-    <img class="cs-hero-ph cs-hero-ph--l" src="assets/skilling/ui/video-2.webp" alt="" width="520" height="1071" decoding="async">
-    <img class="cs-hero-ph cs-hero-ph--r" src="assets/skilling/ui/theme-ocean.webp" alt="" width="520" height="1072" decoding="async">
-    <img class="cs-hero-ph cs-hero-ph--c" src="assets/skilling/ui/home.webp" alt="The redesigned Up-skill home screen showing learning progress, quick access and the next assigned course" width="593" height="1260" fetchpriority="high" decoding="async">
-  </div>
+  <div class="cs-hero-eyebrow">Case Study<span class="sep">·</span>EdTech<span class="sep">·</span>2024</div>
+  <h1 class="cs-hero-title">Up<em>-skill</em></h1>
   <div class="cs-hero-meta">
     <div class="cs-hero-meta-item"><label>Role</label><span>Product Designer</span></div>
     <div class="cs-hero-meta-item"><label>Company</label><span>GoBetter (formerly BetterPlace)</span></div>
     <div class="cs-hero-meta-item"><label>Timeline</label><span>3 months, launched April 2024</span></div>
+  </div>
+  <div class="cs-hero-scroll">
+    <span>Scroll</span>
+    <div class="cs-hero-scroll-line"></div>
   </div>
 </header>
 
