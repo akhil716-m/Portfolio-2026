@@ -376,14 +376,14 @@ body.cs-lb-lock { overflow: hidden; }
   min-height: 100vh; min-height: 100dvh;
   padding: clamp(88px, 12vh, 104px) clamp(24px, 6vw, 80px) 40px;
 }
-.cs-hero-copy { grid-column: 1; grid-row: 1; }
+.cs-hero-copy { grid-column: 1; grid-row: 1; align-self: end; padding-bottom: 40px; }
 .cs-hero-sub {
   margin: 28px 0 0; max-width: 30ch;
   font-family: 'Geist', sans-serif; font-size: var(--fs-lead); font-weight: 300; line-height: 1.6; color: var(--text-soft);
   opacity: 0; animation: csFadeUp 0.8s ease forwards 0.5s;
 }
 .cs-hero-meta { grid-column: 1 / -1; grid-row: 2; margin-top: 0; padding-top: 28px; }
-.cs-hero-stage { --H: min(68dvh, 620px, 42vw); grid-column: 2; grid-row: 1; position: relative; height: var(--H); }
+.cs-hero-stage { --H: min(60dvh, 560px, 38vw); grid-column: 2; grid-row: 1; align-self: end; margin-bottom: 24px; position: relative; height: var(--H); }
 .cs-hero-ph {
   position: absolute; bottom: 0; left: 50%; width: auto; max-width: none;
   filter: drop-shadow(0 28px 40px rgba(0,0,0,0.5));
@@ -1053,7 +1053,7 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
   <div class="cs-hero-meta">
     <div class="cs-hero-meta-item"><label>Role</label><span>Product Designer</span></div>
     <div class="cs-hero-meta-item"><label>Company</label><span>GoBetter (formerly BetterPlace)</span></div>
-    <div class="cs-hero-meta-item"><label>Timeline</label><span>3 months, launched April 2024</span></div>
+    <div class="cs-hero-meta-item"><label>Scope</label><span>End-to-end app redesign</span></div>
   </div>
   <div class="cs-hero-scroll">
     <span>Scroll</span>
@@ -1070,11 +1070,7 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
   <p class="cs-lead">Oust was built to help frontline workers learn and grow through courses, assessments, playlists and other learning formats. As the product evolved, however, the experience became harder to navigate, difficult to prioritise, and less engaging for the people using it.</p>
   <p class="cs-p">When BetterPlace rebranded as GoBetter and Oust became part of the new <span class="nb">Up-skill</span> experience, we saw an opportunity to rethink more than the product's visual identity. We used the transition to <strong>rethink how learning was discovered, experienced and completed.</strong></p>
 
-  <dl class="cs-facts cs-facts--3">
-    <div>
-      <dt>My role</dt>
-      <dd>Product Designer</dd>
-    </div>
+  <dl class="cs-facts cs-facts--2">
     <div>
       <dt>Team</dt>
       <dd>Akhil Male · Bijoy Prasad Shah · Sugata Biswas</dd>
