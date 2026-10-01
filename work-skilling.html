@@ -395,14 +395,8 @@ body.cs-lb-lock { overflow: hidden; }
 .cs-act-title em { font-style: normal; color: var(--text-soft); }
 .cs-act-mask { display: block; overflow: hidden; padding-bottom: 0.1em; }
 .cs-act-line { display: block; }
-.cs-act-sub {
-  margin: 20px 0 0; max-width: 40ch;
-  font-family: 'Geist', sans-serif; font-size: clamp(17px, 1.6vw, 21px); font-weight: 300; line-height: 1.55; color: rgba(237,237,237,0.82);
-}
 .js .cs-act-line { transform: translateY(105%); transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1); }
-.js .cs-act-sub { opacity: 0; transform: translateY(14px); transition: opacity 0.8s ease 0.35s, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.35s; }
 .js .cs-act.is-visible .cs-act-line { transform: none; }
-.js .cs-act.is-visible .cs-act-sub { opacity: 1; transform: none; }
 @supports (animation-timeline: view()) {
   @media (prefers-reduced-motion: no-preference) {
     .cs-act-bg { animation: csActBg linear both; animation-timeline: view(); animation-range: entry 0% exit 100%; }
@@ -643,7 +637,7 @@ body.cs-lb-lock { overflow: hidden; }
 }
 @media (max-width: 420px) { .cs-strip { --ph: 320px; } }
 @media (prefers-reduced-motion: reduce) {
-  .js .cs-act-line, .js .cs-act-sub { transition: none; transform: none; opacity: 1; }
+  .js .cs-act-line { transition: none; transform: none; opacity: 1; }
   .cs-ba-panel.is-active { animation: none; }
   .cs-theme-stage img, .cs-acard-tile img, .cs-ring, .cs-swatch, .cs-phone-feed, .cs-phone-status, .cs-phone-view, .cs-step, .cs-phone-bar::after { transition: none; }
   .cs-theme, .cs-theme--card { transition: none; }
@@ -674,7 +668,7 @@ body.cs-lb-lock { overflow: hidden; }
 
 /* Display, headings, lead, body */
 .cs-display { font-size: var(--fs-display); line-height: 1.12; letter-spacing: -0.02em; max-width: 19ch; text-wrap: balance; }
-.cs-h3, .cs-step-title, .cs-theme-title, .cs-act-sub { text-wrap: balance; }
+.cs-h3, .cs-step-title, .cs-theme-title { text-wrap: balance; }
 .nb { white-space: nowrap; }
 .cs-h3, .cs-theme-title { font-size: var(--fs-h3); font-weight: 500; line-height: 1.25; letter-spacing: -0.01em; }
 .cs-strip-title, .cs-facts dt { font-size: var(--fs-h4); font-weight: 600; line-height: 1.35; }
@@ -685,7 +679,6 @@ body.cs-lb-lock { overflow: hidden; }
 .cs-p { font-size: var(--fs-body); font-weight: 400; line-height: 1.75; color: var(--text-soft); max-width: 60ch; }
 .cs-list li { font-size: var(--fs-body); font-weight: 400; }
 .cs-theme-desc { font-size: var(--fs-body); font-weight: 400; }
-.cs-act-sub { font-size: var(--fs-lead); font-weight: 400; }
 .cs-lead + .cs-p { margin-top: 0; }
 .cs-list-who { margin: 10px 0 18px; font-size: var(--fs-small); font-weight: 500; color: var(--text-muted); }
 
@@ -1038,18 +1031,8 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
 
 </section>
 
-<!-- ═══════════════════════ ACT — THE PROBLEM ═══════════════════════ -->
-<section class="cs-act" id="act-problem" data-wash="amber" aria-labelledby="act-problem-t">
-  <img class="cs-act-bg" src="assets/skilling/act-problem.jpg" alt="" width="2800" height="1278" loading="lazy" decoding="async">
-  <div class="cs-act-scrim" aria-hidden="true"></div>
-  <div class="cs-act-copy">
-    <h2 class="cs-act-title" id="act-problem-t"><span class="cs-act-mask"><span class="cs-act-line">The <em>problem</em></span></span></h2>
-    <p class="cs-act-sub">Completion sat at 13-15%. Workers struggled to find what mattered, while organisations struggled to drive completion.</p>
-  </div>
-</section>
-
 <!-- ═══════════════════════ 02 — USERS ═══════════════════════ -->
-<section class="cs-section" id="cs-users" data-wash="amber">
+<section class="cs-section" id="cs-users" data-wash="teal">
 <div class="cs-wrap">
 
   <h2 class="cs-display reveal-title">A learning platform built around <em>frontline work.</em></h2>
@@ -1084,6 +1067,15 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
   </div>
 </div>
 
+</section>
+
+<!-- ═══════════════════════ ACT — THE PROBLEM ═══════════════════════ -->
+<section class="cs-act" id="act-problem" data-wash="amber" aria-labelledby="act-problem-t">
+  <img class="cs-act-bg" src="assets/skilling/act-problem.jpg" alt="" width="2800" height="1278" loading="lazy" decoding="async">
+  <div class="cs-act-scrim" aria-hidden="true"></div>
+  <div class="cs-act-copy">
+    <h2 class="cs-act-title" id="act-problem-t"><span class="cs-act-mask"><span class="cs-act-line">The <em>problem</em></span></span></h2>
+  </div>
 </section>
 
 <!-- ═══════════════════════ 03 — WHY REDESIGN ═══════════════════════ -->
@@ -1319,7 +1311,6 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
   <div class="cs-act-scrim" aria-hidden="true"></div>
   <div class="cs-act-copy">
     <h2 class="cs-act-title" id="act-approach-t"><span class="cs-act-mask"><span class="cs-act-line">The <em>approach</em></span></span></h2>
-    <p class="cs-act-sub">Designing a clearer learning journey.</p>
   </div>
 </section>
 
@@ -1360,7 +1351,6 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
   <div class="cs-act-scrim" aria-hidden="true"></div>
   <div class="cs-act-copy">
     <h2 class="cs-act-title" id="act-product-t"><span class="cs-act-mask"><span class="cs-act-line">The <em>product</em></span></span></h2>
-    <p class="cs-act-sub">A more structured, engaging learning experience for frontline workers.</p>
   </div>
 </section>
 
@@ -2083,8 +2073,8 @@ var CS_REDUCE = window.matchMedia && window.matchMedia('(prefers-reduced-motion:
   /* Items in document order. `group` entries are the act openers; each section remembers the act it belongs to. */
   var SECTIONS = [
     { id: 'cs-overview',   num: '01', name: 'Overview' },
-    { id: 'act-problem',   group: 'The problem' },
     { id: 'cs-users',      num: '02', name: 'Context and Users' },
+    { id: 'act-problem',   group: 'The problem' },
     { id: 'cs-why',        num: '03', name: 'Why We Redesigned' },
     { id: 'cs-challenges', num: '04', name: 'Challenges' },
     { id: 'cs-scope',      num: '05', name: 'Scope' },
