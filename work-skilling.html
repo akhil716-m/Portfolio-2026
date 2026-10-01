@@ -314,7 +314,7 @@ a.cs-cta { margin-top: 28px; }
 /* Auto margins in a flex column centre a board that fits the screen, and fall back to 0 (top/left, scrollable) when it is taller or wider */
 .cs-lb-inner { box-sizing: border-box; min-height: 100%; padding: 64px 0; display: flex; flex-direction: column; }
 .cs-lb img {
-  display: block; height: auto; background: #fff; border-radius: 12px;
+  display: block; height: auto; background: #141416; border-radius: 12px;   /* dark, so a transparent diagram keeps its light lines readable */
   width: max(min(1500px, 96vw), 900px); max-width: none; margin: auto; flex: none;
 }
 .cs-lb-close {
@@ -1336,8 +1336,8 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
 </div>
 <div class="cs-wrap cs-wrap--board">
 <figure class="cs-board settle">
-  <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: The Up-skill user flow" data-full="assets/skilling/user-flow.jpg" data-alt="Flowchart of the Up-skill user flow from the home page to courses, assessments, playlists and events">
-    <img src="assets/skilling/user-flow.jpg" alt="Flowchart of the Up-skill user flow from the home page to courses, assessments, playlists and events" width="1590" height="2320" loading="lazy" decoding="async">
+  <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: The Up-skill user flow" data-full="assets/skilling/user-flow-full.webp" data-alt="Flowchart of the Up-skill user flow: from home into all learning, modules, events, any entry point, and newly assigned or critical courses, assessments and playlists">
+    <img src="assets/skilling/user-flow.webp" alt="Flowchart of the Up-skill user flow: from home into all learning, modules, events, any entry point, and newly assigned or critical courses, assessments and playlists" width="2080" height="2965" loading="lazy" decoding="async">
     <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
   </div>
 </figure>
