@@ -916,14 +916,9 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
    Static on purpose: no pinning, no scroll mechanics, nothing to open.
    ===================================================================== */
 .cs-pgroup { margin-top: 64px; }
-/* each audience gets its own hue, carried by the header panel, the dashes and the numbers */
+/* each audience gets its own hue, carried by the label, the illustration, the dashes and the numbers */
 .cs-pgroup--workers { --pain: 236, 178, 72; }
 .cs-pgroup + .cs-pgroup { margin-top: 104px; }
-.cs-pgroup-head {
-  padding: 28px 32px; border-radius: 20px;
-  background: linear-gradient(120deg, rgba(var(--pain), 0.13), rgba(var(--pain), 0.03) 70%);
-  border: 1px solid rgba(var(--pain), 0.22);
-}
 .cs-pgroup-eyebrow { margin: 0 0 12px; font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(var(--pain)); }
 .cs-pgroup-who { margin: 0; font-family: 'Geist', sans-serif; font-size: var(--fs-h3); font-weight: 500; line-height: 1.25; letter-spacing: -0.01em; color: var(--text); }
 .cs-pgroup-tag { margin: 6px 0 0; font-size: var(--fs-small); color: var(--text-soft); }
@@ -965,7 +960,6 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
 .cs-pgroup-num .sym { color: rgb(var(--pain)); }
 @media (max-width: 720px) {
   .cs-pains { grid-template-columns: 1fr; row-gap: 28px; }
-  .cs-pgroup-head { padding: 22px 20px; border-radius: 16px; }
   .cs-pgroup-viz { width: 100%; }
   .cs-ring-chart { width: 112px; height: 112px; }
   .cs-pgroup + .cs-pgroup { margin-top: 80px; }
