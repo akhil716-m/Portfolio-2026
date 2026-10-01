@@ -905,22 +905,21 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
 
 .cs-mend-track { position: relative; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); }
 /* the journey: a grey track and arrow, with the stages marked in lime */
-.cs-mend-line { position: absolute; left: 0; right: 0; top: 40px; height: 1px; background: rgba(255,255,255,0.22); transform-origin: 0 50%; }
+.cs-mend-line { position: absolute; left: 0; right: 0; top: 32px; height: 1px; background: rgba(255,255,255,0.22); transform-origin: 0 50%; }
 .cs-mend-line::after {
   content: ''; position: absolute; right: 0; top: 50%; width: 7px; height: 7px; margin-top: -4px;
   border-top: 1px solid rgba(255,255,255,0.35); border-right: 1px solid rgba(255,255,255,0.35); transform: rotate(45deg);
 }
 .cs-mend-stage { position: relative; }
 .cs-mend-stage::before {
-  content: ''; position: absolute; left: 0; top: 40px; width: 9px; height: 9px; margin-top: -4px; border-radius: 50%;
+  content: ''; position: absolute; left: 0; top: 32px; width: 9px; height: 9px; margin-top: -4px; border-radius: 50%;
   background: var(--accent); box-shadow: 0 0 0 4px var(--bg);
 }
 /* who meets the problem: a hard hat for workers, a briefcase for admins (Lucide glyphs), in the label's own grey */
 .cs-mend-who { display: flex; align-items: center; gap: 6px; margin-bottom: 8px; font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); }
 .cs-mend-who svg { flex: none; width: 13px; height: 13px; fill: none; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
 .cs-mend-who svg + svg { margin-left: -2px; }
-/* stage names use the challenge group names' style (Admins, Frontline workers) */
-.cs-mend-head { height: 40px; margin: 0; padding-right: 14px; padding-bottom: 10px; display: flex; align-items: center; gap: 10px; font-family: 'Geist', sans-serif; font-size: var(--fs-h3); font-weight: 500; line-height: 1.25; letter-spacing: -0.01em; color: var(--text); }
+.cs-mend-head { height: 32px; margin: 0; padding-right: 14px; padding-bottom: 6px; display: flex; align-items: center; gap: 10px; font-family: 'Geist', sans-serif; font-size: var(--fs-h4); font-weight: 600; line-height: 1.2; color: var(--text); }
 .cs-mend-n { font-family: 'Geist Mono', monospace; font-size: 11px; font-weight: 500; letter-spacing: 0.08em; color: var(--accent); }
 /* one 5-step workflow: numbered stages, each intervention a row, dotted rules marking the steps within a stage */
 .cs-mend-list { list-style: none; margin: 0; padding: 24px 14px 0 0; }
