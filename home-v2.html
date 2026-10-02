@@ -464,6 +464,184 @@
   .x-item:hover .x-media { transform: none; }
 }
 
+/* ===== About: a little Figma canvas =====
+   The portrait is a selected frame on a dot-grid canvas, with a stakeholder comment
+   and an inspector panel of real facts. Hovering the canvas swaps to the candid
+   photo and resolves the comment. Lime is the selection colour. */
+.ab {
+  display: grid;
+  grid-template-columns: minmax(0, 6fr) minmax(0, 6fr);
+  gap: clamp(40px, 6vw, 96px);
+  align-items: start;
+}
+.ab-key { color: var(--accent); font-weight: 500; }
+
+.ab-canvas {
+  position: relative;
+  padding: clamp(64px, 7vw, 96px) clamp(32px, 5vw, 72px) clamp(96px, 10vw, 136px);
+  border: 1px solid var(--line);
+  border-radius: var(--r-frame);
+  background-color: #0c0c0c;
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Selected frame */
+.ab-frame {
+  position: relative;
+  width: min(100%, 300px);
+  margin: 0 auto;
+  transform: rotate(-2deg);
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.ab-canvas:hover .ab-frame { transform: rotate(0deg); }
+.ab-frame::after {           /* selection outline */
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border: 1.5px solid var(--accent);
+  pointer-events: none;
+}
+.ab-frame-name {
+  position: absolute;
+  top: -24px;
+  left: -1px;
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  color: var(--accent);
+  white-space: nowrap;
+}
+.ab-photo { position: relative; aspect-ratio: 4 / 5; overflow: hidden; background: var(--bg-card); }
+.ab-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top center; }
+.ab-img-a { filter: grayscale(100%); transition: opacity 0.5s ease; z-index: 1; }
+.ab-img-b { opacity: 0; transition: opacity 0.5s ease; }
+.ab-canvas:hover .ab-img-a { opacity: 0; }
+.ab-canvas:hover .ab-img-b { opacity: 1; }
+.ab-handle {
+  position: absolute;
+  z-index: 2;
+  width: 9px;
+  height: 9px;
+  background: #fff;
+  border: 1.5px solid var(--accent);
+}
+.ab-handle--tl { top: -5px; left: -5px; }
+.ab-handle--tr { top: -5px; right: -5px; }
+.ab-handle--bl { bottom: -5px; left: -5px; }
+.ab-handle--br { bottom: -5px; right: -5px; }
+.ab-size {
+  position: absolute;
+  left: 50%;
+  bottom: -30px;
+  transform: translateX(-50%);
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: var(--accent);
+  color: #0a0a0a;
+  font-family: 'Geist Mono', monospace;
+  font-size: 10.5px;
+  white-space: nowrap;
+}
+
+/* Stakeholder comment */
+.ab-comment {
+  position: absolute;
+  z-index: 3;
+  top: clamp(36px, 4vw, 52px);
+  right: clamp(16px, 3vw, 40px);
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+.ab-pin {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50% 50% 50% 4px;
+  background: #e8c598;
+  color: #0a0a0a;
+  font-size: 10px;
+  font-weight: 600;
+}
+.ab-bubble {
+  display: grid;
+  max-width: 180px;
+  padding: 8px 12px;
+  border: 1px solid #262626;
+  border-radius: 4px 12px 12px 12px;
+  background: #161616;
+  box-shadow: 0 16px 32px -16px rgba(0, 0, 0, 0.8);
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--text);
+}
+.ab-say { grid-area: 1 / 1; transition: opacity 0.35s ease; }
+.ab-say--after { opacity: 0; color: var(--text-soft); }
+.ab-canvas:hover .ab-say--before { opacity: 0; }
+.ab-canvas:hover .ab-say--after { opacity: 1; }
+.ab-resolved {
+  display: inline-block;
+  margin-left: 4px;
+  font-family: 'Geist Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+}
+
+/* Inspector panel */
+.ab-inspect {
+  position: absolute;
+  z-index: 3;
+  left: clamp(-40px, -2.5vw, -16px);
+  bottom: clamp(24px, 3vw, 40px);
+  width: 264px;
+  padding: 4px 0 8px;
+  border: 1px solid #262626;
+  border-radius: 10px;
+  background: #141414;
+  box-shadow: 0 24px 48px -20px rgba(0, 0, 0, 0.85);
+  font-size: 12px;
+}
+.ab-inspect-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 10px 14px 10px;
+  margin-bottom: 4px;
+  border-bottom: 1px solid #222;
+  font-weight: 500;
+  color: var(--text);
+}
+.ab-inspect-type { font-family: 'Geist Mono', monospace; font-size: 10.5px; font-weight: 400; color: var(--text-muted); }
+.ab-row { display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 10px; padding: 5px 14px; }
+.ab-row dt { color: var(--text-muted); }
+.ab-row dd { color: var(--text-soft); line-height: 1.45; }
+.ab-swatch {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin-right: 6px;
+  border-radius: 2px;
+  background: var(--accent);
+  vertical-align: -1px;
+}
+.ab-pct { margin-left: 6px; font-family: 'Geist Mono', monospace; font-size: 11px; color: var(--accent); }
+
+@media (max-width: 900px) {
+  .ab { grid-template-columns: 1fr; gap: 48px; }
+  .ab-canvas { padding: 64px 24px 32px; }
+  .ab-frame { width: min(100%, 240px); }
+  .ab-comment { top: 20px; right: 16px; }
+  .ab-bubble { max-width: 150px; font-size: 12px; }
+  .ab-inspect { position: static; width: auto; margin-top: 64px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ab-frame, .ab-img-a, .ab-img-b, .ab-say { transition: none; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .h-glow { display: none; }
   .t-rail-fill { animation: none; transform: none; opacity: 0.6; }
@@ -680,27 +858,49 @@
     </div>
   </div>
 
-  <div class="about-acts">
-
-    <div class="about-act">
-      <div class="act-copy about-prose">
-        <p>I'm a Product Designer at Juspay, where I work on enterprise payment products. My work revolves around simplifying complex workflows and building experiences that help people make better decisions.</p>
-        <p>Over the last few years, I've worked across workforce-tech and fintech, designing products for both frontline workers and enterprise teams. While the domains have changed, the challenge has remained the same: turning complexity into clarity.</p>
-        <p>I've always been curious about how things work. That curiosity is what led me to design, and it continues to shape how I approach problems today.</p>
-        <p>Outside of work, you'll usually find me exploring new places, spending time in the hills, trying out new recipes, visiting galleries, or occasionally chasing a bit of adrenaline on a racetrack. More recently, I've also been spending time building a few things of my own.</p>
-      </div>
-      <div class="act-visual">
-        <figure class="about-polaroid">
-          <div class="ap-inner">
-            <div class="ap-img">
-              <img class="ap-img-a" loading="lazy" src="assets/akhil.webp" width="800" height="1067" alt="Akhil Male" />
-              <img class="ap-img-b" loading="lazy" src="assets/akhil-hover.webp" width="800" height="1000" alt="Akhil Male, candid" />
-            </div>
-          </div>
-        </figure>
-      </div>
+  <div class="ab">
+    <div class="ab-copy about-prose">
+      <p>I'm a Product Designer at Juspay, where I work on enterprise payment products. My work revolves around simplifying complex workflows and building experiences that help people make better decisions.</p>
+      <p>Over the last few years, I've worked across workforce-tech and fintech, designing products for both frontline workers and enterprise teams. While the domains have changed, the challenge has remained the same: <span class="ab-key">turning complexity into clarity</span>.</p>
+      <p>I've always been curious about how things work. That curiosity is what led me to design, and it continues to shape how I approach problems today.</p>
+      <p>Outside of work, you'll usually find me exploring new places, spending time in the hills, trying out new recipes, visiting galleries, or occasionally chasing a bit of adrenaline on a racetrack. More recently, I've also been spending time building a few things of my own.</p>
     </div>
 
+    <!-- A little Figma canvas: the portrait is a selected frame, with a stakeholder comment
+         and an inspector panel of real facts. Hovering the canvas swaps to the candid photo
+         and resolves the comment. -->
+    <div class="ab-canvas">
+      <figure class="ab-frame">
+        <figcaption class="ab-frame-name"><span aria-hidden="true">#</span> akhil.png</figcaption>
+        <div class="ab-photo">
+          <img class="ab-img-a" loading="lazy" src="assets/akhil.webp" width="800" height="1067" alt="Akhil Male">
+          <img class="ab-img-b" loading="lazy" src="assets/akhil-hover.webp" width="800" height="1000" alt="Akhil Male, candid" aria-hidden="true">
+        </div>
+        <span class="ab-handle ab-handle--tl" aria-hidden="true"></span>
+        <span class="ab-handle ab-handle--tr" aria-hidden="true"></span>
+        <span class="ab-handle ab-handle--bl" aria-hidden="true"></span>
+        <span class="ab-handle ab-handle--br" aria-hidden="true"></span>
+        <span class="ab-size" aria-hidden="true">320 × 400</span>
+      </figure>
+
+      <div class="ab-comment" aria-hidden="true">
+        <span class="ab-pin">PM</span>
+        <span class="ab-bubble">
+          <span class="ab-say ab-say--before">Can we make him pop a bit more?</span>
+          <span class="ab-say ab-say--after">Better. Ship it. <span class="ab-resolved">Resolved</span></span>
+        </span>
+      </div>
+
+      <dl class="ab-inspect">
+        <div class="ab-inspect-head"><span>Akhil Male</span><span class="ab-inspect-type">Frame</span></div>
+        <div class="ab-row"><dt>Layer</dt><dd>Product Designer, Juspay</dd></div>
+        <div class="ab-row"><dt>Position</dt><dd>Bengaluru, UTC +5:30</dd></div>
+        <div class="ab-row"><dt>Fill</dt><dd><span class="ab-swatch" aria-hidden="true"></span>Hills, recipes, galleries, racetracks</dd></div>
+        <div class="ab-row"><dt>Text</dt><dd>English, Telugu, Hindi</dd></div>
+        <div class="ab-row"><dt>Plugins</dt><dd>Figma, Cursor, Claude Code, pen + paper</dd></div>
+        <div class="ab-row"><dt>Effects</dt><dd>Curiosity <span class="ab-pct">100%</span></dd></div>
+      </dl>
+    </div>
   </div>
 
   <p class="life-bridge">…and a few frames from outside the canvas.</p>
@@ -846,7 +1046,7 @@ document.querySelectorAll('[data-track]').forEach(el => {
 
 // Scroll reveals: sections fade up, life deck fades in
 (function() {
-  document.querySelectorAll('.section:not(#selected-work) .section-head, .t-line, .t-also .t-list, .t-story, .x-panel, .about-act, .life-bridge, .contact')
+  document.querySelectorAll('.section:not(#selected-work) .section-head, .t-line, .t-also .t-list, .t-story, .x-panel, .ab-copy, .ab-canvas, .life-bridge, .contact')
     .forEach(el => el.classList.add('reveal'));
   const targets = document.querySelectorAll('.life-strip, .reveal');
   if (!targets.length) return;
