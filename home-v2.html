@@ -482,10 +482,10 @@
   mask-image: linear-gradient(to bottom, transparent, black 12%, black 88%, transparent);
   pointer-events: none;
 }
-.fig-canvas { position: relative; padding-top: clamp(72px, 8vw, 120px); padding-bottom: clamp(72px, 8vw, 120px); }
+.fig-canvas { position: relative; padding-top: clamp(96px, 10vw, 160px); padding-bottom: clamp(96px, 10vw, 160px); }
 .fig-top {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 600px);
+  grid-template-columns: minmax(0, 1fr) clamp(280px, 32vw, 400px);
   gap: clamp(40px, 5vw, 72px);
   align-items: start;
 }
@@ -514,22 +514,16 @@
   transition: opacity 0.2s ease;
 }
 .fig-text:hover .fig-label { opacity: 1; }
-.fig-text .about-prose { font-size: var(--t-body); }
+.fig-text .about-prose { font-size: var(--t-body); max-width: 60ch; }
 .ab-key { color: var(--accent); font-weight: 500; }
 
 /* Portrait: the selected frame */
-.fig-art {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 256px;
-  gap: 28px;
-  align-items: start;
-  padding-top: 48px;
-}
+.fig-art { padding-top: 48px; }
 .fig-stage { position: relative; padding-top: 4px; }
 .ab-frame {
   position: relative;
   width: min(100%, 280px);
-  margin: 0;
+  margin: 0 auto;
   transform: rotate(-2deg);
   transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -540,7 +534,11 @@
   inset: -1px;
   border: 1.5px solid var(--accent);
   pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
 }
+.ab-frame:hover::after,
+.ab-frame:hover .ab-handle { opacity: 1; }
 .ab-frame-name {
   position: absolute;
   top: -24px;
@@ -575,6 +573,8 @@
 .ab-handle {
   position: absolute;
   z-index: 2;
+  opacity: 0;
+  transition: opacity 0.2s ease;
   width: 9px;
   height: 9px;
   background: #fff;
@@ -659,21 +659,51 @@
 .ab-comment[data-state="resolved"] .ab-pin-who { opacity: 0; }
 .ab-comment[data-state="resolved"] .ab-pin-done { opacity: 1; }
 
-/* Inspector: a properties panel beside the portrait */
+/* Properties panel: hidden until a frame is hovered, then docked at the right edge of
+   the screen like Figma's sidebar. Touch devices open it as a bottom sheet. */
 .ab-inspect {
-  position: relative;
-  z-index: 2;
+  position: fixed;
+  z-index: 900;
+  top: 88px;
+  right: 16px;
+  width: 256px;
+  max-height: calc(100dvh - 104px);
+  overflow-y: auto;
   padding: 0 0 6px;
   border: 1px solid #262626;
   border-radius: 10px;
   background: #141414;
   box-shadow: 0 24px 48px -20px rgba(0, 0, 0, 0.85);
   font-size: 12px;
+  opacity: 0;
+  transform: translateX(calc(100% + 24px));
+  pointer-events: none;
+  visibility: hidden;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.25s ease, visibility 0s linear 0.35s;
 }
+.ab-inspect.is-open { opacity: 1; transform: none; pointer-events: auto; visibility: visible; transition-delay: 0s; }
+.ab-inspect [data-for] { display: none; }
+.ab-inspect[data-mode="portrait"] [data-for="portrait"],
+.ab-inspect[data-mode="photo"] [data-for="photo"],
+.ab-inspect[data-mode="text"] [data-for="text"] { display: block; }
+.ip-close {
+  display: none;
+  margin-left: 4px;
+  width: 24px;
+  height: 24px;
+  border: none;
+  border-radius: 50%;
+  background: #1f1f1f;
+  color: var(--text-soft);
+  font-size: 11px;
+  cursor: pointer;
+}
+.ip-sw--img { background: var(--img, #222) center / cover; }
+.ip-sw--grey { background: #8a8a8a; }
 .ab-inspect-head {
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
+  align-items: center;
   gap: 12px;
   padding: 10px 14px;
   border-bottom: 1px solid #222;
@@ -713,14 +743,15 @@
 .fig-board {
   position: relative;
   display: grid;
-  grid-template-columns: repeat(7, minmax(0, 1fr));
-  gap: 40px 20px;
-  margin-top: clamp(80px, 9vw, 128px);
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: clamp(56px, 6vw, 88px) clamp(32px, 5vw, 72px);
+  margin-top: clamp(256px, 21vw, 300px);
 }
 .fig-shot {
   position: relative;
   margin: 0;
   z-index: 1;
+  rotate: var(--r, 0deg);
   cursor: grab;
   touch-action: none;
   user-select: none;
@@ -733,6 +764,8 @@
   object-fit: cover;
   border-radius: 4px;
   pointer-events: none;
+  -webkit-user-drag: none;
+  box-shadow: 0 14px 28px -14px rgba(0, 0, 0, 0.7);
   transition: box-shadow 0.25s ease;
 }
 .fig-shot::after { inset: 19px -4px -4px; border-radius: 6px; }
@@ -779,9 +812,10 @@
 .fig-sticky {
   position: absolute;
   z-index: 3;
-  top: -118px;
-  left: -12px;
-  width: 210px;
+  top: -32px;
+  left: -8px;
+  width: 220px;
+  translate: 0 -100%;
   rotate: -4deg;
   padding: 16px 16px 18px;
   border-radius: 4px;
@@ -794,23 +828,26 @@
 .fig-sticky-hint { margin-top: 8px; font-size: 12px; color: #4a5a24; }
 @media (hover: none), (pointer: coarse) {
   .fig-sticky-hint { display: none; }
-  .fig-shot { cursor: default; touch-action: auto; }
+  .fig-shot { cursor: default; touch-action: auto; translate: none !important; }
+  .ab-frame { cursor: pointer; }
+  .ab-inspect { top: auto; left: 12px; right: 12px; bottom: 12px; width: auto; max-height: 70dvh; transform: translateY(calc(100% + 24px)); }
+  .ip-close { display: inline-grid; place-items: center; }
 }
 
 @media (max-width: 900px) {
   .fig-top { grid-template-columns: 1fr; gap: 32px; }
-  .fig-art { grid-template-columns: 1fr; gap: 40px; padding-top: 40px; }
+  .fig-art { padding-top: 40px; }
   .ab-frame { width: min(100%, 230px); }
   .fig-stage { padding-bottom: 150px; transition: padding-bottom 0.4s ease; }
   .fig-stage:has(.ab-comment[data-state="resolved"]) { padding-bottom: 32px; }
   .ab-bubble { width: 170px; }
   .fig-board { grid-template-columns: 1fr 1fr; gap: 24px 16px; margin-top: 64px; }
-  .fig-sticky { position: relative; top: auto; left: auto; grid-column: 1 / -1; width: 80%; justify-self: center; margin-bottom: 8px; }
-  .fig-shot { translate: none !important; }
+  .fig-sticky { position: relative; top: auto; left: auto; translate: none; grid-column: 1 / -1; width: 80%; justify-self: center; margin-bottom: 8px; }
   .fig-shot-label { opacity: 1; color: var(--text-muted); }
+  .fig-shot:nth-of-type(n+9) { display: none; } /* eight photos are plenty on a phone */
 }
 @media (prefers-reduced-motion: reduce) {
-  .ab-frame, .ab-img-a, .ab-img-b, .fig-label, .fig-text::after, .fig-shot::after, .fig-shot-label, .ab-bubble, .ab-pin { transition: none; }
+  .ab-frame, .ab-frame::after, .ab-handle, .ab-img-a, .ab-img-b, .fig-label, .fig-text::after, .fig-shot::after, .fig-shot-label, .ab-bubble, .ab-pin, .ab-inspect { transition: none; }
   .ab-frame.is-popping, .ab-frame.is-popping .ab-burst, .ab-msg { animation: none !important; }
   .fig-board.is-tidying .fig-shot { transition: none; }
 }
@@ -1076,48 +1113,6 @@
             </figure>
             </div>
 
-            <!-- Inspector: a Figma-style properties panel. Position follows whatever frame is
-                 pointed at (and updates while a photo is dragged); the rest is about Akhil. -->
-            <aside class="ab-inspect" aria-label="Properties">
-              <div class="ab-inspect-head"><span class="fig-sel-name">akhil.png</span><span class="ab-inspect-type fig-sel-type">Frame</span></div>
-              <section class="ip-sec">
-                <h4>Position</h4>
-                <div class="ip-grid">
-                  <span class="ip-field"><i>X</i><b class="fig-sel-x">0</b></span>
-                  <span class="ip-field"><i>Y</i><b class="fig-sel-y">0</b></span>
-                  <span class="ip-field"><i>W</i><b class="fig-sel-w">0</b></span>
-                  <span class="ip-field"><i>H</i><b class="fig-sel-h">0</b></span>
-                  <span class="ip-field ip-field--wide"><i>↻</i><b class="fig-sel-r">0°</b></span>
-                </div>
-              </section>
-              <section class="ip-sec">
-                <h4>Layer</h4>
-                <p class="ip-line">Product Designer <span class="ip-muted">Juspay</span></p>
-              </section>
-              <section class="ip-sec">
-                <h4>Constraints</h4>
-                <p class="ip-line">Bengaluru <span class="ip-muted">UTC +5:30</span></p>
-              </section>
-              <section class="ip-sec">
-                <h4>Fill</h4>
-                <p class="ip-fill"><span class="ip-sw" style="--o:1"></span>Hills<span class="ip-pct">100%</span></p>
-                <p class="ip-fill"><span class="ip-sw" style="--o:.75"></span>Recipes<span class="ip-pct">75%</span></p>
-                <p class="ip-fill"><span class="ip-sw" style="--o:.5"></span>Galleries<span class="ip-pct">50%</span></p>
-                <p class="ip-fill"><span class="ip-sw" style="--o:.3"></span>Racetracks<span class="ip-pct">30%</span></p>
-              </section>
-              <section class="ip-sec">
-                <h4>Text</h4>
-                <p class="ip-line"><span class="ip-aa" aria-hidden="true">Aa</span>English, Telugu, Hindi</p>
-              </section>
-              <section class="ip-sec">
-                <h4>Effects</h4>
-                <p class="ip-line">Curiosity <span class="ip-pct">100%</span></p>
-              </section>
-              <section class="ip-sec">
-                <h4>Plugins</h4>
-                <p class="ip-chips"><span>Figma</span><span>Cursor</span><span>Claude Code</span><span>pen + paper</span></p>
-              </section>
-            </aside>
           </div>
         </div>
 
@@ -1127,66 +1122,114 @@
             <p>Frames from outside the canvas. Couldn't resist bringing them in.</p>
             <p class="fig-sticky-hint">Go on, drag them around.</p>
           </div>
-          <figure class="fig-shot" data-name="track-day.jpg" data-type="Image">
+          <figure class="fig-shot" data-name="track-day.jpg" data-type="Image" style="--r:-3deg">
             <figcaption class="fig-shot-label">track-day.jpg</figcaption>
             <img src="assets/life/life-12.webp" width="480" height="640" alt="Track day" loading="lazy" draggable="false">
           </figure>
-          <figure class="fig-shot" data-name="into-the-hills.jpg" data-type="Image">
-            <figcaption class="fig-shot-label">into-the-hills.jpg</figcaption>
-            <img src="assets/life/life-9.webp" width="480" height="640" alt="Into the hills" loading="lazy" draggable="false">
-          </figure>
-          <figure class="fig-shot" data-name="go-karts.jpg" data-type="Image">
+          <figure class="fig-shot" data-name="go-karts.jpg" data-type="Image" style="--r:2deg">
             <figcaption class="fig-shot-label">go-karts.jpg</figcaption>
             <img src="assets/life/life-6.webp" width="480" height="640" alt="A go-kart track and a flying bicycle" loading="lazy" draggable="false">
           </figure>
-          <figure class="fig-shot" data-name="somewhere-new.jpg" data-type="Image">
-            <figcaption class="fig-shot-label">somewhere-new.jpg</figcaption>
-            <img src="assets/life/life-1.webp" width="480" height="640" alt="Exploring somewhere new" loading="lazy" draggable="false">
+          <figure class="fig-shot" data-name="into-the-hills.jpg" data-type="Image" style="--r:-2deg">
+            <figcaption class="fig-shot-label">into-the-hills.jpg</figcaption>
+            <img src="assets/life/life-9.webp" width="480" height="640" alt="Into the hills" loading="lazy" draggable="false">
           </figure>
-          <figure class="fig-shot" data-name="sunrise.jpg" data-type="Image">
+          <figure class="fig-shot" data-name="sunrise.jpg" data-type="Image" style="--r:3deg">
             <figcaption class="fig-shot-label">sunrise.jpg</figcaption>
             <img src="assets/life/life-13.webp" width="480" height="640" alt="Sunrise over the waves" loading="lazy" draggable="false">
           </figure>
-          <figure class="fig-shot" data-name="the-courts.jpg" data-type="Image">
-            <figcaption class="fig-shot-label">the-courts.jpg</figcaption>
-            <img src="assets/life/life-4.webp" width="480" height="640" alt="Evening on the courts" loading="lazy" draggable="false">
+          <figure class="fig-shot" data-name="somewhere-new.jpg" data-type="Image" style="--r:-1deg">
+            <figcaption class="fig-shot-label">somewhere-new.jpg</figcaption>
+            <img src="assets/life/life-1.webp" width="480" height="640" alt="Exploring somewhere new" loading="lazy" draggable="false">
           </figure>
-          <figure class="fig-shot" data-name="coastal-skies.jpg" data-type="Image">
-            <figcaption class="fig-shot-label">coastal-skies.jpg</figcaption>
-            <img src="assets/life/life-2.webp" width="480" height="640" alt="Coastal skies before the rain" loading="lazy" draggable="false">
-          </figure>
-          <figure class="fig-shot" data-name="gallery-day.jpg" data-type="Image">
+          <figure class="fig-shot" data-name="gallery-day.jpg" data-type="Image" style="--r:2deg">
             <figcaption class="fig-shot-label">gallery-day.jpg</figcaption>
             <img src="assets/life/life-10.webp" width="480" height="640" alt="Abstract paintings in a gallery" loading="lazy" draggable="false">
           </figure>
-          <figure class="fig-shot" data-name="low-tide.jpg" data-type="Image">
-            <figcaption class="fig-shot-label">low-tide.jpg</figcaption>
-            <img src="assets/life/life-8.webp" width="480" height="640" alt="Low tide at the beach" loading="lazy" draggable="false">
-          </figure>
-          <figure class="fig-shot" data-name="bengaluru-evenings.jpg" data-type="Image">
-            <figcaption class="fig-shot-label">bengaluru-evenings.jpg</figcaption>
-            <img src="assets/life/life-3.webp" width="480" height="640" alt="Evenings in Bengaluru" loading="lazy" draggable="false">
-          </figure>
-          <figure class="fig-shot" data-name="higher-ground.jpg" data-type="Image">
-            <figcaption class="fig-shot-label">higher-ground.jpg</figcaption>
-            <img src="assets/life/life-11.webp" width="480" height="640" alt="Higher ground, moody skies" loading="lazy" draggable="false">
-          </figure>
-          <figure class="fig-shot" data-name="backpacking.jpg" data-type="Image">
+          <figure class="fig-shot" data-name="backpacking.jpg" data-type="Image" style="--r:-3deg">
             <figcaption class="fig-shot-label">backpacking.jpg</figcaption>
             <img src="assets/life/life-5.webp" width="480" height="640" alt="Backpacking somewhere new" loading="lazy" draggable="false">
           </figure>
-          <figure class="fig-shot" data-name="coffee.jpg" data-type="Image">
+          <figure class="fig-shot" data-name="the-courts.jpg" data-type="Image" style="--r:1deg">
+            <figcaption class="fig-shot-label">the-courts.jpg</figcaption>
+            <img src="assets/life/life-4.webp" width="480" height="640" alt="Evening on the courts" loading="lazy" draggable="false">
+          </figure>
+          <figure class="fig-shot" data-name="coffee.jpg" data-type="Image" style="--r:3deg">
             <figcaption class="fig-shot-label">coffee.jpg</figcaption>
             <img src="assets/life/life-7.webp" width="480" height="640" alt="Coffee and conversation" loading="lazy" draggable="false">
           </figure>
-          <figure class="fig-shot" data-name="off-the-grid.jpg" data-type="Image">
-            <figcaption class="fig-shot-label">off-the-grid.jpg</figcaption>
-            <img src="assets/life/life-14.webp" width="480" height="640" alt="Off the grid" loading="lazy" draggable="false">
+          <figure class="fig-shot" data-name="bengaluru-evenings.jpg" data-type="Image" style="--r:-2deg">
+            <figcaption class="fig-shot-label">bengaluru-evenings.jpg</figcaption>
+            <img src="assets/life/life-3.webp" width="480" height="640" alt="Evenings in Bengaluru" loading="lazy" draggable="false">
           </figure>
         </div>
+
       </div>
     </div>
   </div>
+  <!-- Properties panel: hidden until a frame is hovered (or the portrait is tapped on
+       touch), then docked at the right edge like Figma's sidebar. Sections show for the
+       kind of frame pointed at: the portrait, a photo, or the story text. -->
+  <aside class="ab-inspect" aria-label="Properties" data-mode="portrait" aria-hidden="true">
+    <div class="ab-inspect-head">
+      <span class="fig-sel-name">akhil.png</span>
+      <span class="ab-inspect-type fig-sel-type">Frame</span>
+      <button type="button" class="ip-close" aria-label="Close properties">✕</button>
+    </div>
+    <section class="ip-sec">
+      <h4>Position</h4>
+      <div class="ip-grid">
+        <span class="ip-field"><i>X</i><b class="fig-sel-x">0</b></span>
+        <span class="ip-field"><i>Y</i><b class="fig-sel-y">0</b></span>
+        <span class="ip-field"><i>W</i><b class="fig-sel-w">0</b></span>
+        <span class="ip-field"><i>H</i><b class="fig-sel-h">0</b></span>
+        <span class="ip-field ip-field--wide"><i>↻</i><b class="fig-sel-r">0°</b></span>
+      </div>
+    </section>
+    <section class="ip-sec" data-for="portrait">
+      <h4>Layer</h4>
+      <p class="ip-line">Product Designer <span class="ip-muted">Juspay</span></p>
+    </section>
+    <section class="ip-sec" data-for="portrait">
+      <h4>Constraints</h4>
+      <p class="ip-line">Bengaluru <span class="ip-muted">UTC +5:30</span></p>
+    </section>
+    <section class="ip-sec" data-for="portrait">
+      <h4>Fill</h4>
+      <p class="ip-fill"><span class="ip-sw" style="--o:1"></span>Hills<span class="ip-pct">100%</span></p>
+      <p class="ip-fill"><span class="ip-sw" style="--o:.75"></span>Recipes<span class="ip-pct">75%</span></p>
+      <p class="ip-fill"><span class="ip-sw" style="--o:.5"></span>Galleries<span class="ip-pct">50%</span></p>
+      <p class="ip-fill"><span class="ip-sw" style="--o:.3"></span>Racetracks<span class="ip-pct">30%</span></p>
+    </section>
+    <section class="ip-sec" data-for="portrait">
+      <h4>Text</h4>
+      <p class="ip-line"><span class="ip-aa" aria-hidden="true">Aa</span>English, Telugu, Hindi</p>
+    </section>
+    <section class="ip-sec" data-for="portrait">
+      <h4>Effects</h4>
+      <p class="ip-line">Curiosity <span class="ip-pct">100%</span></p>
+    </section>
+    <section class="ip-sec" data-for="portrait">
+      <h4>Plugins</h4>
+      <p class="ip-chips"><span>Figma</span><span>Cursor</span><span>Claude Code</span><span>pen + paper</span></p>
+    </section>
+    <section class="ip-sec" data-for="photo">
+      <h4>Fill</h4>
+      <p class="ip-fill"><span class="ip-sw ip-sw--img"></span>Image<span class="ip-pct">100%</span></p>
+    </section>
+    <section class="ip-sec" data-for="photo">
+      <h4>Export</h4>
+      <p class="ip-line">1x <span class="ip-muted">JPG</span></p>
+    </section>
+    <section class="ip-sec" data-for="text">
+      <h4>Typography</h4>
+      <p class="ip-line">Geist Light <span class="ip-muted">16 / 170%</span></p>
+    </section>
+    <section class="ip-sec" data-for="text">
+      <h4>Fill</h4>
+      <p class="ip-fill"><span class="ip-sw ip-sw--grey"></span>8A8A8A<span class="ip-pct">100%</span></p>
+    </section>
+  </aside>
 </section>
 
 
@@ -1345,34 +1388,61 @@ console.log('%cIf you got this far, you\'re probably my kind of person. → akhi
   dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); });
 })();
 
-// About canvas: the properties panel follows whatever frame is pointed at (live while
-// a photo is dragged); photos drag on desktop and "Tidy up" snaps them back
+// About canvas: hovering a frame slides in the properties panel on the right (like
+// Figma's sidebar) with that frame's details; on touch, tapping the portrait opens it as
+// a sheet. Photos drag on desktop and "Tidy up" snaps them back into the grid.
 (function() {
   const canvas = document.querySelector('.fig-canvas');
-  if (!canvas) return;
+  const panel = canvas && document.querySelector('.ab-inspect');
+  if (!panel) return;
   const portrait = canvas.querySelector('.ab-frame');
   const board = canvas.querySelector('.fig-board');
-  const f = k => canvas.querySelector('.fig-sel-' + k);
-  // Report a frame the way Figma would: its unrotated size, its position on the canvas
-  const show = (el, rot) => {
+  const f = k => panel.querySelector('.fig-sel-' + k);
+  const fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  const modeOf = el => el.classList.contains('fig-shot') ? 'photo' : el.classList.contains('fig-text') ? 'text' : 'portrait';
+  const rotOf = el => el === portrait ? (fine ? '0°' : '−2°') : (getComputedStyle(el).getPropertyValue('--r').trim().replace('deg', '°') || '0°');
+
+  // Fill the panel the way Figma would: unrotated size, position on the canvas
+  const show = el => {
     const c = canvas.getBoundingClientRect(), r = el.getBoundingClientRect();
+    panel.dataset.mode = modeOf(el);
     f('name').textContent = el.dataset.name;
     f('type').textContent = el.dataset.type;
     f('x').textContent = Math.round(r.left - c.left);
     f('y').textContent = Math.round(r.top - c.top);
     f('w').textContent = Math.round(el.offsetWidth);
     f('h').textContent = Math.round(el.offsetHeight);
-    f('r').textContent = rot;
+    f('r').textContent = rotOf(el);
+    const img = el.classList.contains('fig-shot') && el.querySelector('img');
+    if (img) panel.style.setProperty('--img', `url("${img.currentSrc || img.src}")`);
   };
-  const rest = () => show(portrait, '−2°');
-  canvas.querySelectorAll('.ab-frame, .fig-text, .fig-shot').forEach(el =>
-    el.addEventListener('pointerenter', () => show(el, '0°')));
-  canvas.addEventListener('pointerleave', rest);
-  rest();
-  new ResizeObserver(rest).observe(canvas);
+  let closing = 0;
+  const open = el => { clearTimeout(closing); show(el); panel.classList.add('is-open'); panel.setAttribute('aria-hidden', 'false'); };
+  const close = () => { panel.classList.remove('is-open'); panel.setAttribute('aria-hidden', 'true'); };
+  const later = () => { clearTimeout(closing); closing = setTimeout(close, 260); };
+  panel.querySelector('.ip-close').addEventListener('click', close);
+
+  const frames = canvas.querySelectorAll('.ab-frame, .fig-text, .fig-shot');
+  if (fine) {
+    frames.forEach(el => {
+      el.addEventListener('pointerenter', () => open(el));
+      el.addEventListener('pointerleave', () => { if (!el.classList.contains('is-dragging')) later(); });
+    });
+    panel.addEventListener('pointerenter', () => clearTimeout(closing));
+    panel.addEventListener('pointerleave', later);
+  } else {
+    // touch: the portrait is the one frame worth inspecting
+    portrait.addEventListener('click', e => {
+      if (e.target.closest('.ab-comment')) return;
+      panel.classList.contains('is-open') ? close() : open(portrait);
+    });
+    document.addEventListener('click', e => {
+      if (panel.classList.contains('is-open') && !panel.contains(e.target) && !portrait.contains(e.target)) close();
+    });
+  }
 
   // Dragging: desktop pointers only, so touch scrolling is never trapped
-  if (!board || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+  if (!board || !fine) return;
   const tidy = board.querySelector('.fig-tidy');
   const shots = board.querySelectorAll('.fig-shot');
   let top = 10;
@@ -1381,12 +1451,14 @@ console.log('%cIf you got this far, you\'re probably my kind of person. → akhi
     let start = null;
     shot.addEventListener('pointerdown', e => {
       if (e.button !== 0) return;
+      e.preventDefault();                  // stop the browser's own image drag / text selection
       board.classList.remove('is-tidying');
       const [tx, ty] = offset(shot);
       start = { px: e.clientX, py: e.clientY, tx, ty };
       shot.setPointerCapture(e.pointerId);
       shot.classList.add('is-dragging');
       shot.style.zIndex = ++top;
+      open(shot);
     });
     shot.addEventListener('pointermove', e => {
       if (!start) return;
@@ -1399,11 +1471,12 @@ console.log('%cIf you got this far, you\'re probably my kind of person. → akhi
       ny = Math.max(-baseT, Math.min(c.height - baseT - r.height, ny));
       shot.style.translate = `${nx}px ${ny}px`;
       tidy.hidden = false;
-      show(shot, '0°');
+      show(shot);
     });
     const end = () => { start = null; shot.classList.remove('is-dragging'); };
     shot.addEventListener('pointerup', end);
     shot.addEventListener('pointercancel', end);
+    shot.addEventListener('dragstart', e => e.preventDefault());
   });
   tidy.addEventListener('click', () => {
     board.classList.add('is-tidying');
