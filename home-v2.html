@@ -62,7 +62,7 @@
 
 /* Thread layout: a rail column for markers, a content column for the story */
 .t-thread {
-  --rail: clamp(180px, 17vw, 240px);
+  --rail: clamp(220px, 21vw, 300px);
   --rail-x: 4px;            /* where the line runs inside the rail column */
   position: relative;
 }
@@ -92,13 +92,37 @@
   transform-origin: top;
   transform: scaleY(0);
 }
+/* The head is a full-height layer whose dot sits at its top; moving the layer by
+   its own height carries the dot down the line in step with the fill. */
+.t-rail-head { position: absolute; inset: 0; transform: translateY(0); opacity: 0; }
+.t-rail-head::after {
+  content: '';
+  position: absolute;
+  top: -3px;
+  left: -3px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 4px rgba(212, 255, 94, 0.10), 0 0 24px 4px rgba(212, 255, 94, 0.45);
+}
 @supports (animation-timeline: view()) {
-  .t-rail-fill {
-    animation: t-fill linear both;
+  .t-rail-fill,
+  .t-rail-head {
     animation-timeline: view();
     animation-range: entry 40% exit 60%;
+    animation-fill-mode: both;
+    animation-timing-function: linear;
   }
+  .t-rail-fill { animation-name: t-fill; }
+  .t-rail-head { animation-name: t-head; }
   @keyframes t-fill { to { transform: scaleY(1); } }
+  @keyframes t-head {
+    0% { transform: translateY(0); opacity: 0; }
+    4% { opacity: 1; }
+    94% { opacity: 1; }
+    100% { transform: translateY(100%); opacity: 0; }
+  }
 }
 
 /* Nodes sit on the line; they light once reached and stay lit */
@@ -151,6 +175,72 @@
   color: inherit;
   text-decoration: none;
 }
+.t-aside {
+  position: relative;
+  grid-column: 1;
+  grid-row: 1;
+  padding: 0 24px 0 36px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+/* connector: draws from the node out to the label once the moment is reached */
+.t-aside::before {
+  content: '';
+  position: absolute;
+  top: 0.72em;
+  left: calc(var(--rail-x) + 6px);
+  width: 22px;
+  height: 1px;
+  background: linear-gradient(to right, rgba(212, 255, 94, 0.7), rgba(212, 255, 94, 0.15));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.15s;
+}
+.is-reached > .t-aside::before { transform: scaleX(1); }
+.t-moment > .t-body,
+.t-also > .t-body { grid-row: 1; }
+.t-name {
+  font-size: var(--t-body);
+  font-weight: 500;
+  line-height: 1.45;
+  color: var(--text);
+}
+.t-cat { font-size: 13px; line-height: 1.5; color: var(--text-muted); max-width: 22ch; }
+
+/* The call to action: a pill that fills when anywhere on the project is hovered */
+.t-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 22px;
+  height: 40px;
+  padding: 0 6px 0 18px;
+  border: 1px solid rgba(212, 255, 94, 0.35);
+  border-radius: 100px;
+  font-family: 'Geist', sans-serif;
+  font-size: var(--t-small);
+  font-weight: 500;
+  color: var(--accent);
+  white-space: nowrap;
+  transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+.t-cta-arrow {
+  display: inline-grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(212, 255, 94, 0.12);
+  font-size: 13px;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), background 0.3s ease;
+}
+.t-moment:hover .t-cta { background: var(--accent); border-color: var(--accent); color: #0a0a0a; }
+.t-moment:hover .t-cta-arrow { background: rgba(10, 10, 10, 0.12); transform: translateX(2px); }
+.t-moment[href^="http"]:hover .t-cta-arrow { transform: translate(2px, -2px); }
+.t-cta--end { display: none; }
+
 .t-kicker {
   font-family: 'Geist Mono', monospace;
   font-size: var(--t-meta);
@@ -158,7 +248,7 @@
   color: var(--text-muted);
 }
 .t-line {
-  margin-top: 14px;
+  margin-top: -0.12em;
   font-family: 'Geist', sans-serif;
   font-size: clamp(24px, 2.4vw, 34px);
   font-weight: 400;
@@ -187,26 +277,19 @@
   transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), filter 0.45s ease;
 }
 .t-media--light img { filter: brightness(0.9); }
-.t-moment:hover .t-media img { transform: scale(1.015); filter: none; }
-.t-cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  margin-top: 20px;
-  font-family: 'Geist Mono', monospace;
-  font-size: var(--t-meta);
-  letter-spacing: 0.05em;
-  color: var(--accent);
+.t-media.will-unveil { clip-path: inset(0 0 100% 0 round 8px); }
+.t-media.will-unveil.is-shown {
+  clip-path: inset(0 0 0 0 round 8px);
+  transition: clip-path 1.1s cubic-bezier(0.65, 0, 0.35, 1);
 }
-.t-moment:hover .t-cta .arr { transform: translate(3px, 0); }
-.t-moment[href^="http"]:hover .t-cta .arr { transform: translate(3px, -3px); }
+.t-moment:hover .t-media img { transform: scale(1.015); filter: none; }
 .t-moment:focus-visible { outline: none; }
 .t-moment:focus-visible .t-media { outline: 2px solid var(--accent); outline-offset: 4px; }
 
 /* Compact rows: the smaller work under a chapter */
 .t-also { margin-top: clamp(72px, 8vw, 112px); }
 .t-chapter + .t-also { margin-top: 48px; }
-.t-list { list-style: none; margin-top: 16px; border-top: 1px solid var(--line); }
+.t-list { list-style: none; border-top: 1px solid var(--line); }
 .t-kicker + .t-list { margin-top: 16px; }
 .t-body > .t-list:first-child { margin-top: 0; }
 .t-row {
@@ -262,7 +345,20 @@
   .t-chapter { grid-template-columns: var(--rail) minmax(0, 1fr); }
   .t-mark { grid-column: 1 / -1; padding-left: var(--rail); flex-direction: row; align-items: baseline; gap: 12px; }
   .t-chapter .t-body { grid-column: 2; margin-top: 12px; }
-  .t-line { font-size: 22px; }
+  .t-aside {
+    grid-column: 2;
+    grid-row: 1;
+    padding: 0;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 2px 10px;
+  }
+  .t-aside::before { display: none; }
+  .t-aside .t-cta { display: none; }
+  .t-moment > .t-body, .t-also > .t-body { grid-row: 2; margin-top: 14px; }
+  .t-cta--end { display: inline-flex; }
+  .t-line { font-size: 22px; margin-top: 0; }
   .t-media { margin-top: 24px; }
   .t-row { grid-template-columns: 88px minmax(0, 1fr); gap: 16px; padding: 16px 0; }
 }
@@ -362,6 +458,10 @@
 @media (prefers-reduced-motion: reduce) {
   .h-glow { display: none; }
   .t-rail-fill { animation: none; transform: none; opacity: 0.6; }
+  .t-rail-head { display: none; }
+  .t-aside::before { transition: none; }
+  .t-media.will-unveil { clip-path: none; }
+  .t-cta, .t-cta-arrow { transition: none; }
   .t-node, .t-media img, .t-thumb img, .t-row-name .arr { transition: none; }
   .t-moment:hover .t-media img, .t-row:hover .t-thumb img { transform: none; }
 }
@@ -409,7 +509,7 @@
     </header>
 
     <div class="t-thread">
-      <div class="t-rail" aria-hidden="true"><span class="t-rail-fill"></span></div>
+      <div class="t-rail" aria-hidden="true"><span class="t-rail-fill"></span><span class="t-rail-head"></span></div>
 
       <!-- ===== Juspay ===== -->
       <div class="t-chapter" id="juspay">
@@ -426,28 +526,39 @@
 
       <a class="t-moment" href="/work-hypersense">
         <span class="t-node" aria-hidden="true"></span>
+        <div class="t-aside">
+          <span class="t-name">HyperSense</span>
+          <span class="t-cat">Payment cost observability</span>
+          <span class="t-cta">Read case study <span class="t-cta-arrow" aria-hidden="true">→</span></span>
+        </div>
         <div class="t-body">
-          <p class="t-kicker">HyperSense · Payment cost observability</p>
-          <p class="t-line">I took a payment cost observability platform from internal concept to enterprise pilots and <em>a demo to Apple</em>.</p>
+                    <p class="t-line">I took a payment cost observability platform from internal concept to enterprise pilots and <em>a demo to Apple</em>.</p>
           <span class="t-media t-media--light"><img src="assets/hypersense-behance-cover.webp" width="1600" height="894" alt="HyperSense dashboard" fetchpriority="high"></span>
-          <span class="t-cta">Read the case study <span class="arr">→</span></span>
+          <span class="t-cta t-cta--end" aria-hidden="true">Read case study <span class="t-cta-arrow">→</span></span>
         </div>
       </a>
 
       <a class="t-moment" href="/work-reconciliation">
         <span class="t-node" aria-hidden="true"></span>
+        <div class="t-aside">
+          <span class="t-name">Reconciliation</span>
+          <span class="t-cat">Exception resolution</span>
+          <span class="t-cta">Read case study <span class="t-cta-arrow" aria-hidden="true">→</span></span>
+        </div>
         <div class="t-body">
-          <p class="t-kicker">Reconciliation · Exception resolution</p>
-          <p class="t-line">I designed an exception platform that shortens the path <em>from investigation to resolution</em> for reconciliation analysts.</p>
+                    <p class="t-line">I designed an exception platform that shortens the path <em>from investigation to resolution</em> for reconciliation analysts.</p>
           <span class="t-media t-media--light"><img src="assets/recon/cover.webp" width="1600" height="800" alt="Reconciliation case study cover" loading="lazy"></span>
-          <span class="t-cta">Read the case study <span class="arr">→</span></span>
+          <span class="t-cta t-cta--end" aria-hidden="true">Read case study <span class="t-cta-arrow">→</span></span>
         </div>
       </a>
 
       <div class="t-also">
         <span class="t-node t-node--small" aria-hidden="true"></span>
+        <div class="t-aside">
+          <span class="t-name">Also at Juspay</span>
+          <span class="t-cat">Demos and smaller projects</span>
+        </div>
         <div class="t-body">
-          <p class="t-kicker">Also at Juspay</p>
           <ul class="t-list">
             <li><a class="t-row" href="https://recovery-demo.vercel.app/" target="_blank" rel="noopener">
               <span class="t-thumb"><img src="assets/rr-cover.webp" width="1118" height="745" alt="" loading="lazy"></span>
@@ -482,22 +593,30 @@
 
       <a class="t-moment" href="/work-skilling">
         <span class="t-node" aria-hidden="true"></span>
+        <div class="t-aside">
+          <span class="t-name">Up-skill</span>
+          <span class="t-cat">Learning for frontline workers</span>
+          <span class="t-cta">Read case study <span class="t-cta-arrow" aria-hidden="true">→</span></span>
+        </div>
         <div class="t-body">
-          <p class="t-kicker">Up-skill · Learning for frontline workers</p>
-          <p class="t-line">I redesigned learning for blue-collar workers with low digital literacy, around <em>role-based content at scale</em>.</p>
+                    <p class="t-line">I redesigned learning for blue-collar workers with low digital literacy, around <em>role-based content at scale</em>.</p>
           <span class="t-media t-media--light"><img src="assets/skilling-behance.webp" width="1600" height="896" alt="Up-skill app UI" loading="lazy"></span>
-          <span class="t-cta">Read the case study <span class="arr">→</span></span>
+          <span class="t-cta t-cta--end" aria-hidden="true">Read case study <span class="t-cta-arrow">→</span></span>
         </div>
       </a>
 
       <!-- Attendance: Behance until its local case study page lands -->
       <a class="t-moment" href="https://www.behance.net/gallery/196838779/Attendance-app-for-blue-collars" target="_blank" rel="noopener" data-track="attendance-behance">
         <span class="t-node" aria-hidden="true"></span>
+        <div class="t-aside">
+          <span class="t-name">Attendance</span>
+          <span class="t-cat">Workforce operations</span>
+          <span class="t-cta">View on Behance <span class="t-cta-arrow" aria-hidden="true">↗</span></span>
+        </div>
         <div class="t-body">
-          <p class="t-kicker">Attendance · Workforce operations</p>
-          <p class="t-line">I simplified a friction-heavy daily attendance flow into something <em>faster and field-friendly</em> for frontline workers.</p>
+                    <p class="t-line">I simplified a friction-heavy daily attendance flow into something <em>faster and field-friendly</em> for frontline workers.</p>
           <span class="t-media t-media--light"><img src="assets/attendance-behance.webp" width="1600" height="896" alt="Attendance app UI" loading="lazy"></span>
-          <span class="t-cta">View on Behance <span class="arr">↗</span></span>
+          <span class="t-cta t-cta--end" aria-hidden="true">View on Behance <span class="t-cta-arrow">↗</span></span>
         </div>
       </a>
     </div>
@@ -718,7 +837,7 @@ document.querySelectorAll('[data-track]').forEach(el => {
 
 // Scroll reveals: sections fade up, life deck fades in
 (function() {
-  document.querySelectorAll('.section:not(#selected-work) .section-head, .t-line, .t-media, .t-also .t-list, .t-story, .x-panel, .about-act, .life-bridge, .contact')
+  document.querySelectorAll('.section:not(#selected-work) .section-head, .t-line, .t-also .t-list, .t-story, .x-panel, .about-act, .life-bridge, .contact')
     .forEach(el => el.classList.add('reveal'));
   const targets = document.querySelectorAll('.life-strip, .reveal');
   if (!targets.length) return;
@@ -767,6 +886,22 @@ console.log('%cIf you got this far, you\'re probably my kind of person. → akhi
     });
   }, { rootMargin: '0px 0px -45% 0px' });
   stops.forEach(s => io.observe(s));
+})();
+
+// Thread covers: a soft wipe from the top the first time each one appears
+(function() {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return;
+  const covers = document.querySelectorAll('.t-media');
+  covers.forEach(m => m.classList.add('will-unveil'));
+  // Watch each cover's parent: a fully clipped element can report as never visible
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(en => {
+      if (!en.isIntersecting) return;
+      en.target.querySelector('.t-media').classList.add('is-shown');
+      io.unobserve(en.target);
+    });
+  }, { rootMargin: '0px 0px -15% 0px' });
+  covers.forEach(m => io.observe(m.parentElement));
 })();
 
 // Thread rows: a placeholder opens the shared lightbox with its screens
