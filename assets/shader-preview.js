@@ -29,8 +29,25 @@ const PALETTES = {
   rose:    { label: 'Rose',    dark: '#f0739a', light: '#d5567d', soft: '#f6d3de', mid: '#9c3558', ink: '#2a0a17', wash: ['#f6d3de', '#eeb0c4', '#fcf0f4', '#e58aa8'] },
   iris:    { label: 'Iris',    dark: '#9d91ff', light: '#6a5cf0', soft: '#ddd8ff', mid: '#4b40b0', ink: '#120e33', wash: ['#e2ddff', '#c0b6ff', '#f5f3ff', '#9d91ff'] },
   cobalt:  { label: 'Cobalt',  dark: '#6f8cff', light: '#2f54eb', soft: '#d3dcff', mid: '#2440b0', ink: '#081333', wash: ['#dae2ff', '#a9bbff', '#f2f5ff', '#7b95ff'] },
+  ink:     { label: 'Ink (neutral)', dark: '#ededed', light: '#16130f', soft: '#e6e2d8', mid: '#5f584e', ink: '#141414', wash: ['#ebe7de', '#d9d3c6', '#f6f4ef', '#b9b1a2'] },
   sage:    { label: 'Sage',    dark: '#7fd1a0', light: '#2f8a5b', soft: '#d6eedf', mid: '#2f6b4a', ink: '#0b2216', wash: ['#dcefe3', '#b0dcc0', '#f1f8f3', '#86c9a0'] },
 };
+
+// Per-project tones, sampled from each cover so the tray reads as part of the work:
+// HyperSense's Juspay blue, Reconciliation's orange title, Up-skill's teal photos,
+// Attendance's lavender-to-pink wash. Matched against the cover image's file name.
+const PROJECTS = {
+  'hypersense': { label: 'HyperSense', dark: '#6f9bff', light: '#2f63e0', soft: '#d6e2ff', mid: '#2a4fb0', ink: '#0a1638', wash: ['#dfe8ff', '#a8c0ff', '#f1f5ff', '#5b8af0'] },
+  'recon/':     { label: 'Reconciliation', dark: '#ff9a4d', light: '#e8742a', soft: '#ffe0c7', mid: '#b05a1e', ink: '#2b1405', wash: ['#ffe4cf', '#ffbf8f', '#fff4ea', '#f4925a'] },
+  'skilling':   { label: 'Up-skill', dark: '#5cc3ad', light: '#23856f', soft: '#d3efe8', mid: '#226b5c', ink: '#06221c', wash: ['#d8f0ea', '#a3d9cb', '#effaf7', '#5bb39e'] },
+  'attendance': { label: 'Attendance', dark: '#b39cff', light: '#7a5cf0', soft: '#e6ddff', mid: '#5a42b8', ink: '#160f38', wash: ['#ebe3ff', '#f5cde3', '#f8f4ff', '#a58cf5'] },
+};
+const projectOf = el => {
+  const src = el.querySelector('img')?.getAttribute('src') || '';
+  const key = Object.keys(PROJECTS).find(k => src.includes(k));
+  return key ? PROJECTS[key] : null;
+};
+const PROJ_MODES = { off: 'Off', covers: 'Covers', text: 'Covers + text' };
 
 // The lab's letters as recipes: (palette, theme, accent) → [kind, params]
 const R = {
@@ -81,7 +98,7 @@ function heroLayer() {
 
 const rgb = hex => [1, 3, 5].map(i => parseInt(hex.slice(i, i + 2), 16)).join(' ');
 
-const state = { theme: 'dark', acc: 'lime', fx: {} };
+const state = { theme: 'dark', acc: 'lime', proj: 'covers', fx: {} };
 const mounts = {};
 
 function paint() {
@@ -106,17 +123,38 @@ async function apply(zone, letter) {
   (mounts[zone.id] || []).forEach(m => m.dispose());
   mounts[zone.id] = [];
   const els = zone.targets().filter(Boolean);
-  els.forEach(el => { el.classList.remove('fx-on'); el.removeAttribute('data-fx'); });
+  els.forEach(el => { el.classList.remove('fx-on'); el.removeAttribute('data-fx'); el.style.removeProperty('--tray'); });
+  if (zone.id === 'covers') tintMoments();
   state.fx[zone.id] = letter || '';
   if (!letter) return;
-  const t = THEMES[state.theme], p = PALETTES[state.acc];
-  const [kind, params] = R[letter](p, t, t.dark ? p.dark : p.light);
+  const t = THEMES[state.theme];
   for (const el of els) {
+    // covers take their project's tone unless per-project colour is off
+    const p = (zone.id === 'covers' && state.proj !== 'off' && projectOf(el)) || PALETTES[state.acc];
+    const [kind, params] = R[letter](p, t, t.dark ? p.dark : p.light);
+    if (p !== PALETTES[state.acc]) el.style.setProperty('--tray', t.dark ? p.ink : p.wash[2]);
     el.classList.add('fx-on');
     el.dataset.fx = letter;
     try { mounts[zone.id].push(await mountShader(el, kind, params)); }
     catch (err) { console.warn('Shader not mounted', zone.id, letter, err); }
   }
+}
+
+// "Covers + text": each project's sentence, node and button take its own tone too
+function tintMoments() {
+  const t = THEMES[state.theme];
+  document.querySelectorAll('.t-moment').forEach(m => {
+    const media = m.querySelector('.t-media');
+    const p = state.proj === 'text' && media && projectOf(media);
+    if (p) {
+      const a = t.dark ? p.dark : p.light;
+      m.style.setProperty('--accent', a);
+      m.style.setProperty('--acc-rgb', rgb(a));
+    } else {
+      m.style.removeProperty('--accent');
+      m.style.removeProperty('--acc-rgb');
+    }
+  });
 }
 
 // changes run one after another, so quick clicks never leave a stray canvas behind
@@ -129,13 +167,14 @@ function read() {
   const h = new URLSearchParams(location.hash.slice(1));
   if (THEMES[h.get('theme')]) state.theme = h.get('theme');
   if (PALETTES[h.get('acc')]) state.acc = h.get('acc');
+  if (PROJ_MODES[h.get('proj')]) state.proj = h.get('proj');
   const fx = h.get('fx');
   ZONES.forEach(z => { state.fx[z.id] = z.rec; });
   if (fx !== null) fx.split(',').forEach(pair => { const [k, v] = pair.split(':'); if (k in state.fx) state.fx[k] = R[v] ? v : ''; });
 }
 function write() {
   const fx = ZONES.map(z => `${z.id}:${state.fx[z.id] || ''}`).join(',');
-  history.replaceState(null, '', `#theme=${state.theme}&acc=${state.acc}&fx=${fx}`);
+  history.replaceState(null, '', `#theme=${state.theme}&acc=${state.acc}&proj=${state.proj}&fx=${fx}`);
 }
 
 const css = `
@@ -193,8 +232,11 @@ panel.innerHTML = `<div class="fxp-head"><span>Colour + shader preview</span><bu
   <div class="fxp-row" data-group="theme"><span>Theme</span><div class="fxp-opts">
     ${Object.entries(THEMES).map(([k, t]) => `<button type="button" data-v="${k}">${t.label}</button>`).join('')}
   </div></div>
-  <div class="fxp-row fxp-row--sep" data-group="acc"><span>Colour</span><div class="fxp-opts">
+  <div class="fxp-row" data-group="acc"><span>Colour</span><div class="fxp-opts">
     ${Object.entries(PALETTES).map(([k, p]) => `<button type="button" class="fxp-sw" data-v="${k}" title="${p.label}" aria-label="${p.label}"></button>`).join('')}
+  </div></div>
+  <div class="fxp-row fxp-row--sep" data-group="proj"><span>Per project</span><div class="fxp-opts">
+    ${Object.entries(PROJ_MODES).map(([k, l]) => `<button type="button" data-v="${k}">${l}</button>`).join('')}
   </div></div>
   ${ZONES.map(z => `<div class="fxp-row" data-zone="${z.id}"><span>${z.label}</span><div class="fxp-opts">
     <button type="button" data-l="">Off</button>
@@ -207,6 +249,7 @@ document.body.append(panel);
 function sync() {
   const t = THEMES[state.theme];
   panel.querySelectorAll('[data-group="theme"] button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.v === state.theme)));
+  panel.querySelectorAll('[data-group="proj"] button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.v === state.proj)));
   panel.querySelectorAll('[data-group="acc"] button').forEach(b => {
     const p = PALETTES[b.dataset.v];
     b.style.setProperty('--c', t.dark ? p.dark : p.light);
