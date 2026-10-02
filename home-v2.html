@@ -267,6 +267,98 @@
   .t-row { grid-template-columns: 88px minmax(0, 1fr); gap: 16px; padding: 16px 0; }
 }
 
+/* ===== Explorations: off the thread =====
+   The career is a line; side projects are not tied to a role or a date, so they
+   sit apart, on the hero's dot grid, loosely offset like things on a workbench. */
+.x-lab { padding: calc(var(--space-section) / 2) 0; }
+.x-panel {
+  position: relative;
+  padding: clamp(32px, 5vw, 72px);
+  border: 1px solid var(--line);
+  border-radius: var(--r-frame);
+  background-color: #0c0c0c;
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+  background-size: 28px 28px;
+  overflow: hidden;
+}
+/* a faint lime light from the top-left corner, the one hint of the page's motif */
+.x-panel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(60% 50% at 0% 0%, rgba(212, 255, 94, 0.06), transparent 70%);
+  pointer-events: none;
+}
+.x-head { position: relative; display: flex; flex-direction: column; gap: 20px; max-width: 46ch; }
+.x-sub { font-size: var(--t-body); font-weight: 300; line-height: 1.65; color: var(--text-soft); }
+
+.x-items {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(24px, 4vw, 56px);
+  align-items: start;
+  margin-top: clamp(48px, 6vw, 80px);
+}
+.x-item:nth-child(even) { margin-top: clamp(48px, 7vw, 112px); } /* loose, not lined up */
+
+.x-item {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  min-width: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  font: inherit;
+  text-align: left;
+  color: inherit;
+  cursor: pointer;
+}
+.x-item--static { cursor: default; }
+.x-media {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border: 1px solid #222;
+  border-radius: 8px;
+  background: var(--bg-card);
+  box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.8);
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s;
+}
+.x-media img { width: 100%; height: 100%; display: block; object-fit: cover; object-position: top center; }
+.x-media--empty { background-color: #111; }
+.x-item:not(.x-item--static):hover .x-media { transform: translateY(-4px); border-color: #2e2e2e; }
+.x-item:focus-visible { outline: none; }
+.x-item:focus-visible .x-media { outline: 2px solid var(--accent); outline-offset: 4px; }
+
+.x-cap { display: flex; flex-direction: column; gap: 6px; }
+.x-row { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; }
+.x-name { font-size: var(--t-body); font-weight: 500; color: var(--text); transition: color 0.2s; }
+.x-item:not(.x-item--static):hover .x-name { color: var(--accent); }
+.x-tag {
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--text-soft);
+  border: 1px solid rgba(212, 255, 94, 0.18);
+  background: rgba(212, 255, 94, 0.04);
+  border-radius: 100px;
+  padding: 2px 10px;
+}
+.x-line { font-size: var(--t-small); font-weight: 300; line-height: 1.55; color: var(--text-soft); max-width: 46ch; }
+
+@media (max-width: 900px) {
+  .x-items { grid-template-columns: 1fr; gap: 40px; }
+  .x-item:nth-child(even) { margin-top: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .x-media { transition: none; }
+  .x-item:hover .x-media { transform: none; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .h-glow { display: none; }
   .t-rail-fill { animation: none; transform: none; opacity: 0.6; }
@@ -375,36 +467,6 @@
         </div>
       </div>
 
-      <!-- ===== Explorations ===== -->
-      <div class="t-chapter" id="explorations">
-        <div class="t-mark">
-          <span class="t-node t-node--chapter" aria-hidden="true"></span>
-          <h3 class="t-mark-name">Explorations</h3>
-          <span class="t-mark-years">On the side</span>
-        </div>
-        <div class="t-body">
-          <p class="t-role">Design and build</p>
-          <p class="t-story">Ideas I take from a first sketch to something that works, designing and building them myself.</p>
-        </div>
-      </div>
-
-      <div class="t-also">
-        <span class="t-node t-node--small" aria-hidden="true"></span>
-        <div class="t-body">
-          <ul class="t-list">
-            <li><div class="t-row t-row--static">
-              <span class="t-thumb"><img src="assets/holdr-cover.webp" width="1200" height="801" alt="" loading="lazy"></span>
-              <span class="t-row-text"><span class="t-row-name">Holdr <span class="t-row-tag">In progress</span></span><span class="t-row-line">A tracker that keeps a long-term investor's portfolio, market moves and key updates in one place.</span></span>
-            </div></li>
-            <li><button type="button" class="t-row" data-role="Exploration" data-desc="One sentence on what it is and what you were exploring.">
-              <span class="t-thumb t-thumb--empty"></span>
-              <span class="t-row-text"><span class="t-row-name">Exploration name</span><span class="t-row-line">One sentence on what it is and what you were exploring.</span></span>
-              <template class="t-screens"><span class="gl-shot gl-shot--empty"><span class="gl-ph">Screen 1</span></span><span class="gl-shot gl-shot--empty"><span class="gl-ph">Screen 2</span></span></template>
-            </button></li>
-          </ul>
-        </div>
-      </div>
-
       <!-- ===== Go Better ===== -->
       <div class="t-chapter" id="gobetter">
         <div class="t-mark">
@@ -441,6 +503,47 @@
     </div>
   </div>
 </section>
+
+<section id="explorations" class="x-lab">
+  <div class="t-wrap">
+    <div class="x-panel">
+      <header class="x-head">
+        <div class="section-meta">Explorations</div>
+        <h2 class="section-title">Things I build <span class="quiet">on the side.</span></h2>
+        <p class="x-sub">Ideas I take from a first sketch to something that works, designing and building them myself.</p>
+      </header>
+      <div class="x-items">
+        <div class="x-item x-item--static">
+          <span class="x-media"><img src="assets/holdr-cover.webp" width="1200" height="801" alt="Holdr, a personal finance tracker" loading="lazy"></span>
+          <span class="x-cap">
+            <span class="x-row"><span class="x-name">Holdr</span><span class="x-tag">In progress</span></span>
+            <span class="x-line">A tracker that keeps a long-term investor's portfolio, market moves and key updates in one place.</span>
+          </span>
+        </div>
+        <button type="button" class="x-item" data-role="Exploration" data-desc="One sentence on what it is and what you were exploring.">
+          <span class="x-media x-media--empty"><span class="gl-ph">Add screenshot</span></span>
+          <span class="x-cap">
+            <span class="x-row"><span class="x-name">Exploration name</span><span class="x-tag">Status</span></span>
+            <span class="x-line">One sentence on what it is and what you were exploring.</span>
+          </span>
+          <template class="t-screens"><span class="gl-shot gl-shot--empty"><span class="gl-ph">Screen 1</span></span><span class="gl-shot gl-shot--empty"><span class="gl-ph">Screen 2</span></span></template>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<dialog class="gl-dialog" aria-labelledby="gl-dialog-title">
+  <div class="gl-dialog-head">
+    <div>
+      <h3 class="gl-dialog-title" id="gl-dialog-title"></h3>
+      <span class="gl-role gl-dialog-role"></span>
+    </div>
+    <button type="button" class="gl-close" aria-label="Close">Close</button>
+  </div>
+  <p class="gl-dialog-desc"></p>
+  <div class="gl-shots" tabindex="0" aria-label="Screens"></div>
+</dialog>
 
 <section class="section">
   <div class="section-head">
@@ -573,18 +676,6 @@
   </div>
 </section>
 
-<dialog class="gl-dialog" aria-labelledby="gl-dialog-title">
-  <div class="gl-dialog-head">
-    <div>
-      <h3 class="gl-dialog-title" id="gl-dialog-title"></h3>
-      <span class="gl-role gl-dialog-role"></span>
-    </div>
-    <button type="button" class="gl-close" aria-label="Close">Close</button>
-  </div>
-  <p class="gl-dialog-desc"></p>
-  <div class="gl-shots" tabindex="0" aria-label="Screens"></div>
-</dialog>
-
 <footer>
   <div>© 2026 Akhil Male</div>
   <div class="right"><a href="#">Back to top <span class="arr arr--up">↑</span></a></div>
@@ -613,29 +704,6 @@ document.querySelectorAll('[data-track]').forEach(el => {
   });
 });
 
-// Glimpses: a tile opens the shared lightbox with its screens
-(function() {
-  const dlg = document.querySelector('.gl-dialog');
-  if (!dlg || typeof dlg.showModal !== 'function') return;
-  const title = dlg.querySelector('.gl-dialog-title');
-  const role = dlg.querySelector('.gl-dialog-role');
-  const desc = dlg.querySelector('.gl-dialog-desc');
-  const shots = dlg.querySelector('.gl-shots');
-  document.querySelectorAll('button.gl-tile, button.h-tile').forEach(tile => {
-    tile.addEventListener('click', () => {
-      title.textContent = tile.querySelector('.gl-name').textContent;
-      role.textContent = tile.querySelector('.gl-role').textContent;
-      desc.textContent = tile.querySelector('.gl-desc').textContent;
-      shots.replaceChildren(tile.querySelector('.gl-screens').content.cloneNode(true));
-      shots.scrollLeft = 0;
-      dlg.showModal();
-    });
-  });
-  dlg.querySelector('.gl-close').addEventListener('click', () => dlg.close());
-  // Click on the backdrop (outside the panel) closes it
-  dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); });
-})();
-
 // Life album: auto-scrolling carousel (duplicate the card set for a seamless loop)
 (function() {
   const track = document.getElementById('life-track');
@@ -650,7 +718,7 @@ document.querySelectorAll('[data-track]').forEach(el => {
 
 // Scroll reveals: sections fade up, life deck fades in
 (function() {
-  document.querySelectorAll('.section:not(#selected-work) .section-head, .t-line, .t-media, .t-also .t-list, .t-story, .about-act, .life-bridge, .contact')
+  document.querySelectorAll('.section:not(#selected-work) .section-head, .t-line, .t-media, .t-also .t-list, .t-story, .x-panel, .about-act, .life-bridge, .contact')
     .forEach(el => el.classList.add('reveal'));
   const targets = document.querySelectorAll('.life-strip, .reveal');
   if (!targets.length) return;
@@ -705,9 +773,9 @@ console.log('%cIf you got this far, you\'re probably my kind of person. → akhi
 (function() {
   const dlg = document.querySelector('.gl-dialog');
   if (!dlg || typeof dlg.showModal !== 'function') return;
-  document.querySelectorAll('button.t-row').forEach(row => {
+  document.querySelectorAll('button.t-row, button.x-item').forEach(row => {
     row.addEventListener('click', () => {
-      dlg.querySelector('.gl-dialog-title').textContent = row.querySelector('.t-row-name').textContent.trim();
+      dlg.querySelector('.gl-dialog-title').textContent = row.querySelector('.t-row-name, .x-name').textContent.trim();
       dlg.querySelector('.gl-dialog-role').textContent = row.dataset.role || '';
       dlg.querySelector('.gl-dialog-desc').textContent = row.dataset.desc || '';
       const shots = dlg.querySelector('.gl-shots');
@@ -716,6 +784,14 @@ console.log('%cIf you got this far, you\'re probably my kind of person. → akhi
       dlg.showModal();
     });
   });
+})();
+
+// Lightbox: close button and backdrop click
+(function() {
+  const dlg = document.querySelector('.gl-dialog');
+  if (!dlg) return;
+  dlg.querySelector('.gl-close').addEventListener('click', () => dlg.close());
+  dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); });
 })();
 
 </script>
