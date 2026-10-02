@@ -464,29 +464,61 @@
   .x-item:hover .x-media { transform: none; }
 }
 
-/* ===== About: a little Figma canvas =====
-   The portrait is a selected frame on a dot-grid canvas, with a stakeholder comment
-   and an inspector panel of real facts. Hovering the canvas swaps to the candid
-   photo and resolves the comment. Lime is the selection colour. */
-.ab {
-  display: grid;
-  grid-template-columns: minmax(0, 6fr) minmax(0, 6fr);
-  gap: clamp(40px, 6vw, 96px);
-  align-items: start;
-}
-.ab-key { color: var(--accent); font-weight: 500; }
-
-.ab-canvas {
-  position: relative;
-  padding: clamp(64px, 7vw, 96px) clamp(32px, 5vw, 72px) clamp(96px, 10vw, 136px);
-  border: 1px solid var(--line);
-  border-radius: var(--r-frame);
-  background-color: #0c0c0c;
+/* ===== About: the whole section as one full-bleed design canvas =====
+   The dot grid runs edge to edge and fades in and out at the top and bottom, so the
+   reader scrolls onto a canvas. On it: the story (a text layer), the selected
+   portrait with a PM comment and an inspector, and a tidy grid of life photos that
+   can be dragged on desktop and tidied back up. Lime is the selection colour. */
+.fig-section { padding: calc(var(--space-section) / 2) 0; }
+.fig { position: relative; }
+.fig::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
   background-image: radial-gradient(circle, rgba(255, 255, 255, 0.07) 1px, transparent 1px);
   background-size: 24px 24px;
+  -webkit-mask-image: linear-gradient(to bottom, transparent, black 12%, black 88%, transparent);
+  mask-image: linear-gradient(to bottom, transparent, black 12%, black 88%, transparent);
+  pointer-events: none;
+}
+.fig-canvas { position: relative; padding-top: clamp(72px, 8vw, 120px); padding-bottom: clamp(72px, 8vw, 120px); }
+.fig-top {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 440px);
+  gap: clamp(40px, 5vw, 80px);
+  align-items: start;
 }
 
-/* Selected frame */
+/* Text layers: outlined on hover, like an object on a canvas */
+.fig-title { margin-bottom: clamp(28px, 3vw, 40px); }
+.fig-text { position: relative; padding: 14px 16px; margin: 0 -16px; }
+.fig-text::after,
+.fig-shot::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 1px solid transparent;
+  pointer-events: none;
+  transition: border-color 0.2s ease;
+}
+.fig-text:hover::after { border-color: rgba(212, 255, 94, 0.6); }
+.fig-label {
+  position: absolute;
+  top: -10px;
+  left: 16px;
+  font-family: 'Geist Mono', monospace;
+  font-size: 10.5px;
+  color: var(--accent);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+.fig-text:hover .fig-label { opacity: 1; }
+.fig-text .about-prose { font-size: var(--t-body); }
+.ab-key { color: var(--accent); font-weight: 500; }
+
+/* Portrait: the selected frame */
+.fig-art { position: relative; padding: 48px 0 72px; }
 .ab-frame {
   position: relative;
   width: min(100%, 300px);
@@ -494,8 +526,8 @@
   transform: rotate(-2deg);
   transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
-.ab-canvas:hover .ab-frame { transform: rotate(0deg); }
-.ab-frame::after {           /* selection outline */
+.fig-art:hover .ab-frame { transform: rotate(0deg); }
+.ab-frame::after {
   content: '';
   position: absolute;
   inset: -1px;
@@ -516,8 +548,8 @@
 .ab-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top center; }
 .ab-img-a { filter: grayscale(100%); transition: opacity 0.5s ease; z-index: 1; }
 .ab-img-b { opacity: 0; transition: opacity 0.5s ease; }
-.ab-canvas:hover .ab-img-a { opacity: 0; }
-.ab-canvas:hover .ab-img-b { opacity: 1; }
+.fig-art:hover .ab-img-a { opacity: 0; }
+.fig-art:hover .ab-img-b { opacity: 1; }
 .ab-handle {
   position: absolute;
   z-index: 2;
@@ -530,26 +562,12 @@
 .ab-handle--tr { top: -5px; right: -5px; }
 .ab-handle--bl { bottom: -5px; left: -5px; }
 .ab-handle--br { bottom: -5px; right: -5px; }
-.ab-size {
-  position: absolute;
-  left: 50%;
-  bottom: -30px;
-  transform: translateX(-50%);
-  padding: 2px 6px;
-  border-radius: 4px;
-  background: var(--accent);
-  color: #0a0a0a;
-  font-family: 'Geist Mono', monospace;
-  font-size: 10.5px;
-  white-space: nowrap;
-}
-
-/* Stakeholder comment */
+/* PM comment */
 .ab-comment {
   position: absolute;
-  z-index: 3;
-  top: clamp(36px, 4vw, 52px);
-  right: clamp(16px, 3vw, 40px);
+  z-index: 4;
+  top: 8px;
+  right: -8px;
   display: flex;
   align-items: flex-start;
   gap: 8px;
@@ -580,8 +598,8 @@
 }
 .ab-say { grid-area: 1 / 1; transition: opacity 0.35s ease; }
 .ab-say--after { opacity: 0; color: var(--text-soft); }
-.ab-canvas:hover .ab-say--before { opacity: 0; }
-.ab-canvas:hover .ab-say--after { opacity: 1; }
+.fig-art:hover .ab-say--before { opacity: 0; }
+.fig-art:hover .ab-say--after { opacity: 1; }
 .ab-resolved {
   display: inline-block;
   margin-left: 4px;
@@ -591,12 +609,12 @@
   color: var(--accent);
 }
 
-/* Inspector panel */
+/* Inspector: floats over the frame, shows whatever is pointed at */
 .ab-inspect {
   position: absolute;
-  z-index: 3;
-  left: clamp(-40px, -2.5vw, -16px);
-  bottom: clamp(24px, 3vw, 40px);
+  z-index: 4;
+  left: -32px;
+  bottom: 0;
   width: 264px;
   padding: 4px 0 8px;
   border: 1px solid #262626;
@@ -609,12 +627,13 @@
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  padding: 10px 14px 10px;
-  margin-bottom: 4px;
+  gap: 12px;
+  padding: 10px 14px;
   border-bottom: 1px solid #222;
   font-weight: 500;
   color: var(--text);
 }
+.fig-sel-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .ab-inspect-type { font-family: 'Geist Mono', monospace; font-size: 10.5px; font-weight: 400; color: var(--text-muted); }
 .ab-row { display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 10px; padding: 5px 14px; }
 .ab-row dt { color: var(--text-muted); }
@@ -630,16 +649,109 @@
 }
 .ab-pct { margin-left: 6px; font-family: 'Geist Mono', monospace; font-size: 11px; color: var(--accent); }
 
+/* Photos: a tidy grid of upright frames, like frames laid out on a Figma page */
+.fig-board {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 40px 20px;
+  margin-top: clamp(80px, 9vw, 128px);
+}
+.fig-shot {
+  position: relative;
+  margin: 0;
+  z-index: 1;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+}
+.fig-shot img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  border-radius: 4px;
+  pointer-events: none;
+  transition: box-shadow 0.25s ease;
+}
+.fig-shot::after { inset: 19px -4px -4px; border-radius: 6px; }
+.fig-shot:hover::after,
+.fig-shot.is-dragging::after { border-color: var(--accent); }
+.fig-shot-label {
+  display: block;
+  height: 20px;
+  font-family: 'Geist Mono', monospace;
+  font-size: 10px;
+  color: var(--accent);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+.fig-shot:hover .fig-shot-label,
+.fig-shot.is-dragging .fig-shot-label { opacity: 1; }
+.fig-shot.is-dragging { cursor: grabbing; }
+.fig-shot.is-dragging img { box-shadow: 0 30px 60px -16px rgba(0, 0, 0, 0.9); }
+.fig-board.is-tidying .fig-shot { transition: translate 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
+
+/* "Tidy up": appears once something has been moved, snaps the grid back */
+.fig-tidy {
+  position: absolute;
+  top: -52px;
+  right: 0;
+  height: 32px;
+  padding: 0 14px;
+  border: 1px solid #2a2a2a;
+  border-radius: 100px;
+  background: #121212;
+  color: var(--text-soft);
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+}
+.fig-tidy:hover { color: var(--accent); border-color: rgba(212, 255, 94, 0.45); }
+
+/* Sticky note: stuck over the grid's top-left corner */
+.fig-sticky {
+  position: absolute;
+  z-index: 3;
+  top: -118px;
+  left: -12px;
+  width: 210px;
+  rotate: -4deg;
+  padding: 16px 16px 18px;
+  border-radius: 4px;
+  background: #e9f7b6;
+  color: #1c2410;
+  font-size: 14px;
+  line-height: 1.45;
+  box-shadow: 0 18px 36px -14px rgba(0, 0, 0, 0.7);
+}
+.fig-sticky-hint { margin-top: 8px; font-size: 12px; color: #4a5a24; }
+@media (hover: none), (pointer: coarse) {
+  .fig-sticky-hint { display: none; }
+  .fig-shot { cursor: default; touch-action: auto; }
+}
+
 @media (max-width: 900px) {
-  .ab { grid-template-columns: 1fr; gap: 48px; }
-  .ab-canvas { padding: 64px 24px 32px; }
+  .fig-top { grid-template-columns: 1fr; gap: 32px; }
+  .fig-art { padding: 48px 0 0; }
   .ab-frame { width: min(100%, 240px); }
-  .ab-comment { top: 20px; right: 16px; }
+  .ab-comment { top: 12px; right: 0; }
   .ab-bubble { max-width: 150px; font-size: 12px; }
-  .ab-inspect { position: static; width: auto; margin-top: 64px; }
+  .ab-inspect { position: static; width: auto; margin-top: 56px; }
+  .fig-board { grid-template-columns: 1fr 1fr; gap: 24px 16px; margin-top: 64px; }
+  .fig-sticky { position: relative; top: auto; left: auto; grid-column: 1 / -1; width: 80%; justify-self: center; margin-bottom: 8px; }
+  .fig-shot { translate: none !important; }
+  .fig-shot-label { opacity: 1; color: var(--text-muted); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .ab-frame, .ab-img-a, .ab-img-b, .ab-say { transition: none; }
+  .ab-frame, .ab-img-a, .ab-img-b, .ab-say, .fig-label, .fig-text::after, .fig-shot::after, .fig-shot-label { transition: none; }
+  .fig-board.is-tidying .fig-shot { transition: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -851,137 +963,126 @@
   <div class="gl-shots" tabindex="0" aria-label="Screens"></div>
 </dialog>
 
-<section class="section">
-  <div class="section-head">
-    <div class="section-head-main">
-      <h2 class="section-title">The story so <span class="quiet">far.</span></h2>
-    </div>
-  </div>
+<section id="about" class="fig-section">
+  <div class="fig-bleed">
+    <!-- The About section as one full-bleed design canvas: the story, the selected
+         portrait (with a PM comment and an inspector), and a tidy grid of life photos
+         you can drag around on desktop and tidy back up. -->
+    <div class="fig">
+      <div class="fig-canvas t-wrap">
+        <div class="fig-top">
+          <div class="fig-story">
+            <h2 class="section-title fig-title">The story so <span class="quiet">far.</span></h2>
+            <div class="fig-text" data-name="story.txt" data-type="Text">
+              <span class="fig-label" aria-hidden="true">T &nbsp;story.txt</span>
+              <div class="about-prose">
+                <p>I'm a Product Designer at Juspay, where I work on enterprise payment products. My work revolves around simplifying complex workflows and building experiences that help people make better decisions.</p>
+                <p>Over the last few years, I've worked across workforce-tech and fintech, designing products for both frontline workers and enterprise teams. While the domains have changed, the challenge has remained the same: <span class="ab-key">turning complexity into clarity</span>.</p>
+                <p>I've always been curious about how things work. That curiosity is what led me to design, and it continues to shape how I approach problems today.</p>
+                <p>Outside of work, you'll usually find me exploring new places, spending time in the hills, trying out new recipes, visiting galleries, or occasionally chasing a bit of adrenaline on a racetrack. More recently, I've also been spending time building a few things of my own.</p>
+              </div>
+            </div>
+          </div>
 
-  <div class="ab">
-    <div class="ab-copy about-prose">
-      <p>I'm a Product Designer at Juspay, where I work on enterprise payment products. My work revolves around simplifying complex workflows and building experiences that help people make better decisions.</p>
-      <p>Over the last few years, I've worked across workforce-tech and fintech, designing products for both frontline workers and enterprise teams. While the domains have changed, the challenge has remained the same: <span class="ab-key">turning complexity into clarity</span>.</p>
-      <p>I've always been curious about how things work. That curiosity is what led me to design, and it continues to shape how I approach problems today.</p>
-      <p>Outside of work, you'll usually find me exploring new places, spending time in the hills, trying out new recipes, visiting galleries, or occasionally chasing a bit of adrenaline on a racetrack. More recently, I've also been spending time building a few things of my own.</p>
-    </div>
+          <div class="fig-art">
+            <figure class="ab-frame" data-name="akhil.png" data-type="Frame">
+              <figcaption class="ab-frame-name"><span aria-hidden="true">#</span> akhil.png</figcaption>
+              <div class="ab-photo">
+                <img class="ab-img-a" loading="lazy" src="assets/akhil.webp" width="800" height="1067" alt="Akhil Male">
+                <img class="ab-img-b" loading="lazy" src="assets/akhil-hover.webp" width="800" height="1000" alt="Akhil Male, candid" aria-hidden="true">
+              </div>
+              <span class="ab-handle ab-handle--tl" aria-hidden="true"></span>
+              <span class="ab-handle ab-handle--tr" aria-hidden="true"></span>
+              <span class="ab-handle ab-handle--bl" aria-hidden="true"></span>
+              <span class="ab-handle ab-handle--br" aria-hidden="true"></span>
+            </figure>
 
-    <!-- A little Figma canvas: the portrait is a selected frame, with a stakeholder comment
-         and an inspector panel of real facts. Hovering the canvas swaps to the candid photo
-         and resolves the comment. -->
-    <div class="ab-canvas">
-      <figure class="ab-frame">
-        <figcaption class="ab-frame-name"><span aria-hidden="true">#</span> akhil.png</figcaption>
-        <div class="ab-photo">
-          <img class="ab-img-a" loading="lazy" src="assets/akhil.webp" width="800" height="1067" alt="Akhil Male">
-          <img class="ab-img-b" loading="lazy" src="assets/akhil-hover.webp" width="800" height="1000" alt="Akhil Male, candid" aria-hidden="true">
+            <div class="ab-comment" aria-hidden="true">
+              <span class="ab-pin">PM</span>
+              <span class="ab-bubble">
+                <span class="ab-say ab-say--before">Can we make him pop a bit more?</span>
+                <span class="ab-say ab-say--after">Better. Ship it. <span class="ab-resolved">Resolved</span></span>
+              </span>
+            </div>
+
+            <dl class="ab-inspect">
+              <div class="ab-inspect-head"><span class="fig-sel-name">akhil.png</span><span class="ab-inspect-type fig-sel-type">Frame</span></div>
+              <div class="ab-row"><dt>Layer</dt><dd>Product Designer, Juspay</dd></div>
+              <div class="ab-row"><dt>Position</dt><dd>Bengaluru, UTC +5:30</dd></div>
+              <div class="ab-row"><dt>Fill</dt><dd><span class="ab-swatch" aria-hidden="true"></span>Hills, recipes, galleries, racetracks</dd></div>
+              <div class="ab-row"><dt>Effects</dt><dd>Curiosity <span class="ab-pct">100%</span></dd></div>
+            </dl>
+          </div>
         </div>
-        <span class="ab-handle ab-handle--tl" aria-hidden="true"></span>
-        <span class="ab-handle ab-handle--tr" aria-hidden="true"></span>
-        <span class="ab-handle ab-handle--bl" aria-hidden="true"></span>
-        <span class="ab-handle ab-handle--br" aria-hidden="true"></span>
-        <span class="ab-size" aria-hidden="true">320 × 400</span>
-      </figure>
 
-      <div class="ab-comment" aria-hidden="true">
-        <span class="ab-pin">PM</span>
-        <span class="ab-bubble">
-          <span class="ab-say ab-say--before">Can we make him pop a bit more?</span>
-          <span class="ab-say ab-say--after">Better. Ship it. <span class="ab-resolved">Resolved</span></span>
-        </span>
+        <div class="fig-board" aria-label="Photos from life outside work">
+          <button type="button" class="fig-tidy" hidden>Tidy up</button>
+          <div class="fig-sticky">
+            <p>Frames from outside the canvas. Couldn't resist bringing them in.</p>
+            <p class="fig-sticky-hint">Go on, drag them around.</p>
+          </div>
+          <figure class="fig-shot" data-name="track-day.jpg" data-type="Image">
+            <figcaption class="fig-shot-label">track-day.jpg</figcaption>
+            <img src="assets/life/life-12.webp" width="480" height="640" alt="Track day" loading="lazy" draggable="false">
+          </figure>
+          <figure class="fig-shot" data-name="into-the-hills.jpg" data-type="Image">
+            <figcaption class="fig-shot-label">into-the-hills.jpg</figcaption>
+            <img src="assets/life/life-9.webp" width="480" height="640" alt="Into the hills" loading="lazy" draggable="false">
+          </figure>
+          <figure class="fig-shot" data-name="go-karts.jpg" data-type="Image">
+            <figcaption class="fig-shot-label">go-karts.jpg</figcaption>
+            <img src="assets/life/life-6.webp" width="480" height="640" alt="A go-kart track and a flying bicycle" loading="lazy" draggable="false">
+          </figure>
+          <figure class="fig-shot" data-name="somewhere-new.jpg" data-type="Image">
+            <figcaption class="fig-shot-label">somewhere-new.jpg</figcaption>
+            <img src="assets/life/life-1.webp" width="480" height="640" alt="Exploring somewhere new" loading="lazy" draggable="false">
+          </figure>
+          <figure class="fig-shot" data-name="sunrise.jpg" data-type="Image">
+            <figcaption class="fig-shot-label">sunrise.jpg</figcaption>
+            <img src="assets/life/life-13.webp" width="480" height="640" alt="Sunrise over the waves" loading="lazy" draggable="false">
+          </figure>
+          <figure class="fig-shot" data-name="the-courts.jpg" data-type="Image">
+            <figcaption class="fig-shot-label">the-courts.jpg</figcaption>
+            <img src="assets/life/life-4.webp" width="480" height="640" alt="Evening on the courts" loading="lazy" draggable="false">
+          </figure>
+          <figure class="fig-shot" data-name="coastal-skies.jpg" data-type="Image">
+            <figcaption class="fig-shot-label">coastal-skies.jpg</figcaption>
+            <img src="assets/life/life-2.webp" width="480" height="640" alt="Coastal skies before the rain" loading="lazy" draggable="false">
+          </figure>
+          <figure class="fig-shot" data-name="gallery-day.jpg" data-type="Image">
+            <figcaption class="fig-shot-label">gallery-day.jpg</figcaption>
+            <img src="assets/life/life-10.webp" width="480" height="640" alt="Abstract paintings in a gallery" loading="lazy" draggable="false">
+          </figure>
+          <figure class="fig-shot" data-name="low-tide.jpg" data-type="Image">
+            <figcaption class="fig-shot-label">low-tide.jpg</figcaption>
+            <img src="assets/life/life-8.webp" width="480" height="640" alt="Low tide at the beach" loading="lazy" draggable="false">
+          </figure>
+          <figure class="fig-shot" data-name="bengaluru-evenings.jpg" data-type="Image">
+            <figcaption class="fig-shot-label">bengaluru-evenings.jpg</figcaption>
+            <img src="assets/life/life-3.webp" width="480" height="640" alt="Evenings in Bengaluru" loading="lazy" draggable="false">
+          </figure>
+          <figure class="fig-shot" data-name="higher-ground.jpg" data-type="Image">
+            <figcaption class="fig-shot-label">higher-ground.jpg</figcaption>
+            <img src="assets/life/life-11.webp" width="480" height="640" alt="Higher ground, moody skies" loading="lazy" draggable="false">
+          </figure>
+          <figure class="fig-shot" data-name="backpacking.jpg" data-type="Image">
+            <figcaption class="fig-shot-label">backpacking.jpg</figcaption>
+            <img src="assets/life/life-5.webp" width="480" height="640" alt="Backpacking somewhere new" loading="lazy" draggable="false">
+          </figure>
+          <figure class="fig-shot" data-name="coffee.jpg" data-type="Image">
+            <figcaption class="fig-shot-label">coffee.jpg</figcaption>
+            <img src="assets/life/life-7.webp" width="480" height="640" alt="Coffee and conversation" loading="lazy" draggable="false">
+          </figure>
+          <figure class="fig-shot" data-name="off-the-grid.jpg" data-type="Image">
+            <figcaption class="fig-shot-label">off-the-grid.jpg</figcaption>
+            <img src="assets/life/life-14.webp" width="480" height="640" alt="Off the grid" loading="lazy" draggable="false">
+          </figure>
+        </div>
       </div>
-
-      <dl class="ab-inspect">
-        <div class="ab-inspect-head"><span>Akhil Male</span><span class="ab-inspect-type">Frame</span></div>
-        <div class="ab-row"><dt>Layer</dt><dd>Product Designer, Juspay</dd></div>
-        <div class="ab-row"><dt>Position</dt><dd>Bengaluru, UTC +5:30</dd></div>
-        <div class="ab-row"><dt>Fill</dt><dd><span class="ab-swatch" aria-hidden="true"></span>Hills, recipes, galleries, racetracks</dd></div>
-        <div class="ab-row"><dt>Text</dt><dd>English, Telugu, Hindi</dd></div>
-        <div class="ab-row"><dt>Plugins</dt><dd>Figma, Cursor, Claude Code, pen + paper</dd></div>
-        <div class="ab-row"><dt>Effects</dt><dd>Curiosity <span class="ab-pct">100%</span></dd></div>
-      </dl>
-    </div>
-  </div>
-
-  <p class="life-bridge">…and a few frames from outside the canvas.</p>
-
-  <div class="life-strip" aria-label="Photos from life outside work">
-    <div class="life-track" id="life-track">
-    <div class="life-set">
-      <figure class="life-card" style="--r:-4deg">
-        <div class="life-inner">
-          <div class="life-img"><img src="assets/life/life-1.webp" width="480" height="640" alt="Exploring somewhere new" loading="lazy" onerror="this.closest('.life-card').classList.add('is-empty')"></div>
-        </div>
-      </figure>
-      <figure class="life-card" style="--r:3deg">
-        <div class="life-inner">
-          <div class="life-img"><img src="assets/life/life-2.webp" width="480" height="640" alt="Coastal skies before the rain" loading="lazy" onerror="this.closest('.life-card').classList.add('is-empty')"></div>
-        </div>
-      </figure>
-      <figure class="life-card" style="--r:-2deg">
-        <div class="life-inner">
-          <div class="life-img"><img src="assets/life/life-3.webp" width="480" height="640" alt="Evenings in Bengaluru" loading="lazy" onerror="this.closest('.life-card').classList.add('is-empty')"></div>
-        </div>
-      </figure>
-      <figure class="life-card" style="--r:4deg">
-        <div class="life-inner">
-          <div class="life-img"><img src="assets/life/life-4.webp" width="480" height="640" alt="Evening on the courts" loading="lazy" onerror="this.closest('.life-card').classList.add('is-empty')"></div>
-        </div>
-      </figure>
-      <figure class="life-card" style="--r:-3deg">
-        <div class="life-inner">
-          <div class="life-img"><img src="assets/life/life-5.webp" width="480" height="640" alt="Backpacking somewhere new" loading="lazy" onerror="this.closest('.life-card').classList.add('is-empty')"></div>
-        </div>
-      </figure>
-      <figure class="life-card" style="--r:2deg">
-        <div class="life-inner">
-          <div class="life-img"><img src="assets/life/life-6.webp" width="480" height="640" alt="A go-kart track and a flying bicycle" loading="lazy" onerror="this.closest('.life-card').classList.add('is-empty')"></div>
-        </div>
-      </figure>
-      <figure class="life-card" style="--r:-4deg">
-        <div class="life-inner">
-          <div class="life-img"><img src="assets/life/life-7.webp" width="480" height="640" alt="Coffee and conversation" loading="lazy" onerror="this.closest('.life-card').classList.add('is-empty')"></div>
-        </div>
-      </figure>
-      <figure class="life-card" style="--r:3deg">
-        <div class="life-inner">
-          <div class="life-img"><img src="assets/life/life-8.webp" width="480" height="640" alt="Low tide at the beach" loading="lazy" onerror="this.closest('.life-card').classList.add('is-empty')"></div>
-        </div>
-      </figure>
-      <figure class="life-card" style="--r:-2deg">
-        <div class="life-inner">
-          <div class="life-img"><img src="assets/life/life-9.webp" width="480" height="640" alt="Into the hills" loading="lazy" onerror="this.closest('.life-card').classList.add('is-empty')"></div>
-        </div>
-      </figure>
-      <figure class="life-card" style="--r:4deg">
-        <div class="life-inner">
-          <div class="life-img"><img src="assets/life/life-10.webp" width="480" height="640" alt="Abstract paintings in a gallery" loading="lazy" onerror="this.closest('.life-card').classList.add('is-empty')"></div>
-        </div>
-      </figure>
-      <figure class="life-card" style="--r:-3deg">
-        <div class="life-inner">
-          <div class="life-img"><img src="assets/life/life-11.webp" width="480" height="640" alt="Higher ground, moody skies" loading="lazy" onerror="this.closest('.life-card').classList.add('is-empty')"></div>
-        </div>
-      </figure>
-      <figure class="life-card" style="--r:2deg">
-        <div class="life-inner">
-          <div class="life-img"><img src="assets/life/life-12.webp" width="480" height="640" alt="Track day" loading="lazy" onerror="this.closest('.life-card').classList.add('is-empty')"></div>
-        </div>
-      </figure>
-      <figure class="life-card" style="--r:-4deg">
-        <div class="life-inner">
-          <div class="life-img"><img src="assets/life/life-13.webp" width="480" height="640" alt="Sunrise over the waves" loading="lazy" onerror="this.closest('.life-card').classList.add('is-empty')"></div>
-        </div>
-      </figure>
-      <figure class="life-card" style="--r:3deg">
-        <div class="life-inner">
-          <div class="life-img"><img src="assets/life/life-14.webp" width="480" height="640" alt="Off the grid" loading="lazy" onerror="this.closest('.life-card').classList.add('is-empty')"></div>
-        </div>
-      </figure>
-    </div>
     </div>
   </div>
 </section>
+
 
 <section class="contact">
   <div class="cl-rule" aria-hidden="true"></div>
@@ -1046,7 +1147,7 @@ document.querySelectorAll('[data-track]').forEach(el => {
 
 // Scroll reveals: sections fade up, life deck fades in
 (function() {
-  document.querySelectorAll('.section:not(#selected-work) .section-head, .t-line, .t-also .t-list, .t-story, .x-panel, .ab-copy, .ab-canvas, .life-bridge, .contact')
+  document.querySelectorAll('.section:not(#selected-work) .section-head, .t-line, .t-also .t-list, .t-story, .x-panel, .fig, .contact')
     .forEach(el => el.classList.add('reveal'));
   const targets = document.querySelectorAll('.life-strip, .reveal');
   if (!targets.length) return;
@@ -1136,6 +1237,58 @@ console.log('%cIf you got this far, you\'re probably my kind of person. → akhi
   if (!dlg) return;
   dlg.querySelector('.gl-close').addEventListener('click', () => dlg.close());
   dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); });
+})();
+
+// About canvas: the inspector's title follows what is pointed at; photos drag on
+// desktop, and "Tidy up" snaps them back into the grid
+(function() {
+  const canvas = document.querySelector('.fig-canvas');
+  if (!canvas) return;
+  const portrait = canvas.querySelector('.ab-frame');
+  const board = canvas.querySelector('.fig-board');
+  const name = canvas.querySelector('.fig-sel-name');
+  const type = canvas.querySelector('.fig-sel-type');
+  const show = el => { name.textContent = el.dataset.name; type.textContent = el.dataset.type; };
+  canvas.querySelectorAll('.ab-frame, .fig-text, .fig-shot').forEach(el => el.addEventListener('pointerenter', () => show(el)));
+  canvas.addEventListener('pointerleave', () => show(portrait));
+
+  // Dragging: desktop pointers only, so touch scrolling is never trapped
+  if (!board || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+  const tidy = board.querySelector('.fig-tidy');
+  const shots = board.querySelectorAll('.fig-shot');
+  let top = 10;
+  shots.forEach(shot => {
+    let start = null;
+    shot.addEventListener('pointerdown', e => {
+      if (e.button !== 0) return;
+      board.classList.remove('is-tidying');
+      const [tx, ty] = (shot.style.translate || '0px 0px').split(' ').map(parseFloat);
+      start = { px: e.clientX, py: e.clientY, tx: tx || 0, ty: ty || 0 };
+      shot.setPointerCapture(e.pointerId);
+      shot.classList.add('is-dragging');
+      shot.style.zIndex = ++top;
+    });
+    shot.addEventListener('pointermove', e => {
+      if (!start) return;
+      // keep the photo inside the canvas, with room to roam above and below the grid
+      const c = canvas.getBoundingClientRect(), r = shot.getBoundingClientRect();
+      const baseL = r.left - c.left - (parseFloat(shot.style.translate) || 0);
+      const baseT = r.top - c.top - (parseFloat((shot.style.translate || '0 0').split(' ')[1]) || 0);
+      let nx = start.tx + e.clientX - start.px, ny = start.ty + e.clientY - start.py;
+      nx = Math.max(-baseL, Math.min(c.width - baseL - r.width, nx));
+      ny = Math.max(-baseT, Math.min(c.height - baseT - r.height, ny));
+      shot.style.translate = `${nx}px ${ny}px`;
+      tidy.hidden = false;
+    });
+    const end = () => { start = null; shot.classList.remove('is-dragging'); };
+    shot.addEventListener('pointerup', end);
+    shot.addEventListener('pointercancel', end);
+  });
+  tidy.addEventListener('click', () => {
+    board.classList.add('is-tidying');
+    shots.forEach(s => { s.style.translate = ''; });
+    tidy.hidden = true;
+  });
 })();
 
 </script>
