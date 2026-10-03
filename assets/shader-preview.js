@@ -93,7 +93,10 @@ const remountAll = async () => { for (const z of ZONES) await apply(z, state.fx[
 // state lives in the hash: #theme=paper&acc=ember&fx=hero:H,covers:A,...
 function read() {
   // the hash wins; without one, pick up whatever was last chosen (here or inside a case study)
-  const h = location.hash.length > 1 ? new URLSearchParams(location.hash.slice(1)) : new URLSearchParams(loadShared().home || '');
+  const shared = loadShared();
+  const h = location.hash.length > 1 ? new URLSearchParams(location.hash.slice(1)) : new URLSearchParams(shared.home || '');
+  // a theme or colour changed inside a case study or the resume is newer than the saved hash
+  if (location.hash.length <= 1) ['theme', 'acc', 'proj'].forEach(k => { if (shared[k]) h.set(k, shared[k]); });
   if (THEMES[h.get('theme')]) state.theme = h.get('theme');
   if (PALETTES[h.get('acc')]) state.acc = h.get('acc');
   if (PROJ_MODES[h.get('proj')]) state.proj = h.get('proj');
