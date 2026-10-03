@@ -29,11 +29,20 @@ function heroLayer() {
 }
 
 
-const state = { theme: 'dark', acc: 'lime', proj: 'covers', fx: {} };
+
+
+const state = { theme: 'dark', acc: 'lime', proj: 'covers', spread: 1.4, fx: {} };
+// Hero glow: the shader's own zoom, plus a fixed turn and shift for the corner glow
+// (H). Measured over its full motion cycle, the original placement put light up to
+// ~125/255 behind the headline; turned -10° and moved right 0.45 / up 0.25 (zoom 1.4),
+// the headline peaks at 9–16 at 1280–1440px wide while the corner light stays.
+const HERO_PLACE = { H: { rotation: -10, offsetX: 0.45, offsetY: 0.25 } };
+const SPREADS = ['H', 'M'];
 const mounts = {};
 
 function paint() {
   paintTheme(state.theme, PALETTES[state.acc]);
+  document.documentElement.dataset.fxAcc = state.acc;
 }
 
 async function apply(zone, letter) {
@@ -48,7 +57,8 @@ async function apply(zone, letter) {
   for (const el of els) {
     // covers take their project's tone unless per-project colour is off
     const p = (zone.id === 'covers' && state.proj !== 'off' && projectOf(el)) || PALETTES[state.acc];
-    const [kind, params] = R[letter](p, t, t.dark ? p.dark : p.light);
+    const [kind, base] = R[letter](p, t, t.dark ? p.dark : p.light);
+    const params = zone.id === 'hero' && SPREADS.includes(letter) ? { ...base, ...HERO_PLACE[letter], scale: state.spread } : base;
     if (p !== PALETTES[state.acc]) el.style.setProperty('--tray', t.dark ? p.ink : p.wash[2]);
     el.classList.add('fx-on');
     el.dataset.fx = letter;
@@ -67,7 +77,9 @@ function tintMoments() {
       const a = t.dark ? p.dark : p.light;
       m.style.setProperty('--accent', a);
       m.style.setProperty('--acc-rgb', rgb(a));
+      m.dataset.tinted = '';
     } else {
+      delete m.dataset.tinted;
       m.style.removeProperty('--accent');
       m.style.removeProperty('--acc-rgb');
     }
@@ -86,13 +98,15 @@ function read() {
   if (THEMES[h.get('theme')]) state.theme = h.get('theme');
   if (PALETTES[h.get('acc')]) state.acc = h.get('acc');
   if (PROJ_MODES[h.get('proj')]) state.proj = h.get('proj');
+  const sp = parseFloat(h.get('spread'));
+  if (sp >= 0.6 && sp <= 1.8) state.spread = sp;
   const fx = h.get('fx');
   ZONES.forEach(z => { state.fx[z.id] = z.rec; });
   if (fx !== null) fx.split(',').forEach(pair => { const [k, v] = pair.split(':'); if (k in state.fx) state.fx[k] = R[v] ? v : ''; });
 }
 function write() {
   const fx = ZONES.map(z => `${z.id}:${state.fx[z.id] || ''}`).join(',');
-  const q = `theme=${state.theme}&acc=${state.acc}&proj=${state.proj}&fx=${fx}`;
+  const q = `theme=${state.theme}&acc=${state.acc}&proj=${state.proj}&spread=${state.spread}&fx=${fx}`;
   history.replaceState(null, '', `#${q}`);
   saveShared({ theme: state.theme, acc: state.acc, proj: state.proj, home: q });
 }
@@ -102,6 +116,14 @@ html { transition: background-color .4s ease; }
 .fx-hero-layer { position: absolute; top: 0; bottom: 0; left: calc(50% - 50vw); width: 100vw; z-index: -2; pointer-events: none;
   -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent); mask-image: linear-gradient(to bottom, black 60%, transparent); }
 .fx-hero-layer:not(.fx-on) { display: none; }
+/* keep the headline's intended break at every desktop width: "…that balance" /
+   "complexity with care." Without it, mid-size screens pull "complexity" up and the
+   first line runs into the top-right light */
+@media (min-width: 761px) { .hero-title .quiet { display: block; } }
+/* Neutral accent: the sentence goes grey and the key phrase carries the emphasis in
+   white (ink on light), so the hierarchy holds without any colour */
+html[data-fx-acc="ink"] .t-moment:not([data-tinted]) .t-line { color: var(--text-soft); }
+html[data-fx-acc="ink"] .t-moment:not([data-tinted]) .t-line em { color: var(--text); font-weight: 500; }
 .hero:has(.fx-hero-layer.fx-on)::before { opacity: 0.5; }
 
 .t-media.fx-on { position: relative; background: var(--tray); }
@@ -130,6 +152,9 @@ html { transition: background-color .4s ease; }
 .fxp-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; color: #ededed; }
 .fxp button { font: inherit; cursor: pointer; border: 1px solid rgba(255,255,255,.1); background: transparent; color: #8a8a8a; border-radius: 6px; padding: 3px 7px; }
 .fxp button:hover { color: #ededed; border-color: rgba(255,255,255,.25); }
+.fxp-range { align-items: center; gap: 8px; flex-wrap: nowrap; }
+.fxp-range input { flex: 1; accent-color: #ededed; }
+.fxp-range output { min-width: 32px; color: #ededed; }
 .fxp-row { display: grid; grid-template-columns: 88px 1fr; align-items: center; gap: 8px; padding: 4px 0; }
 .fxp-row--sep { margin-bottom: 4px; padding-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,.08); }
 .fxp-opts { display: flex; flex-wrap: wrap; gap: 4px; }
@@ -162,11 +187,17 @@ panel.innerHTML = `<div class="fxp-head"><span>Colour + shader preview</span><bu
     <button type="button" data-l="">Off</button>
     ${z.letters.map(l => `<button type="button" data-l="${l}" title="${NAMES[l]}"${l === z.rec ? ' class="is-rec"' : ''}>${l}</button>`).join('')}
   </div></div>`).join('')}
+  <div class="fxp-row" data-spread><span>Hero spread</span><div class="fxp-opts fxp-range">
+    <input type="range" min="0.6" max="1.8" step="0.05" aria-label="Hero glow spread"><output></output></div></div>
   <div class="fxp-now"></div>
   <div class="fxp-foot"><button type="button" data-preset="rec">Recommended •</button><button type="button" data-preset="off">All off</button></div>`;
 document.body.append(panel);
 
 function sync() {
+  const rg = panel.querySelector('[data-spread] input');
+  rg.value = state.spread;
+  panel.querySelector('[data-spread] output').textContent = state.spread.toFixed(2);
+  panel.querySelector('[data-spread]').style.opacity = SPREADS.includes(state.fx.hero) ? '' : '.4';
   const t = THEMES[state.theme];
   panel.querySelectorAll('[data-group="theme"] button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.v === state.theme)));
   panel.querySelectorAll('[data-group="proj"] button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.v === state.proj)));
@@ -181,6 +212,15 @@ function sync() {
   const p = PALETTES[state.acc];
   panel.querySelector('.fxp-now').textContent = `${t.label} · ${p.label} ${t.dark ? p.dark : p.light}`;
 }
+
+// spread updates the live hero shader in place, no remount
+const range = panel.querySelector('[data-spread] input');
+range.addEventListener('input', () => {
+  state.spread = parseFloat(range.value);
+  if (SPREADS.includes(state.fx.hero)) (mounts.hero || []).forEach(m => m.setUniforms({ u_scale: state.spread }));
+  sync();
+});
+range.addEventListener('change', () => write());
 
 panel.addEventListener('click', e => {
   const b = e.target.closest('button');

@@ -85,7 +85,8 @@ const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 let noiseReady = null;
 const loadNoise = () => noiseReady || (noiseReady = (async () => {
   const img = getShaderNoiseTexture();
-  await img.decode();
+  // wait for load, not decode(): decode() can stall while a tab isn't painting
+  if (!img.complete) await new Promise((res, rej) => { img.onload = res; img.onerror = rej; });
   return img;
 })());
 
