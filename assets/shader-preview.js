@@ -1,6 +1,6 @@
 /* Shader + colour preview: a floating switcher on home-v2-fx.html that tries, live and
    in place, a theme (dark or one of two light grounds), an accent colour, and a shader
-   per zone (hero, covers, explorations, about, closing). Every shader is rebuilt from
+   per zone (hero, covers, about, closing). Every shader is rebuilt from
    the chosen accent and theme. The choice is kept in the URL hash, so a reload or a
    shared link shows the same mix. Preview only: not loaded by the real pages. */
 import { mountShader } from './shaders.js';
@@ -11,7 +11,6 @@ import { THEMES, PALETTES, PROJECTS, projectOf, PROJ_MODES, R, NAMES, rgb, paint
 const ZONES = [
   { id: 'hero', label: 'Hero', letters: ['H', 'M', 'F', 'E'], rec: 'H', targets: () => [heroLayer()] },
   { id: 'covers', label: 'Covers', letters: ['A', 'B', 'C', 'M', 'G', 'D'], rec: 'A', targets: () => [...document.querySelectorAll('.t-media')] },
-  { id: 'x', label: 'Explorations', letters: ['A', 'C', 'E', 'M', 'H'], rec: 'E', targets: () => [document.querySelector('.x-panel')] },
   { id: 'about', label: 'About', letters: ['E', 'H', 'M'], rec: 'E', targets: () => [document.querySelector('.fig')] },
   { id: 'close', label: 'Closing', letters: ['F', 'M', 'D', 'H'], rec: 'F', targets: () => [document.querySelector('.contact')] },
 ];
@@ -122,18 +121,16 @@ html { transition: background-color .4s ease; }
 @media (min-width: 761px) { .hero-title .quiet { display: block; } }
 /* Neutral accent: the sentence goes grey and the key phrase carries the emphasis in
    white (ink on light), so the hierarchy holds without any colour */
-html[data-fx-acc="ink"] .t-moment:not([data-tinted]) .t-line { color: var(--text-soft); }
+html:is([data-fx-acc="ink"], [data-fx-acc="sand"]) .t-moment:not([data-tinted]) .t-line { color: var(--text-soft); }
 html[data-fx-acc="ink"] .t-moment:not([data-tinted]) .t-line em { color: var(--text); font-weight: 500; }
+/* Sand: same grey sentence, the key phrase in the warm third colour */
+html[data-fx-acc="sand"] .t-moment:not([data-tinted]) .t-line em { color: var(--accent); font-weight: 500; }
 .hero:has(.fx-hero-layer.fx-on)::before { opacity: 0.5; }
 
 .t-media.fx-on { position: relative; background: var(--tray); }
 .t-media.fx-on img { position: relative; width: 84%; height: auto; aspect-ratio: 16 / 9; margin: 9% auto 0; border-radius: 6px 6px 0 0;
   box-shadow: 0 30px 60px -24px rgb(var(--sh-rgb) / calc(.8 * var(--sh-k))), 0 0 0 1px rgb(var(--fg-rgb) / .06); }
 
-.x-panel.fx-on { background-image: none; }
-.x-panel.fx-on::before { display: none; }
-.x-panel[data-fx="E"] > canvas { opacity: .4; }
-.x-panel[data-fx="M"] > canvas, .x-panel[data-fx="H"] > canvas { opacity: .8; }
 
 .fig.fx-on::before { display: none; }
 .fig.fx-on > canvas { -webkit-mask-image: linear-gradient(to bottom, transparent, black 12%, black 88%, transparent);

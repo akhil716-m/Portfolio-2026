@@ -28,6 +28,10 @@ export const PALETTES = {
   iris:    { label: 'Iris',    dark: '#9d91ff', light: '#6a5cf0', soft: '#ddd8ff', mid: '#4b40b0', ink: '#120e33', wash: ['#e2ddff', '#c0b6ff', '#f5f3ff', '#9d91ff'] },
   cobalt:  { label: 'Cobalt',  dark: '#6f8cff', light: '#2f54eb', soft: '#d3dcff', mid: '#2440b0', ink: '#081333', wash: ['#dae2ff', '#a9bbff', '#f2f5ff', '#7b95ff'] },
   ink:     { label: 'Ink (neutral)', dark: '#ededed', light: '#16130f', soft: '#e6e2d8', mid: '#5f584e', ink: '#141414', wash: ['#ebe7de', '#d9d3c6', '#f6f4ef', '#b9b1a2'] },
+  // Sand: the warm taupe the hero glow already shows (its mid colour, #5f584e, hue ~35°),
+  // lifted to a readable accent. White and grey stay the main pair; sand is the third
+  // colour for highlights. The glow itself keeps its white light (glow) and taupe mid.
+  sand:    { label: 'Sand', dark: '#bcae94', light: '#74634a', soft: '#e9e2d4', mid: '#5f584e', ink: '#17140f', glow: '#ededed', wash: ['#efe9dd', '#ddd3c0', '#f7f4ee', '#bcae94'] },
   sage:    { label: 'Sage',    dark: '#7fd1a0', light: '#2f8a5b', soft: '#d6eedf', mid: '#2f6b4a', ink: '#0b2216', wash: ['#dcefe3', '#b0dcc0', '#f1f8f3', '#86c9a0'] },
 };
 
@@ -66,7 +70,7 @@ export const R = {
   G: (p, t) => ['grain', { shape: 'wave', colorBack: t.bg, softness: 0.95, intensity: 0.1, noise: 0.45, scale: 1.6, rotation: -12,
     colors: t.dark ? [p.ink, p.mid, p.ink] : [p.wash[2], p.wash[3], p.wash[2]] }],
   H: (p, t, a) => ['grain', { shape: 'corners', colorBack: T, softness: 0.9, intensity: 0.15, noise: 0.3, scale: 1.6,
-    colors: t.dark ? [a, p.mid, T] : [p.wash[3], p.wash[1], T] }],
+    colors: t.dark ? [p.glow || a, p.mid, T] : [p.wash[3], p.wash[1], T] }],
   M: (p, t) => ['mesh', t.dark
     ? { colors: [p.ink, t.bg, p.mid, p.ink], distortion: 0.8, swirl: 0.1, grainOverlay: 0.15, speed: 0.2 }
     : { colors: p.wash, distortion: 0.8, swirl: 0.15, grainMixer: 0.2, grainOverlay: 0.12, speed: 0.2 }],

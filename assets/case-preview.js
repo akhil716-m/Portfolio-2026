@@ -6,7 +6,8 @@ import { mountShader } from './shaders.js';
 import { THEMES, PALETTES, PROJECTS, R, rgb, paintTheme, loadShared, saveShared } from './fx/fx-core.js';
 
 const project = PROJECTS[document.documentElement.dataset.fxProject];
-const NEUTRAL = PALETTES.ink;
+// inside stays neutral; if Sand was picked on the home page, it's the neutral's third colour
+const NEUTRAL = loadShared().acc === 'sand' ? PALETTES.sand : PALETTES.ink;
 
 const INSIDE = { neutral: 'Neutral', touches: 'Few touches', project: 'Project' };
 const HERO = { off: 'Off', glow: 'Glow', dither: 'Dither' };
