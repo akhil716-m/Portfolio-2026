@@ -15,7 +15,7 @@
    product laid out as panels:
    real screens and cards from the product sitting on quiet glass, each panel lit by a
    faint glow in the hero illustration's violets (the welcome panel only). Ground and text follow the theme
-   picked on the home preview; a small switcher compares surfaces and glow strength. */
+   picked on the home preview. */
 :root {
   --bg: #0a0a0a; --bg-rgb: 10 10 10; --text: #ededed; --text-soft: #8a8a8a; --text-muted: #7a7a7a;
   --line: #1f1f1f; --fg-rgb: 255 255 255;
@@ -47,30 +47,44 @@ a { color: inherit; }
 .show { --gap: clamp(10px, 1.6vw, 18px); --pad: clamp(16px, 3.4vw, 38px);
   display: grid; gap: var(--gap); margin-top: clamp(48px, 6vw, 80px); }
 .row { display: flex; gap: var(--gap); }
+/* Dusk: dark, tinted toward the hero's violet and backlit from below, so the white
+   screens look lit rather than pasted on. On the light themes the same idea turns
+   into a pale violet wash (Mist). */
 .panel {
   position: relative; isolation: isolate; overflow: hidden;
   border-radius: clamp(16px, 2.4vw, 28px);
-  /* glass: a faint lift of the ground, a top highlight and a hairline */
-  background: linear-gradient(180deg, rgb(var(--fg-rgb) / 0.06), rgb(var(--fg-rgb) / 0.025));
-  box-shadow: inset 0 1px 0 rgb(var(--fg-rgb) / 0.08), inset 0 0 0 1px rgb(var(--fg-rgb) / 0.07);
+  background:
+    radial-gradient(70% 55% at 50% 100%, rgba(129, 101, 235, 0.24), transparent 72%),
+    radial-gradient(90% 60% at 50% 0%, rgba(255, 255, 255, 0.05), transparent 70%),
+    #121019;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), inset 0 0 0 1px rgba(157, 140, 245, 0.12);
 }
-html[data-surface="grey"] .panel { background: var(--bg-card, #161616); }
-html[data-surface="white"] .panel { background: #fcfcfd; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.05); }
+html:not([data-fx-theme="dark"]) .panel {
+  background:
+    radial-gradient(70% 60% at 50% 100%, rgba(129, 101, 235, 0.16), transparent 72%),
+    radial-gradient(60% 50% at 0% 0%, rgba(207, 198, 255, 0.5), transparent 70%),
+    linear-gradient(180deg, #f3f2f9, #e8e6f3);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.04);
+}
+/* a fine grain, so the gradients read as material, not banding */
+.panel::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+html:not([data-fx-theme="dark"]) .panel::before { opacity: 0.07; mix-blend-mode: multiply; }
 /* the glow sits under everything in its panel */
 .glow { position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: var(--glow, 0.4); transition: opacity 0.6s ease; }
 .panel img { display: block; height: auto; }
 
-/* screens placed where they sit in the composed design (percentages of the panel) */
-.shot-in { position: absolute; }
-/* full browser windows: overview, invoices, invoice details */
-.p-win { aspect-ratio: 6560 / 3736; }
-.p-win .shot-in { left: 5.67%; top: 5.7%; width: 88.66%; }
-/* single cards, centred in their panel at the width they had in the design */
-.p-card .shot-in { left: 50%; top: 50%; width: var(--w); translate: -50% -50%; }
-.p-chip { flex: 3762 1 0; aspect-ratio: 3762 / 1132; --w: 88.25%; }
-.p-hook { flex: 2630 1 0; aspect-ratio: 2630 / 1132; --w: 83.65%; }
-.p-budget { flex: 2864 1 0; aspect-ratio: 2864 / 1592; --w: 84.64%; }
-.p-compare { flex: 3536 1 0; aspect-ratio: 3536 / 1592; --w: 87.56%; }
+/* every screen sits on the same inset on all four sides. In a row, each panel's share
+   of the width is its card's aspect ratio (width / height), so both cards come out the
+   same height and neither needs extra room above or below */
+.p-win, .p-card { display: grid; place-items: center; padding: var(--pad); }
+.shot-in { width: 100%; }
+.p-chip { flex: 5.092 1 0; }    /* 3320 × 652 */
+.p-hook { flex: 2.809 1 0; }    /* 1843 × 656 */
+.p-budget { flex: 2.082 1 0; }  /* 2424 × 1164 */
+.p-compare { flex: 2.660 1 0; } /* 3096 × 1164 */
 
 /* the welcome screen: illustration and its line */
 .p-hero { container-type: inline-size; padding: 1.46cqw 1.46cqw 4.4cqw; text-align: center; }
@@ -80,34 +94,23 @@ html[data-surface="white"] .panel { background: #fcfcfd; box-shadow: inset 0 0 0
 
 
 /* on the white surface the copy that sits on the panel itself goes dark */
-html[data-surface="white"] .panel h2 { color: #16181d; }
-html[data-surface="white"] .panel p { color: #6b7180; }
 
 /* the interactive demo, last: a glimpse of it and why it was built */
-.demo-end { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(24px, 4vw, 56px); align-items: center; margin-top: clamp(64px, 8vw, 112px); padding-top: clamp(32px, 4vw, 48px); border-top: 1px solid rgb(var(--fg-rgb) / 0.1); }
+.demo-end { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 56px); align-items: center; margin-top: clamp(64px, 8vw, 112px); padding-top: clamp(32px, 4vw, 48px); border-top: 1px solid rgb(var(--fg-rgb) / 0.1); }
 .demo-end .eyebrow { margin: 0; font: 400 12px 'Geist Mono', monospace; color: var(--text-muted); }
 .demo-end h2 { margin-top: 10px; font-size: clamp(22px, 2.2vw, 30px); font-weight: 500; letter-spacing: -0.02em; line-height: 1.2; }
 .demo-end p { margin-top: 12px; font-size: clamp(15px, 1.15vw, 17px); font-weight: 300; line-height: 1.65; color: var(--text-soft); max-width: 46ch; }
 .demo-end p b { font-weight: 500; color: var(--text); }
 .demo-end .demo { margin-top: 20px; }
-.demo-shot { display: block; overflow: hidden; text-decoration: none; border-radius: 12px; background: #0b0d12;
-  box-shadow: 0 0 0 1px rgb(var(--fg-rgb) / 0.1), 0 40px 80px -40px rgba(0, 0, 0, 0.7);
+/* a bezel: a thin rim, lit from the top, between two hairlines; the screenshot sits
+   inside it with its own softer corners */
+.demo-shot { display: block; justify-self: end; width: min(100%, 520px); padding: 6px; text-decoration: none; border-radius: 18px;
+  background: linear-gradient(180deg, rgb(var(--fg-rgb) / 0.12), rgb(var(--fg-rgb) / 0.03) 60%, rgb(var(--fg-rgb) / 0.06));
+  box-shadow: inset 0 0 0 1px rgb(var(--fg-rgb) / 0.08), 0 24px 48px -28px rgba(0, 0, 0, 0.6);
   transition: translate 0.6s var(--ease), box-shadow 0.6s var(--ease); }
-.demo-shot:hover { translate: 0 -4px; box-shadow: 0 0 0 1px rgb(var(--fg-rgb) / 0.2), 0 50px 90px -40px rgba(0, 0, 0, 0.75); }
-.demo-shot .bar { display: flex; align-items: center; gap: 6px; height: 28px; padding: 0 12px; background: #15171c; border-bottom: 1px solid #23262d; }
-.demo-shot .bar i { width: 9px; height: 9px; border-radius: 50%; background: #3a3d45; }
-.demo-shot .bar span { margin: 0 auto; padding: 2px 12px; border-radius: 6px; background: #0e1014; font: 400 10.5px 'Geist Mono', monospace; color: #8b8f99; }
-.demo-shot img { display: block; width: 100%; height: auto; }
+.demo-shot:hover { translate: 0 -4px; box-shadow: inset 0 0 0 1px rgb(var(--fg-rgb) / 0.16), 0 32px 56px -28px rgba(0, 0, 0, 0.7); }
+.demo-shot img { display: block; width: 100%; height: auto; border-radius: 12px; background: #0b0d12; box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.5); }
 
-/* preview switcher: surface and glow strength */
-.sw { position: fixed; left: 16px; bottom: 16px; z-index: 30; display: grid; gap: 6px; padding: 10px 12px; color-scheme: dark;
-  border: 1px solid rgba(255,255,255,.1); border-radius: 12px; background: rgba(14,14,14,.88);
-  -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); font: 400 11px/1.4 'Geist Mono', monospace; color: #8a8a8a; }
-.sw div { display: grid; grid-template-columns: 54px auto; align-items: center; gap: 8px; }
-.sw span + span { display: flex; gap: 4px; }
-.sw button { font: inherit; cursor: pointer; border: 1px solid rgba(255,255,255,.1); background: transparent; color: #8a8a8a; border-radius: 6px; padding: 3px 7px; }
-.sw button:hover { color: #ededed; border-color: rgba(255,255,255,.25); }
-.sw button[aria-pressed="true"] { background: #ededed; border-color: #ededed; color: #0a0a0a; }
 
 /* ---------- Opening, in the case studies' language ---------- */
 /* full fold of text first, the product after it, like the case-study heroes */
@@ -148,8 +151,8 @@ html[data-surface="white"] .panel p { color: #6b7180; }
 @media (max-width: 700px) {
   .row { flex-direction: column; }
   .demo-end { grid-template-columns: 1fr; }
+  .demo-shot { justify-self: stretch; width: 100%; }
   .row > .panel { flex: none; }
-  .sw { left: 8px; right: 8px; bottom: 8px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .js .rise { opacity: 1; translate: none; transition: none; }
@@ -222,15 +225,10 @@ html[data-surface="white"] .panel p { color: #6b7180; }
       <a class="demo" href="https://recovery-demo.vercel.app/" target="_blank" rel="noopener">Try the interactive demo <span aria-hidden="true">↗</span></a>
     </div>
     <a class="demo-shot" href="https://recovery-demo.vercel.app/" target="_blank" rel="noopener" aria-label="Open the interactive demo">
-      <div class="bar"><i></i><i></i><i></i><span>recovery-demo.vercel.app</span></div>
       <img src="assets/rr/glimpse/v2/demo.webp" width="2000" height="1111" alt="The demo's opening screen: a failed invoice passing through the recovery engine and coming out recovered" loading="lazy">
     </a>
   </section>
 
-  <div class="sw" role="group" aria-label="Preview options">
-    <div data-group="surface"><span>Surface</span><span><button type="button" data-v="glass">Glass</button><button type="button" data-v="grey">Grey</button><button type="button" data-v="white">White</button></span></div>
-    <div data-group="glow"><span>Glow</span><span><button type="button" data-v="off">Off</button><button type="button" data-v="subtle">Subtle</button><button type="button" data-v="soft">Soft</button></span></div>
-  </div>
 </main>
 
 <script type="module">
@@ -252,26 +250,6 @@ document.querySelectorAll('.panel[data-glow]').forEach(panel => {
   mountShader(glow, 'grain', { shape: 'corners', colorBack: T, colors: VIOLET, softness: 0.9, intensity: 0.15, noise: 0.3, scale: 1.4, speed: 0.2, ...CORNER[panel.dataset.glow] })
     .catch(err => console.warn('Glow not mounted', err));
 });
-
-// preview switcher: surface and glow strength, remembered for this browser
-const GLOW = { off: 0, subtle: 0.4, soft: 0.8 };
-const KEY = 'rrGlimpse';
-let pick = { surface: 'glass', glow: 'subtle' };
-try { pick = { ...pick, ...JSON.parse(localStorage.getItem(KEY) || '{}') }; } catch (e) {}
-const sw = document.querySelector('.sw');
-function apply() {
-  document.documentElement.dataset.surface = pick.surface;
-  document.documentElement.style.setProperty('--glow', GLOW[pick.glow]);
-  sw.querySelectorAll('[data-group]').forEach(g => g.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String(pick[g.dataset.group] === b.dataset.v))));
-  try { localStorage.setItem(KEY, JSON.stringify(pick)); } catch (e) {}
-}
-sw.addEventListener('click', e => {
-  const b = e.target.closest('button[data-v]');
-  if (!b) return;
-  pick[b.closest('[data-group]').dataset.group] = b.dataset.v;
-  apply();
-});
-apply();
 </script>
 <script>
 (function () {
