@@ -31,15 +31,15 @@ a { color: inherit; }
 
 .top {
   position: sticky; top: 0; z-index: 20;
-  display: flex; justify-content: space-between; align-items: center;
+  display: flex; align-items: center;
   padding: 18px var(--gutter);
   background: rgb(var(--bg-rgb) / 0.8);
   -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
   font: 500 13px 'Geist Mono', monospace;
 }
 .top a { text-decoration: none; }
-.top .back { font-weight: 400; color: var(--text-soft); transition: color 0.2s; }
-.top .back:hover { color: var(--text); }
+.top .back { display: inline-flex; gap: 8px; font-weight: 400; color: var(--text-soft); transition: color 0.2s, gap 0.2s; }
+.top .back:hover { color: var(--text); gap: 12px; }
 
 .wrap { max-width: 1320px; margin: 0 auto; padding: clamp(32px, 5vw, 64px) var(--gutter) 140px; }
 
@@ -125,11 +125,6 @@ html:not([data-fx-theme="dark"]) .panel::before { opacity: 0.07; mix-blend-mode:
 .cs-hero-meta { display: flex; flex-wrap: wrap; gap: 24px 48px; margin-top: clamp(40px, 5vw, 58px); padding-top: 32px; border-top: 1px solid rgb(var(--fg-rgb) / 0.1); }
 .cs-hero-meta-item label { display: block; font: 400 10px 'Geist Mono', monospace; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 9px; }
 .cs-hero-meta-item span { font-size: 14px; font-weight: 300; color: var(--text-soft); }
-.cs-hero-meta-item .accent { color: var(--rr); }
-.cs-hero-scroll { position: absolute; right: 0; bottom: clamp(56px, 8vh, 96px); display: flex; flex-direction: column; align-items: center; gap: 10px; }
-.cs-hero-scroll span { font: 400 10px 'Geist Mono', monospace; letter-spacing: 0.22em; text-transform: uppercase; color: var(--text-muted); writing-mode: vertical-rl; }
-.cs-hero-scroll-line { width: 1px; height: 58px; background: linear-gradient(to bottom, var(--rr), transparent); transform-origin: top; animation: csScrollPulse 2.4s ease-in-out infinite; }
-@keyframes csScrollPulse { 0%, 100% { opacity: 0.25; transform: scaleY(0.6); } 50% { opacity: 1; transform: scaleY(1); } }
 /* the opening rises in on load, in the same order as the case studies */
 @keyframes csFadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
 .cs-hero > * { opacity: 0; animation: csFadeUp 0.8s ease forwards; }
@@ -137,7 +132,6 @@ html:not([data-fx-theme="dark"]) .panel::before { opacity: 0.07; mix-blend-mode:
 .cs-hero-title { animation-delay: 0.35s; }
 .cs-hero-desc { animation-delay: 0.45s; }
 .cs-hero-meta { animation-delay: 0.55s; }
-.cs-hero-scroll { animation-delay: 1s; }
 
 .demo { display: inline-flex; gap: 6px; font: 400 12px 'Geist Mono', monospace; color: var(--text-soft); text-decoration: none; border-bottom: 1px solid rgb(var(--fg-rgb) / 0.2); padding-bottom: 2px; transition: color 0.2s, border-color 0.2s; }
 .demo:hover { color: var(--text); border-color: rgb(var(--fg-rgb) / 0.6); }
@@ -146,8 +140,7 @@ html:not([data-fx-theme="dark"]) .panel::before { opacity: 0.07; mix-blend-mode:
 .js .rise.is-in { opacity: 1; translate: 0 0; }
 
 @media (max-width: 900px) {
-  .cs-hero-scroll { display: none; }
-}
+  }
 @media (max-width: 700px) {
   .row { flex-direction: column; }
   .demo-end { grid-template-columns: 1fr; }
@@ -158,25 +151,23 @@ html:not([data-fx-theme="dark"]) .panel::before { opacity: 0.07; mix-blend-mode:
   .js .rise { opacity: 1; translate: none; transition: none; }
   .glow, .demo-shot { transition: none; }
   .cs-hero > * { opacity: 1; animation: none; }
-  .cs-hero-scroll-line { animation: none; }
-}
+  }
 </style>
 <script>document.documentElement.classList.add('js')</script>
 </head>
 <body>
-<header class="top"><a href="/home-v2">Akhil Male</a><a class="back" href="/home-v2#work">← Back to the work</a></header>
+<header class="top"><a class="back" href="/home-v2#work"><span class="arr" aria-hidden="true">←</span> Back to the work</a></header>
 
 <main class="wrap">
   <header class="cs-hero">
-    <div class="cs-hero-eyebrow">Product design<span class="sep">·</span>Juspay Hyperswitch<span class="sep">·</span>2025</div>
+    <div class="cs-hero-eyebrow">Product design<span class="sep">·</span>Juspay Hyperswitch<span class="sep">·</span>2026</div>
     <h1 class="cs-hero-title">Revenue <em>Recovery</em></h1>
     <p class="cs-hero-desc">Designed the Revenue Recovery product <b>from 0→1</b>, shaping the end-to-end experience and translating a complex recovery system into a clear, intuitive experience for merchants. Also collaborated with the Business Development team to create interactive product demos for merchant conversations.</p>
     <div class="cs-hero-meta">
       <div class="cs-hero-meta-item"><label>Role</label><span>Solo Product Designer</span></div>
       <div class="cs-hero-meta-item"><label>Scope</label><span>0 → 1 Product</span></div>
-      <div class="cs-hero-meta-item"><label>Team</label><span>Product, Engineering <span class="accent">·</span> Business Development</span></div>
+      <div class="cs-hero-meta-item"><label>Team</label><span>Product, Engineering, Business Development</span></div>
     </div>
-    <div class="cs-hero-scroll" aria-hidden="true"><span>Scroll</span><div class="cs-hero-scroll-line"></div></div>
   </header>
 
   <figure class="panel p-hero rise" data-glow="bl">
