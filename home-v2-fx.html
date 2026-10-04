@@ -165,7 +165,7 @@
   color: var(--text);
 }
 .t-mark-years { font-family: 'Geist Mono', monospace; font-size: var(--t-meta); color: var(--text-muted); letter-spacing: 0.02em; }
-.t-role { font-size: var(--t-small); color: var(--text-muted); }
+.t-role { font-size: var(--t-small); font-weight: 500; color: var(--text); }
 .t-story {
   margin-top: 10px;
   font-size: clamp(17px, 1.35vw, 20px);
@@ -268,7 +268,8 @@
   font-weight: 400;
   line-height: 1.28;
   letter-spacing: -0.02em;
-  color: var(--text);
+  /* the sentence is quiet; only the key phrase (em) carries colour */
+  color: var(--text-soft);
   max-width: 26em;
   text-wrap: balance;
 }
@@ -677,10 +678,10 @@
         <div class="t-mark">
           <span class="t-node t-node--chapter" aria-hidden="true"></span>
           <h3 class="t-mark-name">Juspay</h3>
-          <span class="t-mark-years">2024 → now</span>
+          <span class="t-mark-years">2024 → present</span>
         </div>
         <div class="t-body">
-          <p class="t-role">Product Designer, Hyperswitch suite</p>
+          <p class="t-role">Product Designer</p>
           <p class="t-story">Designing enterprise payment products through several 0→1 initiatives, turning complex payment systems into clear decisions for merchants.</p>
         </div>
       </div>
@@ -742,7 +743,7 @@
           <span class="t-mark-years">2022 → 2024</span>
         </div>
         <div class="t-body">
-          <p class="t-role">Associate Product Designer, workforce mobile apps</p>
+          <p class="t-role">Associate Product Designer</p>
           <p class="t-story">Designing mobile experiences that made learning and daily work more intuitive and reliable for frontline workers.</p>
         </div>
       </div>
