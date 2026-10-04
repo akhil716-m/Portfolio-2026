@@ -481,11 +481,6 @@ nav .logo a.cs-back:hover { color: var(--accent); }
 .cs-proto-item { margin: 0 0 56px; }
 .cs-proto-item:last-child { margin-bottom: 0; }
 .cs-proto-item-head { margin: 32px 0 20px; }
-.cs-proto-stage {
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  position: relative; overflow: hidden;
-}
 .cs-proto-cap-title {
   font-family: 'Geist', sans-serif; font-size: 17px; font-weight: 600;
   color: var(--text); margin: 0 0 4px;
@@ -556,6 +551,22 @@ a.cs-cta { margin-top: 28px; }
   .cs-exc-v-box { white-space: normal; }
   .cs-ui-panel-hd { grid-template-columns: 1fr; gap: 12px; }
 }
+/* ---------- RECORDING STAGE ---------- */
+/* A screen recording on a stage card, in the outcome cards' style. The recordings carry a dark
+   olive plate (#101309) that shows when the camera zooms out. "lighten" against the card, which is
+   lighter than the plate in every channel, swaps the plate for the card; the product UI is brighter
+   than the card, so it passes through untouched. The video file itself is not re-encoded. */
+.cs-stage {
+  position: relative; isolation: isolate; z-index: 501;
+  margin: 24px 0 14px; padding: clamp(10px, 1.6vw, 18px);
+  border-radius: 18px; border: 1px solid rgb(255 255 255 / 0.09);
+  background: linear-gradient(160deg, rgb(255 255 255 / 0.07) 0%, rgb(255 255 255 / 0.025) 70%), #131313;
+}
+.cs-stage::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.18), transparent);
+}
+.cs-stage > video { display: block; width: 100%; height: auto; border-radius: 10px; mix-blend-mode: lighten; }
 </style>
 </head>
 <body>
@@ -1036,10 +1047,10 @@ a.cs-cta { margin-top: 28px; }
     </div>
   </div>
   <div class="cs-wrap cs-wrap--showcase">
-    <div class="cs-proto-stage reveal">
+    <div class="cs-stage reveal">
       <video src="assets/recon/edit-flow.mp4" poster="assets/recon/edit-flow-poster.jpg"
              class="cs-proto-video" muted loop playsinline controls controlslist="nodownload" preload="metadata"
-             style="width:100%; display:block; border-radius: 12px;"></video>
+             style="width:100%; display:block;"></video>
     </div>
   </div>
 </div>
@@ -1052,10 +1063,10 @@ a.cs-cta { margin-top: 28px; }
     </div>
   </div>
   <div class="cs-wrap cs-wrap--showcase">
-    <div class="cs-proto-stage reveal">
+    <div class="cs-stage reveal">
       <video src="assets/recon/add-flow.mp4" poster="assets/recon/add-flow-poster.jpg"
              class="cs-proto-video" muted loop playsinline controls controlslist="nodownload" preload="metadata"
-             style="width:100%; display:block; border-radius: 12px;"></video>
+             style="width:100%; display:block;"></video>
     </div>
   </div>
 </div>
@@ -1068,10 +1079,10 @@ a.cs-cta { margin-top: 28px; }
     </div>
   </div>
   <div class="cs-wrap cs-wrap--showcase">
-    <div class="cs-proto-stage reveal">
+    <div class="cs-stage reveal">
       <video src="assets/recon/swap-flow.mp4" poster="assets/recon/swap-flow-poster.jpg"
              class="cs-proto-video" muted loop playsinline controls controlslist="nodownload" preload="metadata"
-             style="width:100%; display:block; border-radius: 12px;"></video>
+             style="width:100%; display:block;"></video>
     </div>
   </div>
 </div>
@@ -1084,10 +1095,10 @@ a.cs-cta { margin-top: 28px; }
     </div>
   </div>
   <div class="cs-wrap cs-wrap--showcase">
-    <div class="cs-proto-stage reveal">
+    <div class="cs-stage reveal">
       <video src="assets/recon/ignore-flow.mp4" poster="assets/recon/ignore-flow-poster.jpg"
              class="cs-proto-video" muted loop playsinline controls controlslist="nodownload" preload="metadata"
-             style="width:100%; display:block; border-radius: 12px;"></video>
+             style="width:100%; display:block;"></video>
     </div>
   </div>
 </div>
