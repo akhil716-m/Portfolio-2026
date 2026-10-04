@@ -1236,6 +1236,22 @@ a.cs-cta { margin-top: 28px; }
   .cs-shot-navbar { height: 320px; flex-basis: 38px; }
   .cs-shot-bar { gap: 12px; padding: 11px 14px; }
 }
+/* ---------- RECORDING STAGE ---------- */
+/* A screen recording on a stage card, in the outcome cards' style. The recordings carry a dark
+   olive plate (#101309) that shows when the camera zooms out. "lighten" against the card, which is
+   lighter than the plate in every channel, swaps the plate for the card; the product UI is brighter
+   than the card, so it passes through untouched. The video file itself is not re-encoded. */
+.cs-stage {
+  position: relative; isolation: isolate; z-index: 501;
+  margin: 24px 0 14px; padding: clamp(10px, 1.6vw, 18px);
+  border-radius: 18px; border: 1px solid rgb(255 255 255 / 0.09);
+  background: linear-gradient(160deg, rgb(255 255 255 / 0.07) 0%, rgb(255 255 255 / 0.025) 70%), #131313;
+}
+.cs-stage::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.18), transparent);
+}
+.cs-stage > video { display: block; width: 100%; height: auto; border-radius: 10px; mix-blend-mode: lighten; }
 </style>
 <script>
 /* fx preview: canvas diagrams read the live accent and ground from the theme tokens */
@@ -1893,7 +1909,7 @@ a.cs-cta { margin-top: 28px; }
   <p class="cs-p reveal" style="margin-bottom: 24px;">The same experience needed to work across very different merchant realities, from single processors to multi-PSP setups, and from simplified blended pricing to fully transparent IC++ models.</p>
 </div>
 <div class="cs-wrap cs-wrap--showcase">
-  <div class="cs-shot-frame reveal" style="border:none; background:transparent;">
+  <div class="cs-stage reveal">
     <video src="assets/hypersense/ov-demo.mp4" poster="assets/hypersense/ov-demo-poster.jpg"
            autoplay muted loop playsinline controls controlslist="nodownload" preload="metadata"
            style="width:100%; display:block; height:auto;"></video>
