@@ -12,7 +12,7 @@ const ZONES = [
   { id: 'hero', label: 'Hero', letters: ['H', 'M', 'F', 'E'], rec: 'H', targets: () => [heroLayer()] },
   { id: 'covers', label: 'Covers', letters: ['A', 'B', 'C', 'M', 'G', 'D'], rec: 'A', targets: () => [...document.querySelectorAll('.t-media')] },
   { id: 'about', label: 'About', letters: ['E', 'H', 'M'], rec: 'E', targets: () => [document.querySelector('.fig')] },
-  { id: 'close', label: 'Closing', letters: ['F', 'M', 'D', 'H'], rec: 'F', targets: () => [document.querySelector('.contact')] },
+  { id: 'close', label: 'Closing', letters: ['P', 'Z', 'R', 'F', 'M', 'D', 'H'], rec: 'P', targets: () => [document.querySelector('.contact')] },
 ];
 
 // The hero is contained at 1400px, so its shader sits on a full-bleed layer inside it
@@ -144,6 +144,11 @@ html[data-fx-acc="sand"] .t-moment:not([data-tinted]) .t-line em { color: var(--
 .contact.fx-on > canvas { -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent);
   mask-image: linear-gradient(to bottom, black 50%, transparent); }
 .contact[data-fx="D"] > canvas { opacity: .5; }
+/* the ring and the horizon have no box: they fade out before the section's edges */
+.contact:is([data-fx="R"], [data-fx="Z"]) > canvas { -webkit-mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, black 55%, transparent);
+  mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, black 55%, transparent); }
+.contact[data-fx="P"] > canvas { -webkit-mask-image: none; mask-image: none; }
+.contact[data-fx="R"] > canvas { opacity: .32; }
 
 .fxp { position: fixed; left: 16px; bottom: 16px; z-index: 9999; width: 340px; padding: 12px 12px 10px; color-scheme: dark;
   border: 1px solid rgba(255,255,255,.1); border-radius: 12px; background: rgba(14,14,14,.88);

@@ -84,6 +84,11 @@
   width: 1px;
   background: linear-gradient(to bottom, var(--line) 85%, transparent);
   pointer-events: none;
+  /* the travelling dot is moved down by the rail's own height; even invisible, that
+     would stretch the page far below the last section. Clip it to the rail vertically
+     (sideways stays open so the dot's glow isn't cut). */
+  overflow-x: visible;
+  overflow-y: clip;
 }
 .t-rail-fill {
   position: absolute;
@@ -326,6 +331,8 @@
 }
 .t-thumb img { width: 100%; height: 100%; display: block; object-fit: cover; object-position: top center; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
 .t-row:not(.t-row--static):hover .t-thumb img { transform: scale(1.04); }
+/* a wide illustration rather than a screen: keep its centre, where the engine sits */
+.t-thumb--art img { object-position: center; }
 .t-thumb--empty {
   background-image: radial-gradient(circle, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
   background-size: 12px 12px;
@@ -714,14 +721,9 @@
         </div>
         <div class="t-body">
           <ul class="t-list">
-            <li><button type="button" class="t-row" data-role="0→1 · Juspay Hyperswitch" data-desc="Subscription businesses lose revenue every time a renewal payment fails. Revenue Recovery takes over those failed invoices and decides, invoice by invoice, when to retry, which card to use and which strategy gives it the best chance.">
-              <span class="t-thumb"><img src="assets/rr/overview-full.webp" width="2200" height="1351" alt="" loading="lazy"></span>
-              <span class="t-row-text"><span class="t-row-name">Revenue Recovery <span class="arr">→</span><span class="t-row-tag">Variation A</span></span><span class="t-row-line">A 0→1 product that wins back revenue lost to failed subscription payments.</span></span>
-              <template class="t-screens"><figure class="gl-moment"><span class="gl-shot gl-shot--natural"><img src="assets/rr/detail-full.webp" width="2200" height="1262" alt="" loading="lazy"></span><figcaption><b>01</b><span class="gl-moment-t">It explains itself.</span><span class="gl-moment-l">A plain-words feed narrates every retry decision, right beside the attempts.</span></figcaption></figure><figure class="gl-moment"><span class="gl-shot gl-shot--natural"><img src="assets/rr/budget-full.webp" width="2200" height="1262" alt="" loading="lazy"></span><figcaption><b>02</b><span class="gl-moment-t">Spend to recover.</span><span class="gl-moment-l">A monthly budget for hard declines, with the expected return shown up front.</span></figcaption></figure><figure class="gl-moment"><span class="gl-shot gl-shot--natural"><img src="assets/rr/strategies-full.webp" width="2200" height="1262" alt="" loading="lazy"></span><figcaption><b>03</b><span class="gl-moment-t">Strategies that stack.</span><span class="gl-moment-l">Card switching, partial auth and account updater, combined per invoice.</span></figcaption></figure><div class="gl-moment gl-more"><a class="gl-more-main" href="/rr-board"><span class="gl-more-t">See the full board <span class="arr">→</span></span><span class="gl-more-l">Eight moments, every screen at full size, with the details highlighted.</span></a><a class="gl-more-demo" href="https://recovery-demo.vercel.app/" target="_blank" rel="noopener">Try the interactive demo ↗</a></div></template>
-            </button></li>
             <li><a class="t-row" href="/rr-glimpse">
-              <span class="t-thumb"><img src="assets/rr/glimpse/budget.webp" width="1300" height="961" alt="" loading="lazy"></span>
-              <span class="t-row-text"><span class="t-row-name">Revenue Recovery <span class="arr">→</span><span class="t-row-tag">Variation B</span></span><span class="t-row-line">A 0→1 product that wins back revenue lost to failed subscription payments.</span></span>
+              <span class="t-thumb t-thumb--art"><img src="assets/rr/glimpse/v2/hero-art.webp" width="2200" height="789" alt="" loading="lazy"></span>
+              <span class="t-row-text"><span class="t-row-name">Revenue Recovery <span class="arr">→</span></span><span class="t-row-line">A 0→1 product that wins back revenue lost to failed subscription payments.</span></span>
             </a></li>
             <li><button type="button" class="t-row" data-role="Your role" data-desc="One sentence on what it is and the part you played in it.">
               <span class="t-thumb t-thumb--empty"></span>
@@ -905,10 +907,6 @@
   </div>
 </section>
 
-<footer>
-  <div>© 2026 Akhil Male</div>
-  <div class="right"><a href="#">Back to top <span class="arr arr--up">↑</span></a></div>
-</footer>
 
 <script>
 // Nav gets its bottom border once the page leaves the top (sentinel, no scroll listener)

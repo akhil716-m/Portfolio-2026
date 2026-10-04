@@ -12,6 +12,9 @@ import { ditheringFragmentShader, DitheringShapes, DitheringTypes } from './vend
 import { dotGridFragmentShader, DotGridShapes } from './vendor/paper-shaders/shaders/dot-grid.js';
 import { godRaysFragmentShader } from './vendor/paper-shaders/shaders/god-rays.js';
 import { meshGradientFragmentShader } from './vendor/paper-shaders/shaders/mesh-gradient.js';
+import { smokeRingFragmentShader } from './vendor/paper-shaders/shaders/smoke-ring.js';
+import { staticRadialGradientFragmentShader } from './vendor/paper-shaders/shaders/static-radial-gradient.js';
+import { pulsingBorderFragmentShader, PulsingBorderAspectRatios } from './vendor/paper-shaders/shaders/pulsing-border.js';
 
 const sizing = (p, fit) => ({
   u_fit: ShaderFitOptions[p.fit || fit],
@@ -75,6 +78,44 @@ const KINDS = {
       u_colors: p.colors.map(color), u_colorsCount: p.colors.length,
       u_distortion: p.distortion, u_swirl: p.swirl, u_grainMixer: p.grainMixer, u_grainOverlay: p.grainOverlay,
       ...sizing(p, 'none'),
+    }),
+  },
+  // a soft, smoky ring: a halo to sit behind a single line of text
+  ring: {
+    frag: smokeRingFragmentShader,
+    defaults: { colorBack: '#00000000', colors: ['#ffffff'], radius: 0.25, thickness: 0.65, innerShape: 0.7, noiseScale: 3, noiseIterations: 8, scale: 0.8, speed: 0.5 },
+    needsNoise: true,
+    uniforms: (p, noise) => ({
+      u_colorBack: color(p.colorBack), u_colors: p.colors.map(color), u_colorsCount: p.colors.length,
+      u_radius: p.radius, u_thickness: p.thickness, u_innerShape: p.innerShape,
+      u_noiseScale: p.noiseScale, u_noiseIterations: p.noiseIterations, u_noiseTexture: noise,
+      ...sizing(p, 'contain'),
+    }),
+  },
+  // a still radial glow; with its centre pushed off an edge it reads as a horizon
+  horizon: {
+    frag: staticRadialGradientFragmentShader,
+    defaults: { colorBack: '#00000000', colors: ['#ffffff', '#888888'], radius: 0.8, focalDistance: 0, focalAngle: 0, falloff: 0.24, mixing: 0.5, distortion: 0, distortionShift: 0, distortionFreq: 12, grainMixer: 0, grainOverlay: 0, speed: 0 },
+    uniforms: p => ({
+      u_colorBack: color(p.colorBack), u_colors: p.colors.map(color), u_colorsCount: p.colors.length,
+      u_radius: p.radius, u_focalDistance: p.focalDistance, u_focalAngle: p.focalAngle, u_falloff: p.falloff, u_mixing: p.mixing,
+      u_distortion: p.distortion, u_distortionShift: p.distortionShift, u_distortionFreq: p.distortionFreq,
+      u_grainMixer: p.grainMixer, u_grainOverlay: p.grainOverlay,
+      ...sizing(p, 'contain'),
+    }),
+  },
+  // light travelling slowly along the element's edge
+  border: {
+    frag: pulsingBorderFragmentShader,
+    defaults: { colorBack: '#00000000', colors: ['#ffffff'], roundness: 0.25, thickness: 0.1, margin: 0, softness: 0.75, intensity: 0.2, bloom: 0.25, spots: 4, spotSize: 0.5, pulse: 0.25, smoke: 0.3, smokeSize: 0.6, aspectRatio: 'auto', scale: 1, speed: 1 },
+    needsNoise: true,
+    uniforms: (p, noise) => ({
+      u_colorBack: color(p.colorBack), u_colors: p.colors.map(color), u_colorsCount: p.colors.length,
+      u_roundness: p.roundness, u_thickness: p.thickness,
+      u_marginLeft: p.margin, u_marginRight: p.margin, u_marginTop: p.margin, u_marginBottom: p.margin,
+      u_aspectRatio: PulsingBorderAspectRatios[p.aspectRatio], u_softness: p.softness, u_intensity: p.intensity, u_bloom: p.bloom,
+      u_spots: p.spots, u_spotSize: p.spotSize, u_pulse: p.pulse, u_smoke: p.smoke, u_smokeSize: p.smokeSize, u_noiseTexture: noise,
+      ...sizing(p, 'contain'),
     }),
   },
 };

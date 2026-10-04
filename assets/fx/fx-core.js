@@ -74,8 +74,15 @@ export const R = {
   M: (p, t) => ['mesh', t.dark
     ? { colors: [p.ink, t.bg, p.mid, p.ink], distortion: 0.8, swirl: 0.1, grainOverlay: 0.15, speed: 0.2 }
     : { colors: p.wash, distortion: 0.8, swirl: 0.15, grainMixer: 0.2, grainOverlay: 0.12, speed: 0.2 }],
+  // closing candidates: a halo behind the email, a horizon it rises from, a border it sits in
+  R: (p, t, a) => ['ring', { colorBack: T, fit: 'cover', radius: 0.26, thickness: 0.55, innerShape: 0.9, noiseScale: 1.6, noiseIterations: 5, scale: 1, offsetY: 0.06, speed: 0.25,
+    colors: t.dark ? [p.glow || a, a, p.mid] : [p.wash[3], p.wash[1], p.wash[0]] }],
+  Z: (p, t, a) => ['horizon', { colorBack: T, fit: 'cover', radius: 0.9, focalDistance: 0, falloff: 0.35, mixing: 0.8, grainMixer: 0.4, grainOverlay: 0.22, scale: 1.4, offsetY: 0.62,
+    colors: t.dark ? [(p.glow || a) + 'cc', a + '88', p.mid + '44', T] : [p.wash[3] + 'cc', p.wash[1] + '88', p.wash[0] + '44', T] }],
+  P: (p, t, a) => ['border', { colorBack: T, roundness: 0.12, thickness: 0.025, softness: 0.9, intensity: 0.1, bloom: 0.22, spots: 3, spotSize: 0.45, pulse: 0.15, smoke: 0.4, smokeSize: 0.55, margin: 0.02, scale: 1, fit: 'cover', speed: 0.6,
+    colors: t.dark ? [p.glow || a, a, p.mid] : [p.wash[3], p.light || a, p.wash[1]] }],
 };
-export const NAMES = { A: 'Grain corners', B: 'Grain blob', C: 'Dither warp', D: 'Dither sphere', E: 'Dot grid', F: 'God rays', G: 'Grain wave', H: 'Ambient glow', M: 'Mesh gradient' };
+export const NAMES = { A: 'Grain corners', B: 'Grain blob', C: 'Dither warp', D: 'Dither sphere', E: 'Dot grid', F: 'God rays', G: 'Grain wave', H: 'Ambient glow', M: 'Mesh gradient', R: 'Smoke ring', Z: 'Horizon', P: 'Pulsing border' };
 
 export const rgb = hex => [1, 3, 5].map(i => parseInt(hex.slice(i, i + 2), 16)).join(' ');
 
