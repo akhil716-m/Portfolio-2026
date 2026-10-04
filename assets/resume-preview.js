@@ -2,7 +2,7 @@
    preview (shared through localStorage), with a small switcher to change them here
    too. White and grey carry the page; the chosen colour marks the download button,
    the active nav link and the design skills. Preview only. */
-import { THEMES, PALETTES, paintTheme, loadShared, saveShared } from './fx/fx-core.js';
+import { THEMES, PALETTES, rgb, paintTheme, loadShared, saveShared } from './fx/fx-core.js';
 
 const shared = loadShared();
 const state = {
@@ -11,15 +11,20 @@ const state = {
   page: shared.resumePage === 'dark' ? 'dark' : 'white', // what the résumé looks like when the theme is dark
 };
 
-// A résumé is read like a document, and the dark page leaves it with no hierarchy: grey
-// text on near-black. So in dark mode the page can turn white: a light-grey ground, a white
-// sheet, near-black type. Kept out of the theme list; it only exists for this page.
-THEMES.__white = {
-  label: 'White', dark: false, bg: '#f1f1f2', bgSoft: '#ffffff', card: '#fafafa', line: '#e4e4e7', lineSoft: '#eeeef0',
-  text: '#0f0f10', soft: '#52525b', muted: '#71717a', fg: '15 15 16',
-  surf: ['#fafafa', '#f4f4f5', '#ffffff', '#ececef'], ln: ['#e4e4e7', '#d4d4d8', '#c1c1c7'], sh: '0 0 0', shk: 0.12,
-};
-const surface = () => (state.theme === 'dark' && state.page === 'white') ? '__white' : state.theme;
+// A résumé is read like a document, and a dark sheet leaves it with no hierarchy: grey text
+// on near-black. So in dark mode the sheet itself can turn white (the page around it stays
+// dark): a white sheet, near-black type, the accent deepened to read on white.
+const SHEET = { '--bg-soft': '#ffffff', '--bg-card': '#fafafa', '--line': '#e4e4e7', '--line-soft': '#eeeef0',
+  '--text': '#0f0f10', '--text-soft': '#52525b', '--text-muted': '#71717a', '--fg-rgb': '15 15 16', '--on-accent': '#ffffff' };
+function paintSheet() {
+  const doc = document.querySelector('.resume-doc');
+  if (!doc) return;
+  const white = state.theme === 'dark' && state.page === 'white';
+  const p = PALETTES[state.acc];
+  const vars = white ? { ...SHEET, '--accent': p.light, '--acc-rgb': rgb(p.light) } : {};
+  [...Object.keys(SHEET), '--accent', '--acc-rgb'].forEach(k => white ? doc.style.setProperty(k, vars[k]) : doc.style.removeProperty(k));
+  doc.style.color = white ? 'var(--text)' : '';
+}
 
 // The four skill groups used four fixed hues (lime, teal, blue, violet). In the new
 // language only the design group takes the accent; the rest are quiet neutral pills.
@@ -56,10 +61,10 @@ const panel = document.createElement('div');
 panel.className = 'fxp';
 panel.innerHTML = `<div class="fxp-head"><span>Resume preview</span><a href="/home-v2-fx">← Home preview</a><button type="button" data-min aria-label="Collapse">–</button></div>
   <div class="fxp-row" data-group="theme"><span>Theme</span><div class="fxp-opts">
-    ${Object.entries(THEMES).filter(([k]) => !k.startsWith('__')).map(([k, t]) => `<button type="button" data-v="${k}">${t.label}</button>`).join('')}
+    ${Object.entries(THEMES).map(([k, t]) => `<button type="button" data-v="${k}">${t.label}</button>`).join('')}
   </div></div>
   <div class="fxp-row" data-group="page"><span>In dark</span><div class="fxp-opts">
-    <button type="button" data-v="white">White page</button><button type="button" data-v="dark">Dark page</button>
+    <button type="button" data-v="white">White sheet</button><button type="button" data-v="dark">Dark sheet</button>
   </div></div>
   <div class="fxp-row" data-group="acc"><span>Colour</span><div class="fxp-opts">
     ${Object.entries(PALETTES).map(([k, p]) => `<button type="button" class="fxp-sw" data-v="${k}" title="${p.label}" aria-label="${p.label}"></button>`).join('')}
@@ -68,8 +73,9 @@ panel.innerHTML = `<div class="fxp-head"><span>Resume preview</span><a href="/ho
 document.body.append(panel);
 
 function render() {
-  const key = surface(), t = THEMES[key], p = PALETTES[state.acc];
-  paintTheme(key, p);
+  const t = THEMES[state.theme], p = PALETTES[state.acc];
+  paintTheme(state.theme, p);
+  paintSheet();
   panel.querySelector('[data-group="page"]').hidden = state.theme !== 'dark';
   panel.querySelectorAll('[data-group="page"] button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.v === state.page)));
   panel.querySelectorAll('[data-group="theme"] button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.v === state.theme)));

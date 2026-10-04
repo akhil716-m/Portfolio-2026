@@ -1237,6 +1237,20 @@ a.cs-cta { margin-top: 28px; }
   .cs-shot-bar { gap: 12px; padding: 11px 14px; }
 }
 </style>
+<script>
+/* fx preview: canvas diagrams read the live accent and ground from the theme tokens */
+(function () {
+  const c = { acc: '212,255,94', fg: '255,255,255' };
+  const read = () => {
+    const s = getComputedStyle(document.documentElement);
+    const a = s.getPropertyValue('--acc-rgb').trim(), f = s.getPropertyValue('--fg-rgb').trim();
+    if (a) c.acc = a.split(/\s+/).join(',');
+    if (f) c.fg = f.split(/\s+/).join(',');
+  };
+  window.csAcc = () => c.acc; window.csFg = () => c.fg;
+  read(); setInterval(read, 400);
+})();
+</script>
 </head>
 <body>
 
@@ -1291,23 +1305,23 @@ a.cs-cta { margin-top: 28px; }
 
         <defs>
           <radialGradient id="cs-flow-nodeglow">
-            <stop offset="0%" stop-color="rgba(212,255,94,0.28)"/>
-            <stop offset="100%" stop-color="rgba(212,255,94,0)"/>
+            <stop offset="0%" style="stop-color: rgb(var(--acc-rgb) / 0.28)"/>
+            <stop offset="100%" style="stop-color: rgb(var(--acc-rgb) / 0)"/>
           </radialGradient>
         </defs>
 
         <!-- ══ "Payment costs" bracket over the hidden chain ══ -->
-        <text x="350" y="14" text-anchor="middle" font-family="'Geist',sans-serif" font-size="9.5" font-weight="500" letter-spacing="0.14em" fill="rgba(212,255,94,0.5)">PAYMENT COSTS — INVISIBLE TO MOST MERCHANTS</text>
-        <path d="M 196 30 L 196 24 L 504 24 L 504 30" fill="none" stroke="rgba(212,255,94,0.25)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" />
+        <text x="350" y="14" text-anchor="middle" font-family="'Geist',sans-serif" font-size="9.5" font-weight="500" letter-spacing="0.14em" style="fill: rgb(var(--acc-rgb) / 0.5)">PAYMENT COSTS — INVISIBLE TO MOST MERCHANTS</text>
+        <path d="M 196 30 L 196 24 L 504 24 L 504 30" fill="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" style="stroke: rgb(var(--acc-rgb) / 0.25)"/>
 
         <!-- ══ Flow line — opacity erodes after each cut, dashes march while live ══ -->
-        <line class="cs-fl" x1="90"  y1="74" x2="204" y2="74" stroke="rgba(255,255,255,0.30)" stroke-width="1.4" stroke-dasharray="3 6" stroke-linecap="round" />
-        <line class="cs-fl" x1="240" y1="74" x2="332" y2="74" stroke="rgba(255,255,255,0.24)" stroke-width="1.3" stroke-dasharray="3 6" stroke-linecap="round" />
-        <line class="cs-fl" x1="368" y1="74" x2="460" y2="74" stroke="rgba(255,255,255,0.18)" stroke-width="1.2" stroke-dasharray="3 6" stroke-linecap="round" />
-        <line class="cs-fl" x1="496" y1="74" x2="609" y2="74" stroke="rgba(255,255,255,0.12)" stroke-width="1.1" stroke-dasharray="3 6" stroke-linecap="round" />
+        <line class="cs-fl" x1="90"  y1="74" x2="204" y2="74" stroke-width="1.4" stroke-dasharray="3 6" stroke-linecap="round" style="stroke: rgb(var(--fg-rgb) / 0.30)"/>
+        <line class="cs-fl" x1="240" y1="74" x2="332" y2="74" stroke-width="1.3" stroke-dasharray="3 6" stroke-linecap="round" style="stroke: rgb(var(--fg-rgb) / 0.24)"/>
+        <line class="cs-fl" x1="368" y1="74" x2="460" y2="74" stroke-width="1.2" stroke-dasharray="3 6" stroke-linecap="round" style="stroke: rgb(var(--fg-rgb) / 0.18)"/>
+        <line class="cs-fl" x1="496" y1="74" x2="609" y2="74" stroke-width="1.1" stroke-dasharray="3 6" stroke-linecap="round" style="stroke: rgb(var(--fg-rgb) / 0.12)"/>
 
         <!-- ══ CUSTOMER PAYS — card icon ══ -->
-        <g stroke="rgba(255,255,255,0.5)" fill="none" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+        <g fill="none" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" style="stroke: rgb(var(--fg-rgb) / 0.5)">
           <rect x="47" y="62" width="34" height="24" rx="4" />
           <line x1="47" y1="70" x2="81" y2="70" />
           <line x1="53" y1="79" x2="61" y2="79" />
@@ -1319,26 +1333,26 @@ a.cs-cta { margin-top: 28px; }
         <!-- Acquiring bank -->
         <circle class="cs-ng cs-ng1" cx="222" cy="74" r="30" fill="url(#cs-flow-nodeglow)" />
         <text x="222" y="46" text-anchor="middle" font-family="'Geist',sans-serif" font-size="10.5" fill="var(--text-soft)">Acquiring bank</text>
-        <circle class="cs-node cs-n1" cx="222" cy="74" r="17" fill="var(--bg-soft)" stroke="rgba(212,255,94,0.35)" stroke-width="1.3" />
+        <circle class="cs-node cs-n1" cx="222" cy="74" r="17" fill="var(--bg-soft)" stroke-width="1.3" style="stroke: rgb(var(--acc-rgb) / 0.35)"/>
         <text x="222" y="79" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="13" font-weight="500" fill="var(--accent)">%</text>
-        <text class="cs-fee cs-fee1" x="222" y="107" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="11" fill="rgba(212,255,94,0.7)">−0.35%</text>
+        <text class="cs-fee cs-fee1" x="222" y="107" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="11" style="fill: rgb(var(--acc-rgb) / 0.7)">−0.35%</text>
 
         <!-- Card network -->
         <circle class="cs-ng cs-ng2" cx="350" cy="74" r="30" fill="url(#cs-flow-nodeglow)" />
         <text x="350" y="46" text-anchor="middle" font-family="'Geist',sans-serif" font-size="10.5" fill="var(--text-soft)">Card network</text>
-        <circle class="cs-node cs-n2" cx="350" cy="74" r="17" fill="var(--bg-soft)" stroke="rgba(212,255,94,0.35)" stroke-width="1.3" />
+        <circle class="cs-node cs-n2" cx="350" cy="74" r="17" fill="var(--bg-soft)" stroke-width="1.3" style="stroke: rgb(var(--acc-rgb) / 0.35)"/>
         <text x="350" y="79" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="13" font-weight="500" fill="var(--accent)">%</text>
-        <text class="cs-fee cs-fee2" x="350" y="107" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="11" fill="rgba(212,255,94,0.7)">−0.15%</text>
+        <text class="cs-fee cs-fee2" x="350" y="107" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="11" style="fill: rgb(var(--acc-rgb) / 0.7)">−0.15%</text>
 
         <!-- Issuing bank -->
         <circle class="cs-ng cs-ng3" cx="478" cy="74" r="30" fill="url(#cs-flow-nodeglow)" />
         <text x="478" y="46" text-anchor="middle" font-family="'Geist',sans-serif" font-size="10.5" fill="var(--text-soft)">Issuing bank</text>
-        <circle class="cs-node cs-n3" cx="478" cy="74" r="17" fill="var(--bg-soft)" stroke="rgba(212,255,94,0.35)" stroke-width="1.3" />
+        <circle class="cs-node cs-n3" cx="478" cy="74" r="17" fill="var(--bg-soft)" stroke-width="1.3" style="stroke: rgb(var(--acc-rgb) / 0.35)"/>
         <text x="478" y="79" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="13" font-weight="500" fill="var(--accent)">%</text>
-        <text class="cs-fee cs-fee3" x="478" y="107" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="11" fill="rgba(212,255,94,0.7)">−1.50%</text>
+        <text class="cs-fee cs-fee3" x="478" y="107" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="11" style="fill: rgb(var(--acc-rgb) / 0.7)">−1.50%</text>
 
         <!-- ══ MERCHANT RECEIVES — bank icon ══ -->
-        <g stroke="rgba(255,255,255,0.5)" fill="none" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+        <g fill="none" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" style="stroke: rgb(var(--fg-rgb) / 0.5)">
           <path d="M 620 68 L 636 58 L 652 68" />
           <line x1="617" y1="68" x2="655" y2="68" />
           <line x1="623" y1="72" x2="623" y2="86" />
@@ -1366,18 +1380,18 @@ a.cs-cta { margin-top: 28px; }
       <svg viewBox="0 0 220 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Concentric arcs showing payment cost scaling from small to enterprise merchants">
         <defs>
           <radialGradient id="cs-arc-g" cx="26" cy="180" r="160" gradientUnits="userSpaceOnUse">
-            <stop offset="0.32" stop-color="rgba(212,255,94,0)"/>
-            <stop offset="0.7" stop-color="rgba(212,255,94,0.012)"/>
-            <stop offset="1" stop-color="rgba(212,255,94,0.06)"/>
+            <stop offset="0.32" style="stop-color: rgb(var(--acc-rgb) / 0)"/>
+            <stop offset="0.7" style="stop-color: rgb(var(--acc-rgb) / 0.04)"/>
+            <stop offset="1" style="stop-color: rgb(var(--acc-rgb) / 0.16)"/>
           </radialGradient>
         </defs>
         <!-- band fills -->
         <circle cx="26" cy="180" r="160" fill="url(#cs-arc-g)"/>
-        <circle cx="26" cy="180" r="104" fill="rgba(255,255,255,0.02)"/>
-        <circle cx="26" cy="180" r="52" fill="rgba(255,255,255,0.03)"/>
+        <circle cx="26" cy="180" r="104" style="fill: rgb(var(--fg-rgb) / 0.02)"/>
+        <circle cx="26" cy="180" r="52" style="fill: rgb(var(--fg-rgb) / 0.03)"/>
         <!-- arc strokes -->
-        <circle class="cs-arc-ring" data-tier="0" cx="26" cy="180" r="52" fill="none" stroke="rgba(255,255,255,0.16)" stroke-width="1.5"/>
-        <circle class="cs-arc-ring" data-tier="1" cx="26" cy="180" r="104" fill="none" stroke="rgba(255,255,255,0.28)" stroke-width="1.5"/>
+        <circle class="cs-arc-ring" data-tier="0" cx="26" cy="180" r="52" fill="none" stroke-width="1.5" style="stroke: rgb(var(--fg-rgb) / 0.16)"/>
+        <circle class="cs-arc-ring" data-tier="1" cx="26" cy="180" r="104" fill="none" stroke-width="1.5" style="stroke: rgb(var(--fg-rgb) / 0.28)"/>
         <circle class="cs-arc-ring" data-tier="2" cx="26" cy="180" r="160" fill="none" stroke="var(--accent)" stroke-width="2"/>
         <circle cx="26" cy="180" r="4.5" fill="var(--accent)"/>
         <!-- transparent hover hit-regions (largest first so the inner bands sit on top) -->
@@ -2636,7 +2650,7 @@ a.cs-cta { margin-top: 28px; }
   canvas.width = W; canvas.height = H;
   const CX = W / 2, CY = H / 2;
   const R_MOD = 178, R_Q = 290;
-  const LIME = '#d4ff5e';
+  const LIME = () => `rgb(${csAcc()})`;
 
   /* Growth choreography — the graph assembles from the center outward
      once scrolled into view: hub blooms, spokes draw, modules pop,
@@ -2746,8 +2760,8 @@ a.cs-cta { margin-top: 28px; }
       const act = !conn || (conn.has(e.from) && conn.has(e.to));
       ctx.beginPath(); ctx.moveTo(fn.x, fn.y);
       ctx.lineTo(fn.x + (tn.x - fn.x) * p, fn.y + (tn.y - fn.y) * p);
-      if (e.type === 'module') { ctx.strokeStyle = act ? 'rgba(212,255,94,0.4)' : 'rgba(212,255,94,0.06)'; ctx.lineWidth = 1.2; }
-      else { ctx.strokeStyle = act ? 'rgba(255,255,255,0.16)' : 'rgba(255,255,255,0.04)'; ctx.lineWidth = 0.6; }
+      if (e.type === 'module') { ctx.strokeStyle = act ? `rgba(${csAcc()},0.4)` : `rgba(${csAcc()},0.06)`; ctx.lineWidth = 1.2; }
+      else { ctx.strokeStyle = act ? `rgba(${csFg()},0.16)` : `rgba(${csFg()},0.04)`; ctx.lineWidth = 0.6; }
       ctx.stroke();
     });
 
@@ -2758,17 +2772,17 @@ a.cs-cta { margin-top: 28px; }
         const g = easeBack(rev(0, 500));
         if (g <= 0) return;
         const g1 = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, 55 * g);
-        g1.addColorStop(0, 'rgba(212,255,94,0.16)'); g1.addColorStop(1, 'rgba(212,255,94,0)');
+        g1.addColorStop(0, `rgba(${csAcc()},0.16)`); g1.addColorStop(1, `rgba(${csAcc()},0)`);
         ctx.beginPath(); ctx.arc(n.x, n.y, 55 * g, 0, Math.PI*2); ctx.fillStyle = g1; ctx.fill();
         const g2 = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, 24 * g);
-        g2.addColorStop(0, 'rgba(212,255,94,0.5)'); g2.addColorStop(1, 'rgba(212,255,94,0)');
+        g2.addColorStop(0, `rgba(${csAcc()},0.5)`); g2.addColorStop(1, `rgba(${csAcc()},0)`);
         ctx.beginPath(); ctx.arc(n.x, n.y, 24 * g, 0, Math.PI*2); ctx.fillStyle = g2; ctx.fill();
-        ctx.beginPath(); ctx.arc(n.x, n.y, n.r * g * hm, 0, Math.PI*2); ctx.fillStyle = LIME; ctx.fill();
+        ctx.beginPath(); ctx.arc(n.x, n.y, n.r * g * hm, 0, Math.PI*2); ctx.fillStyle = LIME(); ctx.fill();
         const la = easeOutC(rev(250, 350));
         if (la > 0) {
           ctx.font = '500 17px "Geist", system-ui, sans-serif';
           ctx.textAlign = 'center'; ctx.textBaseline = 'top';
-          ctx.fillStyle = `rgba(237,237,237,${(0.85 + 0.15*n.hs) * la})`;
+          ctx.fillStyle = `rgba(${csFg()},${(0.85 + 0.15*n.hs) * la})`;
           ctx.fillText('HyperSense', n.x, n.y + n.r + 16);
           ctx.textBaseline = 'alphabetic';
         }
@@ -2776,16 +2790,16 @@ a.cs-cta { margin-top: 28px; }
         const g = easeBack(rev(700 + n.mi*90, 400));
         if (g <= 0) return;
         const gm = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, 30 * g);
-        gm.addColorStop(0, `rgba(212,255,94,${0.2*a})`); gm.addColorStop(1, 'rgba(212,255,94,0)');
+        gm.addColorStop(0, `rgba(${csAcc()},${0.2*a})`); gm.addColorStop(1, `rgba(${csAcc()},0)`);
         ctx.beginPath(); ctx.arc(n.x, n.y, 30 * g, 0, Math.PI*2); ctx.fillStyle = gm; ctx.fill();
         ctx.beginPath(); ctx.arc(n.x, n.y, n.r * g * hm, 0, Math.PI*2);
-        ctx.fillStyle = `rgba(212,255,94,${a})`; ctx.fill();
+        ctx.fillStyle = `rgba(${csAcc()},${a})`; ctx.fill();
         const la = easeOutC(rev(780 + n.mi*90, 350));
         if (la > 0) {
           const lp = lpos(n);
           ctx.font = '500 16px "Geist", system-ui, sans-serif';
           ctx.textAlign = lp.align; ctx.textBaseline = lp.base;
-          ctx.fillStyle = `rgba(237,237,237,${(0.9 + 0.1*n.hs) * a * la})`;
+          ctx.fillStyle = `rgba(${csFg()},${(0.9 + 0.1*n.hs) * a * la})`;
           ctx.fillText(n.label, lp.x, lp.y);
           ctx.textBaseline = 'alphabetic';
         }
@@ -2793,11 +2807,11 @@ a.cs-cta { margin-top: 28px; }
         const g = easeOutC(rev(1350 + n.mi*90 + n.qi*70, 400));
         if (g <= 0) return;
         ctx.beginPath(); ctx.arc(n.x, n.y, n.r * g * hm, 0, Math.PI*2);
-        ctx.fillStyle = `rgba(180,180,180,${0.45*a*g})`; ctx.fill();
+        ctx.fillStyle = `rgba(${csFg()},${0.68*0.45*a*g})`; ctx.fill();
         const lp2 = lpos(n);
         ctx.font = '15px "Geist", system-ui, sans-serif';
         ctx.textAlign = lp2.align; ctx.textBaseline = lp2.base;
-        ctx.fillStyle = `rgba(170,170,170,${(0.7 + 0.3*n.hs) * a * g})`;
+        ctx.fillStyle = `rgba(${csFg()},${0.68*(0.7 + 0.3*n.hs) * a * g})`;
         ctx.fillText(n.label, lp2.x, lp2.y);
         ctx.textBaseline = 'alphabetic';
       }
@@ -2820,9 +2834,9 @@ a.cs-cta { margin-top: 28px; }
       else { const lp = (pr - 0.45) / 0.55; px = mn.x + (qn.x - mn.x) * lp; py = mn.y + (qn.y - mn.y) * lp; }
       const al = Math.sin(Math.PI * pr);
       const pg = ctx.createRadialGradient(px, py, 0, px, py, 9);
-      pg.addColorStop(0, `rgba(212,255,94,${0.3*al})`); pg.addColorStop(1, 'rgba(212,255,94,0)');
+      pg.addColorStop(0, `rgba(${csAcc()},${0.3*al})`); pg.addColorStop(1, `rgba(${csAcc()},0)`);
       ctx.beginPath(); ctx.arc(px, py, 9, 0, Math.PI*2); ctx.fillStyle = pg; ctx.fill();
-      ctx.beginPath(); ctx.arc(px, py, 2.2, 0, Math.PI*2); ctx.fillStyle = `rgba(212,255,94,${0.9*al})`; ctx.fill();
+      ctx.beginPath(); ctx.arc(px, py, 2.2, 0, Math.PI*2); ctx.fillStyle = `rgba(${csAcc()},${0.9*al})`; ctx.fill();
     }
     ctx.restore();
     requestAnimationFrame(frame);
