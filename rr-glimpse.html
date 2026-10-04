@@ -11,8 +11,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 /* Variation B for the smaller projects: one page, one glance. The name, a short
-   description, three core highlights and tags, then the product shown as one composed
-   image. Ground and text follow the theme picked on the home preview. */
+   description, three core highlights and tags, then the product laid out as panels:
+   real screens and cards from the product sitting on quiet glass, each panel lit by a
+   faint glow in the hero illustration's violets (the welcome panel only). Ground and text follow the theme
+   picked on the home preview; a small switcher compares surfaces and glow strength. */
 :root {
   --bg: #0a0a0a; --bg-rgb: 10 10 10; --text: #ededed; --text-soft: #8a8a8a; --text-muted: #7a7a7a;
   --line: #1f1f1f; --fg-rgb: 255 255 255;
@@ -38,11 +40,74 @@ a { color: inherit; }
 
 .wrap { max-width: 1320px; margin: 0 auto; padding: clamp(32px, 5vw, 64px) var(--gutter) 140px; }
 
-/* ---------- The product, as one image ---------- */
-.shot { margin-top: clamp(48px, 6vw, 80px); }
-.shot img { display: block; width: 100%; height: auto; }
+/* ---------- The product, as panels ---------- */
+.show { --gap: clamp(10px, 1.6vw, 18px); --pad: clamp(16px, 3.4vw, 38px);
+  display: grid; gap: var(--gap); margin-top: clamp(48px, 6vw, 80px); }
+.row { display: flex; gap: var(--gap); }
+.panel {
+  position: relative; isolation: isolate; overflow: hidden;
+  border-radius: clamp(16px, 2.4vw, 28px);
+  /* glass: a faint lift of the ground, a top highlight and a hairline */
+  background: linear-gradient(180deg, rgb(var(--fg-rgb) / 0.06), rgb(var(--fg-rgb) / 0.025));
+  box-shadow: inset 0 1px 0 rgb(var(--fg-rgb) / 0.08), inset 0 0 0 1px rgb(var(--fg-rgb) / 0.07);
+}
+html[data-surface="grey"] .panel { background: var(--bg-card, #161616); }
+html[data-surface="white"] .panel { background: #fcfcfd; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.05); }
+/* the glow sits under everything in its panel */
+.glow { position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: var(--glow, 0.4); transition: opacity 0.6s ease; }
+.panel img { display: block; height: auto; }
+
+/* screens placed where they sit in the composed design (percentages of the panel) */
+.shot-in { position: absolute; }
+/* full browser windows: overview, invoices, invoice details */
+.p-win { aspect-ratio: 6560 / 3736; }
+.p-win .shot-in { left: 5.67%; top: 5.7%; width: 88.66%; }
+/* single cards, centred in their panel at the width they had in the design */
+.p-card .shot-in { left: 50%; top: 50%; width: var(--w); translate: -50% -50%; }
+.p-chip { flex: 3762 1 0; aspect-ratio: 3762 / 1132; --w: 88.25%; }
+.p-hook { flex: 2630 1 0; aspect-ratio: 2630 / 1132; --w: 83.65%; }
+.p-budget { flex: 2864 1 0; aspect-ratio: 2864 / 1592; --w: 84.64%; }
+.p-compare { flex: 3536 1 0; aspect-ratio: 3536 / 1592; --w: 87.56%; }
+
+/* the welcome screen: illustration and its line */
+.p-hero { container-type: inline-size; padding: 1.46cqw 1.46cqw 4.4cqw; text-align: center; }
+.p-hero .art { width: 100%; }
+.p-hero h2 { margin: 3.5cqw auto 0; font-size: max(17px, 1.95cqw); font-weight: 500; letter-spacing: -0.02em; line-height: 1.25; }
+.p-hero p { max-width: 60ch; margin: 0.9cqw auto 0; font-size: max(13px, 1.28cqw); font-weight: 300; line-height: 1.55; color: var(--text-soft); }
+
+
+/* on the white surface the copy that sits on the panel itself goes dark */
+html[data-surface="white"] .panel h2 { color: #16181d; }
+html[data-surface="white"] .panel p { color: #6b7180; }
+
+/* the interactive demo, last: a glimpse of it and why it was built */
+.demo-end { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(24px, 4vw, 56px); align-items: center; margin-top: clamp(64px, 8vw, 112px); padding-top: clamp(32px, 4vw, 48px); border-top: 1px solid rgb(var(--fg-rgb) / 0.1); }
+.demo-end .eyebrow { margin: 0; font: 400 12px 'Geist Mono', monospace; color: var(--text-muted); }
+.demo-end h2 { margin-top: 10px; font-size: clamp(22px, 2.2vw, 30px); font-weight: 500; letter-spacing: -0.02em; line-height: 1.2; }
+.demo-end p { margin-top: 12px; font-size: clamp(15px, 1.15vw, 17px); font-weight: 300; line-height: 1.65; color: var(--text-soft); max-width: 46ch; }
+.demo-end p b { font-weight: 500; color: var(--text); }
+.demo-end .demo { margin-top: 20px; }
+.demo-shot { display: block; overflow: hidden; text-decoration: none; border-radius: 12px; background: #0b0d12;
+  box-shadow: 0 0 0 1px rgb(var(--fg-rgb) / 0.1), 0 40px 80px -40px rgba(0, 0, 0, 0.7);
+  transition: translate 0.6s var(--ease), box-shadow 0.6s var(--ease); }
+.demo-shot:hover { translate: 0 -4px; box-shadow: 0 0 0 1px rgb(var(--fg-rgb) / 0.2), 0 50px 90px -40px rgba(0, 0, 0, 0.75); }
+.demo-shot .bar { display: flex; align-items: center; gap: 6px; height: 28px; padding: 0 12px; background: #15171c; border-bottom: 1px solid #23262d; }
+.demo-shot .bar i { width: 9px; height: 9px; border-radius: 50%; background: #3a3d45; }
+.demo-shot .bar span { margin: 0 auto; padding: 2px 12px; border-radius: 6px; background: #0e1014; font: 400 10.5px 'Geist Mono', monospace; color: #8b8f99; }
+.demo-shot img { display: block; width: 100%; height: auto; }
+
+/* preview switcher: surface and glow strength */
+.sw { position: fixed; left: 16px; bottom: 16px; z-index: 30; display: grid; gap: 6px; padding: 10px 12px; color-scheme: dark;
+  border: 1px solid rgba(255,255,255,.1); border-radius: 12px; background: rgba(14,14,14,.88);
+  -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); font: 400 11px/1.4 'Geist Mono', monospace; color: #8a8a8a; }
+.sw div { display: grid; grid-template-columns: 54px auto; align-items: center; gap: 8px; }
+.sw span + span { display: flex; gap: 4px; }
+.sw button { font: inherit; cursor: pointer; border: 1px solid rgba(255,255,255,.1); background: transparent; color: #8a8a8a; border-radius: 6px; padding: 3px 7px; }
+.sw button:hover { color: #ededed; border-color: rgba(255,255,255,.25); }
+.sw button[aria-pressed="true"] { background: #ededed; border-color: #ededed; color: #0a0a0a; }
 
 /* ---------- Name, description, highlights, tags ---------- */
+.p-hero { margin-bottom: clamp(36px, 5vw, 64px); }
 .info { max-width: 880px; }
 .info h1 { font-size: clamp(30px, 3.2vw, 44px); font-weight: 500; letter-spacing: -0.025em; line-height: 1.12; }
 .info h1 span { color: var(--text-soft); }
@@ -63,8 +128,15 @@ a { color: inherit; }
 @media (max-width: 900px) {
   .hl { grid-template-columns: 1fr; gap: 18px; }
 }
+@media (max-width: 700px) {
+  .row { flex-direction: column; }
+  .demo-end { grid-template-columns: 1fr; }
+  .row > .panel { flex: none; }
+  .sw { left: 8px; right: 8px; bottom: 8px; }
+}
 @media (prefers-reduced-motion: reduce) {
   .js .rise { opacity: 1; translate: none; transition: none; }
+  .glow, .demo-shot { transition: none; }
 }
 </style>
 <script>document.documentElement.classList.add('js')</script>
@@ -73,6 +145,12 @@ a { color: inherit; }
 <header class="top"><a href="/home-v2">Akhil Male</a><a class="back" href="/home-v2#work">← Back to the work</a></header>
 
 <main class="wrap">
+  <figure class="panel p-hero rise" data-glow="bl">
+    <img class="art" src="assets/rr/glimpse/v2/hero-art.webp" width="2200" height="789" alt="Failed payments flowing through a retry engine and coming out recovered">
+    <h2>Recover lost subscription revenue with intelligent retries</h2>
+    <p>Recover failed recurring payments with smart retry strategies that determine when and how to retry helping you reduce involuntary churn and recover more revenue.</p>
+  </figure>
+
   <section class="info rise">
     <h1>Revenue Recovery <span>for subscription businesses</span></h1>
     <p class="desc">Subscription businesses lose revenue every time a renewal payment fails. Revenue Recovery takes over those failed invoices and decides, <b>invoice by invoice</b>, when to retry, which card to use and which strategy gives it the best chance.</p>
@@ -83,20 +161,99 @@ a { color: inherit; }
     </ul>
     <div class="foot">
       <div class="tags"><span>product design</span><span>0 → 1</span><span>Juspay Hyperswitch · 2025</span></div>
-      <a class="demo" href="https://recovery-demo.vercel.app/" target="_blank" rel="noopener">Try the interactive demo <span aria-hidden="true">↗</span></a>
     </div>
   </section>
 
-  <figure class="shot rise">
-    <img src="assets/rr/glimpse/rr-glimpse-1320.webp" srcset="assets/rr/glimpse/rr-glimpse-1320.webp 1320w, assets/rr/glimpse/rr-glimpse-2640.webp 2640w" sizes="(min-width: 1320px) 1120px, 100vw" width="2640" height="5551" alt="Revenue Recovery: the welcome screen, the overview with its recovery trend, an invoice's recovery progress, webhook setup, the monthly retry budget, an invoice's attempt history and recovery rates by failure type">
-  </figure>
+  <section class="show" aria-label="Revenue Recovery, screen by screen">
+    <figure class="panel p-win rise">
+      <img class="shot-in" src="assets/rr/glimpse/v2/overview.webp" width="2000" height="1138" alt="Revenue Recovery overview: failed revenue split into recovered, scheduled and unrecoverable, with the recovery trend" loading="lazy">
+    </figure>
+
+    <div class="row">
+      <figure class="panel p-card p-chip rise">
+        <img class="shot-in" src="assets/rr/glimpse/v2/recovery-chip.webp" width="1160" height="228" alt="An invoice's recovery progress: $248 of $1000 recovered, next retry scheduled" loading="lazy">
+      </figure>
+      <figure class="panel p-card p-hook rise">
+        <img class="shot-in" src="assets/rr/glimpse/v2/webhook.webp" width="900" height="291" alt="Set up a webhook: the endpoint to paste into the processor's dashboard, with a copy button" loading="lazy">
+      </figure>
+    </div>
+
+    <figure class="panel p-win rise">
+      <img class="shot-in" src="assets/rr/glimpse/v2/invoices.webp" width="2000" height="1138" alt="Invoice recovery overview: invoices in progress, partially recovered and lost, and the list of invoices with their status and recovery progress" loading="lazy">
+    </figure>
+
+    <div class="row">
+      <figure class="panel p-card p-budget rise">
+        <img class="shot-in" src="assets/rr/glimpse/v2/budget.webp" width="900" height="432" alt="Set a monthly retry budget, with a suggested budget to start from" loading="lazy">
+      </figure>
+      <figure class="panel p-card p-compare rise">
+        <img class="shot-in" src="assets/rr/glimpse/v2/comparison.webp" width="1100" height="414" alt="Recovery rate by failure type, Juspay Hyperswitch against the merchant's own retries" loading="lazy">
+      </figure>
+    </div>
+
+    <figure class="panel p-win rise">
+      <img class="shot-in" src="assets/rr/glimpse/v2/invoice-details.webp" width="2000" height="1138" alt="Invoice recovery details: the attempts history beside a What's happening? feed explaining each retry" loading="lazy">
+    </figure>
+  </section>
+
+  <section class="demo-end rise">
+    <div>
+      <p class="eyebrow">Interactive demo</p>
+      <h2>See it recover a payment</h2>
+      <p>Built for the business team, to help them <b>walk merchants through the idea</b>: failed invoices flowing in, getting retried, and coming back as revenue, before the product was in their hands.</p>
+      <a class="demo" href="https://recovery-demo.vercel.app/" target="_blank" rel="noopener">Try the interactive demo <span aria-hidden="true">↗</span></a>
+    </div>
+    <a class="demo-shot" href="https://recovery-demo.vercel.app/" target="_blank" rel="noopener" aria-label="Open the interactive demo">
+      <div class="bar"><i></i><i></i><i></i><span>recovery-demo.vercel.app</span></div>
+      <img src="assets/rr/glimpse/v2/demo.webp" width="2000" height="1111" alt="The demo's opening screen: a failed invoice passing through the recovery engine and coming out recovered" loading="lazy">
+    </a>
+  </section>
+
+  <div class="sw" role="group" aria-label="Preview options">
+    <div data-group="surface"><span>Surface</span><span><button type="button" data-v="glass">Glass</button><button type="button" data-v="grey">Grey</button><button type="button" data-v="white">White</button></span></div>
+    <div data-group="glow"><span>Glow</span><span><button type="button" data-v="off">Off</button><button type="button" data-v="subtle">Subtle</button><button type="button" data-v="soft">Soft</button></span></div>
+  </div>
 </main>
 
 <script type="module">
 // ground and text follow the theme picked on the home preview (dark if none yet)
-import { THEMES, PALETTES, paintTheme, loadShared } from './assets/fx/fx-core.js';
+import { THEMES, PALETTES, T, paintTheme, loadShared } from './assets/fx/fx-core.js';
+import { mountShader } from './assets/shaders.js';
 const s = loadShared();
-paintTheme(THEMES[s.theme] ? s.theme : 'dark', PALETTES.ink);
+const theme = THEMES[s.theme] ? s.theme : 'dark';
+paintTheme(theme, PALETTES.ink);
+
+// the welcome panel is lit from one corner by the violets of its illustration
+const VIOLET = THEMES[theme].dark ? ['#8165eb', '#6d56c6', T] : ['#9d8cf5', '#cfc6ff', T];
+const CORNER = { tr: { rotation: 0 }, bl: { rotation: 180 }, tl: { rotation: 270 }, br: { rotation: 90 } };
+document.querySelectorAll('.panel[data-glow]').forEach(panel => {
+  const glow = document.createElement('div');
+  glow.className = 'glow';
+  glow.setAttribute('aria-hidden', 'true');
+  panel.prepend(glow);
+  mountShader(glow, 'grain', { shape: 'corners', colorBack: T, colors: VIOLET, softness: 0.9, intensity: 0.15, noise: 0.3, scale: 1.4, speed: 0.2, ...CORNER[panel.dataset.glow] })
+    .catch(err => console.warn('Glow not mounted', err));
+});
+
+// preview switcher: surface and glow strength, remembered for this browser
+const GLOW = { off: 0, subtle: 0.4, soft: 0.8 };
+const KEY = 'rrGlimpse';
+let pick = { surface: 'glass', glow: 'subtle' };
+try { pick = { ...pick, ...JSON.parse(localStorage.getItem(KEY) || '{}') }; } catch (e) {}
+const sw = document.querySelector('.sw');
+function apply() {
+  document.documentElement.dataset.surface = pick.surface;
+  document.documentElement.style.setProperty('--glow', GLOW[pick.glow]);
+  sw.querySelectorAll('[data-group]').forEach(g => g.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String(pick[g.dataset.group] === b.dataset.v))));
+  try { localStorage.setItem(KEY, JSON.stringify(pick)); } catch (e) {}
+}
+sw.addEventListener('click', e => {
+  const b = e.target.closest('button[data-v]');
+  if (!b) return;
+  pick[b.closest('[data-group]').dataset.group] = b.dataset.v;
+  apply();
+});
+apply();
 </script>
 <script>
 (function () {
