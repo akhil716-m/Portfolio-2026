@@ -10,8 +10,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-/* Variation B for the smaller projects: one page, one glance. The name, a short
-   description, three core highlights and tags, then the product laid out as panels:
+/* Variation B for the smaller projects: one page, one glance. It opens like the case
+   studies (tags, title, context, role, scope and team on a full fold of text), then the
+   product laid out as panels:
    real screens and cards from the product sitting on quiet glass, each panel lit by a
    faint glow in the hero illustration's violets (the welcome panel only). Ground and text follow the theme
    picked on the home preview; a small switcher compares surfaces and glow strength. */
@@ -20,7 +21,9 @@
   --line: #1f1f1f; --fg-rgb: 255 255 255;
   --gutter: clamp(20px, 6vw, 100px);
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --rr: #9d8cf5; /* violet from the hero illustration: the page's one touch of colour */
 }
+html:not([data-fx-theme="dark"]) { --rr: #6a5ae0; }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html { background: var(--bg); color-scheme: dark; }
 body { font-family: 'Geist', sans-serif; color: var(--text); background: var(--bg); -webkit-font-smoothing: antialiased; }
@@ -106,19 +109,33 @@ html[data-surface="white"] .panel p { color: #6b7180; }
 .sw button:hover { color: #ededed; border-color: rgba(255,255,255,.25); }
 .sw button[aria-pressed="true"] { background: #ededed; border-color: #ededed; color: #0a0a0a; }
 
-/* ---------- Name, description, highlights, tags ---------- */
-.p-hero { margin-bottom: clamp(36px, 5vw, 64px); }
-.info { max-width: 880px; }
-.info h1 { font-size: clamp(30px, 3.2vw, 44px); font-weight: 500; letter-spacing: -0.025em; line-height: 1.12; }
-.info h1 span { color: var(--text-soft); }
-.desc { margin-top: 18px; font-size: clamp(16px, 1.3vw, 20px); font-weight: 300; line-height: 1.65; color: var(--text-soft); max-width: 62ch; }
-.desc b { font-weight: 500; color: var(--text); }
-.hl { list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin-top: 32px; padding-top: 24px; border-top: 1px solid rgb(var(--fg-rgb) / 0.1); }
-.hl b { display: block; font-size: 15px; font-weight: 500; color: var(--text); }
-.hl span { display: block; margin-top: 6px; font-size: 14px; font-weight: 300; line-height: 1.55; color: var(--text-soft); }
-.foot { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 20px; margin-top: 32px; }
-.tags { display: flex; flex-wrap: wrap; gap: 8px; }
-.tags span { padding: 6px 12px; border: 1px solid rgb(var(--fg-rgb) / 0.14); border-radius: 100px; font: 400 12px 'Geist Mono', monospace; color: var(--text-soft); }
+/* ---------- Opening, in the case studies' language ---------- */
+/* full fold of text first, the product after it, like the case-study heroes */
+.cs-hero { position: relative; min-height: calc(100svh - 58px); display: flex; flex-direction: column; justify-content: flex-end;
+  margin-top: calc(-1 * clamp(32px, 5vw, 64px)); padding: 120px 0 clamp(56px, 8vh, 96px); }
+.cs-hero-eyebrow { font: 400 11px 'Geist Mono', monospace; letter-spacing: 0.24em; text-transform: uppercase; color: var(--rr); margin-bottom: 26px; }
+.cs-hero-eyebrow .sep { color: var(--text-muted); margin: 0 10px; letter-spacing: 0; }
+.cs-hero-title { font-size: clamp(60px, 11vw, 130px); font-weight: 500; line-height: 0.96; letter-spacing: -0.03em; max-width: 920px; }
+.cs-hero-title em { font-style: normal; color: var(--text-soft); }
+.cs-hero-desc { margin-top: clamp(24px, 3vw, 36px); max-width: 68ch; font-size: clamp(16px, 1.3vw, 19px); font-weight: 300; line-height: 1.65; color: var(--text-soft); }
+.cs-hero-desc b { font-weight: 500; color: var(--text); }
+.cs-hero-meta { display: flex; flex-wrap: wrap; gap: 24px 48px; margin-top: clamp(40px, 5vw, 58px); padding-top: 32px; border-top: 1px solid rgb(var(--fg-rgb) / 0.1); }
+.cs-hero-meta-item label { display: block; font: 400 10px 'Geist Mono', monospace; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 9px; }
+.cs-hero-meta-item span { font-size: 14px; font-weight: 300; color: var(--text-soft); }
+.cs-hero-meta-item .accent { color: var(--rr); }
+.cs-hero-scroll { position: absolute; right: 0; bottom: clamp(56px, 8vh, 96px); display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.cs-hero-scroll span { font: 400 10px 'Geist Mono', monospace; letter-spacing: 0.22em; text-transform: uppercase; color: var(--text-muted); writing-mode: vertical-rl; }
+.cs-hero-scroll-line { width: 1px; height: 58px; background: linear-gradient(to bottom, var(--rr), transparent); transform-origin: top; animation: csScrollPulse 2.4s ease-in-out infinite; }
+@keyframes csScrollPulse { 0%, 100% { opacity: 0.25; transform: scaleY(0.6); } 50% { opacity: 1; transform: scaleY(1); } }
+/* the opening rises in on load, in the same order as the case studies */
+@keyframes csFadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+.cs-hero > * { opacity: 0; animation: csFadeUp 0.8s ease forwards; }
+.cs-hero-eyebrow { animation-delay: 0.2s; }
+.cs-hero-title { animation-delay: 0.35s; }
+.cs-hero-desc { animation-delay: 0.45s; }
+.cs-hero-meta { animation-delay: 0.55s; }
+.cs-hero-scroll { animation-delay: 1s; }
+
 .demo { display: inline-flex; gap: 6px; font: 400 12px 'Geist Mono', monospace; color: var(--text-soft); text-decoration: none; border-bottom: 1px solid rgb(var(--fg-rgb) / 0.2); padding-bottom: 2px; transition: color 0.2s, border-color 0.2s; }
 .demo:hover { color: var(--text); border-color: rgb(var(--fg-rgb) / 0.6); }
 
@@ -126,7 +143,7 @@ html[data-surface="white"] .panel p { color: #6b7180; }
 .js .rise.is-in { opacity: 1; translate: 0 0; }
 
 @media (max-width: 900px) {
-  .hl { grid-template-columns: 1fr; gap: 18px; }
+  .cs-hero-scroll { display: none; }
 }
 @media (max-width: 700px) {
   .row { flex-direction: column; }
@@ -137,6 +154,8 @@ html[data-surface="white"] .panel p { color: #6b7180; }
 @media (prefers-reduced-motion: reduce) {
   .js .rise { opacity: 1; translate: none; transition: none; }
   .glow, .demo-shot { transition: none; }
+  .cs-hero > * { opacity: 1; animation: none; }
+  .cs-hero-scroll-line { animation: none; }
 }
 </style>
 <script>document.documentElement.classList.add('js')</script>
@@ -145,24 +164,23 @@ html[data-surface="white"] .panel p { color: #6b7180; }
 <header class="top"><a href="/home-v2">Akhil Male</a><a class="back" href="/home-v2#work">← Back to the work</a></header>
 
 <main class="wrap">
+  <header class="cs-hero">
+    <div class="cs-hero-eyebrow">Product design<span class="sep">·</span>Juspay Hyperswitch<span class="sep">·</span>2025</div>
+    <h1 class="cs-hero-title">Revenue <em>Recovery</em></h1>
+    <p class="cs-hero-desc">Designed the Revenue Recovery product <b>from 0→1</b>, shaping the end-to-end experience and translating a complex recovery system into a clear, intuitive experience for merchants. Also collaborated with the Business Development team to create interactive product demos for merchant conversations.</p>
+    <div class="cs-hero-meta">
+      <div class="cs-hero-meta-item"><label>Role</label><span>Solo Product Designer</span></div>
+      <div class="cs-hero-meta-item"><label>Scope</label><span>0 → 1 Product</span></div>
+      <div class="cs-hero-meta-item"><label>Team</label><span>Product, Engineering <span class="accent">·</span> Business Development</span></div>
+    </div>
+    <div class="cs-hero-scroll" aria-hidden="true"><span>Scroll</span><div class="cs-hero-scroll-line"></div></div>
+  </header>
+
   <figure class="panel p-hero rise" data-glow="bl">
     <img class="art" src="assets/rr/glimpse/v2/hero-art.webp" width="2200" height="789" alt="Failed payments flowing through a retry engine and coming out recovered">
     <h2>Recover lost subscription revenue with intelligent retries</h2>
     <p>Recover failed recurring payments with smart retry strategies that determine when and how to retry helping you reduce involuntary churn and recover more revenue.</p>
   </figure>
-
-  <section class="info rise">
-    <h1>Revenue Recovery <span>for subscription businesses</span></h1>
-    <p class="desc">Subscription businesses lose revenue every time a renewal payment fails. Revenue Recovery takes over those failed invoices and decides, <b>invoice by invoice</b>, when to retry, which card to use and which strategy gives it the best chance.</p>
-    <ul class="hl">
-      <li><b>It explains itself</b><span>Every retry decision is narrated in plain words, beside the attempts.</span></li>
-      <li><b>Spend to recover</b><span>A monthly budget for hard declines, with the expected return up front.</span></li>
-      <li><b>Strategies that stack</b><span>Card switching, partial auth and account updater, combined per invoice.</span></li>
-    </ul>
-    <div class="foot">
-      <div class="tags"><span>product design</span><span>0 → 1</span><span>Juspay Hyperswitch · 2025</span></div>
-    </div>
-  </section>
 
   <section class="show" aria-label="Revenue Recovery, screen by screen">
     <figure class="panel p-win rise">
