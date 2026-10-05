@@ -47,10 +47,13 @@
   50% { opacity: 1; transform: scaleY(1); }
 }
 
-/* ---------- CONTEXT RAIL — sticky scroll-spy nav (section thesis + jump list) ---------- */
+/* ---------- CONTEXT RAIL — sticky scroll-spy nav, the same on every case study ----------
+   Labels hold a 12px floor; the current section is marked for screen readers too
+   (aria-current). Where there is no room for the rail, the chapter bar in the top nav
+   lists the same sections as a menu. */
 .cs-rail {
   position: fixed; left: clamp(20px, 2.5vw, 40px); top: 50%;
-  transform: translateY(-50%); width: 200px; z-index: 60;
+  transform: translateY(-50%); width: max-content; z-index: 60;
   opacity: 0; pointer-events: none; transition: opacity 0.5s ease;
 }
 .cs-rail.is-visible { opacity: 1; pointer-events: auto; }
@@ -62,8 +65,9 @@
   display: flex; align-items: center; gap: 10px; width: 100%;
   background: none; border: none; cursor: pointer; padding: 5px 0; text-align: left;
 }
+.cs-rail-list li button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
 .cs-rail-num {
-  font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.12em;
+  font-family: 'Geist Mono', monospace; font-size: 12px; letter-spacing: 0.06em;
   color: var(--text-muted); flex-shrink: 0; transition: color 0.15s;
 }
 .cs-rail-name {
@@ -74,7 +78,46 @@
 .cs-rail-list li button:hover .cs-rail-num { color: var(--text-soft); }
 .cs-rail-list li.is-active .cs-rail-num { color: var(--accent); }
 .cs-rail-list li.is-active .cs-rail-name { color: var(--text); font-weight: 500; }
-@media(max-width: 1280px) { .cs-rail { display: none; } }
+@media (max-width: 1280px) { .cs-rail { display: none; } }
+
+/* Chapter bar: stands in for the rail wherever there is no room for it */
+.cs-chapter { position: relative; visibility: hidden; opacity: 0; transition: opacity 0.3s ease, visibility 0.3s ease; }
+.cs-chapter.is-visible { visibility: visible; opacity: 1; }
+@media (min-width: 1281px) { .cs-chapter { display: none; } }
+.cs-chapter-btn {
+  display: inline-flex; align-items: center; gap: 10px; min-height: 44px; max-width: min(58vw, 300px); padding: 0 16px; cursor: pointer;
+  border-radius: 100px; border: 1px solid var(--line); background: rgb(var(--bg-rgb) / 0.72); color: var(--text);
+  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+  font-family: 'Geist', sans-serif; font-size: 14px; font-weight: 500; letter-spacing: 0; transition: border-color 0.2s ease;
+}
+.cs-chapter-btn:hover { border-color: var(--accent); }
+.cs-chapter-btn:active { transform: scale(0.97); }
+.cs-chapter-btn:focus-visible, .cs-chapter-item:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.cs-chapter-num { font-family: 'Geist Mono', monospace; font-size: 12px; font-weight: 400; color: var(--accent); }
+.cs-chapter-num:empty { display: none; }
+.cs-chapter-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cs-chapter-chev { flex: none; color: var(--text-soft); transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1); }
+.cs-chapter-btn[aria-expanded="true"] .cs-chapter-chev { transform: rotate(180deg); }
+.cs-chapter-menu {
+  position: absolute; top: calc(100% + 8px); right: 0; z-index: 5;
+  width: min(340px, calc(100vw - 40px)); max-height: min(72dvh, 540px); overflow-y: auto; overscroll-behavior: contain; padding: 8px;
+  border-radius: 20px; background: rgba(12,12,12,0.985); border: 1px solid var(--line);
+  -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); box-shadow: 0 24px 60px rgb(var(--sh-rgb) / calc(0.5 * var(--sh-k)));
+}
+.cs-chapter-menu[hidden] { display: none; }
+.cs-chapter-list { list-style: none; margin: 0; padding: 0; }
+.cs-chapter-item {
+  display: flex; align-items: center; gap: 12px; width: 100%; min-height: 44px; padding: 0 12px; text-align: left; cursor: pointer;
+  border: 0; border-radius: 12px; background: none; transition: background 0.15s ease, color 0.15s ease;
+  font-family: 'Geist', sans-serif; font-size: 15px; letter-spacing: 0; color: var(--text-soft);
+}
+.cs-chapter-item .n { flex: none; width: 22px; font-family: 'Geist Mono', monospace; font-size: 12px; color: var(--text-muted); }
+.cs-chapter-item:hover { background: rgb(var(--fg-rgb) / 0.05); color: var(--text); }
+.cs-chapter-item.is-active { color: var(--text); background: rgb(var(--fg-rgb) / 0.07); }
+.cs-chapter-item.is-active .n { color: var(--accent); }
+nav .logo a.cs-back { min-height: 44px; padding-right: 12px; }
+@media (max-width: 760px) { .cs-back-long { display: none; } }
+@media (prefers-reduced-motion: reduce) { .cs-chapter, .cs-chapter-chev, .cs-chapter-btn, .cs-chapter-item, .cs-rail, .cs-rail-num, .cs-rail-name { transition: none; } .cs-chapter-btn:active { transform: none; } }
 
 /* ---------- HERO ---------- */
 .cs-hero {
@@ -119,10 +162,10 @@ nav .logo a.cs-back:hover { color: var(--accent); }
   opacity: 0; animation: csFadeUp 0.8s ease forwards 0.55s;
 }
 .cs-hero-meta-item label {
-  display: block; font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.18em;
+  display: block; font-family: 'Geist Mono', monospace; font-size: 12px; letter-spacing: 0.18em;
   text-transform: uppercase; color: var(--text-muted); margin-bottom: 9px;
 }
-.cs-hero-meta-item span { font-family: 'Geist', sans-serif; font-size: 14px; font-weight: 300; color: var(--text-soft); }
+.cs-hero-meta-item span { font-family: 'Geist', sans-serif; font-size: 14.5px; font-weight: 400; color: var(--text); }
 .cs-hero-meta-item .accent { color: var(--accent); }
 
 .cs-hero-scroll {
@@ -576,6 +619,30 @@ a.cs-cta { margin-top: 28px; }
 .cs-stage > video:fullscreen::backdrop { background: #131313; }
 .cs-stage > video:-webkit-full-screen { border-radius: 0; }
 .cs-stage > video:-webkit-full-screen::backdrop { background: #131313; }
+
+/* ===== Shared case-study type =====
+   Headings follow Up-skill (white statement, the emphasised words in grey); body copy follows
+   HyperSense (16px, light, open leading). Up-skill, HyperSense and Reconciliation carry the
+   same block so the three read as one set. */
+.cs-display { font-size: clamp(34px, 4.6vw, 56px); font-weight: 500; line-height: 1.12; letter-spacing: -0.02em; color: var(--text); max-width: 19ch; text-wrap: balance; }
+.cs-display em { font-style: normal; font-weight: 500; color: var(--text-soft); }
+.cs-h3 { font-size: clamp(21px, 2.1vw, 24px); font-weight: 500; line-height: 1.25; letter-spacing: -0.01em; text-wrap: balance; }
+.cs-p { font-size: 16px; font-weight: 300; line-height: 1.85; color: var(--text-soft); max-width: 720px; }
+.cs-list li { font-size: 16px; font-weight: 300; line-height: 1.7; }
+@media (max-width: 760px) { .cs-display { max-width: none; } }
+
+/* Back link: the home page's top-nav link (Resume), its left edge on the hero's text line */
+@media (min-width: 901px) { nav { padding-left: clamp(24px, 6vw, 80px); padding-right: clamp(24px, 6vw, 80px); } }
+nav .logo a.cs-back {
+  min-height: 44px; padding: 0; gap: 8px;
+  font-family: 'Geist Mono', monospace; font-size: 14px; letter-spacing: 0.02em; text-transform: none;
+  color: var(--text-soft); transition: color 0.2s ease, gap 0.2s ease;
+}
+nav .logo a.cs-back:hover { color: var(--text); gap: 11px; }
+nav .logo a.cs-back .arr { flex: none; display: block; }
+nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; border-radius: 4px; }
+@media (max-width: 900px) { nav .logo a.cs-back { font-size: 12px; } }
+@media (prefers-reduced-motion: reduce) { nav .logo a.cs-back { transition: none; } }
 </style>
 </head>
 <body>
@@ -591,7 +658,18 @@ a.cs-cta { margin-top: 28px; }
 
 <nav>
   <div class="logo">
-    <a class="cs-back" href="/"><span class="arr">←</span> Back to selected work</a>
+    <a class="cs-back" href="/" aria-label="Back to selected work"><svg class="arr" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>Back<span class="cs-back-long"> to selected work</span></a>
+  </div>
+  <!-- CHAPTER BAR: stands in for the side rail wherever there is no room for it -->
+  <div class="cs-chapter" id="cs-chapter">
+    <button type="button" class="cs-chapter-btn" id="cs-chapter-btn" aria-expanded="false" aria-controls="cs-chapter-menu">
+      <span class="cs-chapter-num" id="cs-chapter-num"></span>
+      <span class="cs-chapter-name" id="cs-chapter-name">Chapters</span>
+      <svg class="cs-chapter-chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+    </button>
+    <div class="cs-chapter-menu" id="cs-chapter-menu" hidden>
+      <ul class="cs-chapter-list" id="cs-chapter-list"></ul>
+    </div>
   </div>
 </nav>
 
@@ -1264,82 +1342,107 @@ a.cs-cta { margin-top: 28px; }
   update();
 })();
 
-/* Context rail — scroll-spy: active section thesis + jump list to the rest */
+/* Context rail + chapter bar: the current section is whatever crosses a thin band a third of the
+   way down the viewport. Jumps respect reduced motion; the menu closes on Escape or an outside tap. */
 (function() {
   var rail = document.getElementById('cs-rail');
   var list = document.getElementById('cs-rail-list');
   if (!rail || !list) return;
+  var REDUCE = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   var SECTIONS = [
-    { id: 'cs-context',   label: '01 — Multiple Versions of the Truth' },
-    { id: 'cs-exception', label: '02 — What&rsquo;s an Exception' },
-    { id: 'cs-shapes',    label: '03 — Why Resolution Slows Down' },
-    { id: 'cs-structure', label: '04 — Designing the Investigation' },
-    { id: 'cs-showcase',  label: '05 — Designing for Resolution' }
+    { id: 'cs-context', num: '01', name: 'Multiple Versions of the Truth' },
+    { id: 'cs-exception', num: '02', name: 'What&rsquo;s an Exception' },
+    { id: 'cs-shapes', num: '03', name: 'Why Resolution Slows Down' },
+    { id: 'cs-structure', num: '04', name: 'Designing the Investigation' },
+    { id: 'cs-showcase', num: '05', name: 'Designing for Resolution' }
   ];
+  var byId = {};
+  SECTIONS.forEach(function(s) { byId[s.id] = s; });
+  var activeId = null, heroGone = false;
 
-  var activeId = null;
-  var heroGone = false;
-
-  function scrollToSection(id) {
+  function jump(id) {
     var el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
+    if (el) el.scrollIntoView({ behavior: REDUCE ? 'auto' : 'smooth' });
   }
 
   list.innerHTML = SECTIONS.map(function(s) {
-    var parts = s.label.split(' — ');
     return '<li data-id="' + s.id + '"><button type="button" data-target="' + s.id + '">' +
-           '<span class="cs-rail-num">' + parts[0] + '</span>' +
-           '<span class="cs-rail-name">' + parts[1] + '</span>' +
+           '<span class="cs-rail-num">' + s.num + '</span>' +
+           '<span class="cs-rail-name">' + s.name + '</span>' +
            '</button></li>';
   }).join('');
   list.querySelectorAll('button').forEach(function(btn) {
-    btn.addEventListener('click', function(){ scrollToSection(this.getAttribute('data-target')); });
+    btn.addEventListener('click', function() { jump(this.getAttribute('data-target')); });
   });
 
-  function setActive(sec) {
-    var prev = list.querySelector('li.is-active');
-    if (prev) prev.classList.remove('is-active');
-    var li = list.querySelector('li[data-id="' + sec.id + '"]');
-    if (li) li.classList.add('is-active');
+  var chapter = document.getElementById('cs-chapter');
+  var cbtn = document.getElementById('cs-chapter-btn');
+  var cmenu = document.getElementById('cs-chapter-menu');
+  var clist = document.getElementById('cs-chapter-list');
+  var cnum = document.getElementById('cs-chapter-num');
+  var cname = document.getElementById('cs-chapter-name');
+  function setMenu(open) {
+    cmenu.hidden = !open;
+    cbtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    if (open) { var a = clist.querySelector('.is-active'); if (a) a.scrollIntoView({ block: 'nearest' }); }
   }
-
-  /* Hide the rail while the hero is in view; reveal once scrolled past it */
-  var hero = document.querySelector('.cs-hero');
-  if (hero) {
-    var heroObs = new IntersectionObserver(function(entries) {
-      entries.forEach(function(e) {
-        if (!e.isIntersecting) {
-          heroGone = true;
-          if (activeId) { rail.classList.add('is-visible'); rail.removeAttribute('aria-hidden'); }
-        } else {
-          heroGone = false;
-          rail.classList.remove('is-visible');
-          rail.setAttribute('aria-hidden', 'true');
-        }
-      });
-    }, { threshold: 0.05 });
-    heroObs.observe(hero);
-  } else {
-    heroGone = true;
-  }
-
-  function updateActiveSection() {
-    var triggerY = window.scrollY + window.innerHeight * 0.35;
-    var current = null;
-    SECTIONS.forEach(function(s) {
-      var el = document.getElementById(s.id);
-      if (el && el.offsetTop <= triggerY) current = s;
+  if (chapter && cbtn && cmenu && clist) {
+    clist.innerHTML = SECTIONS.map(function(s) {
+      return '<li><button type="button" class="cs-chapter-item" data-target="' + s.id + '"><span class="n">' + s.num + '</span><span>' + s.name + '</span></button></li>';
+    }).join('');
+    cbtn.addEventListener('click', function() { setMenu(cmenu.hidden); });
+    clist.addEventListener('click', function(e) {
+      var b = e.target.closest('button[data-target]');
+      if (!b) return;
+      setMenu(false);
+      jump(b.getAttribute('data-target'));
     });
-    if (current && current.id !== activeId) {
-      activeId = current.id;
-      setActive(current);
-      if (heroGone) { rail.classList.add('is-visible'); rail.removeAttribute('aria-hidden'); }
+    document.addEventListener('pointerdown', function(e) { if (!cmenu.hidden && !chapter.contains(e.target)) setMenu(false); });
+    document.addEventListener('keydown', function(e) { if (e.key === 'Escape' && !cmenu.hidden) { setMenu(false); cbtn.focus(); } });
+  }
+
+  function setActive(sec) {
+    list.querySelectorAll('li').forEach(function(li) {
+      var on = li.getAttribute('data-id') === sec.id;
+      li.classList.toggle('is-active', on);
+      var b = li.querySelector('button');
+      if (on) b.setAttribute('aria-current', 'true'); else b.removeAttribute('aria-current');
+    });
+    if (chapter && cname) {
+      cnum.textContent = sec.num;
+      cname.innerHTML = sec.name;
+      clist.querySelectorAll('button').forEach(function(b) {
+        var on = b.getAttribute('data-target') === sec.id;
+        b.classList.toggle('is-active', on);
+        if (on) b.setAttribute('aria-current', 'true'); else b.removeAttribute('aria-current');
+      });
     }
   }
+  function syncVisibility() {
+    var on = heroGone && !!activeId;
+    rail.classList.toggle('is-visible', on);
+    if (on) rail.removeAttribute('aria-hidden'); else rail.setAttribute('aria-hidden', 'true');
+    if (chapter) { chapter.classList.toggle('is-visible', on); if (!on && !cmenu.hidden) setMenu(false); }
+  }
 
-  window.addEventListener('scroll', updateActiveSection, { passive: true });
-  updateActiveSection();
+  if (!('IntersectionObserver' in window)) return;
+  var hero = document.querySelector('.cs-hero');
+  if (hero) {
+    new IntersectionObserver(function(entries) {
+      heroGone = !entries[0].isIntersecting;
+      syncVisibility();
+    }, { threshold: 0.05 }).observe(hero);
+  } else { heroGone = true; }
+
+  var io = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (!e.isIntersecting) return;
+      var sec = byId[e.target.id];
+      if (sec && sec.id !== activeId) { activeId = sec.id; setActive(sec); syncVisibility(); }
+    });
+  }, { rootMargin: '-35% 0px -64% 0px', threshold: 0 });
+  SECTIONS.forEach(function(s) { var el = document.getElementById(s.id); if (el) io.observe(el); });
 })();
 
 /* Reveal-on-scroll choreography */
