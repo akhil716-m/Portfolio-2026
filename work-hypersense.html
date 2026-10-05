@@ -680,40 +680,6 @@ a.cs-cta { margin-top: 28px; }
 }
 .cs-sim-modal-close:hover { color: var(--text); border-color: var(--text-muted); }
 
-/* ---------- MARKET GLOBE ---------- */
-.cs-dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; }
-.cs-dot--a { background: var(--accent); }
-.cs-dot--b { background: var(--text-muted); }
-.cs-globe-stage { position: relative; display: flex; justify-content: center; align-items: center; padding: 16px 0 30px; }
-.cs-globe-wrap { position: relative; width: 360px; max-width: 100%; }
-.cs-globe-wrap canvas {
-  width: 100%; display: block; border-radius: 50%; cursor: grab;
-  box-shadow: 0 0 90px rgb(var(--acc-rgb) / 0.07), 0 0 1px rgb(var(--fg-rgb) / 0.06);
-}
-.cs-globe-wrap canvas:active { cursor: grabbing; }
-.cs-globe-tip {
-  position: absolute; pointer-events: none; opacity: 0; transition: opacity 0.15s ease;
-  background: rgb(var(--bg-rgb) / 0.95); border: 1px solid var(--line); border-radius: 6px;
-  padding: 9px 13px; font-family: 'Geist', sans-serif; font-size: 11.5px; color: var(--text);
-  white-space: nowrap; z-index: 10; top: 0; left: 0; line-height: 1.7;
-}
-.cs-globe-tip-badge {
-  display: inline-block; font-family: 'Geist Mono', monospace; font-size: 8px; font-weight: 500;
-  border-radius: 3px; padding: 2px 6px; margin-left: 6px; letter-spacing: 0.07em; text-transform: uppercase;
-  vertical-align: middle;
-}
-.cs-globe-legend {
-  position: absolute; top: 4px; right: 4px; display: flex; flex-direction: column; gap: 7px; align-items: flex-end;
-}
-.cs-globe-legend-row {
-  display: flex; align-items: center; gap: 7px;
-  font-family: 'Geist Mono', monospace; font-size: 8px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted);
-}
-.cs-globe-hint {
-  text-align: center; font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.1em;
-  text-transform: uppercase; color: var(--text-muted); margin-top: -8px;
-}
-
 /* ---------- PERSONAS ---------- */
 .cs-persona { margin: 40px 0 0; padding: 36px; background: var(--bg-card); border: 1px solid var(--line); border-radius: 10px; position: relative; z-index: 501; }
 .cs-persona + .cs-persona { margin-top: 32px; }
@@ -1201,7 +1167,6 @@ a.cs-cta { margin-top: 28px; }
   .cs-sim-strip { flex-direction: column; gap: 16px; }
   .cs-sim-stage { grid-template-columns: 1fr; }
   .cs-sim-stage-amt { text-align: left; }
-  .cs-globe-wrap { width: 300px; }
   .cs-journey { gap: 0; }
   .cs-persona-meta { grid-template-columns: 1fr; gap: 20px; }
   .cs-persona { padding: 26px; }
@@ -1213,9 +1178,6 @@ a.cs-cta { margin-top: 28px; }
 @media (max-width: 540px) {
   .cs-team-grid { grid-template-columns: 1fr; }
   .cs-vis-body { padding: 26px 20px; }
-  .cs-globe-stage { flex-direction: column; gap: 18px; }
-  .cs-globe-wrap { width: 250px; }
-  .cs-globe-legend { position: static; align-items: flex-start; }
   .cs-journey { flex-direction: column; gap: 18px; }
   .cs-journey::before {
     top: 6px; bottom: 6px; left: 3px; right: auto; width: 1px; height: auto;
@@ -1622,43 +1584,13 @@ a.cs-cta { margin-top: 28px; }
 </div>
 </section>
 
-<!-- ═══════════════════════ 05 — WHERE THIS PROBLEM EXISTS ═══════════════════════ -->
-<section class="cs-section" id="cs-markets">
-<div class="cs-wrap">
-
-  <div class="cs-label reveal"><span class="num">/04</span> Geographic Focus</div>
-  <h2 class="cs-display reveal">Why the US and Europe <em>mattered.</em></h2>
-
-  <p class="cs-p reveal">The visibility of payment costs varies significantly across markets.</p>
-  <p class="cs-p reveal">In India, domestic payments largely run on UPI, where transaction costs are minimal. In many Southeast Asian and Latin American markets, merchants operate on simplified or blended pricing models that bundle costs into a single rate.</p>
-  <p class="cs-p reveal">In contrast, merchants in the United States and Europe often operate on <span class="cs-gloss" tabindex="0" data-gloss="ic-plus-plus">IC++</span> pricing, where every component of payment cost is exposed individually, creating both transparency and complexity.</p>
-
-  <div class="cs-vis reveal">
-    <div class="cs-vis-label">Where payment cost visibility matters</div>
-    <div class="cs-vis-body">
-      <div class="cs-globe-stage">
-        <div class="cs-globe-wrap" id="cs-globe-wrap">
-          <canvas id="cs-globe-canvas" width="380" height="380"></canvas>
-          <div class="cs-globe-tip" id="cs-globe-tip"></div>
-        </div>
-        <div class="cs-globe-legend">
-          <div class="cs-globe-legend-row"><i class="cs-dot cs-dot--a"></i> IC++ dominant</div>
-          <div class="cs-globe-legend-row"><i class="cs-dot cs-dot--b"></i> Simplified pricing</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-</div>
-</section>
-
 <!-- ═══════════════════════ 06 — USERS ═══════════════════════ -->
 <section class="cs-section" id="cs-users">
 <div class="cs-wrap">
 
-  <div class="cs-label reveal"><span class="num">/05</span> Users</div>
+  <div class="cs-label reveal"><span class="num">/04</span> Users</div>
   <h2 class="cs-display reveal">Three users. One blind spot. <em>Different stakes.</em></h2>
-  <p class="cs-p reveal">Once we understood where the problem existed, we needed to understand who was responsible for solving it. We discovered that payment costs weren't owned by a single team. Three different stakeholders interacted with the same problem from different angles, each carrying a different responsibility, but all missing the same visibility.</p>
+  <p class="cs-p reveal">Once we understood the problem, we needed to understand who was responsible for solving it. We discovered that payment costs weren't owned by a single team. Three different stakeholders interacted with the same problem from different angles, each carrying a different responsibility, but all missing the same visibility.</p>
 
   <!-- Persona 1 — Payment Analyst -->
   <div class="cs-persona reveal">
@@ -1804,7 +1736,7 @@ a.cs-cta { margin-top: 28px; }
 <section class="cs-section" id="cs-strategy">
 <div class="cs-wrap">
 
-  <div class="cs-label reveal"><span class="num">/06</span> Product Strategy and Design</div>
+  <div class="cs-label reveal"><span class="num">/05</span> Product Strategy and Design</div>
   <h2 class="cs-display reveal">From fragmented signals to <em>one investigation.</em></h2>
   <p class="cs-p reveal">Payment cost systems are naturally fragmented. Organising the product around processors, fee types, or reports would simply mirror that complexity.</p>
   <p class="cs-p reveal">Instead, we looked at how investigations actually unfolded. Regardless of where teams started, they were all trying to answer the same core questions.</p>
@@ -1825,7 +1757,7 @@ a.cs-cta { margin-top: 28px; }
 <section class="cs-section" id="cs-challenge">
 <div class="cs-wrap">
 
-  <div class="cs-label reveal"><span class="num">/07</span> Design Challenge</div>
+  <div class="cs-label reveal"><span class="num">/06</span> Design Challenge</div>
   <h2 class="cs-display reveal">Five tensions that shaped <em>every design decision.</em></h2>
   <p class="cs-p reveal">Defining the investigation flow solved the product problem. Designing an experience around it introduced a new set of constraints.</p>
   <p class="cs-p reveal">Every decision now had to balance trust, flexibility, and depth, without breaking the investigation flow.</p>
@@ -1906,7 +1838,7 @@ a.cs-cta { margin-top: 28px; }
 <section class="cs-section" id="cs-ui">
 <div class="cs-wrap">
 
-  <div class="cs-label reveal"><span class="num">/08</span> Product Experience</div>
+  <div class="cs-label reveal"><span class="num">/07</span> Product Experience</div>
   <h2 class="cs-display reveal">From fragmented costs to <em>a single cost story.</em></h2>
   <p class="cs-p reveal">With the investigation flow established, the next challenge was turning it into a cohesive product experience.</p>
   <p class="cs-p reveal">Each module served a distinct purpose, but together they needed to feel like a single investigation that teams could navigate naturally every month.</p>
@@ -2041,7 +1973,7 @@ a.cs-cta { margin-top: 28px; }
 <section class="cs-section" id="cs-outcome">
 <div class="cs-wrap">
 
-  <div class="cs-label reveal"><span class="num">/09</span> Outcome</div>
+  <div class="cs-label reveal"><span class="num">/08</span> Outcome</div>
   <h2 class="cs-display reveal">From a concept to <em>real merchant traction.</em></h2>
   <p class="cs-p reveal">HyperSense evolved from an internal concept into a product validated by enterprise merchants.</p>
   <p class="cs-p reveal">Through demos, pilots, and customer conversations, we confirmed that payment cost visibility wasn't just an operational problem; it was a business-critical one worth solving.</p>
@@ -2089,8 +2021,6 @@ a.cs-cta { margin-top: 28px; }
   <div class="right"><a href="#">Back to top ↑</a></div>
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js"></script>
 <script>
 
 /* Scroll progress bar */
@@ -2116,12 +2046,11 @@ a.cs-cta { margin-top: 28px; }
     { id: 'cs-what',      label: '01 — The Cost of Invisibility' },
     { id: 'cs-begins',    label: '02 — Where Hypersense Begins' },
     { id: 'cs-terrain',   label: '03 — Understanding the Terrain' },
-    { id: 'cs-markets',   label: '04 — Geographic Focus' },
-    { id: 'cs-users',     label: '05 — Users' },
-    { id: 'cs-strategy',  label: '06 — Product Strategy and Design' },
-    { id: 'cs-challenge', label: '07 — Design Challenge' },
-    { id: 'cs-ui',        label: '08 — Product Experience' },
-    { id: 'cs-outcome',   label: '09 — Outcome' }
+    { id: 'cs-users',     label: '04 — Users' },
+    { id: 'cs-strategy',  label: '05 — Product Strategy and Design' },
+    { id: 'cs-challenge', label: '06 — Design Challenge' },
+    { id: 'cs-ui',        label: '07 — Product Experience' },
+    { id: 'cs-outcome',   label: '08 — Outcome' }
   ];
 
   var activeId = null;
@@ -2867,161 +2796,6 @@ a.cs-cta { margin-top: 28px; }
     requestAnimationFrame(frame);
   }
   frame();
-})();
-
-/* ================================================================
-   MARKET GLOBE — orthographic D3 projection rendered to canvas,
-   re-themed in lime. Auto-rotates; drag to spin; hover a country
-   for an IC++ / Simplified-pricing context tooltip.
-   Full interactive parity with the source's globe, just re-skinned.
-   ================================================================ */
-(function() {
-  const canvas = document.getElementById('cs-globe-canvas');
-  const tip = document.getElementById('cs-globe-tip');
-  if (!canvas || !tip || typeof d3 === 'undefined' || typeof topojson === 'undefined') return;
-  const ctx = canvas.getContext('2d');
-  const S = 380;
-
-  const ICPP = new Set([840,124,826,276,250,528,724,380,372,752,208,578,246,56,40,756,300,620,203,348,616,233,428,440,703,705,191,642,100,792,36,710]);
-  const INFO = {
-    840:{name:'United States',note:'Highest interchange variability and downgrade exposure'},
-    124:{name:'Canada',note:'IC++ with cross-border complexity'},
-    826:{name:'United Kingdom',note:'Commercial card and cross-border complexity'},
-    276:{name:'Germany',note:'Commercial card interchange'},
-    250:{name:'France',note:'Cross-border and commercial card complexity'},
-    528:{name:'Netherlands',note:'IC++ four-party network'},
-    724:{name:'Spain',note:'IC++ pricing model'},
-    380:{name:'Italy',note:'IC++ pricing model'},
-    372:{name:'Ireland',note:'Major European payment hub'},
-    752:{name:'Sweden',note:'IC++ with strong card adoption'},
-    208:{name:'Denmark',note:'IC++ four-party card network'},
-    578:{name:'Norway',note:'IC++ with cross-border complexity'},
-    246:{name:'Finland',note:'IC++ four-party card network'},
-    56:{name:'Belgium',note:'IC++ pricing model'},
-    40:{name:'Austria',note:'IC++ four-party network'},
-    756:{name:'Switzerland',note:'IC++ with scheme complexity'},
-    300:{name:'Greece',note:'IC++ pricing model'},
-    620:{name:'Portugal',note:'IC++ pricing model'},
-    203:{name:'Czech Republic',note:'IC++ four-party card network'},
-    348:{name:'Hungary',note:'IC++ pricing model'},
-    616:{name:'Poland',note:'IC++ with growing card volume'},
-    233:{name:'Estonia',note:'IC++ four-party network'},
-    428:{name:'Latvia',note:'IC++ four-party network'},
-    440:{name:'Lithuania',note:'IC++ four-party network'},
-    703:{name:'Slovakia',note:'IC++ pricing model'},
-    705:{name:'Slovenia',note:'IC++ pricing model'},
-    191:{name:'Croatia',note:'IC++ pricing model'},
-    642:{name:'Romania',note:'IC++ four-party network'},
-    100:{name:'Bulgaria',note:'IC++ pricing model'},
-    792:{name:'Turkey',note:'IC++ with local scheme complexity'},
-    36:{name:'Australia',note:'Four-party card network model'},
-    710:{name:'South Africa',note:'Visa/Mastercard interchange model'},
-    356:{name:'India',note:'UPI-dominant, near-zero transaction cost'},
-    360:{name:'Indonesia',note:'Domestic rails, flat pricing'},
-    76:{name:'Brazil',note:'Blended rates dominate'},
-    156:{name:'China',note:'UnionPay domestic pricing'},
-    458:{name:'Malaysia',note:'Flat-rate and blended pricing'},
-    764:{name:'Thailand',note:'Simplified pricing model'},
-    484:{name:'Mexico',note:'Blended pricing dominant'},
-    32:{name:'Argentina',note:'Flat-rate pricing'}
-  };
-  const NAMES = {4:'Afghanistan',8:'Albania',12:'Algeria',24:'Angola',50:'Bangladesh',64:'Bhutan',68:'Bolivia',70:'Bosnia & Herz.',72:'Botswana',96:'Brunei',104:'Myanmar',108:'Burundi',116:'Cambodia',120:'Cameroon',132:'Cape Verde',140:'Central African Rep.',144:'Sri Lanka',152:'Chile',158:'Taiwan',170:'Colombia',174:'Comoros',178:'Congo',180:'DR Congo',184:'Cook Islands',188:'Costa Rica',192:'Cuba',196:'Cyprus',204:'Benin',214:'Dominican Rep.',218:'Ecuador',818:'Egypt',222:'El Salvador',231:'Ethiopia',238:'Falkland Islands',242:'Fiji',266:'Gabon',270:'Gambia',288:'Ghana',308:'Grenada',320:'Guatemala',324:'Guinea',328:'Guyana',332:'Haiti',340:'Honduras',364:'Iran',368:'Iraq',376:'Israel',388:'Jamaica',392:'Japan',400:'Jordan',398:'Kazakhstan',404:'Kenya',408:'North Korea',410:'South Korea',414:'Kuwait',418:'Laos',422:'Lebanon',426:'Lesotho',430:'Liberia',434:'Libya',450:'Madagascar',454:'Malawi',462:'Maldives',466:'Mali',478:'Mauritania',480:'Mauritius',496:'Mongolia',504:'Morocco',508:'Mozambique',516:'Namibia',524:'Nepal',562:'Niger',566:'Nigeria',586:'Pakistan',591:'Panama',598:'Papua New Guinea',600:'Paraguay',604:'Peru',608:'Philippines',630:'Puerto Rico',634:'Qatar',646:'Rwanda',682:'Saudi Arabia',686:'Senegal',694:'Sierra Leone',706:'Somalia',729:'Sudan',740:'Suriname',760:'Syria',762:'Tajikistan',834:'Tanzania',800:'Uganda',804:'Ukraine',784:'UAE',860:'Uzbekistan',704:'Vietnam',887:'Yemen',894:'Zambia',716:'Zimbabwe',566:'Nigeria',818:'Egypt',410:'South Korea',392:'Japan',682:'Saudi Arabia',784:'UAE',704:'Vietnam',604:'Peru',170:'Colombia',152:'Chile',12:'Algeria',504:'Morocco'};
-
-  const FILL_ICPP = 'rgba(212,255,94,0.55)';
-  const FILL_ICPP_HOVER = 'rgba(212,255,94,0.8)';
-  const FILL_OTHER = '#282828';
-  const FILL_OTHER_HOVER = '#3a3a3a';
-
-  let drag = false, lastX = 0, lastY = 0, paused = false;
-  let targetRot = [-20, 0], animRot = [-20, 0];
-  const proj = d3.geoOrthographic().scale(S/2 - 2).translate([S/2, S/2]).clipAngle(90).rotate(animRot.slice());
-  const path = d3.geoPath().projection(proj).context(ctx);
-  let countries = null, hoverId = null;
-
-  function draw() {
-    proj.rotate(animRot);
-    ctx.clearRect(0, 0, S, S);
-    ctx.beginPath(); path({ type: 'Sphere' });
-    ctx.fillStyle = '#0c0c0c'; ctx.fill();
-    const grat = d3.geoGraticule().step([30, 30])();
-    ctx.beginPath(); path(grat);
-    ctx.strokeStyle = 'rgba(255,255,255,.07)'; ctx.lineWidth = .5; ctx.stroke();
-    if (countries) {
-      countries.features.forEach(f => {
-        const id = +f.id;
-        const isIcpp = ICPP.has(id);
-        const isHover = id === hoverId;
-        ctx.beginPath(); path(f);
-        ctx.fillStyle = isHover ? (isIcpp ? FILL_ICPP_HOVER : FILL_OTHER_HOVER) : (isIcpp ? FILL_ICPP : FILL_OTHER);
-        ctx.fill();
-        ctx.strokeStyle = 'rgba(0,0,0,.4)'; ctx.lineWidth = .4; ctx.stroke();
-      });
-    }
-    ctx.beginPath(); path({ type: 'Sphere' });
-    ctx.strokeStyle = 'rgba(255,255,255,.09)'; ctx.lineWidth = 1; ctx.stroke();
-  }
-
-  function animate() {
-    if (!paused) {
-      targetRot[0] -= 0.12;
-      animRot[0] += (targetRot[0] - animRot[0]) * 0.06;
-      animRot[1] += (targetRot[1] - animRot[1]) * 0.06;
-    }
-    draw();
-    requestAnimationFrame(animate);
-  }
-
-  canvas.addEventListener('mousedown', e => { drag = true; paused = true; lastX = e.clientX; lastY = e.clientY; canvas.style.cursor = 'grabbing'; });
-  window.addEventListener('mouseup', () => { if (!drag) return; drag = false; canvas.style.cursor = 'grab'; setTimeout(() => paused = false, 1200); });
-  window.addEventListener('mousemove', e => {
-    if (drag) {
-      const dx = e.clientX - lastX, dy = e.clientY - lastY;
-      targetRot[0] += dx * 0.4; targetRot[1] -= dy * 0.4;
-      lastX = e.clientX; lastY = e.clientY;
-    }
-  });
-
-  canvas.addEventListener('mousemove', function(e) {
-    if (drag || !countries) return;
-    const rect = canvas.getBoundingClientRect();
-    const scale = S / rect.width;
-    const x = (e.clientX - rect.left) * scale, y = (e.clientY - rect.top) * scale;
-    proj.rotate(animRot);
-    const cx = x - S/2, cy = y - S/2;
-    if (cx*cx + cy*cy > (S/2 - 2) * (S/2 - 2)) {
-      hoverId = null; tip.style.opacity = '0'; canvas.style.cursor = drag ? 'grabbing' : 'grab'; return;
-    }
-    const coords = proj.invert([x, y]);
-    let found = null;
-    if (coords) { countries.features.forEach(f => { if (d3.geoContains(f, coords)) found = f; }); }
-    if (found) {
-      const id = +found.id;
-      const info = INFO[id];
-      const ic = ICPP.has(id);
-      hoverId = id;
-      canvas.style.cursor = 'pointer';
-      tip.style.opacity = '1';
-      tip.style.left = Math.min(e.clientX - rect.left + 14, rect.width - 200) + 'px';
-      tip.style.top = Math.max(e.clientY - rect.top - 54, 8) + 'px';
-      const name = info ? info.name : (NAMES[id] || 'Unknown');
-      const note = info ? info.note : (ic ? 'IC++ pricing market' : 'Limited IC++ exposure');
-      const accent = ic ? 'var(--accent)' : 'var(--text-soft)';
-      const badgeBg = ic ? 'rgba(212,255,94,0.18)' : 'rgba(138,138,138,0.18)';
-      tip.innerHTML = '<strong style="color:' + accent + ';font-weight:500">' + name + '</strong>'
-        + '<span class="cs-globe-tip-badge" style="background:' + badgeBg + ';color:' + accent + '">' + (ic ? 'IC++' : 'Simplified') + '</span>'
-        + '<br><span style="color:var(--text-muted);font-size:10px">' + note + '</span>';
-    } else {
-      hoverId = null;
-      canvas.style.cursor = 'grab';
-      tip.style.opacity = '0';
-    }
-  });
-  canvas.addEventListener('mouseleave', () => { if (!drag) { hoverId = null; tip.style.opacity = '0'; canvas.style.cursor = 'grab'; } });
-
-  fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')
-    .then(r => r.json())
-    .then(world => { countries = topojson.feature(world, world.objects.countries); animate(); })
-    .catch(() => { draw(); });
 })();
 
 console.log('%cHi.','font-family:"Instrument Serif",serif;font-size:32px;font-style:italic;color:#ededed;');
