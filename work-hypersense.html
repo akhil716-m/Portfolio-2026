@@ -86,8 +86,7 @@
 .cs-hero::before {
   content: ''; position: absolute; inset: 0; pointer-events: none; z-index: -1;
   background:
-    radial-gradient(ellipse 60% 50% at 80% 10%, rgb(var(--acc-rgb) / 0.07), transparent 70%),
-    radial-gradient(ellipse 50% 40% at 10% 90%, rgba(232,197,152,0.05), transparent 70%);
+    radial-gradient(ellipse 60% 50% at 80% 10%, rgb(var(--acc-rgb) / 0.07), transparent 70%);
 }
 .cs-back {
   display: inline-flex; align-items: center; gap: 8px; margin-bottom: 32px; width: fit-content;
@@ -401,7 +400,7 @@ nav .logo a.cs-back:hover { color: var(--accent); }
   font-family: 'Geist', sans-serif; font-size: clamp(24px, 3.4vw, 34px); font-weight: 600; letter-spacing: -0.015em;
   color: var(--text); margin: 0 0 14px;
 }
-.cs-more-title em { font-style: normal; font-family: 'Geist', sans-serif; font-weight: 500; color: var(--warm); }
+.cs-more-title em { font-style: normal; font-family: 'Geist', sans-serif; font-weight: 500; color: var(--text-soft); }
 .cs-more-desc {
   font-family: 'Geist', sans-serif; font-size: 15px; font-weight: 300; color: var(--text-soft);
   max-width: 480px; margin: 0 auto 36px; line-height: 1.7;
@@ -462,7 +461,7 @@ a.cs-cta { margin-top: 28px; }
 .cs-sim-amt-block { display: flex; flex-direction: column; gap: 8px; flex: 1; }
 .cs-sim-amt-block label { font-family: 'Geist Mono', monospace; font-size: 9.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-muted); }
 .cs-sim-amt { font-family: 'Geist Mono', monospace; font-size: clamp(20px, 2.6vw, 26px); font-weight: 500; color: var(--text); }
-.cs-sim-amt--neg { color: var(--warm); }
+.cs-sim-amt--neg { color: var(--text); }
 .cs-sim-amt--pos { color: var(--accent); }
 
 /* Small uppercase hint that crowns the card-type switcher — the very first
@@ -526,7 +525,7 @@ a.cs-cta { margin-top: 28px; }
 .cs-sim-fee-row .fr-amt { flex: 0 0 60px; text-align: right; font-family: 'Geist', sans-serif; font-size: 12px; }
 .cs-sim-dg {
   grid-column: 1 / -1; margin-top: 14px; padding: 14px 16px; border-radius: 0 6px 6px 0;
-  background: rgba(232,197,152,0.05); border-left: 2px solid rgba(232,197,152,0.35);
+  background: rgba(224,96,96,0.05); border-left: 2px solid rgba(224,96,96,0.35);
   font-family: 'Geist', sans-serif; font-size: 12px; line-height: 1.7; color: var(--text-soft);
   display: none;
 }
@@ -1058,14 +1057,7 @@ a.cs-cta { margin-top: 28px; }
 .cs-tension-index { grid-column: 1; grid-row: 1; font-family: 'Geist Mono', monospace; font-size: 16px; font-weight: 400; color: var(--text-muted); line-height: 1; padding-top: 3px; }
 .cs-tension-tension { grid-column: 2; }
 .cs-tension-title { font-family: 'Geist', sans-serif; font-size: 17px; font-weight: 500; line-height: 1.35; color: var(--text); margin: 0 0 10px; }
-.cs-tension-friction { font-family: 'Geist', sans-serif; font-size: 15px; font-weight: 300; line-height: 1.65; color: var(--text-muted); margin: 0 0 14px; max-width: 62ch; }
-.cs-tension-poles {
-  display: inline-flex; align-items: center; gap: 12px;
-  font-family: 'Geist', sans-serif; font-size: 13px; line-height: 1.3;
-}
-.cs-tension-pole-a { color: var(--text-muted); }
-.cs-tension-pole-b { color: var(--text); font-weight: 500; }
-.cs-tension-vs { font-family: 'Geist Mono', monospace; font-size: 13px; color: var(--accent); opacity: 0.9; }
+.cs-tension-friction { font-family: 'Geist', sans-serif; font-size: 15px; font-weight: 300; line-height: 1.65; color: var(--text-muted); margin: 0; max-width: 62ch; }
 .cs-tension-resp {
   grid-column: 2; margin-top: 20px;
   padding: 18px 22px; border-radius: 0 10px 10px 0;
@@ -1075,7 +1067,6 @@ a.cs-cta { margin-top: 28px; }
 .cs-tension-resp p { font-family: 'Geist', sans-serif; font-size: 15px; font-weight: 300; line-height: 1.65; color: var(--text-soft); margin: 0; max-width: 62ch; }
 @media (max-width: 760px) {
   .cs-tension-row { grid-template-columns: 28px 1fr; gap: 12px 16px; }
-  .cs-tension-poles { flex-wrap: wrap; }
 }
 
 /* ---------- KNOWLEDGE GRAPH ---------- */
@@ -1104,7 +1095,7 @@ a.cs-cta { margin-top: 28px; }
 .cs-scn-modal-img { height: 400px; overflow-y: auto; border-bottom: 1px solid var(--line); scrollbar-width: thin; scrollbar-color: rgb(var(--fg-rgb) / 0.12) transparent; }
 .cs-scn-modal-img img { width: 100%; display: block; }
 .cs-scn-modal-body { padding: 24px 28px 28px; position: relative; }
-.cs-scn-modal-tag { font-family: 'Geist Mono', monospace; font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--warm); margin-bottom: 10px; }
+.cs-scn-modal-tag { font-family: 'Geist Mono', monospace; font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
 .cs-scn-modal-title { font-family: 'Geist', sans-serif; font-size: 22px; font-weight: 600; letter-spacing: -0.01em; color: var(--text); margin-bottom: 10px; }
 .cs-scn-modal-desc { font-family: 'Geist', sans-serif; font-size: 13.5px; font-weight: 300; line-height: 1.7; color: var(--text-soft); margin: 0; }
 .cs-scn-modal-close { display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; margin: 0 auto 12px; background: rgb(var(--fg-rgb) / 0.08); border: 1px solid rgb(var(--fg-rgb) / 0.14); border-radius: 50%; cursor: pointer; color: var(--text-muted); font-size: 13px; transition: background 0.2s ease; flex-shrink: 0; }
@@ -1504,7 +1495,7 @@ a.cs-cta { margin-top: 28px; }
   <h3 class="cs-h3 reveal" style="margin-top: 40px;">The same transparency that creates savings also creates complexity.</h3>
 
   <p class="cs-p reveal">In <span class="cs-gloss" tabindex="0" data-gloss="ic-plus-plus">IC++</span> pricing, no two transactions are guaranteed to be priced the same. Card type, authentication, settlement timing, geography, and data quality all influence the final fee. Each variable can quietly shift a transaction into a different fee tier, and most merchants never see it happen.</p>
-  <p class="cs-p reveal">Without visibility, enterprise merchants often pay more than they should. The gap between expected and actual payment costs can reach <span class="warm">7–10%</span>.</p>
+  <p class="cs-p reveal">Without visibility, enterprise merchants often pay more than they should. The gap between expected and actual payment costs can reach <span class="cs-num">7–10%</span>.</p>
 
   <!-- THE RAW DOCUMENTS -->
   <div class="cs-docs reveal" style="margin: 24px 0 40px;">
@@ -1760,7 +1751,6 @@ a.cs-cta { margin-top: 28px; }
       <div class="cs-tension-tension">
         <div class="cs-tension-title">One cost story from fragmented systems</div>
         <p class="cs-tension-friction">Cost investigations required teams to piece together answers from multiple disconnected systems, reports, and invoices before they could understand what was happening.</p>
-        <div class="cs-tension-poles"><span class="cs-tension-pole-a">Fragmented cost signals</span><span class="cs-tension-vs">⇄</span><span class="cs-tension-pole-b">One investigation workflow</span></div>
       </div>
       <div class="cs-tension-resp">
         <div class="cs-tension-resp-label">Design response</div>
@@ -1773,7 +1763,6 @@ a.cs-cta { margin-top: 28px; }
       <div class="cs-tension-tension">
         <div class="cs-tension-title">Making complex cost data trustworthy</div>
         <p class="cs-tension-friction">Payment teams were expected to make operational and financial decisions from data they couldn't easily verify or explain.</p>
-        <div class="cs-tension-poles"><span class="cs-tension-pole-a">Complex cost data</span><span class="cs-tension-vs">⇄</span><span class="cs-tension-pole-b">Confidence to act</span></div>
       </div>
       <div class="cs-tension-resp">
         <div class="cs-tension-resp-label">Design response</div>
@@ -1786,7 +1775,6 @@ a.cs-cta { margin-top: 28px; }
       <div class="cs-tension-tension">
         <div class="cs-tension-title">One interface, two pricing models</div>
         <p class="cs-tension-friction">The same product needed to serve merchants operating on fundamentally different pricing structures and levels of cost visibility.</p>
-        <div class="cs-tension-poles"><span class="cs-tension-pole-a">IC++ granular detail</span><span class="cs-tension-vs">⇄</span><span class="cs-tension-pole-b">Blended single rate</span></div>
       </div>
       <div class="cs-tension-resp">
         <div class="cs-tension-resp-label">Design response</div>
@@ -1799,7 +1787,6 @@ a.cs-cta { margin-top: 28px; }
       <div class="cs-tension-tension">
         <div class="cs-tension-title">Distinguishing growth from leakage</div>
         <p class="cs-tension-friction">Not every increase in payment costs is a problem. Some reflect healthy business growth, while others indicate preventable leakage.</p>
-        <div class="cs-tension-poles"><span class="cs-tension-pole-a">Expected cost movement</span><span class="cs-tension-vs">⇄</span><span class="cs-tension-pole-b">Preventable leakage</span></div>
       </div>
       <div class="cs-tension-resp">
         <div class="cs-tension-resp-label">Design response</div>
@@ -1812,7 +1799,6 @@ a.cs-cta { margin-top: 28px; }
       <div class="cs-tension-tension">
         <div class="cs-tension-title">One investigation for multiple teams</div>
         <p class="cs-tension-friction">Finance, Payments, and Operations teams approached the problem from different angles, but every investigation needed a shared understanding of what changed and why.</p>
-        <div class="cs-tension-poles"><span class="cs-tension-pole-a">Different stakeholder goals</span><span class="cs-tension-vs">⇄</span><span class="cs-tension-pole-b">Shared investigation</span></div>
       </div>
       <div class="cs-tension-resp">
         <div class="cs-tension-resp-label">Design response</div>
@@ -2246,7 +2232,7 @@ a.cs-cta { margin-top: 28px; }
 
 /* ================================================================
    IC++ FEE SIMULATOR — full interactive parity with the source,
-   re-themed: lime for interchange, warm cream for the downgrade
+   re-themed: entity labels in the accent, amounts in white, avoidable cost in red
    reveal, soft greys for gateway/acquirer.
    ================================================================ */
 (function() {
@@ -2330,7 +2316,7 @@ a.cs-cta { margin-top: 28px; }
     { id: 'intl',   label: 'International' }
   ];
   const STAGES = [
-    { id: 'gw', entity: 'Payment Gateway', name: 'Processing', color: 'var(--warm)',
+    { id: 'gw', entity: 'Payment Gateway', name: 'Processing', color: 'var(--text)',
       role: "Securely captures the customer's payment details and routes the transaction to the card network for authorisation.",
       fees: {
         debit:  [{ n: 'Processing fee', flat: 0.15 }, { n: 'Tokenisation', flat: 0.05 }, { n: '3DS initiation', flat: 0.05 }],
@@ -2338,7 +2324,7 @@ a.cs-cta { margin-top: 28px; }
         corp:   [{ n: 'Processing fee', flat: 0.15 }, { n: 'Tokenisation', flat: 0.05 }, { n: '3DS initiation', flat: 0.08 }],
         intl:   [{ n: 'Processing fee', flat: 0.15 }, { n: 'Tokenisation', flat: 0.05 }, { n: '3DS initiation', flat: 0.1 }, { n: 'International surcharge', pct: 0.15 }]
       } },
-    { id: 'net', entity: 'Card Network', name: 'Authorisation & scheme fees', color: 'var(--warm)',
+    { id: 'net', entity: 'Card Network', name: 'Authorisation & scheme fees', color: 'var(--text)',
       role: 'Routes the transaction between banks and charges fees for processing it.',
       fees: {
         debit:  [{ n: 'Per-authorisation fee', flat: 0.03 }, { n: 'Scheme fee', pct: 0.04 }],
@@ -2346,7 +2332,7 @@ a.cs-cta { margin-top: 28px; }
         corp:   [{ n: 'Per-authorisation fee', flat: 0.05 }, { n: 'Scheme fee', pct: 0.12 }],
         intl:   [{ n: 'Per-authorisation fee', flat: 0.05 }, { n: 'Scheme fee (base + cross-border + FX)', pct: 0.4 }]
       } },
-    { id: 'iss', entity: 'Issuing Bank', name: 'Interchange', color: 'var(--warm)',
+    { id: 'iss', entity: 'Issuing Bank', name: 'Interchange', color: 'var(--text)',
       role: "The customer's bank funds the transaction, absorbs credit risk and potential fraud liability, and earns interchange in return. It's the single largest variable in IC++ pricing.",
       fees: {
         debit:  [{ n: 'Interchange', pct: 0.95 }],
@@ -2354,7 +2340,7 @@ a.cs-cta { margin-top: 28px; }
         corp:   [{ n: 'Interchange', pct: 2.95 }],
         intl:   [{ n: 'Interchange — cross-border corridor rate', pct: 2.5 }]
       } },
-    { id: 'acq', entity: 'Acquirer + PSP', name: 'Markup, settlement & payout', color: 'var(--warm)',
+    { id: 'acq', entity: 'Acquirer + PSP', name: 'Markup, settlement & payout', color: 'var(--text)',
       role: "The acquiring bank and payment processor handle settlement, disputes, and transfer funds to the merchant's bank account.",
       fees: {
         debit:  [{ n: 'Acquirer markup', pct: 0.1 },  { n: 'Settlement fee — ACH/SEPA', flat: 0.08 }, { n: 'Payout fee', flat: 0.12 }],
@@ -2425,7 +2411,7 @@ a.cs-cta { margin-top: 28px; }
 
       html += `<div class="cs-sim-stage" id="cs-sim-stage-${si}">
         <div>
-          <div class="cs-sim-stage-entity" style="color:${s.color}">${s.entity}</div>
+          <div class="cs-sim-stage-entity" style="color:var(--accent)">${s.entity}</div>
           <div class="cs-sim-stage-name">${s.name}</div>
           <div class="cs-sim-stage-role">${s.role}</div>
           <div class="cs-sim-stage-fees">${feesHtml}</div>
