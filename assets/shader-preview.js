@@ -1,4 +1,4 @@
-/* Shader + colour preview: a floating switcher on home-v2-fx.html that tries, live and
+/* Shader + colour preview: a floating switcher on lab-home.html that tries, live and
    in place, a theme (dark or one of two light grounds), an accent colour, and a shader
    per zone (hero, covers, about, closing). Every shader is rebuilt from
    the chosen accent and theme. The choice is kept in the URL hash, so a reload or a

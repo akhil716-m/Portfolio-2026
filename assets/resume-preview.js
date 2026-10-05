@@ -59,7 +59,7 @@ document.head.insertAdjacentHTML('beforeend', `<style>${css}</style>`);
 
 const panel = document.createElement('div');
 panel.className = 'fxp';
-panel.innerHTML = `<div class="fxp-head"><span>Resume preview</span><a href="/home-v2-fx">← Home preview</a><button type="button" data-min aria-label="Collapse">–</button></div>
+panel.innerHTML = `<div class="fxp-head"><span>Resume preview</span><a href="/lab-home">← Home preview</a><button type="button" data-min aria-label="Collapse">–</button></div>
   <div class="fxp-row" data-group="theme"><span>Theme</span><div class="fxp-opts">
     ${Object.entries(THEMES).map(([k, t]) => `<button type="button" data-v="${k}">${t.label}</button>`).join('')}
   </div></div>

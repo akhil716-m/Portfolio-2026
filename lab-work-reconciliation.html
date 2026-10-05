@@ -1,0 +1,1370 @@
+<!DOCTYPE html>
+<html lang="en" data-fx-project="recon/">
+<head>
+<meta name="robots" content="noindex">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Akhil Male — Reconciliation, a Case Study</title>
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Akhil Male — Reconciliation, a Case Study">
+<meta property="og:description" content="An exception management platform that simplifies the path from investigation to resolution.">
+<meta property="og:url" content="https://akhilmale.in/work-reconciliation">
+<meta property="og:image" content="https://akhilmale.in/assets/og-image.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Akhil Male — Reconciliation, a Case Study">
+<meta name="twitter:description" content="An exception management platform that simplifies the path from investigation to resolution.">
+<meta name="twitter:image" content="https://akhilmale.in/assets/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/fx/styles-fx.css">
+<script type="text/javascript">
+  (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+  })(window, document, "clarity", "script", "ykaez3m42c");
+</script>
+<style>
+/* ============================================================
+   CASE STUDY — RECONCILIATION (concept draft)
+   Shares the lime / cream / dark, Playfair / Geist language
+   established in the HyperSense case study. All page-specific
+   rules are namespaced with `.cs-` to stay isolated from the
+   shared stylesheet.
+   ============================================================ */
+#cs-progress {
+  position: fixed; top: 0; left: 0; height: 2px; background: var(--accent);
+  width: 0%; z-index: 1000; transition: width 0.12s linear;
+  box-shadow: 0 0 12px rgb(var(--acc-rgb) / 0.4);
+}
+
+@keyframes csFadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes csScrollPulse {
+  0%, 100% { opacity: 0.25; transform: scaleY(0.6); }
+  50% { opacity: 1; transform: scaleY(1); }
+}
+
+/* ---------- CONTEXT RAIL — sticky scroll-spy nav (section thesis + jump list) ---------- */
+.cs-rail {
+  position: fixed; left: clamp(20px, 2.5vw, 40px); top: 50%;
+  transform: translateY(-50%); width: 200px; z-index: 60;
+  opacity: 0; pointer-events: none; transition: opacity 0.5s ease;
+}
+.cs-rail.is-visible { opacity: 1; pointer-events: auto; }
+.cs-rail-inner { padding-left: 18px; border-left: 1px solid var(--line); }
+.cs-rail-list {
+  list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 2px;
+}
+.cs-rail-list li button {
+  display: flex; align-items: center; gap: 10px; width: 100%;
+  background: none; border: none; cursor: pointer; padding: 5px 0; text-align: left;
+}
+.cs-rail-num {
+  font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.12em;
+  color: var(--text-muted); flex-shrink: 0; transition: color 0.15s;
+}
+.cs-rail-name {
+  font-family: 'Geist', sans-serif; font-size: 12px; color: var(--text-muted);
+  line-height: 1.3; white-space: nowrap; transition: color 0.15s;
+}
+.cs-rail-list li button:hover .cs-rail-name,
+.cs-rail-list li button:hover .cs-rail-num { color: var(--text-soft); }
+.cs-rail-list li.is-active .cs-rail-num { color: var(--accent); }
+.cs-rail-list li.is-active .cs-rail-name { color: var(--text); font-weight: 500; }
+@media(max-width: 1280px) { .cs-rail { display: none; } }
+
+/* ---------- HERO ---------- */
+.cs-hero {
+  min-height: 100vh; display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 140px clamp(24px, 6vw, 80px) 100px; position: relative; overflow: hidden;
+}
+.cs-hero::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none; z-index: -1;
+  background:
+    radial-gradient(ellipse 60% 50% at 80% 10%, rgb(var(--acc-rgb) / 0.07), transparent 70%),
+    radial-gradient(ellipse 50% 40% at 10% 90%, rgb(var(--fg-rgb) / 0.03), transparent 70%);
+}
+.cs-back {
+  display: inline-flex; align-items: center; gap: 8px; margin-bottom: 32px; width: fit-content;
+  font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--text-muted); text-decoration: none; transition: color 0.2s ease, gap 0.2s ease;
+  opacity: 0; animation: csFadeUp 0.7s ease forwards 0.05s;
+}
+.cs-back:hover { color: var(--accent); gap: 13px; }
+nav .logo a.cs-back { margin-bottom: 0; opacity: 1; animation: none; color: var(--text-muted); }
+nav .logo a.cs-back:hover { color: var(--accent); }
+.cs-back .arr { display: inline-block; transition: transform 0.2s ease; }
+.cs-back:hover .arr { transform: translateX(-3px); }
+
+.cs-hero-eyebrow {
+  font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 26px;
+  opacity: 0; animation: csFadeUp 0.8s ease forwards 0.2s;
+}
+.cs-hero-eyebrow .sep { color: var(--text-muted); margin: 0 10px; letter-spacing: 0; }
+.cs-hero-title {
+  font-family: 'Geist', sans-serif; font-size: clamp(60px, 11vw, 130px); font-weight: 500;
+  line-height: 0.96; letter-spacing: -0.03em; color: var(--text); max-width: 920px;
+  opacity: 0; animation: csFadeUp 0.9s ease forwards 0.35s;
+}
+.cs-hero-title em {
+  font-style: normal; font-family: 'Geist', sans-serif; font-weight: 500; color: var(--text-soft);
+}
+.cs-hero-meta {
+  display: flex; flex-wrap: wrap; gap: 48px; margin-top: 58px; padding-top: 32px;
+  border-top: 1px solid var(--line);
+  opacity: 0; animation: csFadeUp 0.8s ease forwards 0.55s;
+}
+.cs-hero-meta-item label {
+  display: block; font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--text-muted); margin-bottom: 9px;
+}
+.cs-hero-meta-item span { font-family: 'Geist', sans-serif; font-size: 14px; font-weight: 300; color: var(--text-soft); }
+.cs-hero-meta-item .accent { color: var(--accent); }
+
+.cs-hero-scroll {
+  position: absolute; bottom: 40px; right: clamp(24px, 6vw, 80px);
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+  opacity: 0; animation: csFadeUp 0.8s ease forwards 1s;
+}
+.cs-hero-scroll span {
+  font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--text-muted); writing-mode: vertical-rl;
+}
+.cs-hero-scroll-line {
+  width: 1px; height: 58px;
+  background: linear-gradient(to bottom, var(--accent) 0%, transparent 100%);
+  animation: csScrollPulse 2.2s ease-in-out infinite;
+}
+
+/* ---------- SECTION SCAFFOLD ---------- */
+.cs-section { padding: clamp(80px, 12vw, 140px) 0; border-top: 1px solid var(--line); }
+.cs-wrap { max-width: 760px; margin: 0 auto; padding: 0 clamp(24px, 6vw, 48px); }
+.cs-wrap--wide { max-width: 1140px; }
+.cs-wrap--showcase { max-width: min(60vw, 1040px); }
+
+.cs-label {
+  display: flex; align-items: center; gap: 16px; margin-bottom: 46px;
+  font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--accent);
+}
+.cs-label::after { content: ''; flex: 1; max-width: 44px; height: 1px; background: var(--line); }
+
+.cs-display {
+  font-family: 'Geist', sans-serif; font-size: clamp(32px, 4.6vw, 52px); font-weight: 500;
+  line-height: 1.18; letter-spacing: -0.015em; color: var(--text); margin: 0 0 30px; max-width: 17ch;
+}
+.cs-display em {
+  font-style: normal; font-family: 'Geist', sans-serif; font-weight: 500; color: var(--text-soft);
+}
+.cs-lead {
+  font-family: 'Geist', sans-serif; font-size: 19px; font-weight: 300; line-height: 1.75;
+  color: var(--text-soft); margin: 0 0 28px; max-width: 620px;
+}
+.cs-p {
+  font-family: 'Geist', sans-serif; font-size: 16px; font-weight: 300; line-height: 1.85;
+  color: var(--text-soft); margin: 0 0 26px; max-width: 620px;
+}
+.cs-p:last-child { margin-bottom: 0; }
+.cs-p strong { color: var(--text); font-weight: 600; }
+.cs-em { font-style: normal; font-family: 'Geist', sans-serif; font-weight: 500; color: var(--text); }
+.cs-h3 {
+  font-family: 'Geist', sans-serif; font-size: clamp(22px, 3.2vw, 30px); font-weight: 600;
+  color: var(--text); margin: 0 0 16px;
+}
+.cs-lead {
+  font-family: 'Geist', sans-serif; font-size: 19px; font-weight: 500; line-height: 1.5;
+  color: var(--text); margin: 0 0 20px;
+}
+.cs-list { list-style: none; padding: 0; margin: 0 0 48px; display: flex; flex-direction: column; gap: 11px; }
+.cs-list li {
+  position: relative; padding-left: 24px;
+  font-family: 'Geist', sans-serif; font-size: 16px; font-weight: 300; line-height: 1.7; color: var(--text-soft);
+}
+.cs-list li::before { content: '—'; position: absolute; left: 0; color: var(--accent); }
+
+/* ---------- DESIGN CHALLENGE CALLOUT ---------- */
+.cs-section-sub {
+  font-family: 'Geist', sans-serif; font-size: 15px; font-weight: 600;
+  color: var(--text); margin: 0 0 14px; letter-spacing: -0.01em;
+}
+.cs-pullquote {
+  margin: 40px 0 0; padding: 18px 24px; border-radius: 0 8px 8px 0;
+  border-left: 2px solid var(--accent); background: rgb(var(--acc-rgb) / 0.045);
+  font-family: 'Geist', sans-serif; font-style: normal;
+  font-size: clamp(17px, 2vw, 21px); line-height: 1.6; color: var(--text-soft);
+}
+.cs-challenge {
+  margin-top: 22px; padding: 18px 22px; border-radius: 0 8px 8px 0;
+  background: rgb(var(--acc-rgb) / 0.045); border-left: 2px solid rgb(var(--acc-rgb) / 0.35);
+}
+.cs-challenge-tag { font-family: 'Geist Mono', monospace; font-size: 9.5px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+.cs-challenge p { font-family: 'Geist', sans-serif; font-size: 14.5px; font-weight: 300; line-height: 1.8; color: var(--text-soft); margin: 0; }
+
+/* ---------- FLOW — where reconciliation sits in the payment lifecycle ---------- */
+.cs-flow { margin: 44px 0 8px; }
+.cs-flow-row { display: flex; align-items: stretch; gap: 14px; }
+.cs-flow-node {
+  flex: 1; padding: 22px 18px; border: 1px solid var(--line); border-radius: 8px;
+  background: var(--bg-card); text-align: center;
+}
+.cs-flow-node-title { font-family: 'Geist', sans-serif; font-size: 14px; font-weight: 500; color: var(--text); }
+.cs-flow-node-sub {
+  display: block; margin-top: 6px; font-family: 'Geist Mono', monospace; font-size: 9.5px;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted);
+}
+.cs-flow-arrow { display: flex; align-items: center; font-family: 'Geist Mono', monospace; font-size: 14px; color: var(--text-muted); flex-shrink: 0; }
+.cs-flow-result { display: flex; gap: 14px; margin-top: 14px; }
+.cs-flow-branch {
+  flex: 1; padding: 16px 20px; border-radius: 0 8px 8px 0; border-left: 2px solid;
+  font-family: 'Geist', sans-serif; font-size: 13px; font-weight: 300; line-height: 1.7; color: var(--text-soft);
+}
+.cs-flow-branch strong { color: var(--text); font-weight: 500; }
+.cs-flow-branch--match { border-color: rgb(var(--acc-rgb) / 0.35); background: rgb(var(--acc-rgb) / 0.04); }
+.cs-flow-branch--exception { border-color: var(--line); background: var(--bg-card); }
+
+/* ---------- RECON LAYERS — two-source reconciliation flow ---------- */
+.cs-recon-layers { margin: 44px 0 8px; display: flex; flex-direction: column; gap: 12px; }
+.cs-recon-layer { display: grid; grid-template-columns: 36px 1fr; gap: 4px; align-items: center; }
+.cs-recon-layer-lbl {
+  font-family: 'Geist Mono', monospace; font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--text-muted); writing-mode: vertical-rl; transform: rotate(180deg); text-align: center;
+}
+.cs-recon-layer-flow { display: flex; align-items: center; gap: 10px; }
+.cs-recon-node {
+  flex: 1; padding: 16px 14px; border: 1px solid var(--line); border-radius: 8px;
+  background: var(--bg-card); text-align: center;
+}
+.cs-recon-node-title { font-family: 'Geist', sans-serif; font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+.cs-recon-node-sub { font-family: 'Geist', sans-serif; font-size: 11px; font-weight: 300; color: var(--text-muted); }
+.cs-recon-node--oms { border-color: var(--line); background: var(--bg-card); }
+.cs-recon-node--oms .cs-recon-node-title { color: var(--accent); }
+.cs-recon-node--psp { border-color: var(--line); background: var(--bg-card); }
+.cs-recon-node--psp .cs-recon-node-title { color: var(--text-soft); }
+.cs-recon-node--bank { border-color: var(--line); background: var(--bg-card); }
+.cs-recon-node--bank .cs-recon-node-title { color: var(--text); }
+.cs-recon-node--result { border-color: var(--line); background: var(--bg-soft); flex: 0 0 auto; min-width: 150px; }
+.cs-recon-node--result .cs-recon-node-title { font-weight: 500; color: var(--text); }
+.cs-recon-node--exception { border-color: rgba(220,70,60,0.35); background: rgba(220,70,60,0.06); }
+.cs-recon-node--exception .cs-recon-node-title { color: #e05858; }
+.cs-recon-node--matched { border-color: rgb(var(--acc-rgb) / 0.28); background: rgb(var(--acc-rgb) / 0.05); }
+.cs-recon-node--matched .cs-recon-node-title { color: var(--accent); }
+.cs-recon-cmp {
+  font-family: 'Geist Mono', monospace; font-size: 16px; color: var(--text-muted);
+  flex-shrink: 0; white-space: nowrap; line-height: 1;
+}
+.cs-recon-arr { font-family: 'Geist Mono', monospace; font-size: 13px; color: var(--text-muted); flex-shrink: 0; }
+
+/* ---------- EXCEPTION TYPES GRID ---------- */
+.cs-exc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 28px 0 10px; }
+.cs-exc-tile { padding: 20px 18px; border-radius: 8px; border: 1px solid var(--line); background: var(--bg-card); }
+.cs-exc-visual {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  height: 72px; margin-bottom: 18px; font-family: 'Geist Mono', monospace;
+}
+.cs-exc-v-box {
+  padding: 5px 10px; border: 1px solid var(--line); border-radius: 4px;
+  background: var(--bg-soft); color: var(--text-soft); font-size: 11px;
+  font-family: 'Geist Mono', monospace; white-space: nowrap;
+}
+.cs-exc-v-box--diff { border-color: rgb(var(--fg-rgb) / 0.16); color: var(--text-soft); background: rgb(var(--fg-rgb) / 0.04); }
+.cs-exc-v-box--empty { border-style: dashed; color: var(--text-muted); }
+.cs-exc-v-op { color: var(--text-soft); font-size: 14px; }
+.cs-exc-v-sep { color: var(--text-muted); font-size: 10px; letter-spacing: 0.05em; }
+.cs-exc-v-col { display: flex; flex-direction: column; gap: 4px; }
+.cs-exc-v-arrow { font-size: 18px; line-height: 1; }
+.cs-exc-v-arrow--up { color: var(--accent); }
+.cs-exc-v-arrow--down { color: var(--text-soft); }
+.cs-exc-v-unknown { font-size: 24px; color: var(--text-muted); font-family: 'Geist Mono', monospace; }
+.cs-exc-title { font-family: 'Geist', sans-serif; font-size: 13px; font-weight: 500; margin-bottom: 4px; color: var(--text); }
+.cs-exc-sub { font-family: 'Geist', sans-serif; font-size: 11.5px; font-weight: 300; line-height: 1.5; color: var(--text-muted); }
+
+/* ---------- RESOLUTION BLOCK ---------- */
+.cs-resolution {
+  margin-top: 32px; padding: 20px 24px; border: 1px solid var(--line); border-radius: 8px;
+  background: var(--bg-card); text-align: center;
+}
+.cs-resolution-lbl { font-family: 'Geist', sans-serif; font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 8px; }
+.cs-resolution-lead { font-family: 'Geist', sans-serif; font-size: 13px; font-weight: 300; color: var(--text-soft); margin: 0 0 10px; }
+.cs-resolution-actions { font-family: 'Geist Mono', monospace; font-size: 11.5px; color: var(--text-muted); letter-spacing: 0.02em; }
+
+/* ---------- MATCH GRID — the four record shapes an exception can take ---------- */
+.cs-match-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--line); border-radius: 10px; overflow: hidden; margin: 40px 0 8px; }
+.cs-match-cell { padding: 28px 26px; background: var(--bg-card); }
+.cs-match-diagram { display: flex; align-items: center; justify-content: center; gap: 22px; height: 56px; margin-bottom: 20px; }
+.cs-match-col { display: flex; flex-direction: column; gap: 5px; justify-content: center; }
+.cs-match-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--text-muted); }
+.cs-match-dot--accent { background: var(--accent); }
+.cs-match-arrow { font-family: 'Geist Mono', monospace; font-size: 13px; color: var(--text-muted); }
+.cs-match-title { font-family: 'Geist', sans-serif; font-size: 14px; font-weight: 500; color: var(--text); margin-bottom: 8px; }
+.cs-match-desc { font-family: 'Geist', sans-serif; font-size: 12.5px; font-weight: 300; line-height: 1.7; color: var(--text-soft); }
+
+/* ---------- TAG PILL ---------- */
+.cs-tag-pill {
+  display: inline-block; margin: 4px 0 24px; padding: 9px 16px; border-radius: 100px;
+  font-family: 'Geist Mono', monospace; font-size: 10.5px; letter-spacing: 0.05em; color: var(--text-soft);
+  background: var(--bg-card); border: 1px solid var(--line);
+}
+
+/* ---------- TOPOLOGY — nested card diagram ---------- */
+.cs-topo-v2 { margin: 36px 0 8px; }
+.cs-topo-outer { padding: 20px; border: 1px solid var(--line); border-radius: 10px; background: var(--bg-card); }
+.cs-topo-inner { margin-top: 16px; padding: 16px; border: 1px dashed rgb(var(--acc-rgb) / 0.22); border-radius: 8px; background: rgb(var(--acc-rgb) / 0.03); }
+.cs-topo-badge { font-family: 'Geist Mono', monospace; font-size: 9.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 3px; }
+.cs-topo-tag { font-size: 12.5px; font-weight: 300; color: var(--text-soft); margin-bottom: 14px; }
+.cs-topo-row { display: flex; gap: 8px; flex-wrap: wrap; }
+.cs-topo-card { flex: 1; min-width: 64px; display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 12px 10px 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--bg-soft); }
+.cs-topo-mini { display: flex; align-items: center; gap: 5px; }
+.cs-topo-mini-col { display: flex; flex-direction: column; gap: 3px; }
+.cs-topo-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--text-muted); }
+.cs-topo-dot--l { background: var(--accent); }
+.cs-topo-mini-arr { font-size: 9px; color: var(--text-muted); }
+.cs-topo-card-lbl { font-family: 'Geist Mono', monospace; font-size: 9px; letter-spacing: 0.04em; color: var(--text-muted); white-space: nowrap; text-align: center; }
+
+/* ---------- ANCHOR GRID — context / delta / action ---------- */
+.cs-anchor-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin: 40px 0 8px; }
+.cs-anchor { padding-top: 18px; border-top: 2px solid var(--accent); }
+.cs-anchor-num { font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; }
+.cs-anchor-title { font-family: 'Geist', sans-serif; font-size: 19px; font-weight: 600; color: var(--text); margin-bottom: 8px; }
+.cs-anchor-desc { font-family: 'Geist', sans-serif; font-size: 12.5px; font-weight: 300; line-height: 1.75; color: var(--text-soft); }
+.cs-phase-tag {
+  font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--accent); font-weight: 500; margin-bottom: 10px;
+}
+
+/* ---------- UI TEASER — first glimpse card in section 02 ---------- */
+.cs-ui-teaser { margin: 8px 0 0; }
+.cs-ui-card { display: flex; flex-direction: column; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: var(--bg-card); }
+.cs-ui-visual {
+  position: relative; aspect-ratio: 16 / 10;
+  display: flex; align-items: center; justify-content: center;
+  background: repeating-linear-gradient(135deg, var(--bg-soft) 0px, var(--bg-soft) 14px, var(--bg-card) 14px, var(--bg-card) 28px);
+  border-bottom: 1px solid var(--line);
+}
+.cs-ui-visual-label {
+  font-family: 'Geist Mono', monospace; font-size: 12px; letter-spacing: 0.06em; color: var(--text-muted);
+  background: var(--bg); border: 1px solid var(--line); border-radius: 100px; padding: 8px 18px;
+}
+.cs-ui-cap { padding: 22px 24px; }
+.cs-ui-cap-tag {
+  display: block; font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 10px;
+}
+.cs-ui-cap-title { font-family: 'Geist', sans-serif; font-size: 18px; font-weight: 600; color: var(--text); margin-bottom: 8px; }
+.cs-ui-cap-desc { font-family: 'Geist', sans-serif; font-size: 13px; font-weight: 300; line-height: 1.7; color: var(--text-soft); margin: 0; }
+
+/* ---------- UI SEQUENCE — editorial numbered panels ---------- */
+.cs-ui-seq { display: flex; flex-direction: column; gap: 56px; margin-top: 8px; }
+.cs-ui-panel-hd {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: start;
+  border-top: 1px solid var(--line); padding-top: 18px; margin-bottom: 22px;
+}
+.cs-ui-panel-tag {
+  display: block; font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 10px;
+}
+.cs-ui-panel-title {
+  font-family: 'Geist', sans-serif; font-size: clamp(18px, 2.2vw, 24px); font-weight: 600;
+  color: var(--text); margin: 0;
+}
+.cs-ui-panel-desc {
+  font-family: 'Geist', sans-serif; font-size: 14px; font-weight: 300; line-height: 1.8;
+  color: var(--text-soft); margin: 0; padding-top: 2px;
+}
+.cs-ui-panel-visual {
+  aspect-ratio: 16 / 9; border-radius: 8px; overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+  background: repeating-linear-gradient(135deg, var(--bg-soft) 0px, var(--bg-soft) 14px, var(--bg-card) 14px, var(--bg-card) 28px);
+  border: 1px solid var(--line);
+}
+.cs-ui-panel-visual-lbl {
+  font-family: 'Geist Mono', monospace; font-size: 12px; letter-spacing: 0.06em; color: var(--text-muted);
+  background: var(--bg); border: 1px solid var(--line); border-radius: 100px; padding: 8px 18px;
+}
+
+/* ---------- CLOSING QUOTE ---------- */
+.cs-quote {
+  margin: 64px 0 22px; padding: 0 0 0 24px; border-left: 2px solid var(--accent);
+  font-family: 'Geist', sans-serif; font-style: normal; font-size: clamp(18px, 2.4vw, 23px);
+  font-weight: 400; line-height: 1.6; color: var(--text); max-width: 640px;
+}
+.cs-thanks { font-size: 15px; color: var(--text-soft); }
+.cs-thanks-note {
+  margin: 72px 0 0; padding: 0; text-align: center;
+  display: flex; flex-direction: column; align-items: center; gap: 16px;
+}
+.cs-thanks-mark { color: var(--accent); display: inline-flex; align-items: center; gap: 14px; }
+.cs-thanks-dash { width: 32px; height: 1px; background: var(--line); display: inline-block; }
+.cs-thanks-note p {
+  margin: 0; font-family: 'Geist', sans-serif; font-size: 18px; font-weight: 500;
+  color: var(--text); letter-spacing: -0.01em;
+}
+.cs-cta-center { display: flex; justify-content: center; margin-top: 32px; }
+.cs-cta-center a.cs-cta { margin-top: 0; }
+
+/* ---------- BROWSER MOCKUP ---------- */
+.cs-mock-browser {
+  margin: 48px 0 0; border-radius: 10px; overflow: hidden;
+  border: 1px solid rgb(var(--fg-rgb) / 0.06);
+  box-shadow: 0 40px 100px rgb(var(--sh-rgb) / calc(0.55 * var(--sh-k)));
+  background: #fff; display: flex; flex-direction: column;
+}
+.cs-mock-chrome { flex-shrink: 0; }
+.cs-mock-chrome img { width: 100%; display: block; }
+.cs-mock-window { display: flex; height: clamp(200px, calc(39vw - 63px), 616px); overflow: hidden; }
+.cs-mock-nav { flex: 0 0 20%; overflow: hidden; }
+.cs-mock-nav img { width: 100%; height: auto; display: block; }
+.cs-mock-body {
+  flex: 1; overflow-y: auto; background: #fff;
+  scrollbar-width: thin; scrollbar-color: #ddd transparent;
+}
+.cs-mock-body img { width: 100%; display: block; height: auto; }
+/* Cropped variant — no nav, window clipped to the top (Exception Detail only) */
+.cs-mock--context .cs-mock-nav { flex: 0 0 0; }
+.cs-mock--context .cs-mock-window { height: auto; }
+.cs-mock--context .cs-mock-body { overflow: visible; }
+.cs-mock-browser.cs-mock--context { box-shadow: 0 0 60px rgb(var(--fg-rgb) / 0.12); border: 4px solid rgb(var(--fg-rgb) / 0.2); outline: 2px solid rgb(var(--fg-rgb) / 0.1); outline-offset: 10px; }
+/* Natural-height variant — no nav, no fixed height, image shown at full crop */
+.cs-mock--natural .cs-mock-nav { flex: 0 0 0; }
+.cs-mock--natural .cs-mock-window { height: auto; }
+
+/* ---------- STACKED CARD DECK ---------- */
+.cs-deck {
+  position: relative;
+  width: 100%;
+  cursor: pointer;
+  margin: 64px 0 48px;
+  padding-bottom: 24px;
+}
+.cs-deck-card {
+  position: absolute; top: 0; left: 0; width: 100%;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex; flex-direction: column;
+  border: 1px solid rgb(var(--fg-rgb) / 0.06);
+  box-shadow: 0 40px 100px rgb(var(--sh-rgb) / calc(0.55 * var(--sh-k)));
+  transition: transform 0.45s cubic-bezier(0.4,0,0.2,1),
+              opacity 0.45s cubic-bezier(0.4,0,0.2,1),
+              box-shadow 0.35s ease;
+  will-change: transform, opacity;
+}
+.cs-deck-card:first-child { position: relative; }
+.cs-deck-card img { width: 100%; display: block; height: auto; }
+.cs-deck-label {
+  position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%);
+  font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--accent);
+  background: var(--bg); padding: 6px 14px; border-radius: 100px;
+  border: 1px solid var(--line); white-space: nowrap;
+  pointer-events: none; z-index: 10;
+}
+.cs-deck-hint {
+  display: flex; flex-direction: column; align-items: center; gap: 12px;
+  margin-top: -16px; margin-bottom: 48px;
+  font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--text-muted);
+}
+.cs-deck-dots { display: flex; gap: 6px; align-items: center; }
+.cs-deck-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: rgb(var(--fg-rgb) / 0.25); transition: all 0.3s;
+  cursor: pointer;
+}
+.cs-deck-dot.is-active { width: 24px; height: 8px; border-radius: 4px; background: var(--accent); }
+
+/* ---------- PROTOTYPE — RESOLUTION ACTIONS ---------- */
+.cs-proto-item { margin: 0 0 56px; }
+.cs-proto-item:last-child { margin-bottom: 0; }
+.cs-proto-item-head { margin: 32px 0 20px; }
+.cs-proto-cap-title {
+  font-family: 'Geist', sans-serif; font-size: 17px; font-weight: 600;
+  color: var(--text); margin: 0 0 4px;
+}
+.cs-proto-cap-desc {
+  font-family: 'Geist', sans-serif; font-size: 14px; font-weight: 300;
+  line-height: 1.5; color: var(--text-soft); max-width: 620px; margin: 0;
+}
+
+@media (max-width: 768px) {
+  .cs-wrap--showcase { max-width: 90vw; }
+  .cs-mock-nav { flex: 0 0 0; }
+  .cs-mock-window { height: 55vw; }
+  .cs-mock--context .cs-mock-window { height: auto; }
+}
+.cs-mock-cap {
+  margin-top: 14px; padding-left: 4px;
+  display: flex; align-items: baseline; gap: 12px;
+}
+.cs-mock-cap-num { font-family: 'Geist Mono', monospace; font-size: 10px; color: var(--text-muted); letter-spacing: 0.08em; }
+.cs-mock-cap-title { font-family: 'Geist', sans-serif; font-size: 13px; color: var(--text-soft); font-weight: 300; }
+
+/* ---------- CTA ---------- */
+.cs-cta {
+  display: inline-flex; align-items: center; gap: 10px; font-family: 'Geist Mono', monospace; font-size: 12px;
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--text); text-decoration: none;
+  padding: 14px 26px; border: 1px solid var(--line); border-radius: 100px;
+  transition: gap 0.2s ease, color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+.cs-cta:hover { color: var(--bg); background: var(--accent); border-color: var(--accent); gap: 14px; }
+a.cs-cta { margin-top: 28px; }
+.cs-list { margin: 0 0 28px; padding-left: 22px; display: flex; flex-direction: column; gap: 5px; }
+.cs-list li { font-family: 'Geist', sans-serif; font-size: 17px; font-weight: 300; line-height: 1.75; color: var(--text-soft); }
+.cs-divider { border: none; border-top: 1px solid var(--line); margin: clamp(48px, 5vw, 64px) auto; max-width: 760px; }
+.cs-matrix { width: 100%; border-collapse: collapse; margin: 28px 0; }
+.cs-matrix th { padding: 10px 16px; text-align: left; border-bottom: 1px solid var(--line); font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); font-weight: 400; }
+.cs-matrix td { padding: 14px 16px; text-align: left; border-bottom: 1px solid var(--line); font-family: 'Geist', sans-serif; font-size: 14px; font-weight: 300; color: var(--text-soft); }
+.cs-matrix td:first-child { color: var(--text); font-weight: 400; }
+.cs-sub-num { font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); margin: 0 0 20px; }
+
+/* ---------- REVEAL-ON-SCROLL ---------- */
+.reveal { opacity: 0; transform: translateY(26px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.is-visible { opacity: 1; transform: translateY(0); }
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 760px) {
+  .cs-hero-meta { gap: 30px; margin-top: 32px; border-top: 1px solid var(--line); padding-top: 32px; }
+  .cs-hero { min-height: 100vh; justify-content: flex-start; padding: 260px 20px 60px; }
+  .cs-hero-scroll { display: none; }
+  .cs-hero-eyebrow { margin-top: auto; margin-bottom: 32px; white-space: nowrap; letter-spacing: 0.1em; font-size: 10px; }
+  .cs-hero-eyebrow .sep { margin: 0 6px; }
+  .cs-hero-title { font-size: clamp(46px, 11vw, 130px); }
+  .cs-flow-row { flex-direction: column; }
+  .cs-flow-arrow { transform: rotate(90deg); justify-content: center; padding: 2px 0; }
+  .cs-flow-result { flex-direction: column; }
+  .cs-match-grid { grid-template-columns: 1fr; }
+  .cs-anchor-grid { grid-template-columns: 1fr; gap: 32px; }
+  .cs-ui-gallery { grid-template-columns: 1fr; }
+  .cs-ui-card--feature .cs-ui-visual { aspect-ratio: 16 / 10; }
+  .cs-recon-layer { grid-template-columns: 1fr; }
+  .cs-recon-layer-lbl { writing-mode: horizontal-tb; transform: none; margin-bottom: 4px; font-size: 10px; }
+  .cs-recon-layer-flow { flex-direction: column; }
+  .cs-recon-cmp { transform: rotate(90deg); }
+  .cs-recon-node--result { min-width: unset; width: 100%; }
+  .cs-exc-grid { grid-template-columns: 1fr 1fr; }
+  .cs-exc-tile { min-width: 0; padding: 16px 14px; }
+  .cs-exc-visual { flex-wrap: wrap; height: auto; }
+  .cs-exc-v-box { white-space: normal; }
+  .cs-ui-panel-hd { grid-template-columns: 1fr; gap: 12px; }
+}
+/* ---------- RECORDING STAGE ---------- */
+/* A screen recording on a stage card, in the outcome cards' style. The recordings carry a dark
+   olive plate (#101309) that shows when the camera zooms out. "lighten" against the card, which is
+   lighter than the plate in every channel, swaps the plate for the card; the product UI is brighter
+   than the card, so it passes through untouched. The video file itself is not re-encoded. */
+.cs-stage {
+  position: relative; isolation: isolate; z-index: 501;
+  margin: 24px 0 14px; padding: clamp(10px, 1.6vw, 18px);
+  border-radius: 18px; border: 1px solid rgb(255 255 255 / 0.09);
+  background: linear-gradient(160deg, rgb(255 255 255 / 0.07) 0%, rgb(255 255 255 / 0.025) 70%), #131313;
+}
+.cs-stage::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.18), transparent);
+}
+.cs-stage > video { display: block; width: 100%; height: auto; border-radius: 10px; mix-blend-mode: lighten; }
+/* Controls and fullscreen. The recordings are silent, so the mute button is dropped. In fullscreen
+   the card is gone, so the page colour goes behind the video and the same blend turns the olive
+   plate into it (the backdrop is also what fills the letterbox bars, so the two match). */
+.cs-stage > video::-webkit-media-controls-mute-button,
+.cs-stage > video::-webkit-media-controls-volume-slider,
+.cs-stage > video::-webkit-media-controls-volume-control-container { display: none; }
+.cs-stage > video:fullscreen { border-radius: 0; }
+.cs-stage > video:fullscreen::backdrop { background: #131313; }
+.cs-stage > video:-webkit-full-screen { border-radius: 0; }
+.cs-stage > video:-webkit-full-screen::backdrop { background: #131313; }
+</style>
+</head>
+<body>
+
+<div id="cs-progress"></div>
+
+<!-- CONTEXT RAIL — sticky scroll-spy: active section thesis + jump list -->
+<aside class="cs-rail" id="cs-rail" aria-hidden="true" aria-label="Section context">
+  <div class="cs-rail-inner">
+    <ul class="cs-rail-list" id="cs-rail-list"></ul>
+  </div>
+</aside>
+
+<nav>
+  <div class="logo">
+    <a class="cs-back" href="/lab-home"><span class="arr">←</span> Back to selected work</a>
+  </div>
+</nav>
+
+<!-- ═══════════════════════ HERO ═══════════════════════ -->
+<header class="cs-hero">
+  <div class="cs-hero-eyebrow">Case Study<span class="sep">·</span>Financial Operations<span class="sep">·</span>2026</div>
+  <h1 class="cs-hero-title">Recon<em>ciliation</em></h1>
+  <div class="cs-hero-meta">
+    <div class="cs-hero-meta-item"><label>Role</label><span>Product Designer</span></div>
+    <div class="cs-hero-meta-item"><label>Company</label><span>Juspay <span class="accent">·</span> Hyperswitch</span></div>
+    <div class="cs-hero-meta-item"><label>Focus</label><span>Exception Resolution</span></div>
+
+  </div>
+  <div class="cs-hero-scroll">
+    <span>Scroll</span>
+    <div class="cs-hero-scroll-line"></div>
+  </div>
+</header>
+
+<!-- ═══════════════════════ 01 — ONE TRANSACTION, MULTIPLE VERSIONS ═══════════════════════ -->
+<section class="cs-section" id="cs-context">
+<div class="cs-wrap">
+
+  <div class="cs-label reveal"><span class="num">/01</span> Why Reconciliation Exists</div>
+  <h2 class="cs-display reveal">One transaction. <em>Multiple versions of the truth.</em></h2>
+  <p class="cs-p reveal">When a customer makes a payment, merchants, payment providers, and banks each record their own version of the same transaction.</p>
+
+  <div class="cs-recon-layer-flow reveal" style="margin: 24px 0 28px;">
+    <div class="cs-recon-node cs-recon-node--oms">
+      <div class="cs-recon-node-title">OMS</div>
+      <div class="cs-recon-node-sub">Merchant records it</div>
+    </div>
+    <div class="cs-recon-arr">→</div>
+    <div class="cs-recon-node cs-recon-node--psp">
+      <div class="cs-recon-node-title">PSP (Adyen)</div>
+      <div class="cs-recon-node-sub">Provider settles it</div>
+    </div>
+    <div class="cs-recon-arr">→</div>
+    <div class="cs-recon-node cs-recon-node--bank">
+      <div class="cs-recon-node-title">Bank</div>
+      <div class="cs-recon-node-sub">Bank receives it</div>
+    </div>
+  </div>
+
+  <p class="cs-p reveal">As transaction volumes grow, even small discrepancies become difficult to investigate at scale, so reconciliation solves this by comparing each system against another and verifying that every version tells the same story about where the money went.</p>
+
+  <div class="cs-recon-layers reveal" style="margin: 64px 0 28px;">
+    <div class="cs-recon-layer">
+      <div class="cs-recon-layer-lbl">Layer 1</div>
+      <div class="cs-recon-layer-flow">
+        <div class="cs-recon-node cs-recon-node--oms">
+          <div class="cs-recon-node-title">OMS</div>
+          <div class="cs-recon-node-sub">What we recorded</div>
+        </div>
+        <div class="cs-recon-cmp" aria-label="compare">⇄</div>
+        <div class="cs-recon-node cs-recon-node--psp">
+          <div class="cs-recon-node-title">PSP (Adyen)</div>
+          <div class="cs-recon-node-sub">What Adyen settled</div>
+        </div>
+        <div class="cs-recon-arr">→</div>
+        <div class="cs-recon-node cs-recon-node--result">
+          <div class="cs-recon-node-title">Match or Exception</div>
+          <div class="cs-recon-node-sub">If they agree → matched ✓</div>
+        </div>
+      </div>
+    </div>
+    <div class="cs-recon-layer">
+      <div class="cs-recon-layer-lbl">Layer 2</div>
+      <div class="cs-recon-layer-flow">
+        <div class="cs-recon-node cs-recon-node--psp">
+          <div class="cs-recon-node-title">PSP (Adyen)</div>
+          <div class="cs-recon-node-sub">What Adyen sent</div>
+        </div>
+        <div class="cs-recon-cmp" aria-label="compare">⇄</div>
+        <div class="cs-recon-node cs-recon-node--bank">
+          <div class="cs-recon-node-title">Bank</div>
+          <div class="cs-recon-node-sub">What bank received</div>
+        </div>
+        <div class="cs-recon-arr">→</div>
+        <div class="cs-recon-node cs-recon-node--result">
+          <div class="cs-recon-node-title">Match or Exception</div>
+          <div class="cs-recon-node-sub">If they agree → matched ✓</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p class="cs-p reveal">Accounts are paired using a common identifier, such as an Order ID or Batch ID, and validated against a predefined rule set. Depending on how the transaction flows through each system, a single transaction may span multiple accounts and many underlying entries.</p>
+
+</div>
+</section>
+
+<!-- ═══════════════════════ 02 — WHAT'S AN EXCEPTION ═══════════════════════ -->
+<section class="cs-section" id="cs-exception">
+<div class="cs-wrap">
+
+  <div class="cs-label reveal"><span class="num">/02</span> What's an Exception</div>
+  <h2 class="cs-display reveal">Sometimes the records <em>don't agree.</em></h2>
+
+  <p class="cs-p reveal" style="margin-top: 24px;">When two records don't agree, an exception is created. That's where the investigation begins.</p>
+
+  <div class="cs-recon-layer-flow reveal" style="margin: 40px 0 40px;">
+    <div class="cs-recon-node cs-recon-node--oms">
+      <div class="cs-recon-node-title">OMS</div>
+      <div class="cs-recon-node-sub">What we recorded</div>
+    </div>
+    <div class="cs-recon-cmp" aria-label="compare">⇄</div>
+    <div class="cs-recon-node cs-recon-node--psp">
+      <div class="cs-recon-node-title">PSP (Adyen)</div>
+      <div class="cs-recon-node-sub">What Adyen settled</div>
+    </div>
+    <div class="cs-recon-arr">→</div>
+    <div class="cs-recon-node cs-recon-node--exception">
+      <div class="cs-recon-node-title">Exception</div>
+      <div class="cs-recon-node-sub">Records don't agree</div>
+    </div>
+  </div>
+
+  <p class="cs-p reveal">Although every exception may look similar on the surface, the reason behind them can be entirely different requiring different investigation and resolution paths.</p>
+
+  <div class="cs-exc-grid reveal">
+    <div class="cs-exc-tile">
+      <div class="cs-exc-visual">
+        <span class="cs-exc-v-box">₹ 1,000</span>
+        <span class="cs-exc-v-op">≠</span>
+        <span class="cs-exc-v-box cs-exc-v-box--diff">₹ 999</span>
+      </div>
+      <div class="cs-exc-title">Amount mismatch</div>
+      <div class="cs-exc-sub">Numbers don't match</div>
+    </div>
+    <div class="cs-exc-tile">
+      <div class="cs-exc-visual">
+        <span class="cs-exc-v-box">USD</span>
+        <span class="cs-exc-v-op">≠</span>
+        <span class="cs-exc-v-box cs-exc-v-box--diff">EUR</span>
+      </div>
+      <div class="cs-exc-title">Currency mismatch</div>
+      <div class="cs-exc-sub">Different currencies</div>
+    </div>
+    <div class="cs-exc-tile">
+      <div class="cs-exc-visual">
+        <span class="cs-exc-v-arrow cs-exc-v-arrow--up">↑</span>
+        <span class="cs-exc-v-box">Debit</span>
+        <span class="cs-exc-v-sep">→</span>
+        <span class="cs-exc-v-box cs-exc-v-box--diff">Credit</span>
+        <span class="cs-exc-v-arrow cs-exc-v-arrow--down">↓</span>
+      </div>
+      <div class="cs-exc-title">Balance direction</div>
+      <div class="cs-exc-sub">Debit vs credit flipped</div>
+    </div>
+    <div class="cs-exc-tile">
+      <div class="cs-exc-visual">
+        <div class="cs-exc-v-col">
+          <span class="cs-exc-v-box" style="font-size:10px;">REF: ORD-001</span>
+          <span class="cs-exc-v-box cs-exc-v-box--diff" style="font-size:10px;">REF: ORD-01</span>
+        </div>
+      </div>
+      <div class="cs-exc-title">Metadata mismatch</div>
+      <div class="cs-exc-sub">Reference fields differ</div>
+    </div>
+    <div class="cs-exc-tile">
+      <div class="cs-exc-visual">
+        <span class="cs-exc-v-box">entry</span>
+        <span class="cs-exc-v-sep">vs</span>
+        <span class="cs-exc-v-box cs-exc-v-box--empty">—</span>
+      </div>
+      <div class="cs-exc-title">Missing entry</div>
+      <div class="cs-exc-sub">One side has no record</div>
+    </div>
+    <div class="cs-exc-tile">
+      <div class="cs-exc-visual">
+        <span class="cs-exc-v-unknown">?</span>
+      </div>
+      <div class="cs-exc-title">Unknown</div>
+      <div class="cs-exc-sub">Can't be categorised</div>
+    </div>
+  </div>
+
+</div>
+</section>
+
+<!-- ═══════════════════════ 03 — THE MANY SHAPES OF A MISMATCH ═══════════════════════ -->
+<section class="cs-section" id="cs-shapes">
+<div class="cs-wrap">
+
+  <div class="cs-label reveal"><span class="num">/03</span> Why Resolution Slows Down</div>
+  <h2 class="cs-display reveal">One mismatch can hide <em>many different stories.</em></h2>
+
+  <p class="cs-p reveal" style="margin-top: 24px;">The mismatch type only tells part of the story. Understanding how accounts and entries are connected is what determines how it's resolved.</p>
+  <p class="cs-p reveal">Transactions don't always map one-to-one. A single order can split into multiple settlement entries, while several orders can eventually settle into one bank record. That means two exceptions with the same mismatch reason can have entirely different structures underneath.</p>
+  <p class="cs-p reveal">Before they can act, analysts first need to reconstruct how those accounts and entries relate to one another.</p>
+
+  <div class="cs-match-grid reveal">
+    <div class="cs-match-cell">
+      <div class="cs-match-diagram">
+        <div class="cs-match-col"><span class="cs-match-dot cs-match-dot--accent"></span></div>
+        <div class="cs-match-arrow">→</div>
+        <div class="cs-match-col"><span class="cs-match-dot"></span></div>
+      </div>
+      <div class="cs-match-title">One-to-one</div>
+      <div class="cs-match-desc">One order matches one settlement entry. The simplest and most common case.</div>
+    </div>
+    <div class="cs-match-cell">
+      <div class="cs-match-diagram">
+        <div class="cs-match-col"><span class="cs-match-dot cs-match-dot--accent"></span></div>
+        <div class="cs-match-arrow">→</div>
+        <div class="cs-match-col">
+          <span class="cs-match-dot"></span><span class="cs-match-dot"></span><span class="cs-match-dot"></span>
+        </div>
+      </div>
+      <div class="cs-match-title">One-to-many</div>
+      <div class="cs-match-desc">One order splits into multiple settlement entries, such as capture, fee, and refund.</div>
+    </div>
+    <div class="cs-match-cell">
+      <div class="cs-match-diagram">
+        <div class="cs-match-col">
+          <span class="cs-match-dot cs-match-dot--accent"></span><span class="cs-match-dot cs-match-dot--accent"></span><span class="cs-match-dot cs-match-dot--accent"></span>
+        </div>
+        <div class="cs-match-arrow">→</div>
+        <div class="cs-match-col"><span class="cs-match-dot"></span></div>
+      </div>
+      <div class="cs-match-title">Many-to-one</div>
+      <div class="cs-match-desc">Multiple orders settle into a single bank entry, usually through batching.</div>
+    </div>
+    <div class="cs-match-cell">
+      <div class="cs-match-diagram">
+        <div class="cs-match-col">
+          <span class="cs-match-dot cs-match-dot--accent"></span><span class="cs-match-dot cs-match-dot--accent"></span><span class="cs-match-dot cs-match-dot--accent"></span>
+        </div>
+        <div class="cs-match-arrow">→</div>
+        <div class="cs-match-col">
+          <span class="cs-match-dot"></span><span class="cs-match-dot"></span><span class="cs-match-dot"></span>
+        </div>
+      </div>
+      <div class="cs-match-title">Many-to-many</div>
+      <div class="cs-match-desc">Groups of orders reconcile against groups of bank entries, with no fixed pairing.</div>
+    </div>
+  </div>
+
+  <p class="cs-p reveal">The exception label tells you what failed, but not how the records relate underneath.</p>
+
+  <p class="cs-h3 reveal" style="margin-top: 40px;">Analysts need to understand both layers before they can act:</p>
+  <ul class="cs-list reveal">
+    <li>Who is being compared (Account level)</li>
+    <li>What is being compared underneath (Entry level)</li>
+  </ul>
+
+  <div class="cs-topo-v2 reveal" style="margin-top: 32px;">
+    <div class="cs-topo-outer">
+      <div class="cs-topo-badge">Account level</div>
+      <div class="cs-topo-tag">Shows who is being compared.</div>
+      <div class="cs-topo-row">
+        <div class="cs-topo-card">
+          <div class="cs-topo-mini">
+            <span class="cs-topo-dot cs-topo-dot--l"></span>
+            <span class="cs-topo-mini-arr">→</span>
+            <span class="cs-topo-dot"></span>
+          </div>
+          <span class="cs-topo-card-lbl">One-to-one</span>
+        </div>
+        <div class="cs-topo-card">
+          <div class="cs-topo-mini">
+            <span class="cs-topo-dot cs-topo-dot--l"></span>
+            <span class="cs-topo-mini-arr">→</span>
+            <div class="cs-topo-mini-col">
+              <span class="cs-topo-dot"></span>
+              <span class="cs-topo-dot"></span>
+              <span class="cs-topo-dot"></span>
+            </div>
+          </div>
+          <span class="cs-topo-card-lbl">One-to-many</span>
+        </div>
+        <div class="cs-topo-card">
+          <div class="cs-topo-mini">
+            <div class="cs-topo-mini-col">
+              <span class="cs-topo-dot cs-topo-dot--l"></span>
+              <span class="cs-topo-dot cs-topo-dot--l"></span>
+              <span class="cs-topo-dot cs-topo-dot--l"></span>
+            </div>
+            <span class="cs-topo-mini-arr">→</span>
+            <span class="cs-topo-dot"></span>
+          </div>
+          <span class="cs-topo-card-lbl">Many-to-one</span>
+        </div>
+        <div class="cs-topo-card">
+          <div class="cs-topo-mini">
+            <div class="cs-topo-mini-col">
+              <span class="cs-topo-dot cs-topo-dot--l"></span>
+              <span class="cs-topo-dot cs-topo-dot--l"></span>
+              <span class="cs-topo-dot cs-topo-dot--l"></span>
+            </div>
+            <span class="cs-topo-mini-arr">→</span>
+            <div class="cs-topo-mini-col">
+              <span class="cs-topo-dot"></span>
+              <span class="cs-topo-dot"></span>
+              <span class="cs-topo-dot"></span>
+            </div>
+          </div>
+          <span class="cs-topo-card-lbl">Many-to-many</span>
+        </div>
+      </div>
+
+      <div class="cs-topo-inner">
+        <div class="cs-topo-badge">Entry level</div>
+        <div class="cs-topo-tag">Shows what is being compared underneath.</div>
+        <div class="cs-topo-row">
+          <div class="cs-topo-card">
+            <div class="cs-topo-mini">
+              <span class="cs-topo-dot cs-topo-dot--l"></span>
+              <span class="cs-topo-mini-arr">→</span>
+              <span class="cs-topo-dot"></span>
+            </div>
+            <span class="cs-topo-card-lbl">One-to-one</span>
+          </div>
+          <div class="cs-topo-card">
+            <div class="cs-topo-mini">
+              <span class="cs-topo-dot cs-topo-dot--l"></span>
+              <span class="cs-topo-mini-arr">→</span>
+              <div class="cs-topo-mini-col">
+                <span class="cs-topo-dot"></span>
+                <span class="cs-topo-dot"></span>
+                <span class="cs-topo-dot"></span>
+              </div>
+            </div>
+            <span class="cs-topo-card-lbl">One-to-many</span>
+          </div>
+          <div class="cs-topo-card">
+            <div class="cs-topo-mini">
+              <div class="cs-topo-mini-col">
+                <span class="cs-topo-dot cs-topo-dot--l"></span>
+                <span class="cs-topo-dot cs-topo-dot--l"></span>
+                <span class="cs-topo-dot cs-topo-dot--l"></span>
+              </div>
+              <span class="cs-topo-mini-arr">→</span>
+              <span class="cs-topo-dot"></span>
+            </div>
+            <span class="cs-topo-card-lbl">Many-to-one</span>
+          </div>
+          <div class="cs-topo-card">
+            <div class="cs-topo-mini">
+              <div class="cs-topo-mini-col">
+                <span class="cs-topo-dot cs-topo-dot--l"></span>
+                <span class="cs-topo-dot cs-topo-dot--l"></span>
+                <span class="cs-topo-dot cs-topo-dot--l"></span>
+              </div>
+              <span class="cs-topo-mini-arr">→</span>
+              <div class="cs-topo-mini-col">
+                <span class="cs-topo-dot"></span>
+                <span class="cs-topo-dot"></span>
+                <span class="cs-topo-dot"></span>
+              </div>
+            </div>
+            <span class="cs-topo-card-lbl">Many-to-many</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p class="cs-h3 reveal" style="margin-top: 40px;">Why resolution slows down</p>
+  <ul class="cs-list reveal">
+    <li>The exception label hides the structure beneath it.</li>
+    <li>The same mismatch can require entirely different resolutions.</li>
+  </ul>
+
+
+</div>
+</section>
+
+<!-- ═══════════════════════ 04 — DESIGNING THE STRUCTURE ═══════════════════════ -->
+<section class="cs-section" id="cs-structure">
+<div class="cs-wrap">
+
+  <div class="cs-label reveal"><span class="num">/04</span> Designing the Investigation</div>
+  <h2 class="cs-display reveal">Analysts shouldn't have to rebuild the story <em>every time.</em></h2>
+
+  <p class="cs-p reveal" style="margin-top: 24px;">Every exception already contained the information analysts needed to make a decision. It was simply buried across accounts, entries, relationships, and metadata.</p>
+  <p class="cs-p reveal">Because analysts handle exceptions repeatedly, even small amounts of reconstruction effort compound quickly at scale.</p>
+
+
+  <p class="cs-lead reveal" style="margin-top: 40px;">Before resolving an exception, analysts answered the same questions every time:</p>
+  <ul class="cs-list reveal">
+    <li>Which transaction is affected?</li>
+    <li>Which accounts and entries are involved?</li>
+    <li>What caused the mismatch?</li>
+    <li>What needs to happen next?</li>
+  </ul>
+
+  <h3 class="cs-h3 reveal" style="margin-top: 40px;">Design principles</h3>
+  <p class="cs-p reveal">Every investigation was designed around two simple principles.</p>
+
+  <div class="cs-anchor-grid reveal" style="margin-top: 48px; grid-template-columns: repeat(2, 1fr);">
+    <div class="cs-anchor">
+      <div class="cs-anchor-num">01</div>
+      <div class="cs-anchor-title">Understand the exception</div>
+    </div>
+    <div class="cs-anchor">
+      <div class="cs-anchor-num">02</div>
+      <div class="cs-anchor-title">Take action</div>
+    </div>
+  </div>
+
+</div>
+</section>
+
+<!-- ═══════════════════════ 06 — UI DESIGN ═══════════════════════ -->
+<section class="cs-section" id="cs-showcase">
+
+<!-- Intro -->
+<div class="cs-wrap">
+  <div class="cs-label reveal"><span class="num">/05</span> Designing for Resolution</div>
+  <h2 class="cs-display reveal">We simplified the path from investigation <em>to resolution.</em></h2>
+  <p class="cs-p reveal">We structured the experience around a simple principle: understand the exception first, then resolve it.</p>
+</div>
+<!-- 03 / The many faces of an exception -->
+<div class="cs-wrap">
+  <div class="cs-phase-tag reveal" style="margin-top: 56px;">Understand the exception</div>
+  <h3 class="cs-h3 reveal">One experience. Many structures</h3>
+  <p class="cs-p reveal">Regardless of how accounts and entries were connected underneath, analysts followed the same investigation experience, and the interface adapted to each topology while preserving a familiar workflow.</p>
+</div>
+<div class="cs-wrap cs-wrap--showcase">
+  <div class="cs-deck reveal" id="cs-deck">
+    <div class="cs-deck-card" data-label="One to One">
+      <div class="cs-mock-chrome"><img src="assets/recon/chrome-bar.png" alt="Browser chrome"></div>
+      <div class="cs-mock-window"><div class="cs-mock-nav"><img src="assets/recon/nav.png" alt="Navigation sidebar"></div><div class="cs-mock-body"><img src="assets/recon/one-to-one.png" alt="One-to-One exception detail"></div></div>
+    </div>
+    <div class="cs-deck-card" data-label="One to Many">
+      <div class="cs-mock-chrome"><img src="assets/recon/chrome-bar.png" alt="Browser chrome"></div>
+      <div class="cs-mock-window"><div class="cs-mock-nav"><img src="assets/recon/nav.png" alt="Navigation sidebar"></div><div class="cs-mock-body"><img src="assets/recon/one-to-many.png" alt="One-to-Many exception detail"></div></div>
+    </div>
+    <div class="cs-deck-card" data-label="Many to One">
+      <div class="cs-mock-chrome"><img src="assets/recon/chrome-bar.png" alt="Browser chrome"></div>
+      <div class="cs-mock-window"><div class="cs-mock-nav"><img src="assets/recon/nav.png" alt="Navigation sidebar"></div><div class="cs-mock-body"><img src="assets/recon/many-to-one.png" alt="Many-to-One exception detail"></div></div>
+    </div>
+    <div class="cs-deck-card" data-label="Many to Many">
+      <div class="cs-mock-chrome"><img src="assets/recon/chrome-bar.png" alt="Browser chrome"></div>
+      <div class="cs-mock-window"><div class="cs-mock-nav"><img src="assets/recon/nav.png" alt="Navigation sidebar"></div><div class="cs-mock-body"><img src="assets/recon/many-to-many.png" alt="Many-to-Many exception detail"></div></div>
+    </div>
+    <div class="cs-deck-card" data-label="One to One · Many to Many">
+      <div class="cs-mock-chrome"><img src="assets/recon/chrome-bar.png" alt="Browser chrome"></div>
+      <div class="cs-mock-window"><div class="cs-mock-nav"><img src="assets/recon/nav.png" alt="Navigation sidebar"></div><div class="cs-mock-body"><img src="assets/recon/one-to-one-many-to-many.png" alt="One-to-One and Many-to-Many exception detail"></div></div>
+    </div>
+    <div class="cs-deck-label" id="cs-deck-label">One to One</div>
+  </div>
+  <div class="cs-deck-hint">
+    <span class="cs-deck-dots" id="cs-deck-dots"></span>
+    <span>Click to flip</span>
+  </div>
+</div>
+
+<!-- 04 / Resolution actions prototype -->
+<div class="cs-wrap">
+  <div class="cs-phase-tag reveal" style="margin-top: 56px;">Take action</div>
+  <h3 class="cs-h3 reveal">Make resolution obvious</h3>
+  <p class="cs-p reveal">Once the discrepancy was understood, the interface surfaced only the actions relevant to that exception, allowing analysts to resolve issues without leaving the investigation.</p>
+</div>
+<div class="cs-proto-item">
+  <div class="cs-wrap">
+    <div class="cs-proto-item-head">
+      <h4 class="cs-proto-cap-title reveal">Edit an entry</h4>
+      <p class="cs-proto-cap-desc reveal">Update incorrect values directly within the investigation.</p>
+    </div>
+  </div>
+  <div class="cs-wrap cs-wrap--showcase">
+    <div class="cs-stage reveal">
+      <video src="assets/recon/edit-flow.mp4" poster="assets/recon/edit-flow-poster.jpg"
+             class="cs-proto-video" muted loop playsinline controls controlslist="nodownload" preload="metadata"
+             style="width:100%; display:block;"></video>
+    </div>
+  </div>
+</div>
+
+<div class="cs-proto-item">
+  <div class="cs-wrap">
+    <div class="cs-proto-item-head">
+      <h4 class="cs-proto-cap-title reveal">Add a missing entry</h4>
+      <p class="cs-proto-cap-desc reveal">Create the missing record and restore the expected relationship.</p>
+    </div>
+  </div>
+  <div class="cs-wrap cs-wrap--showcase">
+    <div class="cs-stage reveal">
+      <video src="assets/recon/add-flow.mp4" poster="assets/recon/add-flow-poster.jpg"
+             class="cs-proto-video" muted loop playsinline controls controlslist="nodownload" preload="metadata"
+             style="width:100%; display:block;"></video>
+    </div>
+  </div>
+</div>
+
+<div class="cs-proto-item">
+  <div class="cs-wrap">
+    <div class="cs-proto-item-head">
+      <h4 class="cs-proto-cap-title reveal">Swap the match</h4>
+      <p class="cs-proto-cap-desc reveal">Move an entry to the transaction where it belongs.</p>
+    </div>
+  </div>
+  <div class="cs-wrap cs-wrap--showcase">
+    <div class="cs-stage reveal">
+      <video src="assets/recon/swap-flow.mp4" poster="assets/recon/swap-flow-poster.jpg"
+             class="cs-proto-video" muted loop playsinline controls controlslist="nodownload" preload="metadata"
+             style="width:100%; display:block;"></video>
+    </div>
+  </div>
+</div>
+
+<div class="cs-proto-item">
+  <div class="cs-wrap">
+    <div class="cs-proto-item-head">
+      <h4 class="cs-proto-cap-title reveal">Ignore an entry</h4>
+      <p class="cs-proto-cap-desc reveal">Remove entries that shouldn't participate in reconciliation.</p>
+    </div>
+  </div>
+  <div class="cs-wrap cs-wrap--showcase">
+    <div class="cs-stage reveal">
+      <video src="assets/recon/ignore-flow.mp4" poster="assets/recon/ignore-flow-poster.jpg"
+             class="cs-proto-video" muted loop playsinline controls controlslist="nodownload" preload="metadata"
+             style="width:100%; display:block;"></video>
+    </div>
+  </div>
+</div>
+
+<!-- Closing -->
+<div class="cs-wrap">
+  <hr class="cs-divider" style="margin-top: 80px;">
+
+  <div class="cs-thanks-note reveal">
+    <span class="cs-thanks-mark" aria-hidden="true">
+      <span class="cs-thanks-dash"></span>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c.4 5.9 5.7 11.2 11.6 11.6v.8C17.7 12.8 12.4 18.1 12 24h-.8C10.8 18.1 5.5 12.8-.4 12.4v-.8C5.5 11.2 10.8 5.9 11.2 0h.8z"/></svg>
+      <span class="cs-thanks-dash"></span>
+    </span>
+    <p>Thanks for following along.</p>
+  </div>
+  <div class="cs-cta-center reveal"><a class="cs-cta" href="/lab-home"><span class="arr">←</span> Back to selected work</a></div>
+</div>
+
+</section>
+
+<footer>
+  <div>© 2026 Akhil Male</div>
+  <div class="right"><a href="#">Back to top ↑</a></div>
+</footer>
+
+<script>
+
+/* Recordings: the one that is mostly on screen plays and the rest pause. A pause the viewer
+   chose holds until that video has left the screen, a play they chose is left alone, and
+   fullscreen is never interrupted. */
+(function() {
+  var videos = Array.prototype.slice.call(document.querySelectorAll('.cs-stage > video'));
+  if (!videos.length) return;
+  if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    videos.forEach(function(v) { v.removeAttribute('autoplay'); v.pause(); });
+    return;
+  }
+  if (!('IntersectionObserver' in window)) return;
+  var ratio = new Map(videos.map(function(v) { return [v, 0]; }));
+  var mine = new WeakSet();        // play()/pause() made here, so their events aren't read as the viewer's
+  var heldPaused = new WeakSet();  // paused by the viewer
+  var heldPlaying = new WeakSet(); // started by the viewer
+  var SEEN = 0.25, LEAD = 0.5;
+
+  function play(v) {
+    if (!v.paused) return;
+    mine.add(v);
+    var p = v.play();
+    if (p && p.catch) p.catch(function() { mine.delete(v); });
+  }
+  function pause(v) { if (!v.paused) { mine.add(v); v.pause(); } }
+  function inFullscreen() { return videos.indexOf(document.fullscreenElement) !== -1; }
+
+  videos.forEach(function(v) {
+    v.addEventListener('play', function() {
+      if (mine.has(v)) { mine.delete(v); return; }
+      heldPaused.delete(v); heldPlaying.add(v);
+    });
+    v.addEventListener('pause', function() {
+      if (mine.has(v)) { mine.delete(v); return; }
+      if (ratio.get(v) < SEEN || inFullscreen()) return; // the browser pausing an off-screen video
+      heldPlaying.delete(v); heldPaused.add(v);
+    });
+  });
+
+  function sync() {
+    if (inFullscreen()) return;
+    var best = null, top = 0;
+    videos.forEach(function(v) { var r = ratio.get(v); if (r > top) { top = r; best = v; } });
+    videos.forEach(function(v) {
+      var r = ratio.get(v);
+      if (r === 0) { heldPaused.delete(v); heldPlaying.delete(v); } // off screen: forget what the viewer chose
+      if (v === best && top >= LEAD) { if (!heldPaused.has(v)) play(v); }
+      else if (r === 0 || !heldPlaying.has(v)) pause(v);
+    });
+  }
+
+  var io = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) { ratio.set(e.target, e.isIntersecting ? e.intersectionRatio : 0); });
+    sync();
+  }, { threshold: [0, 0.25, 0.5, 0.75, 1] });
+  videos.forEach(function(v) { io.observe(v); });
+  document.addEventListener('fullscreenchange', sync);
+})();
+
+/* Stacked card deck */
+(function() {
+  var deck = document.getElementById('cs-deck');
+  if (!deck) return;
+  var cards = Array.from(deck.querySelectorAll('.cs-deck-card'));
+  var label = document.getElementById('cs-deck-label');
+  var dotsWrap = document.getElementById('cs-deck-dots');
+  var n = cards.length;
+  var current = 0;
+
+  // Build dots
+  cards.forEach(function(_, i) {
+    var dot = document.createElement('span');
+    dot.className = 'cs-deck-dot' + (i === 0 ? ' is-active' : '');
+    dot.addEventListener('click', function(e) {
+      e.stopPropagation();
+      current = i;
+      layout();
+    });
+    dotsWrap.appendChild(dot);
+  });
+  var dots = Array.from(dotsWrap.querySelectorAll('.cs-deck-dot'));
+
+  function layout() {
+    cards.forEach(function(card, i) {
+      var offset = (i - current + n) % n;
+      if (offset === 0) {
+        card.style.zIndex = n;
+        card.style.transform = 'translateY(0) scale(1)';
+        card.style.opacity = '1';
+        card.style.pointerEvents = 'auto';
+      } else if (offset <= 3) {
+        card.style.zIndex = n - offset;
+        card.style.transform = 'translateY(' + (offset * 20) + 'px) scale(' + (1 - offset * 0.035) + ')';
+        card.style.opacity = String(1 - offset * 0.2);
+        card.style.pointerEvents = 'none';
+      } else {
+        card.style.zIndex = 0;
+        card.style.transform = 'translateY(60px) scale(0.895)';
+        card.style.opacity = '0';
+        card.style.pointerEvents = 'none';
+      }
+    });
+    label.textContent = cards[current].getAttribute('data-label');
+    dots.forEach(function(d, i) {
+      d.classList.toggle('is-active', i === current);
+    });
+  }
+
+  layout();
+
+  deck.addEventListener('click', function() {
+    current = (current + 1) % n;
+    layout();
+  });
+})();
+
+/* Scroll progress bar */
+(function() {
+  const bar = document.getElementById('cs-progress');
+  if (!bar) return;
+  function update() {
+    const h = document.documentElement;
+    const pct = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
+    bar.style.width = (isFinite(pct) ? pct : 0) + '%';
+  }
+  window.addEventListener('scroll', update, { passive: true });
+  update();
+})();
+
+/* Context rail — scroll-spy: active section thesis + jump list to the rest */
+(function() {
+  var rail = document.getElementById('cs-rail');
+  var list = document.getElementById('cs-rail-list');
+  if (!rail || !list) return;
+
+  var SECTIONS = [
+    { id: 'cs-context',   label: '01 — Multiple Versions of the Truth' },
+    { id: 'cs-exception', label: '02 — What&rsquo;s an Exception' },
+    { id: 'cs-shapes',    label: '03 — Why Resolution Slows Down' },
+    { id: 'cs-structure', label: '04 — Designing the Investigation' },
+    { id: 'cs-showcase',  label: '05 — Designing for Resolution' }
+  ];
+
+  var activeId = null;
+  var heroGone = false;
+
+  function scrollToSection(id) {
+    var el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  list.innerHTML = SECTIONS.map(function(s) {
+    var parts = s.label.split(' — ');
+    return '<li data-id="' + s.id + '"><button type="button" data-target="' + s.id + '">' +
+           '<span class="cs-rail-num">' + parts[0] + '</span>' +
+           '<span class="cs-rail-name">' + parts[1] + '</span>' +
+           '</button></li>';
+  }).join('');
+  list.querySelectorAll('button').forEach(function(btn) {
+    btn.addEventListener('click', function(){ scrollToSection(this.getAttribute('data-target')); });
+  });
+
+  function setActive(sec) {
+    var prev = list.querySelector('li.is-active');
+    if (prev) prev.classList.remove('is-active');
+    var li = list.querySelector('li[data-id="' + sec.id + '"]');
+    if (li) li.classList.add('is-active');
+  }
+
+  /* Hide the rail while the hero is in view; reveal once scrolled past it */
+  var hero = document.querySelector('.cs-hero');
+  if (hero) {
+    var heroObs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (!e.isIntersecting) {
+          heroGone = true;
+          if (activeId) { rail.classList.add('is-visible'); rail.removeAttribute('aria-hidden'); }
+        } else {
+          heroGone = false;
+          rail.classList.remove('is-visible');
+          rail.setAttribute('aria-hidden', 'true');
+        }
+      });
+    }, { threshold: 0.05 });
+    heroObs.observe(hero);
+  } else {
+    heroGone = true;
+  }
+
+  function updateActiveSection() {
+    var triggerY = window.scrollY + window.innerHeight * 0.35;
+    var current = null;
+    SECTIONS.forEach(function(s) {
+      var el = document.getElementById(s.id);
+      if (el && el.offsetTop <= triggerY) current = s;
+    });
+    if (current && current.id !== activeId) {
+      activeId = current.id;
+      setActive(current);
+      if (heroGone) { rail.classList.add('is-visible'); rail.removeAttribute('aria-hidden'); }
+    }
+  }
+
+  window.addEventListener('scroll', updateActiveSection, { passive: true });
+  updateActiveSection();
+})();
+
+/* Reveal-on-scroll choreography */
+(function() {
+  const items = document.querySelectorAll('.reveal');
+  if (!items.length) return;
+  if ('IntersectionObserver' in window) {
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('is-visible'); obs.unobserve(e.target); }
+      });
+    }, { threshold: 0.08 });
+    items.forEach(el => obs.observe(el));
+    setTimeout(() => items.forEach(el => el.classList.add('is-visible')), 2500);
+  } else {
+    items.forEach(el => el.classList.add('is-visible'));
+  }
+})();
+
+</script>
+<script>
+const navEl = document.querySelector('nav');
+window.addEventListener('scroll', () => { navEl.classList.toggle('is-scrolled', window.scrollY > 8); }, { passive: true });
+</script>
+<script type="module" src="assets/case-preview.js"></script>
+</body>
+</html>

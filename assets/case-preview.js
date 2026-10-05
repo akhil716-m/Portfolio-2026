@@ -90,7 +90,7 @@ const row = (group, label, opts) => `<div class="fxp-row" data-group="${group}">
 
 const panel = document.createElement('div');
 panel.className = 'fxp';
-panel.innerHTML = `<div class="fxp-head"><span>Inside preview</span><a href="/home-v2-fx">← Home preview</a><button type="button" data-min aria-label="Collapse">–</button></div>
+panel.innerHTML = `<div class="fxp-head"><span>Inside preview</span><a href="/lab-home">← Home preview</a><button type="button" data-min aria-label="Collapse">–</button></div>
   ${row('theme', 'Theme', Object.fromEntries(Object.entries(THEMES).map(([k, t]) => [k, t.label])))}
   ${row('inside', 'Colour', INSIDE)}
   ${row('hero', 'Hero', HERO)}

@@ -1,8 +1,8 @@
-/* Home shaders, as chosen in the colour + shader lab (home-v2-fx): hero ambient glow (H),
+/* Home shaders, as chosen in the colour + shader lab (lab-home): hero ambient glow (H),
    covers grain blob (B) in each project's own tone, about dot grid (E), closing
    horizon (Z). The ground and accent are baked into styles.css (dark, neutral white);
    this only mounts the shaders and tints each project's sentence, node and button.
-   To try other letters, colours or grounds, use /home-v2-fx. */
+   To try other letters, colours or grounds, use /lab-home. */
 import { mountShader } from './shaders.js';
 import { THEMES, PALETTES, projectOf, R, rgb } from './fx/fx-core.js';
 
