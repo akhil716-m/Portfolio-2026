@@ -19,7 +19,7 @@
 <meta name="twitter:image" content="https://akhilmale.in/assets/og-image.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles-v1.css">
 <script type="text/javascript">
   (function(c,l,a,r,i,t,y){
@@ -512,129 +512,97 @@
 .fig-stage:hover .ab-crop--bl { translate: -4px 4px; }
 .fig-stage:hover .ab-crop--br { translate: 4px 4px; }
 
-/* Photos: a tidy grid of upright frames, like frames laid out on a Figma page */
-.fig-board {
-  position: relative;
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: clamp(56px, 6vw, 88px) clamp(32px, 5vw, 72px);
-  margin-top: clamp(256px, 21vw, 300px);
+/* Beyond the canvas: a handwritten line, then five polaroids fanned in a row. They wait
+   as one stack and deal out the first time the row scrolls into view; a card lifts and
+   straightens under the cursor and gives a little wiggle when tapped. */
+.fun { margin-top: clamp(150px, 15vw, 220px); text-align: center; }
+.fun-title {
+  margin: 0 auto; max-width: 22ch;
+  font-family: 'Caveat', cursive; font-size: clamp(36px, 4.2vw, 56px); font-weight: 600; line-height: 1.1;
+  letter-spacing: 0; color: var(--text); text-wrap: balance;
 }
-.fig-shot {
-  position: relative;
-  margin: 0;
-  z-index: 1;
-  rotate: var(--r, 0deg);
-  cursor: grab;
-  touch-action: none;
-  user-select: none;
+/* Hand-drawn doodles tell the story with the photos: a burst and a smiley on the title, a loopy
+   arrow down to the row, one doodle per polaroid for what it shows, a winking smiley at the end.
+   They draw in as the photos deal, then float very gently. */
+.fun-title-in { position: relative; display: inline-block; }
+.fun-doodle { position: absolute; z-index: 2; color: #bdbdbd;  /* a solid light grey, so the page never shows through the strokes */ pointer-events: none; rotate: var(--dr, 0deg); }
+.fun-doodle--spark { width: 40px; height: 40px; left: -42px; top: -22px; --dr: -12deg; }
+.fun-doodle--smile { width: 40px; height: 40px; right: -46px; top: -26px; --dr: 10deg; }
+.fun-doodle--arrow { width: 112px; height: 84px; right: -104px; bottom: -64px; }
+.fun-doodle--hills { width: 46px; height: 46px; left: -64px; bottom: -6px; }
+.fun-card .fun-doodle { width: 46px; height: 46px; top: -40px; left: 50%; margin-left: -23px; }
+/* the outer two sit on their outer corners; the middle three float over their own card */
+.fun-card .fun-doodle.is-left { left: -22px; top: -30px; margin-left: 0; }
+.fun-card .fun-doodle.is-right { left: auto; right: -22px; top: -30px; margin-left: 0; }
+.fun-end { position: relative; flex: none; width: 0; align-self: flex-end; list-style: none; }
+.fun-doodle--wink { width: 44px; height: 44px; left: 0; bottom: 18px; --dr: -8deg; }
+.fun-doodle path { stroke-dasharray: 1; stroke-dashoffset: 0; }
+.fun.will-draw .fun-doodle path { stroke-dashoffset: 1; }
+.fun.is-drawn .fun-doodle path { stroke-dashoffset: 0; transition: stroke-dashoffset 0.8s cubic-bezier(0.65, 0, 0.35, 1) var(--dd, 0.5s); }
+.fun.is-drawn .fun-doodle--arrow path:last-child { transition-duration: 0.3s; --dd: 1.3s; }
+@keyframes fun-float {
+  0%, 100% { translate: 0 0; rotate: var(--dr, 0deg); }
+  50% { translate: 0 -4px; rotate: calc(var(--dr, 0deg) + 5deg); }
 }
-.fig-shot img {
-  display: block;
-  width: 100%;
-  height: auto;
-  aspect-ratio: 3 / 4;
-  object-fit: cover;
-  border-radius: 4px;
-  pointer-events: none;
-  -webkit-user-drag: none;
-  box-shadow: 0 14px 28px -14px rgba(0, 0, 0, 0.7);
-  transition: box-shadow 0.25s ease;
+.fun.is-drawn .fun-doodle { animation: fun-float var(--ft, 5s) ease-in-out calc(var(--dd, 0.5s) + 1s) infinite; }
+@media (max-width: 700px) {
+  .fun-doodle--arrow, .fun-doodle--wink, .fun-doodle--hills { display: none; }
+  .fun-doodle--spark { left: -24px; top: -12px; width: 26px; height: 26px; }
+  .fun-doodle--smile { right: -26px; top: -16px; width: 26px; height: 26px; }
+  .fun-card .fun-doodle { width: 34px; height: 34px; top: -28px; margin-left: -17px; }
+  .fun-card .fun-doodle.is-left { left: -12px; top: -20px; }
+  .fun-card .fun-doodle.is-right { right: -12px; top: -20px; }
 }
-.fig-shot::after {
-  content: '';
-  position: absolute;
-  inset: 19px -4px -4px;
-  border: 1px solid transparent;
-  border-radius: 6px;
-  pointer-events: none;
-  transition: border-color 0.2s ease;
+@media (prefers-reduced-motion: reduce) { .fun-doodle { animation: none !important; } }
+.fun-row {
+  position: relative; list-style: none; margin: clamp(48px, 5vw, 76px) auto 0; padding: 0;
+  display: flex; justify-content: center; align-items: flex-start;
 }
-.fig-shot:hover::after,
-.fig-shot.is-dragging::after { border-color: var(--accent); }
-.fig-shot-label {
-  display: block;
-  height: 20px;
-  font-family: 'Geist Mono', monospace;
-  font-size: 10px;
-  color: var(--accent);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  opacity: 0;
-  transition: opacity 0.2s ease;
+.fun-card {
+  position: relative; z-index: 1; flex: none;
+  width: clamp(150px, 13.5vw, 205px); margin: 0 clamp(-18px, -1.2vw, -8px);
+  padding: 9px 9px 40px; border-radius: 6px;
+  /* the resume sheet's surface: a step above the page, a hairline edge, a faint top highlight */
+  background: var(--bg-soft); border: 1px solid var(--line);
+  box-shadow: inset 0 1px 0 rgb(var(--fg-rgb) / 0.05), 0 22px 40px -18px rgb(var(--sh-rgb) / calc(0.85 * var(--sh-k)));
+  rotate: var(--r, 0deg); translate: 0 var(--y, 0px);
+  transition: rotate 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), translate 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), scale 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease, border-color 0.3s ease;
+  cursor: pointer; -webkit-tap-highlight-color: transparent;
 }
-.fig-shot:hover .fig-shot-label,
-.fig-shot.is-dragging .fig-shot-label { opacity: 1; }
-.fig-shot.is-dragging { cursor: grabbing; }
-.fig-shot.is-dragging img { box-shadow: 0 30px 60px -16px rgba(0, 0, 0, 0.9); }
-.fig-board.is-tidying .fig-shot { transition: translate 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
+.fun-card img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 4; object-fit: cover; border-radius: 2px; pointer-events: none; -webkit-user-drag: none; }
+.fun-cap {
+  position: absolute; left: 8px; right: 8px; bottom: 9px;
+  font-family: 'Caveat', cursive; font-size: 19px; font-weight: 500; line-height: 1; color: var(--text-soft);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.fun-card:hover { z-index: 10; rotate: 0deg; translate: 0 -18px; scale: 1.06; border-color: rgb(var(--fg-rgb) / 0.14); box-shadow: inset 0 1px 0 rgb(var(--fg-rgb) / 0.07), 0 34px 60px -20px rgb(var(--sh-rgb) / calc(0.95 * var(--sh-k))); }
+.fun-row:hover .fun-card:not(:hover) { scale: 0.97; }
+@keyframes fun-wiggle { 0%, 100% { rotate: 0deg; } 20% { rotate: -6deg; } 45% { rotate: 5deg; } 70% { rotate: -3deg; } 85% { rotate: 2deg; } }
+.fun-card.is-wiggling { animation: fun-wiggle 0.6s ease; }
 
-/* Photos arrive as one stack in the middle of the board and deal out into the grid the
-   first time the board scrolls into view (set up by script, so without it they simply sit
-   in the grid). The stack offset uses transform, so dragging (translate) and each frame's
-   own tilt (rotate) are untouched. */
-.fig-board.is-stacked .fig-shot { transform: translate(var(--sx, 0px), var(--sy, 0px)) rotate(var(--sr, 0deg)); pointer-events: none; }
-.fig-board.is-stacked .fig-shot-label, .fig-board.is-stacked .fig-sticky { opacity: 0; }
-.fig-board.is-dealing .fig-shot {
-  transition: transform 0.95s cubic-bezier(0.22, 1, 0.36, 1) var(--d, 0s);
-}
-.fig-board.is-dealing .fig-sticky, .fig-board.is-stacked .fig-sticky { transition: opacity 0.5s ease 0.6s; }
+/* the stack (set up by script; without it the cards simply sit in the row) */
+.fun-row.is-stacked .fun-card { transform: translate(var(--sx, 0px), var(--sy, 0px)) rotate(var(--sr, 0deg)); pointer-events: none; }
+.fun-row.is-dealing .fun-card { transition: transform 0.95s cubic-bezier(0.22, 1, 0.36, 1) var(--d, 0s); }
 
-/* "Tidy up": appears once something has been moved, snaps the grid back */
-.fig-tidy {
-  position: absolute;
-  top: -52px;
-  right: 0;
-  height: 32px;
-  padding: 0 14px;
-  border: 1px solid #2a2a2a;
-  border-radius: 100px;
-  background: #121212;
-  color: var(--text-soft);
-  font-family: 'Geist Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 0.04em;
-  cursor: pointer;
-  transition: color 0.2s, border-color 0.2s;
+@media (max-width: 700px) {
+  .fun-row { flex-wrap: wrap; gap: 18px 4px; }
+  .fun-card { width: min(38vw, 150px); margin: 0 -4px; padding: 7px 7px 32px; }
+  .fun-cap { font-size: 17px; bottom: 7px; }
 }
-.fig-tidy:hover { color: var(--accent); border-color: rgba(212, 255, 94, 0.45); }
-
-/* Sticky note: stuck over the grid's top-left corner */
-.fig-sticky {
-  position: absolute;
-  z-index: 3;
-  top: -32px;
-  left: -8px;
-  width: 220px;
-  translate: 0 -100%;
-  rotate: -4deg;
-  padding: 16px 16px 18px;
-  border-radius: 4px;
-  background: #e9f7b6;
-  color: #1c2410;
-  font-size: 14px;
-  line-height: 1.45;
-  box-shadow: 0 18px 36px -14px rgba(0, 0, 0, 0.7);
-}
-.fig-sticky-hint { margin-top: 8px; font-size: 12px; color: #4a5a24; }
-@media (hover: none), (pointer: coarse) {
-  .fig-sticky-hint { display: none; }
-  .fig-shot { cursor: default; touch-action: auto; translate: none !important; }
+@media (prefers-reduced-motion: reduce) {
+  .fun-card { transition: none; }
+  .fun-card:hover { translate: 0 var(--y, 0px); scale: 1; }
+  .fun-row:hover .fun-card:not(:hover) { scale: 1; }
+  .fun-card.is-wiggling { animation: none; }
 }
 
 @media (max-width: 900px) {
   .fig-top { grid-template-columns: 1fr; gap: 32px; }
   .fig-art { padding-top: 40px; }
   .ab-frame { width: min(100%, 230px); }
-  .fig-board { grid-template-columns: 1fr 1fr; gap: 24px 16px; margin-top: 64px; }
-  .fig-sticky { position: relative; top: auto; left: auto; translate: none; grid-column: 1 / -1; width: 80%; justify-self: center; margin-bottom: 8px; }
-  .fig-shot-label { opacity: 1; color: var(--text-muted); }
-  .fig-shot:nth-of-type(n+9) { display: none; } /* eight photos are plenty on a phone */
 }
 @media (prefers-reduced-motion: reduce) {
-  .ab-frame, .ab-img-a, .ab-img-b, .ab-crop, .fig-shot::after, .fig-shot-label { transition: none; }
-  .fig-board.is-tidying .fig-shot { transition: none; }
+  .ab-frame, .ab-img-a, .ab-img-b, .ab-crop { transition: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -848,52 +816,16 @@
           </div>
         </div>
 
-        <div class="fig-board" aria-label="Photos from life outside work">
-          <button type="button" class="fig-tidy" hidden>Tidy up</button>
-          <div class="fig-sticky">
-            <p>Frames from outside the canvas. Couldn't resist bringing them in.</p>
-            <p class="fig-sticky-hint">Go on, drag them around.</p>
-          </div>
-          <figure class="fig-shot" style="--r:-3deg">
-            <figcaption class="fig-shot-label">track-day.jpg</figcaption>
-            <img src="assets/life/life-12.webp" width="480" height="640" alt="Track day" loading="lazy" draggable="false">
-          </figure>
-          <figure class="fig-shot" style="--r:2deg">
-            <figcaption class="fig-shot-label">go-karts.jpg</figcaption>
-            <img src="assets/life/life-6.webp" width="480" height="640" alt="A go-kart track and a flying bicycle" loading="lazy" draggable="false">
-          </figure>
-          <figure class="fig-shot" style="--r:-2deg">
-            <figcaption class="fig-shot-label">into-the-hills.jpg</figcaption>
-            <img src="assets/life/life-9.webp" width="480" height="640" alt="Into the hills" loading="lazy" draggable="false">
-          </figure>
-          <figure class="fig-shot" style="--r:3deg">
-            <figcaption class="fig-shot-label">sunrise.jpg</figcaption>
-            <img src="assets/life/life-13.webp" width="480" height="640" alt="Sunrise over the waves" loading="lazy" draggable="false">
-          </figure>
-          <figure class="fig-shot" style="--r:-1deg">
-            <figcaption class="fig-shot-label">somewhere-new.jpg</figcaption>
-            <img src="assets/life/life-1.webp" width="480" height="640" alt="Exploring somewhere new" loading="lazy" draggable="false">
-          </figure>
-          <figure class="fig-shot" style="--r:2deg">
-            <figcaption class="fig-shot-label">gallery-day.jpg</figcaption>
-            <img src="assets/life/life-10.webp" width="480" height="640" alt="Abstract paintings in a gallery" loading="lazy" draggable="false">
-          </figure>
-          <figure class="fig-shot" style="--r:-3deg">
-            <figcaption class="fig-shot-label">backpacking.jpg</figcaption>
-            <img src="assets/life/life-5.webp" width="480" height="640" alt="Backpacking somewhere new" loading="lazy" draggable="false">
-          </figure>
-          <figure class="fig-shot" style="--r:1deg">
-            <figcaption class="fig-shot-label">the-courts.jpg</figcaption>
-            <img src="assets/life/life-4.webp" width="480" height="640" alt="Evening on the courts" loading="lazy" draggable="false">
-          </figure>
-          <figure class="fig-shot" style="--r:3deg">
-            <figcaption class="fig-shot-label">coffee.jpg</figcaption>
-            <img src="assets/life/life-7.webp" width="480" height="640" alt="Coffee and conversation" loading="lazy" draggable="false">
-          </figure>
-          <figure class="fig-shot" style="--r:-2deg">
-            <figcaption class="fig-shot-label">bengaluru-evenings.jpg</figcaption>
-            <img src="assets/life/life-3.webp" width="480" height="640" alt="Evenings in Bengaluru" loading="lazy" draggable="false">
-          </figure>
+        <div class="fun" aria-labelledby="fun-title">
+          <h3 class="fun-title" id="fun-title"><span class="fun-title-in"><svg style="--dd:0.2s;--ft:5.6s" class="fun-doodle fun-doodle--spark" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path pathLength="1" d="M14 3.2c.4 2.2.3 4.4-.3 6.6"/><path pathLength="1" d="M5.2 8.3c1.5 1.1 2.8 2.4 3.9 4"/><path pathLength="1" d="M22.9 8.6c-1.6 1-2.9 2.3-4 3.9"/></svg>A few things I enjoy beyond the canvas.<svg style="--dr:-6deg;--dd:0.85s;--ft:5.8s" class="fun-doodle fun-doodle--hills" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path pathLength="1" d="M2.3 19.4c2.1-3.3 4.1-6.5 6.3-9.8 1.2 1.7 2.4 3.4 3.6 5.2.9-1.2 1.8-2.5 2.7-3.7 2.2 2.7 4.4 5.5 6.6 8.3"/><path pathLength="1" d="M6.9 12.6c.9.6 1.9.5 2.8-.2"/></svg><svg style="--dd:0.35s;--ft:4.4s" class="fun-doodle fun-doodle--smile" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path pathLength="1" d="M12 3.2c4.9-.2 8.8 3.6 8.7 8.6-.1 4.9-4 8.6-8.8 8.5C7 20.2 3.3 16.4 3.4 11.6 3.5 6.9 7.3 3.4 12 3.2z"/><path pathLength="1" d="M9.1 9.4c0 .5 0 1 .1 1.5"/><path pathLength="1" d="M14.9 9.3c0 .5 0 1 .1 1.5"/><path pathLength="1" d="M8.1 14c2.1 2.7 5.7 2.8 7.8 0"/></svg><svg style="--dd:0.6s;--ft:6s" class="fun-doodle fun-doodle--arrow" viewBox="0 0 96 72" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path pathLength="1" d="M8 12c16-7 36-6 47 4 9 8 6 20-4 20-9 0-10-11 1-15 12-4 25 5 30 19 2 6 2 12 1 18"/><path pathLength="1" d="M75 52.5l8.3 6.5 4.2-9.6"/></svg></span></h3>
+          <ul class="fun-row">
+            <li class="fun-card" style="--r:-7deg;--y:18px"><img src="assets/life/life-14.webp" width="480" height="640" alt="Off the grid" loading="lazy" draggable="false"><span class="fun-cap" aria-hidden="true">off the grid</span></li>
+            <li class="fun-card" style="--r:4deg;--y:0px"><img src="assets/life/life-6.webp" width="480" height="640" alt="A go-kart track and a flying bicycle" loading="lazy" draggable="false"><span class="fun-cap" aria-hidden="true">track days</span></li>
+            <li class="fun-card" style="--r:-3deg;--y:26px"><img src="assets/life/life-9.webp" width="480" height="640" alt="Into the hills" loading="lazy" draggable="false"><svg style="--dr:0deg;--dd:1.0s;--ft:6.4s" class="fun-doodle fun-doodle--card" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path pathLength="1" d="M12 8.1c2.2-.1 4 1.6 3.9 3.9-.1 2.2-1.8 3.9-4 3.8-2.1-.1-3.8-1.9-3.7-4 .1-2.1 1.7-3.6 3.8-3.7z"/><path pathLength="1" d="M12 2.6v2.3"/><path pathLength="1" d="M12 19.2v2.2"/><path pathLength="1" d="M2.7 12h2.3"/><path pathLength="1" d="M19 12h2.3"/><path pathLength="1" d="M5.3 5.4l1.6 1.6"/><path pathLength="1" d="M17.2 17.1l1.6 1.6"/><path pathLength="1" d="M18.7 5.3l-1.6 1.6"/><path pathLength="1" d="M6.9 17.1l-1.6 1.6"/></svg><span class="fun-cap" aria-hidden="true">into the hills</span></li>
+            <li class="fun-card" style="--r:6deg;--y:4px"><img src="assets/life/life-13.webp" width="480" height="640" alt="Sunrise over the waves" loading="lazy" draggable="false"><span class="fun-cap" aria-hidden="true">sunrises</span></li>
+            <li class="fun-card" style="--r:-4deg;--y:20px"><img src="assets/life/life-1.webp" width="480" height="640" alt="Exploring somewhere new" loading="lazy" draggable="false"><span class="fun-cap" aria-hidden="true">new places</span></li>
+            <li aria-hidden="true" class="fun-end"><svg style="--dd:1.35s;--ft:5s" class="fun-doodle fun-doodle--wink" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path pathLength="1" d="M12 3.2c4.9-.2 8.8 3.6 8.7 8.6-.1 4.9-4 8.6-8.8 8.5C7 20.2 3.3 16.4 3.4 11.6 3.5 6.9 7.3 3.4 12 3.2z"/><path pathLength="1" d="M8.2 10.4c.7-.6 1.4-.6 2.1 0"/><path pathLength="1" d="M14.9 9.3c0 .5 0 1 .1 1.5"/><path pathLength="1" d="M8.4 14.3c2 2.2 5.2 2.3 7.2 0"/></svg></li>
+          </ul>
         </div>
 
       </div>
@@ -1052,98 +984,55 @@ console.log('%cIf you got this far, you\'re probably my kind of person. → akhi
   dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); });
 })();
 
-// About canvas: photos drag on desktop and "Tidy up" snaps them back into the grid
+// Beyond the canvas: the polaroids wait as a stack and deal out into their fan once, when the
+// stack reaches the lower third of the screen; a tap gives a card a little wiggle
 (function() {
-  const canvas = document.querySelector('.fig-canvas');
-  const board = canvas && canvas.querySelector('.fig-board');
-  // desktop pointers only, so touch scrolling is never trapped
-  if (!board || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
-  const tidy = board.querySelector('.fig-tidy');
-  const shots = board.querySelectorAll('.fig-shot');
-  let top = 10;
-  const offset = s => (s.style.translate || '0px 0px').split(' ').map(v => parseFloat(v) || 0);
-  shots.forEach(shot => {
-    let start = null;
-    shot.addEventListener('pointerdown', e => {
-      if (e.button !== 0) return;
-      e.preventDefault();                  // stop the browser's own image drag / text selection
-      board.classList.remove('is-tidying');
-      const [tx, ty] = offset(shot);
-      start = { px: e.clientX, py: e.clientY, tx, ty };
-      shot.setPointerCapture(e.pointerId);
-      shot.classList.add('is-dragging');
-      shot.style.zIndex = ++top;
+  const row = document.querySelector('.fun-row');
+  if (!row) return;
+  const cards = [...row.querySelectorAll('.fun-card')];
+  cards.forEach(c => {
+    c.addEventListener('click', () => {
+      c.classList.remove('is-wiggling'); void c.offsetWidth; c.classList.add('is-wiggling');
     });
-    shot.addEventListener('pointermove', e => {
-      if (!start) return;
-      // keep the photo inside the canvas
-      const c = canvas.getBoundingClientRect(), r = shot.getBoundingClientRect();
-      const [tx, ty] = offset(shot);
-      const baseL = r.left - c.left - tx, baseT = r.top - c.top - ty;
-      let nx = start.tx + e.clientX - start.px, ny = start.ty + e.clientY - start.py;
-      nx = Math.max(-baseL, Math.min(c.width - baseL - r.width, nx));
-      ny = Math.max(-baseT, Math.min(c.height - baseT - r.height, ny));
-      shot.style.translate = `${nx}px ${ny}px`;
-      tidy.hidden = false;
-    });
-    const end = () => { start = null; shot.classList.remove('is-dragging'); };
-    shot.addEventListener('pointerup', end);
-    shot.addEventListener('pointercancel', end);
-    shot.addEventListener('dragstart', e => e.preventDefault());
+    c.addEventListener('animationend', () => c.classList.remove('is-wiggling'));
   });
-  tidy.addEventListener('click', () => {
-    board.classList.add('is-tidying');
-    shots.forEach(s => { s.style.translate = ''; });
-    tidy.hidden = true;
-  });
-})();
-
-// About canvas: the photos wait as a stack and deal out into the grid once, when the stack
-// reaches the lower third of the screen
-(function() {
-  const board = document.querySelector('.fig-board');
-  if (!board || !('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  const shots = [...board.querySelectorAll('.fig-shot')].filter(s => s.offsetParent !== null);
-  if (shots.length < 2) return;
-  const TILT = [-7, 5, -3, 8, -5, 3, -8, 6, -2, 4];
-  // offsets from each frame's place in the grid to the middle of the board
+  if (!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches || cards.length < 2) return;
+  const TILT = [-8, 6, -3, 9, -5];
+  // the stack offset is a transform, so offsetLeft/Top still give each card's place in the fan
   const measure = () => {
-    const b = board.getBoundingClientRect();
-    const cx = b.width / 2, cy = b.height / 2;
-    shots.forEach((s, i) => {
-      // the stack offset is a transform, so offsetLeft/Top still give the frame's grid box
-      const left = s.offsetLeft, top = s.offsetTop;
-      s.style.setProperty('--sx', `${cx - (left + s.offsetWidth / 2)}px`);
-      s.style.setProperty('--sy', `${cy - (top + s.offsetHeight / 2)}px`);
-      s.style.setProperty('--sr', `${TILT[i % TILT.length]}deg`);
-      s.style.zIndex = shots.length - i + 1;   // the first photo sits on top
-      s.style.setProperty('--d', `${i * 0.05}s`);
+    const cx = row.offsetWidth / 2, cy = row.offsetHeight / 2;
+    cards.forEach((c, i) => {
+      c.style.setProperty('--sx', `${cx - (c.offsetLeft + c.offsetWidth / 2)}px`);
+      c.style.setProperty('--sy', `${cy - (c.offsetTop + c.offsetHeight / 2)}px`);
+      c.style.setProperty('--sr', `${TILT[i % TILT.length]}deg`);
+      c.style.setProperty('--d', `${i * 0.07}s`);
+      c.style.zIndex = cards.length - i + 1;   // the first card sits on top
     });
   };
-  // every photo in the stack is about to be seen together, so none of them waits on lazy loading
-  shots.forEach(s => { const img = s.querySelector('img'); if (img) img.loading = 'eager'; });
+  // every card in the stack shows at once, so none of them waits on lazy loading
+  cards.forEach(c => { const img = c.querySelector('img'); if (img) img.loading = 'eager'; });
   measure();
-  board.classList.add('is-stacked');
-  const onResize = () => { if (board.classList.contains('is-stacked')) measure(); };
+  row.classList.add('is-stacked');
+  const fun = row.closest('.fun');
+  if (fun) fun.classList.add('will-draw');
+  const onResize = () => { if (row.classList.contains('is-stacked')) measure(); };
   window.addEventListener('resize', onResize);
-
-  // a marker at the middle of the board: when it reaches 65% down the viewport, deal
-  const mark = document.createElement('span');
+  const mark = document.createElement('li');
   mark.setAttribute('aria-hidden', 'true');
-  mark.style.cssText = 'position:absolute;left:50%;top:50%;width:1px;height:1px;pointer-events:none';
-  board.appendChild(mark);
+  mark.style.cssText = 'position:absolute;left:50%;top:50%;width:1px;height:1px;list-style:none;pointer-events:none';
+  row.appendChild(mark);
   const io = new IntersectionObserver(entries => {
     if (!entries[0].isIntersecting) return;
     io.disconnect();
     window.removeEventListener('resize', onResize);
-    board.classList.add('is-dealing');
-    board.classList.remove('is-stacked');
-    const longest = (shots.length - 1) * 50 + 950;
+    row.classList.add('is-dealing');
+    row.classList.remove('is-stacked');
+    fun && fun.classList.add('is-drawn');
     setTimeout(() => {
-      board.classList.remove('is-dealing');
-      shots.forEach(s => { s.style.zIndex = ''; });
+      row.classList.remove('is-dealing');
+      cards.forEach(c => { c.style.zIndex = ''; });
       mark.remove();
-    }, longest + 100);
+    }, (cards.length - 1) * 70 + 1050);
   }, { rootMargin: '0px 0px -35% 0px' });
   io.observe(mark);
 })();

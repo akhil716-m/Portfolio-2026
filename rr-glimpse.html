@@ -152,6 +152,19 @@ html:not([data-fx-theme="dark"]) .panel::before { opacity: 0.07; mix-blend-mode:
   .glow, .demo-shot { transition: none; }
   .cs-hero > * { opacity: 1; animation: none; }
   }
+
+/* ===== Page transitions =====
+   Moving between pages of the site (home, case studies, resume) cross-fades instead of
+   cutting: the old page fades out, the new one fades in and settles up a few pixels.
+   Browsers without cross-document view transitions simply navigate as before. */
+@view-transition { navigation: auto; }
+::view-transition-old(root) { animation: vt-out 0.22s ease both; }
+::view-transition-new(root) { animation: vt-in 0.42s cubic-bezier(0.22, 1, 0.36, 1) 0.06s both; }
+@keyframes vt-out { to { opacity: 0; } }
+@keyframes vt-in { from { opacity: 0; transform: translateY(10px); } }
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root), ::view-transition-new(root) { animation: none; }
+}
 </style>
 <script>document.documentElement.classList.add('js')</script>
 </head>

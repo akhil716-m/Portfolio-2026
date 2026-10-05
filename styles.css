@@ -120,6 +120,16 @@ nav .links a:hover::before { opacity: 1; }
 nav .links a.active { color: var(--text); }
 nav .links a.active::before { opacity: 1; }
 nav .logo a { display: flex; align-items: center; gap: 10px; text-decoration: none; color: inherit; }
+/* Resume in the top bar: the pill the phone layout already uses, on every width */
+nav .links a:has(svg) {
+  display: inline-flex; align-items: center; gap: 7px; padding: 7px 14px; border-radius: 100px;
+  background: var(--accent); color: var(--on-accent) !important; font-weight: 500;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+nav .links a:has(svg)::before { display: none; }
+nav .links a:has(svg):hover { opacity: 0.86; }
+nav .links a:has(svg):active { transform: scale(0.97); }
+nav .links a:has(svg):focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 
 nav .status {
   display: flex;
@@ -134,8 +144,9 @@ nav .status .dot {
   background: var(--accent);
 }
 
-/* Home: nav content aligns to the page column instead of the window edge */
-.home nav {
+/* Home (and the resume and contact pages, so the top bar never jumps between them):
+   nav content aligns to the page column instead of the window edge */
+.home nav, .nav-in-column nav {
   padding-left: max(var(--page-gutter), calc((100% - var(--page-max)) / 2 + var(--page-gutter)));
   padding-right: max(var(--page-gutter), calc((100% - var(--page-max)) / 2 + var(--page-gutter)));
 }
@@ -1273,3 +1284,16 @@ footer .right a:hover .arr--up { transform: translateY(-3px); }
 /* Case studies: each page sets its project's cover colour on <html> (accent, tints, --proj);
    the hero glow reads --proj-rgb */
 html[data-hero="glow"] .cs-hero::before { background: radial-gradient(ellipse 60% 55% at 85% 5%, rgb(var(--proj-rgb) / .12), transparent 70%); }
+
+/* ===== Page transitions =====
+   Moving between pages of the site (home, case studies, resume) cross-fades instead of
+   cutting: the old page fades out, the new one fades in and settles up a few pixels.
+   Browsers without cross-document view transitions simply navigate as before. */
+@view-transition { navigation: auto; }
+::view-transition-old(root) { animation: vt-out 0.22s ease both; }
+::view-transition-new(root) { animation: vt-in 0.42s cubic-bezier(0.22, 1, 0.36, 1) 0.06s both; }
+@keyframes vt-out { to { opacity: 0; } }
+@keyframes vt-in { from { opacity: 0; transform: translateY(10px); } }
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root), ::view-transition-new(root) { animation: none; }
+}
