@@ -293,10 +293,16 @@
   object-position: center;
   transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), filter 0.45s ease;
 }
-.t-media.will-unveil { clip-path: inset(0 0 100% 0 round 8px); }
+/* Cover entrance: the card settles in, then the screen rises into it from below the frame */
+.t-media.will-unveil { opacity: 0; transform: translateY(28px) scale(0.985); }
+.t-media.will-unveil img { transform: translateY(16%); }
 .t-media.will-unveil.is-shown {
-  clip-path: inset(0 0 0 0 round 8px);
-  transition: clip-path 1.1s cubic-bezier(0.65, 0, 0.35, 1);
+  opacity: 1; transform: none;
+  transition: opacity 0.7s ease, transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.t-media.will-unveil.is-shown img {
+  transform: none;
+  transition: transform 1.3s cubic-bezier(0.16, 1, 0.3, 1) 0.18s, filter 0.45s ease;
 }
 /* covers show as they are: no dimming, and no hover, since only the pill is a link */
 .gl-media--light img { filter: none; }
@@ -624,7 +630,7 @@
   .t-rail-fill { animation: none; transform: none; opacity: 0.6; }
   .t-rail-head { display: none; }
   .t-aside::before { transition: none; }
-  .t-media.will-unveil { clip-path: none; }
+  .t-media.will-unveil, .t-media.will-unveil img { opacity: 1; transform: none; }
   .t-cta, .t-cta-arrow { transition: none; }
   .t-node, .t-media img, .t-thumb img, .t-row-name .arr { transition: none; }
   .t-row:hover .t-thumb img { transform: none; }
@@ -722,7 +728,7 @@
           <a class="t-cta" href="/work-hypersense" aria-label="Read the HyperSense case study">Read case study <span class="t-cta-arrow" aria-hidden="true">→</span></a>
         </div>
         <div class="t-body">
-                    <p class="t-line">Designed a 0→1 payment cost observability product for enterprise merchants, taking it from concept to merchant adoption and <em>a demo for Apple</em>.</p>
+                    <p class="t-line">Designed a 0→1 payment cost observability product for enterprise merchants, taking it from concept to merchant adoption and <em>a demo to Apple</em>.</p>
           <span class="t-media t-media--light"><img src="assets/hypersense-behance-cover.webp" width="1600" height="894" alt="HyperSense dashboard" fetchpriority="high"></span>
           <a class="t-cta t-cta--end" href="/work-hypersense" aria-label="Read the HyperSense case study">Read case study <span class="t-cta-arrow">→</span></a>
         </div>
@@ -1019,7 +1025,7 @@ console.log('%cIf you got this far, you\'re probably my kind of person. → akhi
   stops.forEach(s => io.observe(s));
 })();
 
-// Thread covers: a soft wipe from the top the first time each one appears
+// Thread covers: the card settles in and its screen rises into place, the first time each one appears
 (function() {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return;
   const covers = document.querySelectorAll('.t-media');
