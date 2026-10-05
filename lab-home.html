@@ -570,6 +570,17 @@
 .fig-shot.is-dragging img { box-shadow: 0 30px 60px -16px rgb(var(--sh-rgb) / calc(0.9 * var(--sh-k))); }
 .fig-board.is-tidying .fig-shot { transition: translate 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
 
+/* Photos arrive as one stack in the middle of the board and deal out into the grid the
+   first time the board scrolls into view (set up by script, so without it they simply sit
+   in the grid). The stack offset uses transform, so dragging (translate) and each frame's
+   own tilt (rotate) are untouched. */
+.fig-board.is-stacked .fig-shot { transform: translate(var(--sx, 0px), var(--sy, 0px)) rotate(var(--sr, 0deg)); pointer-events: none; }
+.fig-board.is-stacked .fig-shot-label, .fig-board.is-stacked .fig-sticky { opacity: 0; }
+.fig-board.is-dealing .fig-shot {
+  transition: transform 0.95s cubic-bezier(0.22, 1, 0.36, 1) var(--d, 0s);
+}
+.fig-board.is-dealing .fig-sticky, .fig-board.is-stacked .fig-sticky { transition: opacity 0.5s ease 0.6s; }
+
 /* "Tidy up": appears once something has been moved, snaps the grid back */
 .fig-tidy {
   position: absolute;
@@ -1085,6 +1096,56 @@ console.log('%cIf you got this far, you\'re probably my kind of person. → akhi
     shots.forEach(s => { s.style.translate = ''; });
     tidy.hidden = true;
   });
+})();
+
+// About canvas: the photos wait as a stack and deal out into the grid once, when the stack
+// reaches the lower third of the screen
+(function() {
+  const board = document.querySelector('.fig-board');
+  if (!board || !('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const shots = [...board.querySelectorAll('.fig-shot')].filter(s => s.offsetParent !== null);
+  if (shots.length < 2) return;
+  const TILT = [-7, 5, -3, 8, -5, 3, -8, 6, -2, 4];
+  // offsets from each frame's place in the grid to the middle of the board
+  const measure = () => {
+    const b = board.getBoundingClientRect();
+    const cx = b.width / 2, cy = b.height / 2;
+    shots.forEach((s, i) => {
+      // the stack offset is a transform, so offsetLeft/Top still give the frame's grid box
+      const left = s.offsetLeft, top = s.offsetTop;
+      s.style.setProperty('--sx', `${cx - (left + s.offsetWidth / 2)}px`);
+      s.style.setProperty('--sy', `${cy - (top + s.offsetHeight / 2)}px`);
+      s.style.setProperty('--sr', `${TILT[i % TILT.length]}deg`);
+      s.style.zIndex = shots.length - i + 1;   // the first photo sits on top
+      s.style.setProperty('--d', `${i * 0.05}s`);
+    });
+  };
+  // every photo in the stack is about to be seen together, so none of them waits on lazy loading
+  shots.forEach(s => { const img = s.querySelector('img'); if (img) img.loading = 'eager'; });
+  measure();
+  board.classList.add('is-stacked');
+  const onResize = () => { if (board.classList.contains('is-stacked')) measure(); };
+  window.addEventListener('resize', onResize);
+
+  // a marker at the middle of the board: when it reaches 65% down the viewport, deal
+  const mark = document.createElement('span');
+  mark.setAttribute('aria-hidden', 'true');
+  mark.style.cssText = 'position:absolute;left:50%;top:50%;width:1px;height:1px;pointer-events:none';
+  board.appendChild(mark);
+  const io = new IntersectionObserver(entries => {
+    if (!entries[0].isIntersecting) return;
+    io.disconnect();
+    window.removeEventListener('resize', onResize);
+    board.classList.add('is-dealing');
+    board.classList.remove('is-stacked');
+    const longest = (shots.length - 1) * 50 + 950;
+    setTimeout(() => {
+      board.classList.remove('is-dealing');
+      shots.forEach(s => { s.style.zIndex = ''; });
+      mark.remove();
+    }, longest + 100);
+  }, { rootMargin: '0px 0px -35% 0px' });
+  io.observe(mark);
 })();
 
 </script>
