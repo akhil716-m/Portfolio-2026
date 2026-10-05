@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" data-fx-theme="dark" data-inside="project" data-hero="glow" style="--proj:#5cc3ad;--proj-rgb:92 195 173;--accent:#5cc3ad;--acc-rgb:92 195 173;--acc-soft:#d3efe8;--acc-mid:#226b5c;--acc-ink:#06221c;--on-accent:#06221c;--glow:rgb(92 195 173 / 0.15);--tray:#06221c">
+<html lang="en" data-fx-project="skilling">
 <head>
+<meta name="robots" content="noindex">
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Akhil Male - Up-skill, a Case Study</title>
@@ -20,7 +21,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="assets/fx/styles-fx.css">
 <script type="text/javascript">
   (function(c,l,a,r,i,t,y){
       c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
@@ -80,7 +81,6 @@
 .cs-rail-list li button:hover .cs-rail-num { color: var(--text-soft); }
 .cs-rail-list li.is-active .cs-rail-num { color: var(--accent); }
 .cs-rail-list li.is-active .cs-rail-name { color: var(--text); font-weight: 500; }
-.cs-rail-list li button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
 @media(max-width: 1280px) { .cs-rail { display: none; } }
 
 /* ---------- HERO ---------- */
@@ -129,7 +129,7 @@ nav .logo a.cs-back:hover { color: var(--accent); }
   display: block; font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.18em;
   text-transform: uppercase; color: var(--text-muted); margin-bottom: 9px;
 }
-.cs-hero-meta-item span { font-family: 'Geist', sans-serif; font-size: 14.5px; font-weight: 400; color: var(--text); }
+.cs-hero-meta-item span { font-family: 'Geist', sans-serif; font-size: 14px; font-weight: 300; color: var(--text-soft); }
 .cs-hero-meta-item .accent { color: var(--accent); }
 
 .cs-hero-scroll {
@@ -691,6 +691,8 @@ body.cs-lb-lock { overflow: hidden; }
    other case studies should follow, promote these to styles.css.
    ===================================================================== */
 :root {
+  --text-soft: #a6a6a6;   /* was #8a8a8a: body copy, 8.3:1 on the page background */
+  --text-muted: #8a8a8a;  /* was #555555: labels and captions, 5.7:1 (5.2:1 on cards) */
   --fs-display: clamp(34px, 4.6vw, 56px);
   --fs-h3: clamp(21px, 2.1vw, 24px);
   --fs-statement: clamp(22px, 2.6vw, 28px);   /* one-line statements: reason lead, pain-point group lines */
@@ -698,7 +700,7 @@ body.cs-lb-lock { overflow: hidden; }
   --fs-h4: 17px;
   --pain: 232, 116, 92;        /* problems: a muted brick, the counterpart to lime for solutions */
   --fs-lead: clamp(18px, 1.5vw, 20px);
-  --fs-body: 16px;            /* body copy matches HyperSense and Reconciliation */
+  --fs-body: 17px;
   --fs-small: 14.5px;
   --fs-micro: 12px;
 }
@@ -710,17 +712,18 @@ body.cs-lb-lock { overflow: hidden; }
 .cs-h3, .cs-theme-title { font-size: var(--fs-h3); font-weight: 500; line-height: 1.25; letter-spacing: -0.01em; }
 .cs-strip-title, .cs-facts dt { font-size: var(--fs-h4); font-weight: 600; line-height: 1.35; }
 /* intro paragraphs use the same size, weight, measure and spacing as body paragraphs */
-.cs-lead { font-size: var(--fs-body); font-weight: 300; line-height: 1.85; color: var(--text-soft); max-width: 720px; margin: 0 0 26px; }
+.cs-lead { font-size: var(--fs-body); font-weight: 400; line-height: 1.75; color: var(--text-soft); max-width: 60ch; margin: 0 0 26px; }
 /* body copy stays grey; only the one thing that needs attention is lifted, in the accent, never bold white */
 .cs-lead strong, .cs-p strong { color: var(--accent); font-weight: 500; }
-.cs-p { font-size: var(--fs-body); font-weight: 300; line-height: 1.85; color: var(--text-soft); max-width: 720px; }
-.cs-list li { font-size: var(--fs-body); font-weight: 300; line-height: 1.7; }
-.cs-theme-desc { font-size: var(--fs-body); font-weight: 300; }
+.cs-p { font-size: var(--fs-body); font-weight: 400; line-height: 1.75; color: var(--text-soft); max-width: 60ch; }
+.cs-list li { font-size: var(--fs-body); font-weight: 400; }
+.cs-theme-desc { font-size: var(--fs-body); font-weight: 400; }
 .cs-lead + .cs-p { margin-top: 0; }
 .cs-list-who { margin: 10px 0 18px; font-size: var(--fs-small); font-weight: 500; color: var(--text-muted); }
 
 /* Small text: descriptions, captions, notes, chips, tabs */
 .cs-facts dd, .cs-strip-desc, .cs-ba-note, .cs-hero-meta-item span { font-size: var(--fs-small); font-weight: 400; }
+.cs-hero-meta-item span { font-weight: 300; }
 .cs-chip, .cs-tab { font-size: var(--fs-small); }
 .cs-chips--lg .cs-chip { font-size: 16px; }
 
@@ -731,6 +734,7 @@ body.cs-lb-lock { overflow: hidden; }
 .cs-rail-num { letter-spacing: 0.06em; }
 
 @media (max-width: 760px) {
+  :root { --fs-body: 16.5px; }
   .cs-display { max-width: none; }
   .cs-chips--lg .cs-chip { font-size: 15px; }
 }
@@ -987,19 +991,6 @@ footer .right a { display: inline-flex; align-items: center; min-height: 44px; p
 @media (prefers-reduced-motion: reduce) {
   .js .cs-mend .cs-mend-line, .js .cs-mend .cs-mend-list, .js .cs-mend .cs-mend-stage::before { transform: none; opacity: 1; transition: none; }
 }
-
-/* Back link: the home page's top-nav link (Resume), its left edge on the hero's text line */
-@media (min-width: 901px) { nav { padding-left: clamp(24px, 6vw, 80px); padding-right: clamp(24px, 6vw, 80px); } }
-nav .logo a.cs-back {
-  min-height: 44px; padding: 0; gap: 8px;
-  font-family: 'Geist Mono', monospace; font-size: 14px; letter-spacing: 0.02em; text-transform: none;
-  color: var(--text-soft); transition: color 0.2s ease, gap 0.2s ease;
-}
-nav .logo a.cs-back:hover { color: var(--text); gap: 11px; }
-nav .logo a.cs-back .arr { flex: none; display: block; }
-nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; border-radius: 4px; }
-@media (max-width: 900px) { nav .logo a.cs-back { font-size: 12px; } }
-@media (prefers-reduced-motion: reduce) { nav .logo a.cs-back { transition: none; } }
 </style>
 </head>
 <body>
@@ -1016,7 +1007,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 
 <nav>
   <div class="logo">
-    <a class="cs-back" href="/" aria-label="Back to selected work"><svg class="arr" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>Back<span class="cs-back-long"> to selected work</span></a>
+    <a class="cs-back" href="/lab-home" aria-label="Back to selected work"><span class="arr">←</span> Back<span class="cs-back-long"> to selected work</span></a>
   </div>
   <!-- CHAPTER BAR: stands in for the side rail wherever there is no room for it -->
   <div class="cs-chapter" id="cs-chapter">
@@ -2100,7 +2091,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
     </span>
     <p>Thanks for following along.</p>
   </div>
-  <div class="cs-cta-center"><a class="cs-cta" href="/"><span class="arr">←</span> Back to selected work</a></div>
+  <div class="cs-cta-center"><a class="cs-cta" href="/lab-home"><span class="arr">←</span> Back to selected work</a></div>
 </div>
 </section>
 
@@ -2206,19 +2197,15 @@ var CS_REDUCE = window.matchMedia && window.matchMedia('(prefers-reduced-motion:
   }
 
   function setActive(sec) {
-    list.querySelectorAll('li').forEach(function(li) {
-      var on = li.getAttribute('data-id') === sec.id;
-      li.classList.toggle('is-active', on);
-      var b = li.querySelector('button');
-      if (on) b.setAttribute('aria-current', 'true'); else b.removeAttribute('aria-current');
-    });
+    list.querySelectorAll('li.is-active').forEach(function(li) { li.classList.remove('is-active'); });
+    var li = list.querySelector('li[data-id="' + sec.id + '"]');
+    if (li) li.classList.add('is-active');
     if (chapter && cname) {
       cnum.textContent = sec.num;
       cname.textContent = sec.name;
       clist.querySelectorAll('.is-active').forEach(function(b) { b.classList.remove('is-active'); });
       var cb = clist.querySelector('button[data-target="' + sec.id + '"]');
-      clist.querySelectorAll('[aria-current]').forEach(function(b) { b.removeAttribute('aria-current'); });
-      if (cb) { cb.classList.add('is-active'); cb.setAttribute('aria-current', 'true'); }
+      if (cb) cb.classList.add('is-active');
     }
   }
   var ended = false;
@@ -2609,5 +2596,6 @@ var CS_REDUCE = window.matchMedia && window.matchMedia('(prefers-reduced-motion:
 })();
 
 </script>
+<script type="module" src="assets/case-preview.js"></script>
 </body>
 </html>

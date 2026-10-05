@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" data-fx-theme="dark" data-fx-acc="ink">
+<html lang="en">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Akhil Male, Product Designer</title>
+<meta name="robots" content="noindex">
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Akhil Male, Product Designer">
@@ -19,7 +20,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="assets/fx/styles-fx.css">
 <script type="text/javascript">
   (function(c,l,a,r,i,t,y){
       c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
@@ -615,32 +616,6 @@
   .t-row:hover .t-thumb img { transform: none; }
 }
 </style>
-<style>
-/* Home shaders (see assets/home-fx.js): hero dot grid, cover tones, about dot grid, closing horizon */
-.fx-hero-layer { position: absolute; top: 0; bottom: 0; left: calc(50% - 50vw); width: 100vw; z-index: -2; pointer-events: none;
-  -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent); mask-image: linear-gradient(to bottom, black 60%, transparent); }
-.fx-hero-layer:not(.fx-on) { display: none; }
-/* keep the headline's intended break at every desktop width */
-@media (min-width: 761px) { .hero-title .quiet { display: block; } }
-/* Neutral accent: the sentence stays grey, the key phrase carries the emphasis in white */
-.t-moment:not([data-tinted]) .t-line { color: var(--text-soft); }
-.t-moment:not([data-tinted]) .t-line em { color: var(--text); font-weight: 500; }
-.hero:has(.fx-hero-layer.fx-on)::before { opacity: 0.5; }
-
-.t-media.fx-on { position: relative; background: var(--tray); }
-.t-media.fx-on img { position: relative; width: 84%; height: auto; aspect-ratio: 16 / 9; margin: 9% auto 0; border-radius: 6px 6px 0 0;
-  box-shadow: 0 30px 60px -24px rgb(var(--sh-rgb) / calc(.8 * var(--sh-k))), 0 0 0 1px rgb(var(--fg-rgb) / .06); }
-
-.fig.fx-on::before { display: none; }
-.fig.fx-on > canvas { -webkit-mask-image: linear-gradient(to bottom, transparent, black 12%, black 88%, transparent);
-  mask-image: linear-gradient(to bottom, transparent, black 12%, black 88%, transparent); opacity: .35; }
-
-.contact.fx-on .cl-beam { display: none; }
-.contact.fx-on > canvas { -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent); mask-image: linear-gradient(to bottom, black 50%, transparent); }
-/* the horizon has no box: it fades out before the section's edges */
-.contact[data-fx="Z"] > canvas { -webkit-mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, black 55%, transparent);
-  mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, black 55%, transparent); }
-</style>
 </head>
 <body class="home">
 
@@ -651,7 +626,7 @@
     </a>
   </div>
   <div style="display: flex; align-items: center; gap: 32px;">
-    <div class="links"><a href="/resume"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg> Resume</a></div>
+    <div class="links"><a href="/lab-resume"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg> Resume</a></div>
     <div class="status"><span class="dot"></span><span class="status-text">available for select projects</span></div>
   </div>
 </nav>
@@ -704,12 +679,12 @@
           <span class="t-node" aria-hidden="true"></span>
           <span class="t-name">HyperSense</span>
           <span class="t-cat">Payment cost observability</span>
-          <a class="t-cta" href="/work-hypersense" aria-label="Read the HyperSense case study">Read case study <span class="t-cta-arrow" aria-hidden="true">→</span></a>
+          <a class="t-cta" href="/lab-work-hypersense" aria-label="Read the HyperSense case study">Read case study <span class="t-cta-arrow" aria-hidden="true">→</span></a>
         </div>
         <div class="t-body">
                     <p class="t-line">Designed a 0→1 payment cost observability product for enterprise merchants, taking it from concept to merchant adoption and <em>a demo to Apple</em>.</p>
           <span class="t-media t-media--light"><img src="assets/hypersense-behance-cover.webp" width="1600" height="894" alt="HyperSense dashboard" fetchpriority="high"></span>
-          <a class="t-cta t-cta--end" href="/work-hypersense" aria-label="Read the HyperSense case study">Read case study <span class="t-cta-arrow">→</span></a>
+          <a class="t-cta t-cta--end" href="/lab-work-hypersense" aria-label="Read the HyperSense case study">Read case study <span class="t-cta-arrow">→</span></a>
         </div>
       </div>
 
@@ -718,12 +693,12 @@
           <span class="t-node" aria-hidden="true"></span>
           <span class="t-name">Reconciliation</span>
           <span class="t-cat">Exception resolution</span>
-          <a class="t-cta" href="/work-reconciliation" aria-label="Read the Reconciliation case study">Read case study <span class="t-cta-arrow" aria-hidden="true">→</span></a>
+          <a class="t-cta" href="/lab-work-reconciliation" aria-label="Read the Reconciliation case study">Read case study <span class="t-cta-arrow" aria-hidden="true">→</span></a>
         </div>
         <div class="t-body">
                     <p class="t-line">Simplified exception resolution for reconciliation analysts, turning complex investigations into <em>a clearer path to resolution</em>.</p>
           <span class="t-media t-media--light"><img src="assets/recon/cover.webp" width="1600" height="800" alt="Reconciliation case study cover" loading="lazy"></span>
-          <a class="t-cta t-cta--end" href="/work-reconciliation" aria-label="Read the Reconciliation case study">Read case study <span class="t-cta-arrow">→</span></a>
+          <a class="t-cta t-cta--end" href="/lab-work-reconciliation" aria-label="Read the Reconciliation case study">Read case study <span class="t-cta-arrow">→</span></a>
         </div>
       </div>
 
@@ -761,12 +736,12 @@
           <span class="t-node" aria-hidden="true"></span>
           <span class="t-name">Up-skill</span>
           <span class="t-cat">Learning for frontline workers</span>
-          <a class="t-cta" href="/work-skilling" aria-label="Read the Up-skill case study">Read case study <span class="t-cta-arrow" aria-hidden="true">→</span></a>
+          <a class="t-cta" href="/lab-work-skilling" aria-label="Read the Up-skill case study">Read case study <span class="t-cta-arrow" aria-hidden="true">→</span></a>
         </div>
         <div class="t-body">
                     <p class="t-line">Crafted an engaging learning experience for frontline workers with low digital literacy, making upskilling <em>more guided, relevant, and engaging</em>.</p>
           <span class="t-media t-media--light"><img src="assets/skilling-behance.webp" width="1600" height="896" alt="Up-skill app UI" loading="lazy"></span>
-          <a class="t-cta t-cta--end" href="/work-skilling" aria-label="Read the Up-skill case study">Read case study <span class="t-cta-arrow">→</span></a>
+          <a class="t-cta t-cta--end" href="/lab-work-skilling" aria-label="Read the Up-skill case study">Read case study <span class="t-cta-arrow">→</span></a>
         </div>
       </div>
 
@@ -932,7 +907,7 @@ document.querySelectorAll('[data-track]').forEach(el => {
   targets.forEach(t => io.observe(t));
 })();
 
-console.log('%cHi.','font-family:Geist,sans-serif;font-size:32px;font-weight:500;color:#ededed;');
+console.log('%cHi.','font-family:Geist,sans-serif;font-size:32px;font-weight:500;color:#d4ff5e;');
 console.log('%cIf you got this far, you\'re probably my kind of person. → akhilmale.ux@gmail.com','font-family:monospace;font-size:12px;color:#8a8a8a;');
 
 // Hero: the dot grid lights up around the cursor (pointer devices only)
@@ -1063,6 +1038,6 @@ console.log('%cIf you got this far, you\'re probably my kind of person. → akhi
 })();
 
 </script>
-<script type="module" src="assets/home-fx.js"></script>
+<script type="module" src="assets/shader-preview.js"></script>
 </body>
 </html>

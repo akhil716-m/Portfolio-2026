@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" data-fx-theme="dark" data-inside="project" data-hero="glow" style="--proj:#6f9bff;--proj-rgb:111 155 255;--accent:#6f9bff;--acc-rgb:111 155 255;--acc-soft:#d6e2ff;--acc-mid:#2a4fb0;--acc-ink:#0a1638;--on-accent:#0a1638;--glow:rgb(111 155 255 / 0.15);--tray:#0a1638">
+<html lang="en">
 <head>
+<meta name="robots" content="noindex">
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Akhil Male — HyperSense, a Case Study</title>
@@ -19,7 +20,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="styles-v1.css">
 <script type="text/javascript">
   (function(c,l,a,r,i,t,y){
       c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
@@ -40,7 +41,7 @@
 #cs-progress {
   position: fixed; top: 0; left: 0; height: 2px; background: var(--accent);
   width: 0%; z-index: 1000; transition: width 0.12s linear;
-  box-shadow: 0 0 12px rgb(var(--acc-rgb) / 0.4);
+  box-shadow: 0 0 12px rgba(212,255,94,0.4);
 }
 
 @keyframes csFadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
@@ -49,13 +50,10 @@
   50% { opacity: 1; transform: scaleY(1); }
 }
 
-/* ---------- CONTEXT RAIL — sticky scroll-spy nav, the same on every case study ----------
-   Labels hold a 12px floor; the current section is marked for screen readers too
-   (aria-current). Where there is no room for the rail, the chapter bar in the top nav
-   lists the same sections as a menu. */
+/* ---------- CONTEXT RAIL — sticky scroll-spy nav (section thesis + jump list) ---------- */
 .cs-rail {
   position: fixed; left: clamp(20px, 2.5vw, 40px); top: 50%;
-  transform: translateY(-50%); width: max-content; z-index: 60;
+  transform: translateY(-50%); width: 200px; z-index: 60;
   opacity: 0; pointer-events: none; transition: opacity 0.5s ease;
 }
 .cs-rail.is-visible { opacity: 1; pointer-events: auto; }
@@ -67,9 +65,8 @@
   display: flex; align-items: center; gap: 10px; width: 100%;
   background: none; border: none; cursor: pointer; padding: 5px 0; text-align: left;
 }
-.cs-rail-list li button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
 .cs-rail-num {
-  font-family: 'Geist Mono', monospace; font-size: 12px; letter-spacing: 0.06em;
+  font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.12em;
   color: var(--text-muted); flex-shrink: 0; transition: color 0.15s;
 }
 .cs-rail-name {
@@ -80,46 +77,7 @@
 .cs-rail-list li button:hover .cs-rail-num { color: var(--text-soft); }
 .cs-rail-list li.is-active .cs-rail-num { color: var(--accent); }
 .cs-rail-list li.is-active .cs-rail-name { color: var(--text); font-weight: 500; }
-@media (max-width: 1280px) { .cs-rail { display: none; } }
-
-/* Chapter bar: stands in for the rail wherever there is no room for it */
-.cs-chapter { position: relative; visibility: hidden; opacity: 0; transition: opacity 0.3s ease, visibility 0.3s ease; }
-.cs-chapter.is-visible { visibility: visible; opacity: 1; }
-@media (min-width: 1281px) { .cs-chapter { display: none; } }
-.cs-chapter-btn {
-  display: inline-flex; align-items: center; gap: 10px; min-height: 44px; max-width: min(58vw, 300px); padding: 0 16px; cursor: pointer;
-  border-radius: 100px; border: 1px solid var(--line); background: rgb(var(--bg-rgb) / 0.72); color: var(--text);
-  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
-  font-family: 'Geist', sans-serif; font-size: 14px; font-weight: 500; letter-spacing: 0; transition: border-color 0.2s ease;
-}
-.cs-chapter-btn:hover { border-color: var(--accent); }
-.cs-chapter-btn:active { transform: scale(0.97); }
-.cs-chapter-btn:focus-visible, .cs-chapter-item:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-.cs-chapter-num { font-family: 'Geist Mono', monospace; font-size: 12px; font-weight: 400; color: var(--accent); }
-.cs-chapter-num:empty { display: none; }
-.cs-chapter-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.cs-chapter-chev { flex: none; color: var(--text-soft); transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1); }
-.cs-chapter-btn[aria-expanded="true"] .cs-chapter-chev { transform: rotate(180deg); }
-.cs-chapter-menu {
-  position: absolute; top: calc(100% + 8px); right: 0; z-index: 5;
-  width: min(340px, calc(100vw - 40px)); max-height: min(72dvh, 540px); overflow-y: auto; overscroll-behavior: contain; padding: 8px;
-  border-radius: 20px; background: rgba(12,12,12,0.985); border: 1px solid var(--line);
-  -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); box-shadow: 0 24px 60px rgb(var(--sh-rgb) / calc(0.5 * var(--sh-k)));
-}
-.cs-chapter-menu[hidden] { display: none; }
-.cs-chapter-list { list-style: none; margin: 0; padding: 0; }
-.cs-chapter-item {
-  display: flex; align-items: center; gap: 12px; width: 100%; min-height: 44px; padding: 0 12px; text-align: left; cursor: pointer;
-  border: 0; border-radius: 12px; background: none; transition: background 0.15s ease, color 0.15s ease;
-  font-family: 'Geist', sans-serif; font-size: 15px; letter-spacing: 0; color: var(--text-soft);
-}
-.cs-chapter-item .n { flex: none; width: 22px; font-family: 'Geist Mono', monospace; font-size: 12px; color: var(--text-muted); }
-.cs-chapter-item:hover { background: rgb(var(--fg-rgb) / 0.05); color: var(--text); }
-.cs-chapter-item.is-active { color: var(--text); background: rgb(var(--fg-rgb) / 0.07); }
-.cs-chapter-item.is-active .n { color: var(--accent); }
-nav .logo a.cs-back { min-height: 44px; padding-right: 12px; }
-@media (max-width: 760px) { .cs-back-long { display: none; } }
-@media (prefers-reduced-motion: reduce) { .cs-chapter, .cs-chapter-chev, .cs-chapter-btn, .cs-chapter-item, .cs-rail, .cs-rail-num, .cs-rail-name { transition: none; } .cs-chapter-btn:active { transform: none; } }
+@media(max-width: 1280px) { .cs-rail { display: none; } }
 
 /* ---------- HERO ---------- */
 .cs-hero {
@@ -129,7 +87,8 @@ nav .logo a.cs-back { min-height: 44px; padding-right: 12px; }
 .cs-hero::before {
   content: ''; position: absolute; inset: 0; pointer-events: none; z-index: -1;
   background:
-    radial-gradient(ellipse 60% 50% at 80% 10%, rgb(var(--acc-rgb) / 0.07), transparent 70%);
+    radial-gradient(ellipse 60% 50% at 80% 10%, rgba(212,255,94,0.07), transparent 70%),
+    radial-gradient(ellipse 50% 40% at 10% 90%, rgba(232,197,152,0.05), transparent 70%);
 }
 .cs-back {
   display: inline-flex; align-items: center; gap: 8px; margin-bottom: 32px; width: fit-content;
@@ -163,10 +122,10 @@ nav .logo a.cs-back:hover { color: var(--accent); }
   opacity: 0; animation: csFadeUp 0.8s ease forwards 0.55s;
 }
 .cs-hero-meta-item label {
-  display: block; font-family: 'Geist Mono', monospace; font-size: 12px; letter-spacing: 0.18em;
+  display: block; font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.18em;
   text-transform: uppercase; color: var(--text-muted); margin-bottom: 9px;
 }
-.cs-hero-meta-item span { font-family: 'Geist', sans-serif; font-size: 14.5px; font-weight: 400; color: var(--text); }
+.cs-hero-meta-item span { font-family: 'Geist', sans-serif; font-size: 14px; font-weight: 300; color: var(--text-soft); }
 .cs-hero-meta-item .accent { color: var(--accent); }
 
 .cs-hero-scroll {
@@ -254,7 +213,7 @@ nav .logo a.cs-back:hover { color: var(--accent); }
 /* ---------- GLOSSARY LINKS + TOOLTIP ---------- */
 .cs-gloss {
   color: inherit; text-decoration: none; cursor: help;
-  border-bottom: 1px dotted rgb(var(--acc-rgb) / 0.42); padding-bottom: 1px;
+  border-bottom: 1px dotted rgba(212,255,94,0.42); padding-bottom: 1px;
   transition: color 0.15s ease, border-color 0.15s ease;
 }
 .cs-gloss:hover, .cs-gloss:focus-visible { color: var(--accent); border-bottom-color: var(--accent); outline: none; }
@@ -262,7 +221,7 @@ nav .logo a.cs-back:hover { color: var(--accent); }
 .cs-tip {
   position: fixed; z-index: 2000; max-width: 320px; padding: 16px 18px;
   background: var(--bg-card); border: 1px solid var(--line); border-radius: 8px;
-  box-shadow: 0 24px 60px rgb(var(--sh-rgb) / calc(0.55 * var(--sh-k))), 0 0 0 1px rgb(var(--acc-rgb) / 0.05);
+  box-shadow: 0 24px 60px rgba(0,0,0,0.55), 0 0 0 1px rgba(212,255,94,0.05);
   font-family: 'Geist', sans-serif; font-size: 13px; font-weight: 300; line-height: 1.65; color: var(--text);
   opacity: 0; transform: translateY(4px); pointer-events: none;
   transition: opacity 0.18s ease, transform 0.18s ease;
@@ -280,7 +239,7 @@ nav .logo a.cs-back:hover { color: var(--accent); }
 .cs-vis-group .cs-vis { margin: 0; }
 .cs-vis-label {
   padding: 16px 24px; border-bottom: 1px solid var(--line);
-  background: rgb(var(--fg-rgb) / 0.015);
+  background: rgba(255,255,255,0.015);
   font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted);
 }
 
@@ -303,7 +262,7 @@ nav .logo a.cs-back:hover { color: var(--accent); }
   position: absolute; top: 56%; left: 12.86%;
   width: 9px; height: 9px; margin: -4.5px 0 0 -4.5px;
   border-radius: 50%; background: var(--accent);
-  box-shadow: 0 0 10px var(--accent), 0 0 24px rgb(var(--acc-rgb) / 0.45);
+  box-shadow: 0 0 10px var(--accent), 0 0 24px rgba(212,255,94,0.45);
   opacity: 0; pointer-events: none;
 }
 .cs-ng { opacity: 0.22; }
@@ -321,10 +280,6 @@ nav .logo a.cs-back:hover { color: var(--accent); }
   .cs-vis.is-visible .cs-fee2 { animation: cs-fee-flare 6s linear 2.25s infinite; }
   .cs-vis.is-visible .cs-fee3 { animation: cs-fee-flare 6s linear 3.37s infinite; }
   .cs-vis.is-visible .cs-amt-out { animation: cs-amt-arrive 6s linear infinite; }
-  /* each participant's name lights up while the pulse passes through it */
-  .cs-vis.is-visible .cs-lbl1 { animation: cs-label-flare 6s linear 1.14s infinite; }
-  .cs-vis.is-visible .cs-lbl2 { animation: cs-label-flare 6s linear 2.25s infinite; }
-  .cs-vis.is-visible .cs-lbl3 { animation: cs-label-flare 6s linear 3.37s infinite; }
 }
 @keyframes cs-dash-march { to { stroke-dashoffset: -9; } }
 @keyframes cs-flow-travel {
@@ -346,18 +301,14 @@ nav .logo a.cs-back:hover { color: var(--accent); }
   13%      { opacity: 0.22; }
 }
 @keyframes cs-ring-flare {
-  0%, 100% { stroke: rgb(var(--acc-rgb) / 0.35); }
-  2.5%     { stroke: rgb(var(--acc-rgb) / 0.95); }
-  13%      { stroke: rgb(var(--acc-rgb) / 0.35); }
+  0%, 100% { stroke: rgba(212,255,94,0.35); }
+  2.5%     { stroke: rgba(212,255,94,0.95); }
+  13%      { stroke: rgba(212,255,94,0.35); }
 }
 @keyframes cs-fee-flare {
-  0%, 100% { fill: rgb(var(--acc-rgb) / 0.7); }
-  2.5%     { fill: rgb(var(--acc-rgb) / 1); }
-  13%      { fill: rgb(var(--acc-rgb) / 0.7); }
-}
-@keyframes cs-label-flare {
-  0%, 18%, 100% { fill: var(--text-soft); }
-  2.5%, 10%     { fill: var(--text); }
+  0%, 100% { fill: rgba(212,255,94,0.7); }
+  2.5%     { fill: rgba(212,255,94,1); }
+  13%      { fill: rgba(212,255,94,0.7); }
 }
 @keyframes cs-amt-arrive {
   0%, 71%, 90%, 100% { fill: var(--text-soft); }
@@ -384,14 +335,14 @@ nav .logo a.cs-back:hover { color: var(--accent); }
 /* ---------- PRODUCT SHOT ---------- */
 .cs-shot {
   margin: 8px 0 48px; border-radius: 16px; overflow: hidden; border: 1px solid var(--line);
-  box-shadow: 0 32px 80px rgb(var(--sh-rgb) / calc(0.5 * var(--sh-k)));
+  box-shadow: 0 32px 80px rgba(0,0,0,0.5);
 }
 .cs-shot img { width: 100%; display: block; }
 
 /* ---------- PRODUCT SCREENSHOT FRAME (browser chrome) ---------- */
 .cs-shot-frame {
-  margin: 24px 0 14px; border-radius: 12px; overflow: hidden; border: 1px solid rgb(var(--fg-rgb) / 0.06);
-  background: #fff; box-shadow: 0 40px 100px rgb(var(--sh-rgb) / calc(0.55 * var(--sh-k)));
+  margin: 24px 0 14px; border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.06);
+  background: #fff; box-shadow: 0 40px 100px rgba(0,0,0,0.55);
 }
 .cs-shot-bar {
   display: flex; align-items: center; gap: 18px; padding: 13px 18px;
@@ -451,7 +402,7 @@ nav .logo a.cs-back:hover { color: var(--accent); }
   font-family: 'Geist', sans-serif; font-size: clamp(24px, 3.4vw, 34px); font-weight: 600; letter-spacing: -0.015em;
   color: var(--text); margin: 0 0 14px;
 }
-.cs-more-title em { font-style: normal; font-family: 'Geist', sans-serif; font-weight: 500; color: var(--text-soft); }
+.cs-more-title em { font-style: normal; font-family: 'Geist', sans-serif; font-weight: 500; color: var(--warm); }
 .cs-more-desc {
   font-family: 'Geist', sans-serif; font-size: 15px; font-weight: 300; color: var(--text-soft);
   max-width: 480px; margin: 0 auto 36px; line-height: 1.7;
@@ -486,8 +437,8 @@ a.cs-cta { margin-top: 28px; }
 .cs-doc-frame {
   aspect-ratio: 3 / 4; overflow: hidden;
   border-radius: 5px;
-  border: 1px solid rgb(var(--fg-rgb) / 0.1);
-  box-shadow: 0 10px 32px rgb(var(--sh-rgb) / calc(0.45 * var(--sh-k)));
+  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: 0 10px 32px rgba(0,0,0,0.45);
 }
 .cs-doc-frame img { width: 100%; height: 100%; display: block; object-fit: cover; object-position: top center; }
 .cs-docs-trio .cs-doc-frame:nth-child(2) img,
@@ -499,7 +450,7 @@ a.cs-cta { margin-top: 28px; }
 .cs-docs-text p:last-child { margin-bottom: 0; }
 .cs-docs-shot {
   border-radius: 8px; overflow: hidden; border: 1px solid var(--line); transform: rotate(-1deg);
-  box-shadow: 0 28px 70px rgb(var(--sh-rgb) / calc(0.45 * var(--sh-k)));
+  box-shadow: 0 28px 70px rgba(0,0,0,0.45);
 }
 .cs-docs-shot img { width: 100%; display: block; }
 .cs-docs-shot-cap {
@@ -512,7 +463,7 @@ a.cs-cta { margin-top: 28px; }
 .cs-sim-amt-block { display: flex; flex-direction: column; gap: 8px; flex: 1; }
 .cs-sim-amt-block label { font-family: 'Geist Mono', monospace; font-size: 9.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-muted); }
 .cs-sim-amt { font-family: 'Geist Mono', monospace; font-size: clamp(20px, 2.6vw, 26px); font-weight: 500; color: var(--text); }
-.cs-sim-amt--neg { color: var(--text); }
+.cs-sim-amt--neg { color: var(--warm); }
 .cs-sim-amt--pos { color: var(--accent); }
 
 /* Small uppercase hint that crowns the card-type switcher — the very first
@@ -558,12 +509,12 @@ a.cs-cta { margin-top: 28px; }
      border-style dotted line, so the gap between marks can be opened up
      to roughly match the rail's own rhythm. */
   content: ''; position: absolute; left: -22px; top: 27px; width: 22px; height: 1px;
-  background-image: repeating-linear-gradient(to right, rgb(var(--fg-rgb) / 0.2) 0 2px, transparent 2px 6px);
+  background-image: repeating-linear-gradient(to right, rgba(255,255,255,0.2) 0 2px, transparent 2px 6px);
   pointer-events: none;
 }
 .cs-sim-stage.is-active {
   opacity: 1;
-  border-color: rgb(var(--acc-rgb) / 0.2);
+  border-color: rgba(212,255,94,0.2);
 }
 .cs-sim-stage-entity { font-family: 'Geist Mono', monospace; font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 6px; }
 .cs-sim-stage-name { font-family: 'Geist', sans-serif; font-size: 15px; font-weight: 500; color: var(--text); margin-bottom: 6px; }
@@ -576,7 +527,7 @@ a.cs-cta { margin-top: 28px; }
 .cs-sim-fee-row .fr-amt { flex: 0 0 60px; text-align: right; font-family: 'Geist', sans-serif; font-size: 12px; }
 .cs-sim-dg {
   grid-column: 1 / -1; margin-top: 14px; padding: 14px 16px; border-radius: 0 6px 6px 0;
-  background: rgba(224,96,96,0.05); border-left: 2px solid rgba(224,96,96,0.35);
+  background: rgba(232,197,152,0.05); border-left: 2px solid rgba(232,197,152,0.35);
   font-family: 'Geist', sans-serif; font-size: 12px; line-height: 1.7; color: var(--text-soft);
   display: none;
 }
@@ -584,7 +535,7 @@ a.cs-cta { margin-top: 28px; }
 .cs-sim-dg strong { color: var(--error); font-weight: 500; }
 .cs-sim-callout {
   padding: 18px 20px; border-radius: 0 8px 8px 0;
-  background: rgb(var(--acc-rgb) / 0.05); border-left: 2px solid rgb(var(--acc-rgb) / 0.35);
+  background: rgba(212,255,94,0.05); border-left: 2px solid rgba(212,255,94,0.35);
   font-family: 'Geist', sans-serif; font-size: 13px; line-height: 1.75; color: var(--text-soft);
   opacity: 0; max-height: 0; overflow: hidden; margin-top: 0;
   transition: opacity 0.5s ease, max-height 0.5s ease, margin-top 0.3s ease;
@@ -594,8 +545,8 @@ a.cs-cta { margin-top: 28px; }
 .cs-sim-final {
   position: relative;
   display: flex; align-items: center; justify-content: space-between; gap: 16px;
-  padding: 20px 22px; border-radius: 8px; border: 1px solid rgb(var(--acc-rgb) / 0.25);
-  background: rgb(var(--acc-rgb) / 0.04); margin-top: 4px; z-index: 501;
+  padding: 20px 22px; border-radius: 8px; border: 1px solid rgba(212,255,94,0.25);
+  background: rgba(212,255,94,0.04); margin-top: 4px; z-index: 501;
   opacity: 0.6; transition: opacity 0.45s ease;
 }
 .cs-sim-final.is-active { opacity: 1; }
@@ -629,15 +580,15 @@ a.cs-cta { margin-top: 28px; }
      relaxed (not too sparse, not too busy) rhythm down the gutter. Sized to
      1.5px so the static track reads as a guide, not a bold stroke. */
   position: absolute; left: 10px; width: 1.2px; height: 0;
-  background-image: repeating-linear-gradient(to bottom, rgb(var(--fg-rgb) / 0.16) 0 3px, transparent 3px 10px);
+  background-image: repeating-linear-gradient(to bottom, rgba(255,255,255,0.16) 0 3px, transparent 3px 10px);
   z-index: 1; pointer-events: none;
 }
 .cs-sim-rail-progress {
   /* The "lit" trail — kept thin and a touch translucent so it glows without
      overpowering the cards it runs beside. */
   position: absolute; left: 10px; top: 0; width: 0; height: 0;
-  border-left: 1.2px solid rgb(var(--acc-rgb) / 0.75);
-  box-shadow: 0 0 11px -2px rgb(var(--acc-rgb) / 0.36);
+  border-left: 1.2px solid rgba(212,255,94,0.75);
+  box-shadow: 0 0 11px -2px rgba(212,255,94,0.36);
   opacity: 0;
   transition: height 0.6s cubic-bezier(0.4,0,0.6,1), opacity 0.3s ease;
   z-index: 2; pointer-events: none;
@@ -647,7 +598,7 @@ a.cs-cta { margin-top: 28px; }
      margin-left shifts the 10px-wide circle so its own centre lands there. */
   position: absolute; left: 10px; top: 0; width: 10px; height: 10px; margin-left: -4.4px; margin-top: -5px;
   border-radius: 50%; background: var(--accent);
-  box-shadow: 0 0 0 5px rgb(var(--acc-rgb) / 0.14), 0 0 20px 2px rgb(var(--acc-rgb) / 0.55);
+  box-shadow: 0 0 0 5px rgba(212,255,94,0.14), 0 0 20px 2px rgba(212,255,94,0.55);
   opacity: 0; transform: translateY(0px);
   transition-property: transform, opacity, background, box-shadow;
   /* A gentler, more symmetric ease — softens both the lift-off from one card
@@ -658,8 +609,8 @@ a.cs-cta { margin-top: 28px; }
   z-index: 3; pointer-events: none;
 }
 .cs-sim-rail-bubble.is-idle {
-  background: rgb(var(--fg-rgb) / 0.22);
-  box-shadow: 0 0 0 5px rgb(var(--fg-rgb) / 0.05), 0 0 10px 2px rgb(var(--fg-rgb) / 0.08);
+  background: rgba(255,255,255,0.22);
+  box-shadow: 0 0 0 5px rgba(255,255,255,0.05), 0 0 10px 2px rgba(255,255,255,0.08);
 }
 
 /* Teaser card — condensed entry point shown inline; opens the full
@@ -674,16 +625,16 @@ a.cs-cta { margin-top: 28px; }
 .cs-sim-teaser-preview { position: relative; display: flex; width: 100%; margin-top: 23px; }
 .cs-sim-teaser-preview::before {
   content: ''; position: absolute; left: 0; right: 0; top: 3px; height: 1px;
-  background-image: repeating-linear-gradient(to right, rgb(var(--fg-rgb) / 0.16) 0 3px, transparent 3px 8px);
+  background-image: repeating-linear-gradient(to right, rgba(255,255,255,0.16) 0 3px, transparent 3px 8px);
 }
 .cs-sim-teaser-node {
   flex: 1; display: flex; flex-direction: column; align-items: center; gap: 9px; text-align: center;
   font-family: 'Geist Mono', monospace; font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted);
 }
 .cs-sim-teaser-dot {
-  width: 6px; height: 6px; border-radius: 50%; background: rgb(var(--fg-rgb) / 0.25);
+  width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.25);
   border: 3px solid var(--bg-card);
-  box-shadow: 0 0 0 1px rgb(var(--fg-rgb) / 0.12);
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.12);
   position: relative; z-index: 1;
 }
 .cs-sim-teaser-flow { align-items: flex-start; justify-content: space-between; padding-bottom: 20px; }
@@ -696,7 +647,7 @@ a.cs-cta { margin-top: 28px; }
   font-family: 'Geist Mono', monospace; font-size: 9px; letter-spacing: 0.12em;
   text-transform: uppercase; color: var(--text-muted); white-space: nowrap;
 }
-.cs-sim-teaser-dot--start, .cs-sim-teaser-dot--end { width: 8px; height: 8px; background: rgb(var(--fg-rgb) / 0.25); }
+.cs-sim-teaser-dot--start, .cs-sim-teaser-dot--end { width: 8px; height: 8px; background: rgba(255,255,255,0.25); }
 .cs-sim-teaser-body .cs-sim-btn { align-self: flex-start; margin-top: 20px; }
 
 /* Modal overlay — hosts the full IC++ fee simulation */
@@ -708,7 +659,7 @@ a.cs-cta { margin-top: 28px; }
 }
 .cs-sim-modal.is-open { opacity: 1; visibility: visible; pointer-events: auto; }
 .cs-sim-modal-backdrop {
-  position: absolute; inset: 0; background: rgb(var(--sh-rgb) / calc(0.7 * var(--sh-k))); backdrop-filter: blur(4px);
+  position: absolute; inset: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(4px);
 }
 .cs-sim-modal-panel {
   position: relative; z-index: 1; width: min(820px, 100%); max-height: 88vh; overflow-y: auto;
@@ -730,78 +681,110 @@ a.cs-cta { margin-top: 28px; }
 }
 .cs-sim-modal-close:hover { color: var(--text); border-color: var(--text-muted); }
 
-/* ---------- PERSONAS ----------
-   One plain card per user: an icon and who they are, what they need and why it matters.
-   Their month (four beats on a hairline rail) stays folded until asked for. */
-.cs-personas { display: flex; flex-direction: column; gap: 24px; margin: 48px 0 8px; }
-.cs-persona { position: relative; z-index: 501; padding: clamp(24px, 3vw, 34px); background: rgb(var(--fg-rgb) / 0.02); border: 1px solid rgb(var(--fg-rgb) / 0.07); border-radius: 14px; }
-.cs-persona-head { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 18px; align-items: start; margin-bottom: 28px; }
+/* ---------- MARKET GLOBE ---------- */
+.cs-dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; }
+.cs-dot--a { background: var(--accent); }
+.cs-dot--b { background: var(--text-muted); }
+.cs-globe-stage { position: relative; display: flex; justify-content: center; align-items: center; padding: 16px 0 30px; }
+.cs-globe-wrap { position: relative; width: 360px; max-width: 100%; }
+.cs-globe-wrap canvas {
+  width: 100%; display: block; border-radius: 50%; cursor: grab;
+  box-shadow: 0 0 90px rgba(212,255,94,0.07), 0 0 1px rgba(255,255,255,0.06);
+}
+.cs-globe-wrap canvas:active { cursor: grabbing; }
+.cs-globe-tip {
+  position: absolute; pointer-events: none; opacity: 0; transition: opacity 0.15s ease;
+  background: rgba(10,10,10,0.95); border: 1px solid var(--line); border-radius: 6px;
+  padding: 9px 13px; font-family: 'Geist', sans-serif; font-size: 11.5px; color: var(--text);
+  white-space: nowrap; z-index: 10; top: 0; left: 0; line-height: 1.7;
+}
+.cs-globe-tip-badge {
+  display: inline-block; font-family: 'Geist Mono', monospace; font-size: 8px; font-weight: 500;
+  border-radius: 3px; padding: 2px 6px; margin-left: 6px; letter-spacing: 0.07em; text-transform: uppercase;
+  vertical-align: middle;
+}
+.cs-globe-legend {
+  position: absolute; top: 4px; right: 4px; display: flex; flex-direction: column; gap: 7px; align-items: flex-end;
+}
+.cs-globe-legend-row {
+  display: flex; align-items: center; gap: 7px;
+  font-family: 'Geist Mono', monospace; font-size: 8px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted);
+}
+.cs-globe-hint {
+  text-align: center; font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--text-muted); margin-top: -8px;
+}
+
+/* ---------- PERSONAS ---------- */
+.cs-persona { margin: 40px 0 0; padding: 36px; background: var(--bg-card); border: 1px solid var(--line); border-radius: 10px; position: relative; z-index: 501; }
+.cs-persona + .cs-persona { margin-top: 32px; }
+.cs-persona-head { display: flex; gap: 20px; margin-bottom: 32px; }
 .cs-persona-icon {
-  width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
-  background: rgb(var(--acc-rgb) / 0.07); border: 1px solid rgb(var(--acc-rgb) / 0.25); color: var(--accent);
+  flex-shrink: 0; width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  background: rgba(212,255,94,0.07); border: 1px solid rgba(212,255,94,0.25); color: var(--accent);
 }
 .cs-persona-icon svg { width: 17px; height: 17px; }
-.cs-persona-name { font-family: 'Geist', sans-serif; font-size: 17px; font-weight: 600; letter-spacing: -0.01em; color: var(--text); line-height: 1.35; margin: 0; }
-.cs-persona-name .dash { display: none; }
-.cs-persona-name em { display: block; margin-top: 3px; font-style: normal; font-family: 'Geist', sans-serif; font-size: 13.5px; font-weight: 400; letter-spacing: 0; color: var(--text-muted); }
-.cs-persona-desc { font-family: 'Geist', sans-serif; font-size: 14.5px; font-weight: 300; line-height: 1.7; color: var(--text-soft); margin: 12px 0 0; max-width: 64ch; }
+.cs-persona-name { font-family: 'Geist', sans-serif; font-size: 17px; font-weight: 600; color: var(--text); margin-bottom: 10px; line-height: 1.4; }
+.cs-persona-name .dash { color: var(--text-muted); }
+.cs-persona-name em { font-style: normal; font-family: 'Geist', sans-serif; font-weight: 400; color: var(--text-muted); font-size: 13px; }
+.cs-persona-desc { font-family: 'Geist', sans-serif; font-size: 13px; font-weight: 300; line-height: 1.75; color: var(--text-soft); margin: 0; max-width: 64ch; }
 
-/* What they need, and why it matters */
-.cs-persona-meta { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px; padding-top: 24px; border-top: 1px solid var(--line); }
-.cs-persona-meta-label { display: block; font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; }
-.cs-persona-meta ul { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; }
-.cs-persona-meta ul li { position: relative; padding-left: 16px; font-family: 'Geist', sans-serif; font-size: 14px; font-weight: 300; line-height: 1.55; color: var(--text-soft); }
-.cs-persona-meta ul li::before { content: '–'; position: absolute; left: 0; color: var(--text-muted); }
-.cs-persona-meta p { font-family: 'Geist', sans-serif; font-size: 14.5px; font-weight: 400; line-height: 1.6; color: var(--text); margin: 0; }
-
-/* The fold: one quiet row at the foot of the card */
-.cs-journey-toggle {
-  display: flex; align-items: center; justify-content: space-between; width: 100%;
-  margin-top: 26px; padding: 0; border: none; background: none; cursor: pointer;
-  font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted);
-  transition: color 0.2s ease;
+/* Journey flow — linear gradient rail */
+.cs-journey { position: relative; display: flex; margin-bottom: 28px; padding-top: 4px; }
+.cs-journey::before {
+  content: ''; position: absolute;
+  top: 8px; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg,
+    rgba(255,255,255,0.07) 0%, rgba(255,255,255,0.12) 40%,
+    rgba(255,255,255,0.12) 60%, rgba(255,255,255,0.06) 100%);
+  pointer-events: none;
 }
-.cs-journey-toggle:hover, .cs-journey-toggle:focus-visible { color: var(--text); outline: none; }
-.cs-journey-toggle i { position: relative; width: 11px; height: 11px; flex: none; }
-.cs-journey-toggle i::before, .cs-journey-toggle i::after { content: ''; position: absolute; left: 0; right: 0; top: 5px; height: 1px; background: currentColor; transition: transform 0.3s ease; }
-.cs-journey-toggle i::after { transform: rotate(90deg); }
-.cs-persona.is-open .cs-journey-toggle i::after { transform: rotate(0deg); }
-.cs-journey-wrap { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.45s cubic-bezier(0.22, 1, 0.36, 1); }
-.cs-persona.is-open .cs-journey-wrap { grid-template-rows: 1fr; }
-.cs-journey-inner { overflow: hidden; min-height: 0; }
+.cs-journey-step { flex: 1; display: flex; flex-direction: column; align-items: flex-start; padding-right: 16px; position: relative; }
+.cs-journey-step:last-child { padding-right: 0; }
+.cs-journey-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.2); background: var(--bg);
+  position: relative; z-index: 1; flex-shrink: 0; margin-bottom: 13px;
+}
+.cs-journey-num   { font-family: 'Geist Mono', monospace; font-size: 9px; letter-spacing: 0.13em; color: var(--text-muted); margin-bottom: 5px; }
+.cs-journey-title { font-family: 'Geist', sans-serif; font-size: 12.5px; font-weight: 500; color: var(--text); line-height: 1.3; margin-bottom: 4px; }
+.cs-journey-note  { font-family: 'Geist', sans-serif; font-size: 11px; font-weight: 300; color: var(--text-muted); line-height: 1.5; }
 
-/* Their month: four beats on a hairline rail */
-.cs-journey { position: relative; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; padding-top: 24px; margin: 24px 0 4px; }
-.cs-journey::before { content: ''; position: absolute; top: 4px; left: 0; right: 0; height: 1px; background: rgb(var(--fg-rgb) / 0.1); pointer-events: none; }
-.cs-journey-step { position: relative; }
-.cs-journey-dot { position: absolute; top: -24px; left: 0; width: 9px; height: 9px; border-radius: 50%; border: 1px solid rgb(var(--fg-rgb) / 0.25); background: var(--bg); }
-.cs-journey-num   { font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.12em; color: var(--text-muted); margin-bottom: 8px; }
-.cs-journey-title { font-family: 'Geist', sans-serif; font-size: 13.5px; font-weight: 500; color: var(--text); line-height: 1.4; margin-bottom: 6px; }
-.cs-journey-note  { font-family: 'Geist', sans-serif; font-size: 12.5px; font-weight: 300; color: var(--text-soft); line-height: 1.6; }
-
-/* opening the fold draws the rail and lands the beats in sequence */
+/* Journey choreography — the rail draws in and the four beats land in
+   sequence once the persona card scrolls into view. */
 .cs-journey::before { transform: scaleX(0); transform-origin: left center; }
-.cs-persona.is-open .cs-journey::before { transform: scaleX(1); transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1) 0.15s; }
-.cs-journey-step { opacity: 0; transform: translateY(8px); }
-.cs-persona.is-open .cs-journey-step { opacity: 1; transform: none; transition: opacity 0.45s ease 0.15s, transform 0.45s cubic-bezier(0.22, 1, 0.36, 1) 0.15s; }
-.cs-persona.is-open .cs-journey-step:nth-child(2) { transition-delay: 0.35s; }
-.cs-persona.is-open .cs-journey-step:nth-child(3) { transition-delay: 0.55s; }
-.cs-persona.is-open .cs-journey-step:nth-child(4) { transition-delay: 0.75s; }
+.cs-persona.is-visible .cs-journey::before {
+  transform: scaleX(1);
+  transition: transform 1.5s cubic-bezier(0.4, 0, 0.2, 1) 0.25s;
+}
+.cs-journey-step { opacity: 0; transform: translateY(10px); }
+.cs-persona.is-visible .cs-journey-step {
+  opacity: 1; transform: translateY(0);
+  transition: opacity 0.55s ease, transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.cs-persona.is-visible .cs-journey-step:nth-child(1) { transition-delay: 0.3s; }
+.cs-persona.is-visible .cs-journey-step:nth-child(2) { transition-delay: 0.65s; }
+.cs-persona.is-visible .cs-journey-step:nth-child(3) { transition-delay: 1s; }
+.cs-persona.is-visible .cs-journey-step:nth-child(4) { transition-delay: 1.35s; }
 
-/* the last beat is where it goes wrong */
-.cs-journey-step:last-child .cs-journey-dot { border-color: rgba(224, 96, 96, 0.7); }
-.cs-journey-step:last-child .cs-journey-num { color: rgba(224, 96, 96, 0.85); }
+@keyframes csDotPing { 0% { transform: scale(0.3); } 55% { transform: scale(1.4); } 100% { transform: scale(1); } }
+.cs-persona.is-visible .cs-journey-step:nth-child(1) .cs-journey-dot { animation: csDotPing 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.35s backwards; }
+.cs-persona.is-visible .cs-journey-step:nth-child(2) .cs-journey-dot { animation: csDotPing 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.7s backwards; }
+.cs-persona.is-visible .cs-journey-step:nth-child(3) .cs-journey-dot { animation: csDotPing 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 1.05s backwards; }
+.cs-persona.is-visible .cs-journey-step:nth-child(4) .cs-journey-dot { animation: csDotPing 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 1.4s backwards; }
+
+/* Hover — the beat under the cursor lights up */
+.cs-journey-dot { transition: background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease; }
+.cs-journey-num, .cs-journey-note { transition: color 0.25s ease; }
+.cs-journey-step:hover .cs-journey-dot { background: var(--accent); border-color: var(--accent); box-shadow: 0 0 10px rgba(212,255,94,0.35); }
+.cs-journey-step:hover .cs-journey-num,
+.cs-journey-step:hover .cs-journey-note { color: var(--text-soft); }
+
+/* Final beat — the failure state the journey collapses into */
+.cs-journey-step:last-child .cs-journey-dot { border-color: rgba(224,96,96,0.55); background: var(--bg); }
+.cs-journey-step:last-child .cs-journey-num { color: rgba(224,96,96,0.8); }
 .cs-journey-step:last-child .cs-journey-title { color: var(--error); }
-
-@media (max-width: 900px) {
-  .cs-journey { grid-template-columns: repeat(2, minmax(0, 1fr)); padding-top: 0; gap: 24px 28px; }
-  .cs-journey::before, .cs-journey-dot { display: none; }
-}
-@media (max-width: 640px) {
-  .cs-persona-head { grid-template-columns: 1fr; gap: 16px; }
-  .cs-journey { grid-template-columns: 1fr; }
-  .cs-persona-meta { grid-template-columns: 1fr; }
-}
+.cs-journey-step:last-child:hover .cs-journey-dot { background: var(--error); border-color: var(--error); box-shadow: 0 0 10px rgba(224,96,96,0.35); }
 
 /* Key figures — the stakes, scannable */
 .cs-num { color: var(--accent); font-weight: 500; }
@@ -809,8 +792,17 @@ a.cs-cta { margin-top: 28px; }
 @media (prefers-reduced-motion: reduce) {
   .cs-journey::before { transform: scaleX(1); transition: none !important; }
   .cs-journey-step { opacity: 1; transform: none; transition: none !important; }
-  .cs-journey-wrap { transition: none; }
+  .cs-journey-dot { animation: none !important; }
 }
+
+.cs-persona-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; padding-top: 26px; border-top: 1px solid var(--line); }
+.cs-persona-meta-label { display: block; font-family: 'Geist Mono', monospace; font-size: 9.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; }
+.cs-persona-meta p { font-family: 'Geist', sans-serif; font-size: 13px; font-weight: 300; line-height: 1.7; color: var(--text-soft); margin: 0; }
+.cs-persona-meta p + p { margin-top: 10px; }
+.cs-persona-meta p em { font-style: normal; font-family: 'Geist', sans-serif; font-weight: 500; color: var(--warm); font-size: 14px; }
+.cs-persona-meta ul { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.cs-persona-meta ul li { font-family: 'Geist', sans-serif; font-size: 13px; font-weight: 300; line-height: 1.5; color: var(--text-soft); padding-left: 14px; position: relative; }
+.cs-persona-meta ul li::before { content: '–'; position: absolute; left: 0; color: var(--text-muted); }
 
 /* ---------- COST CALLOUT ---------- */
 .cs-cost-callout {
@@ -838,7 +830,7 @@ a.cs-cta { margin-top: 28px; }
 }
 .cs-cost-callout-headline {
   font-family: 'Geist', sans-serif; font-size: 18px; font-weight: 400;
-  line-height: 1.7; color: var(--text); margin: 0;
+  line-height: 1.7; color: #fff; margin: 0;
 }
 @media (max-width: 700px) {
   .cs-cost-callout { padding: 28px 24px; }
@@ -854,8 +846,8 @@ a.cs-cta { margin-top: 28px; }
   position: absolute; top: 0; left: 0; width: 100%;
   background: #fff; border-radius: 10px; overflow: hidden;
   display: flex; flex-direction: column;
-  border: 1px solid rgb(var(--fg-rgb) / 0.06);
-  box-shadow: 0 40px 100px rgb(var(--sh-rgb) / calc(0.55 * var(--sh-k)));
+  border: 1px solid rgba(255,255,255,0.06);
+  box-shadow: 0 40px 100px rgba(0,0,0,0.55);
   transition: transform 0.45s cubic-bezier(0.4,0,0.2,1),
               opacity 0.45s cubic-bezier(0.4,0,0.2,1),
               box-shadow 0.35s ease;
@@ -881,7 +873,7 @@ a.cs-cta { margin-top: 28px; }
 .cs-deck-dots { display: flex; gap: 6px; align-items: center; }
 .cs-deck-dot {
   width: 8px; height: 8px; border-radius: 50%;
-  background: rgb(var(--fg-rgb) / 0.25); transition: all 0.3s;
+  background: rgba(255,255,255,0.25); transition: all 0.3s;
   cursor: pointer;
 }
 .cs-deck-dot.is-active { width: 24px; height: 8px; border-radius: 4px; background: var(--accent); }
@@ -905,7 +897,7 @@ a.cs-cta { margin-top: 28px; }
 }
 .cs-arcs-note {
   font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.14em;
-  text-transform: uppercase; color: rgb(var(--fg-rgb) / 0.28); margin-top: 5px; text-align: left;
+  text-transform: uppercase; color: rgba(255,255,255,0.28); margin-top: 5px; text-align: left;
 }
 .cs-arcs-legend { display: flex; flex-direction: column; }
 .cs-arc-row { padding: 24px 0; border-top: 1px solid var(--line); }
@@ -916,7 +908,7 @@ a.cs-cta { margin-top: 28px; }
   font-family: 'Geist Mono', monospace; font-size: 9.5px; letter-spacing: 0.16em;
   text-transform: uppercase; color: var(--text-muted);
 }
-.cs-arc-row--win .cs-arc-eyebrow { color: rgb(var(--acc-rgb) / 0.7); }
+.cs-arc-row--win .cs-arc-eyebrow { color: rgba(212,255,94,0.7); }
 .cs-arc-lead { font-family: 'Geist', sans-serif; font-size: 13px; font-weight: 400; line-height: 1.5; color: var(--text); margin: 12px 0 0; }
 .cs-arc-metric { font-family: 'Geist Mono', monospace; font-size: 12px; font-weight: 400; letter-spacing: 0.02em; color: var(--text-muted); margin: 4px 0 0; }
 .cs-arc-metric strong { font-family: 'Geist', sans-serif; font-weight: 500; color: var(--text-soft); }
@@ -930,13 +922,13 @@ a.cs-cta { margin-top: 28px; }
 .cs-arcs.is-focus .cs-arc-ring { opacity: 0.28; }
 .cs-arcs.is-focus .cs-arc-ring.is-hl { opacity: 1; stroke-width: 2.5; }
 /* small + mid keep their own white shade, just a small brightness bump; only enterprise keeps its accent */
-.cs-arcs.is-focus .cs-arc-ring.is-hl[data-tier="0"] { stroke: rgb(var(--fg-rgb) / 0.4); }
-.cs-arcs.is-focus .cs-arc-ring.is-hl[data-tier="1"] { stroke: rgb(var(--fg-rgb) / 0.6); }
+.cs-arcs.is-focus .cs-arc-ring.is-hl[data-tier="0"] { stroke: rgba(255,255,255,0.4); }
+.cs-arcs.is-focus .cs-arc-ring.is-hl[data-tier="1"] { stroke: rgba(255,255,255,0.6); }
 .cs-arcs.is-focus .cs-arc-row { opacity: 0.4; }
 .cs-arcs.is-focus .cs-arc-row.is-hl { opacity: 1; }
 .cs-arc-row.is-hl .cs-arc-eyebrow { color: var(--text-soft); }
 .cs-arc-row--win.is-hl .cs-arc-eyebrow { color: var(--accent); }
-.cs-arc-row.is-hl .cs-arc-lead { color: var(--text); }
+.cs-arc-row.is-hl .cs-arc-lead { color: #fff; }
 @media (max-width: 700px) {
   .cs-arcs { grid-template-columns: 1fr; gap: 28px; padding: 28px 24px; }
   .cs-arcs-viz { max-width: 180px; }
@@ -948,28 +940,28 @@ a.cs-cta { margin-top: 28px; }
 .cs-fstat-cell { display: flex; flex-direction: column; }
 .cs-fstat {
   position: relative; padding: 36px 30px 36px;
-  background: linear-gradient(160deg, rgb(var(--fg-rgb) / 0.07) 0%, rgb(var(--fg-rgb) / 0.02) 70%);
-  border: 1px solid rgb(var(--fg-rgb) / 0.09);
+  background: linear-gradient(160deg, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0.02) 70%);
+  border: 1px solid rgba(255,255,255,0.09);
   border-radius: 16px;
   display: flex; flex-direction: column; gap: 12px;
   overflow: hidden;
 }
 .cs-fstat::before {
   content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
-  background: linear-gradient(90deg, transparent, rgb(var(--fg-rgb) / 0.18), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent);
 }
 .cs-fstat--win {
-  background: linear-gradient(160deg, rgb(var(--acc-rgb) / 0.12) 0%, rgb(var(--acc-rgb) / 0.02) 70%);
-  border-color: rgb(var(--acc-rgb) / 0.28);
+  background: linear-gradient(160deg, rgba(212,255,94,0.12) 0%, rgba(212,255,94,0.02) 70%);
+  border-color: rgba(212,255,94,0.28);
 }
-.cs-fstat--win::before { background: linear-gradient(90deg, transparent, rgb(var(--acc-rgb) / 0.4), transparent); }
+.cs-fstat--win::before { background: linear-gradient(90deg, transparent, rgba(212,255,94,0.4), transparent); }
 .cs-fstat-num {
   font-family: 'Geist', sans-serif; font-size: 56px; font-weight: 500;
   letter-spacing: -0.03em; line-height: 1; color: var(--text);
 }
 .cs-fstat--win .cs-fstat-num { color: var(--accent); }
 .cs-fstat-num .cs-fstat-sym { font-size: 0.48em; vertical-align: 0.36em; font-weight: 400; color: var(--text-muted); margin-left: 2px; }
-.cs-fstat--win .cs-fstat-num .cs-fstat-sym { color: rgb(var(--acc-rgb) / 0.7); }
+.cs-fstat--win .cs-fstat-num .cs-fstat-sym { color: rgba(212,255,94,0.7); }
 .cs-fstat-label {
   font-family: 'Geist', sans-serif; font-size: 16px; font-weight: 500;
   letter-spacing: -0.01em; color: var(--text);
@@ -978,9 +970,9 @@ a.cs-cta { margin-top: 28px; }
   font-family: 'Geist Mono', monospace; font-size: 9.5px; letter-spacing: 0.16em;
   text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px;
 }
-.cs-fstat--win .cs-fstat-eyebrow { color: rgb(var(--acc-rgb) / 0.7); }
+.cs-fstat--win .cs-fstat-eyebrow { color: rgba(212,255,94,0.7); }
 .cs-fstat-num .cs-fstat-sym-pre { font-size: 0.5em; vertical-align: 0.34em; font-weight: 400; color: var(--text-muted); margin-right: 1px; }
-.cs-fstat--win .cs-fstat-num .cs-fstat-sym-pre { color: rgb(var(--acc-rgb) / 0.7); }
+.cs-fstat--win .cs-fstat-num .cs-fstat-sym-pre { color: rgba(212,255,94,0.7); }
 .cs-fstat-desc {
   font-family: 'Geist', sans-serif; font-size: 13px; font-weight: 300;
   line-height: 1.65; color: var(--text-soft); margin: 4px 0 0;
@@ -1001,7 +993,7 @@ a.cs-cta { margin-top: 28px; }
   overflow: hidden; margin: 40px 0 0; position: relative; z-index: 501;
 }
 .cs-outcome-step { background: var(--bg-card); padding: 30px 26px; }
-.cs-outcome-step--win { background: rgb(var(--acc-rgb) / 0.04); }
+.cs-outcome-step--win { background: rgba(212,255,94,0.04); }
 .cs-outcome-num {
   font-family: 'Geist', sans-serif; font-size: 40px; font-weight: 500;
   letter-spacing: -0.02em; color: var(--text-soft); line-height: 1;
@@ -1015,15 +1007,15 @@ a.cs-cta { margin-top: 28px; }
   font-family: 'Geist', sans-serif; font-size: 12.5px; font-weight: 300;
   line-height: 1.6; color: var(--text-soft); margin: 0 0 18px;
 }
-.cs-outcome-bar { height: 4px; border-radius: 3px; background: rgb(var(--fg-rgb) / 0.06); overflow: hidden; }
-.cs-outcome-bar span { display: block; height: 100%; border-radius: 3px; background: rgb(var(--fg-rgb) / 0.22); }
+.cs-outcome-bar { height: 4px; border-radius: 3px; background: rgba(255,255,255,0.06); overflow: hidden; }
+.cs-outcome-bar span { display: block; height: 100%; border-radius: 3px; background: rgba(255,255,255,0.22); }
 .cs-outcome-step--win .cs-outcome-bar span { background: var(--accent); }
 @media (max-width: 700px) {
   .cs-outcome-funnel { grid-template-columns: 1fr; }
 }
 .cs-outcome-next {
   margin: 32px 0 0; padding: 0 0 0 20px;
-  border-left: 2px solid rgb(var(--acc-rgb) / 0.3);
+  border-left: 2px solid rgba(212,255,94,0.3);
   display: flex; flex-direction: column; gap: 8px;
 }
 .cs-outcome-next-tag {
@@ -1051,7 +1043,7 @@ a.cs-cta { margin-top: 28px; }
 /* ---------- OUTCOME CALLOUT ---------- */
 .cs-outcome {
   margin: 28px 0 8px; padding: 0 0 0 20px;
-  border-left: 2px solid rgb(var(--acc-rgb) / 0.3);
+  border-left: 2px solid rgba(212,255,94,0.3);
   display: flex; flex-direction: column; gap: 8px;
 }
 .cs-outcome-tag {
@@ -1085,13 +1077,13 @@ a.cs-cta { margin-top: 28px; }
 }
 .cs-principle-statement {
   font-family: 'Geist', sans-serif; font-size: 18px; font-weight: 500;
-  line-height: 1.5; color: var(--text); margin: 0;
+  line-height: 1.5; color: #fff; margin: 0;
 }
 
 /* ---------- DESIGN CHALLENGE CALLOUT ---------- */
 .cs-challenge {
   margin: 22px 0 28px; padding: 18px 22px; border-radius: 0 8px 8px 0;
-  background: rgb(var(--acc-rgb) / 0.045); border-left: 2px solid rgb(var(--acc-rgb) / 0.35);
+  background: rgba(212,255,94,0.045); border-left: 2px solid rgba(212,255,94,0.35);
 }
 .cs-challenge-tag { font-family: 'Geist Mono', monospace; font-size: 9.5px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
 .cs-challenge p { font-family: 'Geist', sans-serif; font-size: 14.5px; font-weight: 300; line-height: 1.8; color: var(--text-soft); margin: 0; }
@@ -1108,16 +1100,24 @@ a.cs-cta { margin-top: 28px; }
 .cs-tension-index { grid-column: 1; grid-row: 1; font-family: 'Geist Mono', monospace; font-size: 16px; font-weight: 400; color: var(--text-muted); line-height: 1; padding-top: 3px; }
 .cs-tension-tension { grid-column: 2; }
 .cs-tension-title { font-family: 'Geist', sans-serif; font-size: 17px; font-weight: 500; line-height: 1.35; color: var(--text); margin: 0 0 10px; }
-.cs-tension-friction { font-family: 'Geist', sans-serif; font-size: 15px; font-weight: 300; line-height: 1.65; color: var(--text-muted); margin: 0; max-width: 62ch; }
+.cs-tension-friction { font-family: 'Geist', sans-serif; font-size: 15px; font-weight: 300; line-height: 1.65; color: var(--text-muted); margin: 0 0 14px; max-width: 62ch; }
+.cs-tension-poles {
+  display: inline-flex; align-items: center; gap: 12px;
+  font-family: 'Geist', sans-serif; font-size: 13px; line-height: 1.3;
+}
+.cs-tension-pole-a { color: var(--text-muted); }
+.cs-tension-pole-b { color: var(--text); font-weight: 500; }
+.cs-tension-vs { font-family: 'Geist Mono', monospace; font-size: 13px; color: var(--accent); opacity: 0.9; }
 .cs-tension-resp {
   grid-column: 2; margin-top: 20px;
   padding: 18px 22px; border-radius: 0 10px 10px 0;
-  background: rgb(var(--acc-rgb) / 0.045); border-left: 2px solid rgb(var(--acc-rgb) / 0.5);
+  background: rgba(212,255,94,0.045); border-left: 2px solid rgba(212,255,94,0.5);
 }
 .cs-tension-resp-label { font-family: 'Geist Mono', monospace; font-size: 9.5px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 9px; }
 .cs-tension-resp p { font-family: 'Geist', sans-serif; font-size: 15px; font-weight: 300; line-height: 1.65; color: var(--text-soft); margin: 0; max-width: 62ch; }
 @media (max-width: 760px) {
   .cs-tension-row { grid-template-columns: 28px 1fr; gap: 12px 16px; }
+  .cs-tension-poles { flex-wrap: wrap; }
 }
 
 /* ---------- KNOWLEDGE GRAPH ---------- */
@@ -1134,23 +1134,23 @@ a.cs-cta { margin-top: 28px; }
 .cs-scenario { padding: 26px 24px; background: var(--bg-card); }
 .cs-scenario-shot { position: relative; margin: 0 0 18px; border-radius: 6px; overflow: hidden; border: 1px solid var(--line); max-height: 132px; cursor: pointer; }
 .cs-scenario-shot img { width: 100%; display: block; transition: transform 0.35s cubic-bezier(.22,.8,.25,1); }
-.cs-scenario-shot::after { content: ''; position: absolute; inset: 0; background: rgb(var(--sh-rgb) / calc(0 * var(--sh-k))); transition: background 0.25s ease; }
+.cs-scenario-shot::after { content: ''; position: absolute; inset: 0; background: rgba(0,0,0,0); transition: background 0.25s ease; }
 .cs-scenario-shot:hover img { transform: scale(1.04); }
-.cs-scenario-shot:hover::after { background: rgb(var(--sh-rgb) / calc(0.2 * var(--sh-k))); }
+.cs-scenario-shot:hover::after { background: rgba(0,0,0,0.2); }
 
 /* Scenario lightbox */
-.cs-scn-modal { position: fixed; inset: 0; z-index: 2000; display: flex; align-items: center; justify-content: center; padding: 24px; background: rgb(var(--sh-rgb) / calc(0.82 * var(--sh-k))); backdrop-filter: blur(10px); opacity: 0; pointer-events: none; transition: opacity 0.25s ease; }
+.cs-scn-modal { position: fixed; inset: 0; z-index: 2000; display: flex; align-items: center; justify-content: center; padding: 24px; background: rgba(0,0,0,0.82); backdrop-filter: blur(10px); opacity: 0; pointer-events: none; transition: opacity 0.25s ease; }
 .cs-scn-modal.is-open { opacity: 1; pointer-events: all; }
 .cs-scn-modal-box { width: min(960px, 100%); background: var(--bg-card); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; transform: translateY(16px) scale(0.98); transition: transform 0.32s cubic-bezier(.22,.8,.25,1); }
 .cs-scn-modal.is-open .cs-scn-modal-box { transform: translateY(0) scale(1); }
-.cs-scn-modal-img { height: 400px; overflow-y: auto; border-bottom: 1px solid var(--line); scrollbar-width: thin; scrollbar-color: rgb(var(--fg-rgb) / 0.12) transparent; }
+.cs-scn-modal-img { height: 400px; overflow-y: auto; border-bottom: 1px solid var(--line); scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.12) transparent; }
 .cs-scn-modal-img img { width: 100%; display: block; }
 .cs-scn-modal-body { padding: 24px 28px 28px; position: relative; }
-.cs-scn-modal-tag { font-family: 'Geist Mono', monospace; font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+.cs-scn-modal-tag { font-family: 'Geist Mono', monospace; font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--warm); margin-bottom: 10px; }
 .cs-scn-modal-title { font-family: 'Geist', sans-serif; font-size: 22px; font-weight: 600; letter-spacing: -0.01em; color: var(--text); margin-bottom: 10px; }
 .cs-scn-modal-desc { font-family: 'Geist', sans-serif; font-size: 13.5px; font-weight: 300; line-height: 1.7; color: var(--text-soft); margin: 0; }
-.cs-scn-modal-close { display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; margin: 0 auto 12px; background: rgb(var(--fg-rgb) / 0.08); border: 1px solid rgb(var(--fg-rgb) / 0.14); border-radius: 50%; cursor: pointer; color: var(--text-muted); font-size: 13px; transition: background 0.2s ease; flex-shrink: 0; }
-.cs-scn-modal-close:hover { background: rgb(var(--fg-rgb) / 0.16); }
+.cs-scn-modal-close { display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; margin: 0 auto 12px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.14); border-radius: 50%; cursor: pointer; color: var(--text-muted); font-size: 13px; transition: background 0.2s ease; flex-shrink: 0; }
+.cs-scn-modal-close:hover { background: rgba(255,255,255,0.16); }
 .cs-scenario-tag { font-family: 'Geist Mono', monospace; font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
 .cs-scenario-title { font-family: 'Geist', sans-serif; font-size: 19px; font-weight: 600; letter-spacing: -0.01em; color: var(--text); margin-bottom: 10px; }
 .cs-scenario p { font-family: 'Geist', sans-serif; font-size: 12.5px; font-weight: 300; line-height: 1.7; color: var(--text-soft); margin: 0; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
@@ -1158,7 +1158,7 @@ a.cs-cta { margin-top: 28px; }
 /* ---------- PRODUCT ITERATIONS ---------- */
 .cs-iter { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line); border-radius: 8px; overflow: hidden; position: relative; z-index: 501; }
 .cs-iter-step { padding: 24px 20px; background: var(--bg-soft); display: flex; flex-direction: column; gap: 6px; }
-.cs-iter-step--active { background: rgb(var(--acc-rgb) / 0.05); }
+.cs-iter-step--active { background: rgba(212,255,94,0.05); }
 .cs-iter-tag { font-family: 'Geist Mono', monospace; font-size: 9.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); }
 .cs-iter-step--active .cs-iter-tag { color: var(--accent); }
 .cs-iter-title { font-family: 'Geist', sans-serif; font-size: 14px; font-weight: 500; color: var(--text); margin-top: 4px; }
@@ -1174,7 +1174,7 @@ a.cs-cta { margin-top: 28px; }
 }
 .cs-tl-month { font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); padding-top: 3px; }
 .cs-tl-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--text-muted); margin-top: 5px; position: relative; z-index: 1; }
-.cs-tl-dot--active { background: var(--accent); box-shadow: 0 0 0 4px rgb(var(--acc-rgb) / 0.12); }
+.cs-tl-dot--active { background: var(--accent); box-shadow: 0 0 0 4px rgba(212,255,94,0.12); }
 .cs-tl-text { font-family: 'Geist', sans-serif; font-size: 13.5px; font-weight: 300; line-height: 1.75; color: var(--text-soft); }
 .cs-tl-text strong { color: var(--text); font-weight: 500; }
 
@@ -1202,6 +1202,10 @@ a.cs-cta { margin-top: 28px; }
   .cs-sim-strip { flex-direction: column; gap: 16px; }
   .cs-sim-stage { grid-template-columns: 1fr; }
   .cs-sim-stage-amt { text-align: left; }
+  .cs-globe-wrap { width: 300px; }
+  .cs-journey { gap: 0; }
+  .cs-persona-meta { grid-template-columns: 1fr; gap: 20px; }
+  .cs-persona { padding: 26px; }
   .cs-scenarios { grid-template-columns: 1fr; }
   .cs-iter { grid-template-columns: 1fr 1fr; }
   .cs-shot-scroll { height: 380px; }
@@ -1210,78 +1214,29 @@ a.cs-cta { margin-top: 28px; }
 @media (max-width: 540px) {
   .cs-team-grid { grid-template-columns: 1fr; }
   .cs-vis-body { padding: 26px 20px; }
+  .cs-globe-stage { flex-direction: column; gap: 18px; }
+  .cs-globe-wrap { width: 250px; }
+  .cs-globe-legend { position: static; align-items: flex-start; }
+  .cs-journey { flex-direction: column; gap: 18px; }
+  .cs-journey::before {
+    top: 6px; bottom: 6px; left: 3px; right: auto; width: 1px; height: auto;
+    background: linear-gradient(180deg,
+      rgba(255,255,255,0.07) 0%, rgba(255,255,255,0.12) 40%,
+      rgba(255,255,255,0.12) 60%, rgba(255,255,255,0.06) 100%);
+    transform: scaleY(0); transform-origin: center top;
+  }
+  .cs-persona.is-visible .cs-journey::before { transform: scaleY(1); }
+  .cs-journey-step { flex-direction: row; gap: 12px; align-items: flex-start; padding-right: 0; }
+  .cs-journey-dot { margin-bottom: 0; flex-shrink: 0; margin-top: 2px; background: var(--bg-card); }
   .cs-iter { grid-template-columns: 1fr; }
+  .cs-persona-head { flex-direction: column; gap: 14px; }
   .cs-tl-item { grid-template-columns: 64px 16px 1fr; gap: 14px; }
   .cs-tl-item:not(:last-child)::after { left: 71px; }
   .cs-shot-scroll { height: 320px; }
   .cs-shot-navbar { height: 320px; flex-basis: 38px; }
   .cs-shot-bar { gap: 12px; padding: 11px 14px; }
 }
-/* ---------- RECORDING STAGE ---------- */
-/* A screen recording on a stage card, in the outcome cards' style. The recordings carry a dark
-   olive plate (#101309) that shows when the camera zooms out. "lighten" against the card, which is
-   lighter than the plate in every channel, swaps the plate for the card; the product UI is brighter
-   than the card, so it passes through untouched. The video file itself is not re-encoded. */
-.cs-stage {
-  position: relative; isolation: isolate; z-index: 501;
-  margin: 24px 0 14px; padding: clamp(10px, 1.6vw, 18px);
-  border-radius: 18px; border: 1px solid rgb(255 255 255 / 0.09);
-  background: linear-gradient(160deg, rgb(255 255 255 / 0.07) 0%, rgb(255 255 255 / 0.025) 70%), #131313;
-}
-.cs-stage::before {
-  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
-  background: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.18), transparent);
-}
-.cs-stage > video { display: block; width: 100%; height: auto; border-radius: 10px; mix-blend-mode: lighten; }
-/* Controls and fullscreen. The recordings are silent, so the mute button is dropped. In fullscreen
-   the card is gone, so the page colour goes behind the video and the same blend turns the olive
-   plate into it (the backdrop is also what fills the letterbox bars, so the two match). */
-.cs-stage > video::-webkit-media-controls-mute-button,
-.cs-stage > video::-webkit-media-controls-volume-slider,
-.cs-stage > video::-webkit-media-controls-volume-control-container { display: none; }
-.cs-stage > video:fullscreen { border-radius: 0; }
-.cs-stage > video:fullscreen::backdrop { background: #131313; }
-.cs-stage > video:-webkit-full-screen { border-radius: 0; }
-.cs-stage > video:-webkit-full-screen::backdrop { background: #131313; }
-
-/* ===== Shared case-study type =====
-   Headings follow Up-skill (white statement, the emphasised words in grey); body copy follows
-   HyperSense (16px, light, open leading). Up-skill, HyperSense and Reconciliation carry the
-   same block so the three read as one set. */
-.cs-display { font-size: clamp(34px, 4.6vw, 56px); font-weight: 500; line-height: 1.12; letter-spacing: -0.02em; color: var(--text); max-width: 19ch; text-wrap: balance; }
-.cs-display em { font-style: normal; font-weight: 500; color: var(--text-soft); }
-.cs-h3 { font-size: clamp(21px, 2.1vw, 24px); font-weight: 500; line-height: 1.25; letter-spacing: -0.01em; text-wrap: balance; }
-.cs-p { font-size: 16px; font-weight: 300; line-height: 1.85; color: var(--text-soft); max-width: 720px; }
-.cs-list li { font-size: 16px; font-weight: 300; line-height: 1.7; }
-@media (max-width: 760px) { .cs-display { max-width: none; } }
-
-/* Back link: the home page's top-nav link (Resume), its left edge on the hero's text line */
-@media (min-width: 901px) { nav { padding-left: clamp(24px, 6vw, 80px); padding-right: clamp(24px, 6vw, 80px); } }
-nav .logo a.cs-back {
-  min-height: 44px; padding: 0; gap: 8px;
-  font-family: 'Geist Mono', monospace; font-size: 14px; letter-spacing: 0.02em; text-transform: none;
-  color: var(--text-soft); transition: color 0.2s ease, gap 0.2s ease;
-}
-nav .logo a.cs-back:hover { color: var(--text); gap: 11px; }
-nav .logo a.cs-back .arr { flex: none; display: block; }
-nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; border-radius: 4px; }
-@media (max-width: 900px) { nav .logo a.cs-back { font-size: 12px; } }
-@media (prefers-reduced-motion: reduce) { nav .logo a.cs-back { transition: none; } }
 </style>
-<script>
-/* fx preview: canvas diagrams read the live accent and ground from the theme tokens */
-(function () {
-  const c = { acc: '212,255,94', fg: '255,255,255' };
-  const read = () => {
-    const s = getComputedStyle(document.documentElement);
-    const a = s.getPropertyValue('--acc-rgb').trim(), f = s.getPropertyValue('--fg-rgb').trim();
-    if (a) c.acc = a.split(/\s+/).join(',');
-    if (f) c.fg = f.split(/\s+/).join(',');
-  };
-  window.csAcc = () => c.acc; window.csFg = () => c.fg;
-  read();
-})();
-</script>
 </head>
 <body>
 
@@ -1296,18 +1251,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 
 <nav>
   <div class="logo">
-    <a class="cs-back" href="/" aria-label="Back to selected work"><svg class="arr" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>Back<span class="cs-back-long"> to selected work</span></a>
-  </div>
-  <!-- CHAPTER BAR: stands in for the side rail wherever there is no room for it -->
-  <div class="cs-chapter" id="cs-chapter">
-    <button type="button" class="cs-chapter-btn" id="cs-chapter-btn" aria-expanded="false" aria-controls="cs-chapter-menu">
-      <span class="cs-chapter-num" id="cs-chapter-num"></span>
-      <span class="cs-chapter-name" id="cs-chapter-name">Chapters</span>
-      <svg class="cs-chapter-chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-    </button>
-    <div class="cs-chapter-menu" id="cs-chapter-menu" hidden>
-      <ul class="cs-chapter-list" id="cs-chapter-list"></ul>
-    </div>
+    <a class="cs-back" href="/home-v1"><span class="arr">←</span> Back to selected work</a>
   </div>
 </nav>
 
@@ -1347,23 +1291,23 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 
         <defs>
           <radialGradient id="cs-flow-nodeglow">
-            <stop offset="0%" style="stop-color: rgb(var(--acc-rgb) / 0.28)"/>
-            <stop offset="100%" style="stop-color: rgb(var(--acc-rgb) / 0)"/>
+            <stop offset="0%" stop-color="rgba(212,255,94,0.28)"/>
+            <stop offset="100%" stop-color="rgba(212,255,94,0)"/>
           </radialGradient>
         </defs>
 
         <!-- ══ "Payment costs" bracket over the hidden chain ══ -->
-        <text x="350" y="14" text-anchor="middle" font-family="'Geist',sans-serif" font-size="9.5" font-weight="500" letter-spacing="0.14em" style="fill: rgb(var(--acc-rgb) / 0.95)">PAYMENT COSTS — INVISIBLE TO MOST MERCHANTS</text>
-        <path d="M 196 30 L 196 24 L 504 24 L 504 30" fill="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" style="stroke: rgb(var(--acc-rgb) / 0.45)"/>
+        <text x="350" y="14" text-anchor="middle" font-family="'Geist',sans-serif" font-size="9.5" font-weight="500" letter-spacing="0.14em" fill="rgba(212,255,94,0.5)">PAYMENT COSTS — INVISIBLE TO MOST MERCHANTS</text>
+        <path d="M 196 30 L 196 24 L 504 24 L 504 30" fill="none" stroke="rgba(212,255,94,0.25)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" />
 
         <!-- ══ Flow line — opacity erodes after each cut, dashes march while live ══ -->
-        <line class="cs-fl" x1="90"  y1="74" x2="204" y2="74" stroke-width="1.4" stroke-dasharray="3 6" stroke-linecap="round" style="stroke: rgb(var(--fg-rgb) / 0.30)"/>
-        <line class="cs-fl" x1="240" y1="74" x2="332" y2="74" stroke-width="1.3" stroke-dasharray="3 6" stroke-linecap="round" style="stroke: rgb(var(--fg-rgb) / 0.24)"/>
-        <line class="cs-fl" x1="368" y1="74" x2="460" y2="74" stroke-width="1.2" stroke-dasharray="3 6" stroke-linecap="round" style="stroke: rgb(var(--fg-rgb) / 0.18)"/>
-        <line class="cs-fl" x1="496" y1="74" x2="609" y2="74" stroke-width="1.1" stroke-dasharray="3 6" stroke-linecap="round" style="stroke: rgb(var(--fg-rgb) / 0.12)"/>
+        <line class="cs-fl" x1="90"  y1="74" x2="204" y2="74" stroke="rgba(255,255,255,0.30)" stroke-width="1.4" stroke-dasharray="3 6" stroke-linecap="round" />
+        <line class="cs-fl" x1="240" y1="74" x2="332" y2="74" stroke="rgba(255,255,255,0.24)" stroke-width="1.3" stroke-dasharray="3 6" stroke-linecap="round" />
+        <line class="cs-fl" x1="368" y1="74" x2="460" y2="74" stroke="rgba(255,255,255,0.18)" stroke-width="1.2" stroke-dasharray="3 6" stroke-linecap="round" />
+        <line class="cs-fl" x1="496" y1="74" x2="609" y2="74" stroke="rgba(255,255,255,0.12)" stroke-width="1.1" stroke-dasharray="3 6" stroke-linecap="round" />
 
         <!-- ══ CUSTOMER PAYS — card icon ══ -->
-        <g fill="none" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" style="stroke: rgb(var(--fg-rgb) / 0.5)">
+        <g stroke="rgba(255,255,255,0.5)" fill="none" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
           <rect x="47" y="62" width="34" height="24" rx="4" />
           <line x1="47" y1="70" x2="81" y2="70" />
           <line x1="53" y1="79" x2="61" y2="79" />
@@ -1374,27 +1318,27 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
         <!-- ══ INTERMEDIARY CUTS ══ -->
         <!-- Acquiring bank -->
         <circle class="cs-ng cs-ng1" cx="222" cy="74" r="30" fill="url(#cs-flow-nodeglow)" />
-        <text class="cs-lbl cs-lbl1" x="222" y="46" text-anchor="middle" font-family="'Geist',sans-serif" font-size="10.5" fill="var(--text-soft)">Acquiring bank</text>
-        <circle class="cs-node cs-n1" cx="222" cy="74" r="17" fill="var(--bg-soft)" stroke-width="1.3" style="stroke: rgb(var(--acc-rgb) / 0.35)"/>
+        <text x="222" y="46" text-anchor="middle" font-family="'Geist',sans-serif" font-size="10.5" fill="var(--text-soft)">Acquiring bank</text>
+        <circle class="cs-node cs-n1" cx="222" cy="74" r="17" fill="var(--bg-soft)" stroke="rgba(212,255,94,0.35)" stroke-width="1.3" />
         <text x="222" y="79" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="13" font-weight="500" fill="var(--accent)">%</text>
-        <text class="cs-fee cs-fee1" x="222" y="107" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="11" style="fill: rgb(var(--acc-rgb) / 0.7)">−0.35%</text>
+        <text class="cs-fee cs-fee1" x="222" y="107" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="11" fill="rgba(212,255,94,0.7)">−0.35%</text>
 
         <!-- Card network -->
         <circle class="cs-ng cs-ng2" cx="350" cy="74" r="30" fill="url(#cs-flow-nodeglow)" />
-        <text class="cs-lbl cs-lbl2" x="350" y="46" text-anchor="middle" font-family="'Geist',sans-serif" font-size="10.5" fill="var(--text-soft)">Card network</text>
-        <circle class="cs-node cs-n2" cx="350" cy="74" r="17" fill="var(--bg-soft)" stroke-width="1.3" style="stroke: rgb(var(--acc-rgb) / 0.35)"/>
+        <text x="350" y="46" text-anchor="middle" font-family="'Geist',sans-serif" font-size="10.5" fill="var(--text-soft)">Card network</text>
+        <circle class="cs-node cs-n2" cx="350" cy="74" r="17" fill="var(--bg-soft)" stroke="rgba(212,255,94,0.35)" stroke-width="1.3" />
         <text x="350" y="79" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="13" font-weight="500" fill="var(--accent)">%</text>
-        <text class="cs-fee cs-fee2" x="350" y="107" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="11" style="fill: rgb(var(--acc-rgb) / 0.7)">−0.15%</text>
+        <text class="cs-fee cs-fee2" x="350" y="107" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="11" fill="rgba(212,255,94,0.7)">−0.15%</text>
 
         <!-- Issuing bank -->
         <circle class="cs-ng cs-ng3" cx="478" cy="74" r="30" fill="url(#cs-flow-nodeglow)" />
-        <text class="cs-lbl cs-lbl3" x="478" y="46" text-anchor="middle" font-family="'Geist',sans-serif" font-size="10.5" fill="var(--text-soft)">Issuing bank</text>
-        <circle class="cs-node cs-n3" cx="478" cy="74" r="17" fill="var(--bg-soft)" stroke-width="1.3" style="stroke: rgb(var(--acc-rgb) / 0.35)"/>
+        <text x="478" y="46" text-anchor="middle" font-family="'Geist',sans-serif" font-size="10.5" fill="var(--text-soft)">Issuing bank</text>
+        <circle class="cs-node cs-n3" cx="478" cy="74" r="17" fill="var(--bg-soft)" stroke="rgba(212,255,94,0.35)" stroke-width="1.3" />
         <text x="478" y="79" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="13" font-weight="500" fill="var(--accent)">%</text>
-        <text class="cs-fee cs-fee3" x="478" y="107" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="11" style="fill: rgb(var(--acc-rgb) / 0.7)">−1.50%</text>
+        <text class="cs-fee cs-fee3" x="478" y="107" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="11" fill="rgba(212,255,94,0.7)">−1.50%</text>
 
         <!-- ══ MERCHANT RECEIVES — bank icon ══ -->
-        <g fill="none" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" style="stroke: rgb(var(--fg-rgb) / 0.5)">
+        <g stroke="rgba(255,255,255,0.5)" fill="none" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
           <path d="M 620 68 L 636 58 L 652 68" />
           <line x1="617" y1="68" x2="655" y2="68" />
           <line x1="623" y1="72" x2="623" y2="86" />
@@ -1422,18 +1366,18 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
       <svg viewBox="0 0 220 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Concentric arcs showing payment cost scaling from small to enterprise merchants">
         <defs>
           <radialGradient id="cs-arc-g" cx="26" cy="180" r="160" gradientUnits="userSpaceOnUse">
-            <stop offset="0.32" style="stop-color: rgb(var(--acc-rgb) / 0)"/>
-            <stop offset="0.7" style="stop-color: rgb(var(--acc-rgb) / 0.04)"/>
-            <stop offset="1" style="stop-color: rgb(var(--acc-rgb) / 0.16)"/>
+            <stop offset="0.32" stop-color="rgba(212,255,94,0)"/>
+            <stop offset="0.7" stop-color="rgba(212,255,94,0.012)"/>
+            <stop offset="1" stop-color="rgba(212,255,94,0.06)"/>
           </radialGradient>
         </defs>
         <!-- band fills -->
         <circle cx="26" cy="180" r="160" fill="url(#cs-arc-g)"/>
-        <circle cx="26" cy="180" r="104" style="fill: rgb(var(--fg-rgb) / 0.02)"/>
-        <circle cx="26" cy="180" r="52" style="fill: rgb(var(--fg-rgb) / 0.03)"/>
+        <circle cx="26" cy="180" r="104" fill="rgba(255,255,255,0.02)"/>
+        <circle cx="26" cy="180" r="52" fill="rgba(255,255,255,0.03)"/>
         <!-- arc strokes -->
-        <circle class="cs-arc-ring" data-tier="0" cx="26" cy="180" r="52" fill="none" stroke-width="1.5" style="stroke: rgb(var(--fg-rgb) / 0.16)"/>
-        <circle class="cs-arc-ring" data-tier="1" cx="26" cy="180" r="104" fill="none" stroke-width="1.5" style="stroke: rgb(var(--fg-rgb) / 0.28)"/>
+        <circle class="cs-arc-ring" data-tier="0" cx="26" cy="180" r="52" fill="none" stroke="rgba(255,255,255,0.16)" stroke-width="1.5"/>
+        <circle class="cs-arc-ring" data-tier="1" cx="26" cy="180" r="104" fill="none" stroke="rgba(255,255,255,0.28)" stroke-width="1.5"/>
         <circle class="cs-arc-ring" data-tier="2" cx="26" cy="180" r="160" fill="none" stroke="var(--accent)" stroke-width="2"/>
         <circle cx="26" cy="180" r="4.5" fill="var(--accent)"/>
         <!-- transparent hover hit-regions (largest first so the inner bands sit on top) -->
@@ -1581,7 +1525,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
   <h3 class="cs-h3 reveal" style="margin-top: 40px;">The same transparency that creates savings also creates complexity.</h3>
 
   <p class="cs-p reveal">In <span class="cs-gloss" tabindex="0" data-gloss="ic-plus-plus">IC++</span> pricing, no two transactions are guaranteed to be priced the same. Card type, authentication, settlement timing, geography, and data quality all influence the final fee. Each variable can quietly shift a transaction into a different fee tier, and most merchants never see it happen.</p>
-  <p class="cs-p reveal">Without visibility, enterprise merchants often pay more than they should. The gap between expected and actual payment costs can reach <span class="cs-num">7–10%</span>.</p>
+  <p class="cs-p reveal">Without visibility, enterprise merchants often pay more than they should. The gap between expected and actual payment costs can reach <span class="warm">7–10%</span>.</p>
 
   <!-- THE RAW DOCUMENTS -->
   <div class="cs-docs reveal" style="margin: 24px 0 40px;">
@@ -1639,15 +1583,43 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 </div>
 </section>
 
+<!-- ═══════════════════════ 05 — WHERE THIS PROBLEM EXISTS ═══════════════════════ -->
+<section class="cs-section" id="cs-markets">
+<div class="cs-wrap">
+
+  <div class="cs-label reveal"><span class="num">/04</span> Geographic Focus</div>
+  <h2 class="cs-display reveal">Why the US and Europe <em>mattered.</em></h2>
+
+  <p class="cs-p reveal">The visibility of payment costs varies significantly across markets.</p>
+  <p class="cs-p reveal">In India, domestic payments largely run on UPI, where transaction costs are minimal. In many Southeast Asian and Latin American markets, merchants operate on simplified or blended pricing models that bundle costs into a single rate.</p>
+  <p class="cs-p reveal">In contrast, merchants in the United States and Europe often operate on <span class="cs-gloss" tabindex="0" data-gloss="ic-plus-plus">IC++</span> pricing, where every component of payment cost is exposed individually, creating both transparency and complexity.</p>
+
+  <div class="cs-vis reveal">
+    <div class="cs-vis-label">Where payment cost visibility matters</div>
+    <div class="cs-vis-body">
+      <div class="cs-globe-stage">
+        <div class="cs-globe-wrap" id="cs-globe-wrap">
+          <canvas id="cs-globe-canvas" width="380" height="380"></canvas>
+          <div class="cs-globe-tip" id="cs-globe-tip"></div>
+        </div>
+        <div class="cs-globe-legend">
+          <div class="cs-globe-legend-row"><i class="cs-dot cs-dot--a"></i> IC++ dominant</div>
+          <div class="cs-globe-legend-row"><i class="cs-dot cs-dot--b"></i> Simplified pricing</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</section>
+
 <!-- ═══════════════════════ 06 — USERS ═══════════════════════ -->
 <section class="cs-section" id="cs-users">
 <div class="cs-wrap">
 
-  <div class="cs-label reveal"><span class="num">/04</span> Users</div>
+  <div class="cs-label reveal"><span class="num">/05</span> Users</div>
   <h2 class="cs-display reveal">Three users. One blind spot. <em>Different stakes.</em></h2>
-  <p class="cs-p reveal">Once we understood the problem, we needed to understand who was responsible for solving it. We discovered that payment costs weren't owned by a single team. Three different stakeholders interacted with the same problem from different angles, each carrying a different responsibility, but all missing the same visibility.</p>
-
-<div class="cs-personas">
+  <p class="cs-p reveal">Once we understood where the problem existed, we needed to understand who was responsible for solving it. We discovered that payment costs weren't owned by a single team. Three different stakeholders interacted with the same problem from different angles, each carrying a different responsibility, but all missing the same visibility.</p>
 
   <!-- Persona 1 — Payment Analyst -->
   <div class="cs-persona reveal">
@@ -1658,16 +1630,6 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
         <p class="cs-persona-desc">Every month, processor invoices arrive with hundreds of fee line items that need to be reconciled, explained, and defended before the billing cycle closes.</p>
       </div>
     </div>
-    <div class="cs-persona-meta">
-      <div><span class="cs-persona-meta-label">Questions they need answered</span><ul>
-        <li>What changed?</li>
-        <li>Which fees need attention?</li>
-        <li>What should we do next?</li>
-      </ul></div>
-      <div><span class="cs-persona-meta-label">Why it matters</span><p>Every unexplained fee becomes an accepted cost from the next billing cycle.</p></div>
-    </div>
-    <button type="button" class="cs-journey-toggle" aria-expanded="false" aria-controls="cs-journey-1"><span>How it plays out</span><i aria-hidden="true"></i></button>
-    <div class="cs-journey-wrap" id="cs-journey-1"><div class="cs-journey-inner">
     <div class="cs-journey">
       <div class="cs-journey-step">
         <div class="cs-journey-dot"></div>
@@ -1694,7 +1656,14 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
         <div class="cs-journey-note">The cycle closes before the answer arrives. The leakage continues next month.</div>
       </div>
     </div>
-    </div></div>
+    <div class="cs-persona-meta">
+      <div><span class="cs-persona-meta-label">Questions they need answers</span><ul>
+        <li>What changed?</li>
+        <li>Which fees need attention?</li>
+        <li>What should we do next?</li>
+      </ul></div>
+      <div><span class="cs-persona-meta-label">Why it matters</span><p>Every unexplained fee becomes an accepted cost from the next billing cycle.</p></div>
+    </div>
   </div>
 
   <!-- Persona 2 — Treasury / Finance Lead -->
@@ -1706,16 +1675,6 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
         <p class="cs-persona-desc">Payment costs are one of the largest variable expenses in the business, often representing <span class="cs-num">1.5–2.2% of revenue</span>. When those numbers move, finance teams are expected to explain why and predict what happens next.</p>
       </div>
     </div>
-    <div class="cs-persona-meta">
-      <div><span class="cs-persona-meta-label">Questions they need answered</span><ul>
-        <li>What's driving the increase?</li>
-        <li>Which costs are expected vs avoidable?</li>
-        <li>What should we plan for next quarter?</li>
-      </ul></div>
-      <div><span class="cs-persona-meta-label">Why it matters</span><p>When cost increases can't be explained, finance can't tell the difference between growth, leakage, and operational issues.</p></div>
-    </div>
-    <button type="button" class="cs-journey-toggle" aria-expanded="false" aria-controls="cs-journey-2"><span>How it plays out</span><i aria-hidden="true"></i></button>
-    <div class="cs-journey-wrap" id="cs-journey-2"><div class="cs-journey-inner">
     <div class="cs-journey">
       <div class="cs-journey-step">
         <div class="cs-journey-dot"></div>
@@ -1742,7 +1701,14 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
         <div class="cs-journey-note">Planning the next quarter without understanding what drove the last one.</div>
       </div>
     </div>
-    </div></div>
+    <div class="cs-persona-meta">
+      <div><span class="cs-persona-meta-label">Questions they need answered</span><ul>
+        <li>What's driving the increase?</li>
+        <li>Which costs are expected vs avoidable?</li>
+        <li>What should we plan for next quarter?</li>
+      </ul></div>
+      <div><span class="cs-persona-meta-label">Why it matters</span><p>When cost increases can't be explained, finance can't tell the difference between growth, leakage, and operational issues.</p></div>
+    </div>
   </div>
 
   <!-- Persona 3 — Payment Operations Head -->
@@ -1754,16 +1720,6 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
         <p class="cs-persona-desc">Routing rules, authentication settings, and processor configurations all influence payment costs. But their impact often appears weeks later, long after the decision was made.</p>
       </div>
     </div>
-    <div class="cs-persona-meta">
-      <div><span class="cs-persona-meta-label">Questions they need answered</span><ul>
-        <li>Which decisions affected payment costs?</li>
-        <li>Are those costs expected or avoidable?</li>
-        <li>What should be corrected before the next release?</li>
-      </ul></div>
-      <div><span class="cs-persona-meta-label">Why it matters</span><p>Without a clear feedback loop, teams keep optimising while every unexplained cost increase becomes recurring spend.</p></div>
-    </div>
-    <button type="button" class="cs-journey-toggle" aria-expanded="false" aria-controls="cs-journey-3"><span>How it plays out</span><i aria-hidden="true"></i></button>
-    <div class="cs-journey-wrap" id="cs-journey-3"><div class="cs-journey-inner">
     <div class="cs-journey">
       <div class="cs-journey-step">
         <div class="cs-journey-dot"></div>
@@ -1790,12 +1746,17 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
         <div class="cs-journey-note">Teams keep optimising while the previous cost impact remains unresolved.</div>
       </div>
     </div>
-    </div></div>
+    <div class="cs-persona-meta">
+      <div><span class="cs-persona-meta-label">Questions they need answered</span><ul>
+        <li>Which decisions affected payment costs?</li>
+        <li>Are those costs expected or avoidable?</li>
+        <li>What should be corrected before the next release?</li>
+      </ul></div>
+      <div><span class="cs-persona-meta-label">Why it matters</span><p>Without a clear feedback loop, teams keep optimising while every unexplained cost increase becomes recurring spend.</p></div>
+    </div>
   </div>
 
-</div>
-
-  <p class="cs-p reveal" style="margin-top: 48px;">By this point, we understood the ecosystem. The challenge was turning a fragmented payment system into a coherent cost story that different teams could trust and act on. While each team entered from a different perspective and carried different responsibilities, they were ultimately trying to answer the same question: where payment costs were coming from and what to do about them.</p>
+  <p class="cs-p reveal" style="margin-top: 40px;">By this point, we understood the ecosystem. The challenge was turning a fragmented payment system into a coherent cost story that different teams could trust and act on. While each team entered from a different perspective and carried different responsibilities, they were ultimately trying to answer the same question: where payment costs were coming from and what to do about them.</p>
 
 </div>
 </section>
@@ -1804,7 +1765,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 <section class="cs-section" id="cs-strategy">
 <div class="cs-wrap">
 
-  <div class="cs-label reveal"><span class="num">/05</span> Product Strategy and Design</div>
+  <div class="cs-label reveal"><span class="num">/06</span> Product Strategy and Design</div>
   <h2 class="cs-display reveal">From fragmented signals to <em>one investigation.</em></h2>
   <p class="cs-p reveal">Payment cost systems are naturally fragmented. Organising the product around processors, fee types, or reports would simply mirror that complexity.</p>
   <p class="cs-p reveal">Instead, we looked at how investigations actually unfolded. Regardless of where teams started, they were all trying to answer the same core questions.</p>
@@ -1825,7 +1786,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 <section class="cs-section" id="cs-challenge">
 <div class="cs-wrap">
 
-  <div class="cs-label reveal"><span class="num">/06</span> Design Challenge</div>
+  <div class="cs-label reveal"><span class="num">/07</span> Design Challenge</div>
   <h2 class="cs-display reveal">Five tensions that shaped <em>every design decision.</em></h2>
   <p class="cs-p reveal">Defining the investigation flow solved the product problem. Designing an experience around it introduced a new set of constraints.</p>
   <p class="cs-p reveal">Every decision now had to balance trust, flexibility, and depth, without breaking the investigation flow.</p>
@@ -1837,6 +1798,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
       <div class="cs-tension-tension">
         <div class="cs-tension-title">One cost story from fragmented systems</div>
         <p class="cs-tension-friction">Cost investigations required teams to piece together answers from multiple disconnected systems, reports, and invoices before they could understand what was happening.</p>
+        <div class="cs-tension-poles"><span class="cs-tension-pole-a">Fragmented cost signals</span><span class="cs-tension-vs">⇄</span><span class="cs-tension-pole-b">One investigation workflow</span></div>
       </div>
       <div class="cs-tension-resp">
         <div class="cs-tension-resp-label">Design response</div>
@@ -1849,6 +1811,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
       <div class="cs-tension-tension">
         <div class="cs-tension-title">Making complex cost data trustworthy</div>
         <p class="cs-tension-friction">Payment teams were expected to make operational and financial decisions from data they couldn't easily verify or explain.</p>
+        <div class="cs-tension-poles"><span class="cs-tension-pole-a">Complex cost data</span><span class="cs-tension-vs">⇄</span><span class="cs-tension-pole-b">Confidence to act</span></div>
       </div>
       <div class="cs-tension-resp">
         <div class="cs-tension-resp-label">Design response</div>
@@ -1861,6 +1824,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
       <div class="cs-tension-tension">
         <div class="cs-tension-title">One interface, two pricing models</div>
         <p class="cs-tension-friction">The same product needed to serve merchants operating on fundamentally different pricing structures and levels of cost visibility.</p>
+        <div class="cs-tension-poles"><span class="cs-tension-pole-a">IC++ granular detail</span><span class="cs-tension-vs">⇄</span><span class="cs-tension-pole-b">Blended single rate</span></div>
       </div>
       <div class="cs-tension-resp">
         <div class="cs-tension-resp-label">Design response</div>
@@ -1873,6 +1837,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
       <div class="cs-tension-tension">
         <div class="cs-tension-title">Distinguishing growth from leakage</div>
         <p class="cs-tension-friction">Not every increase in payment costs is a problem. Some reflect healthy business growth, while others indicate preventable leakage.</p>
+        <div class="cs-tension-poles"><span class="cs-tension-pole-a">Expected cost movement</span><span class="cs-tension-vs">⇄</span><span class="cs-tension-pole-b">Preventable leakage</span></div>
       </div>
       <div class="cs-tension-resp">
         <div class="cs-tension-resp-label">Design response</div>
@@ -1885,6 +1850,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
       <div class="cs-tension-tension">
         <div class="cs-tension-title">One investigation for multiple teams</div>
         <p class="cs-tension-friction">Finance, Payments, and Operations teams approached the problem from different angles, but every investigation needed a shared understanding of what changed and why.</p>
+        <div class="cs-tension-poles"><span class="cs-tension-pole-a">Different stakeholder goals</span><span class="cs-tension-vs">⇄</span><span class="cs-tension-pole-b">Shared investigation</span></div>
       </div>
       <div class="cs-tension-resp">
         <div class="cs-tension-resp-label">Design response</div>
@@ -1901,7 +1867,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 <section class="cs-section" id="cs-ui">
 <div class="cs-wrap">
 
-  <div class="cs-label reveal"><span class="num">/07</span> Product Experience</div>
+  <div class="cs-label reveal"><span class="num">/08</span> Product Experience</div>
   <h2 class="cs-display reveal">From fragmented costs to <em>a single cost story.</em></h2>
   <p class="cs-p reveal">With the investigation flow established, the next challenge was turning it into a cohesive product experience.</p>
   <p class="cs-p reveal">Each module served a distinct purpose, but together they needed to feel like a single investigation that teams could navigate naturally every month.</p>
@@ -1913,7 +1879,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
   <p class="cs-p reveal" style="margin-bottom: 24px;">The same experience needed to work across very different merchant realities, from single processors to multi-PSP setups, and from simplified blended pricing to fully transparent IC++ models.</p>
 </div>
 <div class="cs-wrap cs-wrap--showcase">
-  <div class="cs-stage reveal">
+  <div class="cs-shot-frame reveal" style="border:none; background:transparent;">
     <video src="assets/hypersense/ov-demo.mp4" poster="assets/hypersense/ov-demo-poster.jpg"
            autoplay muted loop playsinline controls controlslist="nodownload" preload="metadata"
            style="width:100%; display:block; height:auto;"></video>
@@ -1938,7 +1904,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 
 </div>
 <div class="cs-wrap cs-wrap--showcase">
-  <div class="cs-stage reveal">
+  <div class="cs-shot-frame reveal" style="border:none; background:transparent;">
     <video src="assets/hypersense/drilldown-demo.mp4" poster="assets/hypersense/drilldown-demo-poster.jpg"
            autoplay muted loop playsinline controls controlslist="nodownload" preload="metadata"
            style="width:100%; display:block; height:auto;"></video>
@@ -1962,7 +1928,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 
 </div>
 <div class="cs-wrap cs-wrap--showcase">
-  <div class="cs-stage reveal">
+  <div class="cs-shot-frame reveal" style="border:none; background:transparent;">
     <video src="assets/hypersense/feespikes-demo.mp4" poster="assets/hypersense/feespikes-demo-poster.jpg"
            autoplay muted loop playsinline controls controlslist="nodownload" preload="metadata"
            style="width:100%; display:block; height:auto;"></video>
@@ -1991,7 +1957,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 
 </div>
 <div class="cs-wrap cs-wrap--showcase">
-  <div class="cs-stage reveal">
+  <div class="cs-shot-frame reveal" style="border:none; background:transparent;">
     <video src="assets/hypersense/audit-demo.mp4" poster="assets/hypersense/audit-demo-poster.jpg"
            autoplay muted loop playsinline controls controlslist="nodownload" preload="metadata"
            style="width:100%; display:block; height:auto;"></video>
@@ -2013,7 +1979,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 
 </div>
 <div class="cs-wrap cs-wrap--showcase">
-  <div class="cs-stage reveal">
+  <div class="cs-shot-frame reveal" style="border:none; background:transparent;">
     <video src="assets/hypersense/forecast-demo.mp4" poster="assets/hypersense/forecast-demo-poster.jpg"
            autoplay muted loop playsinline controls controlslist="nodownload" preload="metadata"
            style="width:100%; display:block; height:auto;"></video>
@@ -2036,7 +2002,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 <section class="cs-section" id="cs-outcome">
 <div class="cs-wrap">
 
-  <div class="cs-label reveal"><span class="num">/08</span> Outcome</div>
+  <div class="cs-label reveal"><span class="num">/09</span> Outcome</div>
   <h2 class="cs-display reveal">From a concept to <em>real merchant traction.</em></h2>
   <p class="cs-p reveal">HyperSense evolved from an internal concept into a product validated by enterprise merchants.</p>
   <p class="cs-p reveal">Through demos, pilots, and customer conversations, we confirmed that payment cost visibility wasn't just an operational problem; it was a business-critical one worth solving.</p>
@@ -2074,7 +2040,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
     </span>
     <p>Thank you for taking the time to follow the journey.</p>
   </div>
-  <div class="cs-cta-center reveal"><a class="cs-cta" href="/"><span class="arr">←</span> Back to selected work</a></div>
+  <div class="cs-cta-center reveal"><a class="cs-cta" href="/home-v1"><span class="arr">←</span> Back to selected work</a></div>
 
 </div>
 </section>
@@ -2084,6 +2050,8 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
   <div class="right"><a href="#">Back to top ↑</a></div>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js"></script>
 <script>
 
 /* Scroll progress bar */
@@ -2099,110 +2067,86 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
   update();
 })();
 
-/* Context rail + chapter bar: the current section is whatever crosses a thin band a third of the
-   way down the viewport. Jumps respect reduced motion; the menu closes on Escape or an outside tap. */
+/* Context rail — scroll-spy: active section thesis + jump list to the rest */
 (function() {
   var rail = document.getElementById('cs-rail');
   var list = document.getElementById('cs-rail-list');
   if (!rail || !list) return;
-  var REDUCE = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   var SECTIONS = [
-    { id: 'cs-what', num: '01', name: 'The Cost of Invisibility' },
-    { id: 'cs-begins', num: '02', name: 'Where Hypersense Begins' },
-    { id: 'cs-terrain', num: '03', name: 'Understanding the Terrain' },
-    { id: 'cs-users', num: '04', name: 'Users' },
-    { id: 'cs-strategy', num: '05', name: 'Product Strategy and Design' },
-    { id: 'cs-challenge', num: '06', name: 'Design Challenge' },
-    { id: 'cs-ui', num: '07', name: 'Product Experience' },
-    { id: 'cs-outcome', num: '08', name: 'Outcome' }
+    { id: 'cs-what',      label: '01 — The Cost of Invisibility' },
+    { id: 'cs-begins',    label: '02 — Where Hypersense Begins' },
+    { id: 'cs-terrain',   label: '03 — Understanding the Terrain' },
+    { id: 'cs-markets',   label: '04 — Geographic Focus' },
+    { id: 'cs-users',     label: '05 — Users' },
+    { id: 'cs-strategy',  label: '06 — Product Strategy and Design' },
+    { id: 'cs-challenge', label: '07 — Design Challenge' },
+    { id: 'cs-ui',        label: '08 — Product Experience' },
+    { id: 'cs-outcome',   label: '09 — Outcome' }
   ];
-  var byId = {};
-  SECTIONS.forEach(function(s) { byId[s.id] = s; });
-  var activeId = null, heroGone = false;
 
-  function jump(id) {
+  var activeId = null;
+  var heroGone = false;
+
+  function scrollToSection(id) {
     var el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: REDUCE ? 'auto' : 'smooth' });
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
   }
 
   list.innerHTML = SECTIONS.map(function(s) {
+    var parts = s.label.split(' — ');
     return '<li data-id="' + s.id + '"><button type="button" data-target="' + s.id + '">' +
-           '<span class="cs-rail-num">' + s.num + '</span>' +
-           '<span class="cs-rail-name">' + s.name + '</span>' +
+           '<span class="cs-rail-num">' + parts[0] + '</span>' +
+           '<span class="cs-rail-name">' + parts[1] + '</span>' +
            '</button></li>';
   }).join('');
   list.querySelectorAll('button').forEach(function(btn) {
-    btn.addEventListener('click', function() { jump(this.getAttribute('data-target')); });
+    btn.addEventListener('click', function(){ scrollToSection(this.getAttribute('data-target')); });
   });
 
-  var chapter = document.getElementById('cs-chapter');
-  var cbtn = document.getElementById('cs-chapter-btn');
-  var cmenu = document.getElementById('cs-chapter-menu');
-  var clist = document.getElementById('cs-chapter-list');
-  var cnum = document.getElementById('cs-chapter-num');
-  var cname = document.getElementById('cs-chapter-name');
-  function setMenu(open) {
-    cmenu.hidden = !open;
-    cbtn.setAttribute('aria-expanded', open ? 'true' : 'false');
-    if (open) { var a = clist.querySelector('.is-active'); if (a) a.scrollIntoView({ block: 'nearest' }); }
-  }
-  if (chapter && cbtn && cmenu && clist) {
-    clist.innerHTML = SECTIONS.map(function(s) {
-      return '<li><button type="button" class="cs-chapter-item" data-target="' + s.id + '"><span class="n">' + s.num + '</span><span>' + s.name + '</span></button></li>';
-    }).join('');
-    cbtn.addEventListener('click', function() { setMenu(cmenu.hidden); });
-    clist.addEventListener('click', function(e) {
-      var b = e.target.closest('button[data-target]');
-      if (!b) return;
-      setMenu(false);
-      jump(b.getAttribute('data-target'));
-    });
-    document.addEventListener('pointerdown', function(e) { if (!cmenu.hidden && !chapter.contains(e.target)) setMenu(false); });
-    document.addEventListener('keydown', function(e) { if (e.key === 'Escape' && !cmenu.hidden) { setMenu(false); cbtn.focus(); } });
-  }
-
   function setActive(sec) {
-    list.querySelectorAll('li').forEach(function(li) {
-      var on = li.getAttribute('data-id') === sec.id;
-      li.classList.toggle('is-active', on);
-      var b = li.querySelector('button');
-      if (on) b.setAttribute('aria-current', 'true'); else b.removeAttribute('aria-current');
-    });
-    if (chapter && cname) {
-      cnum.textContent = sec.num;
-      cname.innerHTML = sec.name;
-      clist.querySelectorAll('button').forEach(function(b) {
-        var on = b.getAttribute('data-target') === sec.id;
-        b.classList.toggle('is-active', on);
-        if (on) b.setAttribute('aria-current', 'true'); else b.removeAttribute('aria-current');
-      });
-    }
-  }
-  function syncVisibility() {
-    var on = heroGone && !!activeId;
-    rail.classList.toggle('is-visible', on);
-    if (on) rail.removeAttribute('aria-hidden'); else rail.setAttribute('aria-hidden', 'true');
-    if (chapter) { chapter.classList.toggle('is-visible', on); if (!on && !cmenu.hidden) setMenu(false); }
+    var prev = list.querySelector('li.is-active');
+    if (prev) prev.classList.remove('is-active');
+    var li = list.querySelector('li[data-id="' + sec.id + '"]');
+    if (li) li.classList.add('is-active');
   }
 
-  if (!('IntersectionObserver' in window)) return;
+  /* Hide the rail while the hero is in view; reveal once scrolled past it */
   var hero = document.querySelector('.cs-hero');
   if (hero) {
-    new IntersectionObserver(function(entries) {
-      heroGone = !entries[0].isIntersecting;
-      syncVisibility();
-    }, { threshold: 0.05 }).observe(hero);
-  } else { heroGone = true; }
+    var heroObs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (!e.isIntersecting) {
+          heroGone = true;
+          if (activeId) { rail.classList.add('is-visible'); rail.removeAttribute('aria-hidden'); }
+        } else {
+          heroGone = false;
+          rail.classList.remove('is-visible');
+          rail.setAttribute('aria-hidden', 'true');
+        }
+      });
+    }, { threshold: 0.05 });
+    heroObs.observe(hero);
+  } else {
+    heroGone = true;
+  }
 
-  var io = new IntersectionObserver(function(entries) {
-    entries.forEach(function(e) {
-      if (!e.isIntersecting) return;
-      var sec = byId[e.target.id];
-      if (sec && sec.id !== activeId) { activeId = sec.id; setActive(sec); syncVisibility(); }
+  function updateActiveSection() {
+    var triggerY = window.scrollY + window.innerHeight * 0.35;
+    var current = null;
+    SECTIONS.forEach(function(s) {
+      var el = document.getElementById(s.id);
+      if (el && el.offsetTop <= triggerY) current = s;
     });
-  }, { rootMargin: '-35% 0px -64% 0px', threshold: 0 });
-  SECTIONS.forEach(function(s) { var el = document.getElementById(s.id); if (el) io.observe(el); });
+    if (current && current.id !== activeId) {
+      activeId = current.id;
+      setActive(current);
+      if (heroGone) { rail.classList.add('is-visible'); rail.removeAttribute('aria-hidden'); }
+    }
+  }
+
+  window.addEventListener('scroll', updateActiveSection, { passive: true });
+  updateActiveSection();
 })();
 
 /* Reveal-on-scroll choreography */
@@ -2343,7 +2287,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 
 /* ================================================================
    IC++ FEE SIMULATOR — full interactive parity with the source,
-   re-themed: entity labels in the accent, amounts in white, avoidable cost in red
+   re-themed: lime for interchange, warm cream for the downgrade
    reveal, soft greys for gateway/acquirer.
    ================================================================ */
 (function() {
@@ -2427,7 +2371,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
     { id: 'intl',   label: 'International' }
   ];
   const STAGES = [
-    { id: 'gw', entity: 'Payment Gateway', name: 'Processing', color: 'var(--text)',
+    { id: 'gw', entity: 'Payment Gateway', name: 'Processing', color: 'var(--warm)',
       role: "Securely captures the customer's payment details and routes the transaction to the card network for authorisation.",
       fees: {
         debit:  [{ n: 'Processing fee', flat: 0.15 }, { n: 'Tokenisation', flat: 0.05 }, { n: '3DS initiation', flat: 0.05 }],
@@ -2435,7 +2379,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
         corp:   [{ n: 'Processing fee', flat: 0.15 }, { n: 'Tokenisation', flat: 0.05 }, { n: '3DS initiation', flat: 0.08 }],
         intl:   [{ n: 'Processing fee', flat: 0.15 }, { n: 'Tokenisation', flat: 0.05 }, { n: '3DS initiation', flat: 0.1 }, { n: 'International surcharge', pct: 0.15 }]
       } },
-    { id: 'net', entity: 'Card Network', name: 'Authorisation & scheme fees', color: 'var(--text)',
+    { id: 'net', entity: 'Card Network', name: 'Authorisation & scheme fees', color: 'var(--warm)',
       role: 'Routes the transaction between banks and charges fees for processing it.',
       fees: {
         debit:  [{ n: 'Per-authorisation fee', flat: 0.03 }, { n: 'Scheme fee', pct: 0.04 }],
@@ -2443,7 +2387,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
         corp:   [{ n: 'Per-authorisation fee', flat: 0.05 }, { n: 'Scheme fee', pct: 0.12 }],
         intl:   [{ n: 'Per-authorisation fee', flat: 0.05 }, { n: 'Scheme fee (base + cross-border + FX)', pct: 0.4 }]
       } },
-    { id: 'iss', entity: 'Issuing Bank', name: 'Interchange', color: 'var(--text)',
+    { id: 'iss', entity: 'Issuing Bank', name: 'Interchange', color: 'var(--warm)',
       role: "The customer's bank funds the transaction, absorbs credit risk and potential fraud liability, and earns interchange in return. It's the single largest variable in IC++ pricing.",
       fees: {
         debit:  [{ n: 'Interchange', pct: 0.95 }],
@@ -2451,7 +2395,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
         corp:   [{ n: 'Interchange', pct: 2.95 }],
         intl:   [{ n: 'Interchange — cross-border corridor rate', pct: 2.5 }]
       } },
-    { id: 'acq', entity: 'Acquirer + PSP', name: 'Markup, settlement & payout', color: 'var(--text)',
+    { id: 'acq', entity: 'Acquirer + PSP', name: 'Markup, settlement & payout', color: 'var(--warm)',
       role: "The acquiring bank and payment processor handle settlement, disputes, and transfer funds to the merchant's bank account.",
       fees: {
         debit:  [{ n: 'Acquirer markup', pct: 0.1 },  { n: 'Settlement fee — ACH/SEPA', flat: 0.08 }, { n: 'Payout fee', flat: 0.12 }],
@@ -2522,7 +2466,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 
       html += `<div class="cs-sim-stage" id="cs-sim-stage-${si}">
         <div>
-          <div class="cs-sim-stage-entity" style="color:var(--accent)">${s.entity}</div>
+          <div class="cs-sim-stage-entity" style="color:${s.color}">${s.entity}</div>
           <div class="cs-sim-stage-name">${s.name}</div>
           <div class="cs-sim-stage-role">${s.role}</div>
           <div class="cs-sim-stage-fees">${feesHtml}</div>
@@ -2692,7 +2636,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
   canvas.width = W; canvas.height = H;
   const CX = W / 2, CY = H / 2;
   const R_MOD = 178, R_Q = 290;
-  const LIME = () => `rgb(${csAcc()})`;
+  const LIME = '#d4ff5e';
 
   /* Growth choreography — the graph assembles from the center outward
      once scrolled into view: hub blooms, spokes draw, modules pop,
@@ -2802,8 +2746,8 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
       const act = !conn || (conn.has(e.from) && conn.has(e.to));
       ctx.beginPath(); ctx.moveTo(fn.x, fn.y);
       ctx.lineTo(fn.x + (tn.x - fn.x) * p, fn.y + (tn.y - fn.y) * p);
-      if (e.type === 'module') { ctx.strokeStyle = act ? `rgba(${csAcc()},0.4)` : `rgba(${csAcc()},0.06)`; ctx.lineWidth = 1.2; }
-      else { ctx.strokeStyle = act ? `rgba(${csFg()},0.16)` : `rgba(${csFg()},0.04)`; ctx.lineWidth = 0.6; }
+      if (e.type === 'module') { ctx.strokeStyle = act ? 'rgba(212,255,94,0.4)' : 'rgba(212,255,94,0.06)'; ctx.lineWidth = 1.2; }
+      else { ctx.strokeStyle = act ? 'rgba(255,255,255,0.16)' : 'rgba(255,255,255,0.04)'; ctx.lineWidth = 0.6; }
       ctx.stroke();
     });
 
@@ -2814,17 +2758,17 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
         const g = easeBack(rev(0, 500));
         if (g <= 0) return;
         const g1 = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, 55 * g);
-        g1.addColorStop(0, `rgba(${csAcc()},0.16)`); g1.addColorStop(1, `rgba(${csAcc()},0)`);
+        g1.addColorStop(0, 'rgba(212,255,94,0.16)'); g1.addColorStop(1, 'rgba(212,255,94,0)');
         ctx.beginPath(); ctx.arc(n.x, n.y, 55 * g, 0, Math.PI*2); ctx.fillStyle = g1; ctx.fill();
         const g2 = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, 24 * g);
-        g2.addColorStop(0, `rgba(${csAcc()},0.5)`); g2.addColorStop(1, `rgba(${csAcc()},0)`);
+        g2.addColorStop(0, 'rgba(212,255,94,0.5)'); g2.addColorStop(1, 'rgba(212,255,94,0)');
         ctx.beginPath(); ctx.arc(n.x, n.y, 24 * g, 0, Math.PI*2); ctx.fillStyle = g2; ctx.fill();
-        ctx.beginPath(); ctx.arc(n.x, n.y, n.r * g * hm, 0, Math.PI*2); ctx.fillStyle = LIME(); ctx.fill();
+        ctx.beginPath(); ctx.arc(n.x, n.y, n.r * g * hm, 0, Math.PI*2); ctx.fillStyle = LIME; ctx.fill();
         const la = easeOutC(rev(250, 350));
         if (la > 0) {
           ctx.font = '500 17px "Geist", system-ui, sans-serif';
           ctx.textAlign = 'center'; ctx.textBaseline = 'top';
-          ctx.fillStyle = `rgba(${csFg()},${(0.85 + 0.15*n.hs) * la})`;
+          ctx.fillStyle = `rgba(237,237,237,${(0.85 + 0.15*n.hs) * la})`;
           ctx.fillText('HyperSense', n.x, n.y + n.r + 16);
           ctx.textBaseline = 'alphabetic';
         }
@@ -2832,16 +2776,16 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
         const g = easeBack(rev(700 + n.mi*90, 400));
         if (g <= 0) return;
         const gm = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, 30 * g);
-        gm.addColorStop(0, `rgba(${csAcc()},${0.2*a})`); gm.addColorStop(1, `rgba(${csAcc()},0)`);
+        gm.addColorStop(0, `rgba(212,255,94,${0.2*a})`); gm.addColorStop(1, 'rgba(212,255,94,0)');
         ctx.beginPath(); ctx.arc(n.x, n.y, 30 * g, 0, Math.PI*2); ctx.fillStyle = gm; ctx.fill();
         ctx.beginPath(); ctx.arc(n.x, n.y, n.r * g * hm, 0, Math.PI*2);
-        ctx.fillStyle = `rgba(${csAcc()},${a})`; ctx.fill();
+        ctx.fillStyle = `rgba(212,255,94,${a})`; ctx.fill();
         const la = easeOutC(rev(780 + n.mi*90, 350));
         if (la > 0) {
           const lp = lpos(n);
           ctx.font = '500 16px "Geist", system-ui, sans-serif';
           ctx.textAlign = lp.align; ctx.textBaseline = lp.base;
-          ctx.fillStyle = `rgba(${csFg()},${(0.9 + 0.1*n.hs) * a * la})`;
+          ctx.fillStyle = `rgba(237,237,237,${(0.9 + 0.1*n.hs) * a * la})`;
           ctx.fillText(n.label, lp.x, lp.y);
           ctx.textBaseline = 'alphabetic';
         }
@@ -2849,11 +2793,11 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
         const g = easeOutC(rev(1350 + n.mi*90 + n.qi*70, 400));
         if (g <= 0) return;
         ctx.beginPath(); ctx.arc(n.x, n.y, n.r * g * hm, 0, Math.PI*2);
-        ctx.fillStyle = `rgba(${csFg()},${0.68*0.45*a*g})`; ctx.fill();
+        ctx.fillStyle = `rgba(180,180,180,${0.45*a*g})`; ctx.fill();
         const lp2 = lpos(n);
         ctx.font = '15px "Geist", system-ui, sans-serif';
         ctx.textAlign = lp2.align; ctx.textBaseline = lp2.base;
-        ctx.fillStyle = `rgba(${csFg()},${0.68*(0.7 + 0.3*n.hs) * a * g})`;
+        ctx.fillStyle = `rgba(170,170,170,${(0.7 + 0.3*n.hs) * a * g})`;
         ctx.fillText(n.label, lp2.x, lp2.y);
         ctx.textBaseline = 'alphabetic';
       }
@@ -2876,9 +2820,9 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
       else { const lp = (pr - 0.45) / 0.55; px = mn.x + (qn.x - mn.x) * lp; py = mn.y + (qn.y - mn.y) * lp; }
       const al = Math.sin(Math.PI * pr);
       const pg = ctx.createRadialGradient(px, py, 0, px, py, 9);
-      pg.addColorStop(0, `rgba(${csAcc()},${0.3*al})`); pg.addColorStop(1, `rgba(${csAcc()},0)`);
+      pg.addColorStop(0, `rgba(212,255,94,${0.3*al})`); pg.addColorStop(1, 'rgba(212,255,94,0)');
       ctx.beginPath(); ctx.arc(px, py, 9, 0, Math.PI*2); ctx.fillStyle = pg; ctx.fill();
-      ctx.beginPath(); ctx.arc(px, py, 2.2, 0, Math.PI*2); ctx.fillStyle = `rgba(${csAcc()},${0.9*al})`; ctx.fill();
+      ctx.beginPath(); ctx.arc(px, py, 2.2, 0, Math.PI*2); ctx.fillStyle = `rgba(212,255,94,${0.9*al})`; ctx.fill();
     }
     ctx.restore();
     requestAnimationFrame(frame);
@@ -2886,19 +2830,162 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
   frame();
 })();
 
-/* PERSONAS: each card's month opens and closes from the row at its foot */
+/* ================================================================
+   MARKET GLOBE — orthographic D3 projection rendered to canvas,
+   re-themed in lime. Auto-rotates; drag to spin; hover a country
+   for an IC++ / Simplified-pricing context tooltip.
+   Full interactive parity with the source's globe, just re-skinned.
+   ================================================================ */
 (function() {
-  document.querySelectorAll('.cs-journey-toggle').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const card = btn.closest('.cs-persona');
-      const open = !card.classList.contains('is-open');
-      card.classList.toggle('is-open', open);
-      btn.setAttribute('aria-expanded', String(open));
-    });
+  const canvas = document.getElementById('cs-globe-canvas');
+  const tip = document.getElementById('cs-globe-tip');
+  if (!canvas || !tip || typeof d3 === 'undefined' || typeof topojson === 'undefined') return;
+  const ctx = canvas.getContext('2d');
+  const S = 380;
+
+  const ICPP = new Set([840,124,826,276,250,528,724,380,372,752,208,578,246,56,40,756,300,620,203,348,616,233,428,440,703,705,191,642,100,792,36,710]);
+  const INFO = {
+    840:{name:'United States',note:'Highest interchange variability and downgrade exposure'},
+    124:{name:'Canada',note:'IC++ with cross-border complexity'},
+    826:{name:'United Kingdom',note:'Commercial card and cross-border complexity'},
+    276:{name:'Germany',note:'Commercial card interchange'},
+    250:{name:'France',note:'Cross-border and commercial card complexity'},
+    528:{name:'Netherlands',note:'IC++ four-party network'},
+    724:{name:'Spain',note:'IC++ pricing model'},
+    380:{name:'Italy',note:'IC++ pricing model'},
+    372:{name:'Ireland',note:'Major European payment hub'},
+    752:{name:'Sweden',note:'IC++ with strong card adoption'},
+    208:{name:'Denmark',note:'IC++ four-party card network'},
+    578:{name:'Norway',note:'IC++ with cross-border complexity'},
+    246:{name:'Finland',note:'IC++ four-party card network'},
+    56:{name:'Belgium',note:'IC++ pricing model'},
+    40:{name:'Austria',note:'IC++ four-party network'},
+    756:{name:'Switzerland',note:'IC++ with scheme complexity'},
+    300:{name:'Greece',note:'IC++ pricing model'},
+    620:{name:'Portugal',note:'IC++ pricing model'},
+    203:{name:'Czech Republic',note:'IC++ four-party card network'},
+    348:{name:'Hungary',note:'IC++ pricing model'},
+    616:{name:'Poland',note:'IC++ with growing card volume'},
+    233:{name:'Estonia',note:'IC++ four-party network'},
+    428:{name:'Latvia',note:'IC++ four-party network'},
+    440:{name:'Lithuania',note:'IC++ four-party network'},
+    703:{name:'Slovakia',note:'IC++ pricing model'},
+    705:{name:'Slovenia',note:'IC++ pricing model'},
+    191:{name:'Croatia',note:'IC++ pricing model'},
+    642:{name:'Romania',note:'IC++ four-party network'},
+    100:{name:'Bulgaria',note:'IC++ pricing model'},
+    792:{name:'Turkey',note:'IC++ with local scheme complexity'},
+    36:{name:'Australia',note:'Four-party card network model'},
+    710:{name:'South Africa',note:'Visa/Mastercard interchange model'},
+    356:{name:'India',note:'UPI-dominant, near-zero transaction cost'},
+    360:{name:'Indonesia',note:'Domestic rails, flat pricing'},
+    76:{name:'Brazil',note:'Blended rates dominate'},
+    156:{name:'China',note:'UnionPay domestic pricing'},
+    458:{name:'Malaysia',note:'Flat-rate and blended pricing'},
+    764:{name:'Thailand',note:'Simplified pricing model'},
+    484:{name:'Mexico',note:'Blended pricing dominant'},
+    32:{name:'Argentina',note:'Flat-rate pricing'}
+  };
+  const NAMES = {4:'Afghanistan',8:'Albania',12:'Algeria',24:'Angola',50:'Bangladesh',64:'Bhutan',68:'Bolivia',70:'Bosnia & Herz.',72:'Botswana',96:'Brunei',104:'Myanmar',108:'Burundi',116:'Cambodia',120:'Cameroon',132:'Cape Verde',140:'Central African Rep.',144:'Sri Lanka',152:'Chile',158:'Taiwan',170:'Colombia',174:'Comoros',178:'Congo',180:'DR Congo',184:'Cook Islands',188:'Costa Rica',192:'Cuba',196:'Cyprus',204:'Benin',214:'Dominican Rep.',218:'Ecuador',818:'Egypt',222:'El Salvador',231:'Ethiopia',238:'Falkland Islands',242:'Fiji',266:'Gabon',270:'Gambia',288:'Ghana',308:'Grenada',320:'Guatemala',324:'Guinea',328:'Guyana',332:'Haiti',340:'Honduras',364:'Iran',368:'Iraq',376:'Israel',388:'Jamaica',392:'Japan',400:'Jordan',398:'Kazakhstan',404:'Kenya',408:'North Korea',410:'South Korea',414:'Kuwait',418:'Laos',422:'Lebanon',426:'Lesotho',430:'Liberia',434:'Libya',450:'Madagascar',454:'Malawi',462:'Maldives',466:'Mali',478:'Mauritania',480:'Mauritius',496:'Mongolia',504:'Morocco',508:'Mozambique',516:'Namibia',524:'Nepal',562:'Niger',566:'Nigeria',586:'Pakistan',591:'Panama',598:'Papua New Guinea',600:'Paraguay',604:'Peru',608:'Philippines',630:'Puerto Rico',634:'Qatar',646:'Rwanda',682:'Saudi Arabia',686:'Senegal',694:'Sierra Leone',706:'Somalia',729:'Sudan',740:'Suriname',760:'Syria',762:'Tajikistan',834:'Tanzania',800:'Uganda',804:'Ukraine',784:'UAE',860:'Uzbekistan',704:'Vietnam',887:'Yemen',894:'Zambia',716:'Zimbabwe',566:'Nigeria',818:'Egypt',410:'South Korea',392:'Japan',682:'Saudi Arabia',784:'UAE',704:'Vietnam',604:'Peru',170:'Colombia',152:'Chile',12:'Algeria',504:'Morocco'};
+
+  const FILL_ICPP = 'rgba(212,255,94,0.55)';
+  const FILL_ICPP_HOVER = 'rgba(212,255,94,0.8)';
+  const FILL_OTHER = '#282828';
+  const FILL_OTHER_HOVER = '#3a3a3a';
+
+  let drag = false, lastX = 0, lastY = 0, paused = false;
+  let targetRot = [-20, 0], animRot = [-20, 0];
+  const proj = d3.geoOrthographic().scale(S/2 - 2).translate([S/2, S/2]).clipAngle(90).rotate(animRot.slice());
+  const path = d3.geoPath().projection(proj).context(ctx);
+  let countries = null, hoverId = null;
+
+  function draw() {
+    proj.rotate(animRot);
+    ctx.clearRect(0, 0, S, S);
+    ctx.beginPath(); path({ type: 'Sphere' });
+    ctx.fillStyle = '#0c0c0c'; ctx.fill();
+    const grat = d3.geoGraticule().step([30, 30])();
+    ctx.beginPath(); path(grat);
+    ctx.strokeStyle = 'rgba(255,255,255,.07)'; ctx.lineWidth = .5; ctx.stroke();
+    if (countries) {
+      countries.features.forEach(f => {
+        const id = +f.id;
+        const isIcpp = ICPP.has(id);
+        const isHover = id === hoverId;
+        ctx.beginPath(); path(f);
+        ctx.fillStyle = isHover ? (isIcpp ? FILL_ICPP_HOVER : FILL_OTHER_HOVER) : (isIcpp ? FILL_ICPP : FILL_OTHER);
+        ctx.fill();
+        ctx.strokeStyle = 'rgba(0,0,0,.4)'; ctx.lineWidth = .4; ctx.stroke();
+      });
+    }
+    ctx.beginPath(); path({ type: 'Sphere' });
+    ctx.strokeStyle = 'rgba(255,255,255,.09)'; ctx.lineWidth = 1; ctx.stroke();
+  }
+
+  function animate() {
+    if (!paused) {
+      targetRot[0] -= 0.12;
+      animRot[0] += (targetRot[0] - animRot[0]) * 0.06;
+      animRot[1] += (targetRot[1] - animRot[1]) * 0.06;
+    }
+    draw();
+    requestAnimationFrame(animate);
+  }
+
+  canvas.addEventListener('mousedown', e => { drag = true; paused = true; lastX = e.clientX; lastY = e.clientY; canvas.style.cursor = 'grabbing'; });
+  window.addEventListener('mouseup', () => { if (!drag) return; drag = false; canvas.style.cursor = 'grab'; setTimeout(() => paused = false, 1200); });
+  window.addEventListener('mousemove', e => {
+    if (drag) {
+      const dx = e.clientX - lastX, dy = e.clientY - lastY;
+      targetRot[0] += dx * 0.4; targetRot[1] -= dy * 0.4;
+      lastX = e.clientX; lastY = e.clientY;
+    }
   });
+
+  canvas.addEventListener('mousemove', function(e) {
+    if (drag || !countries) return;
+    const rect = canvas.getBoundingClientRect();
+    const scale = S / rect.width;
+    const x = (e.clientX - rect.left) * scale, y = (e.clientY - rect.top) * scale;
+    proj.rotate(animRot);
+    const cx = x - S/2, cy = y - S/2;
+    if (cx*cx + cy*cy > (S/2 - 2) * (S/2 - 2)) {
+      hoverId = null; tip.style.opacity = '0'; canvas.style.cursor = drag ? 'grabbing' : 'grab'; return;
+    }
+    const coords = proj.invert([x, y]);
+    let found = null;
+    if (coords) { countries.features.forEach(f => { if (d3.geoContains(f, coords)) found = f; }); }
+    if (found) {
+      const id = +found.id;
+      const info = INFO[id];
+      const ic = ICPP.has(id);
+      hoverId = id;
+      canvas.style.cursor = 'pointer';
+      tip.style.opacity = '1';
+      tip.style.left = Math.min(e.clientX - rect.left + 14, rect.width - 200) + 'px';
+      tip.style.top = Math.max(e.clientY - rect.top - 54, 8) + 'px';
+      const name = info ? info.name : (NAMES[id] || 'Unknown');
+      const note = info ? info.note : (ic ? 'IC++ pricing market' : 'Limited IC++ exposure');
+      const accent = ic ? 'var(--accent)' : 'var(--text-soft)';
+      const badgeBg = ic ? 'rgba(212,255,94,0.18)' : 'rgba(138,138,138,0.18)';
+      tip.innerHTML = '<strong style="color:' + accent + ';font-weight:500">' + name + '</strong>'
+        + '<span class="cs-globe-tip-badge" style="background:' + badgeBg + ';color:' + accent + '">' + (ic ? 'IC++' : 'Simplified') + '</span>'
+        + '<br><span style="color:var(--text-muted);font-size:10px">' + note + '</span>';
+    } else {
+      hoverId = null;
+      canvas.style.cursor = 'grab';
+      tip.style.opacity = '0';
+    }
+  });
+  canvas.addEventListener('mouseleave', () => { if (!drag) { hoverId = null; tip.style.opacity = '0'; canvas.style.cursor = 'grab'; } });
+
+  fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')
+    .then(r => r.json())
+    .then(world => { countries = topojson.feature(world, world.objects.countries); animate(); })
+    .catch(() => { draw(); });
 })();
 
-console.log('%cHi.','font-family:"Instrument Serif",serif;font-size:32px;font-style:italic;color:#ededed;');
+console.log('%cHi.','font-family:"Instrument Serif",serif;font-size:32px;font-style:italic;color:#d4ff5e;');
 console.log('%cYou found the HyperSense rebuild — full case study, sections 01–09. → hello@akhilmale.com','font-family:monospace;font-size:12px;color:#8a8a8a;');
 </script>
 
@@ -2950,65 +3037,6 @@ console.log('%cYou found the HyperSense rebuild — full case study, sections 01
 <script>
 const navEl = document.querySelector('nav');
 window.addEventListener('scroll', () => { navEl.classList.toggle('is-scrolled', window.scrollY > 8); }, { passive: true });
-</script>
-<script>
-/* Recordings: the one that is mostly on screen plays and the rest pause. A pause the viewer
-   chose holds until that video has left the screen, a play they chose is left alone, and
-   fullscreen is never interrupted. */
-(function() {
-  var videos = Array.prototype.slice.call(document.querySelectorAll('.cs-stage > video'));
-  if (!videos.length) return;
-  if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    videos.forEach(function(v) { v.removeAttribute('autoplay'); v.pause(); });
-    return;
-  }
-  if (!('IntersectionObserver' in window)) return;
-  var ratio = new Map(videos.map(function(v) { return [v, 0]; }));
-  var mine = new WeakSet();        // play()/pause() made here, so their events aren't read as the viewer's
-  var heldPaused = new WeakSet();  // paused by the viewer
-  var heldPlaying = new WeakSet(); // started by the viewer
-  var SEEN = 0.25, LEAD = 0.5;
-
-  function play(v) {
-    if (!v.paused) return;
-    mine.add(v);
-    var p = v.play();
-    if (p && p.catch) p.catch(function() { mine.delete(v); });
-  }
-  function pause(v) { if (!v.paused) { mine.add(v); v.pause(); } }
-  function inFullscreen() { return videos.indexOf(document.fullscreenElement) !== -1; }
-
-  videos.forEach(function(v) {
-    v.addEventListener('play', function() {
-      if (mine.has(v)) { mine.delete(v); return; }
-      heldPaused.delete(v); heldPlaying.add(v);
-    });
-    v.addEventListener('pause', function() {
-      if (mine.has(v)) { mine.delete(v); return; }
-      if (ratio.get(v) < SEEN || inFullscreen()) return; // the browser pausing an off-screen video
-      heldPlaying.delete(v); heldPaused.add(v);
-    });
-  });
-
-  function sync() {
-    if (inFullscreen()) return;
-    var best = null, top = 0;
-    videos.forEach(function(v) { var r = ratio.get(v); if (r > top) { top = r; best = v; } });
-    videos.forEach(function(v) {
-      var r = ratio.get(v);
-      if (r === 0) { heldPaused.delete(v); heldPlaying.delete(v); } // off screen: forget what the viewer chose
-      if (v === best && top >= LEAD) { if (!heldPaused.has(v)) play(v); }
-      else if (r === 0 || !heldPlaying.has(v)) pause(v);
-    });
-  }
-
-  var io = new IntersectionObserver(function(entries) {
-    entries.forEach(function(e) { ratio.set(e.target, e.isIntersecting ? e.intersectionRatio : 0); });
-    sync();
-  }, { threshold: [0, 0.25, 0.5, 0.75, 1] });
-  videos.forEach(function(v) { io.observe(v); });
-  document.addEventListener('fullscreenchange', sync);
-})();
 </script>
 </body>
 </html>

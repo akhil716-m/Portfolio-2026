@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex">
+<title>Revenue Recovery, a mood board</title>
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* A one-page glimpse of Revenue Recovery. Each moment is a whole screen, so the
+   context stays intact; a neutral spotlight dims the rest of the screen around the
+   detail that matters when you hover a screen. The board itself adds no colour: the only colour is
+   the product's own. Ground and text follow the theme picked on the home preview. */
+:root {
+  --bg: #0a0a0a; --bg-rgb: 10 10 10; --text: #ededed; --text-soft: #8a8a8a; --text-muted: #7a7a7a;
+  --line: #1f1f1f; --fg-rgb: 255 255 255;
+  --gutter: clamp(20px, 6vw, 100px);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { background: var(--bg); color-scheme: dark; }
+body {
+  font-family: 'Geist', sans-serif;
+  color: var(--text);
+  background: var(--bg);
+  background-image: radial-gradient(circle, rgb(var(--fg-rgb) / 0.05) 1px, transparent 1px);
+  background-size: 28px 28px;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; }
+
+.top {
+  position: sticky; top: 0; z-index: 20;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 18px var(--gutter);
+  background: rgb(var(--bg-rgb) / 0.8);
+  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+  font: 500 13px 'Geist Mono', monospace;
+}
+.top a { text-decoration: none; }
+.top span { color: var(--text-muted); font-weight: 400; }
+
+.wrap { max-width: 1440px; margin: 0 auto; padding: 0 var(--gutter) 160px; }
+
+/* Intro */
+.intro {
+  display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: clamp(32px, 6vw, 96px); align-items: end;
+  padding: clamp(80px, 12vw, 160px) 0 clamp(56px, 7vw, 96px);
+}
+.eyebrow { font: 400 12px 'Geist Mono', monospace; letter-spacing: 0.06em; color: var(--text-muted); text-transform: uppercase; }
+.intro h1 { margin-top: 20px; font-size: clamp(44px, 6vw, 84px); font-weight: 500; letter-spacing: -0.035em; line-height: 1; }
+.intro h1 em { font-style: normal; color: var(--text-soft); }
+.intro .tag { display: inline-block; margin-top: 22px; padding: 6px 12px; border: 1px solid rgb(var(--fg-rgb) / 0.16); border-radius: 100px; font: 400 12px 'Geist Mono', monospace; color: var(--text-soft); }
+.demo { display: inline-flex; gap: 6px; margin: 22px 0 0 14px; font: 400 12px 'Geist Mono', monospace; color: var(--text-soft); text-decoration: none; border-bottom: 1px solid rgb(var(--fg-rgb) / 0.2); padding-bottom: 2px; transition: color 0.2s, border-color 0.2s; }
+.demo:hover { color: var(--text); border-color: rgb(var(--fg-rgb) / 0.6); }
+.intro p { font-size: clamp(16px, 1.25vw, 19px); font-weight: 300; line-height: 1.6; color: var(--text-soft); max-width: 46ch; }
+.intro p b { font-weight: 500; color: var(--text); }
+.intro p + p { margin-top: 14px; font-size: 14px; color: var(--text-muted); }
+
+/* Screens */
+.shot {
+  position: relative;
+  margin: 0;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 0 0 1px rgb(var(--fg-rgb) / 0.08), 0 50px 100px -50px rgba(0, 0, 0, 0.9);
+}
+.shot { overflow: hidden; }
+.shot img { display: block; width: 100%; height: auto; border-radius: inherit; }
+/* spotlight: hover a screen and the rest of it dims around the detail that matters */
+.spot {
+  position: absolute;
+  left: var(--x); top: var(--y); width: var(--w); height: var(--h);
+  border-radius: 8px;
+  outline: 1.5px solid rgba(255, 255, 255, 0);
+  box-shadow: 0 0 0 200vmax rgba(10, 10, 10, 0);
+  pointer-events: none;
+  transition: box-shadow 0.45s ease, outline-color 0.45s ease;
+}
+.shot:hover .spot { box-shadow: 0 0 0 200vmax rgba(10, 10, 10, 0.34); outline-color: rgba(255, 255, 255, 0.95); }
+.spot b {
+  position: absolute; top: calc(100% + 10px); left: 0;
+  padding: 4px 9px; border-radius: 5px;
+  background: #0e0e0e; color: #ededed;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.14);
+  font: 500 11px 'Geist Mono', monospace; letter-spacing: 0.01em; white-space: nowrap;
+  opacity: 0;
+  translate: 0 4px;
+  transition: opacity 0.3s ease, translate 0.3s ease;
+}
+.spot--above b { top: auto; bottom: calc(100% + 10px); }
+.spot--end b { left: auto; right: 0; }
+.shot:hover .spot b { opacity: 1; translate: 0 0; transition-delay: 0.1s; }
+/* Notes */
+.note { max-width: 34ch; }
+.note-n { display: flex; align-items: center; gap: 12px; font: 500 12px 'Geist Mono', monospace; color: var(--text-muted); }
+.note-n::after { content: ''; width: 40px; height: 1px; background: rgb(var(--fg-rgb) / 0.22); }
+.note h3 { margin-top: 14px; font-size: clamp(20px, 1.7vw, 24px); font-weight: 500; letter-spacing: -0.02em; line-height: 1.25; }
+.note p { margin-top: 10px; font-size: 15px; font-weight: 300; line-height: 1.65; color: var(--text-soft); }
+
+/* Moments: a screen on one side, its note on the other */
+.m {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: 24px;
+  align-items: center;
+  margin-bottom: clamp(110px, 12vw, 170px);
+}
+.m > .shot { grid-column: 1 / 9; grid-row: 1; }
+.m > .note { grid-column: 10 / 13; grid-row: 1; }
+.m--flip > .shot { grid-column: 5 / 13; }
+.m--flip > .note { grid-column: 1 / 4; }
+
+.lead { margin-bottom: clamp(110px, 12vw, 170px); }
+
+.palette { margin-top: 36px; }
+.palette h4 { font: 400 12px 'Geist Mono', monospace; color: var(--text-muted); letter-spacing: 0.04em; margin-bottom: 14px; }
+.sw { display: flex; flex-wrap: wrap; gap: 12px 10px; }
+.sw figure { display: flex; flex-direction: column; }
+.sw span {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 6px 12px 6px 8px; border-radius: 6px;
+  background: var(--f); color: var(--c);
+  font: 500 13px 'Geist', sans-serif;
+}
+.sw span::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--c); }
+.sw i { display: block; margin-top: 4px; font: 400 10.5px 'Geist Mono', monospace; font-style: normal; color: var(--text-muted); }
+
+.end { display: flex; justify-content: space-between; gap: 24px; padding-top: 40px; border-top: 1px solid var(--line); font: 400 12px 'Geist Mono', monospace; color: var(--text-muted); }
+.end a { color: var(--text-soft); text-decoration: none; }
+.end a:hover { color: var(--text); }
+
+/* pieces settle in as they arrive */
+.js .rise { opacity: 0; translate: 0 24px; transition: opacity 0.8s ease, translate 0.8s cubic-bezier(0.22, 1, 0.36, 1); }
+.js .rise.is-in { opacity: 1; translate: 0 0; }
+
+@media (max-width: 960px) {
+  .intro { grid-template-columns: 1fr; align-items: start; }
+  .m { display: flex; flex-direction: column; align-items: stretch; gap: 24px; }
+  .m > .note { order: -1; max-width: none; }
+  .spot b { font-size: 10px; padding: 3px 7px; }
+}
+/* touch screens can't hover, so the spotlight is simply on */
+@media (hover: none) {
+  .spot { box-shadow: 0 0 0 200vmax rgba(10, 10, 10, 0.28); outline-color: rgba(255, 255, 255, 0.95); }
+  .spot b { opacity: 1; translate: 0 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .spot, .spot b { transition: none; }
+  .js .rise { opacity: 1; translate: none; transition: none; }
+}
+
+/* ===== Page transitions =====
+   Moving between pages of the site (home, case studies, resume) cross-fades instead of
+   cutting: the old page fades out, the new one fades in and settles up a few pixels.
+   Browsers without cross-document view transitions simply navigate as before. */
+@view-transition { navigation: auto; }
+::view-transition-old(root) { animation: vt-out 0.22s ease both; }
+::view-transition-new(root) { animation: vt-in 0.42s cubic-bezier(0.22, 1, 0.36, 1) 0.06s both; }
+@keyframes vt-out { to { opacity: 0; } }
+@keyframes vt-in { from { opacity: 0; transform: translateY(10px); } }
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root), ::view-transition-new(root) { animation: none; }
+}
+</style>
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+<header class="top"><a href="/">Akhil Male</a><span>Revenue Recovery · mood board</span></header>
+
+<main class="wrap">
+  <section class="intro">
+    <div>
+      <div class="eyebrow">A glimpse · Juspay Hyperswitch · 2026</div>
+      <h1>Revenue <em>Recovery</em></h1>
+      <span class="tag">0 → 1 product</span>
+      <a class="demo" href="https://recovery-demo.vercel.app/" target="_blank" rel="noopener">Try the interactive demo <span aria-hidden="true">↗</span></a>
+    </div>
+    <div>
+      <p>Subscription businesses lose revenue every time a renewal payment fails. Revenue Recovery takes over those failed invoices and decides, <b>invoice by invoice</b>, when to retry, which card to use and which strategy gives it the best chance.</p>
+      <p>A few moments from what we built, not the full story.</p>
+    </div>
+  </section>
+
+  <figure class="shot lead rise">
+    <img src="assets/rr/overview-full.webp" width="2200" height="1351" alt="Revenue Recovery overview: declines, recovered invoices, the hard-decline budget and recovery over time" loading="lazy">
+  </figure>
+
+  <!-- 01 -->
+  <section class="m">
+    <figure class="shot rise">
+      <img src="assets/rr/detail-full.webp" width="2200" height="1262" alt="Invoice detail: attempt history beside a What's happening? feed" loading="lazy">
+      <span class="spot spot--above spot--end" style="--x:76%;--y:33.4%;--w:21.8%;--h:63.6%"><b>What's happening?</b></span>
+    </figure>
+    <div class="note rise">
+      <div class="note-n">01</div>
+      <h3>It explains itself.</h3>
+      <p>Every invoice keeps a running account in plain words: five declines for insufficient balance, so it switches on partial auth and starts recovering in chunks.</p>
+    </div>
+  </section>
+
+  <!-- 02 -->
+  <section class="m m--flip">
+    <figure class="shot rise">
+      <img src="assets/rr/handoff-full.webp" width="2200" height="1262" alt="Overview showing unrecovered revenue routed from the merchant to Juspay's Revenue Recovery" loading="lazy">
+      <span class="spot" style="--x:19.4%;--y:19.2%;--w:78.4%;--h:13.8%"><b>Unrecovered revenue, routed in</b></span>
+    </figure>
+    <div class="note rise">
+      <div class="note-n">02</div>
+      <h3>It starts where the merchant stops.</h3>
+      <p>Invoices the merchant's own retries couldn't save are handed over, and every dollar is accounted for: recovered, scheduled, or out of reach.</p>
+    </div>
+  </section>
+
+  <!-- 03 -->
+  <section class="m">
+    <figure class="shot rise">
+      <img src="assets/rr/budget-full.webp" width="2200" height="1262" alt="Hard decline retry configuration: a monthly budget with a suggested amount" loading="lazy">
+      <span class="spot" style="--x:32.8%;--y:64.4%;--w:14.6%;--h:8.4%"><b>Expected return, before committing</b></span>
+    </figure>
+    <div class="note rise">
+      <div class="note-n">03</div>
+      <h3>Spend to recover.</h3>
+      <p>Some hard declines can still be won back on other networks or gateways, at a cost. Merchants set a monthly budget, starting from a suggestion based on their recent losses, and see the expected return before they commit.</p>
+    </div>
+  </section>
+
+  <!-- 04 -->
+  <section class="m m--flip">
+    <figure class="shot rise">
+      <img src="assets/rr/config-full.webp" width="2200" height="1262" alt="Retry configuration: external retries, multi-card switching and hard-decline retries" loading="lazy">
+      <span class="spot spot--end" style="--x:19.4%;--y:60%;--w:38.4%;--h:20%"><b>Only when it's likely to work</b></span>
+    </figure>
+    <div class="note rise">
+      <div class="note-n">04</div>
+      <h3>Guardrails, not guesswork.</h3>
+      <p>It retries hard declines only when success looks likely, and moves on to the customer's next card after five tries or ten days.</p>
+    </div>
+  </section>
+
+  <!-- 05 -->
+  <section class="m">
+    <figure class="shot rise">
+      <img src="assets/rr/invoices-full.webp" width="2200" height="1262" alt="List of invoices with status and recovery progress" loading="lazy">
+      <span class="spot" style="--x:45.2%;--y:34.2%;--w:33.4%;--h:38.4%"><b>Status and progress, per invoice</b></span>
+    </figure>
+    <div class="note rise">
+      <div class="note-n">05</div>
+      <h3>A status for every invoice.</h3>
+      <p>Six states and a progress bar, so a finance team can read thousands of invoices at a glance and open any one to see its story.</p>
+      <div class="palette">
+        <h4>The status language</h4>
+        <div class="sw">
+          <figure><span style="--c:#00a53b;--f:#f0fdf4">Recovered</span><i>#00A53B</i></figure>
+          <figure><span style="--c:#ad42f8;--f:#fbf5fe">Scheduled</span><i>#AD42F8</i></figure>
+          <figure><span style="--c:#fe6400;--f:#fef7ec">Pending</span><i>#FE6400</i></figure>
+          <figure><span style="--c:#1b3eb8;--f:#eff7ff">Queued</span><i>#1B3EB8</i></figure>
+          <figure><span style="--c:#e9010e;--f:#fef2f2">Terminated</span><i>#E9010E</i></figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 -->
+  <section class="m m--flip">
+    <figure class="shot rise">
+      <img src="assets/rr/strategies-full.webp" width="2200" height="1262" alt="Breakdown of recovery by strategy" loading="lazy">
+      <span class="spot" style="--x:35.6%;--y:22.4%;--w:16.4%;--h:34.4%"><b>Strategies, combined</b></span>
+    </figure>
+    <div class="note rise">
+      <div class="note-n">06</div>
+      <h3>Strategies that stack.</h3>
+      <p>Card switching, partial auth, account updater and hard-decline retries combine per invoice, and every recovered dollar is traced back to the mix that won it.</p>
+    </div>
+  </section>
+
+  <!-- 07 -->
+  <section class="m">
+    <figure class="shot rise">
+      <img src="assets/rr/vs-full.webp" width="2200" height="1239" alt="Recovery rate compared with the merchant's own, by failure type" loading="lazy">
+      <span class="spot spot--above" style="--x:25%;--y:31%;--w:9.6%;--h:21%"><b>Expired cards</b></span>
+    </figure>
+    <div class="note rise">
+      <div class="note-n">07</div>
+      <h3>Measured against the merchant.</h3>
+      <p>Recovery is shown side by side with the merchant's own rate for each type of failure, so the value is never a claim, it's a comparison.</p>
+    </div>
+  </section>
+
+  <!-- 08 -->
+  <section class="m m--flip">
+    <figure class="shot rise">
+      <img src="assets/rr/onboarding-full.webp" width="2200" height="1262" alt="Setup flow: data source, processor, platform, retries, webhook, review" loading="lazy">
+      <span class="spot spot--end" style="--x:6.2%;--y:15%;--w:18%;--h:43.6%"><b>Five steps</b></span>
+    </figure>
+    <div class="note rise">
+      <div class="note-n">08</div>
+      <h3>Live in five steps.</h3>
+      <p>Pick a data source, connect the processor, configure retries, add a webhook, review. The engine takes it from there.</p>
+    </div>
+  </section>
+
+  <footer class="end"><span>Revenue Recovery · Juspay Hyperswitch</span><a href="/#work">← Back to the work</a></footer>
+</main>
+
+<script type="module">
+// ground and text follow the theme picked on the home preview (dark if none yet)
+import { THEMES, PALETTES, paintTheme, loadShared } from './assets/fx/fx-core.js';
+const s = loadShared();
+paintTheme(THEMES[s.theme] ? s.theme : 'dark', PALETTES.ink);
+</script>
+<script>
+// each piece rises in the first time it scrolls into view
+(function () {
+  const items = document.querySelectorAll('.rise');
+  if (!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) { items.forEach(i => i.classList.add('is-in')); return; }
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -10% 0px' });
+  items.forEach(i => io.observe(i));
+})();
+</script>
+</body>
+</html>

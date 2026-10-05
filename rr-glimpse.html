@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex">
+<title>Revenue Recovery, a glimpse</title>
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Variation B for the smaller projects: one page, one glance. It opens like the case
+   studies (tags, title, context, role, scope and team on a full fold of text), then the
+   product laid out as panels:
+   real screens and cards from the product sitting on quiet glass, each panel lit by a
+   faint glow in the hero illustration's violets (the welcome panel only). Ground and text follow the theme
+   picked on the home preview. */
+:root {
+  --bg: #0a0a0a; --bg-rgb: 10 10 10; --text: #ededed; --text-soft: #8a8a8a; --text-muted: #7a7a7a;
+  --line: #1f1f1f; --fg-rgb: 255 255 255;
+  --gutter: clamp(20px, 6vw, 100px);
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --rr: #9d8cf5; /* violet from the hero illustration: the page's one touch of colour */
+}
+html:not([data-fx-theme="dark"]) { --rr: #6a5ae0; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { background: var(--bg); color-scheme: dark; }
+body { font-family: 'Geist', sans-serif; color: var(--text); background: var(--bg); -webkit-font-smoothing: antialiased; }
+a { color: inherit; }
+
+.top {
+  position: sticky; top: 0; z-index: 20;
+  display: flex; align-items: center;
+  padding: 18px var(--gutter);
+  background: rgb(var(--bg-rgb) / 0.8);
+  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+  font: 500 13px 'Geist Mono', monospace;
+}
+.top a { text-decoration: none; }
+.top .back { display: inline-flex; gap: 8px; font-weight: 400; color: var(--text-soft); transition: color 0.2s, gap 0.2s; }
+.top .back:hover { color: var(--text); gap: 12px; }
+
+.wrap { max-width: 1320px; margin: 0 auto; padding: clamp(32px, 5vw, 64px) var(--gutter) 140px; }
+
+/* ---------- The product, as panels ---------- */
+.show { --gap: clamp(10px, 1.6vw, 18px); --pad: clamp(16px, 3.4vw, 38px);
+  display: grid; gap: var(--gap); margin-top: clamp(48px, 6vw, 80px); }
+.row { display: flex; gap: var(--gap); }
+/* Dusk: dark, tinted toward the hero's violet and backlit from below, so the white
+   screens look lit rather than pasted on. On the light themes the same idea turns
+   into a pale violet wash (Mist). */
+.panel {
+  position: relative; isolation: isolate; overflow: hidden;
+  border-radius: clamp(16px, 2.4vw, 28px);
+  background:
+    radial-gradient(70% 55% at 50% 100%, rgba(129, 101, 235, 0.24), transparent 72%),
+    radial-gradient(90% 60% at 50% 0%, rgba(255, 255, 255, 0.05), transparent 70%),
+    #121019;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), inset 0 0 0 1px rgba(157, 140, 245, 0.12);
+}
+html:not([data-fx-theme="dark"]) .panel {
+  background:
+    radial-gradient(70% 60% at 50% 100%, rgba(129, 101, 235, 0.16), transparent 72%),
+    radial-gradient(60% 50% at 0% 0%, rgba(207, 198, 255, 0.5), transparent 70%),
+    linear-gradient(180deg, #f3f2f9, #e8e6f3);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.04);
+}
+/* a fine grain, so the gradients read as material, not banding */
+.panel::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+html:not([data-fx-theme="dark"]) .panel::before { opacity: 0.07; mix-blend-mode: multiply; }
+/* the glow sits under everything in its panel */
+.glow { position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: var(--glow, 0.4); transition: opacity 0.6s ease; }
+.panel img { display: block; height: auto; }
+
+/* every screen sits on the same inset on all four sides. In a row, each panel's share
+   of the width is its card's aspect ratio (width / height), so both cards come out the
+   same height and neither needs extra room above or below */
+.p-win, .p-card { display: grid; place-items: center; padding: var(--pad); }
+.shot-in { width: 100%; }
+.p-chip { flex: 5.092 1 0; }    /* 3320 × 652 */
+.p-hook { flex: 2.809 1 0; }    /* 1843 × 656 */
+.p-budget { flex: 2.082 1 0; }  /* 2424 × 1164 */
+.p-compare { flex: 2.660 1 0; } /* 3096 × 1164 */
+
+/* the welcome screen: illustration and its line */
+.p-hero { container-type: inline-size; padding: 1.46cqw 1.46cqw 4.4cqw; text-align: center; }
+.p-hero .art { width: 100%; }
+.p-hero h2 { margin: 3.5cqw auto 0; font-size: max(17px, 1.95cqw); font-weight: 500; letter-spacing: -0.02em; line-height: 1.25; }
+.p-hero p { max-width: 60ch; margin: 0.9cqw auto 0; font-size: max(13px, 1.28cqw); font-weight: 300; line-height: 1.55; color: var(--text-soft); }
+
+
+/* on the white surface the copy that sits on the panel itself goes dark */
+
+/* the interactive demo, last: a glimpse of it and why it was built */
+.demo-end { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 56px); align-items: center; margin-top: clamp(64px, 8vw, 112px); padding-top: clamp(32px, 4vw, 48px); border-top: 1px solid rgb(var(--fg-rgb) / 0.1); }
+.demo-end .eyebrow { margin: 0; font: 400 12px 'Geist Mono', monospace; color: var(--text-muted); }
+.demo-end h2 { margin-top: 10px; font-size: clamp(22px, 2.2vw, 30px); font-weight: 500; letter-spacing: -0.02em; line-height: 1.2; }
+.demo-end p { margin-top: 12px; font-size: clamp(15px, 1.15vw, 17px); font-weight: 300; line-height: 1.65; color: var(--text-soft); max-width: 46ch; }
+.demo-end p b { font-weight: 500; color: var(--text); }
+.demo-end .demo { margin-top: 20px; }
+/* a bezel: a thin rim, lit from the top, between two hairlines; the screenshot sits
+   inside it with its own softer corners */
+.demo-shot { display: block; justify-self: end; width: min(100%, 520px); padding: 6px; text-decoration: none; border-radius: 18px;
+  background: linear-gradient(180deg, rgb(var(--fg-rgb) / 0.12), rgb(var(--fg-rgb) / 0.03) 60%, rgb(var(--fg-rgb) / 0.06));
+  box-shadow: inset 0 0 0 1px rgb(var(--fg-rgb) / 0.08), 0 24px 48px -28px rgba(0, 0, 0, 0.6);
+  transition: translate 0.6s var(--ease), box-shadow 0.6s var(--ease); }
+.demo-shot:hover { translate: 0 -4px; box-shadow: inset 0 0 0 1px rgb(var(--fg-rgb) / 0.16), 0 32px 56px -28px rgba(0, 0, 0, 0.7); }
+.demo-shot img { display: block; width: 100%; height: auto; border-radius: 12px; background: #0b0d12; box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.5); }
+
+
+/* ---------- Opening, in the case studies' language ---------- */
+/* full fold of text first, the product after it, like the case-study heroes */
+.cs-hero { position: relative; min-height: calc(100svh - 58px); display: flex; flex-direction: column; justify-content: flex-end;
+  margin-top: calc(-1 * clamp(32px, 5vw, 64px)); padding: 120px 0 clamp(56px, 8vh, 96px); }
+.cs-hero-eyebrow { font: 400 11px 'Geist Mono', monospace; letter-spacing: 0.24em; text-transform: uppercase; color: var(--rr); margin-bottom: 26px; }
+.cs-hero-eyebrow .sep { color: var(--text-muted); margin: 0 10px; letter-spacing: 0; }
+.cs-hero-title { font-size: clamp(60px, 11vw, 130px); font-weight: 500; line-height: 0.96; letter-spacing: -0.03em; max-width: 920px; }
+.cs-hero-title em { font-style: normal; color: var(--text-soft); }
+.cs-hero-desc { margin-top: clamp(24px, 3vw, 36px); max-width: 68ch; font-size: clamp(16px, 1.3vw, 19px); font-weight: 300; line-height: 1.65; color: var(--text-soft); }
+.cs-hero-desc b { font-weight: 500; color: var(--text); }
+.cs-hero-meta { display: flex; flex-wrap: wrap; gap: 24px 48px; margin-top: clamp(40px, 5vw, 58px); padding-top: 32px; border-top: 1px solid rgb(var(--fg-rgb) / 0.1); }
+.cs-hero-meta-item label { display: block; font: 400 12px 'Geist Mono', monospace; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 9px; }
+.cs-hero-meta-item span { font-size: 14.5px; font-weight: 400; color: var(--text); }
+/* the opening rises in on load, in the same order as the case studies */
+@keyframes csFadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+.cs-hero > * { opacity: 0; animation: csFadeUp 0.8s ease forwards; }
+.cs-hero-eyebrow { animation-delay: 0.2s; }
+.cs-hero-title { animation-delay: 0.35s; }
+.cs-hero-desc { animation-delay: 0.45s; }
+.cs-hero-meta { animation-delay: 0.55s; }
+
+.demo { display: inline-flex; gap: 6px; font: 400 12px 'Geist Mono', monospace; color: var(--text-soft); text-decoration: none; border-bottom: 1px solid rgb(var(--fg-rgb) / 0.2); padding-bottom: 2px; transition: color 0.2s, border-color 0.2s; }
+.demo:hover { color: var(--text); border-color: rgb(var(--fg-rgb) / 0.6); }
+
+.js .rise { opacity: 0; translate: 0 20px; transition: opacity 0.8s ease, translate 0.8s var(--ease); }
+.js .rise.is-in { opacity: 1; translate: 0 0; }
+
+@media (max-width: 900px) {
+  }
+@media (max-width: 700px) {
+  .row { flex-direction: column; }
+  .demo-end { grid-template-columns: 1fr; }
+  .demo-shot { justify-self: stretch; width: 100%; }
+  .row > .panel { flex: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .js .rise { opacity: 1; translate: none; transition: none; }
+  .glow, .demo-shot { transition: none; }
+  .cs-hero > * { opacity: 1; animation: none; }
+  }
+
+/* ===== Page transitions =====
+   Moving between pages of the site (home, case studies, resume) cross-fades instead of
+   cutting: the old page fades out, the new one fades in and settles up a few pixels.
+   Browsers without cross-document view transitions simply navigate as before. */
+@view-transition { navigation: auto; }
+::view-transition-old(root) { animation: vt-out 0.22s ease both; }
+::view-transition-new(root) { animation: vt-in 0.42s cubic-bezier(0.22, 1, 0.36, 1) 0.06s both; }
+@keyframes vt-out { to { opacity: 0; } }
+@keyframes vt-in { from { opacity: 0; transform: translateY(10px); } }
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root), ::view-transition-new(root) { animation: none; }
+}
+</style>
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+<header class="top"><a class="back" href="/#work"><span class="arr" aria-hidden="true">←</span> Back to the work</a></header>
+
+<main class="wrap">
+  <header class="cs-hero">
+    <div class="cs-hero-eyebrow">Product design<span class="sep">·</span>Juspay Hyperswitch<span class="sep">·</span>2026</div>
+    <h1 class="cs-hero-title">Revenue <em>Recovery</em></h1>
+    <p class="cs-hero-desc">Designed the Revenue Recovery product <b>from 0→1</b>, shaping the end-to-end experience and translating a complex recovery system into a clear, intuitive experience for merchants. Also collaborated with the Business Development team to create interactive product demos for merchant conversations.</p>
+    <div class="cs-hero-meta">
+      <div class="cs-hero-meta-item"><label>Role</label><span>Solo Product Designer</span></div>
+      <div class="cs-hero-meta-item"><label>Scope</label><span>0 → 1 Product</span></div>
+      <div class="cs-hero-meta-item"><label>Team</label><span>Product, Engineering, Business Development</span></div>
+    </div>
+  </header>
+
+  <figure class="panel p-hero rise" data-glow="bl">
+    <img class="art" src="assets/rr/glimpse/v2/hero-art.webp" width="2200" height="789" alt="Failed payments flowing through a retry engine and coming out recovered">
+    <h2>Recover lost subscription revenue with intelligent retries</h2>
+    <p>Recover failed recurring payments with smart retry strategies that determine when and how to retry helping you reduce involuntary churn and recover more revenue.</p>
+  </figure>
+
+  <section class="show" aria-label="Revenue Recovery, screen by screen">
+    <figure class="panel p-win rise">
+      <img class="shot-in" src="assets/rr/glimpse/v2/overview.webp" width="2000" height="1138" alt="Revenue Recovery overview: failed revenue split into recovered, scheduled and unrecoverable, with the recovery trend" loading="lazy">
+    </figure>
+
+    <div class="row">
+      <figure class="panel p-card p-chip rise">
+        <img class="shot-in" src="assets/rr/glimpse/v2/recovery-chip.webp" width="1160" height="228" alt="An invoice's recovery progress: $248 of $1000 recovered, next retry scheduled" loading="lazy">
+      </figure>
+      <figure class="panel p-card p-hook rise">
+        <img class="shot-in" src="assets/rr/glimpse/v2/webhook.webp" width="900" height="291" alt="Set up a webhook: the endpoint to paste into the processor's dashboard, with a copy button" loading="lazy">
+      </figure>
+    </div>
+
+    <figure class="panel p-win rise">
+      <img class="shot-in" src="assets/rr/glimpse/v2/invoices.webp" width="2000" height="1138" alt="Invoice recovery overview: invoices in progress, partially recovered and lost, and the list of invoices with their status and recovery progress" loading="lazy">
+    </figure>
+
+    <div class="row">
+      <figure class="panel p-card p-budget rise">
+        <img class="shot-in" src="assets/rr/glimpse/v2/budget.webp" width="900" height="432" alt="Set a monthly retry budget, with a suggested budget to start from" loading="lazy">
+      </figure>
+      <figure class="panel p-card p-compare rise">
+        <img class="shot-in" src="assets/rr/glimpse/v2/comparison.webp" width="1100" height="414" alt="Recovery rate by failure type, Juspay Hyperswitch against the merchant's own retries" loading="lazy">
+      </figure>
+    </div>
+
+    <figure class="panel p-win rise">
+      <img class="shot-in" src="assets/rr/glimpse/v2/invoice-details.webp" width="2000" height="1138" alt="Invoice recovery details: the attempts history beside a What's happening? feed explaining each retry" loading="lazy">
+    </figure>
+  </section>
+
+  <section class="demo-end rise">
+    <div>
+      <p class="eyebrow">Interactive demo</p>
+      <h2>See it recover a payment</h2>
+      <p>Built for the business team, to help them <b>walk merchants through the idea</b>: failed invoices flowing in, getting retried, and coming back as revenue, before the product was in their hands.</p>
+      <a class="demo" href="https://recovery-demo.vercel.app/" target="_blank" rel="noopener">Try the interactive demo <span aria-hidden="true">↗</span></a>
+    </div>
+    <a class="demo-shot" href="https://recovery-demo.vercel.app/" target="_blank" rel="noopener" aria-label="Open the interactive demo">
+      <img src="assets/rr/glimpse/v2/demo.webp" width="2000" height="1111" alt="The demo's opening screen: a failed invoice passing through the recovery engine and coming out recovered" loading="lazy">
+    </a>
+  </section>
+
+</main>
+
+<script type="module">
+// ground and text follow the theme picked on the home preview (dark if none yet)
+import { THEMES, PALETTES, T, paintTheme, loadShared } from './assets/fx/fx-core.js';
+import { mountShader } from './assets/shaders.js';
+const s = loadShared();
+const theme = THEMES[s.theme] ? s.theme : 'dark';
+paintTheme(theme, PALETTES.ink);
+
+// the welcome panel is lit from one corner by the violets of its illustration
+const VIOLET = THEMES[theme].dark ? ['#8165eb', '#6d56c6', T] : ['#9d8cf5', '#cfc6ff', T];
+const CORNER = { tr: { rotation: 0 }, bl: { rotation: 180 }, tl: { rotation: 270 }, br: { rotation: 90 } };
+document.querySelectorAll('.panel[data-glow]').forEach(panel => {
+  const glow = document.createElement('div');
+  glow.className = 'glow';
+  glow.setAttribute('aria-hidden', 'true');
+  panel.prepend(glow);
+  mountShader(glow, 'grain', { shape: 'corners', colorBack: T, colors: VIOLET, softness: 0.9, intensity: 0.15, noise: 0.3, scale: 1.4, speed: 0.2, ...CORNER[panel.dataset.glow] })
+    .catch(err => console.warn('Glow not mounted', err));
+});
+</script>
+<script>
+(function () {
+  const items = document.querySelectorAll('.rise');
+  if (!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) { items.forEach(i => i.classList.add('is-in')); return; }
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -5% 0px' });
+  items.forEach(i => io.observe(i));
+})();
+</script>
+</body>
+</html>

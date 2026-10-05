@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" data-fx-theme="dark" data-inside="project" data-hero="glow" style="--proj:#ff9a4d;--proj-rgb:255 154 77;--accent:#ff9a4d;--acc-rgb:255 154 77;--acc-soft:#ffe0c7;--acc-mid:#b05a1e;--acc-ink:#2b1405;--on-accent:#2b1405;--glow:rgb(255 154 77 / 0.15);--tray:#2b1405">
+<html lang="en">
 <head>
+<meta name="robots" content="noindex">
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Akhil Male — Reconciliation, a Case Study</title>
@@ -19,7 +20,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="styles-v1.css">
 <script type="text/javascript">
   (function(c,l,a,r,i,t,y){
       c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
@@ -38,7 +39,7 @@
 #cs-progress {
   position: fixed; top: 0; left: 0; height: 2px; background: var(--accent);
   width: 0%; z-index: 1000; transition: width 0.12s linear;
-  box-shadow: 0 0 12px rgb(var(--acc-rgb) / 0.4);
+  box-shadow: 0 0 12px rgba(212,255,94,0.4);
 }
 
 @keyframes csFadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
@@ -47,13 +48,10 @@
   50% { opacity: 1; transform: scaleY(1); }
 }
 
-/* ---------- CONTEXT RAIL — sticky scroll-spy nav, the same on every case study ----------
-   Labels hold a 12px floor; the current section is marked for screen readers too
-   (aria-current). Where there is no room for the rail, the chapter bar in the top nav
-   lists the same sections as a menu. */
+/* ---------- CONTEXT RAIL — sticky scroll-spy nav (section thesis + jump list) ---------- */
 .cs-rail {
   position: fixed; left: clamp(20px, 2.5vw, 40px); top: 50%;
-  transform: translateY(-50%); width: max-content; z-index: 60;
+  transform: translateY(-50%); width: 200px; z-index: 60;
   opacity: 0; pointer-events: none; transition: opacity 0.5s ease;
 }
 .cs-rail.is-visible { opacity: 1; pointer-events: auto; }
@@ -65,9 +63,8 @@
   display: flex; align-items: center; gap: 10px; width: 100%;
   background: none; border: none; cursor: pointer; padding: 5px 0; text-align: left;
 }
-.cs-rail-list li button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
 .cs-rail-num {
-  font-family: 'Geist Mono', monospace; font-size: 12px; letter-spacing: 0.06em;
+  font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.12em;
   color: var(--text-muted); flex-shrink: 0; transition: color 0.15s;
 }
 .cs-rail-name {
@@ -78,46 +75,7 @@
 .cs-rail-list li button:hover .cs-rail-num { color: var(--text-soft); }
 .cs-rail-list li.is-active .cs-rail-num { color: var(--accent); }
 .cs-rail-list li.is-active .cs-rail-name { color: var(--text); font-weight: 500; }
-@media (max-width: 1280px) { .cs-rail { display: none; } }
-
-/* Chapter bar: stands in for the rail wherever there is no room for it */
-.cs-chapter { position: relative; visibility: hidden; opacity: 0; transition: opacity 0.3s ease, visibility 0.3s ease; }
-.cs-chapter.is-visible { visibility: visible; opacity: 1; }
-@media (min-width: 1281px) { .cs-chapter { display: none; } }
-.cs-chapter-btn {
-  display: inline-flex; align-items: center; gap: 10px; min-height: 44px; max-width: min(58vw, 300px); padding: 0 16px; cursor: pointer;
-  border-radius: 100px; border: 1px solid var(--line); background: rgb(var(--bg-rgb) / 0.72); color: var(--text);
-  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
-  font-family: 'Geist', sans-serif; font-size: 14px; font-weight: 500; letter-spacing: 0; transition: border-color 0.2s ease;
-}
-.cs-chapter-btn:hover { border-color: var(--accent); }
-.cs-chapter-btn:active { transform: scale(0.97); }
-.cs-chapter-btn:focus-visible, .cs-chapter-item:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-.cs-chapter-num { font-family: 'Geist Mono', monospace; font-size: 12px; font-weight: 400; color: var(--accent); }
-.cs-chapter-num:empty { display: none; }
-.cs-chapter-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.cs-chapter-chev { flex: none; color: var(--text-soft); transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1); }
-.cs-chapter-btn[aria-expanded="true"] .cs-chapter-chev { transform: rotate(180deg); }
-.cs-chapter-menu {
-  position: absolute; top: calc(100% + 8px); right: 0; z-index: 5;
-  width: min(340px, calc(100vw - 40px)); max-height: min(72dvh, 540px); overflow-y: auto; overscroll-behavior: contain; padding: 8px;
-  border-radius: 20px; background: rgba(12,12,12,0.985); border: 1px solid var(--line);
-  -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); box-shadow: 0 24px 60px rgb(var(--sh-rgb) / calc(0.5 * var(--sh-k)));
-}
-.cs-chapter-menu[hidden] { display: none; }
-.cs-chapter-list { list-style: none; margin: 0; padding: 0; }
-.cs-chapter-item {
-  display: flex; align-items: center; gap: 12px; width: 100%; min-height: 44px; padding: 0 12px; text-align: left; cursor: pointer;
-  border: 0; border-radius: 12px; background: none; transition: background 0.15s ease, color 0.15s ease;
-  font-family: 'Geist', sans-serif; font-size: 15px; letter-spacing: 0; color: var(--text-soft);
-}
-.cs-chapter-item .n { flex: none; width: 22px; font-family: 'Geist Mono', monospace; font-size: 12px; color: var(--text-muted); }
-.cs-chapter-item:hover { background: rgb(var(--fg-rgb) / 0.05); color: var(--text); }
-.cs-chapter-item.is-active { color: var(--text); background: rgb(var(--fg-rgb) / 0.07); }
-.cs-chapter-item.is-active .n { color: var(--accent); }
-nav .logo a.cs-back { min-height: 44px; padding-right: 12px; }
-@media (max-width: 760px) { .cs-back-long { display: none; } }
-@media (prefers-reduced-motion: reduce) { .cs-chapter, .cs-chapter-chev, .cs-chapter-btn, .cs-chapter-item, .cs-rail, .cs-rail-num, .cs-rail-name { transition: none; } .cs-chapter-btn:active { transform: none; } }
+@media(max-width: 1280px) { .cs-rail { display: none; } }
 
 /* ---------- HERO ---------- */
 .cs-hero {
@@ -127,8 +85,8 @@ nav .logo a.cs-back { min-height: 44px; padding-right: 12px; }
 .cs-hero::before {
   content: ''; position: absolute; inset: 0; pointer-events: none; z-index: -1;
   background:
-    radial-gradient(ellipse 60% 50% at 80% 10%, rgb(var(--acc-rgb) / 0.07), transparent 70%),
-    radial-gradient(ellipse 50% 40% at 10% 90%, rgb(var(--fg-rgb) / 0.03), transparent 70%);
+    radial-gradient(ellipse 60% 50% at 80% 10%, rgba(212,255,94,0.07), transparent 70%),
+    radial-gradient(ellipse 50% 40% at 10% 90%, rgba(255,255,255,0.03), transparent 70%);
 }
 .cs-back {
   display: inline-flex; align-items: center; gap: 8px; margin-bottom: 32px; width: fit-content;
@@ -162,10 +120,10 @@ nav .logo a.cs-back:hover { color: var(--accent); }
   opacity: 0; animation: csFadeUp 0.8s ease forwards 0.55s;
 }
 .cs-hero-meta-item label {
-  display: block; font-family: 'Geist Mono', monospace; font-size: 12px; letter-spacing: 0.18em;
+  display: block; font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.18em;
   text-transform: uppercase; color: var(--text-muted); margin-bottom: 9px;
 }
-.cs-hero-meta-item span { font-family: 'Geist', sans-serif; font-size: 14.5px; font-weight: 400; color: var(--text); }
+.cs-hero-meta-item span { font-family: 'Geist', sans-serif; font-size: 14px; font-weight: 300; color: var(--text-soft); }
 .cs-hero-meta-item .accent { color: var(--accent); }
 
 .cs-hero-scroll {
@@ -236,13 +194,13 @@ nav .logo a.cs-back:hover { color: var(--accent); }
 }
 .cs-pullquote {
   margin: 40px 0 0; padding: 18px 24px; border-radius: 0 8px 8px 0;
-  border-left: 2px solid var(--accent); background: rgb(var(--acc-rgb) / 0.045);
+  border-left: 2px solid var(--accent); background: rgba(212,255,94,0.045);
   font-family: 'Geist', sans-serif; font-style: normal;
   font-size: clamp(17px, 2vw, 21px); line-height: 1.6; color: var(--text-soft);
 }
 .cs-challenge {
   margin-top: 22px; padding: 18px 22px; border-radius: 0 8px 8px 0;
-  background: rgb(var(--acc-rgb) / 0.045); border-left: 2px solid rgb(var(--acc-rgb) / 0.35);
+  background: rgba(212,255,94,0.045); border-left: 2px solid rgba(212,255,94,0.35);
 }
 .cs-challenge-tag { font-family: 'Geist Mono', monospace; font-size: 9.5px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
 .cs-challenge p { font-family: 'Geist', sans-serif; font-size: 14.5px; font-weight: 300; line-height: 1.8; color: var(--text-soft); margin: 0; }
@@ -266,7 +224,7 @@ nav .logo a.cs-back:hover { color: var(--accent); }
   font-family: 'Geist', sans-serif; font-size: 13px; font-weight: 300; line-height: 1.7; color: var(--text-soft);
 }
 .cs-flow-branch strong { color: var(--text); font-weight: 500; }
-.cs-flow-branch--match { border-color: rgb(var(--acc-rgb) / 0.35); background: rgb(var(--acc-rgb) / 0.04); }
+.cs-flow-branch--match { border-color: rgba(212,255,94,0.35); background: rgba(212,255,94,0.04); }
 .cs-flow-branch--exception { border-color: var(--line); background: var(--bg-card); }
 
 /* ---------- RECON LAYERS — two-source reconciliation flow ---------- */
@@ -293,7 +251,7 @@ nav .logo a.cs-back:hover { color: var(--accent); }
 .cs-recon-node--result .cs-recon-node-title { font-weight: 500; color: var(--text); }
 .cs-recon-node--exception { border-color: rgba(220,70,60,0.35); background: rgba(220,70,60,0.06); }
 .cs-recon-node--exception .cs-recon-node-title { color: #e05858; }
-.cs-recon-node--matched { border-color: rgb(var(--acc-rgb) / 0.28); background: rgb(var(--acc-rgb) / 0.05); }
+.cs-recon-node--matched { border-color: rgba(212,255,94,0.28); background: rgba(212,255,94,0.05); }
 .cs-recon-node--matched .cs-recon-node-title { color: var(--accent); }
 .cs-recon-cmp {
   font-family: 'Geist Mono', monospace; font-size: 16px; color: var(--text-muted);
@@ -313,7 +271,7 @@ nav .logo a.cs-back:hover { color: var(--accent); }
   background: var(--bg-soft); color: var(--text-soft); font-size: 11px;
   font-family: 'Geist Mono', monospace; white-space: nowrap;
 }
-.cs-exc-v-box--diff { border-color: rgb(var(--fg-rgb) / 0.16); color: var(--text-soft); background: rgb(var(--fg-rgb) / 0.04); }
+.cs-exc-v-box--diff { border-color: rgba(255,255,255,0.16); color: var(--text-soft); background: rgba(255,255,255,0.04); }
 .cs-exc-v-box--empty { border-style: dashed; color: var(--text-muted); }
 .cs-exc-v-op { color: var(--text-soft); font-size: 14px; }
 .cs-exc-v-sep { color: var(--text-muted); font-size: 10px; letter-spacing: 0.05em; }
@@ -355,7 +313,7 @@ nav .logo a.cs-back:hover { color: var(--accent); }
 /* ---------- TOPOLOGY — nested card diagram ---------- */
 .cs-topo-v2 { margin: 36px 0 8px; }
 .cs-topo-outer { padding: 20px; border: 1px solid var(--line); border-radius: 10px; background: var(--bg-card); }
-.cs-topo-inner { margin-top: 16px; padding: 16px; border: 1px dashed rgb(var(--acc-rgb) / 0.22); border-radius: 8px; background: rgb(var(--acc-rgb) / 0.03); }
+.cs-topo-inner { margin-top: 16px; padding: 16px; border: 1px dashed rgba(212,255,94,0.22); border-radius: 8px; background: rgba(212,255,94,0.03); }
 .cs-topo-badge { font-family: 'Geist Mono', monospace; font-size: 9.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 3px; }
 .cs-topo-tag { font-size: 12.5px; font-weight: 300; color: var(--text-soft); margin-bottom: 14px; }
 .cs-topo-row { display: flex; gap: 8px; flex-wrap: wrap; }
@@ -451,8 +409,8 @@ nav .logo a.cs-back:hover { color: var(--accent); }
 /* ---------- BROWSER MOCKUP ---------- */
 .cs-mock-browser {
   margin: 48px 0 0; border-radius: 10px; overflow: hidden;
-  border: 1px solid rgb(var(--fg-rgb) / 0.06);
-  box-shadow: 0 40px 100px rgb(var(--sh-rgb) / calc(0.55 * var(--sh-k)));
+  border: 1px solid rgba(255,255,255,0.06);
+  box-shadow: 0 40px 100px rgba(0,0,0,0.55);
   background: #fff; display: flex; flex-direction: column;
 }
 .cs-mock-chrome { flex-shrink: 0; }
@@ -469,7 +427,7 @@ nav .logo a.cs-back:hover { color: var(--accent); }
 .cs-mock--context .cs-mock-nav { flex: 0 0 0; }
 .cs-mock--context .cs-mock-window { height: auto; }
 .cs-mock--context .cs-mock-body { overflow: visible; }
-.cs-mock-browser.cs-mock--context { box-shadow: 0 0 60px rgb(var(--fg-rgb) / 0.12); border: 4px solid rgb(var(--fg-rgb) / 0.2); outline: 2px solid rgb(var(--fg-rgb) / 0.1); outline-offset: 10px; }
+.cs-mock-browser.cs-mock--context { box-shadow: 0 0 60px rgba(255,255,255,0.12); border: 4px solid rgba(255,255,255,0.2); outline: 2px solid rgba(255,255,255,0.1); outline-offset: 10px; }
 /* Natural-height variant — no nav, no fixed height, image shown at full crop */
 .cs-mock--natural .cs-mock-nav { flex: 0 0 0; }
 .cs-mock--natural .cs-mock-window { height: auto; }
@@ -488,8 +446,8 @@ nav .logo a.cs-back:hover { color: var(--accent); }
   border-radius: 10px;
   overflow: hidden;
   display: flex; flex-direction: column;
-  border: 1px solid rgb(var(--fg-rgb) / 0.06);
-  box-shadow: 0 40px 100px rgb(var(--sh-rgb) / calc(0.55 * var(--sh-k)));
+  border: 1px solid rgba(255,255,255,0.06);
+  box-shadow: 0 40px 100px rgba(0,0,0,0.55);
   transition: transform 0.45s cubic-bezier(0.4,0,0.2,1),
               opacity 0.45s cubic-bezier(0.4,0,0.2,1),
               box-shadow 0.35s ease;
@@ -514,7 +472,7 @@ nav .logo a.cs-back:hover { color: var(--accent); }
 .cs-deck-dots { display: flex; gap: 6px; align-items: center; }
 .cs-deck-dot {
   width: 8px; height: 8px; border-radius: 50%;
-  background: rgb(var(--fg-rgb) / 0.25); transition: all 0.3s;
+  background: rgba(255,255,255,0.25); transition: all 0.3s;
   cursor: pointer;
 }
 .cs-deck-dot.is-active { width: 24px; height: 8px; border-radius: 4px; background: var(--accent); }
@@ -523,6 +481,11 @@ nav .logo a.cs-back:hover { color: var(--accent); }
 .cs-proto-item { margin: 0 0 56px; }
 .cs-proto-item:last-child { margin-bottom: 0; }
 .cs-proto-item-head { margin: 32px 0 20px; }
+.cs-proto-stage {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  position: relative; overflow: hidden;
+}
 .cs-proto-cap-title {
   font-family: 'Geist', sans-serif; font-size: 17px; font-weight: 600;
   color: var(--text); margin: 0 0 4px;
@@ -593,56 +556,6 @@ a.cs-cta { margin-top: 28px; }
   .cs-exc-v-box { white-space: normal; }
   .cs-ui-panel-hd { grid-template-columns: 1fr; gap: 12px; }
 }
-/* ---------- RECORDING STAGE ---------- */
-/* A screen recording on a stage card, in the outcome cards' style. The recordings carry a dark
-   olive plate (#101309) that shows when the camera zooms out. "lighten" against the card, which is
-   lighter than the plate in every channel, swaps the plate for the card; the product UI is brighter
-   than the card, so it passes through untouched. The video file itself is not re-encoded. */
-.cs-stage {
-  position: relative; isolation: isolate; z-index: 501;
-  margin: 24px 0 14px; padding: clamp(10px, 1.6vw, 18px);
-  border-radius: 18px; border: 1px solid rgb(255 255 255 / 0.09);
-  background: linear-gradient(160deg, rgb(255 255 255 / 0.07) 0%, rgb(255 255 255 / 0.025) 70%), #131313;
-}
-.cs-stage::before {
-  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
-  background: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.18), transparent);
-}
-.cs-stage > video { display: block; width: 100%; height: auto; border-radius: 10px; mix-blend-mode: lighten; }
-/* Controls and fullscreen. The recordings are silent, so the mute button is dropped. In fullscreen
-   the card is gone, so the page colour goes behind the video and the same blend turns the olive
-   plate into it (the backdrop is also what fills the letterbox bars, so the two match). */
-.cs-stage > video::-webkit-media-controls-mute-button,
-.cs-stage > video::-webkit-media-controls-volume-slider,
-.cs-stage > video::-webkit-media-controls-volume-control-container { display: none; }
-.cs-stage > video:fullscreen { border-radius: 0; }
-.cs-stage > video:fullscreen::backdrop { background: #131313; }
-.cs-stage > video:-webkit-full-screen { border-radius: 0; }
-.cs-stage > video:-webkit-full-screen::backdrop { background: #131313; }
-
-/* ===== Shared case-study type =====
-   Headings follow Up-skill (white statement, the emphasised words in grey); body copy follows
-   HyperSense (16px, light, open leading). Up-skill, HyperSense and Reconciliation carry the
-   same block so the three read as one set. */
-.cs-display { font-size: clamp(34px, 4.6vw, 56px); font-weight: 500; line-height: 1.12; letter-spacing: -0.02em; color: var(--text); max-width: 19ch; text-wrap: balance; }
-.cs-display em { font-style: normal; font-weight: 500; color: var(--text-soft); }
-.cs-h3 { font-size: clamp(21px, 2.1vw, 24px); font-weight: 500; line-height: 1.25; letter-spacing: -0.01em; text-wrap: balance; }
-.cs-p { font-size: 16px; font-weight: 300; line-height: 1.85; color: var(--text-soft); max-width: 720px; }
-.cs-list li { font-size: 16px; font-weight: 300; line-height: 1.7; }
-@media (max-width: 760px) { .cs-display { max-width: none; } }
-
-/* Back link: the home page's top-nav link (Resume), its left edge on the hero's text line */
-@media (min-width: 901px) { nav { padding-left: clamp(24px, 6vw, 80px); padding-right: clamp(24px, 6vw, 80px); } }
-nav .logo a.cs-back {
-  min-height: 44px; padding: 0; gap: 8px;
-  font-family: 'Geist Mono', monospace; font-size: 14px; letter-spacing: 0.02em; text-transform: none;
-  color: var(--text-soft); transition: color 0.2s ease, gap 0.2s ease;
-}
-nav .logo a.cs-back:hover { color: var(--text); gap: 11px; }
-nav .logo a.cs-back .arr { flex: none; display: block; }
-nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; border-radius: 4px; }
-@media (max-width: 900px) { nav .logo a.cs-back { font-size: 12px; } }
-@media (prefers-reduced-motion: reduce) { nav .logo a.cs-back { transition: none; } }
 </style>
 </head>
 <body>
@@ -658,18 +571,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 
 <nav>
   <div class="logo">
-    <a class="cs-back" href="/" aria-label="Back to selected work"><svg class="arr" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>Back<span class="cs-back-long"> to selected work</span></a>
-  </div>
-  <!-- CHAPTER BAR: stands in for the side rail wherever there is no room for it -->
-  <div class="cs-chapter" id="cs-chapter">
-    <button type="button" class="cs-chapter-btn" id="cs-chapter-btn" aria-expanded="false" aria-controls="cs-chapter-menu">
-      <span class="cs-chapter-num" id="cs-chapter-num"></span>
-      <span class="cs-chapter-name" id="cs-chapter-name">Chapters</span>
-      <svg class="cs-chapter-chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-    </button>
-    <div class="cs-chapter-menu" id="cs-chapter-menu" hidden>
-      <ul class="cs-chapter-list" id="cs-chapter-list"></ul>
-    </div>
+    <a class="cs-back" href="/home-v1"><span class="arr">←</span> Back to selected work</a>
   </div>
 </nav>
 
@@ -1134,10 +1036,10 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
     </div>
   </div>
   <div class="cs-wrap cs-wrap--showcase">
-    <div class="cs-stage reveal">
+    <div class="cs-proto-stage reveal">
       <video src="assets/recon/edit-flow.mp4" poster="assets/recon/edit-flow-poster.jpg"
              class="cs-proto-video" muted loop playsinline controls controlslist="nodownload" preload="metadata"
-             style="width:100%; display:block;"></video>
+             style="width:100%; display:block; border-radius: 12px;"></video>
     </div>
   </div>
 </div>
@@ -1150,10 +1052,10 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
     </div>
   </div>
   <div class="cs-wrap cs-wrap--showcase">
-    <div class="cs-stage reveal">
+    <div class="cs-proto-stage reveal">
       <video src="assets/recon/add-flow.mp4" poster="assets/recon/add-flow-poster.jpg"
              class="cs-proto-video" muted loop playsinline controls controlslist="nodownload" preload="metadata"
-             style="width:100%; display:block;"></video>
+             style="width:100%; display:block; border-radius: 12px;"></video>
     </div>
   </div>
 </div>
@@ -1166,10 +1068,10 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
     </div>
   </div>
   <div class="cs-wrap cs-wrap--showcase">
-    <div class="cs-stage reveal">
+    <div class="cs-proto-stage reveal">
       <video src="assets/recon/swap-flow.mp4" poster="assets/recon/swap-flow-poster.jpg"
              class="cs-proto-video" muted loop playsinline controls controlslist="nodownload" preload="metadata"
-             style="width:100%; display:block;"></video>
+             style="width:100%; display:block; border-radius: 12px;"></video>
     </div>
   </div>
 </div>
@@ -1182,10 +1084,10 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
     </div>
   </div>
   <div class="cs-wrap cs-wrap--showcase">
-    <div class="cs-stage reveal">
+    <div class="cs-proto-stage reveal">
       <video src="assets/recon/ignore-flow.mp4" poster="assets/recon/ignore-flow-poster.jpg"
              class="cs-proto-video" muted loop playsinline controls controlslist="nodownload" preload="metadata"
-             style="width:100%; display:block;"></video>
+             style="width:100%; display:block; border-radius: 12px;"></video>
     </div>
   </div>
 </div>
@@ -1202,7 +1104,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
     </span>
     <p>Thanks for following along.</p>
   </div>
-  <div class="cs-cta-center reveal"><a class="cs-cta" href="/"><span class="arr">←</span> Back to selected work</a></div>
+  <div class="cs-cta-center reveal"><a class="cs-cta" href="/home-v1"><span class="arr">←</span> Back to selected work</a></div>
 </div>
 
 </section>
@@ -1214,62 +1116,34 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 
 <script>
 
-/* Recordings: the one that is mostly on screen plays and the rest pause. A pause the viewer
-   chose holds until that video has left the screen, a play they chose is left alone, and
-   fullscreen is never interrupted. */
+/* Scroll-triggered prototype video playback — only the single most-visible video plays */
 (function() {
-  var videos = Array.prototype.slice.call(document.querySelectorAll('.cs-stage > video'));
-  if (!videos.length) return;
-  if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    videos.forEach(function(v) { v.removeAttribute('autoplay'); v.pause(); });
-    return;
-  }
-  if (!('IntersectionObserver' in window)) return;
-  var ratio = new Map(videos.map(function(v) { return [v, 0]; }));
-  var mine = new WeakSet();        // play()/pause() made here, so their events aren't read as the viewer's
-  var heldPaused = new WeakSet();  // paused by the viewer
-  var heldPlaying = new WeakSet(); // started by the viewer
-  var SEEN = 0.25, LEAD = 0.5;
-
-  function play(v) {
-    if (!v.paused) return;
-    mine.add(v);
-    var p = v.play();
-    if (p && p.catch) p.catch(function() { mine.delete(v); });
-  }
-  function pause(v) { if (!v.paused) { mine.add(v); v.pause(); } }
-  function inFullscreen() { return videos.indexOf(document.fullscreenElement) !== -1; }
-
-  videos.forEach(function(v) {
-    v.addEventListener('play', function() {
-      if (mine.has(v)) { mine.delete(v); return; }
-      heldPaused.delete(v); heldPlaying.add(v);
-    });
-    v.addEventListener('pause', function() {
-      if (mine.has(v)) { mine.delete(v); return; }
-      if (ratio.get(v) < SEEN || inFullscreen()) return; // the browser pausing an off-screen video
-      heldPlaying.delete(v); heldPaused.add(v);
-    });
-  });
+  var videos = Array.from(document.querySelectorAll('.cs-proto-video'));
+  if (!videos.length || !('IntersectionObserver' in window)) return;
+  var ratios = new Map(videos.map(function(v) { return [v, 0]; }));
 
   function sync() {
-    if (inFullscreen()) return;
-    var best = null, top = 0;
-    videos.forEach(function(v) { var r = ratio.get(v); if (r > top) { top = r; best = v; } });
+    var best = null;
+    var bestRatio = 0;
+    ratios.forEach(function(ratio, v) {
+      if (ratio > bestRatio) { bestRatio = ratio; best = v; }
+    });
     videos.forEach(function(v) {
-      var r = ratio.get(v);
-      if (r === 0) { heldPaused.delete(v); heldPlaying.delete(v); } // off screen: forget what the viewer chose
-      if (v === best && top >= LEAD) { if (!heldPaused.has(v)) play(v); }
-      else if (r === 0 || !heldPlaying.has(v)) pause(v);
+      if (v === best && bestRatio >= 0.5) {
+        v.play().catch(function() {});
+      } else {
+        v.pause();
+      }
     });
   }
 
-  var io = new IntersectionObserver(function(entries) {
-    entries.forEach(function(e) { ratio.set(e.target, e.isIntersecting ? e.intersectionRatio : 0); });
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      ratios.set(entry.target, entry.intersectionRatio);
+    });
     sync();
   }, { threshold: [0, 0.25, 0.5, 0.75, 1] });
-  videos.forEach(function(v) { io.observe(v); });
-  document.addEventListener('fullscreenchange', sync);
+  videos.forEach(function(v) { observer.observe(v); });
 })();
 
 /* Stacked card deck */
@@ -1342,107 +1216,82 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
   update();
 })();
 
-/* Context rail + chapter bar: the current section is whatever crosses a thin band a third of the
-   way down the viewport. Jumps respect reduced motion; the menu closes on Escape or an outside tap. */
+/* Context rail — scroll-spy: active section thesis + jump list to the rest */
 (function() {
   var rail = document.getElementById('cs-rail');
   var list = document.getElementById('cs-rail-list');
   if (!rail || !list) return;
-  var REDUCE = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   var SECTIONS = [
-    { id: 'cs-context', num: '01', name: 'Multiple Versions of the Truth' },
-    { id: 'cs-exception', num: '02', name: 'What&rsquo;s an Exception' },
-    { id: 'cs-shapes', num: '03', name: 'Why Resolution Slows Down' },
-    { id: 'cs-structure', num: '04', name: 'Designing the Investigation' },
-    { id: 'cs-showcase', num: '05', name: 'Designing for Resolution' }
+    { id: 'cs-context',   label: '01 — Multiple Versions of the Truth' },
+    { id: 'cs-exception', label: '02 — What&rsquo;s an Exception' },
+    { id: 'cs-shapes',    label: '03 — Why Resolution Slows Down' },
+    { id: 'cs-structure', label: '04 — Designing the Investigation' },
+    { id: 'cs-showcase',  label: '05 — Designing for Resolution' }
   ];
-  var byId = {};
-  SECTIONS.forEach(function(s) { byId[s.id] = s; });
-  var activeId = null, heroGone = false;
 
-  function jump(id) {
+  var activeId = null;
+  var heroGone = false;
+
+  function scrollToSection(id) {
     var el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: REDUCE ? 'auto' : 'smooth' });
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
   }
 
   list.innerHTML = SECTIONS.map(function(s) {
+    var parts = s.label.split(' — ');
     return '<li data-id="' + s.id + '"><button type="button" data-target="' + s.id + '">' +
-           '<span class="cs-rail-num">' + s.num + '</span>' +
-           '<span class="cs-rail-name">' + s.name + '</span>' +
+           '<span class="cs-rail-num">' + parts[0] + '</span>' +
+           '<span class="cs-rail-name">' + parts[1] + '</span>' +
            '</button></li>';
   }).join('');
   list.querySelectorAll('button').forEach(function(btn) {
-    btn.addEventListener('click', function() { jump(this.getAttribute('data-target')); });
+    btn.addEventListener('click', function(){ scrollToSection(this.getAttribute('data-target')); });
   });
 
-  var chapter = document.getElementById('cs-chapter');
-  var cbtn = document.getElementById('cs-chapter-btn');
-  var cmenu = document.getElementById('cs-chapter-menu');
-  var clist = document.getElementById('cs-chapter-list');
-  var cnum = document.getElementById('cs-chapter-num');
-  var cname = document.getElementById('cs-chapter-name');
-  function setMenu(open) {
-    cmenu.hidden = !open;
-    cbtn.setAttribute('aria-expanded', open ? 'true' : 'false');
-    if (open) { var a = clist.querySelector('.is-active'); if (a) a.scrollIntoView({ block: 'nearest' }); }
-  }
-  if (chapter && cbtn && cmenu && clist) {
-    clist.innerHTML = SECTIONS.map(function(s) {
-      return '<li><button type="button" class="cs-chapter-item" data-target="' + s.id + '"><span class="n">' + s.num + '</span><span>' + s.name + '</span></button></li>';
-    }).join('');
-    cbtn.addEventListener('click', function() { setMenu(cmenu.hidden); });
-    clist.addEventListener('click', function(e) {
-      var b = e.target.closest('button[data-target]');
-      if (!b) return;
-      setMenu(false);
-      jump(b.getAttribute('data-target'));
-    });
-    document.addEventListener('pointerdown', function(e) { if (!cmenu.hidden && !chapter.contains(e.target)) setMenu(false); });
-    document.addEventListener('keydown', function(e) { if (e.key === 'Escape' && !cmenu.hidden) { setMenu(false); cbtn.focus(); } });
-  }
-
   function setActive(sec) {
-    list.querySelectorAll('li').forEach(function(li) {
-      var on = li.getAttribute('data-id') === sec.id;
-      li.classList.toggle('is-active', on);
-      var b = li.querySelector('button');
-      if (on) b.setAttribute('aria-current', 'true'); else b.removeAttribute('aria-current');
-    });
-    if (chapter && cname) {
-      cnum.textContent = sec.num;
-      cname.innerHTML = sec.name;
-      clist.querySelectorAll('button').forEach(function(b) {
-        var on = b.getAttribute('data-target') === sec.id;
-        b.classList.toggle('is-active', on);
-        if (on) b.setAttribute('aria-current', 'true'); else b.removeAttribute('aria-current');
-      });
-    }
-  }
-  function syncVisibility() {
-    var on = heroGone && !!activeId;
-    rail.classList.toggle('is-visible', on);
-    if (on) rail.removeAttribute('aria-hidden'); else rail.setAttribute('aria-hidden', 'true');
-    if (chapter) { chapter.classList.toggle('is-visible', on); if (!on && !cmenu.hidden) setMenu(false); }
+    var prev = list.querySelector('li.is-active');
+    if (prev) prev.classList.remove('is-active');
+    var li = list.querySelector('li[data-id="' + sec.id + '"]');
+    if (li) li.classList.add('is-active');
   }
 
-  if (!('IntersectionObserver' in window)) return;
+  /* Hide the rail while the hero is in view; reveal once scrolled past it */
   var hero = document.querySelector('.cs-hero');
   if (hero) {
-    new IntersectionObserver(function(entries) {
-      heroGone = !entries[0].isIntersecting;
-      syncVisibility();
-    }, { threshold: 0.05 }).observe(hero);
-  } else { heroGone = true; }
+    var heroObs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (!e.isIntersecting) {
+          heroGone = true;
+          if (activeId) { rail.classList.add('is-visible'); rail.removeAttribute('aria-hidden'); }
+        } else {
+          heroGone = false;
+          rail.classList.remove('is-visible');
+          rail.setAttribute('aria-hidden', 'true');
+        }
+      });
+    }, { threshold: 0.05 });
+    heroObs.observe(hero);
+  } else {
+    heroGone = true;
+  }
 
-  var io = new IntersectionObserver(function(entries) {
-    entries.forEach(function(e) {
-      if (!e.isIntersecting) return;
-      var sec = byId[e.target.id];
-      if (sec && sec.id !== activeId) { activeId = sec.id; setActive(sec); syncVisibility(); }
+  function updateActiveSection() {
+    var triggerY = window.scrollY + window.innerHeight * 0.35;
+    var current = null;
+    SECTIONS.forEach(function(s) {
+      var el = document.getElementById(s.id);
+      if (el && el.offsetTop <= triggerY) current = s;
     });
-  }, { rootMargin: '-35% 0px -64% 0px', threshold: 0 });
-  SECTIONS.forEach(function(s) { var el = document.getElementById(s.id); if (el) io.observe(el); });
+    if (current && current.id !== activeId) {
+      activeId = current.id;
+      setActive(current);
+      if (heroGone) { rail.classList.add('is-visible'); rail.removeAttribute('aria-hidden'); }
+    }
+  }
+
+  window.addEventListener('scroll', updateActiveSection, { passive: true });
+  updateActiveSection();
 })();
 
 /* Reveal-on-scroll choreography */

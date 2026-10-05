@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" data-fx-theme="dark" data-fx-acc="ink">
+<html lang="en">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Akhil Male, Product Designer</title>
+<meta name="robots" content="noindex">
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Akhil Male, Product Designer">
@@ -19,7 +20,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="styles-v1.css">
 <script type="text/javascript">
   (function(c,l,a,r,i,t,y){
       c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
@@ -42,7 +43,7 @@
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  background-image: radial-gradient(circle, rgb(var(--acc-rgb) / 0.55) 1px, transparent 1.2px);
+  background-image: radial-gradient(circle, rgba(212, 255, 94, 0.55) 1px, transparent 1.2px);
   background-size: 28px 28px;
   -webkit-mask-image: radial-gradient(circle 200px at var(--mx, 50%) var(--my, 40%), black, transparent 70%);
   mask-image: radial-gradient(circle 200px at var(--mx, 50%) var(--my, 40%), black, transparent 70%);
@@ -92,7 +93,7 @@
 .t-rail-fill {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to bottom, rgb(var(--acc-rgb) / 0.0), rgb(var(--acc-rgb) / 0.55) 30%, rgb(var(--acc-rgb) / 0.55) 85%, transparent);
+  background: linear-gradient(to bottom, rgba(212, 255, 94, 0.0), rgba(212, 255, 94, 0.55) 30%, rgba(212, 255, 94, 0.55) 85%, transparent);
   transform-origin: top;
   transform: scaleY(0);
 }
@@ -107,8 +108,8 @@
   width: 3px;
   height: 72px;
   border-radius: 3px;
-  background: linear-gradient(to bottom, transparent, rgb(var(--acc-rgb) / 0.9));
-  box-shadow: 0 6px 14px rgb(var(--acc-rgb) / 0.35);
+  background: linear-gradient(to bottom, transparent, rgba(212, 255, 94, 0.9));
+  box-shadow: 0 6px 14px rgba(212, 255, 94, 0.35);
 }
 @supports (animation-timeline: view()) {
   .t-rail-fill,
@@ -138,7 +139,7 @@
   height: 9px;
   border-radius: 50%;
   background: var(--bg);
-  border: 1px solid var(--ln-3);
+  border: 1px solid #3a3a3a;
   transition: background 0.5s ease, border-color 0.5s ease, box-shadow 0.6s ease;
 }
 .t-node--chapter { width: 13px; height: 13px; left: calc(var(--rail-x) - 6px); top: 0.3em; }
@@ -148,7 +149,7 @@
 .is-reached > .t-aside > .t-node {
   background: var(--accent);
   border-color: var(--accent);
-  box-shadow: 0 0 0 4px rgb(var(--acc-rgb) / 0.08), 0 0 18px rgb(var(--acc-rgb) / 0.35);
+  box-shadow: 0 0 0 4px rgba(212, 255, 94, 0.08), 0 0 18px rgba(212, 255, 94, 0.35);
 }
 
 /* Chapter marker */
@@ -204,7 +205,7 @@
   left: calc(var(--rail-x) + 6px);
   width: 22px;
   height: 1px;
-  background: linear-gradient(to right, rgb(var(--acc-rgb) / 0.7), rgb(var(--acc-rgb) / 0.15));
+  background: linear-gradient(to right, rgba(212, 255, 94, 0.7), rgba(212, 255, 94, 0.15));
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.15s;
@@ -228,7 +229,7 @@
   margin-top: 20px;
   height: 38px;
   padding: 0 5px 0 16px;
-  border: 1px solid var(--ln-2);
+  border: 1px solid #2a2a2a;
   border-radius: 100px;
   font-family: 'Geist', sans-serif;
   font-size: var(--t-small);
@@ -246,11 +247,11 @@
   height: 28px;
   border-radius: 50%;
   background: var(--accent);
-  color: var(--on-accent);
+  color: #0a0a0a;
   font-size: 13px;
   transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), background 0.3s ease;
 }
-.t-cta:hover { border-color: rgb(var(--acc-rgb) / 0.45); color: var(--accent); }
+.t-cta:hover { border-color: rgba(212, 255, 94, 0.45); color: var(--accent); }
 .t-cta:hover .t-cta-arrow { transform: translateX(2px); }
 .t-cta[href^="http"]:hover .t-cta-arrow { transform: translate(2px, -2px); }
 .t-cta:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
@@ -343,7 +344,7 @@
 /* a wide illustration rather than a screen: keep its centre, where the engine sits */
 .t-thumb--art img { object-position: center; }
 .t-thumb--empty {
-  background-image: radial-gradient(circle, rgb(var(--fg-rgb) / 0.08) 1px, transparent 1px);
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
   background-size: 12px 12px;
 }
 .t-row-text { display: flex; flex-direction: column; gap: 4px; }
@@ -424,7 +425,7 @@
   position: absolute;
   inset: 0;
   z-index: -1;
-  background-image: radial-gradient(circle, rgb(var(--fg-rgb) / 0.07) 1px, transparent 1px);
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.07) 1px, transparent 1px);
   background-size: 24px 24px;
   -webkit-mask-image: linear-gradient(to bottom, transparent, black 12%, black 88%, transparent);
   mask-image: linear-gradient(to bottom, transparent, black 12%, black 88%, transparent);
@@ -470,8 +471,8 @@
   position: relative;
   padding: 10px;
   border-radius: 3px;
-  background: rgb(var(--fg-rgb) / 0.025);
-  box-shadow: inset 0 0 0 1px rgb(var(--fg-rgb) / 0.08), 0 30px 60px -30px rgb(var(--sh-rgb) / calc(0.8 * var(--sh-k)));
+  background: rgba(255, 255, 255, 0.025);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08), 0 30px 60px -30px rgba(0, 0, 0, 0.8);
 }
 /* a hairline border that catches the light along the top-left edge */
 .ab-mat::before {
@@ -480,7 +481,7 @@
   inset: 0;
   padding: 1px;
   border-radius: inherit;
-  background: linear-gradient(155deg, rgb(var(--fg-rgb) / 0.4), rgb(var(--fg-rgb) / 0.06) 35%, rgb(var(--fg-rgb) / 0) 60%, rgb(var(--fg-rgb) / 0.14));
+  background: linear-gradient(155deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.06) 35%, rgba(255, 255, 255, 0) 60%, rgba(255, 255, 255, 0.14));
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
   mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
@@ -614,32 +615,6 @@
   .t-node, .t-media img, .t-thumb img, .t-row-name .arr { transition: none; }
   .t-row:hover .t-thumb img { transform: none; }
 }
-</style>
-<style>
-/* Home shaders (see assets/home-fx.js): hero dot grid, cover tones, about dot grid, closing horizon */
-.fx-hero-layer { position: absolute; top: 0; bottom: 0; left: calc(50% - 50vw); width: 100vw; z-index: -2; pointer-events: none;
-  -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent); mask-image: linear-gradient(to bottom, black 60%, transparent); }
-.fx-hero-layer:not(.fx-on) { display: none; }
-/* keep the headline's intended break at every desktop width */
-@media (min-width: 761px) { .hero-title .quiet { display: block; } }
-/* Neutral accent: the sentence stays grey, the key phrase carries the emphasis in white */
-.t-moment:not([data-tinted]) .t-line { color: var(--text-soft); }
-.t-moment:not([data-tinted]) .t-line em { color: var(--text); font-weight: 500; }
-.hero:has(.fx-hero-layer.fx-on)::before { opacity: 0.5; }
-
-.t-media.fx-on { position: relative; background: var(--tray); }
-.t-media.fx-on img { position: relative; width: 84%; height: auto; aspect-ratio: 16 / 9; margin: 9% auto 0; border-radius: 6px 6px 0 0;
-  box-shadow: 0 30px 60px -24px rgb(var(--sh-rgb) / calc(.8 * var(--sh-k))), 0 0 0 1px rgb(var(--fg-rgb) / .06); }
-
-.fig.fx-on::before { display: none; }
-.fig.fx-on > canvas { -webkit-mask-image: linear-gradient(to bottom, transparent, black 12%, black 88%, transparent);
-  mask-image: linear-gradient(to bottom, transparent, black 12%, black 88%, transparent); opacity: .35; }
-
-.contact.fx-on .cl-beam { display: none; }
-.contact.fx-on > canvas { -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent); mask-image: linear-gradient(to bottom, black 50%, transparent); }
-/* the horizon has no box: it fades out before the section's edges */
-.contact[data-fx="Z"] > canvas { -webkit-mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, black 55%, transparent);
-  mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, black 55%, transparent); }
 </style>
 </head>
 <body class="home">
@@ -932,7 +907,7 @@ document.querySelectorAll('[data-track]').forEach(el => {
   targets.forEach(t => io.observe(t));
 })();
 
-console.log('%cHi.','font-family:Geist,sans-serif;font-size:32px;font-weight:500;color:#ededed;');
+console.log('%cHi.','font-family:Geist,sans-serif;font-size:32px;font-weight:500;color:#d4ff5e;');
 console.log('%cIf you got this far, you\'re probably my kind of person. → akhilmale.ux@gmail.com','font-family:monospace;font-size:12px;color:#8a8a8a;');
 
 // Hero: the dot grid lights up around the cursor (pointer devices only)
@@ -1063,6 +1038,5 @@ console.log('%cIf you got this far, you\'re probably my kind of person. → akhi
 })();
 
 </script>
-<script type="module" src="assets/home-fx.js"></script>
 </body>
 </html>
