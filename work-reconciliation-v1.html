@@ -481,6 +481,11 @@ nav .logo a.cs-back:hover { color: var(--accent); }
 .cs-proto-item { margin: 0 0 56px; }
 .cs-proto-item:last-child { margin-bottom: 0; }
 .cs-proto-item-head { margin: 32px 0 20px; }
+.cs-proto-stage {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  position: relative; overflow: hidden;
+}
 .cs-proto-cap-title {
   font-family: 'Geist', sans-serif; font-size: 17px; font-weight: 600;
   color: var(--text); margin: 0 0 4px;
@@ -551,32 +556,6 @@ a.cs-cta { margin-top: 28px; }
   .cs-exc-v-box { white-space: normal; }
   .cs-ui-panel-hd { grid-template-columns: 1fr; gap: 12px; }
 }
-/* ---------- RECORDING STAGE ---------- */
-/* A screen recording on a stage card, in the outcome cards' style. The recordings carry a dark
-   olive plate (#101309) that shows when the camera zooms out. "lighten" against the card, which is
-   lighter than the plate in every channel, swaps the plate for the card; the product UI is brighter
-   than the card, so it passes through untouched. The video file itself is not re-encoded. */
-.cs-stage {
-  position: relative; isolation: isolate; z-index: 501;
-  margin: 24px 0 14px; padding: clamp(10px, 1.6vw, 18px);
-  border-radius: 18px; border: 1px solid rgb(255 255 255 / 0.09);
-  background: linear-gradient(160deg, rgb(255 255 255 / 0.07) 0%, rgb(255 255 255 / 0.025) 70%), #131313;
-}
-.cs-stage::before {
-  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
-  background: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.18), transparent);
-}
-.cs-stage > video { display: block; width: 100%; height: auto; border-radius: 10px; mix-blend-mode: lighten; }
-/* Controls and fullscreen. The recordings are silent, so the mute button is dropped. In fullscreen
-   the card is gone, so the page colour goes behind the video and the same blend turns the olive
-   plate into it (the backdrop is also what fills the letterbox bars, so the two match). */
-.cs-stage > video::-webkit-media-controls-mute-button,
-.cs-stage > video::-webkit-media-controls-volume-slider,
-.cs-stage > video::-webkit-media-controls-volume-control-container { display: none; }
-.cs-stage > video:fullscreen { border-radius: 0; }
-.cs-stage > video:fullscreen::backdrop { background: #131313; }
-.cs-stage > video:-webkit-full-screen { border-radius: 0; }
-.cs-stage > video:-webkit-full-screen::backdrop { background: #131313; }
 </style>
 </head>
 <body>
@@ -1057,10 +1036,10 @@ a.cs-cta { margin-top: 28px; }
     </div>
   </div>
   <div class="cs-wrap cs-wrap--showcase">
-    <div class="cs-stage reveal">
+    <div class="cs-proto-stage reveal">
       <video src="assets/recon/edit-flow.mp4" poster="assets/recon/edit-flow-poster.jpg"
              class="cs-proto-video" muted loop playsinline controls controlslist="nodownload" preload="metadata"
-             style="width:100%; display:block;"></video>
+             style="width:100%; display:block; border-radius: 12px;"></video>
     </div>
   </div>
 </div>
@@ -1073,10 +1052,10 @@ a.cs-cta { margin-top: 28px; }
     </div>
   </div>
   <div class="cs-wrap cs-wrap--showcase">
-    <div class="cs-stage reveal">
+    <div class="cs-proto-stage reveal">
       <video src="assets/recon/add-flow.mp4" poster="assets/recon/add-flow-poster.jpg"
              class="cs-proto-video" muted loop playsinline controls controlslist="nodownload" preload="metadata"
-             style="width:100%; display:block;"></video>
+             style="width:100%; display:block; border-radius: 12px;"></video>
     </div>
   </div>
 </div>
@@ -1089,10 +1068,10 @@ a.cs-cta { margin-top: 28px; }
     </div>
   </div>
   <div class="cs-wrap cs-wrap--showcase">
-    <div class="cs-stage reveal">
+    <div class="cs-proto-stage reveal">
       <video src="assets/recon/swap-flow.mp4" poster="assets/recon/swap-flow-poster.jpg"
              class="cs-proto-video" muted loop playsinline controls controlslist="nodownload" preload="metadata"
-             style="width:100%; display:block;"></video>
+             style="width:100%; display:block; border-radius: 12px;"></video>
     </div>
   </div>
 </div>
@@ -1105,10 +1084,10 @@ a.cs-cta { margin-top: 28px; }
     </div>
   </div>
   <div class="cs-wrap cs-wrap--showcase">
-    <div class="cs-stage reveal">
+    <div class="cs-proto-stage reveal">
       <video src="assets/recon/ignore-flow.mp4" poster="assets/recon/ignore-flow-poster.jpg"
              class="cs-proto-video" muted loop playsinline controls controlslist="nodownload" preload="metadata"
-             style="width:100%; display:block;"></video>
+             style="width:100%; display:block; border-radius: 12px;"></video>
     </div>
   </div>
 </div>
@@ -1137,62 +1116,34 @@ a.cs-cta { margin-top: 28px; }
 
 <script>
 
-/* Recordings: the one that is mostly on screen plays and the rest pause. A pause the viewer
-   chose holds until that video has left the screen, a play they chose is left alone, and
-   fullscreen is never interrupted. */
+/* Scroll-triggered prototype video playback — only the single most-visible video plays */
 (function() {
-  var videos = Array.prototype.slice.call(document.querySelectorAll('.cs-stage > video'));
-  if (!videos.length) return;
-  if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    videos.forEach(function(v) { v.removeAttribute('autoplay'); v.pause(); });
-    return;
-  }
-  if (!('IntersectionObserver' in window)) return;
-  var ratio = new Map(videos.map(function(v) { return [v, 0]; }));
-  var mine = new WeakSet();        // play()/pause() made here, so their events aren't read as the viewer's
-  var heldPaused = new WeakSet();  // paused by the viewer
-  var heldPlaying = new WeakSet(); // started by the viewer
-  var SEEN = 0.25, LEAD = 0.5;
-
-  function play(v) {
-    if (!v.paused) return;
-    mine.add(v);
-    var p = v.play();
-    if (p && p.catch) p.catch(function() { mine.delete(v); });
-  }
-  function pause(v) { if (!v.paused) { mine.add(v); v.pause(); } }
-  function inFullscreen() { return videos.indexOf(document.fullscreenElement) !== -1; }
-
-  videos.forEach(function(v) {
-    v.addEventListener('play', function() {
-      if (mine.has(v)) { mine.delete(v); return; }
-      heldPaused.delete(v); heldPlaying.add(v);
-    });
-    v.addEventListener('pause', function() {
-      if (mine.has(v)) { mine.delete(v); return; }
-      if (ratio.get(v) < SEEN || inFullscreen()) return; // the browser pausing an off-screen video
-      heldPlaying.delete(v); heldPaused.add(v);
-    });
-  });
+  var videos = Array.from(document.querySelectorAll('.cs-proto-video'));
+  if (!videos.length || !('IntersectionObserver' in window)) return;
+  var ratios = new Map(videos.map(function(v) { return [v, 0]; }));
 
   function sync() {
-    if (inFullscreen()) return;
-    var best = null, top = 0;
-    videos.forEach(function(v) { var r = ratio.get(v); if (r > top) { top = r; best = v; } });
+    var best = null;
+    var bestRatio = 0;
+    ratios.forEach(function(ratio, v) {
+      if (ratio > bestRatio) { bestRatio = ratio; best = v; }
+    });
     videos.forEach(function(v) {
-      var r = ratio.get(v);
-      if (r === 0) { heldPaused.delete(v); heldPlaying.delete(v); } // off screen: forget what the viewer chose
-      if (v === best && top >= LEAD) { if (!heldPaused.has(v)) play(v); }
-      else if (r === 0 || !heldPlaying.has(v)) pause(v);
+      if (v === best && bestRatio >= 0.5) {
+        v.play().catch(function() {});
+      } else {
+        v.pause();
+      }
     });
   }
 
-  var io = new IntersectionObserver(function(entries) {
-    entries.forEach(function(e) { ratio.set(e.target, e.isIntersecting ? e.intersectionRatio : 0); });
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      ratios.set(entry.target, entry.intersectionRatio);
+    });
     sync();
   }, { threshold: [0, 0.25, 0.5, 0.75, 1] });
-  videos.forEach(function(v) { io.observe(v); });
-  document.addEventListener('fullscreenchange', sync);
+  videos.forEach(function(v) { observer.observe(v); });
 })();
 
 /* Stacked card deck */

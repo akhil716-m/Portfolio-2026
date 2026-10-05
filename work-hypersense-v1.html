@@ -1236,32 +1236,6 @@ a.cs-cta { margin-top: 28px; }
   .cs-shot-navbar { height: 320px; flex-basis: 38px; }
   .cs-shot-bar { gap: 12px; padding: 11px 14px; }
 }
-/* ---------- RECORDING STAGE ---------- */
-/* A screen recording on a stage card, in the outcome cards' style. The recordings carry a dark
-   olive plate (#101309) that shows when the camera zooms out. "lighten" against the card, which is
-   lighter than the plate in every channel, swaps the plate for the card; the product UI is brighter
-   than the card, so it passes through untouched. The video file itself is not re-encoded. */
-.cs-stage {
-  position: relative; isolation: isolate; z-index: 501;
-  margin: 24px 0 14px; padding: clamp(10px, 1.6vw, 18px);
-  border-radius: 18px; border: 1px solid rgb(255 255 255 / 0.09);
-  background: linear-gradient(160deg, rgb(255 255 255 / 0.07) 0%, rgb(255 255 255 / 0.025) 70%), #131313;
-}
-.cs-stage::before {
-  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
-  background: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.18), transparent);
-}
-.cs-stage > video { display: block; width: 100%; height: auto; border-radius: 10px; mix-blend-mode: lighten; }
-/* Controls and fullscreen. The recordings are silent, so the mute button is dropped. In fullscreen
-   the card is gone, so the page colour goes behind the video and the same blend turns the olive
-   plate into it (the backdrop is also what fills the letterbox bars, so the two match). */
-.cs-stage > video::-webkit-media-controls-mute-button,
-.cs-stage > video::-webkit-media-controls-volume-slider,
-.cs-stage > video::-webkit-media-controls-volume-control-container { display: none; }
-.cs-stage > video:fullscreen { border-radius: 0; }
-.cs-stage > video:fullscreen::backdrop { background: #131313; }
-.cs-stage > video:-webkit-full-screen { border-radius: 0; }
-.cs-stage > video:-webkit-full-screen::backdrop { background: #131313; }
 </style>
 </head>
 <body>
@@ -1905,7 +1879,7 @@ a.cs-cta { margin-top: 28px; }
   <p class="cs-p reveal" style="margin-bottom: 24px;">The same experience needed to work across very different merchant realities, from single processors to multi-PSP setups, and from simplified blended pricing to fully transparent IC++ models.</p>
 </div>
 <div class="cs-wrap cs-wrap--showcase">
-  <div class="cs-stage reveal">
+  <div class="cs-shot-frame reveal" style="border:none; background:transparent;">
     <video src="assets/hypersense/ov-demo.mp4" poster="assets/hypersense/ov-demo-poster.jpg"
            autoplay muted loop playsinline controls controlslist="nodownload" preload="metadata"
            style="width:100%; display:block; height:auto;"></video>
@@ -1930,7 +1904,7 @@ a.cs-cta { margin-top: 28px; }
 
 </div>
 <div class="cs-wrap cs-wrap--showcase">
-  <div class="cs-stage reveal">
+  <div class="cs-shot-frame reveal" style="border:none; background:transparent;">
     <video src="assets/hypersense/drilldown-demo.mp4" poster="assets/hypersense/drilldown-demo-poster.jpg"
            autoplay muted loop playsinline controls controlslist="nodownload" preload="metadata"
            style="width:100%; display:block; height:auto;"></video>
@@ -1954,7 +1928,7 @@ a.cs-cta { margin-top: 28px; }
 
 </div>
 <div class="cs-wrap cs-wrap--showcase">
-  <div class="cs-stage reveal">
+  <div class="cs-shot-frame reveal" style="border:none; background:transparent;">
     <video src="assets/hypersense/feespikes-demo.mp4" poster="assets/hypersense/feespikes-demo-poster.jpg"
            autoplay muted loop playsinline controls controlslist="nodownload" preload="metadata"
            style="width:100%; display:block; height:auto;"></video>
@@ -1983,7 +1957,7 @@ a.cs-cta { margin-top: 28px; }
 
 </div>
 <div class="cs-wrap cs-wrap--showcase">
-  <div class="cs-stage reveal">
+  <div class="cs-shot-frame reveal" style="border:none; background:transparent;">
     <video src="assets/hypersense/audit-demo.mp4" poster="assets/hypersense/audit-demo-poster.jpg"
            autoplay muted loop playsinline controls controlslist="nodownload" preload="metadata"
            style="width:100%; display:block; height:auto;"></video>
@@ -2005,7 +1979,7 @@ a.cs-cta { margin-top: 28px; }
 
 </div>
 <div class="cs-wrap cs-wrap--showcase">
-  <div class="cs-stage reveal">
+  <div class="cs-shot-frame reveal" style="border:none; background:transparent;">
     <video src="assets/hypersense/forecast-demo.mp4" poster="assets/hypersense/forecast-demo-poster.jpg"
            autoplay muted loop playsinline controls controlslist="nodownload" preload="metadata"
            style="width:100%; display:block; height:auto;"></video>
@@ -3063,65 +3037,6 @@ console.log('%cYou found the HyperSense rebuild — full case study, sections 01
 <script>
 const navEl = document.querySelector('nav');
 window.addEventListener('scroll', () => { navEl.classList.toggle('is-scrolled', window.scrollY > 8); }, { passive: true });
-</script>
-<script>
-/* Recordings: the one that is mostly on screen plays and the rest pause. A pause the viewer
-   chose holds until that video has left the screen, a play they chose is left alone, and
-   fullscreen is never interrupted. */
-(function() {
-  var videos = Array.prototype.slice.call(document.querySelectorAll('.cs-stage > video'));
-  if (!videos.length) return;
-  if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    videos.forEach(function(v) { v.removeAttribute('autoplay'); v.pause(); });
-    return;
-  }
-  if (!('IntersectionObserver' in window)) return;
-  var ratio = new Map(videos.map(function(v) { return [v, 0]; }));
-  var mine = new WeakSet();        // play()/pause() made here, so their events aren't read as the viewer's
-  var heldPaused = new WeakSet();  // paused by the viewer
-  var heldPlaying = new WeakSet(); // started by the viewer
-  var SEEN = 0.25, LEAD = 0.5;
-
-  function play(v) {
-    if (!v.paused) return;
-    mine.add(v);
-    var p = v.play();
-    if (p && p.catch) p.catch(function() { mine.delete(v); });
-  }
-  function pause(v) { if (!v.paused) { mine.add(v); v.pause(); } }
-  function inFullscreen() { return videos.indexOf(document.fullscreenElement) !== -1; }
-
-  videos.forEach(function(v) {
-    v.addEventListener('play', function() {
-      if (mine.has(v)) { mine.delete(v); return; }
-      heldPaused.delete(v); heldPlaying.add(v);
-    });
-    v.addEventListener('pause', function() {
-      if (mine.has(v)) { mine.delete(v); return; }
-      if (ratio.get(v) < SEEN || inFullscreen()) return; // the browser pausing an off-screen video
-      heldPlaying.delete(v); heldPaused.add(v);
-    });
-  });
-
-  function sync() {
-    if (inFullscreen()) return;
-    var best = null, top = 0;
-    videos.forEach(function(v) { var r = ratio.get(v); if (r > top) { top = r; best = v; } });
-    videos.forEach(function(v) {
-      var r = ratio.get(v);
-      if (r === 0) { heldPaused.delete(v); heldPlaying.delete(v); } // off screen: forget what the viewer chose
-      if (v === best && top >= LEAD) { if (!heldPaused.has(v)) play(v); }
-      else if (r === 0 || !heldPlaying.has(v)) pause(v);
-    });
-  }
-
-  var io = new IntersectionObserver(function(entries) {
-    entries.forEach(function(e) { ratio.set(e.target, e.isIntersecting ? e.intersectionRatio : 0); });
-    sync();
-  }, { threshold: [0, 0.25, 0.5, 0.75, 1] });
-  videos.forEach(function(v) { io.observe(v); });
-  document.addEventListener('fullscreenchange', sync);
-})();
 </script>
 </body>
 </html>
