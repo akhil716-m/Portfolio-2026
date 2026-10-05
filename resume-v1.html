@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" data-fx-theme="dark" data-fx-acc="ink">
+<html lang="en">
 <head>
+<meta name="robots" content="noindex">
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Akhil Male — Resume</title>
@@ -19,7 +20,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="styles-v1.css">
 <script type="text/javascript">
   (function(c,l,a,r,i,t,y){
       c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
@@ -42,7 +43,7 @@
   border-radius: 6px;
   padding: 48px 52px;
   position: relative;
-  box-shadow: 0 0 0 1px rgb(var(--fg-rgb) / 0.03), inset 0 1px 0 rgb(var(--fg-rgb) / 0.04);
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.03), inset 0 1px 0 rgba(255,255,255,0.04);
 }
 /* Corner accents */
 .resume-doc::before,
@@ -79,7 +80,7 @@
   font-family: 'Geist Mono', monospace;
   font-size: 12px;
   letter-spacing: 0.05em;
-  color: var(--on-accent);
+  color: #000;
   background: var(--accent);
   border-radius: 100px;
   padding: 9px 20px;
@@ -310,7 +311,7 @@
   padding: 3px 9px;
 }
 /* Colour groups — muted site palette */
-.pill-design   { background: rgb(var(--acc-rgb) / 0.08);  color: rgb(var(--acc-rgb) / 0.75);  border: 1px solid rgb(var(--acc-rgb) / 0.15); }
+.pill-design   { background: rgba(212,255,94,0.08);  color: rgba(212,255,94,0.75);  border: 1px solid rgba(212,255,94,0.15); }
 .pill-research { background: rgba(110,220,190,0.08); color: rgba(110,220,190,0.75); border: 1px solid rgba(110,220,190,0.15); }
 .pill-tools    { background: rgba(140,200,255,0.08); color: rgba(140,200,255,0.75); border: 1px solid rgba(140,200,255,0.15); }
 .pill-ai       { background: rgba(180,140,255,0.08); color: rgba(180,140,255,0.75); border: 1px solid rgba(180,140,255,0.15); }
@@ -381,24 +382,19 @@
 }
 
 </style>
-<style>
-/* The four skill groups used four fixed hues; only the design group takes the accent now */
-.pill-design   { background: rgb(var(--acc-rgb) / 0.08); color: var(--accent); border: 1px solid rgb(var(--acc-rgb) / 0.22); }
-.pill-research, .pill-tools, .pill-ai { background: rgb(var(--fg-rgb) / 0.04); color: var(--text-soft); border: 1px solid rgb(var(--fg-rgb) / 0.1); }
-</style>
 </head>
 <body>
 
 
 <nav>
   <div class="logo">
-    <a href="/">
+    <a href="/home-v1">
       <span class="name">Akhil Male</span>
     </a>
   </div>
   <div style="display: flex; align-items: center; gap: 32px;">
     <div class="links">
-      <a href="/resume" class="active nav-resume-link"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg> Resume</a>
+      <a href="/resume-v1" class="active nav-resume-link"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg> Resume</a>
       <a href="https://drive.google.com/file/d/1zJeiDP9wHw85MPq_DOjL-9xnDDKFHyeA/view?usp=sharing" target="_blank" class="nav-pdf-link"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg> Download PDF</a>
     </div>
     <div class="status"><span class="dot"></span><span class="status-text">available for select projects</span></div>
@@ -564,7 +560,7 @@ window.addEventListener('scroll', () => { navEl.classList.toggle('is-scrolled', 
 const page = location.pathname.replace(/\/$/, '') || '/';
 document.querySelectorAll('nav .links a').forEach(a => { if(a.getAttribute('href')===page) a.classList.add('active'); });
 
-console.log('%cHi.','font-family:"Instrument Serif",serif;font-size:32px;font-style:italic;color:#ededed;');
+console.log('%cHi.','font-family:"Instrument Serif",serif;font-size:32px;font-style:italic;color:#d4ff5e;');
 console.log('%cIf you got this far, you\'re probably my kind of person. → akhilmale.ux@gmail.com','font-family:monospace;font-size:12px;color:#8a8a8a;');
 </script>
 </body>

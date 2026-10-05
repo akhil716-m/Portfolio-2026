@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-fx-theme="dark" data-fx-acc="ink">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -27,6 +27,632 @@
       y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
   })(window, document, "clarity", "script", "ykaez3m42c");
 </script>
+<style>
+/* ===== Home v2: the thread =====
+   The work is one journey down a single vertical line. Chapters (Juspay,
+   Explorations, Go Better) are markers on it; each project is a node, told as one
+   first-person sentence with its key phrase in lime, then its cover. Smaller work
+   sits under its chapter as compact rows. Nodes light up as they are reached and
+   the line fills with light behind the reader: the lime light motif from the hero
+   and the closing, carried through the work. */
+
+/* Hero: the dot grid lights up around the cursor */
+.h-glow {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: radial-gradient(circle, rgb(var(--acc-rgb) / 0.55) 1px, transparent 1.2px);
+  background-size: 28px 28px;
+  -webkit-mask-image: radial-gradient(circle 200px at var(--mx, 50%) var(--my, 40%), black, transparent 70%);
+  mask-image: radial-gradient(circle 200px at var(--mx, 50%) var(--my, 40%), black, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+.hero.is-lit .h-glow { opacity: 1; }
+
+.t-work { padding: calc(var(--space-section) / 2) 0; }
+.t-wrap {
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: 0 var(--page-gutter);
+}
+.t-intro { display: flex; flex-direction: column; gap: 20px; margin-bottom: clamp(72px, 8vw, 112px); }
+
+/* Thread layout: a rail column for markers, a content column for the story */
+.t-thread {
+  --rail: clamp(220px, 21vw, 300px);
+  --rail-x: 4px;            /* where the line runs inside the rail column */
+  position: relative;
+}
+.t-chapter,
+.t-moment,
+.t-also {
+  position: relative;
+  display: grid;
+  grid-template-columns: var(--rail) minmax(0, 1fr);
+}
+.t-body { grid-column: 2; min-width: 0; max-width: 880px; }
+
+/* The line, and the light that fills it as you read */
+.t-rail {
+  position: absolute;
+  top: 8px;
+  bottom: 0;
+  left: var(--rail-x);
+  width: 1px;
+  background: linear-gradient(to bottom, var(--line) 85%, transparent);
+  pointer-events: none;
+  /* the travelling dot is moved down by the rail's own height; even invisible, that
+     would stretch the page far below the last section. Clip it to the rail vertically
+     (sideways stays open so the dot's glow isn't cut). */
+  overflow-x: visible;
+  overflow-y: clip;
+}
+.t-rail-fill {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgb(var(--acc-rgb) / 0.0), rgb(var(--acc-rgb) / 0.55) 30%, rgb(var(--acc-rgb) / 0.55) 85%, transparent);
+  transform-origin: top;
+  transform: scaleY(0);
+}
+/* The head is a full-height layer whose dot sits at its top; moving the layer by
+   its own height carries the dot down the line in step with the fill. */
+.t-rail-head { position: absolute; inset: 0; transform: translateY(0); opacity: 0; }
+.t-rail-head::after {
+  content: '';
+  position: absolute;
+  top: -72px;
+  left: -1px;
+  width: 3px;
+  height: 72px;
+  border-radius: 3px;
+  background: linear-gradient(to bottom, transparent, rgb(var(--acc-rgb) / 0.9));
+  box-shadow: 0 6px 14px rgb(var(--acc-rgb) / 0.35);
+}
+@supports (animation-timeline: view()) {
+  .t-rail-fill,
+  .t-rail-head {
+    animation-timeline: view();
+    animation-range: entry 40% exit 60%;
+    animation-fill-mode: both;
+    animation-timing-function: linear;
+  }
+  .t-rail-fill { animation-name: t-fill; }
+  .t-rail-head { animation-name: t-head; }
+  @keyframes t-fill { to { transform: scaleY(1); } }
+  @keyframes t-head {
+    0% { transform: translateY(0); opacity: 0; }
+    4% { opacity: 1; }
+    94% { opacity: 1; }
+    100% { transform: translateY(100%); opacity: 0; }
+  }
+}
+
+/* Nodes sit on the line; they light once reached and stay lit */
+.t-node {
+  position: absolute;
+  top: 0.55em;
+  left: calc(var(--rail-x) - 4px);
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 1px solid var(--ln-3);
+  transition: background 0.5s ease, border-color 0.5s ease, box-shadow 0.6s ease;
+}
+.t-node--chapter { width: 13px; height: 13px; left: calc(var(--rail-x) - 6px); top: 0.3em; }
+.t-node--small { width: 7px; height: 7px; left: calc(var(--rail-x) - 3px); top: 0.35em; }
+.is-reached > .t-node,
+.is-reached > .t-mark > .t-node,
+.is-reached > .t-aside > .t-node {
+  background: var(--accent);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px rgb(var(--acc-rgb) / 0.08), 0 0 18px rgb(var(--acc-rgb) / 0.35);
+}
+
+/* Chapter marker */
+.t-chapter { margin-top: clamp(112px, 12vw, 168px); scroll-margin-top: 96px; }
+.t-rail + .t-chapter { margin-top: 0; }
+.t-mark { position: relative; grid-column: 1; padding-left: 32px; display: flex; flex-direction: column; gap: 4px; }
+.t-mark-name {
+  font-family: 'Geist', sans-serif;
+  font-size: clamp(22px, 2vw, 28px);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+.t-mark-years { font-family: 'Geist Mono', monospace; font-size: var(--t-meta); color: var(--text-muted); letter-spacing: 0.02em; }
+.t-role { font-size: var(--t-small); font-weight: 500; color: var(--text); }
+.t-story {
+  margin-top: 10px;
+  font-size: clamp(17px, 1.35vw, 20px);
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--text-soft);
+  max-width: 50ch;
+}
+
+/* Project moment: the sentence is the headline */
+.t-moment {
+  align-items: first baseline;
+  margin-top: clamp(80px, 9vw, 128px);
+  color: inherit;
+  text-decoration: none;
+}
+.t-aside > .t-node { top: calc(0.75em - 4px); }
+.t-aside > .t-node--small { top: calc(0.75em - 3px); }
+.t-aside {
+  position: relative;
+  grid-column: 1;
+  grid-row: 1;
+  padding: 0 24px 0 36px;
+  font-size: var(--t-body);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+/* connector: draws from the node out to the label once the moment is reached */
+.t-aside::before {
+  content: '';
+  position: absolute;
+  top: 0.75em;
+  left: calc(var(--rail-x) + 6px);
+  width: 22px;
+  height: 1px;
+  background: linear-gradient(to right, rgb(var(--acc-rgb) / 0.7), rgb(var(--acc-rgb) / 0.15));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.15s;
+}
+.is-reached > .t-aside::before { transform: scaleX(1); }
+.t-moment > .t-body,
+.t-also > .t-body { grid-row: 1; }
+.t-name {
+  font-size: var(--t-body);
+  font-weight: 500;
+  line-height: 1.45;
+  color: var(--text);
+}
+.t-cat { font-size: 13px; line-height: 1.5; color: var(--text-muted); max-width: 22ch; }
+
+/* The call to action: the only link on a project; a pill that fills on hover */
+.t-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+  height: 38px;
+  padding: 0 5px 0 16px;
+  border: 1px solid var(--ln-2);
+  border-radius: 100px;
+  font-family: 'Geist', sans-serif;
+  font-size: var(--t-small);
+  font-weight: 500;
+  color: var(--text);
+  white-space: nowrap;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+.t-cta-arrow {
+  display: inline-grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--on-accent);
+  font-size: 13px;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), background 0.3s ease;
+}
+.t-cta:hover { border-color: rgb(var(--acc-rgb) / 0.45); color: var(--accent); }
+.t-cta:hover .t-cta-arrow { transform: translateX(2px); }
+.t-cta[href^="http"]:hover .t-cta-arrow { transform: translate(2px, -2px); }
+.t-cta:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.t-cta--end { display: none; }
+
+.t-kicker {
+  font-family: 'Geist Mono', monospace;
+  font-size: var(--t-meta);
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+}
+.t-line {
+  margin-top: -0.12em;
+  font-family: 'Geist', sans-serif;
+  font-size: clamp(24px, 2.4vw, 34px);
+  font-weight: 400;
+  line-height: 1.28;
+  letter-spacing: -0.02em;
+  /* the sentence is quiet; only the key phrase (em) carries colour */
+  color: var(--text-soft);
+  max-width: 26em;
+  text-wrap: balance;
+}
+.t-line em { font-style: normal; font-weight: 500; color: var(--accent); }
+.t-media {
+  display: block;
+  margin-top: 32px;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--bg-card);
+}
+.t-media img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), filter 0.45s ease;
+}
+.t-media.will-unveil { clip-path: inset(0 0 100% 0 round 8px); }
+.t-media.will-unveil.is-shown {
+  clip-path: inset(0 0 0 0 round 8px);
+  transition: clip-path 1.1s cubic-bezier(0.65, 0, 0.35, 1);
+}
+/* covers show as they are: no dimming, and no hover, since only the pill is a link */
+.gl-media--light img { filter: none; }
+
+/* Compact rows: the smaller work under a chapter */
+.t-also { margin-top: clamp(72px, 8vw, 112px); }
+.t-chapter + .t-also { margin-top: 48px; }
+.t-list { list-style: none; border-top: 1px solid var(--line); }
+.t-kicker + .t-list { margin-top: 16px; }
+.t-body > .t-list:first-child { margin-top: 0; }
+.t-row {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 136px minmax(0, 1fr);
+  gap: 24px;
+  align-items: center;
+  padding: 20px 0;
+  border: none;
+  border-bottom: 1px solid var(--line);
+  background: none;
+  font: inherit;
+  text-align: left;
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+.t-row--static { cursor: default; }
+.t-thumb {
+  display: block;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--bg-card);
+}
+.t-thumb img { width: 100%; height: 100%; display: block; object-fit: cover; object-position: top center; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+.t-row:not(.t-row--static):hover .t-thumb img { transform: scale(1.04); }
+/* a wide illustration rather than a screen: keep its centre, where the engine sits */
+.t-thumb--art img { object-position: center; }
+.t-thumb--empty {
+  background-image: radial-gradient(circle, rgb(var(--fg-rgb) / 0.08) 1px, transparent 1px);
+  background-size: 12px 12px;
+}
+.t-row-text { display: flex; flex-direction: column; gap: 4px; }
+.t-row-name { font-size: var(--t-body); font-weight: 500; color: var(--text); transition: color 0.2s; }
+.t-row-name .arr { color: var(--text-muted); transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), color 0.2s; }
+.t-row:not(.t-row--static):hover .t-row-name { color: var(--accent); }
+.t-row:hover .t-row-name .arr { color: var(--accent); transform: translate(2px, -2px); }
+.t-row-tag {
+  margin-left: 8px;
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+}
+.t-row-line { font-size: var(--t-small); font-weight: 300; line-height: 1.55; color: var(--text-soft); max-width: 60ch; }
+.t-screens { display: none; }
+.t-row:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 6px; }
+
+@media (max-width: 900px) {
+  .t-thread { --rail: 28px; --rail-x: 4px; }
+  .t-chapter { grid-template-columns: var(--rail) minmax(0, 1fr); }
+  .t-mark { grid-column: 1 / -1; padding-left: var(--rail); flex-direction: row; align-items: baseline; gap: 12px; }
+  .t-chapter .t-body { grid-column: 2; margin-top: 12px; }
+  .t-aside {
+    grid-column: 2;
+    grid-row: 1;
+    padding: 0;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 2px 10px;
+  }
+  .t-aside::before { display: none; }
+  /* the label moves into the content column; pull its node back onto the line */
+  .t-aside > .t-node { left: calc(var(--rail-x) - 4px - var(--rail)); }
+  .t-aside > .t-node--small { left: calc(var(--rail-x) - 3px - var(--rail)); }
+  .t-aside .t-cta { display: none; }
+  .t-moment > .t-body, .t-also > .t-body { grid-row: 2; margin-top: 14px; }
+  .t-cta--end { display: inline-flex; }
+  .t-line { font-size: 22px; margin-top: 0; }
+  .t-media { margin-top: 24px; }
+  .t-row { grid-template-columns: 88px minmax(0, 1fr); gap: 16px; padding: 16px 0; }
+}
+
+/* Lightbox moments: a screen with a numbered caption, ending on a link card */
+.gl-moment { margin: 0; scroll-snap-align: start; display: flex; flex-direction: column; gap: 14px; }
+.gl-shot--natural { aspect-ratio: auto; background: #fff; }
+.gl-shot--natural img { height: auto; object-fit: initial; }
+.gl-moment figcaption { display: grid; grid-template-columns: 28px 1fr; gap: 4px 10px; }
+.gl-moment figcaption b { grid-row: 1 / 3; font: 500 12px 'Geist Mono', monospace; color: var(--text-muted); padding-top: 3px; }
+.gl-moment-t { font-size: var(--t-body); font-weight: 500; color: var(--text); }
+.gl-moment-l { font-size: var(--t-small); font-weight: 300; line-height: 1.55; color: var(--text-soft); }
+.gl-more {
+  justify-content: space-between;
+  padding: 28px;
+  border: 1px dashed var(--line);
+  border-radius: var(--r-frame);
+  aspect-ratio: 16 / 10;
+}
+.gl-more-main { display: flex; flex-direction: column; gap: 10px; text-decoration: none; }
+.gl-more-t { font-size: var(--t-h3); font-weight: 500; letter-spacing: -0.015em; color: var(--text); }
+.gl-more-t .arr { display: inline-block; transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1); }
+.gl-more-main:hover .gl-more-t .arr { transform: translateX(4px); }
+.gl-more-l { font-size: var(--t-small); font-weight: 300; line-height: 1.55; color: var(--text-soft); max-width: 32ch; }
+.gl-more-demo { align-self: flex-start; font: 400 12px 'Geist Mono', monospace; color: var(--text-soft); text-decoration: none; border-bottom: 1px solid var(--line); padding-bottom: 2px; }
+.gl-more-demo:hover { color: var(--text); }
+
+/* ===== About: the whole section as one full-bleed design canvas =====
+   The dot grid runs edge to edge and fades in and out at the top and bottom, so the
+   reader scrolls onto a canvas. On it: the story, the portrait as a matted print
+   with crop marks, and a tidy grid of life photos that can be dragged on desktop
+   and tidied back up. */
+.fig-section { padding: calc(var(--space-section) / 2) 0; }
+.fig { position: relative; }
+.fig::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image: radial-gradient(circle, rgb(var(--fg-rgb) / 0.07) 1px, transparent 1px);
+  background-size: 24px 24px;
+  -webkit-mask-image: linear-gradient(to bottom, transparent, black 12%, black 88%, transparent);
+  mask-image: linear-gradient(to bottom, transparent, black 12%, black 88%, transparent);
+  pointer-events: none;
+}
+.fig-canvas { position: relative; padding-top: clamp(96px, 10vw, 160px); padding-bottom: clamp(96px, 10vw, 160px); }
+.fig-top {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) clamp(280px, 32vw, 400px);
+  gap: clamp(40px, 5vw, 72px);
+  align-items: start;
+}
+
+/* Story: plain text on the canvas */
+.fig-title { margin-bottom: clamp(28px, 3vw, 40px); }
+.fig-text .about-prose { font-size: var(--t-body); max-width: 60ch; }
+.ab-key { color: var(--accent); font-weight: 500; }
+
+/* Portrait: a matted print with crop marks. Black and white and slightly tilted at
+   rest; on hover it straightens, turns to colour, and the crop marks open out. */
+.fig-art { padding-top: 48px; }
+.fig-stage { position: relative; padding: 4px 0 28px; }
+.ab-frame {
+  position: relative;
+  width: min(100%, 280px);
+  margin: 0 auto;
+  transform: rotate(-2deg);
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.fig-stage:hover .ab-frame { transform: rotate(0deg); }
+.ab-frame-name,
+.ab-frame-meta {
+  position: absolute;
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+.ab-frame-name { top: -30px; left: 0; }
+.ab-frame-meta { bottom: -30px; right: 0; font-size: 10.5px; letter-spacing: 0.04em; }
+.ab-mat {
+  position: relative;
+  padding: 10px;
+  border-radius: 3px;
+  background: rgb(var(--fg-rgb) / 0.025);
+  box-shadow: inset 0 0 0 1px rgb(var(--fg-rgb) / 0.08), 0 30px 60px -30px rgb(var(--sh-rgb) / calc(0.8 * var(--sh-k)));
+}
+/* a hairline border that catches the light along the top-left edge */
+.ab-mat::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  border-radius: inherit;
+  background: linear-gradient(155deg, rgb(var(--fg-rgb) / 0.4), rgb(var(--fg-rgb) / 0.06) 35%, rgb(var(--fg-rgb) / 0) 60%, rgb(var(--fg-rgb) / 0.14));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  pointer-events: none;
+}
+.ab-photo { position: relative; aspect-ratio: 4 / 5; overflow: hidden; border-radius: 1px; background: var(--bg-card); }
+.ab-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top center; }
+.ab-img-a { filter: grayscale(100%); transition: opacity 0.5s ease; z-index: 1; }
+.ab-img-b { opacity: 0; transition: opacity 0.5s ease; }
+.fig-stage:hover .ab-img-a { opacity: 0; }
+.fig-stage:hover .ab-img-b { opacity: 1; }
+/* crop marks: short L-brackets just off each corner of the mat */
+.ab-crop {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border: 0 solid var(--text-muted);
+  pointer-events: none;
+  transition: translate 0.5s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.3s ease;
+}
+.ab-crop--tl { top: -9px; left: -9px; border-top-width: 1px; border-left-width: 1px; }
+.ab-crop--tr { top: -9px; right: -9px; border-top-width: 1px; border-right-width: 1px; }
+.ab-crop--bl { bottom: -9px; left: -9px; border-bottom-width: 1px; border-left-width: 1px; }
+.ab-crop--br { bottom: -9px; right: -9px; border-bottom-width: 1px; border-right-width: 1px; }
+.fig-stage:hover .ab-crop { border-color: var(--text); }
+.fig-stage:hover .ab-crop--tl { translate: -4px -4px; }
+.fig-stage:hover .ab-crop--tr { translate: 4px -4px; }
+.fig-stage:hover .ab-crop--bl { translate: -4px 4px; }
+.fig-stage:hover .ab-crop--br { translate: 4px 4px; }
+
+/* Photos: a tidy grid of upright frames, like frames laid out on a Figma page */
+.fig-board {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: clamp(56px, 6vw, 88px) clamp(32px, 5vw, 72px);
+  margin-top: clamp(256px, 21vw, 300px);
+}
+.fig-shot {
+  position: relative;
+  margin: 0;
+  z-index: 1;
+  rotate: var(--r, 0deg);
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+}
+.fig-shot img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  border-radius: 4px;
+  pointer-events: none;
+  -webkit-user-drag: none;
+  box-shadow: 0 14px 28px -14px rgb(var(--sh-rgb) / calc(0.7 * var(--sh-k)));
+  transition: box-shadow 0.25s ease;
+}
+.fig-shot::after {
+  content: '';
+  position: absolute;
+  inset: 19px -4px -4px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  pointer-events: none;
+  transition: border-color 0.2s ease;
+}
+.fig-shot:hover::after,
+.fig-shot.is-dragging::after { border-color: var(--accent); }
+.fig-shot-label {
+  display: block;
+  height: 20px;
+  font-family: 'Geist Mono', monospace;
+  font-size: 10px;
+  color: var(--accent);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+.fig-shot:hover .fig-shot-label,
+.fig-shot.is-dragging .fig-shot-label { opacity: 1; }
+.fig-shot.is-dragging { cursor: grabbing; }
+.fig-shot.is-dragging img { box-shadow: 0 30px 60px -16px rgb(var(--sh-rgb) / calc(0.9 * var(--sh-k))); }
+.fig-board.is-tidying .fig-shot { transition: translate 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
+
+/* "Tidy up": appears once something has been moved, snaps the grid back */
+.fig-tidy {
+  position: absolute;
+  top: -52px;
+  right: 0;
+  height: 32px;
+  padding: 0 14px;
+  border: 1px solid var(--ln-2);
+  border-radius: 100px;
+  background: var(--surf-2);
+  color: var(--text-soft);
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+}
+.fig-tidy:hover { color: var(--accent); border-color: rgb(var(--acc-rgb) / 0.45); }
+
+/* Sticky note: stuck over the grid's top-left corner */
+.fig-sticky {
+  position: absolute;
+  z-index: 3;
+  top: -32px;
+  left: -8px;
+  width: 220px;
+  translate: 0 -100%;
+  rotate: -4deg;
+  padding: 16px 16px 18px;
+  border-radius: 4px;
+  background: var(--acc-soft);
+  color: var(--acc-ink);
+  font-size: 14px;
+  line-height: 1.45;
+  box-shadow: 0 18px 36px -14px rgb(var(--sh-rgb) / calc(0.7 * var(--sh-k)));
+}
+.fig-sticky-hint { margin-top: 8px; font-size: 12px; color: var(--acc-mid); }
+@media (hover: none), (pointer: coarse) {
+  .fig-sticky-hint { display: none; }
+  .fig-shot { cursor: default; touch-action: auto; translate: none !important; }
+}
+
+@media (max-width: 900px) {
+  .fig-top { grid-template-columns: 1fr; gap: 32px; }
+  .fig-art { padding-top: 40px; }
+  .ab-frame { width: min(100%, 230px); }
+  .fig-board { grid-template-columns: 1fr 1fr; gap: 24px 16px; margin-top: 64px; }
+  .fig-sticky { position: relative; top: auto; left: auto; translate: none; grid-column: 1 / -1; width: 80%; justify-self: center; margin-bottom: 8px; }
+  .fig-shot-label { opacity: 1; color: var(--text-muted); }
+  .fig-shot:nth-of-type(n+9) { display: none; } /* eight photos are plenty on a phone */
+}
+@media (prefers-reduced-motion: reduce) {
+  .ab-frame, .ab-img-a, .ab-img-b, .ab-crop, .fig-shot::after, .fig-shot-label { transition: none; }
+  .fig-board.is-tidying .fig-shot { transition: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .h-glow { display: none; }
+  .t-rail-fill { animation: none; transform: none; opacity: 0.6; }
+  .t-rail-head { display: none; }
+  .t-aside::before { transition: none; }
+  .t-media.will-unveil { clip-path: none; }
+  .t-cta, .t-cta-arrow { transition: none; }
+  .t-node, .t-media img, .t-thumb img, .t-row-name .arr { transition: none; }
+  .t-row:hover .t-thumb img { transform: none; }
+}
+</style>
+<style>
+/* Home shaders (see assets/home-fx.js): hero dot grid, cover tones, about dot grid, closing horizon */
+.fx-hero-layer { position: absolute; top: 0; bottom: 0; left: calc(50% - 50vw); width: 100vw; z-index: -2; pointer-events: none;
+  -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent); mask-image: linear-gradient(to bottom, black 60%, transparent); }
+.fx-hero-layer:not(.fx-on) { display: none; }
+/* keep the headline's intended break at every desktop width */
+@media (min-width: 761px) { .hero-title .quiet { display: block; } }
+/* Neutral accent: the sentence stays grey, the key phrase carries the emphasis in white */
+.t-moment:not([data-tinted]) .t-line { color: var(--text-soft); }
+.t-moment:not([data-tinted]) .t-line em { color: var(--text); font-weight: 500; }
+.hero:has(.fx-hero-layer.fx-on)::before { opacity: 0.5; }
+
+.t-media.fx-on { position: relative; background: var(--tray); }
+.t-media.fx-on img { position: relative; width: 84%; height: auto; aspect-ratio: 16 / 9; margin: 9% auto 0; border-radius: 6px 6px 0 0;
+  box-shadow: 0 30px 60px -24px rgb(var(--sh-rgb) / calc(.8 * var(--sh-k))), 0 0 0 1px rgb(var(--fg-rgb) / .06); }
+
+.fig.fx-on::before { display: none; }
+.fig.fx-on > canvas { -webkit-mask-image: linear-gradient(to bottom, transparent, black 12%, black 88%, transparent);
+  mask-image: linear-gradient(to bottom, transparent, black 12%, black 88%, transparent); opacity: .35; }
+
+.contact.fx-on .cl-beam { display: none; }
+.contact.fx-on > canvas { -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent); mask-image: linear-gradient(to bottom, black 50%, transparent); }
+/* the horizon has no box: it fades out before the section's edges */
+.contact[data-fx="Z"] > canvas { -webkit-mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, black 55%, transparent);
+  mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, black 55%, transparent); }
+</style>
 </head>
 <body class="home">
 
@@ -43,6 +669,7 @@
 </nav>
 
 <section class="hero">
+  <div class="h-glow" aria-hidden="true"></div>
 <div class="hero-body">
     <div class="hero-left">
       <h1 class="hero-title">
@@ -61,249 +688,229 @@
 
 <div class="page-rule"><hr></div>
 
-<section id="selected-work" class="section">
-  <div class="section-head">
-    <div class="section-head-main">
-      <div class="section-meta">Selected Work</div>
+<section id="work" class="t-work">
+  <div class="t-wrap">
+    <header class="t-intro">
+      <div class="section-meta">The journey</div>
       <h2 class="section-title">A few products I've helped <span class="quiet">shape.</span></h2>
-    </div>
-  </div>
+    </header>
 
-  <div class="work-cards">
+    <div class="t-thread">
+      <div class="t-rail" aria-hidden="true"><span class="t-rail-fill"></span><span class="t-rail-head"></span></div>
 
-    <div class="wc-group">
-      <span class="wc-corner wc-corner--tl" aria-hidden="true"></span>
-      <span class="wc-corner wc-corner--tr" aria-hidden="true"></span>
-      <span class="wc-corner wc-corner--bl" aria-hidden="true"></span>
-      <span class="wc-corner wc-corner--br" aria-hidden="true"></span>
-
-      <a class="wc-item" href="/work-hypersense">
-        <div class="wc-meta">
-          <div class="wc-field">
-            <div class="wc-val">Juspay · Hyperswitch</div>
-          </div>
-          <div class="wc-title-group">
-            <h3 class="wc-title">HyperSense</h3>
-            <div class="wc-about">Payment Cost Observability</div>
-          </div>
-          <p class="wc-brief">Built a payment cost observability platform that unifies fee data across processors, acquirers, and card networks, taken from internal concept to enterprise pilots and a demo to Apple.</p>
-          <div class="wc-tags">
-            <span>0→1 Product</span>
-            <span>Fintech</span>
-          </div>
-          <span class="wc-cta">Read case study <span class="arr">→</span></span>
+      <!-- ===== Juspay ===== -->
+      <div class="t-chapter" id="juspay">
+        <div class="t-mark">
+          <span class="t-node t-node--chapter" aria-hidden="true"></span>
+          <h3 class="t-mark-name">Juspay</h3>
+          <span class="t-mark-years">2024 → present</span>
         </div>
-        <div class="wc-visual">
-          <img src="assets/hypersense-behance-cover.webp" width="1600" height="894" alt="HyperSense dashboard" fetchpriority="high" style="object-position: top center;" />
+        <div class="t-body">
+          <p class="t-role">Product Designer</p>
+          <p class="t-story">Designing enterprise payment products through several 0→1 initiatives, turning complex payment systems into clear decisions for merchants.</p>
         </div>
-      </a>
-
-      <a class="wc-item" href="/work-reconciliation">
-        <div class="wc-meta">
-          <div class="wc-field">
-            <div class="wc-val">Juspay · Hyperswitch</div>
-          </div>
-          <div class="wc-title-group">
-            <h3 class="wc-title">Reconciliation</h3>
-            <div class="wc-about">Exception Resolution</div>
-          </div>
-          <p class="wc-brief">Designed an exception management platform that shortens the path from investigation to resolution, so analysts can understand and resolve reconciliation exceptions faster.</p>
-          <div class="wc-tags">
-            <span>Enterprise</span>
-            <span>Fintech</span>
-          </div>
-          <span class="wc-cta">Read case study <span class="arr">→</span></span>
-        </div>
-        <div class="wc-visual">
-          <img src="assets/recon/cover.webp" width="1600" height="800" alt="Reconciliation case study cover" loading="lazy" style="object-position: top center;" />
-        </div>
-      </a>
-
-      <a class="wc-item" href="/work-skilling">
-        <div class="wc-meta">
-          <div class="wc-field">
-            <div class="wc-val">Go Better (Betterplace)</div>
-          </div>
-          <div class="wc-title-group">
-            <h3 class="wc-title">Up-skill</h3>
-            <div class="wc-about">Up-skilling Platform for Frontline Workers</div>
-          </div>
-          <p class="wc-brief">Redesigned the learning experience for blue-collar workers with low digital literacy, with a new IA and visual language for role-based content at scale.</p>
-          <div class="wc-tags">
-            <span>B2B SaaS</span>
-          </div>
-          <span class="wc-cta">Read case study <span class="arr">→</span></span>
-        </div>
-        <div class="wc-visual">
-          <img src="assets/skilling-behance.webp" width="1600" height="896" alt="Up-skill app UI" loading="lazy" style="object-position: 60% center;" />
-        </div>
-      </a>
-
-      <a class="wc-item" href="https://www.behance.net/gallery/196838779/Attendance-app-for-blue-collars" target="_blank" rel="noopener" data-track="attendance-behance">
-        <div class="wc-meta">
-          <div class="wc-field">
-            <div class="wc-val">Go Better (Betterplace)</div>
-          </div>
-          <div class="wc-title-group">
-            <h3 class="wc-title">Attendance</h3>
-            <div class="wc-about">Attendance Management System</div>
-          </div>
-          <p class="wc-brief">Simplified a friction-heavy attendance flow for frontline workers into a faster, field-friendly experience, shaped with PM and engineering around real behaviour.</p>
-          <div class="wc-tags">
-            <span>Workforce Ops</span>
-          </div>
-          <span class="wc-cta">View on Behance <span class="arr">↗</span></span>
-        </div>
-        <div class="wc-visual">
-          <img src="assets/attendance-behance.webp" width="1600" height="896" alt="Attendance UI" loading="lazy" style="object-position: top center;" />
-        </div>
-      </a>
-    </div>
-
-  </div>
-</section>
-
-
-<section class="section">
-  <div class="section-head">
-    <div class="section-head-main">
-      <h2 class="section-title">From product ideas to working <span class="quiet">experiences.</span></h2>
-    </div>
-  </div>
-
-  <div class="explore-grid">
-    <a href="https://recovery-demo.vercel.app/" target="_blank" rel="noopener" class="explore-card">
-      <div class="explore-media"><img src="assets/rr-cover.webp" width="1118" height="745" alt="Revenue Recovery demo" loading="lazy"></div>
-      <div class="explore-body">
-        <div class="explore-label">Product demo</div>
-        <h3 class="explore-title">Revenue Recovery</h3>
-        <p class="explore-desc">An interactive demo that helps business teams show how Juspay Revenue Recovery wins back lost revenue, using realistic payment scenarios.</p>
-        <span class="explore-cta">View demo <span class="arr">↗</span></span>
       </div>
-    </a>
 
-    <div class="explore-card explore-card--locked">
-      <div class="explore-media"><img src="assets/holdr-cover.webp" width="1200" height="801" alt="Holdr, a personal finance tracker" loading="lazy"></div>
-      <div class="explore-body">
-        <div class="explore-label">Work in progress</div>
-        <h3 class="explore-title">Holdr</h3>
-        <p class="explore-desc">A personal finance tracker that helps long-term investors follow their portfolio, market movements, and key updates in one place.</p>
-        <span class="explore-cta">Coming soon</span>
+      <div class="t-moment">
+        <div class="t-aside">
+          <span class="t-node" aria-hidden="true"></span>
+          <span class="t-name">HyperSense</span>
+          <span class="t-cat">Payment cost observability</span>
+          <a class="t-cta" href="/work-hypersense" aria-label="Read the HyperSense case study">Read case study <span class="t-cta-arrow" aria-hidden="true">→</span></a>
+        </div>
+        <div class="t-body">
+                    <p class="t-line">Designed a 0→1 payment cost observability product for enterprise merchants, taking it from concept to merchant adoption and <em>a demo for Apple</em>.</p>
+          <span class="t-media t-media--light"><img src="assets/hypersense-behance-cover.webp" width="1600" height="894" alt="HyperSense dashboard" fetchpriority="high"></span>
+          <a class="t-cta t-cta--end" href="/work-hypersense" aria-label="Read the HyperSense case study">Read case study <span class="t-cta-arrow">→</span></a>
+        </div>
+      </div>
+
+      <div class="t-moment">
+        <div class="t-aside">
+          <span class="t-node" aria-hidden="true"></span>
+          <span class="t-name">Reconciliation</span>
+          <span class="t-cat">Exception resolution</span>
+          <a class="t-cta" href="/work-reconciliation" aria-label="Read the Reconciliation case study">Read case study <span class="t-cta-arrow" aria-hidden="true">→</span></a>
+        </div>
+        <div class="t-body">
+                    <p class="t-line">Simplified exception resolution for reconciliation analysts, turning complex investigations into <em>a clearer path to resolution</em>.</p>
+          <span class="t-media t-media--light"><img src="assets/recon/cover.webp" width="1600" height="800" alt="Reconciliation case study cover" loading="lazy"></span>
+          <a class="t-cta t-cta--end" href="/work-reconciliation" aria-label="Read the Reconciliation case study">Read case study <span class="t-cta-arrow">→</span></a>
+        </div>
+      </div>
+
+      <div class="t-also">
+        <div class="t-aside">
+          <span class="t-node t-node--small" aria-hidden="true"></span>
+          <span class="t-name">Also at Juspay</span>
+          <span class="t-cat">Demos and smaller projects</span>
+        </div>
+        <div class="t-body">
+          <ul class="t-list">
+            <li><a class="t-row" href="/rr-glimpse">
+              <span class="t-thumb t-thumb--art"><img src="assets/rr/glimpse/v2/hero-art.webp" width="2200" height="789" alt="" loading="lazy"></span>
+              <span class="t-row-text"><span class="t-row-name">Revenue Recovery <span class="arr">→</span></span><span class="t-row-line">Designed a 0→1 product experience for subscription businesses, turning a complex payment recovery system into a clear, actionable experience for merchants.</span></span>
+            </a></li>
+            <li><button type="button" class="t-row" data-role="Your role" data-desc="One sentence on what it is and the part you played in it.">
+              <span class="t-thumb t-thumb--empty"></span>
+              <span class="t-row-text"><span class="t-row-name">Project name</span><span class="t-row-line">One sentence on what it is and the part you played.</span></span>
+              <template class="t-screens"><span class="gl-shot gl-shot--empty"><span class="gl-ph">Screen 1</span></span><span class="gl-shot gl-shot--empty"><span class="gl-ph">Screen 2</span></span><span class="gl-shot gl-shot--empty"><span class="gl-ph">Screen 3</span></span></template>
+            </button></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ===== Go Better ===== -->
+      <div class="t-chapter" id="gobetter">
+        <div class="t-mark">
+          <span class="t-node t-node--chapter" aria-hidden="true"></span>
+          <h3 class="t-mark-name">Go Better</h3>
+          <span class="t-mark-years">2022 → 2024</span>
+        </div>
+        <div class="t-body">
+          <p class="t-role">Associate Product Designer</p>
+          <p class="t-story">Designing mobile experiences that made learning and daily work more intuitive and reliable for frontline workers.</p>
+        </div>
+      </div>
+
+      <div class="t-moment">
+        <div class="t-aside">
+          <span class="t-node" aria-hidden="true"></span>
+          <span class="t-name">Up-skill</span>
+          <span class="t-cat">Learning for frontline workers</span>
+          <a class="t-cta" href="/work-skilling" aria-label="Read the Up-skill case study">Read case study <span class="t-cta-arrow" aria-hidden="true">→</span></a>
+        </div>
+        <div class="t-body">
+                    <p class="t-line">Crafted an engaging learning experience for frontline workers with low digital literacy, making upskilling <em>more guided, relevant, and engaging</em>.</p>
+          <span class="t-media t-media--light"><img src="assets/skilling-behance.webp" width="1600" height="896" alt="Up-skill app UI" loading="lazy"></span>
+          <a class="t-cta t-cta--end" href="/work-skilling" aria-label="Read the Up-skill case study">Read case study <span class="t-cta-arrow">→</span></a>
+        </div>
+      </div>
+
+      <!-- Attendance: Behance until its local case study page lands -->
+      <div class="t-moment">
+        <div class="t-aside">
+          <span class="t-node" aria-hidden="true"></span>
+          <span class="t-name">Attendance</span>
+          <span class="t-cat">Workforce operations</span>
+          <a class="t-cta" href="https://www.behance.net/gallery/196838779/Attendance-app-for-blue-collars" target="_blank" rel="noopener" data-track="attendance-behance" aria-label="View Attendance on Behance">View on Behance <span class="t-cta-arrow" aria-hidden="true">↗</span></a>
+        </div>
+        <div class="t-body">
+                    <p class="t-line">Simplified attendance marking for frontline workers, turning a friction-heavy critical daily workflow into <em>a faster, more reliable experience</em>.</p>
+          <span class="t-media t-media--light"><img src="assets/attendance-behance.webp" width="1600" height="896" alt="Attendance app UI" loading="lazy"></span>
+          <a class="t-cta t-cta--end" href="https://www.behance.net/gallery/196838779/Attendance-app-for-blue-collars" target="_blank" rel="noopener" data-track="attendance-behance" aria-label="View Attendance on Behance">View on Behance <span class="t-cta-arrow">↗</span></a>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-
-<section class="section">
-  <div class="section-head">
-    <div class="section-head-main">
-      <h2 class="section-title">The story so <span class="quiet">far.</span></h2>
+<dialog class="gl-dialog" aria-labelledby="gl-dialog-title">
+  <div class="gl-dialog-head">
+    <div>
+      <h3 class="gl-dialog-title" id="gl-dialog-title"></h3>
+      <span class="gl-role gl-dialog-role"></span>
     </div>
+    <button type="button" class="gl-close" aria-label="Close">Close</button>
   </div>
+  <p class="gl-dialog-desc"></p>
+  <div class="gl-shots" tabindex="0" aria-label="Screens"></div>
+</dialog>
 
-  <div class="about-acts">
-
-    <div class="about-act">
-      <div class="act-copy about-prose">
-        <p>I'm a Product Designer at Juspay, where I work on enterprise payment products. My work revolves around simplifying complex workflows and building experiences that help people make better decisions.</p>
-        <p>Over the last few years, I've worked across workforce-tech and fintech, designing products for both frontline workers and enterprise teams. While the domains have changed, the challenge has remained the same: turning complexity into clarity.</p>
-        <p>I've always been curious about how things work. That curiosity is what led me to design, and it continues to shape how I approach problems today.</p>
-        <p>Outside of work, you'll usually find me exploring new places, spending time in the hills, trying out new recipes, visiting galleries, or occasionally chasing a bit of adrenaline on a racetrack. More recently, I've also been spending time building a few things of my own.</p>
-      </div>
-      <div class="act-visual">
-        <figure class="about-polaroid">
-          <div class="ap-inner">
-            <div class="ap-img">
-              <img class="ap-img-a" loading="lazy" src="assets/akhil.webp" width="800" height="1067" alt="Akhil Male" />
-              <img class="ap-img-b" loading="lazy" src="assets/akhil-hover.webp" width="800" height="1000" alt="Akhil Male, candid" />
+<section id="about" class="fig-section">
+  <div class="fig-bleed">
+    <!-- The About section as one full-bleed design canvas: the story, the portrait in
+         a matted frame with crop marks, and a tidy grid of life photos you can drag
+         around on desktop and tidy back up. -->
+    <div class="fig">
+      <div class="fig-canvas t-wrap">
+        <div class="fig-top">
+          <div class="fig-story">
+            <h2 class="section-title fig-title">The story so <span class="quiet">far.</span></h2>
+            <div class="fig-text">
+              <div class="about-prose">
+                <p>I'm a Product Designer at Juspay, where I work on enterprise payment products. My work revolves around simplifying complex workflows and building experiences that help people make better decisions.</p>
+                <p>Over the last few years, I've worked across workforce-tech and fintech, designing products for both frontline workers and enterprise teams. While the domains have changed, the challenge has remained the same: <span class="ab-key">turning complexity into clarity</span>.</p>
+                <p>I've always been curious about how things work. That curiosity is what led me to design, and it continues to shape how I approach problems today.</p>
+                <p>Outside of work, you'll usually find me exploring new places, spending time in the hills, trying out new recipes, visiting galleries, or occasionally chasing a bit of adrenaline on a racetrack. More recently, I've also been spending time building a few things of my own.</p>
+              </div>
             </div>
           </div>
-        </figure>
+
+          <div class="fig-art">
+            <div class="fig-stage">
+            <figure class="ab-frame">
+              <figcaption class="ab-frame-name"><span aria-hidden="true">#</span> akhil.png</figcaption>
+              <div class="ab-mat">
+                <div class="ab-photo">
+                  <img class="ab-img-a" loading="lazy" src="assets/akhil.webp" width="800" height="1067" alt="Akhil Male">
+                  <img class="ab-img-b" loading="lazy" src="assets/akhil-hover.webp" width="800" height="1000" alt="" aria-hidden="true">
+                </div>
+              </div>
+              <span class="ab-crop ab-crop--tl" aria-hidden="true"></span>
+              <span class="ab-crop ab-crop--tr" aria-hidden="true"></span>
+              <span class="ab-crop ab-crop--bl" aria-hidden="true"></span>
+              <span class="ab-crop ab-crop--br" aria-hidden="true"></span>
+              <span class="ab-frame-meta" aria-hidden="true">4:5 &middot; Bengaluru</span>
+            </figure>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="fig-board" aria-label="Photos from life outside work">
+          <button type="button" class="fig-tidy" hidden>Tidy up</button>
+          <div class="fig-sticky">
+            <p>Frames from outside the canvas. Couldn't resist bringing them in.</p>
+            <p class="fig-sticky-hint">Go on, drag them around.</p>
+          </div>
+          <figure class="fig-shot" style="--r:-3deg">
+            <figcaption class="fig-shot-label">track-day.jpg</figcaption>
+            <img src="assets/life/life-12.webp" width="480" height="640" alt="Track day" loading="lazy" draggable="false">
+          </figure>
+          <figure class="fig-shot" style="--r:2deg">
+            <figcaption class="fig-shot-label">go-karts.jpg</figcaption>
+            <img src="assets/life/life-6.webp" width="480" height="640" alt="A go-kart track and a flying bicycle" loading="lazy" draggable="false">
+          </figure>
+          <figure class="fig-shot" style="--r:-2deg">
+            <figcaption class="fig-shot-label">into-the-hills.jpg</figcaption>
+            <img src="assets/life/life-9.webp" width="480" height="640" alt="Into the hills" loading="lazy" draggable="false">
+          </figure>
+          <figure class="fig-shot" style="--r:3deg">
+            <figcaption class="fig-shot-label">sunrise.jpg</figcaption>
+            <img src="assets/life/life-13.webp" width="480" height="640" alt="Sunrise over the waves" loading="lazy" draggable="false">
+          </figure>
+          <figure class="fig-shot" style="--r:-1deg">
+            <figcaption class="fig-shot-label">somewhere-new.jpg</figcaption>
+            <img src="assets/life/life-1.webp" width="480" height="640" alt="Exploring somewhere new" loading="lazy" draggable="false">
+          </figure>
+          <figure class="fig-shot" style="--r:2deg">
+            <figcaption class="fig-shot-label">gallery-day.jpg</figcaption>
+            <img src="assets/life/life-10.webp" width="480" height="640" alt="Abstract paintings in a gallery" loading="lazy" draggable="false">
+          </figure>
+          <figure class="fig-shot" style="--r:-3deg">
+            <figcaption class="fig-shot-label">backpacking.jpg</figcaption>
+            <img src="assets/life/life-5.webp" width="480" height="640" alt="Backpacking somewhere new" loading="lazy" draggable="false">
+          </figure>
+          <figure class="fig-shot" style="--r:1deg">
+            <figcaption class="fig-shot-label">the-courts.jpg</figcaption>
+            <img src="assets/life/life-4.webp" width="480" height="640" alt="Evening on the courts" loading="lazy" draggable="false">
+          </figure>
+          <figure class="fig-shot" style="--r:3deg">
+            <figcaption class="fig-shot-label">coffee.jpg</figcaption>
+            <img src="assets/life/life-7.webp" width="480" height="640" alt="Coffee and conversation" loading="lazy" draggable="false">
+          </figure>
+          <figure class="fig-shot" style="--r:-2deg">
+            <figcaption class="fig-shot-label">bengaluru-evenings.jpg</figcaption>
+            <img src="assets/life/life-3.webp" width="480" height="640" alt="Evenings in Bengaluru" loading="lazy" draggable="false">
+          </figure>
+        </div>
+
       </div>
-    </div>
-
-  </div>
-
-  <p class="life-bridge">…and a few frames from outside the canvas.</p>
-
-  <div class="life-strip" aria-label="Photos from life outside work">
-    <div class="life-track" id="life-track">
-    <div class="life-set">
-      <figure class="life-card" style="--r:-4deg">
-        <div class="life-inner">
-          <div class="life-img"><img src="assets/life/life-1.webp" width="480" height="640" alt="Exploring somewhere new" loading="lazy" onerror="this.closest('.life-card').classList.add('is-empty')"></div>
-        </div>
-      </figure>
-      <figure class="life-card" style="--r:3deg">
-        <div class="life-inner">
-          <div class="life-img"><img src="assets/life/life-2.webp" width="480" height="640" alt="Coastal skies before the rain" loading="lazy" onerror="this.closest('.life-card').classList.add('is-empty')"></div>
-        </div>
-      </figure>
-      <figure class="life-card" style="--r:-2deg">
-        <div class="life-inner">
-          <div class="life-img"><img src="assets/life/life-3.webp" width="480" height="640" alt="Evenings in Bengaluru" loading="lazy" onerror="this.closest('.life-card').classList.add('is-empty')"></div>
-        </div>
-      </figure>
-      <figure class="life-card" style="--r:4deg">
-        <div class="life-inner">
-          <div class="life-img"><img src="assets/life/life-4.webp" width="480" height="640" alt="Evening on the courts" loading="lazy" onerror="this.closest('.life-card').classList.add('is-empty')"></div>
-        </div>
-      </figure>
-      <figure class="life-card" style="--r:-3deg">
-        <div class="life-inner">
-          <div class="life-img"><img src="assets/life/life-5.webp" width="480" height="640" alt="Backpacking somewhere new" loading="lazy" onerror="this.closest('.life-card').classList.add('is-empty')"></div>
-        </div>
-      </figure>
-      <figure class="life-card" style="--r:2deg">
-        <div class="life-inner">
-          <div class="life-img"><img src="assets/life/life-6.webp" width="480" height="640" alt="A go-kart track and a flying bicycle" loading="lazy" onerror="this.closest('.life-card').classList.add('is-empty')"></div>
-        </div>
-      </figure>
-      <figure class="life-card" style="--r:-4deg">
-        <div class="life-inner">
-          <div class="life-img"><img src="assets/life/life-7.webp" width="480" height="640" alt="Coffee and conversation" loading="lazy" onerror="this.closest('.life-card').classList.add('is-empty')"></div>
-        </div>
-      </figure>
-      <figure class="life-card" style="--r:3deg">
-        <div class="life-inner">
-          <div class="life-img"><img src="assets/life/life-8.webp" width="480" height="640" alt="Low tide at the beach" loading="lazy" onerror="this.closest('.life-card').classList.add('is-empty')"></div>
-        </div>
-      </figure>
-      <figure class="life-card" style="--r:-2deg">
-        <div class="life-inner">
-          <div class="life-img"><img src="assets/life/life-9.webp" width="480" height="640" alt="Into the hills" loading="lazy" onerror="this.closest('.life-card').classList.add('is-empty')"></div>
-        </div>
-      </figure>
-      <figure class="life-card" style="--r:4deg">
-        <div class="life-inner">
-          <div class="life-img"><img src="assets/life/life-10.webp" width="480" height="640" alt="Abstract paintings in a gallery" loading="lazy" onerror="this.closest('.life-card').classList.add('is-empty')"></div>
-        </div>
-      </figure>
-      <figure class="life-card" style="--r:-3deg">
-        <div class="life-inner">
-          <div class="life-img"><img src="assets/life/life-11.webp" width="480" height="640" alt="Higher ground, moody skies" loading="lazy" onerror="this.closest('.life-card').classList.add('is-empty')"></div>
-        </div>
-      </figure>
-      <figure class="life-card" style="--r:2deg">
-        <div class="life-inner">
-          <div class="life-img"><img src="assets/life/life-12.webp" width="480" height="640" alt="Track day" loading="lazy" onerror="this.closest('.life-card').classList.add('is-empty')"></div>
-        </div>
-      </figure>
-      <figure class="life-card" style="--r:-4deg">
-        <div class="life-inner">
-          <div class="life-img"><img src="assets/life/life-13.webp" width="480" height="640" alt="Sunrise over the waves" loading="lazy" onerror="this.closest('.life-card').classList.add('is-empty')"></div>
-        </div>
-      </figure>
-      <figure class="life-card" style="--r:3deg">
-        <div class="life-inner">
-          <div class="life-img"><img src="assets/life/life-14.webp" width="480" height="640" alt="Off the grid" loading="lazy" onerror="this.closest('.life-card').classList.add('is-empty')"></div>
-        </div>
-      </figure>
-    </div>
     </div>
   </div>
 </section>
+
 
 <section class="contact">
   <div class="cl-rule" aria-hidden="true"></div>
@@ -326,10 +933,6 @@
   </div>
 </section>
 
-<footer>
-  <div>© 2026 Akhil Male</div>
-  <div class="right"><a href="#">Back to top <span class="arr arr--up">↑</span></a></div>
-</footer>
 
 <script>
 // Nav gets its bottom border once the page leaves the top (sentinel, no scroll listener)
@@ -368,7 +971,7 @@ document.querySelectorAll('[data-track]').forEach(el => {
 
 // Scroll reveals: sections fade up, life deck fades in
 (function() {
-  document.querySelectorAll('.section:not(#selected-work) .section-head, .explore-card, .about-act, .life-bridge, .contact')
+  document.querySelectorAll('.section:not(#selected-work) .section-head, .t-line, .t-also .t-list, .t-story, .fig, .contact')
     .forEach(el => el.classList.add('reveal'));
   const targets = document.querySelectorAll('.life-strip, .reveal');
   if (!targets.length) return;
@@ -383,8 +986,130 @@ document.querySelectorAll('[data-track]').forEach(el => {
   targets.forEach(t => io.observe(t));
 })();
 
-console.log('%cHi.','font-family:Geist,sans-serif;font-size:32px;font-weight:500;color:#d4ff5e;');
+console.log('%cHi.','font-family:Geist,sans-serif;font-size:32px;font-weight:500;color:#ededed;');
 console.log('%cIf you got this far, you\'re probably my kind of person. → akhilmale.ux@gmail.com','font-family:monospace;font-size:12px;color:#8a8a8a;');
+
+// Hero: the dot grid lights up around the cursor (pointer devices only)
+(function() {
+  const hero = document.querySelector('.hero');
+  if (!hero || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  let frame = 0, x = 0, y = 0;
+  hero.addEventListener('pointermove', e => {
+    const r = hero.getBoundingClientRect();
+    x = e.clientX - r.left; y = e.clientY - r.top;
+    if (frame) return;
+    frame = requestAnimationFrame(() => {
+      hero.style.setProperty('--mx', x + 'px');
+      hero.style.setProperty('--my', y + 'px');
+      frame = 0;
+    });
+  });
+  hero.addEventListener('pointerenter', () => hero.classList.add('is-lit'));
+  hero.addEventListener('pointerleave', () => hero.classList.remove('is-lit'));
+})();
+
+// Thread: each node lights once its moment reaches the middle of the screen, and stays lit
+(function() {
+  const stops = document.querySelectorAll('.t-chapter, .t-moment, .t-also');
+  if (!stops.length) return;
+  if (!('IntersectionObserver' in window)) { stops.forEach(s => s.classList.add('is-reached')); return; }
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(en => {
+      if (en.isIntersecting) { en.target.classList.add('is-reached'); io.unobserve(en.target); }
+    });
+  }, { rootMargin: '0px 0px -45% 0px' });
+  stops.forEach(s => io.observe(s));
+})();
+
+// Thread covers: a soft wipe from the top the first time each one appears
+(function() {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return;
+  const covers = document.querySelectorAll('.t-media');
+  covers.forEach(m => m.classList.add('will-unveil'));
+  // Watch each cover's parent: a fully clipped element can report as never visible
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(en => {
+      if (!en.isIntersecting) return;
+      en.target.querySelector('.t-media').classList.add('is-shown');
+      io.unobserve(en.target);
+    });
+  }, { rootMargin: '0px 0px -15% 0px' });
+  covers.forEach(m => io.observe(m.parentElement));
+})();
+
+// Thread rows: a placeholder opens the shared lightbox with its screens
+(function() {
+  const dlg = document.querySelector('.gl-dialog');
+  if (!dlg || typeof dlg.showModal !== 'function') return;
+  document.querySelectorAll('button.t-row').forEach(row => {
+    row.addEventListener('click', () => {
+      dlg.querySelector('.gl-dialog-title').textContent = row.querySelector('.t-row-name').firstChild.textContent.trim();
+      dlg.querySelector('.gl-dialog-role').textContent = row.dataset.role || '';
+      dlg.querySelector('.gl-dialog-desc').textContent = row.dataset.desc || '';
+      const shots = dlg.querySelector('.gl-shots');
+      shots.replaceChildren(row.querySelector('.t-screens').content.cloneNode(true));
+      shots.scrollLeft = 0;
+      dlg.showModal();
+    });
+  });
+})();
+
+// Lightbox: close button and backdrop click
+(function() {
+  const dlg = document.querySelector('.gl-dialog');
+  if (!dlg) return;
+  dlg.querySelector('.gl-close').addEventListener('click', () => dlg.close());
+  dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); });
+})();
+
+// About canvas: photos drag on desktop and "Tidy up" snaps them back into the grid
+(function() {
+  const canvas = document.querySelector('.fig-canvas');
+  const board = canvas && canvas.querySelector('.fig-board');
+  // desktop pointers only, so touch scrolling is never trapped
+  if (!board || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+  const tidy = board.querySelector('.fig-tidy');
+  const shots = board.querySelectorAll('.fig-shot');
+  let top = 10;
+  const offset = s => (s.style.translate || '0px 0px').split(' ').map(v => parseFloat(v) || 0);
+  shots.forEach(shot => {
+    let start = null;
+    shot.addEventListener('pointerdown', e => {
+      if (e.button !== 0) return;
+      e.preventDefault();                  // stop the browser's own image drag / text selection
+      board.classList.remove('is-tidying');
+      const [tx, ty] = offset(shot);
+      start = { px: e.clientX, py: e.clientY, tx, ty };
+      shot.setPointerCapture(e.pointerId);
+      shot.classList.add('is-dragging');
+      shot.style.zIndex = ++top;
+    });
+    shot.addEventListener('pointermove', e => {
+      if (!start) return;
+      // keep the photo inside the canvas
+      const c = canvas.getBoundingClientRect(), r = shot.getBoundingClientRect();
+      const [tx, ty] = offset(shot);
+      const baseL = r.left - c.left - tx, baseT = r.top - c.top - ty;
+      let nx = start.tx + e.clientX - start.px, ny = start.ty + e.clientY - start.py;
+      nx = Math.max(-baseL, Math.min(c.width - baseL - r.width, nx));
+      ny = Math.max(-baseT, Math.min(c.height - baseT - r.height, ny));
+      shot.style.translate = `${nx}px ${ny}px`;
+      tidy.hidden = false;
+    });
+    const end = () => { start = null; shot.classList.remove('is-dragging'); };
+    shot.addEventListener('pointerup', end);
+    shot.addEventListener('pointercancel', end);
+    shot.addEventListener('dragstart', e => e.preventDefault());
+  });
+  tidy.addEventListener('click', () => {
+    board.classList.add('is-tidying');
+    shots.forEach(s => { s.style.translate = ''; });
+    tidy.hidden = true;
+  });
+})();
+
 </script>
+<script type="module" src="assets/home-fx.js"></script>
 </body>
 </html>

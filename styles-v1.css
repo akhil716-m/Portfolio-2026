@@ -159,7 +159,7 @@ nav .status .dot {
   content: '';
   position: absolute;
   inset: 0;
-  background-image: radial-gradient(circle, rgb(var(--fg-rgb) / 0.07) 1px, transparent 1px);
+  background-image: radial-gradient(circle, rgba(255,255,255,0.07) 1px, transparent 1px);
   background-size: 28px 28px;
   -webkit-mask-image: radial-gradient(ellipse 70% 55% at 50% 32%, black 35%, transparent 85%);
   mask-image: radial-gradient(ellipse 70% 55% at 50% 32%, black 35%, transparent 85%);
@@ -502,8 +502,8 @@ a.wc-item:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px
   font-size: var(--t-meta);
   letter-spacing: 0.06em;
   color: var(--text-soft);
-  background: rgb(var(--acc-rgb) / 0.04);
-  border: 1px solid rgb(var(--acc-rgb) / 0.16);
+  background: rgba(212,255,94,0.04);
+  border: 1px solid rgba(212,255,94,0.16);
   border-radius: 100px;
   padding: 4px 12px;
 }
@@ -646,7 +646,7 @@ a.wc-item:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px
   align-items: center;
   justify-content: center;
   background-color: var(--bg-card);
-  background-image: radial-gradient(circle, rgb(var(--fg-rgb) / 0.07) 1px, transparent 1px);
+  background-image: radial-gradient(circle, rgba(255,255,255,0.07) 1px, transparent 1px);
   background-size: 20px 20px;
 }
 .gl-ph {
@@ -654,7 +654,7 @@ a.wc-item:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px
   font-size: var(--t-meta);
   letter-spacing: 0.06em;
   color: var(--text-muted);
-  border: 1px dashed var(--ln-2);
+  border: 1px dashed #2a2a2a;
   border-radius: 100px;
   padding: 6px 14px;
   background: var(--bg);
@@ -674,8 +674,8 @@ a.wc-item:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px
   font-size: var(--t-meta);
   letter-spacing: 0.04em;
   color: var(--text-soft);
-  background: rgb(var(--acc-rgb) / 0.04);
-  border: 1px solid rgb(var(--acc-rgb) / 0.16);
+  background: rgba(212,255,94,0.04);
+  border: 1px solid rgba(212,255,94,0.16);
   border-radius: 100px;
   padding: 3px 10px;
 }
@@ -712,7 +712,7 @@ a.gl-tile:hover .gl-cta .arr { transform: translate(3px, -3px); }
   overflow: auto;
 }
 .gl-dialog::backdrop {
-  background: rgb(var(--bg-rgb) / 0.78);
+  background: rgba(10, 10, 10, 0.78);
   -webkit-backdrop-filter: blur(6px);
   backdrop-filter: blur(6px);
 }
@@ -890,7 +890,7 @@ html:has(.gl-dialog[open]) { overflow: hidden; }
   left: 50%;
   width: min(760px, 86%);
   height: min(400px, 82%);
-  background: linear-gradient(to bottom, rgb(var(--acc-rgb) / 0.12), rgb(var(--acc-rgb) / 0.04) 42%, transparent 74%);
+  background: linear-gradient(to bottom, rgba(212, 255, 94, 0.12), rgba(212, 255, 94, 0.04) 42%, transparent 74%);
   clip-path: polygon(20% 0, 80% 0, 100% 100%, 0 100%);
   filter: blur(16px);
   opacity: 0;
@@ -961,7 +961,7 @@ footer .right a:hover { color: var(--accent); }
   nav {
     padding: 16px 20px;
     font-size: 11px;
-    background: rgb(var(--bg-rgb) / 0.88);
+    background: rgba(10, 10, 10, 0.88);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
     border-bottom: 1px solid transparent;
@@ -971,7 +971,7 @@ footer .right a:hover { color: var(--accent); }
   nav .links a:has(svg) {
     display: inline-flex; align-items: center; gap: 6px;
     padding: 6px 12px; border-radius: 8px;
-    background: var(--accent); color: var(--on-accent) !important;
+    background: var(--accent); color: #000 !important;
     font-family: 'Geist Mono', monospace; font-size: 11px;
   }
   nav .links a:has(svg) svg { width: 12px; height: 12px; }
@@ -1032,11 +1032,11 @@ footer .right a:hover { color: var(--accent); }
 }
 .life-strip::before {
   left: 0;
-  background: linear-gradient(to right, var(--bg) 0%, rgb(var(--bg-rgb) / 0.94) 12%, rgb(var(--bg-rgb) / 0.8) 28%, rgb(var(--bg-rgb) / 0.55) 48%, rgb(var(--bg-rgb) / 0.28) 70%, rgb(var(--bg-rgb) / 0.08) 88%, transparent 100%);
+  background: linear-gradient(to right, var(--bg) 0%, rgba(10,10,10,0.94) 12%, rgba(10,10,10,0.8) 28%, rgba(10,10,10,0.55) 48%, rgba(10,10,10,0.28) 70%, rgba(10,10,10,0.08) 88%, transparent 100%);
 }
 .life-strip::after {
   right: 0;
-  background: linear-gradient(to left, var(--bg) 0%, rgb(var(--bg-rgb) / 0.94) 12%, rgb(var(--bg-rgb) / 0.8) 28%, rgb(var(--bg-rgb) / 0.55) 48%, rgb(var(--bg-rgb) / 0.28) 70%, rgb(var(--bg-rgb) / 0.08) 88%, transparent 100%);
+  background: linear-gradient(to left, var(--bg) 0%, rgba(10,10,10,0.94) 12%, rgba(10,10,10,0.8) 28%, rgba(10,10,10,0.55) 48%, rgba(10,10,10,0.28) 70%, rgba(10,10,10,0.08) 88%, transparent 100%);
 }
 
 .life-track {
@@ -1068,12 +1068,12 @@ footer .right a:hover { color: var(--accent); }
   border: 1px solid var(--line);
   border-radius: var(--r-frame);
   padding: 8px;
-  box-shadow: 0 24px 48px rgb(var(--sh-rgb) / calc(0.5 * var(--sh-k)));
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.5);
   transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.45s ease;
 }
 .life-card:hover .life-inner {
   transform: translateY(-8px) rotate(calc(var(--r) * -0.5));
-  border-color: var(--ln-2);
+  border-color: #2e2e2e;
 }
 
 .life-img {
@@ -1081,7 +1081,7 @@ footer .right a:hover { color: var(--accent); }
   aspect-ratio: 3 / 4;
   border-radius: var(--r-inset);
   overflow: hidden;
-  background: linear-gradient(165deg, var(--surf-3), var(--surf-2));
+  background: linear-gradient(165deg, #191919, #0f0f0f);
 }
 .life-img img {
   width: 100%;
@@ -1098,7 +1098,7 @@ footer .right a:hover { color: var(--accent); }
   content: '+ photo';
   position: absolute;
   inset: 8px;
-  border: 1px dashed var(--ln-2);
+  border: 1px dashed #272727;
   border-radius: 6px;
   display: flex;
   align-items: center;
@@ -1134,7 +1134,7 @@ footer .right a:hover { color: var(--accent); }
    One entrance (fade-up on scroll), one ambient loop (the life strip), and small
    hover feedback on links. Everything settles to static under reduced motion. */
 
-::selection { background: var(--accent); color: var(--on-accent); }
+::selection { background: var(--accent); color: #000; }
 
 /* Gentle fade-up reveals for sections (class added via JS) */
 .reveal {
@@ -1196,7 +1196,7 @@ footer .right a:hover .arr--up { transform: translateY(-3px); }
   border: 1px solid var(--line);
   border-radius: var(--r-frame);
   padding: 10px;
-  box-shadow: 0 24px 48px rgb(var(--sh-rgb) / calc(0.5 * var(--sh-k)));
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.5);
 }
 .ap-img {
   position: relative;
@@ -1233,43 +1233,3 @@ footer .right a:hover .arr--up { transform: translateY(-3px); }
 @media (prefers-reduced-motion: reduce) {
   .about-polaroid, .ap-img img { transition: none; }
 }
-
-
-/* ===== Baked theme (from the colour lab): dark ground, neutral white accent =====
-   Change the ground or accent by editing these tokens, or try options at /home-v2-fx.
-   The original stylesheet is kept as styles-v1.css. */
-:root {
-  --bg: #0a0a0a;
-  --bg-rgb: 10 10 10;
-  --bg-soft: #131313;
-  --bg-card: #161616;
-  --line: #1f1f1f;
-  --line-soft: #181818;
-  --text: #ededed;
-  --text-soft: #8a8a8a;
-  --text-muted: #7a7a7a;
-  --fg-rgb: 255 255 255;
-  --sh-rgb: 0 0 0;
-  --sh-k: 1;
-  --surf-1: #0c0c0c;
-  --surf-2: #121212;
-  --surf-3: #161616;
-  --surf-4: #1c1c1c;
-  --ln-1: #1f1f1f;
-  --ln-2: #2a2a2a;
-  --ln-3: #3a3a3a;
-  --accent: #ededed;
-  --acc-rgb: 237 237 237;
-  --acc-soft: #e6e2d8;
-  --acc-mid: #5f584e;
-  --acc-ink: #141414;
-  --on-accent: #141414;
-  --glow: rgb(237 237 237 / 0.15);
-  --tray: #141414;
-  color-scheme: dark;
-}
-
-
-/* Case studies: each page sets its project's cover colour on <html> (accent, tints, --proj);
-   the hero glow reads --proj-rgb */
-html[data-hero="glow"] .cs-hero::before { background: radial-gradient(ellipse 60% 55% at 85% 5%, rgb(var(--proj-rgb) / .12), transparent 70%); }
