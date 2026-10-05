@@ -171,7 +171,9 @@
   font-weight: 300;
   line-height: 1.6;
   color: var(--text-soft);
-  max-width: 50ch;
+  /* runs the full width of the column, like the project sentences */
+  max-width: none;
+  text-wrap: pretty;
 }
 
 /* Project moment: the sentence is the headline */
@@ -708,7 +710,7 @@
         </div>
         <div class="t-body">
           <p class="t-role">Product Designer</p>
-          <p class="t-story">Designing enterprise payment products through several 0→1 initiatives, turning complex payment systems into clear decisions for merchants.</p>
+          <p class="t-story">Designing enterprise payment products across multiple 0→1 initiatives, turning complex payment systems into intuitive experiences for enterprise merchants.</p>
         </div>
       </div>
 
@@ -752,11 +754,6 @@
               <span class="t-thumb t-thumb--art"><img src="assets/rr/glimpse/v2/hero-thumb.webp" width="640" height="400" alt="" loading="lazy"></span>
               <span class="t-row-text"><span class="t-row-name">Revenue Recovery</span><span class="t-row-line">Designed a 0→1 product experience for subscription businesses, turning a complex payment recovery system into a clear, actionable experience for merchants.</span></span>
             </a></li>
-            <li><button type="button" class="t-row" data-role="Your role" data-desc="One sentence on what it is and the part you played in it.">
-              <span class="t-thumb t-thumb--empty"></span>
-              <span class="t-row-text"><span class="t-row-name">Project name</span><span class="t-row-line">One sentence on what it is and the part you played.</span></span>
-              <template class="t-screens"><span class="gl-shot gl-shot--empty"><span class="gl-ph">Screen 1</span></span><span class="gl-shot gl-shot--empty"><span class="gl-ph">Screen 2</span></span><span class="gl-shot gl-shot--empty"><span class="gl-ph">Screen 3</span></span></template>
-            </button></li>
           </ul>
         </div>
       </div>
@@ -770,7 +767,7 @@
         </div>
         <div class="t-body">
           <p class="t-role">Associate Product Designer</p>
-          <p class="t-story">Designing mobile experiences that made learning and daily work more intuitive and reliable for frontline workers.</p>
+          <p class="t-story">Designing mobile experiences across learning and workforce operations, making learning and everyday work more intuitive and reliable for frontline workers.</p>
         </div>
       </div>
 
