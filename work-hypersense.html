@@ -29,6 +29,9 @@
 </script>
 <style>
 :root { --error: #e06060; }
+/* #7a7a7a is AA on the page ground but only 4.2:1 on #161616 cards: lift it a step there */
+.cs-tip, .cs-vis, .cs-team-col, .cs-docs, .cs-tensions, .cs-challenge, .cs-outcome-next,
+.cs-fstat-grid, .cs-persona, .cs-sim-modal, .cs-arcs, .cs-next { --text-muted: #858585; }
 /* ============================================================
    CASE STUDY — HYPERSENSE
    Re-themed translation of the external case-study microsite
@@ -157,6 +160,11 @@ nav .logo a.cs-back:hover { color: var(--accent); }
 .cs-hero-title em {
   font-style: normal; font-family: 'Geist', sans-serif; font-weight: 500; color: var(--text-soft);
 }
+.cs-hero-sub {
+  max-width: 54ch; margin: 28px 0 0; font-family: 'Geist', sans-serif; font-size: clamp(17px, 1.6vw, 20px);
+  font-weight: 300; line-height: 1.6; color: var(--text-soft);
+  opacity: 0; animation: csFadeUp 0.8s ease forwards 0.45s;
+}
 .cs-hero-meta {
   display: flex; flex-wrap: wrap; gap: 48px; margin-top: 58px; padding-top: 32px;
   border-top: 1px solid var(--line);
@@ -177,6 +185,10 @@ nav .logo a.cs-back:hover { color: var(--accent); }
 .cs-hero-scroll span {
   font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
   color: var(--text-muted); writing-mode: vertical-rl;
+}
+@media (prefers-reduced-motion: reduce) {
+  .cs-back, .cs-hero-eyebrow, .cs-hero-title, .cs-hero-sub, .cs-hero-meta, .cs-hero-scroll { animation: none; opacity: 1; }
+  .cs-hero-scroll-line { animation: none; }
 }
 .cs-hero-scroll-line {
   width: 1px; height: 58px;
@@ -234,12 +246,19 @@ nav .logo a.cs-back:hover { color: var(--accent); }
   color: var(--text-soft); margin: 0 0 26px; max-width: 720px;
 }
 .cs-p:last-child { margin-bottom: 0; }
-.cs-p strong { color: var(--text); font-weight: 500; }
+.cs-p strong { color: var(--accent); font-weight: 500; }
 .cs-h3 {
   font-family: 'Geist', sans-serif; font-size: clamp(22px, 3.2vw, 30px); font-weight: 600;
   letter-spacing: -0.015em; color: var(--text); margin: 0 0 16px;
 }
 .cs-h3 em { color: var(--text) !important; font-weight: 600; }
+.cs-tension-link {
+  display: inline-flex; align-items: center; gap: 6px; margin-top: 6px; min-height: 44px;
+  font-family: 'Geist', sans-serif; font-size: 13.5px; font-weight: 400; color: var(--accent);
+  text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.2s ease, gap 0.2s ease;
+}
+.cs-tension-link:hover, .cs-tension-link:focus-visible { border-bottom-color: var(--accent); gap: 9px; outline: none; }
+[id^="cs-mod-"] { scroll-margin-top: 120px; }
 .cs-module-tag {
   font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.16em;
   text-transform: uppercase; color: var(--accent); margin-bottom: 12px;
@@ -258,6 +277,7 @@ nav .logo a.cs-back:hover { color: var(--accent); }
   transition: color 0.15s ease, border-color 0.15s ease;
 }
 .cs-gloss:hover, .cs-gloss:focus-visible { color: var(--accent); border-bottom-color: var(--accent); outline: none; }
+.cs-gloss:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
 
 .cs-tip {
   position: fixed; z-index: 2000; max-width: 320px; padding: 16px 18px;
@@ -311,6 +331,11 @@ nav .logo a.cs-back:hover { color: var(--accent); }
   opacity: 0; pointer-events: none;
 }
 .cs-ng { opacity: 0.22; }
+.cs-flow-v { display: none; width: 100%; max-width: 340px; margin: 0 auto; }
+@media (max-width: 600px) {
+  .cs-flow-h, .cs-flow-dot { display: none !important; }
+  .cs-flow-v { display: block; }
+}
 
 @media (prefers-reduced-motion: no-preference) {
   .cs-vis.is-visible .cs-fl { animation: cs-dash-march 0.8s linear infinite; }
@@ -444,6 +469,7 @@ nav .logo a.cs-back:hover { color: var(--accent); }
 /* ---------- REVEAL-ON-SCROLL ---------- */
 .reveal { opacity: 0; transform: translateY(26px); transition: opacity 0.7s ease, transform 0.7s ease; }
 .reveal.is-visible { opacity: 1; transform: translateY(0); }
+@media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
 
 /* ---------- "MORE TO COME" CLOSER ---------- */
 .cs-more-section { padding: clamp(70px, 10vw, 120px) 0; border-top: 1px solid var(--line); text-align: center; }
@@ -609,7 +635,7 @@ a.cs-cta { margin-top: 28px; }
 .cs-sim-btn {
   display: inline-flex; align-items: center; gap: 7px; margin: 0; flex-shrink: 0;
   font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase;
-  color: var(--bg); background: var(--accent); border: none; border-radius: 100px; padding: 9px 18px; cursor: pointer;
+  color: var(--bg); background: var(--accent); border: none; border-radius: 100px; padding: 9px 20px; min-height: 44px; cursor: pointer;
   position: relative; z-index: 2;
   transition: gap 0.2s ease, opacity 0.2s ease, transform 0.15s ease;
 }
@@ -710,7 +736,8 @@ a.cs-cta { margin-top: 28px; }
   opacity: 0; visibility: hidden; pointer-events: none;
   transition: opacity 0.25s ease, visibility 0.25s ease;
 }
-.cs-sim-modal.is-open { opacity: 1; visibility: visible; pointer-events: auto; }
+/* Visibility flips at once on open so focus can move into the dialog straight away */
+.cs-sim-modal.is-open { opacity: 1; visibility: visible; pointer-events: auto; transition: opacity 0.25s ease, visibility 0s; }
 .cs-sim-modal-backdrop {
   position: absolute; inset: 0; background: rgb(var(--sh-rgb) / calc(0.7 * var(--sh-k))); backdrop-filter: blur(4px);
 }
@@ -727,7 +754,7 @@ a.cs-cta { margin-top: 28px; }
 .cs-sim-modal .cs-vis::before { display: none; }
 .cs-sim-modal-close {
   position: absolute; top: 16px; right: 16px; z-index: 2;
-  width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;
+  width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
   font-size: 14px; line-height: 1; color: var(--text-soft); background: var(--bg-soft);
   border: 1px solid var(--line); border-radius: 50%; cursor: pointer;
   transition: color 0.18s ease, border-color 0.18s ease;
@@ -761,7 +788,7 @@ a.cs-cta { margin-top: 28px; }
 /* The fold: one quiet row at the foot of the card */
 .cs-journey-toggle {
   display: flex; align-items: center; justify-content: space-between; width: 100%;
-  margin-top: 26px; padding: 0; border: none; background: none; cursor: pointer;
+  margin-top: 14px; padding: 0; min-height: 44px; border: none; background: none; cursor: pointer;
   font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted);
   transition: color 0.2s ease;
 }
@@ -1052,6 +1079,26 @@ a.cs-cta { margin-top: 28px; }
   color: var(--text); letter-spacing: -0.01em;
 }
 
+.cs-thanks-note p { max-width: 30ch; line-height: 1.4; text-wrap: balance; }
+.cs-close-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 12px; }
+.cs-close-links a.cs-cta { margin-top: 0; min-height: 44px; text-transform: none; letter-spacing: 0.02em; font-size: 13px; }
+.cs-cta--solid { color: var(--bg); background: var(--accent); border-color: var(--accent); }
+.cs-cta--solid:hover { background: var(--acc-soft); border-color: var(--acc-soft); }
+.cs-next {
+  display: grid; gap: 8px; margin: 72px 0 0; padding: 28px 32px; text-decoration: none;
+  border: 1px solid var(--line); border-radius: 14px; background: rgb(var(--fg-rgb) / 0.02);
+  transition: border-color 0.25s ease, background 0.25s ease;
+}
+.cs-next:hover, .cs-next:focus-visible { border-color: rgb(var(--acc-rgb) / 0.5); background: rgb(var(--acc-rgb) / 0.04); outline: none; }
+.cs-next-meta { font-family: 'Geist', sans-serif; font-size: 13.5px; color: var(--text-muted); }
+.cs-next-title { display: flex; align-items: center; gap: 10px; font-family: 'Geist', sans-serif; font-size: clamp(24px, 3.4vw, 32px); font-weight: 500; letter-spacing: -0.02em; color: var(--text); }
+.cs-next-title .arr { color: var(--accent); transition: transform 0.25s ease; }
+.cs-next:hover .cs-next-title .arr { transform: translateX(4px); }
+.cs-next-desc { font-family: 'Geist', sans-serif; font-size: 15px; font-weight: 300; line-height: 1.6; color: var(--text-soft); }
+.cs-back-link { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; font-family: 'Geist', sans-serif; font-size: 14px; color: var(--text-muted); text-decoration: none; transition: color 0.2s ease; }
+.cs-back-link:hover, .cs-back-link:focus-visible { color: var(--text); }
+@media (max-width: 540px) { .cs-next { padding: 22px 20px; } }
+
 /* ---------- OUTCOME CALLOUT ---------- */
 .cs-outcome {
   margin: 28px 0 8px; padding: 0 0 0 20px;
@@ -1142,19 +1189,6 @@ a.cs-cta { margin-top: 28px; }
 .cs-scenario-shot:hover img { transform: scale(1.04); }
 .cs-scenario-shot:hover::after { background: rgb(var(--sh-rgb) / calc(0.2 * var(--sh-k))); }
 
-/* Scenario lightbox */
-.cs-scn-modal { position: fixed; inset: 0; z-index: 2000; display: flex; align-items: center; justify-content: center; padding: 24px; background: rgb(var(--sh-rgb) / calc(0.82 * var(--sh-k))); backdrop-filter: blur(10px); opacity: 0; pointer-events: none; transition: opacity 0.25s ease; }
-.cs-scn-modal.is-open { opacity: 1; pointer-events: all; }
-.cs-scn-modal-box { width: min(960px, 100%); background: var(--bg-card); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; transform: translateY(16px) scale(0.98); transition: transform 0.32s cubic-bezier(.22,.8,.25,1); }
-.cs-scn-modal.is-open .cs-scn-modal-box { transform: translateY(0) scale(1); }
-.cs-scn-modal-img { height: 400px; overflow-y: auto; border-bottom: 1px solid var(--line); scrollbar-width: thin; scrollbar-color: rgb(var(--fg-rgb) / 0.12) transparent; }
-.cs-scn-modal-img img { width: 100%; display: block; }
-.cs-scn-modal-body { padding: 24px 28px 28px; position: relative; }
-.cs-scn-modal-tag { font-family: 'Geist Mono', monospace; font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
-.cs-scn-modal-title { font-family: 'Geist', sans-serif; font-size: 22px; font-weight: 600; letter-spacing: -0.01em; color: var(--text); margin-bottom: 10px; }
-.cs-scn-modal-desc { font-family: 'Geist', sans-serif; font-size: 13.5px; font-weight: 300; line-height: 1.7; color: var(--text-soft); margin: 0; }
-.cs-scn-modal-close { display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; margin: 0 auto 12px; background: rgb(var(--fg-rgb) / 0.08); border: 1px solid rgb(var(--fg-rgb) / 0.14); border-radius: 50%; cursor: pointer; color: var(--text-muted); font-size: 13px; transition: background 0.2s ease; flex-shrink: 0; }
-.cs-scn-modal-close:hover { background: rgb(var(--fg-rgb) / 0.16); }
 .cs-scenario-tag { font-family: 'Geist Mono', monospace; font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
 .cs-scenario-title { font-family: 'Geist', sans-serif; font-size: 19px; font-weight: 600; letter-spacing: -0.01em; color: var(--text); margin-bottom: 10px; }
 .cs-scenario p { font-family: 'Geist', sans-serif; font-size: 12.5px; font-weight: 300; line-height: 1.7; color: var(--text-soft); margin: 0; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
@@ -1317,12 +1351,14 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 
 <!-- ═══════════════════════ HERO ═══════════════════════ -->
 <header class="cs-hero">
-  <div class="cs-hero-eyebrow">Case Study<span class="sep">·</span>B2B SaaS<span class="sep">·</span>2026</div>
+  <div class="cs-hero-eyebrow">HyperSense<span class="sep">·</span>B2B SaaS<span class="sep">·</span>2026</div>
   <h1 class="cs-hero-title">Cost <em>Observability</em></h1>
+  <p class="cs-hero-sub">I designed HyperSense from 0 to 1 as the only designer on the team: a product that shows enterprise merchants where their payment costs go, and why.</p>
   <div class="cs-hero-meta">
     <div class="cs-hero-meta-item"><label>Role</label><span>Solo Product Designer</span></div>
     <div class="cs-hero-meta-item"><label>Company</label><span>Juspay <span class="accent">·</span> Hyperswitch</span></div>
     <div class="cs-hero-meta-item"><label>Scope</label><span>0 → 1 Product</span></div>
+    <div class="cs-hero-meta-item"><label>Outcome</label><span>Demoed to 20+ enterprises, including Apple and SpaceX <span class="accent">·</span> 6 pilots <span class="accent">·</span> 2 converted</span></div>
   </div>
   <div class="cs-hero-scroll">
     <span>Scroll</span>
@@ -1337,8 +1373,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
   <div class="cs-label reveal"><span class="num">/01</span> The Cost of Invisibility</div>
   <h2 class="cs-display reveal">Every payment generates revenue. But not every dollar <em>reaches the merchant.</em></h2>
 
-  <p class="cs-p reveal">After building payment infrastructure for enterprise businesses in India for over a decade, Juspay expanded into the US and European markets through Hyperswitch. It exposed us to a very different payments ecosystem, where payment costs were no longer a hidden operational detail but a critical business concern.</p>
-  <p class="cs-p reveal">Working closely with enterprise merchants in these markets gave us a deeper understanding of how those costs were structured and why making sense of them remained so difficult.</p>
+  <p class="cs-p reveal">When Juspay took its payment infrastructure to US and European merchants through Hyperswitch, we met a market where payment costs weren't a hidden operational detail but a critical business concern, and one merchants found very hard to make sense of.</p>
 
   <p class="cs-p reveal">On the surface, payments appear simple. A customer pays, and the merchant gets paid.</p>
 
@@ -1346,7 +1381,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
   <div class="cs-vis reveal" style="margin: 24px 0;">
     <div class="cs-vis-body" style="padding: 44px 28px 40px;">
       <div class="cs-flow-stage">
-      <svg viewBox="0 0 700 132" xmlns="http://www.w3.org/2000/svg" role="img" style="width:100%; display:block;">
+      <svg class="cs-flow-h" viewBox="0 0 700 132" xmlns="http://www.w3.org/2000/svg" role="img" style="width:100%; display:block;">
         <title>Payment flow — $1,000 enters, intermediaries each extract a fee, the merchant receives $980</title>
 
         <defs>
@@ -1410,6 +1445,48 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
         <text class="cs-amt-out" x="636" y="112" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="12.5" font-weight="500" fill="var(--text-soft)">$980</text>
       </svg>
       <span class="cs-flow-dot" aria-hidden="true"></span>
+      <!-- Phones: the same chain stacked top to bottom, so every label stays readable -->
+      <svg class="cs-flow-v" viewBox="0 0 300 372" xmlns="http://www.w3.org/2000/svg" role="img">
+        <title>Payment flow — $1,000 enters, the acquiring bank, card network and issuing bank each take a fee, the merchant receives $980</title>
+        <line class="cs-fl" x1="40" y1="58" x2="40" y2="314" stroke-width="1.3" stroke-dasharray="3 6" stroke-linecap="round" style="stroke: rgb(var(--fg-rgb) / 0.24)"/>
+        <g fill="none" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" style="stroke: rgb(var(--fg-rgb) / 0.5)">
+          <rect x="23" y="16" width="34" height="24" rx="4" />
+          <line x1="23" y1="24" x2="57" y2="24" />
+          <line x1="29" y1="33" x2="37" y2="33" />
+        </g>
+        <text x="76" y="33" font-family="'Geist',sans-serif" font-size="14" font-weight="500" fill="var(--text)">Customer pays</text>
+        <text x="296" y="33" text-anchor="end" font-family="'Geist Mono',monospace" font-size="14" font-weight="500" fill="var(--text)">$1,000</text>
+        <text x="76" y="78" font-family="'Geist',sans-serif" font-size="10.5" font-weight="500" letter-spacing="0.12em" style="fill: rgb(var(--acc-rgb) / 0.95)">HIDDEN PAYMENT COSTS</text>
+
+        <circle class="cs-ng cs-ng1" cx="40" cy="118" r="28" fill="url(#cs-flow-nodeglow)" />
+        <circle class="cs-node cs-n1" cx="40" cy="118" r="16" fill="var(--bg-soft)" stroke-width="1.3" style="stroke: rgb(var(--acc-rgb) / 0.35)"/>
+        <text x="40" y="123" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="13" font-weight="500" fill="var(--accent)">%</text>
+        <text class="cs-lbl cs-lbl1" x="76" y="123" font-family="'Geist',sans-serif" font-size="14" fill="var(--text-soft)">Acquiring bank</text>
+        <text class="cs-fee cs-fee1" x="296" y="123" text-anchor="end" font-family="'Geist Mono',monospace" font-size="13" style="fill: rgb(var(--acc-rgb) / 0.7)">−0.35%</text>
+
+        <circle class="cs-ng cs-ng2" cx="40" cy="186" r="28" fill="url(#cs-flow-nodeglow)" />
+        <circle class="cs-node cs-n2" cx="40" cy="186" r="16" fill="var(--bg-soft)" stroke-width="1.3" style="stroke: rgb(var(--acc-rgb) / 0.35)"/>
+        <text x="40" y="191" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="13" font-weight="500" fill="var(--accent)">%</text>
+        <text class="cs-lbl cs-lbl2" x="76" y="191" font-family="'Geist',sans-serif" font-size="14" fill="var(--text-soft)">Card network</text>
+        <text class="cs-fee cs-fee2" x="296" y="191" text-anchor="end" font-family="'Geist Mono',monospace" font-size="13" style="fill: rgb(var(--acc-rgb) / 0.7)">−0.15%</text>
+
+        <circle class="cs-ng cs-ng3" cx="40" cy="254" r="28" fill="url(#cs-flow-nodeglow)" />
+        <circle class="cs-node cs-n3" cx="40" cy="254" r="16" fill="var(--bg-soft)" stroke-width="1.3" style="stroke: rgb(var(--acc-rgb) / 0.35)"/>
+        <text x="40" y="259" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="13" font-weight="500" fill="var(--accent)">%</text>
+        <text class="cs-lbl cs-lbl3" x="76" y="259" font-family="'Geist',sans-serif" font-size="14" fill="var(--text-soft)">Issuing bank</text>
+        <text class="cs-fee cs-fee3" x="296" y="259" text-anchor="end" font-family="'Geist Mono',monospace" font-size="13" style="fill: rgb(var(--acc-rgb) / 0.7)">−1.50%</text>
+
+        <g fill="none" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" style="stroke: rgb(var(--fg-rgb) / 0.5)">
+          <path d="M 24 336 L 40 326 L 56 336" />
+          <line x1="21" y1="336" x2="59" y2="336" />
+          <line x1="27" y1="340" x2="27" y2="354" />
+          <line x1="40" y1="340" x2="40" y2="354" />
+          <line x1="53" y1="340" x2="53" y2="354" />
+          <line x1="21" y1="358" x2="59" y2="358" />
+        </g>
+        <text x="76" y="347" font-family="'Geist',sans-serif" font-size="14" font-weight="500" fill="var(--text)">Merchant receives</text>
+        <text class="cs-amt-out" x="296" y="347" text-anchor="end" font-family="'Geist Mono',monospace" font-size="14" font-weight="500" fill="var(--text-soft)">$980</text>
+      </svg>
       </div>
     </div>
   </div>
@@ -1417,8 +1494,8 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
   <p class="cs-p reveal">In reality, every transaction passes through multiple participants before reaching the merchant, each introducing its own fees and rules. Individually these costs seem small, but at enterprise scale they become one of a merchant's largest variable expenses.</p>
 
   <h3 class="cs-h3 reveal" style="margin-top: 52px;">The visibility gap</h3>
-  <p class="cs-p reveal">Merchants knew <strong>how much</strong> they were paying, but had very little understanding of <strong>what changed</strong>, <strong>why it changed</strong>, or <strong>where their money was going</strong>.</p>
-  <p class="cs-p reveal">Although payment costs are expressed as small percentages between 1.5–3.5% of their payment volume on processing costs, at enterprise scale they quickly translate into millions of dollars in avoidable spend.</p>
+  <p class="cs-p reveal">Merchants knew how much they were paying, but had very little understanding of what changed, why it changed, or <strong>where their money was going</strong>.</p>
+  <p class="cs-p reveal">Payment costs look small, typically 1.5–3.5% of payment volume, but at enterprise scale they quickly translate into millions of dollars in avoidable spend.</p>
 
   <!-- Merchant scale tiers — concentric arcs -->
   <div class="cs-arcs reveal" style="margin: 48px 0 24px;">
@@ -1497,7 +1574,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 <section class="cs-section" id="cs-begins">
 <div class="cs-wrap">
 
-  <div class="cs-label reveal"><span class="num">/02</span> This is where Hypersense begins</div>
+  <div class="cs-label reveal"><span class="num">/02</span> This is where HyperSense begins</div>
   <h2 class="cs-display reveal">Making payment costs <em>observable.</em></h2>
 
   <p class="cs-p reveal">HyperSense is a payment cost observability platform built to help merchants understand where their payment costs come from, why they change, and what actions to take next.</p>
@@ -1512,7 +1589,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 
   <div class="cs-subdivider reveal"><span>My Contribution</span></div>
 
-  <p class="cs-p reveal">As a sole product designer, I worked closely with product, engineering, and business development teams to translate those insights into a cohesive investigation experience for enterprise merchants.</p>
+  <p class="cs-p reveal">As the only product designer, I worked closely with product, engineering, and business development teams to translate those insights into a cohesive investigation experience for enterprise merchants.</p>
 
   <div class="cs-vis reveal" style="margin: 24px 0;">
     <div class="cs-vis-label">One designer. A team of seven. One shared problem to solve.</div>
@@ -1550,10 +1627,8 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
   <div class="cs-label reveal"><span class="num">/03</span> Understanding the terrain</div>
   <h2 class="cs-display reveal">The industry's most transparent pricing model comes with an <em>invisible tradeoff.</em></h2>
 
-  <p class="cs-p reveal">Every card payment looks simple from the outside: tap, approve, done. But every transaction the merchant processes comes with a payment's cost, and how that cost is calculated depends on the pricing model a merchant chooses.</p>
-  <p class="cs-p reveal">The industry primarily operates on two models: <span class="cs-gloss" tabindex="0" data-gloss="blended-pricing">Blended pricing</span> and <span class="cs-gloss" tabindex="0" data-gloss="ic-plus-plus">IC++</span> pricing.</p>
-  <p class="cs-p reveal">Blended pricing applies a single fixed rate to every transaction. It's simple and predictable, but at high volumes, merchants often end up paying more than necessary.</p>
-  <p class="cs-p reveal"><span class="cs-gloss" tabindex="0" data-gloss="ic-plus-plus">IC++</span> pricing, on the other hand, charges the actual cost of processing for each transaction, creating opportunities to reduce costs at scale. That's why enterprise merchants prefer IC++.</p>
+  <p class="cs-p reveal">Every card payment carries a cost, and how it's calculated depends on the merchant's pricing model: <span class="cs-gloss" tabindex="0" data-gloss="blended-pricing">Blended</span> or <span class="cs-gloss" tabindex="0" data-gloss="ic-plus-plus">IC++</span>.</p>
+  <p class="cs-p reveal">Blended applies one fixed rate to every transaction: simple and predictable, but expensive at high volume. IC++ charges the actual cost of each transaction, which creates room to save at scale. That's why enterprise merchants prefer it.</p>
 
   <!-- IC++ FEE SIMULATOR — teaser -->
   <div class="cs-vis reveal cs-sim-teaser" style="margin: 24px 0 40px;">
@@ -1609,11 +1684,11 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
   </div>
 
   <!-- IC++ FEE SIMULATOR — modal -->
-  <div class="cs-sim-modal" id="cs-sim-modal" aria-hidden="true">
+  <div class="cs-sim-modal" id="cs-sim-modal" role="dialog" aria-modal="true" aria-labelledby="cs-sim-modal-title" aria-hidden="true">
     <div class="cs-sim-modal-backdrop" id="cs-sim-modal-backdrop"></div>
     <div class="cs-vis cs-sim-modal-panel">
       <button class="cs-sim-modal-close" id="cs-sim-modal-close" aria-label="Close simulation">✕</button>
-      <div class="cs-vis-label">IC++ fee simulation — select a card type, then run the transaction</div>
+      <div class="cs-vis-label" id="cs-sim-modal-title">IC++ fee simulation — select a card type, then run the transaction</div>
       <div class="cs-vis-body">
         <div class="cs-sim-hint">Card type</div>
         <div class="cs-sim-switch" id="cs-sim-switch"></div>
@@ -1643,7 +1718,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 </div>
 </section>
 
-<!-- ═══════════════════════ 06 — USERS ═══════════════════════ -->
+<!-- ═══════════════════════ 04 — USERS ═══════════════════════ -->
 <section class="cs-section" id="cs-users">
 <div class="cs-wrap">
 
@@ -1653,10 +1728,10 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 
 <div class="cs-personas">
 
-  <!-- Persona 1 — Payment Analyst -->
-  <div class="cs-persona reveal">
+  <!-- Persona 1 — Payment Analyst (open by default: its story carries the strongest numbers) -->
+  <div class="cs-persona reveal is-open">
     <div class="cs-persona-head">
-      <div class="cs-persona-icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="8.5" cy="6.5" r="3"/><path d="M3 17c0-3.6 2.5-6.2 5.5-6.2"/><circle cx="14.5" cy="14.5" r="2.3"/><path d="M16.2 16.2l1.6 1.6"/></svg></div>
+      <div class="cs-persona-icon" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="8.5" cy="6.5" r="3"/><path d="M3 17c0-3.6 2.5-6.2 5.5-6.2"/><circle cx="14.5" cy="14.5" r="2.3"/><path d="M16.2 16.2l1.6 1.6"/></svg></div>
       <div>
         <div class="cs-persona-name">The Payment Analyst <span class="dash">–</span> <em>Owns the monthly fee audit.</em></div>
         <p class="cs-persona-desc">Every month, processor invoices arrive with hundreds of fee line items that need to be reconciled, explained, and defended before the billing cycle closes.</p>
@@ -1670,7 +1745,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
       </ul></div>
       <div><span class="cs-persona-meta-label">Why it matters</span><p>Every unexplained fee becomes an accepted cost from the next billing cycle.</p></div>
     </div>
-    <button type="button" class="cs-journey-toggle" aria-expanded="false" aria-controls="cs-journey-1"><span>How it plays out</span><i aria-hidden="true"></i></button>
+    <button type="button" class="cs-journey-toggle" aria-expanded="true" aria-controls="cs-journey-1"><span>How it plays out</span><i aria-hidden="true"></i></button>
     <div class="cs-journey-wrap" id="cs-journey-1"><div class="cs-journey-inner">
     <div class="cs-journey">
       <div class="cs-journey-step">
@@ -1704,7 +1779,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
   <!-- Persona 2 — Treasury / Finance Lead -->
   <div class="cs-persona reveal">
     <div class="cs-persona-head">
-      <div class="cs-persona-icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="8.5" cy="6.5" r="3"/><path d="M3 17c0-3.6 2.5-6.2 5.5-6.2"/><path d="M11.3 16.3l1.7-2 1.3 1.3 2.5-2.8"/><path d="M15.3 11.8h1.5v1.5"/></svg></div>
+      <div class="cs-persona-icon" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="8.5" cy="6.5" r="3"/><path d="M3 17c0-3.6 2.5-6.2 5.5-6.2"/><path d="M11.3 16.3l1.7-2 1.3 1.3 2.5-2.8"/><path d="M15.3 11.8h1.5v1.5"/></svg></div>
       <div>
         <div class="cs-persona-name">The Treasury / Finance Lead <span class="dash">–</span> <em>Owns forecasting and budget accountability.</em></div>
         <p class="cs-persona-desc">Payment costs are one of the largest variable expenses in the business, often representing <span class="cs-num">1.5–2.2% of revenue</span>. When those numbers move, finance teams are expected to explain why and predict what happens next.</p>
@@ -1752,7 +1827,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
   <!-- Persona 3 — Payment Operations Head -->
   <div class="cs-persona reveal">
     <div class="cs-persona-head">
-      <div class="cs-persona-icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="8.5" cy="6.5" r="3"/><path d="M3 17c0-3.6 2.5-6.2 5.5-6.2"/><circle cx="14.5" cy="14.5" r="2.2"/><path d="M14.5 11.3v1M14.5 16.7v1M11.3 14.5h1M16.7 14.5h1M12.4 12.4l.7.7M16.3 12.4l-.7.7M12.4 16.6l.7-.7M16.3 16.6l-.7-.7"/></svg></div>
+      <div class="cs-persona-icon" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="8.5" cy="6.5" r="3"/><path d="M3 17c0-3.6 2.5-6.2 5.5-6.2"/><circle cx="14.5" cy="14.5" r="2.2"/><path d="M14.5 11.3v1M14.5 16.7v1M11.3 14.5h1M16.7 14.5h1M12.4 12.4l.7.7M16.3 12.4l-.7.7M12.4 16.6l.7-.7M16.3 16.6l-.7-.7"/></svg></div>
       <div>
         <div class="cs-persona-name">The Payment Operations Head <span class="dash">–</span> <em>Owns the operational decisions that influence payment costs.</em></div>
         <p class="cs-persona-desc">Routing rules, authentication settings, and processor configurations all influence payment costs. But their impact often appears weeks later, long after the decision was made.</p>
@@ -1804,7 +1879,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 </div>
 </section>
 
-<!-- ═══════════════════════ 06 — PRODUCT STRATEGY AND DESIGN ═══════════════════════ -->
+<!-- ═══════════════════════ 05 — PRODUCT STRATEGY AND DESIGN ═══════════════════════ -->
 <section class="cs-section" id="cs-strategy">
 <div class="cs-wrap">
 
@@ -1817,15 +1892,15 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
   <div class="cs-vis cs-vis--wide reveal" style="margin: 24px 0;">
     <div class="cs-vis-label">Many fragmented signals. One investigation.</div>
     <div class="cs-vis-body">
-      <canvas id="cs-graph" role="img" aria-label="Fragmented cost signals such as processor invoices, scheme fees, interchange, settlement reports and FX markup converge into HyperSense, which routes them directly to the five modules of one investigation: Overview, Drill-down, Fee Spikes, Audit and Forecast."></canvas>
+      <canvas id="cs-graph" role="img" aria-label="Fragmented cost signals such as processor invoices, scheme fees, interchange, settlement reports and FX markup converge into HyperSense, which routes them directly to the five modules of one investigation: Overview, Drill-Down, Fee Spikes, Audit and Forecast."></canvas>
     </div>
   </div>
-  <p class="cs-p reveal">We designed the product around how teams investigate costs. Rather than asking teams to manually piece together fragmented reports, each module guided them toward the answers they needed: from understanding what changed to deciding what to do next. Together, they form a coherent cost story that teams could trust and act on.</p>
+  <p class="cs-p reveal">I designed the product around how teams investigate costs. Rather than asking teams to manually piece together fragmented reports, each module guided them toward the answers they needed: from understanding what changed to deciding what to do next. Together, they form a coherent cost story that teams could trust and act on.</p>
 
 </div>
 </section>
 
-<!-- ═══════════════════════ 07 — DESIGN CHALLENGE ═══════════════════════ -->
+<!-- ═══════════════════════ 06 — DESIGN CHALLENGE ═══════════════════════ -->
 <section class="cs-section" id="cs-challenge">
 <div class="cs-wrap">
 
@@ -1845,6 +1920,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
       <div class="cs-tension-resp">
         <div class="cs-tension-resp-label">Design response</div>
         <p>Consolidate fragmented cost data into a single workflow that supports end-to-end investigation.</p>
+        <a class="cs-tension-link" href="#cs-mod-overview">Resolved in Overview <span aria-hidden="true">→</span></a>
       </div>
     </div>
 
@@ -1857,6 +1933,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
       <div class="cs-tension-resp">
         <div class="cs-tension-resp-label">Design response</div>
         <p>Present cost intelligence in a way that feels transparent, explainable, and trustworthy enough to drive decisions.</p>
+        <a class="cs-tension-link" href="#cs-mod-audit">Resolved in Audit <span aria-hidden="true">→</span></a>
       </div>
     </div>
 
@@ -1869,6 +1946,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
       <div class="cs-tension-resp">
         <div class="cs-tension-resp-label">Design response</div>
         <p>Create a unified experience that adapts to both transparent IC++ pricing and simplified blended pricing.</p>
+        <a class="cs-tension-link" href="#cs-mod-overview">Resolved in Overview <span aria-hidden="true">→</span></a>
       </div>
     </div>
 
@@ -1881,6 +1959,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
       <div class="cs-tension-resp">
         <div class="cs-tension-resp-label">Design response</div>
         <p>Help teams distinguish normal cost behaviour from issues that require investigation and action.</p>
+        <a class="cs-tension-link" href="#cs-mod-feespikes">Resolved in Fee Spikes <span aria-hidden="true">→</span></a>
       </div>
     </div>
 
@@ -1893,6 +1972,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
       <div class="cs-tension-resp">
         <div class="cs-tension-resp-label">Design response</div>
         <p>Support different workflows while keeping every team aligned around the same cost narrative.</p>
+        <a class="cs-tension-link" href="#cs-mod-drilldown">Resolved in Drill-Down <span aria-hidden="true">→</span></a>
       </div>
     </div>
 
@@ -1901,7 +1981,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 </div>
 </section>
 
-<!-- ═══════════════════════ 09 — UI DESIGN ═══════════════════════ -->
+<!-- ═══════════════════════ 07 — PRODUCT EXPERIENCE ═══════════════════════ -->
 <section class="cs-section" id="cs-ui">
 <div class="cs-wrap">
 
@@ -1910,15 +1990,15 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
   <p class="cs-p reveal">With the investigation flow established, the next challenge was turning it into a cohesive product experience.</p>
   <p class="cs-p reveal">Each module served a distinct purpose, but together they needed to feel like a single investigation that teams could navigate naturally every month.</p>
 
-  <div class="cs-module-tag reveal" style="margin-top: 56px;">Overview</div>
+  <div class="cs-module-tag reveal" id="cs-mod-overview" style="margin-top: 56px;">Overview</div>
   <h3 class="cs-h3 reveal">What's my cost story at a glance?</h3>
   <p class="cs-p reveal">Before teams investigate anomalies or optimize costs, they first need to understand where they stand today.</p>
-  <p class="cs-p reveal">We designed Overview as the system's source of truth: a unified cost layer that consolidates fragmented signals into a single cost story.</p>
-  <p class="cs-p reveal" style="margin-bottom: 24px;">The same experience needed to work across very different merchant realities, from single processors to multi-PSP setups, and from simplified blended pricing to fully transparent IC++ models.</p>
+  <p class="cs-p reveal">I designed Overview as the system's source of truth: a unified cost layer that consolidates fragmented signals into a single cost story.</p>
+  <p class="cs-p reveal" style="margin-bottom: 24px;">The same experience needed to work across very different merchant realities, from single processors to multi-<span class="cs-gloss" tabindex="0" data-gloss="psp">PSP</span> setups, and from simplified blended pricing to fully transparent IC++ models.</p>
 </div>
 <div class="cs-wrap cs-wrap--showcase">
   <div class="cs-stage reveal">
-    <video src="assets/hypersense/ov-demo.mp4" poster="assets/hypersense/ov-demo-poster.jpg"
+    <video aria-label="Overview module walkthrough" src="assets/hypersense/ov-demo.mp4" poster="assets/hypersense/ov-demo-poster.jpg"
            autoplay muted loop playsinline controls controlslist="nodownload" preload="metadata"
            style="width:100%; display:block; height:auto;"></video>
   </div>
@@ -1933,23 +2013,21 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 </div>
 <div class="cs-wrap">
 
-  <div class="cs-module-tag reveal" style="margin-top: 80px;">Drill-Down</div>
+  <div class="cs-module-tag reveal" id="cs-mod-drilldown" style="margin-top: 80px;">Drill-Down</div>
   <h3 class="cs-h3 reveal">How is cost distributed across my business?</h3>
-  <p class="cs-p reveal">Overview answered what the cost story looks like at a glance. The next step was understanding where that story was coming from.</p>
-  <p class="cs-p reveal">A single number rarely explains why costs change. Teams needed the ability to break costs down across processors, regions, corridors, fee types, and currencies.</p>
+  <p class="cs-p reveal">A single number rarely explains why costs change. Teams needed the ability to break costs down across processors, regions, <span class="cs-gloss" tabindex="0" data-gloss="corridor">corridors</span>, fee types, and currencies.</p>
   <p class="cs-p reveal">Drill-Down became the investigation layer of the product, helping teams move from cost summaries to the underlying drivers behind them.</p>
-  <p class="cs-p reveal">Teams needed the flexibility to investigate costs from different angles without getting lost in the underlying complexity.</p>
 
 </div>
 <div class="cs-wrap cs-wrap--showcase">
   <div class="cs-stage reveal">
-    <video src="assets/hypersense/drilldown-demo.mp4" poster="assets/hypersense/drilldown-demo-poster.jpg"
+    <video aria-label="Drill-Down module walkthrough" src="assets/hypersense/drilldown-demo.mp4" poster="assets/hypersense/drilldown-demo-poster.jpg"
            autoplay muted loop playsinline controls controlslist="nodownload" preload="metadata"
            style="width:100%; display:block; height:auto;"></video>
   </div>
 </div>
 <div class="cs-wrap">
-  <p class="cs-p reveal" style="margin-top: 24px; margin-bottom: 14px;">We designed Drill-Down to answer three questions:</p>
+  <p class="cs-p reveal" style="margin-top: 24px; margin-bottom: 14px;">I designed Drill-Down to answer three questions:</p>
   <ul class="cs-list reveal">
     <li>Why did costs change?</li>
     <li>Which segment is driving the change?</li>
@@ -1958,16 +2036,15 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 </div>
 <div class="cs-wrap">
 
-  <div class="cs-module-tag reveal" style="margin-top: 80px;">Fee Spikes</div>
-  <h3 class="cs-h3 reveal">Turning unexpected cost increases into actionable signals</h3>
-  <p class="cs-p reveal">Drill-Down helped teams understand where costs were coming from. The next challenge was determining whether those changes were expected or required action.</p>
+  <div class="cs-module-tag reveal" id="cs-mod-feespikes" style="margin-top: 80px;">Fee Spikes</div>
+  <h3 class="cs-h3 reveal">Is this cost increase a problem?</h3>
   <p class="cs-p reveal">Not every increase in payment cost is a problem. The same spike could be driven by healthy sales growth, expansion into new markets, operational issues, or preventable leakage.</p>
   <p class="cs-p reveal">Fee Spikes was designed as an early warning layer that surfaces meaningful cost changes and explains what is driving them.</p>
 
 </div>
 <div class="cs-wrap cs-wrap--showcase">
   <div class="cs-stage reveal">
-    <video src="assets/hypersense/feespikes-demo.mp4" poster="assets/hypersense/feespikes-demo-poster.jpg"
+    <video aria-label="Fee Spikes module walkthrough" src="assets/hypersense/feespikes-demo.mp4" poster="assets/hypersense/feespikes-demo-poster.jpg"
            autoplay muted loop playsinline controls controlslist="nodownload" preload="metadata"
            style="width:100%; display:block; height:auto;"></video>
   </div>
@@ -1975,20 +2052,19 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 <div class="cs-wrap">
   <p class="cs-p reveal" style="margin-top: 24px; margin-bottom: 14px;">Every spike ultimately comes down to three questions:</p>
   <ul class="cs-list reveal">
-    <li>What changed?</li>
+    <li>Is this increase expected?</li>
     <li>What is driving it?</li>
     <li>Does it require action?</li>
   </ul>
 
-  <div class="cs-module-tag reveal" style="margin-top: 80px;">Audit</div>
-  <h3 class="cs-h3 reveal">Verifying every fee charged.</h3>
-  <p class="cs-p reveal">Fee Spikes helped teams identify where action was needed. The next step was validating whether they had been charged correctly in the first place.</p>
+  <div class="cs-module-tag reveal" id="cs-mod-audit" style="margin-top: 80px;">Audit</div>
+  <h3 class="cs-h3 reveal">Can every fee be verified?</h3>
   <p class="cs-p reveal">Processor invoices show what was charged, but rarely explain whether those charges were accurate.</p>
   <div class="cs-challenge reveal">
     <div class="cs-challenge-tag">What merchants actually see</div>
     <div class="cs-challenge-lines">
-      <p>CPS Retail — $4,892</p>
-      <p>EIRF — $2,147</p>
+      <p><span class="cs-gloss" tabindex="0" data-gloss="cps">CPS Retail</span> — $4,892</p>
+      <p><span class="cs-gloss" tabindex="0" data-gloss="eirf">EIRF</span> — $2,147</p>
     </div>
   </div>
   <p class="cs-p reveal">The challenge was bringing together multiple layers of information (contracted rates, applied rates, fee variances, and transaction-level evidence) into a single verification flow.</p>
@@ -1996,7 +2072,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 </div>
 <div class="cs-wrap cs-wrap--showcase">
   <div class="cs-stage reveal">
-    <video src="assets/hypersense/audit-demo.mp4" poster="assets/hypersense/audit-demo-poster.jpg"
+    <video aria-label="Audit module walkthrough" src="assets/hypersense/audit-demo.mp4" poster="assets/hypersense/audit-demo-poster.jpg"
            autoplay muted loop playsinline controls controlslist="nodownload" preload="metadata"
            style="width:100%; display:block; height:auto;"></video>
   </div>
@@ -2010,21 +2086,21 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
   </ul>
   <p class="cs-p reveal">Instead of forcing teams to manually reconcile invoices, contracts, and transaction exports, the experience progressively moved from summary-level variances down to transaction-level evidence, making every discrepancy traceable and easy to defend.</p>
 
-  <div class="cs-module-tag reveal" style="margin-top: 80px;">Forecast</div>
-  <h3 class="cs-h3 reveal">Turning network updates into cost foresight</h3>
+  <div class="cs-module-tag reveal" id="cs-mod-forecast" style="margin-top: 80px;">Forecast</div>
+  <h3 class="cs-h3 reveal">What will upcoming network changes cost me?</h3>
   <p class="cs-p reveal">Card networks like Visa and Mastercard regularly introduce new fees, revise existing programs, and update qualification rules. Although these changes are published weeks in advance, they are often buried inside dense technical documentation.</p>
   <p class="cs-p reveal">For merchants, the challenge wasn't access to information. It was understanding which updates would actually affect their business and what their financial impact would be. Without that visibility, teams often discovered the impact only after it appeared on the following month's invoice.</p>
 
 </div>
 <div class="cs-wrap cs-wrap--showcase">
   <div class="cs-stage reveal">
-    <video src="assets/hypersense/forecast-demo.mp4" poster="assets/hypersense/forecast-demo-poster.jpg"
+    <video aria-label="Forecast module walkthrough" src="assets/hypersense/forecast-demo.mp4" poster="assets/hypersense/forecast-demo-poster.jpg"
            autoplay muted loop playsinline controls controlslist="nodownload" preload="metadata"
            style="width:100%; display:block; height:auto;"></video>
   </div>
 </div>
 <div class="cs-wrap">
-  <p class="cs-p reveal" style="margin-top: 24px;">We designed Forecast to translate network updates into merchant-specific insights by modelling upcoming changes against each merchant's transaction behaviour.</p>
+  <p class="cs-p reveal" style="margin-top: 24px;">I designed Forecast to translate network updates into merchant-specific insights by modelling upcoming changes against each merchant's transaction behaviour.</p>
   <p class="cs-p reveal" style="margin-bottom: 14px;">It helps teams answer three questions:</p>
   <ul class="cs-list reveal">
     <li>What changes are coming?</li>
@@ -2036,7 +2112,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 </div>
 </section>
 
-<!-- ═══════════════════════ 09 — OUTCOME ═══════════════════════ -->
+<!-- ═══════════════════════ 08 — OUTCOME ═══════════════════════ -->
 <section class="cs-section" id="cs-outcome">
 <div class="cs-wrap">
 
@@ -2049,7 +2125,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
     <div class="cs-fstat">
       <div class="cs-fstat-num">20<span class="cs-fstat-sym">+</span></div>
       <div class="cs-fstat-label">Demoed</div>
-      <p class="cs-fstat-desc">Presented to 20+ enterprise merchants, includes <strong>Apple, SpaceX.</strong></p>
+      <p class="cs-fstat-desc">Presented to 20+ enterprise merchants, including <strong>Apple and SpaceX</strong>.</p>
     </div>
     <div class="cs-fstat">
       <div class="cs-fstat-num">6</div>
@@ -2076,9 +2152,19 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
       <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c.4 5.9 5.7 11.2 11.6 11.6v.8C17.7 12.8 12.4 18.1 12 24h-.8C10.8 18.1 5.5 12.8-.4 12.4v-.8C5.5 11.2 10.8 5.9 11.2 0h.8z"/></svg>
       <span class="cs-thanks-dash"></span>
     </span>
-    <p>Thank you for taking the time to follow the journey.</p>
+    <p>Thanks for reading. If you're working on something this complex, I'd love to talk.</p>
+    <div class="cs-close-links">
+      <a class="cs-cta cs-cta--solid" href="mailto:akhilmale.ux@gmail.com">akhilmale.ux@gmail.com</a>
+      <a class="cs-cta" href="https://www.linkedin.com/in/male-akhil/" target="_blank" rel="noopener">LinkedIn <span class="arr" aria-hidden="true">↗</span></a>
+    </div>
   </div>
-  <div class="cs-cta-center reveal"><a class="cs-cta" href="/"><span class="arr">←</span> Back to selected work</a></div>
+
+  <a class="cs-next reveal" href="/work-reconciliation">
+    <span class="cs-next-meta">Next case study</span>
+    <span class="cs-next-title">Reconciliation <span class="arr" aria-hidden="true">→</span></span>
+    <span class="cs-next-desc">Turning complex exception investigations into a clearer path to resolution.</span>
+  </a>
+  <div class="cs-cta-center reveal"><a class="cs-back-link" href="/"><span class="arr" aria-hidden="true">←</span> Back to selected work</a></div>
 
 </div>
 </section>
@@ -2113,7 +2199,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 
   var SECTIONS = [
     { id: 'cs-what', num: '01', name: 'The Cost of Invisibility' },
-    { id: 'cs-begins', num: '02', name: 'Where Hypersense Begins' },
+    { id: 'cs-begins', num: '02', name: 'Where HyperSense Begins' },
     { id: 'cs-terrain', num: '03', name: 'Understanding the Terrain' },
     { id: 'cs-users', num: '04', name: 'Users' },
     { id: 'cs-strategy', num: '05', name: 'Product Strategy and Design' },
@@ -2293,6 +2379,10 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
       term: 'FANF',
       def: 'Fixed Acquirer Network Fee. A monthly Visa fee tied to transaction volume and card-present vs. card-not-present mix. As volume crosses certain thresholds, the fee steps up to a higher tier, a non-obvious cost driver.'
     },
+    'corridor': {
+      term: 'Corridor',
+      def: 'The route a payment travels between the country where the card was issued and the country where the merchant is paid. Cross-border corridors carry extra network and FX fees.'
+    },
     'cps': {
       term: 'CPS',
       def: 'Custom Payment Service. A family of Visa interchange programs for merchants meeting specific data quality and processing requirements. Failing to qualify for CPS/Retail triggers a downgrade to EIRF or a similar higher-cost category.'
@@ -2301,6 +2391,8 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 
   const tip = document.createElement('div');
   tip.className = 'cs-tip';
+  tip.id = 'cs-tip';
+  tip.setAttribute('role', 'tooltip');
   tip.innerHTML = '<span class="cs-tip-term"></span><span class="cs-tip-def"></span>';
   document.body.appendChild(tip);
   const termEl = tip.querySelector('.cs-tip-term');
@@ -2332,8 +2424,13 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
     defEl.textContent  = entry.def;
     positionTip(this);
     tip.classList.add('is-visible');
+    this.setAttribute('aria-describedby', 'cs-tip');
   }
-  function hideTip() { hideTO = setTimeout(() => tip.classList.remove('is-visible'), 160); }
+  function hideTip() {
+    this && this.removeAttribute && this.removeAttribute('aria-describedby');
+    hideTO = setTimeout(() => tip.classList.remove('is-visible'), 160);
+  }
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') tip.classList.remove('is-visible'); });
 
   document.querySelectorAll('.cs-gloss[data-gloss]').forEach(el => {
     el.addEventListener('mouseenter', showTip);
@@ -2662,19 +2759,36 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
   const backdrop = document.getElementById('cs-sim-modal-backdrop');
   if (!openBtn || !modal || !closeBtn || !backdrop) return;
 
+  let lastFocus = null;
+  const focusables = () => Array.prototype.filter.call(
+    modal.querySelectorAll('button, [href], [tabindex]:not([tabindex="-1"])'),
+    el => !el.disabled && el.offsetParent !== null);
+
   function openModal() {
+    lastFocus = document.activeElement;
     modal.classList.add('is-open');
     modal.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
     // The rail/bubble layout is computed from element offsets, which are 0
     // while the modal is hidden — recompute now that it's visible.
     window.dispatchEvent(new Event('resize'));
+    closeBtn.focus({ preventScroll: true });
+    requestAnimationFrame(() => { if (modal.classList.contains('is-open') && !modal.contains(document.activeElement)) closeBtn.focus({ preventScroll: true }); });
   }
   function closeModal() {
     modal.classList.remove('is-open');
     modal.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
+    if (lastFocus && lastFocus.focus) lastFocus.focus();
   }
+  /* Keep Tab inside the dialog while it is open */
+  modal.addEventListener('keydown', (e) => {
+    if (e.key !== 'Tab') return;
+    const f = focusables(); if (!f.length) return;
+    const first = f[0], last = f[f.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  });
 
   openBtn.addEventListener('click', openModal);
   closeBtn.addEventListener('click', closeModal);
@@ -2718,7 +2832,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
   ];
   const STEPS = [
     { label: 'Overview',   glimpse: 'What am I paying today?' },
-    { label: 'Drill-down', glimpse: 'Why did costs change?' },
+    { label: 'Drill-Down', glimpse: 'Why did costs change?' },
     { label: 'Fee Spikes', glimpse: 'What is driving it?' },
     { label: 'Audit',      glimpse: 'Was I charged correctly?' },
     { label: 'Forecast',   glimpse: 'What changes are coming?' }
@@ -3020,54 +3134,9 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 })();
 
 console.log('%cHi.','font-family:"Instrument Serif",serif;font-size:32px;font-style:italic;color:#ededed;');
-console.log('%cYou found the HyperSense rebuild — full case study, sections 01–09. → hello@akhilmale.com','font-family:monospace;font-size:12px;color:#8a8a8a;');
+console.log('%cYou found the HyperSense case study — eight sections, start to finish. → akhilmale.ux@gmail.com','font-family:monospace;font-size:12px;color:#8a8a8a;');
 </script>
 
-<div class="cs-scn-modal" id="cs-scn-modal" role="dialog" aria-modal="true">
-  <div style="display:flex;flex-direction:column;align-items:center;width:min(640px,100%);">
-    <button class="cs-scn-modal-close" id="cs-scn-modal-close" aria-label="Close">✕</button>
-    <div class="cs-scn-modal-box" style="width:100%;">
-      <div class="cs-scn-modal-img" id="cs-scn-modal-imgwrap">
-        <img id="cs-scn-modal-img" src="" alt="" />
-      </div>
-      <div class="cs-scn-modal-body">
-        <div class="cs-scn-modal-tag"   id="cs-scn-modal-tag"></div>
-        <div class="cs-scn-modal-title" id="cs-scn-modal-title"></div>
-        <p   class="cs-scn-modal-desc"  id="cs-scn-modal-desc"></p>
-      </div>
-    </div>
-  </div>
-</div>
-
-<script>
-// Scenario lightbox
-(function() {
-  const modal    = document.getElementById('cs-scn-modal');
-  const mImg     = document.getElementById('cs-scn-modal-img');
-  const mTag     = document.getElementById('cs-scn-modal-tag');
-  const mTitle   = document.getElementById('cs-scn-modal-title');
-  const mDesc    = document.getElementById('cs-scn-modal-desc');
-  const mImgWrap = document.getElementById('cs-scn-modal-imgwrap');
-
-  document.querySelectorAll('.cs-scenario-shot').forEach(shot => {
-    shot.addEventListener('click', () => {
-      const card = shot.closest('.cs-scenario');
-      const img  = shot.querySelector('img');
-      mImg.src = img.src; mImg.alt = img.alt;
-      mTag.textContent   = card.querySelector('.cs-scenario-tag').textContent;
-      mTitle.textContent = card.querySelector('.cs-scenario-title').textContent;
-      mDesc.textContent  = card.querySelector('p').textContent;
-      mImgWrap.scrollTop = 0;
-      modal.classList.add('is-open');
-    });
-  });
-
-  function closeModal() { modal.classList.remove('is-open'); }
-  document.getElementById('cs-scn-modal-close').addEventListener('click', closeModal);
-  modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
-})();
-</script>
 <script>
 const navEl = document.querySelector('nav');
 window.addEventListener('scroll', () => { navEl.classList.toggle('is-scrolled', window.scrollY > 8); }, { passive: true });

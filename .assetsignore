@@ -8,6 +8,8 @@ wrangler.jsonc
 vercel.json
 README.md
 CLAUDE.md
+PRODUCT.md
 
 # Cloudflare rejects files over 25 MiB. This recording isn't used by any page.
 assets/skilling-rec.mov
+.impeccable
