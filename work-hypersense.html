@@ -293,6 +293,10 @@ nav .logo a.cs-back:hover { color: var(--accent); }
 .cs-subdivider::before { content: ''; width: 20px; height: 1px; background: var(--accent); flex-shrink: 0; }
 .cs-subdivider::after { content: ''; flex: 1; height: 1px; background: var(--line); }
 .cs-vis-body { padding: 32px 28px; }
+/* Breaks out of the reading column for diagrams that need room; margins, not transform, so .reveal still works */
+.cs-vis--wide { --vis-w: min(960px, calc(100vw - 48px)); width: var(--vis-w); max-width: none; margin-left: calc(50% - var(--vis-w) / 2) !important; }
+/* Keep clear of the fixed chapter rail while it is showing */
+@media (min-width: 1281px) { .cs-vis--wide { --vis-w: min(960px, calc(100vw - 560px)); } }
 
 /* ---------- HOW MONEY FLOWS — live pipeline ----------
    A lime pulse travels customer → merchant on a 6s loop, shrinking after
@@ -1810,10 +1814,10 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
   <p class="cs-p reveal">Instead, we looked at how investigations actually unfolded. Regardless of where teams started, they were all trying to answer the same core questions.</p>
   <p class="cs-p reveal">That insight shaped the product strategy.</p>
 
-  <div class="cs-vis reveal" style="margin: 24px 0;">
-    <div class="cs-vis-label">One investigation. Multiple questions.</div>
+  <div class="cs-vis cs-vis--wide reveal" style="margin: 24px 0;">
+    <div class="cs-vis-label">Many fragmented signals. One investigation.</div>
     <div class="cs-vis-body">
-      <canvas id="cs-graph" aria-label="HyperSense knowledge graph — five modules and their sub-questions"></canvas>
+      <canvas id="cs-graph" role="img" aria-label="Fragmented cost signals such as processor invoices, scheme fees, interchange, settlement reports and FX markup converge into HyperSense, which routes them directly to the five modules of one investigation: Overview, Drill-down, Fee Spikes, Audit and Forecast."></canvas>
     </div>
   </div>
   <p class="cs-p reveal">We designed the product around how teams investigate costs. Rather than asking teams to manually piece together fragmented reports, each module guided them toward the answers they needed: from understanding what changed to deciding what to do next. Together, they form a coherent cost story that teams could trust and act on.</p>
@@ -2681,209 +2685,326 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 })();
 
 /* ================================================================
-   KNOWLEDGE GRAPH — hub-and-spoke node graph re-themed in lime,
-   full interactive parity: hover a node to trace its connections.
+   CONVERGENCE — fragmented cost signals drift, tilted and scattered,
+   on the left; their threads converge into HyperSense, which routes
+   straight out to each of the five modules. Fragments flow through
+   continuously, turning from grey noise into the accent as they pass
+   the core. Hover a module to send the flow there. The questions live
+   in Product Experience; each module only carries a one-line glimpse.
    ================================================================ */
 (function() {
   const canvas = document.getElementById('cs-graph');
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
-  const W = 1120, H = 680;
-  canvas.width = W; canvas.height = H;
-  const CX = W / 2, CY = H / 2;
-  const R_MOD = 178, R_Q = 290;
-  const LIME = () => `rgb(${csAcc()})`;
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* Growth choreography — the graph assembles from the center outward
-     once scrolled into view: hub blooms, spokes draw, modules pop,
-     questions land last. Reduced motion renders the final state. */
-  const graphReduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const SIGNALS = [
+    'Processor invoices', 'Scheme fees', 'Interchange', 'Settlement reports',
+    'FX markup', 'Chargebacks', 'Acquirer markup', 'IC++ statements',
+    'PSP reports', 'Cross-border fees', 'Contract rates', 'Refund costs',
+    'Assessment fees', 'Gateway fees'
+  ];
+  /* Hand-placed scatter (0–1 inside the signal zone) and a small tilt, so
+     the left reads as disorder without ever overlapping. */
+  const SCATTER = [
+    [0.04, 0.05, -4], [0.56, 0.02, 3], [0.30, 0.15, -2], [0.70, 0.22, 5],
+    [0.02, 0.29, 3], [0.40, 0.36, -5], [0.78, 0.45, -3], [0.10, 0.50, -2],
+    [0.50, 0.58, 4], [0.00, 0.71, 4], [0.66, 0.70, -4], [0.30, 0.80, 2],
+    [0.06, 0.94, -3], [0.56, 0.95, 3]
+  ];
+  const SCATTER_10 = [
+    [0.10, 0.00, -4], [0.62, 0.08, 4], [0.00, 0.20, 3], [0.45, 0.30, -5], [0.12, 0.42, -2],
+    [0.70, 0.50, 3], [0.02, 0.62, 4], [0.40, 0.72, -3], [0.08, 0.86, -2], [0.55, 0.97, 3]
+  ];
+  const STEPS = [
+    { label: 'Overview',   glimpse: 'What am I paying today?' },
+    { label: 'Drill-down', glimpse: 'Why did costs change?' },
+    { label: 'Fee Spikes', glimpse: 'What is driving it?' },
+    { label: 'Audit',      glimpse: 'Was I charged correctly?' },
+    { label: 'Forecast',   glimpse: 'What changes are coming?' }
+  ];
+
+  const FONT = '"Geist", system-ui, sans-serif', MONO = '"Geist Mono", ui-monospace, monospace';
+  const clamp01 = v => v < 0 ? 0 : v > 1 ? 1 : v;
+  const easeOut = p => 1 - Math.pow(1 - p, 3);
+  const easeBack = p => { const c = 1.70158, q = p - 1; return 1 + (c + 1) * q * q * q + c * q * q; };
+  const bez = (a, b, c, d, t) => { const u = 1 - t; return u*u*u*a + 3*u*u*t*b + 3*u*t*t*c + t*t*t*d; };
+
+  /* Canvas copy uses the same tokens as the prose around it */
+  const hexRgb = (v, fb) => { const m = /^#([0-9a-f]{6})$/i.exec((v || '').trim()); if (!m) return fb; const n = parseInt(m[1], 16); return `${n >> 16},${(n >> 8) & 255},${n & 255}`; };
+  const rootCss = getComputedStyle(document.documentElement);
+  const TEXT = hexRgb(rootCss.getPropertyValue('--text'), '237,237,237');
+  const SOFT = hexRgb(rootCss.getPropertyValue('--text-soft'), '138,138,138');
+
+  let W = 0, H = 0, narrow = false, core = null, sigs = [], steps = [], labels = {};
+
+  /* ---------- layout (CSS px; the backing store is scaled for DPR) ---------- */
+  function layout() {
+    W = canvas.parentElement.clientWidth;
+    narrow = W < 540;
+    const list = W < 820 ? SIGNALS.slice(0, 10) : SIGNALS;
+    let zone, stepX, stepTop, stepGap;
+    if (narrow) {
+      zone = { x: 0, y: 34, w: W, h: 210 };
+      core = { x: W / 2, y: 312 };
+      stepX = 14; stepTop = 420; stepGap = 58;
+      H = stepTop + stepGap * 4 + 44;
+      labels = { sig: { x: 0, y: 6 }, inv: { x: W, y: 384, align: 'right' } };
+    } else {
+      H = 500;
+      stepX = Math.max(W * 0.6, W - 240);
+      zone = { x: 0, y: 56, w: W * 0.36, h: H - 112 };
+      core = { x: (zone.w + stepX) / 2 - 6, y: H / 2 };
+      /* Modules sit as a compact column centred on the core, shorter than the signal cloud */
+      stepGap = 62; stepTop = core.y - stepGap * 2 - 8;
+      labels = { sig: { x: 0, y: 14 }, inv: { x: stepX - 6, y: stepTop - 52 } };
+    }
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
+    canvas.style.height = H + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    ctx.font = `300 12.5px ${FONT}`;
+    sigs = list.map((label, i) => {
+      const sc = list.length === 10 ? SCATTER_10 : SCATTER;
+      const [fx, fy, rot] = narrow ? [sc[i][0] * 0.9 + (i % 2 ? 0.08 : 0), sc[i][1], sc[i][2]] : sc[i];
+      const w = ctx.measureText(label).width + 18, h = 24;
+      const x = zone.x + Math.min(fx * zone.w, zone.w - w) , y = zone.y + fy * (zone.h - h);
+      return { label, w, h, bx: x, by: y, x, y, rot: rot * Math.PI / 180, ph: i * 1.7, flare: 0, i };
+    });
+    steps = STEPS.map((s, i) => ({ ...s, x: stepX, y: stepTop + i * stepGap, flare: 0, hs: 0, i }));
+  }
+
+  /* Each signal's convergence curve: leaves the chip's inner edge, eases into the core */
+  function sigCurve(s) {
+    const ax = narrow ? s.x + s.w / 2 : s.x + s.w, ay = narrow ? s.y + s.h : s.y + s.h / 2;
+    return narrow
+      ? [ax, ay, ax, ay + 50, core.x, core.y - 70, core.x, core.y]
+      : [ax, ay, ax + 60, ay, core.x - 80, core.y, core.x, core.y];
+  }
+  /* Each module's branch: the mirror of the convergence, fanning out of the core */
+  function stepCurve(s) {
+    /* On phones each branch bends into the left gutter above the list, then
+       drops straight to its module, so it never crosses the labels */
+    if (narrow) { const by = Math.min(core.y + 90, s.y); return [core.x, core.y, core.x, core.y + 55, s.x, core.y + 45, s.x, by, s.x, s.y]; }
+    const k = (s.x - core.x) * 0.5;
+    return [core.x, core.y, core.x + k, core.y, s.x - k, s.y, s.x, s.y];
+  }
+  /* A curve is a cubic, optionally followed by a straight tail [.., tx, ty] */
+  function onCurve(c, t) {
+    if (c.length > 8) {
+      const lb = Math.hypot(c[6] - c[0], c[7] - c[1]) * 1.25, lt = Math.hypot(c[8] - c[6], c[9] - c[7]);
+      const f = lb / ((lb + lt) || 1);
+      if (t > f) { const u = (t - f) / ((1 - f) || 1); return { x: c[6] + (c[8] - c[6]) * u, y: c[7] + (c[9] - c[7]) * u }; }
+      t = t / (f || 1);
+    }
+    return { x: bez(c[0], c[2], c[4], c[6], t), y: bez(c[1], c[3], c[5], c[7], t) };
+  }
+  function strokeCurve(c, p) {
+    ctx.beginPath(); ctx.moveTo(c[0], c[1]);
+    const N = c.length > 8 ? 64 : 32;
+    for (let k = 1; k <= Math.ceil(N * p); k++) { const q = onCurve(c, Math.min(k / N, p)); ctx.lineTo(q.x, q.y); }
+    ctx.stroke();
+  }
+
+  /* ---------- reveal choreography ---------- */
   let t0 = null;
-  if (graphReduceMotion || !('IntersectionObserver' in window)) {
-    t0 = -1e9;
-  } else {
+  if (reduce || !('IntersectionObserver' in window)) t0 = -1e9;
+  else {
     const gio = new IntersectionObserver((es) => {
       es.forEach(en => { if (en.isIntersecting && t0 === null) { t0 = performance.now(); gio.disconnect(); } });
     }, { threshold: 0.3 });
     gio.observe(canvas);
   }
-  const clamp01 = v => v < 0 ? 0 : v > 1 ? 1 : v;
-  const easeOutC = p => 1 - Math.pow(1 - p, 3);
-  const easeBack = p => { const c = 1.70158, q = p - 1; return 1 + (c + 1) * q * q * q + c * q * q; };
 
-  /* Signal pulses — after assembly, investigations occasionally flow
-     from the hub out through a module to one of its questions. */
-  const pulses = [];
-  let nextPulse = 0;
-
-  const mods = [
-    { id: 'overview',  label: 'Overview',   angle: -Math.PI/2,
-      subs: ['What changed?', 'What am I paying today?', 'Where should I start investigating?'] },
-    { id: 'drilldown', label: 'Drill-down', angle: -Math.PI/2 + 2*Math.PI/5,
-      subs: ['Why did costs change?', 'Which segment is driving the change?', 'How much impact is it creating?'] },
-    { id: 'feespikes', label: 'Fee Spikes', angle: -Math.PI/2 + 4*Math.PI/5 + 0.12, qBias: -0.32,
-      subs: ['What changed?', 'What is driving it?', 'Does it require action?'] },
-    { id: 'audit',     label: 'Audit',      angle: -Math.PI/2 + 6*Math.PI/5 - 0.12, qBias: 0.10,
-      subs: ['Was I charged correctly?', 'What was actually charged?', 'What should it have been?'] },
-    { id: 'forecast',  label: 'Forecast',   angle: -Math.PI/2 + 8*Math.PI/5, qBias: 0.20,
-      subs: ['What changes are coming?', 'What will the impact be?', 'What should we do next?'] }
-  ];
-
-  const nodes = [], edges = [], nodeMap = {};
-  const center = { id: 'center', label: 'HyperSense', x: CX, y: CY, bx: CX, by: CY, r: 14, type: 'center', hs: 0 };
-  nodes.push(center); nodeMap.center = center;
-
-  mods.forEach((mod, mi) => {
-    const mx = CX + R_MOD * Math.cos(mod.angle), my = CY + R_MOD * Math.sin(mod.angle);
-    const mn = { id: mod.id, label: mod.label, x: mx, y: my, bx: mx, by: my, r: 8, type: 'module', mi, hs: 0 };
-    nodes.push(mn); nodeMap[mod.id] = mn;
-    edges.push({ from: 'center', to: mod.id, type: 'module', mi });
-    const nq = mod.subs.length, spread = nq <= 2 ? 0.30 : nq <= 3 ? 0.38 : 0.52, bias = mod.qBias || 0;
-    mod.subs.forEach((sub, qi) => {
-      const qa = nq === 1 ? mod.angle : mod.angle + bias - spread + (qi/(nq-1)) * spread * 2;
-      const qx = CX + R_Q * Math.cos(qa), qy = CY + R_Q * Math.sin(qa);
-      const qid = mod.id + '_q' + qi;
-      const qn = { id: qid, label: sub, x: qx, y: qy, bx: qx, by: qy, r: 3.5, type: 'question', mi, qi, hs: 0 };
-      nodes.push(qn); nodeMap[qid] = qn;
-      edges.push({ from: mod.id, to: qid, type: 'question', mi, qi });
-    });
-  });
-
-  let hovId = null, t = 0;
-  function getConn(id) {
-    const s = new Set([id]);
-    edges.forEach(e => { if (e.from === id) s.add(e.to); if (e.to === id) s.add(e.from); });
-    return s;
-  }
+  /* ---------- hover: a step pulls the investigation to it ---------- */
+  let hov = -1;
   canvas.addEventListener('mousemove', (e) => {
-    const rect = canvas.getBoundingClientRect();
-    const sx = canvas.width / rect.width, sy = canvas.height / rect.height;
-    const mx = (e.clientX - rect.left) * sx, my = (e.clientY - rect.top) * sy;
-    hovId = null;
-    for (let i = 0; i < nodes.length; i++) {
-      const n = nodes[i], dx = mx - n.x, dy = my - n.y;
-      const hit = n.type === 'question' ? 14 : n.r + 10;
-      if (dx*dx + dy*dy < hit*hit) { hovId = n.id; break; }
-    }
-    canvas.style.cursor = hovId ? 'pointer' : 'default';
+    const r = canvas.getBoundingClientRect(), mx = e.clientX - r.left, my = e.clientY - r.top;
+    hov = -1;
+    steps.forEach((s, i) => { if (mx > s.x - 14 && mx < W && my > s.y - 18 && my < s.y + 32) hov = i; });
+    canvas.style.cursor = hov >= 0 ? 'pointer' : 'default';
+    drawnOnce = false; schedule();
   });
-  canvas.addEventListener('mouseleave', () => { hovId = null; canvas.style.cursor = 'default'; });
+  canvas.addEventListener('mouseleave', () => { hov = -1; canvas.style.cursor = 'default'; drawnOnce = false; schedule(); });
 
-  function lpos(n) {
-    const dx = n.bx - CX, dy = n.by - CY, d = Math.sqrt(dx*dx + dy*dy) || 1;
-    const nx = dx / d, ny = dy / d;
-    if (n.type === 'center') return { x: n.x, y: n.y + n.r + 17, align: 'center', base: 'top' };
-    const pad = n.type === 'module' ? 17 : 10;
-    return { x: n.x + nx*pad, y: n.y + ny*pad, align: nx > 0.22 ? 'left' : nx < -0.22 ? 'right' : 'center', base: ny > 0.3 ? 'top' : ny < -0.3 ? 'bottom' : 'middle' };
+  /* ---------- fragments in flight ---------- */
+  const flow = [];
+  let nextSpawn = 0;
+  function spawn(now) {
+    const s = sigs[(Math.random() * sigs.length) | 0];
+    const target = hov >= 0 ? hov : (Math.random() * steps.length) | 0;
+    s.flare = 1;
+    flow.push({ s, target, start: now, inDur: 1100 + Math.random() * 500, outDur: 900 });
   }
 
-  function frame() {
-    t += 0.008;
-    const now = performance.now();
+  function chip(s, a) {
+    const acc = csAcc(), fg = csFg();
+    ctx.save();
+    ctx.translate(s.x + s.w / 2, s.y + s.h / 2); ctx.rotate(s.rot * (1 - 0.5 * s.flare));
+    const x = -s.w / 2, y = -s.h / 2;
+    ctx.beginPath(); ctx.roundRect(x, y, s.w, s.h, 6);
+    ctx.fillStyle = `rgba(${fg},${0.025 * a})`; ctx.fill();
+    ctx.setLineDash([3, 3]);
+    ctx.strokeStyle = s.flare > 0.02 ? `rgba(${acc},${(0.14 + 0.4 * s.flare) * a})` : `rgba(${fg},${0.16 * a})`;
+    ctx.lineWidth = 1; ctx.stroke(); ctx.setLineDash([]);
+    ctx.font = `300 12.5px ${FONT}`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillStyle = `rgba(${s.flare > 0.3 ? TEXT : SOFT},${(0.85 + 0.15 * s.flare) * a})`;
+    ctx.fillText(s.label, 0, 0.5);
+    ctx.restore();
+  }
+
+  function eyebrow(text, x, y, a, align) {
+    ctx.font = `10.5px ${MONO}`; ctx.textAlign = align || 'left'; ctx.textBaseline = 'top';
+    if ('letterSpacing' in ctx) ctx.letterSpacing = '1.6px';
+    ctx.fillStyle = `rgba(${csFg()},${0.38 * a})`;
+    ctx.fillText(text, x, y);
+    if ('letterSpacing' in ctx) ctx.letterSpacing = '0px';
+  }
+
+  let visible = true, running = false;
+  function frame(now) {
+    running = false;
+    const acc = csAcc(), fg = csFg();
     const el = t0 === null ? -1 : now - t0;
     const rev = (start, dur) => el < 0 ? 0 : clamp01((el - start) / dur);
     ctx.clearRect(0, 0, W, H);
-    ctx.save();
-    ctx.beginPath(); ctx.rect(8, 8, W - 16, H - 16); ctx.clip();
-    nodes.forEach((n, i) => {
-      const f = 0.22 + i*0.045, amp = graphReduceMotion ? 0 : (n.type === 'center' ? 2.5 : n.type === 'module' ? 5.5 : 4.5);
-      n.x = n.bx + Math.sin(t*f + i) * amp;
-      n.y = n.by + Math.cos(t*f*0.85 + i*1.3) * amp;
-      n.hs += ((hovId === n.id ? 1 : 0) - n.hs) * 0.16;
-    });
-    const conn = hovId ? getConn(hovId) : null;
 
-    edges.forEach(e => {
-      const fn = nodeMap[e.from], tn = nodeMap[e.to]; if (!fn || !tn) return;
-      const p = e.type === 'module'
-        ? easeOutC(rev(350 + e.mi*90, 450))
-        : easeOutC(rev(1250 + e.mi*90 + e.qi*70, 380));
+    /* zone eyebrows */
+    eyebrow('FRAGMENTED SIGNALS', labels.sig.x, labels.sig.y, easeOut(rev(0, 500)));
+    eyebrow('ONE INVESTIGATION', labels.inv.x, labels.inv.y, easeOut(rev(1500, 500)), labels.inv.align);
+
+    /* convergence curves */
+    sigs.forEach(s => {
+      const p = easeOut(rev(500 + s.i * 45, 700));
       if (p <= 0) return;
-      const act = !conn || (conn.has(e.from) && conn.has(e.to));
-      ctx.beginPath(); ctx.moveTo(fn.x, fn.y);
-      ctx.lineTo(fn.x + (tn.x - fn.x) * p, fn.y + (tn.y - fn.y) * p);
-      if (e.type === 'module') { ctx.strokeStyle = act ? `rgba(${csAcc()},0.4)` : `rgba(${csAcc()},0.06)`; ctx.lineWidth = 1.2; }
-      else { ctx.strokeStyle = act ? `rgba(${csFg()},0.16)` : `rgba(${csFg()},0.04)`; ctx.lineWidth = 0.6; }
-      ctx.stroke();
+      const c = sigCurve(s);
+      const g = ctx.createLinearGradient(c[0], c[1], c[6], c[7]);
+      g.addColorStop(0, `rgba(${fg},0.07)`); g.addColorStop(1, `rgba(${acc},0.32)`);
+      ctx.strokeStyle = g; ctx.lineWidth = 1; strokeCurve(c, p);
     });
 
-    nodes.forEach(n => {
-      const dim = conn && !conn.has(n.id), a = dim ? 0.12 : 1;
-      const hm = 1 + 0.3 * n.hs;
-      if (n.type === 'center') {
-        const g = easeBack(rev(0, 500));
-        if (g <= 0) return;
-        const g1 = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, 55 * g);
-        g1.addColorStop(0, `rgba(${csAcc()},0.16)`); g1.addColorStop(1, `rgba(${csAcc()},0)`);
-        ctx.beginPath(); ctx.arc(n.x, n.y, 55 * g, 0, Math.PI*2); ctx.fillStyle = g1; ctx.fill();
-        const g2 = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, 24 * g);
-        g2.addColorStop(0, `rgba(${csAcc()},0.5)`); g2.addColorStop(1, `rgba(${csAcc()},0)`);
-        ctx.beginPath(); ctx.arc(n.x, n.y, 24 * g, 0, Math.PI*2); ctx.fillStyle = g2; ctx.fill();
-        ctx.beginPath(); ctx.arc(n.x, n.y, n.r * g * hm, 0, Math.PI*2); ctx.fillStyle = LIME(); ctx.fill();
-        const la = easeOutC(rev(250, 350));
-        if (la > 0) {
-          ctx.font = '500 17px "Geist", system-ui, sans-serif';
-          ctx.textAlign = 'center'; ctx.textBaseline = 'top';
-          ctx.fillStyle = `rgba(${csFg()},${(0.85 + 0.15*n.hs) * la})`;
-          ctx.fillText('HyperSense', n.x, n.y + n.r + 16);
-          ctx.textBaseline = 'alphabetic';
-        }
-      } else if (n.type === 'module') {
-        const g = easeBack(rev(700 + n.mi*90, 400));
-        if (g <= 0) return;
-        const gm = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, 30 * g);
-        gm.addColorStop(0, `rgba(${csAcc()},${0.2*a})`); gm.addColorStop(1, `rgba(${csAcc()},0)`);
-        ctx.beginPath(); ctx.arc(n.x, n.y, 30 * g, 0, Math.PI*2); ctx.fillStyle = gm; ctx.fill();
-        ctx.beginPath(); ctx.arc(n.x, n.y, n.r * g * hm, 0, Math.PI*2);
-        ctx.fillStyle = `rgba(${csAcc()},${a})`; ctx.fill();
-        const la = easeOutC(rev(780 + n.mi*90, 350));
-        if (la > 0) {
-          const lp = lpos(n);
-          ctx.font = '500 16px "Geist", system-ui, sans-serif';
-          ctx.textAlign = lp.align; ctx.textBaseline = lp.base;
-          ctx.fillStyle = `rgba(${csFg()},${(0.9 + 0.1*n.hs) * a * la})`;
-          ctx.fillText(n.label, lp.x, lp.y);
-          ctx.textBaseline = 'alphabetic';
-        }
+    /* signal chips — drifting, slightly restless */
+    sigs.forEach(s => {
+      const a = easeOut(rev(s.i * 40, 500));
+      if (a <= 0) return;
+      const amp = reduce ? 0 : 2.4;
+      s.x = s.bx + Math.sin(now * 0.0006 + s.ph) * amp;
+      s.y = s.by + Math.cos(now * 0.0005 + s.ph * 1.3) * amp;
+      s.flare *= 0.95;
+      chip(s, a);
+    });
+
+    /* branches out to each module */
+    steps.forEach((s, i) => {
+      s.p = easeOut(rev(1500 + i * 90, 700));
+      if (s.p <= 0) return;
+      const on = hov === i, off = hov >= 0 && !on;
+      ctx.lineWidth = on ? 2 : 1.25;
+      ctx.strokeStyle = `rgba(${acc},${on ? 0.95 : off ? 0.18 : 0.45})`;
+      strokeCurve(stepCurve(s), s.p);
+    });
+
+    /* fragments in flight: grey through the curve, accent along its branch */
+    if (!reduce && el > 2900 && visible) {
+      if (now >= nextSpawn && flow.length < 9) { spawn(now); nextSpawn = now + 260 + Math.random() * 380; }
+    }
+    for (let i = flow.length - 1; i >= 0; i--) {
+      const f = flow[i], tin = (now - f.start) / f.inDur;
+      let x, y, col, r;
+      if (tin < 1) {
+        const q = onCurve(sigCurve(f.s), tin * tin);
+        x = q.x; y = q.y; r = 1.8; col = `rgba(${fg},${0.25 + 0.5 * tin})`;
       } else {
-        const g = easeOutC(rev(1350 + n.mi*90 + n.qi*70, 400));
-        if (g <= 0) return;
-        ctx.beginPath(); ctx.arc(n.x, n.y, n.r * g * hm, 0, Math.PI*2);
-        ctx.fillStyle = `rgba(${csFg()},${0.68*0.45*a*g})`; ctx.fill();
-        const lp2 = lpos(n);
-        ctx.font = '15px "Geist", system-ui, sans-serif';
-        ctx.textAlign = lp2.align; ctx.textBaseline = lp2.base;
-        ctx.fillStyle = `rgba(${csFg()},${0.68*(0.7 + 0.3*n.hs) * a * g})`;
-        ctx.fillText(n.label, lp2.x, lp2.y);
-        ctx.textBaseline = 'alphabetic';
+        const tout = (now - f.start - f.inDur) / f.outDur;
+        if (tout >= 1) { steps[f.target].flare = 1; flow.splice(i, 1); continue; }
+        const q = onCurve(stepCurve(steps[f.target]), easeOut(tout)); x = q.x; y = q.y; r = 2.4; col = `rgba(${acc},0.95)`;
+        const pg = ctx.createRadialGradient(x, y, 0, x, y, 10);
+        pg.addColorStop(0, `rgba(${acc},0.35)`); pg.addColorStop(1, `rgba(${acc},0)`);
+        ctx.beginPath(); ctx.arc(x, y, 10, 0, Math.PI * 2); ctx.fillStyle = pg; ctx.fill();
       }
+      ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fillStyle = col; ctx.fill();
+    }
+
+    /* core */
+    const g = easeBack(rev(1100, 600));
+    if (g > 0) {
+      const breathe = reduce ? 0 : Math.sin(now * 0.002) * 0.08;
+      const halo = ctx.createRadialGradient(core.x, core.y, 0, core.x, core.y, 70 * g);
+      halo.addColorStop(0, `rgba(${acc},${0.2 + breathe})`); halo.addColorStop(1, `rgba(${acc},0)`);
+      ctx.beginPath(); ctx.arc(core.x, core.y, 70 * g, 0, Math.PI * 2); ctx.fillStyle = halo; ctx.fill();
+      ctx.save(); ctx.translate(core.x, core.y); ctx.rotate(reduce ? 0 : now * 0.00025);
+      ctx.setLineDash([2, 5]); ctx.beginPath(); ctx.arc(0, 0, 28 * g, 0, Math.PI * 2);
+      ctx.strokeStyle = `rgba(${acc},0.45)`; ctx.lineWidth = 1; ctx.stroke(); ctx.setLineDash([]);
+      ctx.restore();
+      ctx.beginPath(); ctx.arc(core.x, core.y, 15 * g, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${acc},0.16)`; ctx.fill();
+      ctx.strokeStyle = `rgba(${acc},0.8)`; ctx.lineWidth = 1; ctx.stroke();
+      ctx.beginPath(); ctx.arc(core.x, core.y, 6 * g, 0, Math.PI * 2); ctx.fillStyle = `rgb(${acc})`; ctx.fill();
+      const la = easeOut(rev(1300, 400));
+      ctx.font = `500 15px ${FONT}`; ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+      ctx.fillStyle = `rgba(${TEXT},${la})`;
+      ctx.fillText('HyperSense', core.x, core.y + 42);
+    }
+
+    /* steps */
+    steps.forEach((s, i) => {
+      const a = easeOut(clamp01((s.p - 0.85) / 0.15));
+      if (a <= 0) return;
+      s.flare *= 0.94;
+      s.hs += ((hov === i ? 1 : 0) - s.hs) * 0.18;
+      const dim = hov >= 0 && hov !== i ? 0.45 : 1;
+      if (s.flare > 0.02) {
+        const fg2 = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, 22);
+        fg2.addColorStop(0, `rgba(${acc},${0.4 * s.flare})`); fg2.addColorStop(1, `rgba(${acc},0)`);
+        ctx.beginPath(); ctx.arc(s.x, s.y, 22, 0, Math.PI * 2); ctx.fillStyle = fg2; ctx.fill();
+      }
+      ctx.beginPath(); ctx.arc(s.x, s.y, 7 + 2 * s.hs, 0, Math.PI * 2);
+      ctx.fillStyle = getComputedBg; ctx.fill();
+      ctx.strokeStyle = `rgba(${acc},${a})`; ctx.lineWidth = 1.5; ctx.stroke();
+      ctx.beginPath(); ctx.arc(s.x, s.y, 3 + s.flare * 1.5 + s.hs, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${acc},${a})`; ctx.fill();
+
+      const tx = s.x + 22;
+      ctx.textBaseline = 'middle'; ctx.textAlign = 'left';
+      ctx.font = `500 15px ${FONT}`; ctx.fillStyle = `rgba(${TEXT},${a * dim})`;
+      ctx.fillText(s.label, tx, s.y);
+      ctx.font = `300 12.5px ${FONT}`; ctx.textBaseline = 'top';
+      ctx.fillStyle = `rgba(${SOFT},${(0.75 + 0.25 * s.hs) * a * dim})`;
+      ctx.fillText(s.glimpse, tx, s.y + 13);
     });
 
-    /* Signal pulses — hub → module → question, paused while tracing */
-    if (!graphReduceMotion && el > 2600 && now >= nextPulse && pulses.length < 3) {
-      const mi = (Math.random() * mods.length) | 0;
-      const qi = (Math.random() * mods[mi].subs.length) | 0;
-      pulses.push({ mi, qi, start: now, dur: 1500 });
-      nextPulse = now + 1100 + Math.random() * 1600;
-    }
-    for (let i = pulses.length - 1; i >= 0; i--) {
-      const pu = pulses[i], pr = (now - pu.start) / pu.dur;
-      if (pr >= 1) { pulses.splice(i, 1); continue; }
-      if (conn) continue;
-      const mn = nodeMap[mods[pu.mi].id], qn = nodeMap[mods[pu.mi].id + '_q' + pu.qi];
-      let px, py;
-      if (pr < 0.45) { const lp = pr / 0.45; px = center.x + (mn.x - center.x) * lp; py = center.y + (mn.y - center.y) * lp; }
-      else { const lp = (pr - 0.45) / 0.55; px = mn.x + (qn.x - mn.x) * lp; py = mn.y + (qn.y - mn.y) * lp; }
-      const al = Math.sin(Math.PI * pr);
-      const pg = ctx.createRadialGradient(px, py, 0, px, py, 9);
-      pg.addColorStop(0, `rgba(${csAcc()},${0.3*al})`); pg.addColorStop(1, `rgba(${csAcc()},0)`);
-      ctx.beginPath(); ctx.arc(px, py, 9, 0, Math.PI*2); ctx.fillStyle = pg; ctx.fill();
-      ctx.beginPath(); ctx.arc(px, py, 2.2, 0, Math.PI*2); ctx.fillStyle = `rgba(${csAcc()},${0.9*al})`; ctx.fill();
-    }
-    ctx.restore();
-    requestAnimationFrame(frame);
+    schedule();
   }
-  frame();
+
+  /* The card's own fill, so module rings sit cleanly on top of their branches */
+  let getComputedBg = '#141414';
+  function readBg() {
+    const v = getComputedStyle(canvas.closest('.cs-vis') || document.body).backgroundColor;
+    if (v && v !== 'rgba(0, 0, 0, 0)') getComputedBg = v;
+  }
+
+  function schedule() {
+    if (running || !visible) return;
+    if (reduce && t0 !== null && flow.length === 0 && performance.now() - t0 > 0 && drawnOnce) return;
+    running = true; requestAnimationFrame((n) => { drawnOnce = true; frame(n); });
+  }
+  let drawnOnce = false;
+
+  /* Only animate while on screen */
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver((es) => {
+      es.forEach(en => { visible = en.isIntersecting; if (visible) schedule(); });
+    }).observe(canvas);
+  }
+  let rz = 0;
+  const relayout = () => { layout(); drawnOnce = false; schedule(); };
+  if ('ResizeObserver' in window) {
+    new ResizeObserver(() => { cancelAnimationFrame(rz); rz = requestAnimationFrame(relayout); }).observe(canvas.parentElement);
+  } else window.addEventListener('resize', relayout);
+
+  readBg(); layout(); schedule();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(relayout);
 })();
 
 /* PERSONAS: each card's month opens and closes from the row at its foot */
