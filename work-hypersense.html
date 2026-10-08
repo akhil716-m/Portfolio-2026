@@ -2950,7 +2950,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
     const s = sigs[(Math.random() * sigs.length) | 0];
     const target = hov >= 0 ? hov : (Math.random() * steps.length) | 0;
     s.flare = 1;
-    flow.push({ s, target, start: now, inDur: 1100 + Math.random() * 500, outDur: 900 });
+    flow.push({ s, target, start: now, inDur: 1900 + Math.random() * 800, outDur: 1600 });
   }
 
   function chip(s, a) {
@@ -3022,7 +3022,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 
     /* fragments in flight: grey through the curve, accent along its branch */
     if (!reduce && el > 2900 && visible) {
-      if (now >= nextSpawn && flow.length < 9) { spawn(now); nextSpawn = now + 260 + Math.random() * 380; }
+      if (now >= nextSpawn && flow.length < 9) { spawn(now); nextSpawn = now + 420 + Math.random() * 560; }
     }
     for (let i = flow.length - 1; i >= 0; i--) {
       const f = flow[i], tin = (now - f.start) / f.inDur;
