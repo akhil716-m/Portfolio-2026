@@ -30,7 +30,7 @@
 <style>
 :root { --error: #e06060; }
 /* #7a7a7a is AA on the page ground but only 4.2:1 on #161616 cards: lift it a step there */
-.cs-tip, .cs-vis, .cs-team-col, .cs-docs, .cs-tensions, .cs-challenge, .cs-outcome-next,
+.cs-tip, .cs-vis, .cs-docs, .cs-tensions, .cs-challenge, .cs-outcome-next,
 .cs-fstat-grid, .cs-persona, .cs-sim-modal, .cs-arcs, .cs-next { --text-muted: #858585; }
 /* ============================================================
    CASE STUDY — HYPERSENSE
@@ -455,16 +455,13 @@ nav .logo a.cs-back:hover { color: var(--accent); }
 .cs-shot-cap em { font-style: normal; color: var(--text-soft); }
 
 /* ---------- TEAM GRID (bento) ---------- */
-.cs-team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line); }
-.cs-team-col { padding: 22px 18px; background: var(--bg-card); }
-.cs-team-role {
-  font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.13em; text-transform: uppercase;
-  color: var(--text-muted); margin-bottom: 12px;
-}
-.cs-team-role--mine { color: var(--accent); }
-.cs-team-name { font-family: 'Geist', sans-serif; font-size: 14px; font-weight: 500; color: var(--text); margin-bottom: 10px; line-height: 1.3; }
-.cs-team-desc { font-family: 'Geist', sans-serif; font-size: 13px; font-weight: 300; color: var(--text-soft); line-height: 1.65; }
-.cs-team-tag { margin-top: 14px; font-family: 'Geist', sans-serif; font-size: 12px; color: var(--accent); }
+/* My role & contributions: label column, then what I did, hairline between rows */
+.cs-role { margin: 8px 0 0; }
+.cs-role-row { display: grid; grid-template-columns: minmax(150px, 0.34fr) 1fr; gap: 8px 28px; padding: 18px 0; border-bottom: 1px solid var(--line); }
+.cs-role-row:first-child { padding-top: 6px; }
+.cs-role dt { font-family: 'Geist', sans-serif; font-size: 15px; font-weight: 500; line-height: 1.6; color: var(--text); }
+.cs-role dd { margin: 0; font-family: 'Geist', sans-serif; font-size: 15px; font-weight: 300; line-height: 1.6; color: var(--text-soft); }
+@media (max-width: 600px) { .cs-role-row { grid-template-columns: 1fr; gap: 4px; } }
 
 /* ---------- REVEAL-ON-SCROLL ---------- */
 .reveal { opacity: 0; transform: translateY(26px); transition: opacity 0.7s ease, transform 0.7s ease; }
@@ -1230,7 +1227,6 @@ a.cs-cta { margin-top: 28px; }
   .cs-fee-rate-row { flex-direction: column; align-items: flex-start; gap: 12px; }
   .cs-fee-why-grid { grid-template-columns: 1fr; gap: 20px; }
   .cs-fee-why-item + .cs-fee-why-item { border-left: none; padding-left: 0; border-top: 1px solid var(--line); padding-top: 18px; }
-  .cs-team-grid { grid-template-columns: 1fr 1fr; }
   .cs-hero-meta { gap: 30px; }
   .cs-hero { padding-top: 260px; }
   .cs-stats { grid-template-columns: 1fr; }
@@ -1247,7 +1243,6 @@ a.cs-cta { margin-top: 28px; }
   .cs-shot-navbar { height: 380px; }
 }
 @media (max-width: 540px) {
-  .cs-team-grid { grid-template-columns: 1fr; }
   .cs-vis-body { padding: 26px 20px; }
   .cs-iter { grid-template-columns: 1fr; }
   .cs-tl-item { grid-template-columns: 64px 16px 1fr; gap: 14px; }
@@ -1588,35 +1583,30 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 </div>
 <div class="cs-wrap">
 
-  <div class="cs-subdivider reveal"><span>My Contribution</span></div>
+  <div class="cs-subdivider reveal"><span>My role &amp; contributions</span></div>
 
-  <p class="cs-p reveal">As the only product designer, I worked closely with product, engineering, and business development teams to translate those insights into a cohesive investigation experience for enterprise merchants.</p>
-
-  <div class="cs-vis reveal" style="margin: 24px 0;">
-    <div class="cs-vis-label">One designer. A team of seven. One shared problem to solve.</div>
-    <div class="cs-team-grid">
-      <div class="cs-team-col">
-        <div class="cs-team-role cs-team-role--mine">Design</div>
-        <div class="cs-team-name">Solo Product Designer</div>
-        <div class="cs-team-desc">UX, product strategy, systems thinking, IA, data visualisation, interaction design.</div>
-      </div>
-      <div class="cs-team-col">
-        <div class="cs-team-role">Product</div>
-        <div class="cs-team-name">Product Manager</div>
-        <div class="cs-team-desc">Problem framing, prioritization, merchant requirements, roadmap, delivery.</div>
-      </div>
-      <div class="cs-team-col">
-        <div class="cs-team-role">Growth</div>
-        <div class="cs-team-name">BD Lead</div>
-        <div class="cs-team-desc">Merchant discovery, customer feedback, GTM strategy, market validation.</div>
-      </div>
-      <div class="cs-team-col">
-        <div class="cs-team-role">Engineering</div>
-        <div class="cs-team-name">Frontend &amp; Backend Engineers</div>
-        <div class="cs-team-desc">Cost engine, transaction intelligence, anomaly detection, platform implementation.</div>
-      </div>
+  <dl class="cs-role reveal">
+    <div class="cs-role-row">
+      <dt>Product strategy</dt>
+      <dd>Shaped the product with the PM around how teams investigate costs, organised by the questions they ask instead of by processors, fee types or reports</dd>
     </div>
-  </div>
+    <div class="cs-role-row">
+      <dt>End-to-end design</dt>
+      <dd>Designed all five modules from 0 to 1: Overview, Drill-Down, Fee Spikes, Audit and Forecast, in one experience that works for both IC++ and blended pricing</dd>
+    </div>
+    <div class="cs-role-row">
+      <dt>Information architecture</dt>
+      <dd>Turned cost data scattered across invoices, settlement reports and transaction logs into one investigation flow, from summary to transaction-level evidence</dd>
+    </div>
+    <div class="cs-role-row">
+      <dt>Data visualisation</dt>
+      <dd>Made fee breakdowns, cost spikes and contract-rate variances readable at a glance for finance, payments and operations teams</dd>
+    </div>
+    <div class="cs-role-row">
+      <dt>Delivery</dt>
+      <dd>The only designer on a team of seven, working with the PM, BD lead and engineers from concept to merchant pilots</dd>
+    </div>
+  </dl>
 
 </div>
 </section>
