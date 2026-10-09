@@ -252,13 +252,6 @@ nav .logo a.cs-back:hover { color: var(--accent); }
   letter-spacing: -0.015em; color: var(--text); margin: 0 0 16px;
 }
 .cs-h3 em { color: var(--text) !important; font-weight: 600; }
-.cs-tension-link {
-  display: inline-flex; align-items: center; gap: 6px; margin-top: 6px; min-height: 44px;
-  font-family: 'Geist', sans-serif; font-size: 13.5px; font-weight: 400; color: var(--accent);
-  text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.2s ease, gap 0.2s ease;
-}
-.cs-tension-link:hover, .cs-tension-link:focus-visible { border-bottom-color: var(--accent); gap: 9px; outline: none; }
-[id^="cs-mod-"] { scroll-margin-top: 120px; }
 .cs-module-tag {
   font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.16em;
   text-transform: uppercase; color: var(--accent); margin-bottom: 12px;
@@ -457,11 +450,18 @@ nav .logo a.cs-back:hover { color: var(--accent); }
 /* ---------- TEAM GRID (bento) ---------- */
 /* My role & contributions: label column, then what I did, hairline between rows */
 .cs-role { margin: 8px 0 0; }
-.cs-role-row { display: grid; grid-template-columns: minmax(150px, 0.34fr) 1fr; gap: 8px 28px; padding: 18px 0; border-bottom: 1px solid var(--line); }
-.cs-role-row:first-child { padding-top: 6px; }
-.cs-role dt { font-family: 'Geist', sans-serif; font-size: 15px; font-weight: 500; line-height: 1.6; color: var(--text); }
+.cs-role-row { display: grid; grid-template-columns: minmax(220px, 0.4fr) 1fr; gap: 10px 28px; align-items: start; padding: 20px 0; border-bottom: 1px solid var(--line); }
+.cs-role-row:first-child { padding-top: 8px; }
+.cs-role-row:last-child { border-bottom: 0; }
+/* Icons are a quiet line mark beside the label, the same treatment as the persona cards */
+.cs-role dt { display: flex; align-items: center; gap: 12px; font-family: 'Geist', sans-serif; font-size: 15px; font-weight: 500; line-height: 1.6; color: var(--text); }
+.cs-role-icon { flex: none; display: flex; color: rgb(var(--acc-rgb) / 0.75); }
+.cs-role-icon svg { width: 16px; height: 16px; }
 .cs-role dd { margin: 0; font-family: 'Geist', sans-serif; font-size: 15px; font-weight: 300; line-height: 1.6; color: var(--text-soft); }
-@media (max-width: 600px) { .cs-role-row { grid-template-columns: 1fr; gap: 4px; } }
+@media (max-width: 600px) {
+  .cs-role-row { grid-template-columns: 1fr; gap: 6px; }
+  .cs-role dd { padding-left: 28px; }
+}
 
 /* ---------- REVEAL-ON-SCROLL ---------- */
 .reveal { opacity: 0; transform: translateY(26px); transition: opacity 0.7s ease, transform 0.7s ease; }
@@ -764,12 +764,9 @@ a.cs-cta { margin-top: 28px; }
    Their month (four beats on a hairline rail) stays folded until asked for. */
 .cs-personas { display: flex; flex-direction: column; gap: 24px; margin: 48px 0 8px; }
 .cs-persona { position: relative; z-index: 501; padding: clamp(24px, 3vw, 34px); background: rgb(var(--fg-rgb) / 0.02); border: 1px solid rgb(var(--fg-rgb) / 0.07); border-radius: 14px; }
-.cs-persona-head { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 18px; align-items: start; margin-bottom: 28px; }
-.cs-persona-icon {
-  width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
-  background: rgb(var(--acc-rgb) / 0.07); border: 1px solid rgb(var(--acc-rgb) / 0.25); color: var(--accent);
-}
-.cs-persona-icon svg { width: 17px; height: 17px; }
+.cs-persona-head { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 12px; align-items: start; margin-bottom: 28px; }
+.cs-persona-icon { display: flex; padding-top: 4px; color: rgb(var(--acc-rgb) / 0.75); }
+.cs-persona-icon svg { width: 18px; height: 18px; }
 .cs-persona-name { font-family: 'Geist', sans-serif; font-size: 17px; font-weight: 600; letter-spacing: -0.01em; color: var(--text); line-height: 1.35; margin: 0; }
 .cs-persona-name .dash { display: none; }
 .cs-persona-name em { display: block; margin-top: 3px; font-style: normal; font-family: 'Geist', sans-serif; font-size: 13.5px; font-weight: 400; letter-spacing: 0; color: var(--text-muted); }
@@ -1354,7 +1351,6 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
     <div class="cs-hero-meta-item"><label>Role</label><span>Solo Product Designer</span></div>
     <div class="cs-hero-meta-item"><label>Company</label><span>Juspay <span class="accent">·</span> Hyperswitch</span></div>
     <div class="cs-hero-meta-item"><label>Scope</label><span>0 → 1 Product</span></div>
-    <div class="cs-hero-meta-item"><label>Outcome</label><span>Demoed to 20+ enterprises, including Apple and SpaceX <span class="accent">·</span> 6 pilots <span class="accent">·</span> 2 converted</span></div>
   </div>
   <div class="cs-hero-scroll">
     <span>Scroll</span>
@@ -1587,24 +1583,20 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 
   <dl class="cs-role reveal">
     <div class="cs-role-row">
-      <dt>Product strategy</dt>
-      <dd>Shaped the product with the PM around how teams investigate costs, organised by the questions they ask instead of by processors, fee types or reports</dd>
+      <dt><span class="cs-role-icon" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="7.25"/><path d="M12.9 7.1l-1.7 4.1-4.1 1.7 1.7-4.1z"/></svg></span><span>Product strategy</span></dt>
+      <dd>Collaborated closely with the PM to shape HyperSense’s product strategy, defining a more natural investigation experience centred around the questions and expectations of payment teams.</dd>
     </div>
     <div class="cs-role-row">
-      <dt>End-to-end design</dt>
-      <dd>Designed all five modules from 0 to 1: Overview, Drill-Down, Fee Spikes, Audit and Forecast, in one experience that works for both IC++ and blended pricing</dd>
+      <dt><span class="cs-role-icon" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2.5l5 6.5-5 8.5-5-8.5z"/><circle cx="10" cy="9.6" r="1.4"/><path d="M10 11v6.5"/></svg></span><span>Product design</span></dt>
+      <dd>Designed the complete HyperSense experience end-to-end, creating a coherent and scalable product that supports both IC++ and blended pricing models.</dd>
     </div>
     <div class="cs-role-row">
-      <dt>Information architecture</dt>
-      <dd>Turned cost data scattered across invoices, settlement reports and transaction logs into one investigation flow, from summary to transaction-level evidence</dd>
+      <dt><span class="cs-role-icon" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17h14"/><path d="M5.5 14V9.5M10 14V5M14.5 14V7.5"/></svg></span><span>Data visualisation</span></dt>
+      <dd>Translated complex fee breakdowns, cost spikes, and rate variances into clear visual narratives that help finance, payments, and operations teams identify what changed and why.</dd>
     </div>
     <div class="cs-role-row">
-      <dt>Data visualisation</dt>
-      <dd>Made fee breakdowns, cost spikes and contract-rate variances readable at a glance for finance, payments and operations teams</dd>
-    </div>
-    <div class="cs-role-row">
-      <dt>Delivery</dt>
-      <dd>The only designer on a team of seven, working with the PM, BD lead and engineers from concept to merchant pilots</dd>
+      <dt><span class="cs-role-icon" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M11.8 3.2c2.7.3 4.7 2.3 5 5l-5.6 5.6-5-5z"/><path d="M6.2 8.8l-2.7.4-1 2.6 3.2-.4M11.2 13.8l-.4 2.7-2.6 1 .4-3.2"/><circle cx="12.8" cy="7.2" r="1.2"/></svg></span><span>Product execution</span></dt>
+      <dd>As the sole designer on a seven-person team, partnered closely with product, engineering, and business development to take HyperSense from early concept through merchant pilots and live adoption.</dd>
     </div>
   </dl>
 
@@ -1911,7 +1903,6 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
       <div class="cs-tension-resp">
         <div class="cs-tension-resp-label">Design response</div>
         <p>Consolidate fragmented cost data into a single workflow that supports end-to-end investigation.</p>
-        <a class="cs-tension-link" href="#cs-mod-overview">Resolved in Overview <span aria-hidden="true">→</span></a>
       </div>
     </div>
 
@@ -1924,7 +1915,6 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
       <div class="cs-tension-resp">
         <div class="cs-tension-resp-label">Design response</div>
         <p>Present cost intelligence in a way that feels transparent, explainable, and trustworthy enough to drive decisions.</p>
-        <a class="cs-tension-link" href="#cs-mod-audit">Resolved in Audit <span aria-hidden="true">→</span></a>
       </div>
     </div>
 
@@ -1937,7 +1927,6 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
       <div class="cs-tension-resp">
         <div class="cs-tension-resp-label">Design response</div>
         <p>Create a unified experience that adapts to both transparent IC++ pricing and simplified blended pricing.</p>
-        <a class="cs-tension-link" href="#cs-mod-overview">Resolved in Overview <span aria-hidden="true">→</span></a>
       </div>
     </div>
 
@@ -1950,7 +1939,6 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
       <div class="cs-tension-resp">
         <div class="cs-tension-resp-label">Design response</div>
         <p>Help teams distinguish normal cost behaviour from issues that require investigation and action.</p>
-        <a class="cs-tension-link" href="#cs-mod-feespikes">Resolved in Fee Spikes <span aria-hidden="true">→</span></a>
       </div>
     </div>
 
@@ -1963,7 +1951,6 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
       <div class="cs-tension-resp">
         <div class="cs-tension-resp-label">Design response</div>
         <p>Support different workflows while keeping every team aligned around the same cost narrative.</p>
-        <a class="cs-tension-link" href="#cs-mod-drilldown">Resolved in Drill-Down <span aria-hidden="true">→</span></a>
       </div>
     </div>
 
@@ -1981,7 +1968,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
   <p class="cs-p reveal">With the investigation flow established, the next challenge was turning it into a cohesive product experience.</p>
   <p class="cs-p reveal">Each module served a distinct purpose, but together they needed to feel like a single investigation that teams could navigate naturally every month.</p>
 
-  <div class="cs-module-tag reveal" id="cs-mod-overview" style="margin-top: 56px;">Overview</div>
+  <div class="cs-module-tag reveal" style="margin-top: 56px;">Overview</div>
   <h3 class="cs-h3 reveal">What's my cost story at a glance?</h3>
   <p class="cs-p reveal">Before teams investigate anomalies or optimize costs, they first need to understand where they stand today.</p>
   <p class="cs-p reveal">I designed Overview as the system's source of truth: a unified cost layer that consolidates fragmented signals into a single cost story.</p>
@@ -2004,7 +1991,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 </div>
 <div class="cs-wrap">
 
-  <div class="cs-module-tag reveal" id="cs-mod-drilldown" style="margin-top: 80px;">Drill-Down</div>
+  <div class="cs-module-tag reveal" style="margin-top: 80px;">Drill-Down</div>
   <h3 class="cs-h3 reveal">How is cost distributed across my business?</h3>
   <p class="cs-p reveal">A single number rarely explains why costs change. Teams needed the ability to break costs down across processors, regions, <span class="cs-gloss" tabindex="0" data-gloss="corridor">corridors</span>, fee types, and currencies.</p>
   <p class="cs-p reveal">Drill-Down became the investigation layer of the product, helping teams move from cost summaries to the underlying drivers behind them.</p>
@@ -2027,7 +2014,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 </div>
 <div class="cs-wrap">
 
-  <div class="cs-module-tag reveal" id="cs-mod-feespikes" style="margin-top: 80px;">Fee Spikes</div>
+  <div class="cs-module-tag reveal" style="margin-top: 80px;">Fee Spikes</div>
   <h3 class="cs-h3 reveal">Is this cost increase a problem?</h3>
   <p class="cs-p reveal">Not every increase in payment cost is a problem. The same spike could be driven by healthy sales growth, expansion into new markets, operational issues, or preventable leakage.</p>
   <p class="cs-p reveal">Fee Spikes was designed as an early warning layer that surfaces meaningful cost changes and explains what is driving them.</p>
@@ -2048,7 +2035,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
     <li>Does it require action?</li>
   </ul>
 
-  <div class="cs-module-tag reveal" id="cs-mod-audit" style="margin-top: 80px;">Audit</div>
+  <div class="cs-module-tag reveal" style="margin-top: 80px;">Audit</div>
   <h3 class="cs-h3 reveal">Can every fee be verified?</h3>
   <p class="cs-p reveal">Processor invoices show what was charged, but rarely explain whether those charges were accurate.</p>
   <div class="cs-challenge reveal">
@@ -2077,7 +2064,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
   </ul>
   <p class="cs-p reveal">Instead of forcing teams to manually reconcile invoices, contracts, and transaction exports, the experience progressively moved from summary-level variances down to transaction-level evidence, making every discrepancy traceable and easy to defend.</p>
 
-  <div class="cs-module-tag reveal" id="cs-mod-forecast" style="margin-top: 80px;">Forecast</div>
+  <div class="cs-module-tag reveal" style="margin-top: 80px;">Forecast</div>
   <h3 class="cs-h3 reveal">What will upcoming network changes cost me?</h3>
   <p class="cs-p reveal">Card networks like Visa and Mastercard regularly introduce new fees, revise existing programs, and update qualification rules. Although these changes are published weeks in advance, they are often buried inside dense technical documentation.</p>
   <p class="cs-p reveal">For merchants, the challenge wasn't access to information. It was understanding which updates would actually affect their business and what their financial impact would be. Without that visibility, teams often discovered the impact only after it appeared on the following month's invoice.</p>
