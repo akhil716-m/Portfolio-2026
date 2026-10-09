@@ -160,11 +160,6 @@ nav .logo a.cs-back:hover { color: var(--accent); }
 .cs-hero-title em {
   font-style: normal; font-family: 'Geist', sans-serif; font-weight: 500; color: var(--text-soft);
 }
-.cs-hero-sub {
-  max-width: 54ch; margin: 28px 0 0; font-family: 'Geist', sans-serif; font-size: clamp(17px, 1.6vw, 20px);
-  font-weight: 300; line-height: 1.6; color: var(--text-soft);
-  opacity: 0; animation: csFadeUp 0.8s ease forwards 0.45s;
-}
 .cs-hero-meta {
   display: flex; flex-wrap: wrap; gap: 48px; margin-top: 58px; padding-top: 32px;
   border-top: 1px solid var(--line);
@@ -187,7 +182,7 @@ nav .logo a.cs-back:hover { color: var(--accent); }
   color: var(--text-muted); writing-mode: vertical-rl;
 }
 @media (prefers-reduced-motion: reduce) {
-  .cs-back, .cs-hero-eyebrow, .cs-hero-title, .cs-hero-sub, .cs-hero-meta, .cs-hero-scroll { animation: none; opacity: 1; }
+  .cs-back, .cs-hero-eyebrow, .cs-hero-title, .cs-hero-meta, .cs-hero-scroll { animation: none; opacity: 1; }
   .cs-hero-scroll-line { animation: none; }
 }
 .cs-hero-scroll-line {
@@ -1325,9 +1320,8 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 
 <!-- ═══════════════════════ HERO ═══════════════════════ -->
 <header class="cs-hero">
-  <div class="cs-hero-eyebrow">Fintech<span class="sep">·</span>Enterprise UX<span class="sep">·</span>0→1 Product</div>
+  <div class="cs-hero-eyebrow">Fintech<span class="sep">·</span>Enterprise UX<span class="sep">·</span>B2B SaaS</div>
   <h1 class="cs-hero-title">Cost <em>Observability</em></h1>
-  <p class="cs-hero-sub">I designed HyperSense from 0 to 1 as the only designer on the team: a product that shows enterprise merchants where their payment costs go, and why.</p>
   <div class="cs-hero-meta">
     <div class="cs-hero-meta-item"><label>Role</label><span>Solo Product Designer</span></div>
     <div class="cs-hero-meta-item"><label>Company</label><span>Juspay <span class="accent">·</span> Hyperswitch</span></div>
