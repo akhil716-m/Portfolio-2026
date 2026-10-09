@@ -1126,26 +1126,23 @@ a.cs-cta { margin-top: 28px; }
 .cs-challenge-lines p { display: flex; justify-content: space-between; gap: 24px; max-width: 280px; font-family: 'Geist Mono', monospace; font-size: 13.5px; font-variant-numeric: tabular-nums; }
 
 /* ---------- DESIGN TENSIONS (editorial list) ---------- */
-.cs-tensions { margin: 36px 0 0; position: relative; z-index: 501; }
-.cs-tension-row {
-  display: grid; grid-template-columns: 40px 1fr;
-  gap: 0 28px; padding: 40px 0; border-top: 1px solid var(--line); align-items: start;
+.cs-tensions-lead { margin: 44px 0 0; }
+/* Each tension reads as a move between two states. Three tones keep the hierarchy:
+   the target state is brightest, the starting state a step back, the explanation quieter still. */
+.cs-tensions { margin: 28px 0 0; position: relative; z-index: 501; border-top: 1px solid var(--line); }
+.cs-tension-row { display: grid; grid-template-columns: 20px 1fr; gap: 0 18px; align-items: start; padding: 28px 0; border-bottom: 1px solid var(--line); }
+.cs-tension-icon { width: 20px; height: 20px; margin-top: 3px; color: rgb(var(--acc-rgb) / 0.7); }
+.cs-tension-row:last-child { border-bottom: 0; }
+.cs-tension-title {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 4px 12px; margin: 0 0 8px;
+  font-family: 'Geist', sans-serif; font-size: clamp(17px, 1.8vw, 19px); font-weight: 400; line-height: 1.4; letter-spacing: -0.01em;
 }
-.cs-tension-row:first-child { border-top: none; padding-top: 8px; }
-.cs-tension-index { grid-column: 1; grid-row: 1; font-family: 'Geist Mono', monospace; font-size: 16px; font-weight: 400; color: var(--text-muted); line-height: 1; padding-top: 3px; }
-.cs-tension-tension { grid-column: 2; }
-.cs-tension-title { font-family: 'Geist', sans-serif; font-size: 17px; font-weight: 500; line-height: 1.35; color: var(--text); margin: 0 0 10px; }
-.cs-tension-friction { font-family: 'Geist', sans-serif; font-size: 15px; font-weight: 300; line-height: 1.65; color: var(--text-muted); margin: 0; max-width: 62ch; }
-.cs-tension-resp {
-  grid-column: 2; margin-top: 20px;
-  padding: 18px 22px; border-radius: 0 10px 10px 0;
-  background: rgb(var(--acc-rgb) / 0.045); border-left: 2px solid rgb(var(--acc-rgb) / 0.5);
-}
-.cs-tension-resp-label { font-family: 'Geist Mono', monospace; font-size: 9.5px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 9px; }
-.cs-tension-resp p { font-family: 'Geist', sans-serif; font-size: 15px; font-weight: 300; line-height: 1.65; color: var(--text-soft); margin: 0; max-width: 62ch; }
-@media (max-width: 760px) {
-  .cs-tension-row { grid-template-columns: 28px 1fr; gap: 12px 16px; }
-}
+.cs-tension-from { color: rgb(var(--fg-rgb) / 0.6); }
+.cs-tension-to { color: var(--text); }
+.cs-tension-arrow { flex: none; width: 17px; height: 17px; color: var(--accent); }
+.cs-tension-friction { font-family: 'Geist', sans-serif; font-size: 15px; font-weight: 300; line-height: 1.7; color: var(--text-muted); margin: 0; max-width: 62ch; }
+.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+@media (max-width: 760px) { .cs-tension-row { padding: 24px 0; } }
 
 /* ---------- KNOWLEDGE GRAPH ---------- */
 #cs-graph { width: 100%; height: auto; display: block; }
@@ -1870,69 +1867,49 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 <div class="cs-wrap">
 
   <div class="cs-label reveal"><span class="num">/06</span> Design Challenge</div>
-  <h2 class="cs-display reveal">Five tensions that shaped <em>every design decision.</em></h2>
-  <p class="cs-p reveal">Defining the investigation flow solved the product problem. Designing an experience around it introduced a new set of constraints.</p>
-  <p class="cs-p reveal">Every decision now had to balance trust, flexibility, and depth, without breaking the investigation flow.</p>
+  <h2 class="cs-display reveal">Making complex payment costs <em>easier to investigate.</em></h2>
+  <p class="cs-p reveal">Payment costs are fragmented, detailed, and constantly changing. The challenge was to create a clear investigation experience without stripping away the detail teams need to understand, trust, and act on the numbers.</p>
+  <div class="cs-module-tag cs-tensions-lead reveal">Five tensions shaped the experience</div>
 
   <div class="cs-tensions reveal">
 
     <div class="cs-tension-row">
-      <div class="cs-tension-index">01</div>
+      <svg class="cs-tension-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4.5c4 0 4.5 5.5 8.5 5.5M3 15.5c4 0 4.5-5.5 8.5-5.5M3 10h8.5"/><path d="M11.5 10H17M14.5 7.5L17 10l-2.5 2.5"/></svg>
       <div class="cs-tension-tension">
-        <div class="cs-tension-title">One cost story from fragmented systems</div>
-        <p class="cs-tension-friction">Cost investigations required teams to piece together answers from multiple disconnected systems, reports, and invoices before they could understand what was happening.</p>
-      </div>
-      <div class="cs-tension-resp">
-        <div class="cs-tension-resp-label">Design response</div>
-        <p>Consolidate fragmented cost data into a single workflow that supports end-to-end investigation.</p>
+        <h3 class="cs-tension-title"><span class="cs-tension-from">Fragmented sources</span><span class="visually-hidden"> to </span><svg class="cs-tension-arrow" viewBox="0 0 20 20" aria-hidden="true"><path d="M3.5 10h12.5M12 6l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="cs-tension-to">One cost story</span></h3>
+        <p class="cs-tension-friction">Payment cost signals lived across invoices, settlement reports, processor data, and transaction records. Teams had to piece them together before they could understand what changed.</p>
       </div>
     </div>
 
     <div class="cs-tension-row">
-      <div class="cs-tension-index">02</div>
+      <svg class="cs-tension-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 2.75l6 2.25v4.5c0 3.9-2.6 6.6-6 7.75-3.4-1.15-6-3.85-6-7.75V5z"/><path d="M7.4 10l1.8 1.8 3.5-3.6"/></svg>
       <div class="cs-tension-tension">
-        <div class="cs-tension-title">Making complex cost data trustworthy</div>
-        <p class="cs-tension-friction">Payment teams were expected to make operational and financial decisions from data they couldn't easily verify or explain.</p>
-      </div>
-      <div class="cs-tension-resp">
-        <div class="cs-tension-resp-label">Design response</div>
-        <p>Present cost intelligence in a way that feels transparent, explainable, and trustworthy enough to drive decisions.</p>
+        <h3 class="cs-tension-title"><span class="cs-tension-from">Complex data</span><span class="visually-hidden"> to </span><svg class="cs-tension-arrow" viewBox="0 0 20 20" aria-hidden="true"><path d="M3.5 10h12.5M12 6l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="cs-tension-to">Confidence to act</span></h3>
+        <p class="cs-tension-friction">Payment teams needed to make financial and operational decisions from data that was often difficult to verify, explain, or trace back to its source.</p>
       </div>
     </div>
 
     <div class="cs-tension-row">
-      <div class="cs-tension-index">03</div>
+      <svg class="cs-tension-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="7.5" cy="10" r="4.5"/><circle cx="12.5" cy="10" r="4.5"/></svg>
       <div class="cs-tension-tension">
-        <div class="cs-tension-title">One interface, two pricing models</div>
-        <p class="cs-tension-friction">The same product needed to serve merchants operating on fundamentally different pricing structures and levels of cost visibility.</p>
-      </div>
-      <div class="cs-tension-resp">
-        <div class="cs-tension-resp-label">Design response</div>
-        <p>Create a unified experience that adapts to both transparent IC++ pricing and simplified blended pricing.</p>
+        <h3 class="cs-tension-title"><span class="cs-tension-from">Two pricing models</span><span class="visually-hidden"> to </span><svg class="cs-tension-arrow" viewBox="0 0 20 20" aria-hidden="true"><path d="M3.5 10h12.5M12 6l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="cs-tension-to">One scalable experience</span></h3>
+        <p class="cs-tension-friction">HyperSense needed to support both IC++ and blended pricing, while adapting the level of cost detail without creating two fundamentally different products.</p>
       </div>
     </div>
 
     <div class="cs-tension-row">
-      <div class="cs-tension-index">04</div>
+      <svg class="cs-tension-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10h6"/><path d="M9 10l7-5.5M9 10l7 5.5"/><path d="M13.5 4.5H16v2.5M13.5 15.5H16V13"/></svg>
       <div class="cs-tension-tension">
-        <div class="cs-tension-title">Distinguishing growth from leakage</div>
-        <p class="cs-tension-friction">Not every increase in payment costs is a problem. Some reflect healthy business growth, while others indicate preventable leakage.</p>
-      </div>
-      <div class="cs-tension-resp">
-        <div class="cs-tension-resp-label">Design response</div>
-        <p>Help teams distinguish normal cost behaviour from issues that require investigation and action.</p>
+        <h3 class="cs-tension-title"><span class="cs-tension-from">Cost movement</span><span class="visually-hidden"> to </span><svg class="cs-tension-arrow" viewBox="0 0 20 20" aria-hidden="true"><path d="M3.5 10h12.5M12 6l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="cs-tension-to">Growth or leakage</span></h3>
+        <p class="cs-tension-friction">An increase in payment costs doesn't always indicate a problem. The experience needed to help teams distinguish expected business growth from preventable cost leakage.</p>
       </div>
     </div>
 
     <div class="cs-tension-row">
-      <div class="cs-tension-index">05</div>
+      <svg class="cs-tension-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10" cy="10.5" r="2"/><circle cx="4" cy="4.5" r="1.6"/><circle cx="16" cy="4.5" r="1.6"/><circle cx="10" cy="17" r="1.6"/><path d="M5.2 5.7l3.3 3.4M14.8 5.7l-3.3 3.4M10 12.5v2.9"/></svg>
       <div class="cs-tension-tension">
-        <div class="cs-tension-title">One investigation for multiple teams</div>
-        <p class="cs-tension-friction">Finance, Payments, and Operations teams approached the problem from different angles, but every investigation needed a shared understanding of what changed and why.</p>
-      </div>
-      <div class="cs-tension-resp">
-        <div class="cs-tension-resp-label">Design response</div>
-        <p>Support different workflows while keeping every team aligned around the same cost narrative.</p>
+        <h3 class="cs-tension-title"><span class="cs-tension-from">Different teams</span><span class="visually-hidden"> to </span><svg class="cs-tension-arrow" viewBox="0 0 20 20" aria-hidden="true"><path d="M3.5 10h12.5M12 6l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="cs-tension-to">Shared cost understanding</span></h3>
+        <p class="cs-tension-friction">Finance, Payments, and Operations approached costs from different perspectives and asked different questions, but needed to arrive at the same understanding of what changed and why.</p>
       </div>
     </div>
 
