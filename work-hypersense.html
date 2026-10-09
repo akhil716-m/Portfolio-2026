@@ -31,7 +31,7 @@
 :root { --error: #e06060; }
 /* #7a7a7a is AA on the page ground but only 4.2:1 on #161616 cards: lift it a step there */
 .cs-tip, .cs-vis, .cs-docs, .cs-tensions, .cs-challenge, .cs-outcome-next,
-.cs-fstat-grid, .cs-persona, .cs-sim-modal, .cs-arcs, .cs-next { --text-muted: #858585; }
+.cs-fstat-grid, .cs-persona, .cs-sim-modal, .cs-arcs { --text-muted: #858585; }
 /* ============================================================
    CASE STUDY — HYPERSENSE
    Re-themed translation of the external case-study microsite
@@ -1074,25 +1074,6 @@ a.cs-cta { margin-top: 28px; }
   color: var(--text); letter-spacing: -0.01em;
 }
 
-.cs-thanks-note p { max-width: 30ch; line-height: 1.4; text-wrap: balance; }
-.cs-close-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 12px; }
-.cs-close-links a.cs-cta { margin-top: 0; min-height: 44px; text-transform: none; letter-spacing: 0.02em; font-size: 13px; }
-.cs-cta--solid { color: var(--bg); background: var(--accent); border-color: var(--accent); }
-.cs-cta--solid:hover { background: var(--acc-soft); border-color: var(--acc-soft); }
-.cs-next {
-  display: grid; gap: 8px; margin: 72px 0 0; padding: 28px 32px; text-decoration: none;
-  border: 1px solid var(--line); border-radius: 14px; background: rgb(var(--fg-rgb) / 0.02);
-  transition: border-color 0.25s ease, background 0.25s ease;
-}
-.cs-next:hover, .cs-next:focus-visible { border-color: rgb(var(--acc-rgb) / 0.5); background: rgb(var(--acc-rgb) / 0.04); outline: none; }
-.cs-next-meta { font-family: 'Geist', sans-serif; font-size: 13.5px; color: var(--text-muted); }
-.cs-next-title { display: flex; align-items: center; gap: 10px; font-family: 'Geist', sans-serif; font-size: clamp(24px, 3.4vw, 32px); font-weight: 500; letter-spacing: -0.02em; color: var(--text); }
-.cs-next-title .arr { color: var(--accent); transition: transform 0.25s ease; }
-.cs-next:hover .cs-next-title .arr { transform: translateX(4px); }
-.cs-next-desc { font-family: 'Geist', sans-serif; font-size: 15px; font-weight: 300; line-height: 1.6; color: var(--text-soft); }
-.cs-back-link { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; font-family: 'Geist', sans-serif; font-size: 14px; color: var(--text-muted); text-decoration: none; transition: color 0.2s ease; }
-.cs-back-link:hover, .cs-back-link:focus-visible { color: var(--text); }
-@media (max-width: 540px) { .cs-next { padding: 22px 20px; } }
 
 /* ---------- OUTCOME CALLOUT ---------- */
 .cs-outcome {
@@ -2131,19 +2112,9 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
       <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c.4 5.9 5.7 11.2 11.6 11.6v.8C17.7 12.8 12.4 18.1 12 24h-.8C10.8 18.1 5.5 12.8-.4 12.4v-.8C5.5 11.2 10.8 5.9 11.2 0h.8z"/></svg>
       <span class="cs-thanks-dash"></span>
     </span>
-    <p>Thanks for reading. If you're working on something this complex, I'd love to talk.</p>
-    <div class="cs-close-links">
-      <a class="cs-cta cs-cta--solid" href="mailto:akhilmale.ux@gmail.com">akhilmale.ux@gmail.com</a>
-      <a class="cs-cta" href="https://www.linkedin.com/in/male-akhil/" target="_blank" rel="noopener">LinkedIn <span class="arr" aria-hidden="true">↗</span></a>
-    </div>
+    <p>Thank you for taking the time to follow the journey.</p>
   </div>
-
-  <a class="cs-next reveal" href="/work-reconciliation">
-    <span class="cs-next-meta">Next case study</span>
-    <span class="cs-next-title">Reconciliation <span class="arr" aria-hidden="true">→</span></span>
-    <span class="cs-next-desc">Turning complex exception investigations into a clearer path to resolution.</span>
-  </a>
-  <div class="cs-cta-center reveal"><a class="cs-back-link" href="/"><span class="arr" aria-hidden="true">←</span> Back to selected work</a></div>
+  <div class="cs-cta-center reveal"><a class="cs-cta" href="/"><span class="arr">←</span> Back to selected work</a></div>
 
 </div>
 </section>
