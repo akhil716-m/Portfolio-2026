@@ -29,6 +29,9 @@
 </script>
 <style>
 :root { --error: #e06060; }
+/* #7a7a7a is AA on the page ground but only 4.2:1 on #161616 cards: lift it a step there */
+.cs-tip, .cs-vis, .cs-docs, .cs-tensions, .cs-challenge, .cs-outcome-next,
+.cs-fstat-grid, .cs-persona, .cs-sim-modal, .cs-arcs { --text-muted: #858585; }
 /* ============================================================
    CASE STUDY — HYPERSENSE
    Re-themed translation of the external case-study microsite
@@ -178,6 +181,10 @@ nav .logo a.cs-back:hover { color: var(--accent); }
   font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
   color: var(--text-muted); writing-mode: vertical-rl;
 }
+@media (prefers-reduced-motion: reduce) {
+  .cs-back, .cs-hero-eyebrow, .cs-hero-title, .cs-hero-meta, .cs-hero-scroll { animation: none; opacity: 1; }
+  .cs-hero-scroll-line { animation: none; }
+}
 .cs-hero-scroll-line {
   width: 1px; height: 58px;
   background: linear-gradient(to bottom, var(--accent) 0%, transparent 100%);
@@ -210,6 +217,9 @@ nav .logo a.cs-back:hover { color: var(--accent); }
   .cs-hero-title { font-size: clamp(46px, 11vw, 130px); max-width: 260px; }
   .cs-hero-meta { margin-top: 32px; border-top: 1px solid var(--line); padding-top: 32px; }
 }
+@media (max-width: 374px) {
+  .cs-hero-eyebrow { white-space: normal; line-height: 1.8; }
+}
 
 .cs-label {
   display: flex; align-items: center; gap: 16px; margin-bottom: 46px;
@@ -234,7 +244,7 @@ nav .logo a.cs-back:hover { color: var(--accent); }
   color: var(--text-soft); margin: 0 0 26px; max-width: 720px;
 }
 .cs-p:last-child { margin-bottom: 0; }
-.cs-p strong { color: var(--text); font-weight: 500; }
+.cs-p strong { color: var(--accent); font-weight: 500; }
 .cs-h3 {
   font-family: 'Geist', sans-serif; font-size: clamp(22px, 3.2vw, 30px); font-weight: 600;
   letter-spacing: -0.015em; color: var(--text); margin: 0 0 16px;
@@ -258,6 +268,7 @@ nav .logo a.cs-back:hover { color: var(--accent); }
   transition: color 0.15s ease, border-color 0.15s ease;
 }
 .cs-gloss:hover, .cs-gloss:focus-visible { color: var(--accent); border-bottom-color: var(--accent); outline: none; }
+.cs-gloss:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
 
 .cs-tip {
   position: fixed; z-index: 2000; max-width: 320px; padding: 16px 18px;
@@ -276,7 +287,7 @@ nav .logo a.cs-back:hover { color: var(--accent); }
 
 /* ---------- VIS BLOCK (diagram container) ---------- */
 .cs-vis-group { display: flex; flex-direction: column; gap: 14px; margin: 50px 0; }
-.cs-vis { position: relative; z-index: 501; margin: 50px 0; background: var(--bg-card); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+.cs-vis { position: relative; z-index: 501; margin: 50px 0; background: var(--bg-card); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
 .cs-vis-group .cs-vis { margin: 0; }
 .cs-vis-label {
   padding: 16px 24px; border-bottom: 1px solid var(--line);
@@ -293,6 +304,10 @@ nav .logo a.cs-back:hover { color: var(--accent); }
 .cs-subdivider::before { content: ''; width: 20px; height: 1px; background: var(--accent); flex-shrink: 0; }
 .cs-subdivider::after { content: ''; flex: 1; height: 1px; background: var(--line); }
 .cs-vis-body { padding: 32px 28px; }
+/* Breaks out of the reading column for diagrams that need room; margins, not transform, so .reveal still works */
+.cs-vis--wide { --vis-w: min(960px, calc(100vw - 48px)); width: var(--vis-w); max-width: none; margin-left: calc(50% - var(--vis-w) / 2) !important; }
+/* Keep clear of the fixed chapter rail while it is showing */
+@media (min-width: 1281px) { .cs-vis--wide { --vis-w: min(960px, calc(100vw - 560px)); } }
 
 /* ---------- HOW MONEY FLOWS — live pipeline ----------
    A lime pulse travels customer → merchant on a 6s loop, shrinking after
@@ -307,6 +322,11 @@ nav .logo a.cs-back:hover { color: var(--accent); }
   opacity: 0; pointer-events: none;
 }
 .cs-ng { opacity: 0.22; }
+.cs-flow-v { display: none; width: 100%; max-width: 340px; margin: 0 auto; }
+@media (max-width: 600px) {
+  .cs-flow-h, .cs-flow-dot { display: none !important; }
+  .cs-flow-v { display: block; }
+}
 
 @media (prefers-reduced-motion: no-preference) {
   .cs-vis.is-visible .cs-fl { animation: cs-dash-march 0.8s linear infinite; }
@@ -426,20 +446,25 @@ nav .logo a.cs-back:hover { color: var(--accent); }
 .cs-shot-cap em { font-style: normal; color: var(--text-soft); }
 
 /* ---------- TEAM GRID (bento) ---------- */
-.cs-team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line); }
-.cs-team-col { padding: 22px 18px; background: var(--bg-card); }
-.cs-team-role {
-  font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.13em; text-transform: uppercase;
-  color: var(--text-muted); margin-bottom: 12px;
+/* My role & contributions: label column, then what I did, hairline between rows */
+.cs-role { margin: 8px 0 0; }
+.cs-role-row { display: grid; grid-template-columns: minmax(220px, 0.4fr) 1fr; gap: 10px 28px; align-items: start; padding: 20px 0; border-bottom: 1px solid var(--line); }
+.cs-role-row:first-child { padding-top: 8px; }
+.cs-role-row:last-child { border-bottom: 0; }
+/* Icons are a quiet line mark beside the label, the same treatment as the persona cards */
+.cs-role dt { display: flex; align-items: center; gap: 12px; font-family: 'Geist', sans-serif; font-size: 15px; font-weight: 500; line-height: 1.6; color: var(--text); }
+.cs-role-icon { flex: none; display: flex; color: rgb(var(--acc-rgb) / 0.75); }
+.cs-role-icon svg { width: 16px; height: 16px; }
+.cs-role dd { margin: 0; font-family: 'Geist', sans-serif; font-size: 15px; font-weight: 300; line-height: 1.6; color: var(--text-soft); }
+@media (max-width: 600px) {
+  .cs-role-row { grid-template-columns: 1fr; gap: 6px; }
+  .cs-role dd { padding-left: 28px; }
 }
-.cs-team-role--mine { color: var(--accent); }
-.cs-team-name { font-family: 'Geist', sans-serif; font-size: 14px; font-weight: 500; color: var(--text); margin-bottom: 10px; line-height: 1.3; }
-.cs-team-desc { font-family: 'Geist', sans-serif; font-size: 12px; font-weight: 300; color: var(--text-soft); line-height: 1.65; }
-.cs-team-tag { margin-top: 14px; font-family: 'Geist', sans-serif; font-size: 12px; color: var(--accent); }
 
 /* ---------- REVEAL-ON-SCROLL ---------- */
 .reveal { opacity: 0; transform: translateY(26px); transition: opacity 0.7s ease, transform 0.7s ease; }
 .reveal.is-visible { opacity: 1; transform: translateY(0); }
+@media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
 
 /* ---------- "MORE TO COME" CLOSER ---------- */
 .cs-more-section { padding: clamp(70px, 10vw, 120px) 0; border-top: 1px solid var(--line); text-align: center; }
@@ -477,7 +502,7 @@ a.cs-cta { margin-top: 28px; }
 /* ---------- RAW DOCUMENTS BENTO ---------- */
 .cs-docs {
   display: block;
-  margin: 50px 0; padding: 36px; background: var(--bg-card); border: 1px solid var(--line); border-radius: 10px;
+  margin: 50px 0; padding: 36px; background: var(--bg-card); border: 1px solid var(--line); border-radius: 14px;
   position: relative; z-index: 501;
 }
 .cs-docs-header { margin-bottom: 28px; }
@@ -605,7 +630,7 @@ a.cs-cta { margin-top: 28px; }
 .cs-sim-btn {
   display: inline-flex; align-items: center; gap: 7px; margin: 0; flex-shrink: 0;
   font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase;
-  color: var(--bg); background: var(--accent); border: none; border-radius: 100px; padding: 9px 18px; cursor: pointer;
+  color: var(--bg); background: var(--accent); border: none; border-radius: 100px; padding: 9px 20px; min-height: 44px; cursor: pointer;
   position: relative; z-index: 2;
   transition: gap 0.2s ease, opacity 0.2s ease, transform 0.15s ease;
 }
@@ -696,6 +721,7 @@ a.cs-cta { margin-top: 28px; }
   font-family: 'Geist Mono', monospace; font-size: 9px; letter-spacing: 0.12em;
   text-transform: uppercase; color: var(--text-muted); white-space: nowrap;
 }
+@media (max-width: 540px) { .cs-sim-flow-label { white-space: normal; max-width: 10ch; text-align: center; line-height: 1.5; } }
 .cs-sim-teaser-dot--start, .cs-sim-teaser-dot--end { width: 8px; height: 8px; background: rgb(var(--fg-rgb) / 0.25); }
 .cs-sim-teaser-body .cs-sim-btn { align-self: flex-start; margin-top: 20px; }
 
@@ -706,7 +732,8 @@ a.cs-cta { margin-top: 28px; }
   opacity: 0; visibility: hidden; pointer-events: none;
   transition: opacity 0.25s ease, visibility 0.25s ease;
 }
-.cs-sim-modal.is-open { opacity: 1; visibility: visible; pointer-events: auto; }
+/* Visibility flips at once on open so focus can move into the dialog straight away */
+.cs-sim-modal.is-open { opacity: 1; visibility: visible; pointer-events: auto; transition: opacity 0.25s ease, visibility 0s; }
 .cs-sim-modal-backdrop {
   position: absolute; inset: 0; background: rgb(var(--sh-rgb) / calc(0.7 * var(--sh-k))); backdrop-filter: blur(4px);
 }
@@ -723,7 +750,7 @@ a.cs-cta { margin-top: 28px; }
 .cs-sim-modal .cs-vis::before { display: none; }
 .cs-sim-modal-close {
   position: absolute; top: 16px; right: 16px; z-index: 2;
-  width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;
+  width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
   font-size: 14px; line-height: 1; color: var(--text-soft); background: var(--bg-soft);
   border: 1px solid var(--line); border-radius: 50%; cursor: pointer;
   transition: color 0.18s ease, border-color 0.18s ease;
@@ -735,12 +762,9 @@ a.cs-cta { margin-top: 28px; }
    Their month (four beats on a hairline rail) stays folded until asked for. */
 .cs-personas { display: flex; flex-direction: column; gap: 24px; margin: 48px 0 8px; }
 .cs-persona { position: relative; z-index: 501; padding: clamp(24px, 3vw, 34px); background: rgb(var(--fg-rgb) / 0.02); border: 1px solid rgb(var(--fg-rgb) / 0.07); border-radius: 14px; }
-.cs-persona-head { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 18px; align-items: start; margin-bottom: 28px; }
-.cs-persona-icon {
-  width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
-  background: rgb(var(--acc-rgb) / 0.07); border: 1px solid rgb(var(--acc-rgb) / 0.25); color: var(--accent);
-}
-.cs-persona-icon svg { width: 17px; height: 17px; }
+.cs-persona-head { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 12px; align-items: start; margin-bottom: 28px; }
+.cs-persona-icon { display: flex; padding-top: 4px; color: rgb(var(--acc-rgb) / 0.75); }
+.cs-persona-icon svg { width: 18px; height: 18px; }
 .cs-persona-name { font-family: 'Geist', sans-serif; font-size: 17px; font-weight: 600; letter-spacing: -0.01em; color: var(--text); line-height: 1.35; margin: 0; }
 .cs-persona-name .dash { display: none; }
 .cs-persona-name em { display: block; margin-top: 3px; font-style: normal; font-family: 'Geist', sans-serif; font-size: 13.5px; font-weight: 400; letter-spacing: 0; color: var(--text-muted); }
@@ -757,7 +781,7 @@ a.cs-cta { margin-top: 28px; }
 /* The fold: one quiet row at the foot of the card */
 .cs-journey-toggle {
   display: flex; align-items: center; justify-content: space-between; width: 100%;
-  margin-top: 26px; padding: 0; border: none; background: none; cursor: pointer;
+  margin-top: 14px; padding: 0; min-height: 44px; border: none; background: none; cursor: pointer;
   font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted);
   transition: color 0.2s ease;
 }
@@ -950,7 +974,7 @@ a.cs-cta { margin-top: 28px; }
   position: relative; padding: 36px 30px 36px;
   background: linear-gradient(160deg, rgb(var(--fg-rgb) / 0.07) 0%, rgb(var(--fg-rgb) / 0.02) 70%);
   border: 1px solid rgb(var(--fg-rgb) / 0.09);
-  border-radius: 16px;
+  border-radius: 14px;
   display: flex; flex-direction: column; gap: 12px;
   overflow: hidden;
 }
@@ -1048,6 +1072,7 @@ a.cs-cta { margin-top: 28px; }
   color: var(--text); letter-spacing: -0.01em;
 }
 
+
 /* ---------- OUTCOME CALLOUT ---------- */
 .cs-outcome {
   margin: 28px 0 8px; padding: 0 0 0 20px;
@@ -1096,29 +1121,26 @@ a.cs-cta { margin-top: 28px; }
 .cs-challenge-tag { font-family: 'Geist Mono', monospace; font-size: 9.5px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
 .cs-challenge p { font-family: 'Geist', sans-serif; font-size: 14.5px; font-weight: 300; line-height: 1.8; color: var(--text-soft); margin: 0; }
 .cs-challenge-lines { display: flex; flex-direction: column; gap: 8px; }
-.cs-challenge-lines p { font-family: 'Geist Mono', monospace; font-size: 13.5px; }
+.cs-challenge-lines p { display: flex; justify-content: space-between; gap: 24px; max-width: 280px; font-family: 'Geist Mono', monospace; font-size: 13.5px; font-variant-numeric: tabular-nums; }
 
 /* ---------- DESIGN TENSIONS (editorial list) ---------- */
-.cs-tensions { margin: 36px 0 0; position: relative; z-index: 501; }
-.cs-tension-row {
-  display: grid; grid-template-columns: 40px 1fr;
-  gap: 0 28px; padding: 40px 0; border-top: 1px solid var(--line); align-items: start;
+.cs-tensions-lead { margin: 44px 0 0; }
+/* Each tension reads as a move between two states. Three tones keep the hierarchy:
+   the target state is brightest, the starting state a step back, the explanation quieter still. */
+.cs-tensions { margin: 28px 0 0; position: relative; z-index: 501; border-top: 1px solid var(--line); }
+.cs-tension-row { display: grid; grid-template-columns: 20px 1fr; gap: 0 18px; align-items: start; padding: 28px 0; border-bottom: 1px solid var(--line); }
+.cs-tension-icon { width: 20px; height: 20px; margin-top: 3px; color: rgb(var(--acc-rgb) / 0.7); }
+.cs-tension-row:last-child { border-bottom: 0; }
+.cs-tension-title {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 4px 12px; margin: 0 0 8px;
+  font-family: 'Geist', sans-serif; font-size: clamp(17px, 1.8vw, 19px); font-weight: 400; line-height: 1.4; letter-spacing: -0.01em;
 }
-.cs-tension-row:first-child { border-top: none; padding-top: 8px; }
-.cs-tension-index { grid-column: 1; grid-row: 1; font-family: 'Geist Mono', monospace; font-size: 16px; font-weight: 400; color: var(--text-muted); line-height: 1; padding-top: 3px; }
-.cs-tension-tension { grid-column: 2; }
-.cs-tension-title { font-family: 'Geist', sans-serif; font-size: 17px; font-weight: 500; line-height: 1.35; color: var(--text); margin: 0 0 10px; }
-.cs-tension-friction { font-family: 'Geist', sans-serif; font-size: 15px; font-weight: 300; line-height: 1.65; color: var(--text-muted); margin: 0; max-width: 62ch; }
-.cs-tension-resp {
-  grid-column: 2; margin-top: 20px;
-  padding: 18px 22px; border-radius: 0 10px 10px 0;
-  background: rgb(var(--acc-rgb) / 0.045); border-left: 2px solid rgb(var(--acc-rgb) / 0.5);
-}
-.cs-tension-resp-label { font-family: 'Geist Mono', monospace; font-size: 9.5px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 9px; }
-.cs-tension-resp p { font-family: 'Geist', sans-serif; font-size: 15px; font-weight: 300; line-height: 1.65; color: var(--text-soft); margin: 0; max-width: 62ch; }
-@media (max-width: 760px) {
-  .cs-tension-row { grid-template-columns: 28px 1fr; gap: 12px 16px; }
-}
+.cs-tension-from { color: rgb(var(--fg-rgb) / 0.6); }
+.cs-tension-to { color: var(--text); }
+.cs-tension-arrow { flex: none; width: 17px; height: 17px; color: var(--accent); }
+.cs-tension-friction { font-family: 'Geist', sans-serif; font-size: 15px; font-weight: 300; line-height: 1.7; color: var(--text-muted); margin: 0; max-width: 62ch; }
+.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+@media (max-width: 760px) { .cs-tension-row { padding: 24px 0; } }
 
 /* ---------- KNOWLEDGE GRAPH ---------- */
 #cs-graph { width: 100%; height: auto; display: block; }
@@ -1138,19 +1160,6 @@ a.cs-cta { margin-top: 28px; }
 .cs-scenario-shot:hover img { transform: scale(1.04); }
 .cs-scenario-shot:hover::after { background: rgb(var(--sh-rgb) / calc(0.2 * var(--sh-k))); }
 
-/* Scenario lightbox */
-.cs-scn-modal { position: fixed; inset: 0; z-index: 2000; display: flex; align-items: center; justify-content: center; padding: 24px; background: rgb(var(--sh-rgb) / calc(0.82 * var(--sh-k))); backdrop-filter: blur(10px); opacity: 0; pointer-events: none; transition: opacity 0.25s ease; }
-.cs-scn-modal.is-open { opacity: 1; pointer-events: all; }
-.cs-scn-modal-box { width: min(960px, 100%); background: var(--bg-card); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; transform: translateY(16px) scale(0.98); transition: transform 0.32s cubic-bezier(.22,.8,.25,1); }
-.cs-scn-modal.is-open .cs-scn-modal-box { transform: translateY(0) scale(1); }
-.cs-scn-modal-img { height: 400px; overflow-y: auto; border-bottom: 1px solid var(--line); scrollbar-width: thin; scrollbar-color: rgb(var(--fg-rgb) / 0.12) transparent; }
-.cs-scn-modal-img img { width: 100%; display: block; }
-.cs-scn-modal-body { padding: 24px 28px 28px; position: relative; }
-.cs-scn-modal-tag { font-family: 'Geist Mono', monospace; font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
-.cs-scn-modal-title { font-family: 'Geist', sans-serif; font-size: 22px; font-weight: 600; letter-spacing: -0.01em; color: var(--text); margin-bottom: 10px; }
-.cs-scn-modal-desc { font-family: 'Geist', sans-serif; font-size: 13.5px; font-weight: 300; line-height: 1.7; color: var(--text-soft); margin: 0; }
-.cs-scn-modal-close { display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; margin: 0 auto 12px; background: rgb(var(--fg-rgb) / 0.08); border: 1px solid rgb(var(--fg-rgb) / 0.14); border-radius: 50%; cursor: pointer; color: var(--text-muted); font-size: 13px; transition: background 0.2s ease; flex-shrink: 0; }
-.cs-scn-modal-close:hover { background: rgb(var(--fg-rgb) / 0.16); }
 .cs-scenario-tag { font-family: 'Geist Mono', monospace; font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
 .cs-scenario-title { font-family: 'Geist', sans-serif; font-size: 19px; font-weight: 600; letter-spacing: -0.01em; color: var(--text); margin-bottom: 10px; }
 .cs-scenario p { font-family: 'Geist', sans-serif; font-size: 12.5px; font-weight: 300; line-height: 1.7; color: var(--text-soft); margin: 0; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
@@ -1191,7 +1200,6 @@ a.cs-cta { margin-top: 28px; }
   .cs-fee-rate-row { flex-direction: column; align-items: flex-start; gap: 12px; }
   .cs-fee-why-grid { grid-template-columns: 1fr; gap: 20px; }
   .cs-fee-why-item + .cs-fee-why-item { border-left: none; padding-left: 0; border-top: 1px solid var(--line); padding-top: 18px; }
-  .cs-team-grid { grid-template-columns: 1fr 1fr; }
   .cs-hero-meta { gap: 30px; }
   .cs-hero { padding-top: 260px; }
   .cs-stats { grid-template-columns: 1fr; }
@@ -1208,7 +1216,6 @@ a.cs-cta { margin-top: 28px; }
   .cs-shot-navbar { height: 380px; }
 }
 @media (max-width: 540px) {
-  .cs-team-grid { grid-template-columns: 1fr; }
   .cs-vis-body { padding: 26px 20px; }
   .cs-iter { grid-template-columns: 1fr; }
   .cs-tl-item { grid-template-columns: 64px 16px 1fr; gap: 14px; }
@@ -1225,7 +1232,7 @@ a.cs-cta { margin-top: 28px; }
 .cs-stage {
   position: relative; isolation: isolate; z-index: 501;
   margin: 24px 0 14px; padding: clamp(10px, 1.6vw, 18px);
-  border-radius: 18px; border: 1px solid rgb(255 255 255 / 0.09);
+  border-radius: 16px; border: 1px solid rgb(255 255 255 / 0.09);
   background: linear-gradient(160deg, rgb(255 255 255 / 0.07) 0%, rgb(255 255 255 / 0.025) 70%), #131313;
 }
 .cs-stage::before {
@@ -1313,7 +1320,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 
 <!-- ═══════════════════════ HERO ═══════════════════════ -->
 <header class="cs-hero">
-  <div class="cs-hero-eyebrow">Case Study<span class="sep">·</span>B2B SaaS<span class="sep">·</span>2026</div>
+  <div class="cs-hero-eyebrow">Fintech<span class="sep">·</span>Enterprise UX<span class="sep">·</span>B2B SaaS</div>
   <h1 class="cs-hero-title">Cost <em>Observability</em></h1>
   <div class="cs-hero-meta">
     <div class="cs-hero-meta-item"><label>Role</label><span>Solo Product Designer</span></div>
@@ -1342,8 +1349,8 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
   <div class="cs-vis reveal" style="margin: 24px 0;">
     <div class="cs-vis-body" style="padding: 44px 28px 40px;">
       <div class="cs-flow-stage">
-      <svg viewBox="0 0 700 132" xmlns="http://www.w3.org/2000/svg" role="img" style="width:100%; display:block;">
-        <title>Payment flow — $1,000 enters, intermediaries each extract a fee, the merchant receives $980</title>
+      <svg class="cs-flow-h" viewBox="0 0 700 132" xmlns="http://www.w3.org/2000/svg" role="img" style="width:100%; display:block;">
+        <title>Payment flow: $1,000 enters, intermediaries each extract a fee, the merchant receives $980</title>
 
         <defs>
           <radialGradient id="cs-flow-nodeglow">
@@ -1353,7 +1360,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
         </defs>
 
         <!-- ══ "Payment costs" bracket over the hidden chain ══ -->
-        <text x="350" y="14" text-anchor="middle" font-family="'Geist',sans-serif" font-size="9.5" font-weight="500" letter-spacing="0.14em" style="fill: rgb(var(--acc-rgb) / 0.95)">PAYMENT COSTS — INVISIBLE TO MOST MERCHANTS</text>
+        <text x="350" y="14" text-anchor="middle" font-family="'Geist',sans-serif" font-size="10.5" font-weight="500" letter-spacing="0.1em" style="fill: rgb(var(--acc-rgb) / 0.95)">PAYMENT COSTS, INVISIBLE TO MOST MERCHANTS</text>
         <path d="M 196 30 L 196 24 L 504 24 L 504 30" fill="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" style="stroke: rgb(var(--acc-rgb) / 0.45)"/>
 
         <!-- ══ Flow line — opacity erodes after each cut, dashes march while live ══ -->
@@ -1368,30 +1375,30 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
           <line x1="47" y1="70" x2="81" y2="70" />
           <line x1="53" y1="79" x2="61" y2="79" />
         </g>
-        <text x="64" y="50" text-anchor="middle" font-family="'Geist',sans-serif" font-size="11" font-weight="500" fill="var(--text)">Customer pays</text>
+        <text x="64" y="50" text-anchor="middle" font-family="'Geist',sans-serif" font-size="12" font-weight="500" fill="var(--text)">Customer pays</text>
         <text x="64" y="108" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="12.5" font-weight="500" fill="var(--text)">$1,000</text>
 
         <!-- ══ INTERMEDIARY CUTS ══ -->
         <!-- Acquiring bank -->
         <circle class="cs-ng cs-ng1" cx="222" cy="74" r="30" fill="url(#cs-flow-nodeglow)" />
-        <text class="cs-lbl cs-lbl1" x="222" y="46" text-anchor="middle" font-family="'Geist',sans-serif" font-size="10.5" fill="var(--text-soft)">Acquiring bank</text>
+        <text class="cs-lbl cs-lbl1" x="222" y="46" text-anchor="middle" font-family="'Geist',sans-serif" font-size="11.5" fill="var(--text-soft)">Acquiring bank</text>
         <circle class="cs-node cs-n1" cx="222" cy="74" r="17" fill="var(--bg-soft)" stroke-width="1.3" style="stroke: rgb(var(--acc-rgb) / 0.35)"/>
         <text x="222" y="79" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="13" font-weight="500" fill="var(--accent)">%</text>
-        <text class="cs-fee cs-fee1" x="222" y="107" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="11" style="fill: rgb(var(--acc-rgb) / 0.7)">−0.35%</text>
+        <text class="cs-fee cs-fee1" x="222" y="107" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="12" style="fill: rgb(var(--acc-rgb) / 0.8)">−0.35%</text>
 
         <!-- Card network -->
         <circle class="cs-ng cs-ng2" cx="350" cy="74" r="30" fill="url(#cs-flow-nodeglow)" />
-        <text class="cs-lbl cs-lbl2" x="350" y="46" text-anchor="middle" font-family="'Geist',sans-serif" font-size="10.5" fill="var(--text-soft)">Card network</text>
+        <text class="cs-lbl cs-lbl2" x="350" y="46" text-anchor="middle" font-family="'Geist',sans-serif" font-size="11.5" fill="var(--text-soft)">Card network</text>
         <circle class="cs-node cs-n2" cx="350" cy="74" r="17" fill="var(--bg-soft)" stroke-width="1.3" style="stroke: rgb(var(--acc-rgb) / 0.35)"/>
         <text x="350" y="79" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="13" font-weight="500" fill="var(--accent)">%</text>
-        <text class="cs-fee cs-fee2" x="350" y="107" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="11" style="fill: rgb(var(--acc-rgb) / 0.7)">−0.15%</text>
+        <text class="cs-fee cs-fee2" x="350" y="107" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="12" style="fill: rgb(var(--acc-rgb) / 0.8)">−0.15%</text>
 
         <!-- Issuing bank -->
         <circle class="cs-ng cs-ng3" cx="478" cy="74" r="30" fill="url(#cs-flow-nodeglow)" />
-        <text class="cs-lbl cs-lbl3" x="478" y="46" text-anchor="middle" font-family="'Geist',sans-serif" font-size="10.5" fill="var(--text-soft)">Issuing bank</text>
+        <text class="cs-lbl cs-lbl3" x="478" y="46" text-anchor="middle" font-family="'Geist',sans-serif" font-size="11.5" fill="var(--text-soft)">Issuing bank</text>
         <circle class="cs-node cs-n3" cx="478" cy="74" r="17" fill="var(--bg-soft)" stroke-width="1.3" style="stroke: rgb(var(--acc-rgb) / 0.35)"/>
         <text x="478" y="79" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="13" font-weight="500" fill="var(--accent)">%</text>
-        <text class="cs-fee cs-fee3" x="478" y="107" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="11" style="fill: rgb(var(--acc-rgb) / 0.7)">−1.50%</text>
+        <text class="cs-fee cs-fee3" x="478" y="107" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="12" style="fill: rgb(var(--acc-rgb) / 0.8)">−1.50%</text>
 
         <!-- ══ MERCHANT RECEIVES — bank icon ══ -->
         <g fill="none" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" style="stroke: rgb(var(--fg-rgb) / 0.5)">
@@ -1402,10 +1409,52 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
           <line x1="649" y1="72" x2="649" y2="86" />
           <line x1="617" y1="90" x2="655" y2="90" />
         </g>
-        <text x="636" y="50" text-anchor="middle" font-family="'Geist',sans-serif" font-size="11" font-weight="500" fill="var(--text)">Merchant receives</text>
+        <text x="636" y="50" text-anchor="middle" font-family="'Geist',sans-serif" font-size="12" font-weight="500" fill="var(--text)">Merchant receives</text>
         <text class="cs-amt-out" x="636" y="112" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="12.5" font-weight="500" fill="var(--text-soft)">$980</text>
       </svg>
       <span class="cs-flow-dot" aria-hidden="true"></span>
+      <!-- Phones: the same chain stacked top to bottom, so every label stays readable -->
+      <svg class="cs-flow-v" viewBox="0 0 300 372" xmlns="http://www.w3.org/2000/svg" role="img">
+        <title>Payment flow: $1,000 enters, the acquiring bank, card network and issuing bank each take a fee, the merchant receives $980</title>
+        <line class="cs-fl" x1="40" y1="58" x2="40" y2="314" stroke-width="1.3" stroke-dasharray="3 6" stroke-linecap="round" style="stroke: rgb(var(--fg-rgb) / 0.24)"/>
+        <g fill="none" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" style="stroke: rgb(var(--fg-rgb) / 0.5)">
+          <rect x="23" y="16" width="34" height="24" rx="4" />
+          <line x1="23" y1="24" x2="57" y2="24" />
+          <line x1="29" y1="33" x2="37" y2="33" />
+        </g>
+        <text x="76" y="33" font-family="'Geist',sans-serif" font-size="14" font-weight="500" fill="var(--text)">Customer pays</text>
+        <text x="296" y="33" text-anchor="end" font-family="'Geist Mono',monospace" font-size="14" font-weight="500" fill="var(--text)">$1,000</text>
+        <text x="76" y="78" font-family="'Geist',sans-serif" font-size="10.5" font-weight="500" letter-spacing="0.12em" style="fill: rgb(var(--acc-rgb) / 0.95)">HIDDEN PAYMENT COSTS</text>
+
+        <circle class="cs-ng cs-ng1" cx="40" cy="118" r="28" fill="url(#cs-flow-nodeglow)" />
+        <circle class="cs-node cs-n1" cx="40" cy="118" r="16" fill="var(--bg-soft)" stroke-width="1.3" style="stroke: rgb(var(--acc-rgb) / 0.35)"/>
+        <text x="40" y="123" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="13" font-weight="500" fill="var(--accent)">%</text>
+        <text class="cs-lbl cs-lbl1" x="76" y="123" font-family="'Geist',sans-serif" font-size="14" fill="var(--text-soft)">Acquiring bank</text>
+        <text class="cs-fee cs-fee1" x="296" y="123" text-anchor="end" font-family="'Geist Mono',monospace" font-size="13" style="fill: rgb(var(--acc-rgb) / 0.7)">−0.35%</text>
+
+        <circle class="cs-ng cs-ng2" cx="40" cy="186" r="28" fill="url(#cs-flow-nodeglow)" />
+        <circle class="cs-node cs-n2" cx="40" cy="186" r="16" fill="var(--bg-soft)" stroke-width="1.3" style="stroke: rgb(var(--acc-rgb) / 0.35)"/>
+        <text x="40" y="191" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="13" font-weight="500" fill="var(--accent)">%</text>
+        <text class="cs-lbl cs-lbl2" x="76" y="191" font-family="'Geist',sans-serif" font-size="14" fill="var(--text-soft)">Card network</text>
+        <text class="cs-fee cs-fee2" x="296" y="191" text-anchor="end" font-family="'Geist Mono',monospace" font-size="13" style="fill: rgb(var(--acc-rgb) / 0.7)">−0.15%</text>
+
+        <circle class="cs-ng cs-ng3" cx="40" cy="254" r="28" fill="url(#cs-flow-nodeglow)" />
+        <circle class="cs-node cs-n3" cx="40" cy="254" r="16" fill="var(--bg-soft)" stroke-width="1.3" style="stroke: rgb(var(--acc-rgb) / 0.35)"/>
+        <text x="40" y="259" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="13" font-weight="500" fill="var(--accent)">%</text>
+        <text class="cs-lbl cs-lbl3" x="76" y="259" font-family="'Geist',sans-serif" font-size="14" fill="var(--text-soft)">Issuing bank</text>
+        <text class="cs-fee cs-fee3" x="296" y="259" text-anchor="end" font-family="'Geist Mono',monospace" font-size="13" style="fill: rgb(var(--acc-rgb) / 0.7)">−1.50%</text>
+
+        <g fill="none" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" style="stroke: rgb(var(--fg-rgb) / 0.5)">
+          <path d="M 24 336 L 40 326 L 56 336" />
+          <line x1="21" y1="336" x2="59" y2="336" />
+          <line x1="27" y1="340" x2="27" y2="354" />
+          <line x1="40" y1="340" x2="40" y2="354" />
+          <line x1="53" y1="340" x2="53" y2="354" />
+          <line x1="21" y1="358" x2="59" y2="358" />
+        </g>
+        <text x="76" y="347" font-family="'Geist',sans-serif" font-size="14" font-weight="500" fill="var(--text)">Merchant receives</text>
+        <text class="cs-amt-out" x="296" y="347" text-anchor="end" font-family="'Geist Mono',monospace" font-size="14" font-weight="500" fill="var(--text-soft)">$980</text>
+      </svg>
       </div>
     </div>
   </div>
@@ -1413,8 +1462,8 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
   <p class="cs-p reveal">In reality, every transaction passes through multiple participants before reaching the merchant, each introducing its own fees and rules. Individually these costs seem small, but at enterprise scale they become one of a merchant's largest variable expenses.</p>
 
   <h3 class="cs-h3 reveal" style="margin-top: 52px;">The visibility gap</h3>
-  <p class="cs-p reveal">Merchants knew <strong>how much</strong> they were paying, but had very little understanding of <strong>what changed</strong>, <strong>why it changed</strong>, or <strong>where their money was going</strong>.</p>
-  <p class="cs-p reveal">Although payment costs are expressed as small percentages between 1.5–3.5% of their payment volume on processing costs, at enterprise scale they quickly translate into millions of dollars in avoidable spend.</p>
+  <p class="cs-p reveal">Merchants knew how much they were paying, but had very little understanding of what changed, why it changed, or <strong>where their money was going</strong>.</p>
+  <p class="cs-p reveal">Payment costs look small, typically 1.5-3.5% of payment volume, but at enterprise scale they quickly translate into millions of dollars in avoidable spend.</p>
 
   <!-- Merchant scale tiers — concentric arcs -->
   <div class="cs-arcs reveal" style="margin: 48px 0 24px;">
@@ -1493,7 +1542,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 <section class="cs-section" id="cs-begins">
 <div class="cs-wrap">
 
-  <div class="cs-label reveal"><span class="num">/02</span> This is where Hypersense begins</div>
+  <div class="cs-label reveal"><span class="num">/02</span> This is where HyperSense begins</div>
   <h2 class="cs-display reveal">Making payment costs <em>observable.</em></h2>
 
   <p class="cs-p reveal">HyperSense is a payment cost observability platform built to help merchants understand where their payment costs come from, why they change, and what actions to take next.</p>
@@ -1501,40 +1550,31 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 </div>
 <div class="cs-wrap cs-wrap--showcase">
   <div class="cs-shot reveal" style="margin: 24px 0;">
-    <img src="assets/hypersense-hero.png" alt="HyperSense — payment cost observability dashboard" loading="lazy" />
+    <img src="assets/hypersense-hero.png" alt="HyperSense payment cost observability dashboard" loading="lazy" />
   </div>
 </div>
 <div class="cs-wrap">
 
-  <div class="cs-subdivider reveal"><span>My Contribution</span></div>
+  <div class="cs-subdivider reveal"><span>My role &amp; contributions</span></div>
 
-  <p class="cs-p reveal">As a sole product designer, I worked closely with product, engineering, and business development teams to translate those insights into a cohesive investigation experience for enterprise merchants.</p>
-
-  <div class="cs-vis reveal" style="margin: 24px 0;">
-    <div class="cs-vis-label">One designer. A team of seven. One shared problem to solve.</div>
-    <div class="cs-team-grid">
-      <div class="cs-team-col">
-        <div class="cs-team-role cs-team-role--mine">Design</div>
-        <div class="cs-team-name">Solo Product Designer</div>
-        <div class="cs-team-desc">UX, product strategy, systems thinking, IA, data visualisation, interaction design.</div>
-      </div>
-      <div class="cs-team-col">
-        <div class="cs-team-role">Product</div>
-        <div class="cs-team-name">Product Manager</div>
-        <div class="cs-team-desc">Problem framing, prioritization, merchant requirements, roadmap, delivery.</div>
-      </div>
-      <div class="cs-team-col">
-        <div class="cs-team-role">Growth</div>
-        <div class="cs-team-name">BD Lead</div>
-        <div class="cs-team-desc">Merchant discovery, customer feedback, GTM strategy, market validation.</div>
-      </div>
-      <div class="cs-team-col">
-        <div class="cs-team-role">Engineering</div>
-        <div class="cs-team-name">Frontend &amp; Backend Engineers</div>
-        <div class="cs-team-desc">Cost engine, transaction intelligence, anomaly detection, platform implementation.</div>
-      </div>
+  <dl class="cs-role reveal">
+    <div class="cs-role-row">
+      <dt><span class="cs-role-icon" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="7.25"/><path d="M12.9 7.1l-1.7 4.1-4.1 1.7 1.7-4.1z"/></svg></span><span>Product strategy</span></dt>
+      <dd>Partnered with the PM to define the product vision, target users, and overall investigation experience.</dd>
     </div>
-  </div>
+    <div class="cs-role-row">
+      <dt><span class="cs-role-icon" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="9" r="5.25"/><path d="M13 13l4 4"/></svg></span><span>Domain research</span></dt>
+      <dd>Built an understanding of payment-cost structures, fee models, and pricing mechanics through collaboration with business development teams and agencies handling cost analysis manually.</dd>
+    </div>
+    <div class="cs-role-row">
+      <dt><span class="cs-role-icon" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2.5l5 6.5-5 8.5-5-8.5z"/><circle cx="10" cy="9.6" r="1.4"/><path d="M10 11v6.5"/></svg></span><span>Product design</span></dt>
+      <dd>Designed the HyperSense product experience end-to-end, creating a coherent, scalable product that supports both IC++ and blended pricing models.</dd>
+    </div>
+    <div class="cs-role-row">
+      <dt><span class="cs-role-icon" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M11.8 3.2c2.7.3 4.7 2.3 5 5l-5.6 5.6-5-5z"/><path d="M6.2 8.8l-2.7.4-1 2.6 3.2-.4M11.2 13.8l-.4 2.7-2.6 1 .4-3.2"/><circle cx="12.8" cy="7.2" r="1.2"/></svg></span><span>Product execution</span></dt>
+      <dd>As the sole designer on a seven-person team, collaborated with product, engineering, and business development from early concept through merchant pilots.</dd>
+    </div>
+  </dl>
 
 </div>
 </section>
@@ -1546,10 +1586,8 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
   <div class="cs-label reveal"><span class="num">/03</span> Understanding the terrain</div>
   <h2 class="cs-display reveal">The industry's most transparent pricing model comes with an <em>invisible tradeoff.</em></h2>
 
-  <p class="cs-p reveal">Every card payment looks simple from the outside: tap, approve, done. But every transaction the merchant processes comes with a payment's cost, and how that cost is calculated depends on the pricing model a merchant chooses.</p>
-  <p class="cs-p reveal">The industry primarily operates on two models: <span class="cs-gloss" tabindex="0" data-gloss="blended-pricing">Blended pricing</span> and <span class="cs-gloss" tabindex="0" data-gloss="ic-plus-plus">IC++</span> pricing.</p>
-  <p class="cs-p reveal">Blended pricing applies a single fixed rate to every transaction. It's simple and predictable, but at high volumes, merchants often end up paying more than necessary.</p>
-  <p class="cs-p reveal"><span class="cs-gloss" tabindex="0" data-gloss="ic-plus-plus">IC++</span> pricing, on the other hand, charges the actual cost of processing for each transaction, creating opportunities to reduce costs at scale. That's why enterprise merchants prefer IC++.</p>
+  <p class="cs-p reveal">Every card payment carries a cost, and how it's calculated depends on the merchant's pricing model: <span class="cs-gloss" tabindex="0" data-gloss="blended-pricing">Blended</span> or <span class="cs-gloss" tabindex="0" data-gloss="ic-plus-plus">IC++</span>.</p>
+  <p class="cs-p reveal">Blended applies one fixed rate to every transaction: simple and predictable, but expensive at high volume. IC++ charges the actual cost of each transaction, which creates room to save at scale. That's why enterprise merchants prefer it.</p>
 
   <!-- IC++ FEE SIMULATOR — teaser -->
   <div class="cs-vis reveal cs-sim-teaser" style="margin: 24px 0 40px;">
@@ -1581,7 +1619,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
   <h3 class="cs-h3 reveal" style="margin-top: 40px;">The same transparency that creates savings also creates complexity.</h3>
 
   <p class="cs-p reveal">In <span class="cs-gloss" tabindex="0" data-gloss="ic-plus-plus">IC++</span> pricing, no two transactions are guaranteed to be priced the same. Card type, authentication, settlement timing, geography, and data quality all influence the final fee. Each variable can quietly shift a transaction into a different fee tier, and most merchants never see it happen.</p>
-  <p class="cs-p reveal">Without visibility, enterprise merchants often pay more than they should. The gap between expected and actual payment costs can reach <span class="cs-num">7–10%</span>.</p>
+  <p class="cs-p reveal">Without visibility, enterprise merchants often pay more than they should. The gap between expected and actual payment costs can reach <span class="cs-num">7-10%</span>.</p>
 
   <!-- THE RAW DOCUMENTS -->
   <div class="cs-docs reveal" style="margin: 24px 0 40px;">
@@ -1595,9 +1633,9 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
       </div>
       <div>
         <div class="cs-docs-trio">
-          <div class="cs-doc-frame"><img src="assets/hypersense/doc-statement.png" alt="IC++ merchant billing statement — 200+ fee line items per billing cycle" loading="lazy" /></div>
-          <div class="cs-doc-frame"><img src="assets/hypersense/doc-scheme.png" alt="Card scheme rate table — dozens of fee categories across card programs and regions" loading="lazy" /></div>
-          <div class="cs-doc-frame"><img src="assets/hypersense/doc-invoice.png" alt="Blended-rate billing statement — one total fee, no line-item breakdown" loading="lazy" /></div>
+          <div class="cs-doc-frame"><img src="assets/hypersense/doc-statement.png" alt="IC++ merchant billing statement with 200+ fee line items per billing cycle" loading="lazy" /></div>
+          <div class="cs-doc-frame"><img src="assets/hypersense/doc-scheme.png" alt="Card scheme rate table with dozens of fee categories across card programs and regions" loading="lazy" /></div>
+          <div class="cs-doc-frame"><img src="assets/hypersense/doc-invoice.png" alt="Blended-rate billing statement showing one total fee and no line-item breakdown" loading="lazy" /></div>
         </div>
         <div class="cs-docs-shot-cap">Different formats. One cost story.</div>
       </div>
@@ -1605,11 +1643,11 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
   </div>
 
   <!-- IC++ FEE SIMULATOR — modal -->
-  <div class="cs-sim-modal" id="cs-sim-modal" aria-hidden="true">
+  <div class="cs-sim-modal" id="cs-sim-modal" role="dialog" aria-modal="true" aria-labelledby="cs-sim-modal-title" aria-hidden="true">
     <div class="cs-sim-modal-backdrop" id="cs-sim-modal-backdrop"></div>
     <div class="cs-vis cs-sim-modal-panel">
       <button class="cs-sim-modal-close" id="cs-sim-modal-close" aria-label="Close simulation">✕</button>
-      <div class="cs-vis-label">IC++ fee simulation — select a card type, then run the transaction</div>
+      <div class="cs-vis-label" id="cs-sim-modal-title">IC++ fee simulation: select a card type, then run the transaction</div>
       <div class="cs-vis-body">
         <div class="cs-sim-hint">Card type</div>
         <div class="cs-sim-switch" id="cs-sim-switch"></div>
@@ -1627,8 +1665,8 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
           <div class="cs-sim-stages" id="cs-sim-stages"></div>
         </div>
         <div class="cs-sim-strip">
-          <div class="cs-sim-amt-block"><label>Total deducted</label><span class="cs-sim-amt cs-sim-amt--neg" id="cs-sim-ded">—</span></div>
-          <div class="cs-sim-amt-block"><label>Merchant receives</label><span class="cs-sim-amt cs-sim-amt--pos" id="cs-sim-net">—</span></div>
+          <div class="cs-sim-amt-block"><label>Total deducted</label><span class="cs-sim-amt cs-sim-amt--neg" id="cs-sim-ded">-</span></div>
+          <div class="cs-sim-amt-block"><label>Merchant receives</label><span class="cs-sim-amt cs-sim-amt--pos" id="cs-sim-net">-</span></div>
         </div>
       </div>
     </div>
@@ -1639,7 +1677,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 </div>
 </section>
 
-<!-- ═══════════════════════ 06 — USERS ═══════════════════════ -->
+<!-- ═══════════════════════ 04 — USERS ═══════════════════════ -->
 <section class="cs-section" id="cs-users">
 <div class="cs-wrap">
 
@@ -1649,10 +1687,10 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 
 <div class="cs-personas">
 
-  <!-- Persona 1 — Payment Analyst -->
-  <div class="cs-persona reveal">
+  <!-- Persona 1 — Payment Analyst (open by default: its story carries the strongest numbers) -->
+  <div class="cs-persona reveal is-open">
     <div class="cs-persona-head">
-      <div class="cs-persona-icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="8.5" cy="6.5" r="3"/><path d="M3 17c0-3.6 2.5-6.2 5.5-6.2"/><circle cx="14.5" cy="14.5" r="2.3"/><path d="M16.2 16.2l1.6 1.6"/></svg></div>
+      <div class="cs-persona-icon" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="8.5" cy="6.5" r="3"/><path d="M3 17c0-3.6 2.5-6.2 5.5-6.2"/><circle cx="14.5" cy="14.5" r="2.3"/><path d="M16.2 16.2l1.6 1.6"/></svg></div>
       <div>
         <div class="cs-persona-name">The Payment Analyst <span class="dash">–</span> <em>Owns the monthly fee audit.</em></div>
         <p class="cs-persona-desc">Every month, processor invoices arrive with hundreds of fee line items that need to be reconciled, explained, and defended before the billing cycle closes.</p>
@@ -1666,7 +1704,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
       </ul></div>
       <div><span class="cs-persona-meta-label">Why it matters</span><p>Every unexplained fee becomes an accepted cost from the next billing cycle.</p></div>
     </div>
-    <button type="button" class="cs-journey-toggle" aria-expanded="false" aria-controls="cs-journey-1"><span>How it plays out</span><i aria-hidden="true"></i></button>
+    <button type="button" class="cs-journey-toggle" aria-expanded="true" aria-controls="cs-journey-1"><span>How it plays out</span><i aria-hidden="true"></i></button>
     <div class="cs-journey-wrap" id="cs-journey-1"><div class="cs-journey-inner">
     <div class="cs-journey">
       <div class="cs-journey-step">
@@ -1700,10 +1738,10 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
   <!-- Persona 2 — Treasury / Finance Lead -->
   <div class="cs-persona reveal">
     <div class="cs-persona-head">
-      <div class="cs-persona-icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="8.5" cy="6.5" r="3"/><path d="M3 17c0-3.6 2.5-6.2 5.5-6.2"/><path d="M11.3 16.3l1.7-2 1.3 1.3 2.5-2.8"/><path d="M15.3 11.8h1.5v1.5"/></svg></div>
+      <div class="cs-persona-icon" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="8.5" cy="6.5" r="3"/><path d="M3 17c0-3.6 2.5-6.2 5.5-6.2"/><path d="M11.3 16.3l1.7-2 1.3 1.3 2.5-2.8"/><path d="M15.3 11.8h1.5v1.5"/></svg></div>
       <div>
         <div class="cs-persona-name">The Treasury / Finance Lead <span class="dash">–</span> <em>Owns forecasting and budget accountability.</em></div>
-        <p class="cs-persona-desc">Payment costs are one of the largest variable expenses in the business, often representing <span class="cs-num">1.5–2.2% of revenue</span>. When those numbers move, finance teams are expected to explain why and predict what happens next.</p>
+        <p class="cs-persona-desc">Payment costs are one of the largest variable expenses in the business, often representing <span class="cs-num">1.5-2.2% of revenue</span>. When those numbers move, finance teams are expected to explain why and predict what happens next.</p>
       </div>
     </div>
     <div class="cs-persona-meta">
@@ -1748,7 +1786,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
   <!-- Persona 3 — Payment Operations Head -->
   <div class="cs-persona reveal">
     <div class="cs-persona-head">
-      <div class="cs-persona-icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="8.5" cy="6.5" r="3"/><path d="M3 17c0-3.6 2.5-6.2 5.5-6.2"/><circle cx="14.5" cy="14.5" r="2.2"/><path d="M14.5 11.3v1M14.5 16.7v1M11.3 14.5h1M16.7 14.5h1M12.4 12.4l.7.7M16.3 12.4l-.7.7M12.4 16.6l.7-.7M16.3 16.6l-.7-.7"/></svg></div>
+      <div class="cs-persona-icon" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="8.5" cy="6.5" r="3"/><path d="M3 17c0-3.6 2.5-6.2 5.5-6.2"/><circle cx="14.5" cy="14.5" r="2.2"/><path d="M14.5 11.3v1M14.5 16.7v1M11.3 14.5h1M16.7 14.5h1M12.4 12.4l.7.7M16.3 12.4l-.7.7M12.4 16.6l.7-.7M16.3 16.6l-.7-.7"/></svg></div>
       <div>
         <div class="cs-persona-name">The Payment Operations Head <span class="dash">–</span> <em>Owns the operational decisions that influence payment costs.</em></div>
         <p class="cs-persona-desc">Routing rules, authentication settings, and processor configurations all influence payment costs. But their impact often appears weeks later, long after the decision was made.</p>
@@ -1800,7 +1838,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 </div>
 </section>
 
-<!-- ═══════════════════════ 06 — PRODUCT STRATEGY AND DESIGN ═══════════════════════ -->
+<!-- ═══════════════════════ 05 — PRODUCT STRATEGY AND DESIGN ═══════════════════════ -->
 <section class="cs-section" id="cs-strategy">
 <div class="cs-wrap">
 
@@ -1810,85 +1848,65 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
   <p class="cs-p reveal">Instead, we looked at how investigations actually unfolded. Regardless of where teams started, they were all trying to answer the same core questions.</p>
   <p class="cs-p reveal">That insight shaped the product strategy.</p>
 
-  <div class="cs-vis reveal" style="margin: 24px 0;">
-    <div class="cs-vis-label">One investigation. Multiple questions.</div>
+  <div class="cs-vis cs-vis--wide reveal" style="margin: 24px 0;">
+    <div class="cs-vis-label">Many fragmented signals. One investigation.</div>
     <div class="cs-vis-body">
-      <canvas id="cs-graph" aria-label="HyperSense knowledge graph — five modules and their sub-questions"></canvas>
+      <canvas id="cs-graph" role="img" aria-label="Fragmented cost signals such as processor invoices, scheme fees, interchange, settlement reports and FX markup converge into HyperSense, which routes them directly to the five modules of one investigation: Overview, Drill-Down, Fee Spikes, Audit and Forecast."></canvas>
     </div>
   </div>
-  <p class="cs-p reveal">We designed the product around how teams investigate costs. Rather than asking teams to manually piece together fragmented reports, each module guided them toward the answers they needed: from understanding what changed to deciding what to do next. Together, they form a coherent cost story that teams could trust and act on.</p>
+  <p class="cs-p reveal">I designed the product around how teams investigate costs. Rather than asking teams to manually piece together fragmented reports, each module guided them toward the answers they needed: from understanding what changed to deciding what to do next. Together, they form a coherent cost story that teams could trust and act on.</p>
 
 </div>
 </section>
 
-<!-- ═══════════════════════ 07 — DESIGN CHALLENGE ═══════════════════════ -->
+<!-- ═══════════════════════ 06 — DESIGN CHALLENGE ═══════════════════════ -->
 <section class="cs-section" id="cs-challenge">
 <div class="cs-wrap">
 
   <div class="cs-label reveal"><span class="num">/06</span> Design Challenge</div>
-  <h2 class="cs-display reveal">Five tensions that shaped <em>every design decision.</em></h2>
-  <p class="cs-p reveal">Defining the investigation flow solved the product problem. Designing an experience around it introduced a new set of constraints.</p>
-  <p class="cs-p reveal">Every decision now had to balance trust, flexibility, and depth, without breaking the investigation flow.</p>
+  <h2 class="cs-display reveal">Making complex payment costs <em>easier to investigate.</em></h2>
+  <p class="cs-p reveal">Payment costs are fragmented, detailed, and constantly changing. The challenge was to create a clear investigation experience without stripping away the detail teams need to understand, trust, and act on the numbers.</p>
+  <div class="cs-module-tag cs-tensions-lead reveal">Five tensions shaped the experience</div>
 
   <div class="cs-tensions reveal">
 
     <div class="cs-tension-row">
-      <div class="cs-tension-index">01</div>
+      <svg class="cs-tension-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4.5c4 0 4.5 5.5 8.5 5.5M3 15.5c4 0 4.5-5.5 8.5-5.5M3 10h8.5"/><path d="M11.5 10H17M14.5 7.5L17 10l-2.5 2.5"/></svg>
       <div class="cs-tension-tension">
-        <div class="cs-tension-title">One cost story from fragmented systems</div>
-        <p class="cs-tension-friction">Cost investigations required teams to piece together answers from multiple disconnected systems, reports, and invoices before they could understand what was happening.</p>
-      </div>
-      <div class="cs-tension-resp">
-        <div class="cs-tension-resp-label">Design response</div>
-        <p>Consolidate fragmented cost data into a single workflow that supports end-to-end investigation.</p>
+        <h3 class="cs-tension-title"><span class="cs-tension-from">Fragmented sources</span><span class="visually-hidden"> to </span><svg class="cs-tension-arrow" viewBox="0 0 20 20" aria-hidden="true"><path d="M3.5 10h12.5M12 6l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="cs-tension-to">One cost story</span></h3>
+        <p class="cs-tension-friction">Payment cost signals lived across invoices, settlement reports, processor data, and transaction records. Teams had to piece them together before they could understand what changed.</p>
       </div>
     </div>
 
     <div class="cs-tension-row">
-      <div class="cs-tension-index">02</div>
+      <svg class="cs-tension-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 2.75l6 2.25v4.5c0 3.9-2.6 6.6-6 7.75-3.4-1.15-6-3.85-6-7.75V5z"/><path d="M7.4 10l1.8 1.8 3.5-3.6"/></svg>
       <div class="cs-tension-tension">
-        <div class="cs-tension-title">Making complex cost data trustworthy</div>
-        <p class="cs-tension-friction">Payment teams were expected to make operational and financial decisions from data they couldn't easily verify or explain.</p>
-      </div>
-      <div class="cs-tension-resp">
-        <div class="cs-tension-resp-label">Design response</div>
-        <p>Present cost intelligence in a way that feels transparent, explainable, and trustworthy enough to drive decisions.</p>
+        <h3 class="cs-tension-title"><span class="cs-tension-from">Complex data</span><span class="visually-hidden"> to </span><svg class="cs-tension-arrow" viewBox="0 0 20 20" aria-hidden="true"><path d="M3.5 10h12.5M12 6l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="cs-tension-to">Confidence to act</span></h3>
+        <p class="cs-tension-friction">Payment teams needed to make financial and operational decisions from data that was often difficult to verify, explain, or trace back to its source.</p>
       </div>
     </div>
 
     <div class="cs-tension-row">
-      <div class="cs-tension-index">03</div>
+      <svg class="cs-tension-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="7.5" cy="10" r="4.5"/><circle cx="12.5" cy="10" r="4.5"/></svg>
       <div class="cs-tension-tension">
-        <div class="cs-tension-title">One interface, two pricing models</div>
-        <p class="cs-tension-friction">The same product needed to serve merchants operating on fundamentally different pricing structures and levels of cost visibility.</p>
-      </div>
-      <div class="cs-tension-resp">
-        <div class="cs-tension-resp-label">Design response</div>
-        <p>Create a unified experience that adapts to both transparent IC++ pricing and simplified blended pricing.</p>
+        <h3 class="cs-tension-title"><span class="cs-tension-from">Two pricing models</span><span class="visually-hidden"> to </span><svg class="cs-tension-arrow" viewBox="0 0 20 20" aria-hidden="true"><path d="M3.5 10h12.5M12 6l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="cs-tension-to">One scalable experience</span></h3>
+        <p class="cs-tension-friction">HyperSense needed to support both IC++ and blended pricing, while adapting the level of cost detail without creating two fundamentally different products.</p>
       </div>
     </div>
 
     <div class="cs-tension-row">
-      <div class="cs-tension-index">04</div>
+      <svg class="cs-tension-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10h6"/><path d="M9 10l7-5.5M9 10l7 5.5"/><path d="M13.5 4.5H16v2.5M13.5 15.5H16V13"/></svg>
       <div class="cs-tension-tension">
-        <div class="cs-tension-title">Distinguishing growth from leakage</div>
-        <p class="cs-tension-friction">Not every increase in payment costs is a problem. Some reflect healthy business growth, while others indicate preventable leakage.</p>
-      </div>
-      <div class="cs-tension-resp">
-        <div class="cs-tension-resp-label">Design response</div>
-        <p>Help teams distinguish normal cost behaviour from issues that require investigation and action.</p>
+        <h3 class="cs-tension-title"><span class="cs-tension-from">Cost movement</span><span class="visually-hidden"> to </span><svg class="cs-tension-arrow" viewBox="0 0 20 20" aria-hidden="true"><path d="M3.5 10h12.5M12 6l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="cs-tension-to">Growth or leakage</span></h3>
+        <p class="cs-tension-friction">An increase in payment costs doesn't always indicate a problem. The experience needed to help teams distinguish expected business growth from preventable cost leakage.</p>
       </div>
     </div>
 
     <div class="cs-tension-row">
-      <div class="cs-tension-index">05</div>
+      <svg class="cs-tension-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10" cy="10.5" r="2"/><circle cx="4" cy="4.5" r="1.6"/><circle cx="16" cy="4.5" r="1.6"/><circle cx="10" cy="17" r="1.6"/><path d="M5.2 5.7l3.3 3.4M14.8 5.7l-3.3 3.4M10 12.5v2.9"/></svg>
       <div class="cs-tension-tension">
-        <div class="cs-tension-title">One investigation for multiple teams</div>
-        <p class="cs-tension-friction">Finance, Payments, and Operations teams approached the problem from different angles, but every investigation needed a shared understanding of what changed and why.</p>
-      </div>
-      <div class="cs-tension-resp">
-        <div class="cs-tension-resp-label">Design response</div>
-        <p>Support different workflows while keeping every team aligned around the same cost narrative.</p>
+        <h3 class="cs-tension-title"><span class="cs-tension-from">Different teams</span><span class="visually-hidden"> to </span><svg class="cs-tension-arrow" viewBox="0 0 20 20" aria-hidden="true"><path d="M3.5 10h12.5M12 6l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="cs-tension-to">Shared cost understanding</span></h3>
+        <p class="cs-tension-friction">Finance, Payments, and Operations approached costs from different perspectives and asked different questions, but needed to arrive at the same understanding of what changed and why.</p>
       </div>
     </div>
 
@@ -1897,7 +1915,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 </div>
 </section>
 
-<!-- ═══════════════════════ 09 — UI DESIGN ═══════════════════════ -->
+<!-- ═══════════════════════ 07 — PRODUCT EXPERIENCE ═══════════════════════ -->
 <section class="cs-section" id="cs-ui">
 <div class="cs-wrap">
 
@@ -1909,12 +1927,12 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
   <div class="cs-module-tag reveal" style="margin-top: 56px;">Overview</div>
   <h3 class="cs-h3 reveal">What's my cost story at a glance?</h3>
   <p class="cs-p reveal">Before teams investigate anomalies or optimize costs, they first need to understand where they stand today.</p>
-  <p class="cs-p reveal">We designed Overview as the system's source of truth: a unified cost layer that consolidates fragmented signals into a single cost story.</p>
-  <p class="cs-p reveal" style="margin-bottom: 24px;">The same experience needed to work across very different merchant realities, from single processors to multi-PSP setups, and from simplified blended pricing to fully transparent IC++ models.</p>
+  <p class="cs-p reveal">I designed Overview as the system's source of truth: a unified cost layer that consolidates fragmented signals into a single cost story.</p>
+  <p class="cs-p reveal" style="margin-bottom: 24px;">The same experience needed to work across very different merchant realities, from single processors to multi-<span class="cs-gloss" tabindex="0" data-gloss="psp">PSP</span> setups, and from simplified blended pricing to fully transparent IC++ models.</p>
 </div>
 <div class="cs-wrap cs-wrap--showcase">
   <div class="cs-stage reveal">
-    <video src="assets/hypersense/ov-demo.mp4" poster="assets/hypersense/ov-demo-poster.jpg"
+    <video aria-label="Overview module walkthrough" src="assets/hypersense/ov-demo.mp4" poster="assets/hypersense/ov-demo-poster.jpg"
            autoplay muted loop playsinline controls controlslist="nodownload" preload="metadata"
            style="width:100%; display:block; height:auto;"></video>
   </div>
@@ -1931,21 +1949,19 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 
   <div class="cs-module-tag reveal" style="margin-top: 80px;">Drill-Down</div>
   <h3 class="cs-h3 reveal">How is cost distributed across my business?</h3>
-  <p class="cs-p reveal">Overview answered what the cost story looks like at a glance. The next step was understanding where that story was coming from.</p>
-  <p class="cs-p reveal">A single number rarely explains why costs change. Teams needed the ability to break costs down across processors, regions, corridors, fee types, and currencies.</p>
+  <p class="cs-p reveal">A single number rarely explains why costs change. Teams needed the ability to break costs down across processors, regions, <span class="cs-gloss" tabindex="0" data-gloss="corridor">corridors</span>, fee types, and currencies.</p>
   <p class="cs-p reveal">Drill-Down became the investigation layer of the product, helping teams move from cost summaries to the underlying drivers behind them.</p>
-  <p class="cs-p reveal">Teams needed the flexibility to investigate costs from different angles without getting lost in the underlying complexity.</p>
 
 </div>
 <div class="cs-wrap cs-wrap--showcase">
   <div class="cs-stage reveal">
-    <video src="assets/hypersense/drilldown-demo.mp4" poster="assets/hypersense/drilldown-demo-poster.jpg"
+    <video aria-label="Drill-Down module walkthrough" src="assets/hypersense/drilldown-demo.mp4" poster="assets/hypersense/drilldown-demo-poster.jpg"
            autoplay muted loop playsinline controls controlslist="nodownload" preload="metadata"
            style="width:100%; display:block; height:auto;"></video>
   </div>
 </div>
 <div class="cs-wrap">
-  <p class="cs-p reveal" style="margin-top: 24px; margin-bottom: 14px;">We designed Drill-Down to answer three questions:</p>
+  <p class="cs-p reveal" style="margin-top: 24px; margin-bottom: 14px;">I designed Drill-Down to answer three questions:</p>
   <ul class="cs-list reveal">
     <li>Why did costs change?</li>
     <li>Which segment is driving the change?</li>
@@ -1955,15 +1971,14 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 <div class="cs-wrap">
 
   <div class="cs-module-tag reveal" style="margin-top: 80px;">Fee Spikes</div>
-  <h3 class="cs-h3 reveal">Turning unexpected cost increases into actionable signals</h3>
-  <p class="cs-p reveal">Drill-Down helped teams understand where costs were coming from. The next challenge was determining whether those changes were expected or required action.</p>
+  <h3 class="cs-h3 reveal">Is this cost increase a problem?</h3>
   <p class="cs-p reveal">Not every increase in payment cost is a problem. The same spike could be driven by healthy sales growth, expansion into new markets, operational issues, or preventable leakage.</p>
   <p class="cs-p reveal">Fee Spikes was designed as an early warning layer that surfaces meaningful cost changes and explains what is driving them.</p>
 
 </div>
 <div class="cs-wrap cs-wrap--showcase">
   <div class="cs-stage reveal">
-    <video src="assets/hypersense/feespikes-demo.mp4" poster="assets/hypersense/feespikes-demo-poster.jpg"
+    <video aria-label="Fee Spikes module walkthrough" src="assets/hypersense/feespikes-demo.mp4" poster="assets/hypersense/feespikes-demo-poster.jpg"
            autoplay muted loop playsinline controls controlslist="nodownload" preload="metadata"
            style="width:100%; display:block; height:auto;"></video>
   </div>
@@ -1971,20 +1986,19 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 <div class="cs-wrap">
   <p class="cs-p reveal" style="margin-top: 24px; margin-bottom: 14px;">Every spike ultimately comes down to three questions:</p>
   <ul class="cs-list reveal">
-    <li>What changed?</li>
+    <li>Is this increase expected?</li>
     <li>What is driving it?</li>
     <li>Does it require action?</li>
   </ul>
 
   <div class="cs-module-tag reveal" style="margin-top: 80px;">Audit</div>
-  <h3 class="cs-h3 reveal">Verifying every fee charged.</h3>
-  <p class="cs-p reveal">Fee Spikes helped teams identify where action was needed. The next step was validating whether they had been charged correctly in the first place.</p>
+  <h3 class="cs-h3 reveal">Can every fee be verified?</h3>
   <p class="cs-p reveal">Processor invoices show what was charged, but rarely explain whether those charges were accurate.</p>
   <div class="cs-challenge reveal">
     <div class="cs-challenge-tag">What merchants actually see</div>
     <div class="cs-challenge-lines">
-      <p>CPS Retail — $4,892</p>
-      <p>EIRF — $2,147</p>
+      <p><span class="cs-gloss" tabindex="0" data-gloss="cps">CPS Retail</span><span>$4,892</span></p>
+      <p><span class="cs-gloss" tabindex="0" data-gloss="eirf">EIRF</span><span>$2,147</span></p>
     </div>
   </div>
   <p class="cs-p reveal">The challenge was bringing together multiple layers of information (contracted rates, applied rates, fee variances, and transaction-level evidence) into a single verification flow.</p>
@@ -1992,7 +2006,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 </div>
 <div class="cs-wrap cs-wrap--showcase">
   <div class="cs-stage reveal">
-    <video src="assets/hypersense/audit-demo.mp4" poster="assets/hypersense/audit-demo-poster.jpg"
+    <video aria-label="Audit module walkthrough" src="assets/hypersense/audit-demo.mp4" poster="assets/hypersense/audit-demo-poster.jpg"
            autoplay muted loop playsinline controls controlslist="nodownload" preload="metadata"
            style="width:100%; display:block; height:auto;"></video>
   </div>
@@ -2007,20 +2021,20 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
   <p class="cs-p reveal">Instead of forcing teams to manually reconcile invoices, contracts, and transaction exports, the experience progressively moved from summary-level variances down to transaction-level evidence, making every discrepancy traceable and easy to defend.</p>
 
   <div class="cs-module-tag reveal" style="margin-top: 80px;">Forecast</div>
-  <h3 class="cs-h3 reveal">Turning network updates into cost foresight</h3>
+  <h3 class="cs-h3 reveal">What will upcoming network changes cost me?</h3>
   <p class="cs-p reveal">Card networks like Visa and Mastercard regularly introduce new fees, revise existing programs, and update qualification rules. Although these changes are published weeks in advance, they are often buried inside dense technical documentation.</p>
   <p class="cs-p reveal">For merchants, the challenge wasn't access to information. It was understanding which updates would actually affect their business and what their financial impact would be. Without that visibility, teams often discovered the impact only after it appeared on the following month's invoice.</p>
 
 </div>
 <div class="cs-wrap cs-wrap--showcase">
   <div class="cs-stage reveal">
-    <video src="assets/hypersense/forecast-demo.mp4" poster="assets/hypersense/forecast-demo-poster.jpg"
+    <video aria-label="Forecast module walkthrough" src="assets/hypersense/forecast-demo.mp4" poster="assets/hypersense/forecast-demo-poster.jpg"
            autoplay muted loop playsinline controls controlslist="nodownload" preload="metadata"
            style="width:100%; display:block; height:auto;"></video>
   </div>
 </div>
 <div class="cs-wrap">
-  <p class="cs-p reveal" style="margin-top: 24px;">We designed Forecast to translate network updates into merchant-specific insights by modelling upcoming changes against each merchant's transaction behaviour.</p>
+  <p class="cs-p reveal" style="margin-top: 24px;">I designed Forecast to translate network updates into merchant-specific insights by modelling upcoming changes against each merchant's transaction behaviour.</p>
   <p class="cs-p reveal" style="margin-bottom: 14px;">It helps teams answer three questions:</p>
   <ul class="cs-list reveal">
     <li>What changes are coming?</li>
@@ -2032,7 +2046,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 </div>
 </section>
 
-<!-- ═══════════════════════ 09 — OUTCOME ═══════════════════════ -->
+<!-- ═══════════════════════ 08 — OUTCOME ═══════════════════════ -->
 <section class="cs-section" id="cs-outcome">
 <div class="cs-wrap">
 
@@ -2045,7 +2059,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
     <div class="cs-fstat">
       <div class="cs-fstat-num">20<span class="cs-fstat-sym">+</span></div>
       <div class="cs-fstat-label">Demoed</div>
-      <p class="cs-fstat-desc">Presented to 20+ enterprise merchants, includes <strong>Apple, SpaceX.</strong></p>
+      <p class="cs-fstat-desc">Presented to 20+ enterprise merchants, including <strong>Apple and SpaceX</strong>.</p>
     </div>
     <div class="cs-fstat">
       <div class="cs-fstat-num">6</div>
@@ -2109,7 +2123,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 
   var SECTIONS = [
     { id: 'cs-what', num: '01', name: 'The Cost of Invisibility' },
-    { id: 'cs-begins', num: '02', name: 'Where Hypersense Begins' },
+    { id: 'cs-begins', num: '02', name: 'Where HyperSense Begins' },
     { id: 'cs-terrain', num: '03', name: 'Understanding the Terrain' },
     { id: 'cs-users', num: '04', name: 'Users' },
     { id: 'cs-strategy', num: '05', name: 'Product Strategy and Design' },
@@ -2271,7 +2285,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
     },
     'eirf': {
       term: 'EIRF',
-      def: 'Electronic Interchange Reimbursement Fee. A Visa downgrade category applied when a transaction fails preferred rate qualifications. Typically 0.5–1% higher than the expected interchange rate.'
+      def: 'Electronic Interchange Reimbursement Fee. A Visa downgrade category applied when a transaction fails preferred rate qualifications. Typically 0.5-1% higher than the expected interchange rate.'
     },
     '3ds2': {
       term: '3DS2',
@@ -2289,6 +2303,10 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
       term: 'FANF',
       def: 'Fixed Acquirer Network Fee. A monthly Visa fee tied to transaction volume and card-present vs. card-not-present mix. As volume crosses certain thresholds, the fee steps up to a higher tier, a non-obvious cost driver.'
     },
+    'corridor': {
+      term: 'Corridor',
+      def: 'The route a payment travels between the country where the card was issued and the country where the merchant is paid. Cross-border corridors carry extra network and FX fees.'
+    },
     'cps': {
       term: 'CPS',
       def: 'Custom Payment Service. A family of Visa interchange programs for merchants meeting specific data quality and processing requirements. Failing to qualify for CPS/Retail triggers a downgrade to EIRF or a similar higher-cost category.'
@@ -2297,6 +2315,8 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 
   const tip = document.createElement('div');
   tip.className = 'cs-tip';
+  tip.id = 'cs-tip';
+  tip.setAttribute('role', 'tooltip');
   tip.innerHTML = '<span class="cs-tip-term"></span><span class="cs-tip-def"></span>';
   document.body.appendChild(tip);
   const termEl = tip.querySelector('.cs-tip-term');
@@ -2328,8 +2348,13 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
     defEl.textContent  = entry.def;
     positionTip(this);
     tip.classList.add('is-visible');
+    this.setAttribute('aria-describedby', 'cs-tip');
   }
-  function hideTip() { hideTO = setTimeout(() => tip.classList.remove('is-visible'), 160); }
+  function hideTip() {
+    this && this.removeAttribute && this.removeAttribute('aria-describedby');
+    hideTO = setTimeout(() => tip.classList.remove('is-visible'), 160);
+  }
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') tip.classList.remove('is-visible'); });
 
   document.querySelectorAll('.cs-gloss[data-gloss]').forEach(el => {
     el.addEventListener('mouseenter', showTip);
@@ -2449,15 +2474,15 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
         debit:  [{ n: 'Interchange', pct: 0.95 }],
         credit: [{ n: 'Interchange', pct: 2.4 }],
         corp:   [{ n: 'Interchange', pct: 2.95 }],
-        intl:   [{ n: 'Interchange — cross-border corridor rate', pct: 2.5 }]
+        intl:   [{ n: 'Interchange (cross-border corridor rate)', pct: 2.5 }]
       } },
     { id: 'acq', entity: 'Acquirer + PSP', name: 'Markup, settlement & payout', color: 'var(--text)',
       role: "The acquiring bank and payment processor handle settlement, disputes, and transfer funds to the merchant's bank account.",
       fees: {
-        debit:  [{ n: 'Acquirer markup', pct: 0.1 },  { n: 'Settlement fee — ACH/SEPA', flat: 0.08 }, { n: 'Payout fee', flat: 0.12 }],
-        credit: [{ n: 'Acquirer markup', pct: 0.15 }, { n: 'Settlement fee — ACH/SEPA', flat: 0.08 }, { n: 'Payout fee', flat: 0.12 }],
-        corp:   [{ n: 'Acquirer markup', pct: 0.2 },  { n: 'Settlement fee — ACH/SEPA', flat: 0.08 }, { n: 'Payout fee', flat: 0.12 }],
-        intl:   [{ n: 'Acquirer markup — FX risk', pct: 0.25 }, { n: 'Settlement fee — ACH/SEPA', flat: 0.08 }, { n: 'Payout fee', flat: 0.15 }]
+        debit:  [{ n: 'Acquirer markup', pct: 0.1 },  { n: 'Settlement fee (ACH/SEPA)', flat: 0.08 }, { n: 'Payout fee', flat: 0.12 }],
+        credit: [{ n: 'Acquirer markup', pct: 0.15 }, { n: 'Settlement fee (ACH/SEPA)', flat: 0.08 }, { n: 'Payout fee', flat: 0.12 }],
+        corp:   [{ n: 'Acquirer markup', pct: 0.2 },  { n: 'Settlement fee (ACH/SEPA)', flat: 0.08 }, { n: 'Payout fee', flat: 0.12 }],
+        intl:   [{ n: 'Acquirer markup (FX risk)', pct: 0.25 }, { n: 'Settlement fee (ACH/SEPA)', flat: 0.08 }, { n: 'Payout fee', flat: 0.15 }]
       } }
   ];
   const DOWNGRADE = {
@@ -2541,8 +2566,8 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
     html += `<div class="cs-sim-callout" id="cs-sim-callout">This transaction lost <strong>$${dgDelta.toFixed(2)}</strong> to a downgrade. At $500M annual volume, that rate of avoidable loss accounts for <strong>${annualFmt}</strong> per year, across dozens of reasons, none of them visible on the invoice.</div>`;
 
     stagesEl.innerHTML = html;
-    dedEl.textContent = '—';
-    netEl.textContent = '—';
+    dedEl.textContent = '-';
+    netEl.textContent = '-';
     btn.disabled = false;
     btn.classList.remove('is-dissolved');
     layoutRail();
@@ -2658,19 +2683,36 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
   const backdrop = document.getElementById('cs-sim-modal-backdrop');
   if (!openBtn || !modal || !closeBtn || !backdrop) return;
 
+  let lastFocus = null;
+  const focusables = () => Array.prototype.filter.call(
+    modal.querySelectorAll('button, [href], [tabindex]:not([tabindex="-1"])'),
+    el => !el.disabled && el.offsetParent !== null);
+
   function openModal() {
+    lastFocus = document.activeElement;
     modal.classList.add('is-open');
     modal.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
     // The rail/bubble layout is computed from element offsets, which are 0
     // while the modal is hidden — recompute now that it's visible.
     window.dispatchEvent(new Event('resize'));
+    closeBtn.focus({ preventScroll: true });
+    requestAnimationFrame(() => { if (modal.classList.contains('is-open') && !modal.contains(document.activeElement)) closeBtn.focus({ preventScroll: true }); });
   }
   function closeModal() {
     modal.classList.remove('is-open');
     modal.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
+    if (lastFocus && lastFocus.focus) lastFocus.focus();
   }
+  /* Keep Tab inside the dialog while it is open */
+  modal.addEventListener('keydown', (e) => {
+    if (e.key !== 'Tab') return;
+    const f = focusables(); if (!f.length) return;
+    const first = f[0], last = f[f.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  });
 
   openBtn.addEventListener('click', openModal);
   closeBtn.addEventListener('click', closeModal);
@@ -2681,209 +2723,326 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 })();
 
 /* ================================================================
-   KNOWLEDGE GRAPH — hub-and-spoke node graph re-themed in lime,
-   full interactive parity: hover a node to trace its connections.
+   CONVERGENCE — fragmented cost signals drift, tilted and scattered,
+   on the left; their threads converge into HyperSense, which routes
+   straight out to each of the five modules. Fragments flow through
+   continuously, turning from grey noise into the accent as they pass
+   the core. Hover a module to send the flow there. The questions live
+   in Product Experience; each module only carries a one-line glimpse.
    ================================================================ */
 (function() {
   const canvas = document.getElementById('cs-graph');
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
-  const W = 1120, H = 680;
-  canvas.width = W; canvas.height = H;
-  const CX = W / 2, CY = H / 2;
-  const R_MOD = 178, R_Q = 290;
-  const LIME = () => `rgb(${csAcc()})`;
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* Growth choreography — the graph assembles from the center outward
-     once scrolled into view: hub blooms, spokes draw, modules pop,
-     questions land last. Reduced motion renders the final state. */
-  const graphReduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const SIGNALS = [
+    'Processor invoices', 'Scheme fees', 'Interchange', 'Settlement reports',
+    'FX markup', 'Chargebacks', 'Acquirer markup', 'IC++ statements',
+    'PSP reports', 'Cross-border fees', 'Contract rates', 'Refund costs',
+    'Assessment fees', 'Gateway fees'
+  ];
+  /* Hand-placed scatter (0–1 inside the signal zone) and a small tilt, so
+     the left reads as disorder without ever overlapping. */
+  const SCATTER = [
+    [0.04, 0.05, -4], [0.56, 0.02, 3], [0.30, 0.15, -2], [0.70, 0.22, 5],
+    [0.02, 0.29, 3], [0.40, 0.36, -5], [0.78, 0.45, -3], [0.10, 0.50, -2],
+    [0.50, 0.58, 4], [0.00, 0.71, 4], [0.66, 0.70, -4], [0.30, 0.80, 2],
+    [0.06, 0.94, -3], [0.56, 0.95, 3]
+  ];
+  const SCATTER_10 = [
+    [0.10, 0.00, -4], [0.62, 0.08, 4], [0.00, 0.20, 3], [0.45, 0.30, -5], [0.12, 0.42, -2],
+    [0.70, 0.50, 3], [0.02, 0.62, 4], [0.40, 0.72, -3], [0.08, 0.86, -2], [0.55, 0.97, 3]
+  ];
+  const STEPS = [
+    { label: 'Overview',   glimpse: 'What am I paying today?' },
+    { label: 'Drill-Down', glimpse: 'Why did costs change?' },
+    { label: 'Fee Spikes', glimpse: 'What is driving it?' },
+    { label: 'Audit',      glimpse: 'Was I charged correctly?' },
+    { label: 'Forecast',   glimpse: 'What changes are coming?' }
+  ];
+
+  const FONT = '"Geist", system-ui, sans-serif', MONO = '"Geist Mono", ui-monospace, monospace';
+  const clamp01 = v => v < 0 ? 0 : v > 1 ? 1 : v;
+  const easeOut = p => 1 - Math.pow(1 - p, 3);
+  const easeBack = p => { const c = 1.70158, q = p - 1; return 1 + (c + 1) * q * q * q + c * q * q; };
+  const bez = (a, b, c, d, t) => { const u = 1 - t; return u*u*u*a + 3*u*u*t*b + 3*u*t*t*c + t*t*t*d; };
+
+  /* Canvas copy uses the same tokens as the prose around it */
+  const hexRgb = (v, fb) => { const m = /^#([0-9a-f]{6})$/i.exec((v || '').trim()); if (!m) return fb; const n = parseInt(m[1], 16); return `${n >> 16},${(n >> 8) & 255},${n & 255}`; };
+  const rootCss = getComputedStyle(document.documentElement);
+  const TEXT = hexRgb(rootCss.getPropertyValue('--text'), '237,237,237');
+  const SOFT = hexRgb(rootCss.getPropertyValue('--text-soft'), '138,138,138');
+
+  let W = 0, H = 0, narrow = false, core = null, sigs = [], steps = [], labels = {};
+
+  /* ---------- layout (CSS px; the backing store is scaled for DPR) ---------- */
+  function layout() {
+    W = canvas.parentElement.clientWidth;
+    narrow = W < 540;
+    const list = W < 820 ? SIGNALS.slice(0, 10) : SIGNALS;
+    let zone, stepX, stepTop, stepGap;
+    if (narrow) {
+      zone = { x: 0, y: 34, w: W, h: 210 };
+      core = { x: W / 2, y: 312 };
+      stepX = 14; stepTop = 420; stepGap = 58;
+      H = stepTop + stepGap * 4 + 44;
+      labels = { sig: { x: 0, y: 6 }, inv: { x: W, y: 384, align: 'right' } };
+    } else {
+      H = 500;
+      stepX = Math.max(W * 0.6, W - 240);
+      zone = { x: 0, y: 56, w: W * 0.36, h: H - 112 };
+      core = { x: (zone.w + stepX) / 2 - 6, y: H / 2 };
+      /* Modules sit as a compact column centred on the core, shorter than the signal cloud */
+      stepGap = 62; stepTop = core.y - stepGap * 2 - 8;
+      labels = { sig: { x: 0, y: 14 }, inv: { x: stepX - 6, y: stepTop - 52 } };
+    }
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
+    canvas.style.height = H + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    ctx.font = `300 12.5px ${FONT}`;
+    sigs = list.map((label, i) => {
+      const sc = list.length === 10 ? SCATTER_10 : SCATTER;
+      const [fx, fy, rot] = narrow ? [sc[i][0] * 0.9 + (i % 2 ? 0.08 : 0), sc[i][1], sc[i][2]] : sc[i];
+      const w = ctx.measureText(label).width + 18, h = 24;
+      const x = zone.x + Math.min(fx * zone.w, zone.w - w) , y = zone.y + fy * (zone.h - h);
+      return { label, w, h, bx: x, by: y, x, y, rot: rot * Math.PI / 180, ph: i * 1.7, flare: 0, i };
+    });
+    steps = STEPS.map((s, i) => ({ ...s, x: stepX, y: stepTop + i * stepGap, flare: 0, hs: 0, i }));
+  }
+
+  /* Each signal's convergence curve: leaves the chip's inner edge, eases into the core */
+  function sigCurve(s) {
+    const ax = narrow ? s.x + s.w / 2 : s.x + s.w, ay = narrow ? s.y + s.h : s.y + s.h / 2;
+    return narrow
+      ? [ax, ay, ax, ay + 50, core.x, core.y - 70, core.x, core.y]
+      : [ax, ay, ax + 60, ay, core.x - 80, core.y, core.x, core.y];
+  }
+  /* Each module's branch: the mirror of the convergence, fanning out of the core */
+  function stepCurve(s) {
+    /* On phones each branch bends into the left gutter above the list, then
+       drops straight to its module, so it never crosses the labels */
+    if (narrow) { const by = Math.min(core.y + 90, s.y); return [core.x, core.y, core.x, core.y + 55, s.x, core.y + 45, s.x, by, s.x, s.y]; }
+    const k = (s.x - core.x) * 0.5;
+    return [core.x, core.y, core.x + k, core.y, s.x - k, s.y, s.x, s.y];
+  }
+  /* A curve is a cubic, optionally followed by a straight tail [.., tx, ty] */
+  function onCurve(c, t) {
+    if (c.length > 8) {
+      const lb = Math.hypot(c[6] - c[0], c[7] - c[1]) * 1.25, lt = Math.hypot(c[8] - c[6], c[9] - c[7]);
+      const f = lb / ((lb + lt) || 1);
+      if (t > f) { const u = (t - f) / ((1 - f) || 1); return { x: c[6] + (c[8] - c[6]) * u, y: c[7] + (c[9] - c[7]) * u }; }
+      t = t / (f || 1);
+    }
+    return { x: bez(c[0], c[2], c[4], c[6], t), y: bez(c[1], c[3], c[5], c[7], t) };
+  }
+  function strokeCurve(c, p) {
+    ctx.beginPath(); ctx.moveTo(c[0], c[1]);
+    const N = c.length > 8 ? 64 : 32;
+    for (let k = 1; k <= Math.ceil(N * p); k++) { const q = onCurve(c, Math.min(k / N, p)); ctx.lineTo(q.x, q.y); }
+    ctx.stroke();
+  }
+
+  /* ---------- reveal choreography ---------- */
   let t0 = null;
-  if (graphReduceMotion || !('IntersectionObserver' in window)) {
-    t0 = -1e9;
-  } else {
+  if (reduce || !('IntersectionObserver' in window)) t0 = -1e9;
+  else {
     const gio = new IntersectionObserver((es) => {
       es.forEach(en => { if (en.isIntersecting && t0 === null) { t0 = performance.now(); gio.disconnect(); } });
     }, { threshold: 0.3 });
     gio.observe(canvas);
   }
-  const clamp01 = v => v < 0 ? 0 : v > 1 ? 1 : v;
-  const easeOutC = p => 1 - Math.pow(1 - p, 3);
-  const easeBack = p => { const c = 1.70158, q = p - 1; return 1 + (c + 1) * q * q * q + c * q * q; };
 
-  /* Signal pulses — after assembly, investigations occasionally flow
-     from the hub out through a module to one of its questions. */
-  const pulses = [];
-  let nextPulse = 0;
-
-  const mods = [
-    { id: 'overview',  label: 'Overview',   angle: -Math.PI/2,
-      subs: ['What changed?', 'What am I paying today?', 'Where should I start investigating?'] },
-    { id: 'drilldown', label: 'Drill-down', angle: -Math.PI/2 + 2*Math.PI/5,
-      subs: ['Why did costs change?', 'Which segment is driving the change?', 'How much impact is it creating?'] },
-    { id: 'feespikes', label: 'Fee Spikes', angle: -Math.PI/2 + 4*Math.PI/5 + 0.12, qBias: -0.32,
-      subs: ['What changed?', 'What is driving it?', 'Does it require action?'] },
-    { id: 'audit',     label: 'Audit',      angle: -Math.PI/2 + 6*Math.PI/5 - 0.12, qBias: 0.10,
-      subs: ['Was I charged correctly?', 'What was actually charged?', 'What should it have been?'] },
-    { id: 'forecast',  label: 'Forecast',   angle: -Math.PI/2 + 8*Math.PI/5, qBias: 0.20,
-      subs: ['What changes are coming?', 'What will the impact be?', 'What should we do next?'] }
-  ];
-
-  const nodes = [], edges = [], nodeMap = {};
-  const center = { id: 'center', label: 'HyperSense', x: CX, y: CY, bx: CX, by: CY, r: 14, type: 'center', hs: 0 };
-  nodes.push(center); nodeMap.center = center;
-
-  mods.forEach((mod, mi) => {
-    const mx = CX + R_MOD * Math.cos(mod.angle), my = CY + R_MOD * Math.sin(mod.angle);
-    const mn = { id: mod.id, label: mod.label, x: mx, y: my, bx: mx, by: my, r: 8, type: 'module', mi, hs: 0 };
-    nodes.push(mn); nodeMap[mod.id] = mn;
-    edges.push({ from: 'center', to: mod.id, type: 'module', mi });
-    const nq = mod.subs.length, spread = nq <= 2 ? 0.30 : nq <= 3 ? 0.38 : 0.52, bias = mod.qBias || 0;
-    mod.subs.forEach((sub, qi) => {
-      const qa = nq === 1 ? mod.angle : mod.angle + bias - spread + (qi/(nq-1)) * spread * 2;
-      const qx = CX + R_Q * Math.cos(qa), qy = CY + R_Q * Math.sin(qa);
-      const qid = mod.id + '_q' + qi;
-      const qn = { id: qid, label: sub, x: qx, y: qy, bx: qx, by: qy, r: 3.5, type: 'question', mi, qi, hs: 0 };
-      nodes.push(qn); nodeMap[qid] = qn;
-      edges.push({ from: mod.id, to: qid, type: 'question', mi, qi });
-    });
-  });
-
-  let hovId = null, t = 0;
-  function getConn(id) {
-    const s = new Set([id]);
-    edges.forEach(e => { if (e.from === id) s.add(e.to); if (e.to === id) s.add(e.from); });
-    return s;
-  }
+  /* ---------- hover: a step pulls the investigation to it ---------- */
+  let hov = -1;
   canvas.addEventListener('mousemove', (e) => {
-    const rect = canvas.getBoundingClientRect();
-    const sx = canvas.width / rect.width, sy = canvas.height / rect.height;
-    const mx = (e.clientX - rect.left) * sx, my = (e.clientY - rect.top) * sy;
-    hovId = null;
-    for (let i = 0; i < nodes.length; i++) {
-      const n = nodes[i], dx = mx - n.x, dy = my - n.y;
-      const hit = n.type === 'question' ? 14 : n.r + 10;
-      if (dx*dx + dy*dy < hit*hit) { hovId = n.id; break; }
-    }
-    canvas.style.cursor = hovId ? 'pointer' : 'default';
+    const r = canvas.getBoundingClientRect(), mx = e.clientX - r.left, my = e.clientY - r.top;
+    hov = -1;
+    steps.forEach((s, i) => { if (mx > s.x - 14 && mx < W && my > s.y - 18 && my < s.y + 32) hov = i; });
+    canvas.style.cursor = hov >= 0 ? 'pointer' : 'default';
+    drawnOnce = false; schedule();
   });
-  canvas.addEventListener('mouseleave', () => { hovId = null; canvas.style.cursor = 'default'; });
+  canvas.addEventListener('mouseleave', () => { hov = -1; canvas.style.cursor = 'default'; drawnOnce = false; schedule(); });
 
-  function lpos(n) {
-    const dx = n.bx - CX, dy = n.by - CY, d = Math.sqrt(dx*dx + dy*dy) || 1;
-    const nx = dx / d, ny = dy / d;
-    if (n.type === 'center') return { x: n.x, y: n.y + n.r + 17, align: 'center', base: 'top' };
-    const pad = n.type === 'module' ? 17 : 10;
-    return { x: n.x + nx*pad, y: n.y + ny*pad, align: nx > 0.22 ? 'left' : nx < -0.22 ? 'right' : 'center', base: ny > 0.3 ? 'top' : ny < -0.3 ? 'bottom' : 'middle' };
+  /* ---------- fragments in flight ---------- */
+  const flow = [];
+  let nextSpawn = 0;
+  function spawn(now) {
+    const s = sigs[(Math.random() * sigs.length) | 0];
+    const target = hov >= 0 ? hov : (Math.random() * steps.length) | 0;
+    s.flare = 1;
+    flow.push({ s, target, start: now, inDur: 1900 + Math.random() * 800, outDur: 1600 });
   }
 
-  function frame() {
-    t += 0.008;
-    const now = performance.now();
+  function chip(s, a) {
+    const acc = csAcc(), fg = csFg();
+    ctx.save();
+    ctx.translate(s.x + s.w / 2, s.y + s.h / 2); ctx.rotate(s.rot * (1 - 0.5 * s.flare));
+    const x = -s.w / 2, y = -s.h / 2;
+    ctx.beginPath(); ctx.roundRect(x, y, s.w, s.h, 6);
+    ctx.fillStyle = `rgba(${fg},${0.025 * a})`; ctx.fill();
+    ctx.setLineDash([3, 3]);
+    ctx.strokeStyle = s.flare > 0.02 ? `rgba(${acc},${(0.14 + 0.4 * s.flare) * a})` : `rgba(${fg},${0.16 * a})`;
+    ctx.lineWidth = 1; ctx.stroke(); ctx.setLineDash([]);
+    ctx.font = `300 12.5px ${FONT}`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillStyle = `rgba(${s.flare > 0.3 ? TEXT : SOFT},${(0.85 + 0.15 * s.flare) * a})`;
+    ctx.fillText(s.label, 0, 0.5);
+    ctx.restore();
+  }
+
+  function eyebrow(text, x, y, a, align) {
+    ctx.font = `10.5px ${MONO}`; ctx.textAlign = align || 'left'; ctx.textBaseline = 'top';
+    if ('letterSpacing' in ctx) ctx.letterSpacing = '1.6px';
+    ctx.fillStyle = `rgba(${csFg()},${0.38 * a})`;
+    ctx.fillText(text, x, y);
+    if ('letterSpacing' in ctx) ctx.letterSpacing = '0px';
+  }
+
+  let visible = true, running = false;
+  function frame(now) {
+    running = false;
+    const acc = csAcc(), fg = csFg();
     const el = t0 === null ? -1 : now - t0;
     const rev = (start, dur) => el < 0 ? 0 : clamp01((el - start) / dur);
     ctx.clearRect(0, 0, W, H);
-    ctx.save();
-    ctx.beginPath(); ctx.rect(8, 8, W - 16, H - 16); ctx.clip();
-    nodes.forEach((n, i) => {
-      const f = 0.22 + i*0.045, amp = graphReduceMotion ? 0 : (n.type === 'center' ? 2.5 : n.type === 'module' ? 5.5 : 4.5);
-      n.x = n.bx + Math.sin(t*f + i) * amp;
-      n.y = n.by + Math.cos(t*f*0.85 + i*1.3) * amp;
-      n.hs += ((hovId === n.id ? 1 : 0) - n.hs) * 0.16;
-    });
-    const conn = hovId ? getConn(hovId) : null;
 
-    edges.forEach(e => {
-      const fn = nodeMap[e.from], tn = nodeMap[e.to]; if (!fn || !tn) return;
-      const p = e.type === 'module'
-        ? easeOutC(rev(350 + e.mi*90, 450))
-        : easeOutC(rev(1250 + e.mi*90 + e.qi*70, 380));
+    /* zone eyebrows */
+    eyebrow('FRAGMENTED SIGNALS', labels.sig.x, labels.sig.y, easeOut(rev(0, 500)));
+    eyebrow('ONE INVESTIGATION', labels.inv.x, labels.inv.y, easeOut(rev(1500, 500)), labels.inv.align);
+
+    /* convergence curves */
+    sigs.forEach(s => {
+      const p = easeOut(rev(500 + s.i * 45, 700));
       if (p <= 0) return;
-      const act = !conn || (conn.has(e.from) && conn.has(e.to));
-      ctx.beginPath(); ctx.moveTo(fn.x, fn.y);
-      ctx.lineTo(fn.x + (tn.x - fn.x) * p, fn.y + (tn.y - fn.y) * p);
-      if (e.type === 'module') { ctx.strokeStyle = act ? `rgba(${csAcc()},0.4)` : `rgba(${csAcc()},0.06)`; ctx.lineWidth = 1.2; }
-      else { ctx.strokeStyle = act ? `rgba(${csFg()},0.16)` : `rgba(${csFg()},0.04)`; ctx.lineWidth = 0.6; }
-      ctx.stroke();
+      const c = sigCurve(s);
+      const g = ctx.createLinearGradient(c[0], c[1], c[6], c[7]);
+      g.addColorStop(0, `rgba(${fg},0.07)`); g.addColorStop(1, `rgba(${acc},0.32)`);
+      ctx.strokeStyle = g; ctx.lineWidth = 1; strokeCurve(c, p);
     });
 
-    nodes.forEach(n => {
-      const dim = conn && !conn.has(n.id), a = dim ? 0.12 : 1;
-      const hm = 1 + 0.3 * n.hs;
-      if (n.type === 'center') {
-        const g = easeBack(rev(0, 500));
-        if (g <= 0) return;
-        const g1 = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, 55 * g);
-        g1.addColorStop(0, `rgba(${csAcc()},0.16)`); g1.addColorStop(1, `rgba(${csAcc()},0)`);
-        ctx.beginPath(); ctx.arc(n.x, n.y, 55 * g, 0, Math.PI*2); ctx.fillStyle = g1; ctx.fill();
-        const g2 = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, 24 * g);
-        g2.addColorStop(0, `rgba(${csAcc()},0.5)`); g2.addColorStop(1, `rgba(${csAcc()},0)`);
-        ctx.beginPath(); ctx.arc(n.x, n.y, 24 * g, 0, Math.PI*2); ctx.fillStyle = g2; ctx.fill();
-        ctx.beginPath(); ctx.arc(n.x, n.y, n.r * g * hm, 0, Math.PI*2); ctx.fillStyle = LIME(); ctx.fill();
-        const la = easeOutC(rev(250, 350));
-        if (la > 0) {
-          ctx.font = '500 17px "Geist", system-ui, sans-serif';
-          ctx.textAlign = 'center'; ctx.textBaseline = 'top';
-          ctx.fillStyle = `rgba(${csFg()},${(0.85 + 0.15*n.hs) * la})`;
-          ctx.fillText('HyperSense', n.x, n.y + n.r + 16);
-          ctx.textBaseline = 'alphabetic';
-        }
-      } else if (n.type === 'module') {
-        const g = easeBack(rev(700 + n.mi*90, 400));
-        if (g <= 0) return;
-        const gm = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, 30 * g);
-        gm.addColorStop(0, `rgba(${csAcc()},${0.2*a})`); gm.addColorStop(1, `rgba(${csAcc()},0)`);
-        ctx.beginPath(); ctx.arc(n.x, n.y, 30 * g, 0, Math.PI*2); ctx.fillStyle = gm; ctx.fill();
-        ctx.beginPath(); ctx.arc(n.x, n.y, n.r * g * hm, 0, Math.PI*2);
-        ctx.fillStyle = `rgba(${csAcc()},${a})`; ctx.fill();
-        const la = easeOutC(rev(780 + n.mi*90, 350));
-        if (la > 0) {
-          const lp = lpos(n);
-          ctx.font = '500 16px "Geist", system-ui, sans-serif';
-          ctx.textAlign = lp.align; ctx.textBaseline = lp.base;
-          ctx.fillStyle = `rgba(${csFg()},${(0.9 + 0.1*n.hs) * a * la})`;
-          ctx.fillText(n.label, lp.x, lp.y);
-          ctx.textBaseline = 'alphabetic';
-        }
+    /* signal chips — drifting, slightly restless */
+    sigs.forEach(s => {
+      const a = easeOut(rev(s.i * 40, 500));
+      if (a <= 0) return;
+      const amp = reduce ? 0 : 2.4;
+      s.x = s.bx + Math.sin(now * 0.0006 + s.ph) * amp;
+      s.y = s.by + Math.cos(now * 0.0005 + s.ph * 1.3) * amp;
+      s.flare *= 0.95;
+      chip(s, a);
+    });
+
+    /* branches out to each module */
+    steps.forEach((s, i) => {
+      s.p = easeOut(rev(1500 + i * 90, 700));
+      if (s.p <= 0) return;
+      const on = hov === i, off = hov >= 0 && !on;
+      ctx.lineWidth = on ? 2 : 1.25;
+      ctx.strokeStyle = `rgba(${acc},${on ? 0.95 : off ? 0.18 : 0.45})`;
+      strokeCurve(stepCurve(s), s.p);
+    });
+
+    /* fragments in flight: grey through the curve, accent along its branch */
+    if (!reduce && el > 2900 && visible) {
+      if (now >= nextSpawn && flow.length < 9) { spawn(now); nextSpawn = now + 420 + Math.random() * 560; }
+    }
+    for (let i = flow.length - 1; i >= 0; i--) {
+      const f = flow[i], tin = (now - f.start) / f.inDur;
+      let x, y, col, r;
+      if (tin < 1) {
+        const q = onCurve(sigCurve(f.s), tin * tin);
+        x = q.x; y = q.y; r = 1.8; col = `rgba(${fg},${0.25 + 0.5 * tin})`;
       } else {
-        const g = easeOutC(rev(1350 + n.mi*90 + n.qi*70, 400));
-        if (g <= 0) return;
-        ctx.beginPath(); ctx.arc(n.x, n.y, n.r * g * hm, 0, Math.PI*2);
-        ctx.fillStyle = `rgba(${csFg()},${0.68*0.45*a*g})`; ctx.fill();
-        const lp2 = lpos(n);
-        ctx.font = '15px "Geist", system-ui, sans-serif';
-        ctx.textAlign = lp2.align; ctx.textBaseline = lp2.base;
-        ctx.fillStyle = `rgba(${csFg()},${0.68*(0.7 + 0.3*n.hs) * a * g})`;
-        ctx.fillText(n.label, lp2.x, lp2.y);
-        ctx.textBaseline = 'alphabetic';
+        const tout = (now - f.start - f.inDur) / f.outDur;
+        if (tout >= 1) { steps[f.target].flare = 1; flow.splice(i, 1); continue; }
+        const q = onCurve(stepCurve(steps[f.target]), easeOut(tout)); x = q.x; y = q.y; r = 2.4; col = `rgba(${acc},0.95)`;
+        const pg = ctx.createRadialGradient(x, y, 0, x, y, 10);
+        pg.addColorStop(0, `rgba(${acc},0.35)`); pg.addColorStop(1, `rgba(${acc},0)`);
+        ctx.beginPath(); ctx.arc(x, y, 10, 0, Math.PI * 2); ctx.fillStyle = pg; ctx.fill();
       }
+      ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fillStyle = col; ctx.fill();
+    }
+
+    /* core */
+    const g = easeBack(rev(1100, 600));
+    if (g > 0) {
+      const breathe = reduce ? 0 : Math.sin(now * 0.002) * 0.08;
+      const halo = ctx.createRadialGradient(core.x, core.y, 0, core.x, core.y, 70 * g);
+      halo.addColorStop(0, `rgba(${acc},${0.2 + breathe})`); halo.addColorStop(1, `rgba(${acc},0)`);
+      ctx.beginPath(); ctx.arc(core.x, core.y, 70 * g, 0, Math.PI * 2); ctx.fillStyle = halo; ctx.fill();
+      ctx.save(); ctx.translate(core.x, core.y); ctx.rotate(reduce ? 0 : now * 0.00025);
+      ctx.setLineDash([2, 5]); ctx.beginPath(); ctx.arc(0, 0, 28 * g, 0, Math.PI * 2);
+      ctx.strokeStyle = `rgba(${acc},0.45)`; ctx.lineWidth = 1; ctx.stroke(); ctx.setLineDash([]);
+      ctx.restore();
+      ctx.beginPath(); ctx.arc(core.x, core.y, 15 * g, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${acc},0.16)`; ctx.fill();
+      ctx.strokeStyle = `rgba(${acc},0.8)`; ctx.lineWidth = 1; ctx.stroke();
+      ctx.beginPath(); ctx.arc(core.x, core.y, 6 * g, 0, Math.PI * 2); ctx.fillStyle = `rgb(${acc})`; ctx.fill();
+      const la = easeOut(rev(1300, 400));
+      ctx.font = `500 15px ${FONT}`; ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+      ctx.fillStyle = `rgba(${TEXT},${la})`;
+      ctx.fillText('HyperSense', core.x, core.y + 42);
+    }
+
+    /* steps */
+    steps.forEach((s, i) => {
+      const a = easeOut(clamp01((s.p - 0.85) / 0.15));
+      if (a <= 0) return;
+      s.flare *= 0.94;
+      s.hs += ((hov === i ? 1 : 0) - s.hs) * 0.18;
+      const dim = hov >= 0 && hov !== i ? 0.45 : 1;
+      if (s.flare > 0.02) {
+        const fg2 = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, 22);
+        fg2.addColorStop(0, `rgba(${acc},${0.4 * s.flare})`); fg2.addColorStop(1, `rgba(${acc},0)`);
+        ctx.beginPath(); ctx.arc(s.x, s.y, 22, 0, Math.PI * 2); ctx.fillStyle = fg2; ctx.fill();
+      }
+      ctx.beginPath(); ctx.arc(s.x, s.y, 7 + 2 * s.hs, 0, Math.PI * 2);
+      ctx.fillStyle = getComputedBg; ctx.fill();
+      ctx.strokeStyle = `rgba(${acc},${a})`; ctx.lineWidth = 1.5; ctx.stroke();
+      ctx.beginPath(); ctx.arc(s.x, s.y, 3 + s.flare * 1.5 + s.hs, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${acc},${a})`; ctx.fill();
+
+      const tx = s.x + 22;
+      ctx.textBaseline = 'middle'; ctx.textAlign = 'left';
+      ctx.font = `500 15px ${FONT}`; ctx.fillStyle = `rgba(${TEXT},${a * dim})`;
+      ctx.fillText(s.label, tx, s.y);
+      ctx.font = `300 12.5px ${FONT}`; ctx.textBaseline = 'top';
+      ctx.fillStyle = `rgba(${SOFT},${(0.75 + 0.25 * s.hs) * a * dim})`;
+      ctx.fillText(s.glimpse, tx, s.y + 13);
     });
 
-    /* Signal pulses — hub → module → question, paused while tracing */
-    if (!graphReduceMotion && el > 2600 && now >= nextPulse && pulses.length < 3) {
-      const mi = (Math.random() * mods.length) | 0;
-      const qi = (Math.random() * mods[mi].subs.length) | 0;
-      pulses.push({ mi, qi, start: now, dur: 1500 });
-      nextPulse = now + 1100 + Math.random() * 1600;
-    }
-    for (let i = pulses.length - 1; i >= 0; i--) {
-      const pu = pulses[i], pr = (now - pu.start) / pu.dur;
-      if (pr >= 1) { pulses.splice(i, 1); continue; }
-      if (conn) continue;
-      const mn = nodeMap[mods[pu.mi].id], qn = nodeMap[mods[pu.mi].id + '_q' + pu.qi];
-      let px, py;
-      if (pr < 0.45) { const lp = pr / 0.45; px = center.x + (mn.x - center.x) * lp; py = center.y + (mn.y - center.y) * lp; }
-      else { const lp = (pr - 0.45) / 0.55; px = mn.x + (qn.x - mn.x) * lp; py = mn.y + (qn.y - mn.y) * lp; }
-      const al = Math.sin(Math.PI * pr);
-      const pg = ctx.createRadialGradient(px, py, 0, px, py, 9);
-      pg.addColorStop(0, `rgba(${csAcc()},${0.3*al})`); pg.addColorStop(1, `rgba(${csAcc()},0)`);
-      ctx.beginPath(); ctx.arc(px, py, 9, 0, Math.PI*2); ctx.fillStyle = pg; ctx.fill();
-      ctx.beginPath(); ctx.arc(px, py, 2.2, 0, Math.PI*2); ctx.fillStyle = `rgba(${csAcc()},${0.9*al})`; ctx.fill();
-    }
-    ctx.restore();
-    requestAnimationFrame(frame);
+    schedule();
   }
-  frame();
+
+  /* The card's own fill, so module rings sit cleanly on top of their branches */
+  let getComputedBg = '#141414';
+  function readBg() {
+    const v = getComputedStyle(canvas.closest('.cs-vis') || document.body).backgroundColor;
+    if (v && v !== 'rgba(0, 0, 0, 0)') getComputedBg = v;
+  }
+
+  function schedule() {
+    if (running || !visible) return;
+    if (reduce && t0 !== null && flow.length === 0 && performance.now() - t0 > 0 && drawnOnce) return;
+    running = true; requestAnimationFrame((n) => { drawnOnce = true; frame(n); });
+  }
+  let drawnOnce = false;
+
+  /* Only animate while on screen */
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver((es) => {
+      es.forEach(en => { visible = en.isIntersecting; if (visible) schedule(); });
+    }).observe(canvas);
+  }
+  let rz = 0;
+  const relayout = () => { layout(); drawnOnce = false; schedule(); };
+  if ('ResizeObserver' in window) {
+    new ResizeObserver(() => { cancelAnimationFrame(rz); rz = requestAnimationFrame(relayout); }).observe(canvas.parentElement);
+  } else window.addEventListener('resize', relayout);
+
+  readBg(); layout(); schedule();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(relayout);
 })();
 
 /* PERSONAS: each card's month opens and closes from the row at its foot */
@@ -2899,54 +3058,9 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 })();
 
 console.log('%cHi.','font-family:"Instrument Serif",serif;font-size:32px;font-style:italic;color:#ededed;');
-console.log('%cYou found the HyperSense rebuild — full case study, sections 01–09. → hello@akhilmale.com','font-family:monospace;font-size:12px;color:#8a8a8a;');
+console.log('%cYou found the HyperSense case study: eight sections, start to finish. → akhilmale.ux@gmail.com','font-family:monospace;font-size:12px;color:#8a8a8a;');
 </script>
 
-<div class="cs-scn-modal" id="cs-scn-modal" role="dialog" aria-modal="true">
-  <div style="display:flex;flex-direction:column;align-items:center;width:min(640px,100%);">
-    <button class="cs-scn-modal-close" id="cs-scn-modal-close" aria-label="Close">✕</button>
-    <div class="cs-scn-modal-box" style="width:100%;">
-      <div class="cs-scn-modal-img" id="cs-scn-modal-imgwrap">
-        <img id="cs-scn-modal-img" src="" alt="" />
-      </div>
-      <div class="cs-scn-modal-body">
-        <div class="cs-scn-modal-tag"   id="cs-scn-modal-tag"></div>
-        <div class="cs-scn-modal-title" id="cs-scn-modal-title"></div>
-        <p   class="cs-scn-modal-desc"  id="cs-scn-modal-desc"></p>
-      </div>
-    </div>
-  </div>
-</div>
-
-<script>
-// Scenario lightbox
-(function() {
-  const modal    = document.getElementById('cs-scn-modal');
-  const mImg     = document.getElementById('cs-scn-modal-img');
-  const mTag     = document.getElementById('cs-scn-modal-tag');
-  const mTitle   = document.getElementById('cs-scn-modal-title');
-  const mDesc    = document.getElementById('cs-scn-modal-desc');
-  const mImgWrap = document.getElementById('cs-scn-modal-imgwrap');
-
-  document.querySelectorAll('.cs-scenario-shot').forEach(shot => {
-    shot.addEventListener('click', () => {
-      const card = shot.closest('.cs-scenario');
-      const img  = shot.querySelector('img');
-      mImg.src = img.src; mImg.alt = img.alt;
-      mTag.textContent   = card.querySelector('.cs-scenario-tag').textContent;
-      mTitle.textContent = card.querySelector('.cs-scenario-title').textContent;
-      mDesc.textContent  = card.querySelector('p').textContent;
-      mImgWrap.scrollTop = 0;
-      modal.classList.add('is-open');
-    });
-  });
-
-  function closeModal() { modal.classList.remove('is-open'); }
-  document.getElementById('cs-scn-modal-close').addEventListener('click', closeModal);
-  modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
-})();
-</script>
 <script>
 const navEl = document.querySelector('nav');
 window.addEventListener('scroll', () => { navEl.classList.toggle('is-scrolled', window.scrollY > 8); }, { passive: true });
