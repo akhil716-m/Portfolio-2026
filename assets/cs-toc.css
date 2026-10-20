@@ -7,11 +7,6 @@
 .cs-rail.cs-toc { left: auto; right: clamp(24px, 3vw, 48px); }
 .cs-rail.cs-toc .cs-rail-inner { padding-left: 0; border-left: 0; }
 
-.cs-toc-label {
-  margin: 0 0 10px 24px;
-  font-family: 'Geist', sans-serif; font-size: 12px; color: var(--text-muted);
-}
-
 /* The list sits on a hairline; the ruler hangs to its left, the thumb rides the hairline */
 .cs-toc-track { position: relative; margin-left: 24px; padding: 4px 0; border-left: 1px solid var(--line); }
 .cs-rail.cs-toc .cs-rail-list { gap: 0; }

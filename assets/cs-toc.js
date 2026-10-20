@@ -13,9 +13,6 @@
   rail.classList.add('cs-toc');
   var inner = rail.querySelector('.cs-rail-inner') || rail;
 
-  var label = document.createElement('div');
-  label.className = 'cs-toc-label';
-  label.textContent = 'On this page';
   var track = document.createElement('div');
   track.className = 'cs-toc-track';
   var ruler = document.createElement('div');
@@ -25,7 +22,6 @@
   thumb.className = 'cs-toc-thumb';
   thumb.setAttribute('aria-hidden', 'true');
 
-  inner.insertBefore(label, list);
   inner.insertBefore(track, list);
   track.appendChild(ruler);
   track.appendChild(thumb);
