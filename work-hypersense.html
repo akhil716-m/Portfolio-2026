@@ -20,6 +20,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="assets/cs-toc.css">
 <script type="text/javascript">
   (function(c,l,a,r,i,t,y){
       c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
@@ -172,23 +173,8 @@ nav .logo a.cs-back:hover { color: var(--accent); }
 .cs-hero-meta-item span { font-family: 'Geist', sans-serif; font-size: 14.5px; font-weight: 400; color: var(--text); }
 .cs-hero-meta-item .accent { color: var(--accent); }
 
-.cs-hero-scroll {
-  position: absolute; bottom: 40px; right: clamp(24px, 6vw, 80px);
-  display: flex; flex-direction: column; align-items: center; gap: 10px;
-  opacity: 0; animation: csFadeUp 0.8s ease forwards 1s;
-}
-.cs-hero-scroll span {
-  font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
-  color: var(--text-muted); writing-mode: vertical-rl;
-}
 @media (prefers-reduced-motion: reduce) {
-  .cs-back, .cs-hero-eyebrow, .cs-hero-title, .cs-hero-meta, .cs-hero-scroll { animation: none; opacity: 1; }
-  .cs-hero-scroll-line { animation: none; }
-}
-.cs-hero-scroll-line {
-  width: 1px; height: 58px;
-  background: linear-gradient(to bottom, var(--accent) 0%, transparent 100%);
-  animation: csScrollPulse 2.2s ease-in-out infinite;
+  .cs-back, .cs-hero-eyebrow, .cs-hero-title, .cs-hero-meta { animation: none; opacity: 1; }
 }
 
 /* ---------- SECTION SCAFFOLD ---------- */
@@ -211,7 +197,6 @@ nav .logo a.cs-back:hover { color: var(--accent); }
   .cs-wrap--showcase { max-width: 90vw; }
   .cs-mock-window { height: calc(64.8vw - 52px); }
   .cs-hero { min-height: 100vh; justify-content: flex-start; padding: 260px 20px 60px; }
-  .cs-hero-scroll { display: none; }
   .cs-hero-eyebrow { margin-top: auto; margin-bottom: 32px; white-space: nowrap; letter-spacing: 0.1em; font-size: 10px; }
   .cs-hero-eyebrow .sep { margin: 0 6px; }
   .cs-hero-title { font-size: clamp(46px, 11vw, 130px); max-width: 260px; }
@@ -307,7 +292,7 @@ nav .logo a.cs-back:hover { color: var(--accent); }
 /* Breaks out of the reading column for diagrams that need room; margins, not transform, so .reveal still works */
 .cs-vis--wide { --vis-w: min(960px, calc(100vw - 48px)); width: var(--vis-w); max-width: none; margin-left: calc(50% - var(--vis-w) / 2) !important; }
 /* Keep clear of the fixed chapter rail while it is showing */
-@media (min-width: 1281px) { .cs-vis--wide { --vis-w: min(960px, calc(100vw - 560px)); } }
+@media (min-width: 1281px) { .cs-vis--wide { --vis-w: min(960px, calc(100vw - 640px)); } }
 
 /* ---------- HOW MONEY FLOWS — live pipeline ----------
    A lime pulse travels customer → merchant on a 6s loop, shrinking after
@@ -1274,7 +1259,9 @@ nav .logo a.cs-back .arr { flex: none; display: block; }
 nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; border-radius: 4px; }
 @media (max-width: 900px) { nav .logo a.cs-back { font-size: 12px; } }
 @media (prefers-reduced-motion: reduce) { nav .logo a.cs-back { transition: none; } }
+
 </style>
+<link rel="stylesheet" href="assets/cs-article.css">
 <script>
 /* fx preview: canvas diagrams read the live accent and ground from the theme tokens */
 (function () {
@@ -1319,18 +1306,21 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 </nav>
 
 <!-- ═══════════════════════ HERO ═══════════════════════ -->
-<header class="cs-hero">
-  <div class="cs-hero-eyebrow">Fintech<span class="sep">·</span>Enterprise UX<span class="sep">·</span>B2B SaaS</div>
-  <h1 class="cs-hero-title">Cost <em>Observability</em></h1>
-  <div class="cs-hero-meta">
-    <div class="cs-hero-meta-item"><label>Role</label><span>Solo Product Designer</span></div>
-    <div class="cs-hero-meta-item"><label>Company</label><span>Juspay <span class="accent">·</span> Hyperswitch</span></div>
-    <div class="cs-hero-meta-item"><label>Scope</label><span>0 → 1 Product</span></div>
+<header class="cs-hero cs-hero--article">
+  <div class="cs-wrap">
+    <div class="cs-hero-eyebrow">Fintech<span class="sep">·</span>Enterprise UX<span class="sep">·</span>B2B SaaS</div>
+    <h1 class="cs-hero-title">Cost <em>Observability</em></h1>
+    <ul class="cs-hero-facts" aria-label="Project facts">
+      <li>Solo Product Designer</li>
+      <li>Juspay Hyperswitch</li>
+      <li>0 → 1 Product</li>
+    </ul>
   </div>
-  <div class="cs-hero-scroll">
-    <span>Scroll</span>
-    <div class="cs-hero-scroll-line"></div>
-  </div>
+  <figure class="cs-wrap cs-wrap--showcase cs-cover">
+    <div class="cs-shot cs-shot--baked">
+      <img src="assets/hypersense-hero.png" alt="HyperSense payment cost observability dashboard" fetchpriority="high" />
+    </div>
+  </figure>
 </header>
 
 <!-- ═══════════════════════ 01 — WHAT HYPERSENSE IS ═══════════════════════ -->
@@ -1547,13 +1537,6 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 
   <p class="cs-p reveal">HyperSense is a payment cost observability platform built to help merchants understand where their payment costs come from, why they change, and what actions to take next.</p>
   <p class="cs-p reveal">It transforms fragmented payment data spread across processor invoices, settlement reports, and transaction logs into a single investigation experience.</p>
-</div>
-<div class="cs-wrap cs-wrap--showcase">
-  <div class="cs-shot reveal" style="margin: 24px 0;">
-    <img src="assets/hypersense-hero.png" alt="HyperSense payment cost observability dashboard" loading="lazy" />
-  </div>
-</div>
-<div class="cs-wrap">
 
   <div class="cs-subdivider reveal"><span>My role &amp; contributions</span></div>
 
@@ -3124,5 +3107,6 @@ window.addEventListener('scroll', () => { navEl.classList.toggle('is-scrolled', 
   document.addEventListener('fullscreenchange', sync);
 })();
 </script>
+<script src="assets/cs-toc.js" defer></script>
 </body>
 </html>

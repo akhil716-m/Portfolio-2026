@@ -21,6 +21,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="assets/cs-toc.css">
 <script type="text/javascript">
   (function(c,l,a,r,i,t,y){
       c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
@@ -1004,6 +1005,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 @media (max-width: 900px) { nav .logo a.cs-back { font-size: 12px; } }
 @media (prefers-reduced-motion: reduce) { nav .logo a.cs-back { transition: none; } }
 </style>
+<link rel="stylesheet" href="assets/cs-article.css">
 </head>
 <body>
 
@@ -1035,18 +1037,21 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 </nav>
 
 <!-- ═══════════════════════ HERO ═══════════════════════ -->
-<header class="cs-hero">
-  <div class="cs-hero-eyebrow">HRMS<span class="sep">·</span>Mobile UX<span class="sep">·</span>Frontline learning experience</div>
-  <h1 class="cs-hero-title">Up<em>-skill</em></h1>
-  <div class="cs-hero-meta">
-    <div class="cs-hero-meta-item"><label>Role</label><span>Product Designer</span></div>
-    <div class="cs-hero-meta-item"><label>Company</label><span>GoBetter (formerly BetterPlace)</span></div>
-    <div class="cs-hero-meta-item"><label>Scope</label><span>End-to-end app redesign</span></div>
+<header class="cs-hero cs-hero--article">
+  <div class="cs-wrap">
+    <div class="cs-hero-eyebrow">HRMS<span class="sep">·</span>Mobile UX<span class="sep">·</span>Frontline learning experience</div>
+    <h1 class="cs-hero-title">Up<em>-skill</em></h1>
+    <ul class="cs-hero-facts" aria-label="Project facts">
+      <li>Product Designer</li>
+      <li>GoBetter (formerly BetterPlace)</li>
+      <li>End-to-end app redesign</li>
+    </ul>
   </div>
-  <div class="cs-hero-scroll">
-    <span>Scroll</span>
-    <div class="cs-hero-scroll-line"></div>
-  </div>
+  <figure class="cs-wrap cs-wrap--showcase cs-cover">
+    <div class="cs-shot cs-shot--bezel">
+      <img src="assets/skilling/phones-strip.jpg" alt="Grid of redesigned Up-skill mobile screens including courses, assessments and playlists" width="1750" height="799" fetchpriority="high" decoding="async">
+    </div>
+  </figure>
 </header>
 
 <!-- ═══════════════════════ 01 — OVERVIEW ═══════════════════════ -->
@@ -1071,14 +1076,6 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 
 </div>
 
-<div class="cs-wrap cs-wrap--board">
-<figure class="cs-board settle">
-  <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: A wall of the new screens" data-full="assets/skilling/phones-strip.jpg" data-alt="Grid of redesigned Up-skill mobile screens including courses, assessments and playlists">
-    <img src="assets/skilling/phones-strip.jpg" alt="Grid of redesigned Up-skill mobile screens including courses, assessments and playlists" width="1750" height="799" loading="lazy" decoding="async">
-    <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
-  </div>
-</figure>
-</div>
 
 </section>
 
@@ -2612,5 +2609,6 @@ var CS_REDUCE = window.matchMedia && window.matchMedia('(prefers-reduced-motion:
 })();
 
 </script>
+<script src="assets/cs-toc.js" defer></script>
 </body>
 </html>

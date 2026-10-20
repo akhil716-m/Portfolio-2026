@@ -1,0 +1,35 @@
+/* Case-study outline: the section rail restyled after Skecher UI's "Table of Content"
+   (CoDesign-Spa27/skecher-ui), rebuilt in plain CSS + JS for this static site.
+   Sits on the right. A tick ruler fills with the project accent as you read, ticks
+   swell near the reading point and under the pointer, and a thin thumb marks the
+   current section. Applied by assets/cs-toc.js, which adds .cs-toc to #cs-rail. */
+
+.cs-rail.cs-toc { left: auto; right: clamp(24px, 3vw, 48px); }
+.cs-rail.cs-toc .cs-rail-inner { padding-left: 0; border-left: 0; }
+
+/* The list sits on a hairline; the ruler hangs to its left, the thumb rides the hairline */
+.cs-toc-track { position: relative; margin-left: 24px; padding: 4px 0; border-left: 1px solid var(--line); }
+.cs-rail.cs-toc .cs-rail-list { gap: 0; }
+.cs-rail.cs-toc .cs-rail-list li button { padding: 6px 0 6px 14px; gap: 0; }
+.cs-rail.cs-toc .cs-rail-num { display: none; }
+.cs-rail.cs-toc .cs-rail-name { font-size: 13px; max-width: 200px; overflow: hidden; text-overflow: ellipsis; }
+.cs-rail.cs-toc .cs-rail-list li.is-active .cs-rail-name { color: var(--text); font-weight: 500; }
+
+.cs-toc-thumb {
+  position: absolute; left: -2px; top: 0; width: 3px; height: 0; border-radius: 3px;
+  background: var(--accent); pointer-events: none; z-index: 1; will-change: transform, height;
+}
+
+.cs-toc-ruler { --head: 0; --probe: -999; position: absolute; top: 4px; bottom: 4px; left: -22px; width: 18px; pointer-events: none; }
+.cs-toc-ruler span {
+  --near-head: max(0, 1 - max(var(--y) - var(--head), var(--head) - var(--y)) / 28);
+  --near-probe: max(0, 1 - max(var(--y) - var(--probe), var(--probe) - var(--y)) / 24);
+  position: absolute; right: 0; top: calc(var(--y) * 1px); height: 1px; border-radius: 1px;
+  width: calc(var(--base) * 1px + max(var(--near-head) * 10px, var(--near-probe) * 7px));
+  background: color-mix(in oklab, var(--accent) calc(clamp(0, var(--head) - var(--y), 1) * 100%), rgb(var(--fg-rgb) / 0.22));
+  transition: width 0.1s ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cs-toc-ruler span { transition: none; }
+}

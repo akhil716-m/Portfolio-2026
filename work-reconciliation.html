@@ -20,6 +20,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="assets/cs-toc.css">
 <script type="text/javascript">
   (function(c,l,a,r,i,t,y){
       c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
@@ -644,6 +645,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 @media (max-width: 900px) { nav .logo a.cs-back { font-size: 12px; } }
 @media (prefers-reduced-motion: reduce) { nav .logo a.cs-back { transition: none; } }
 </style>
+<link rel="stylesheet" href="assets/cs-article.css">
 </head>
 <body>
 
@@ -674,19 +676,21 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 </nav>
 
 <!-- ═══════════════════════ HERO ═══════════════════════ -->
-<header class="cs-hero">
-  <div class="cs-hero-eyebrow">Fintech<span class="sep">·</span>Enterprise UX<span class="sep">·</span>B2B SaaS</div>
-  <h1 class="cs-hero-title">Recon<em>ciliation</em></h1>
-  <div class="cs-hero-meta">
-    <div class="cs-hero-meta-item"><label>Role</label><span>Product Designer</span></div>
-    <div class="cs-hero-meta-item"><label>Company</label><span>Juspay <span class="accent">·</span> Hyperswitch</span></div>
-    <div class="cs-hero-meta-item"><label>Focus</label><span>Exception Resolution</span></div>
-
+<header class="cs-hero cs-hero--article">
+  <div class="cs-wrap">
+    <div class="cs-hero-eyebrow">Fintech<span class="sep">·</span>Enterprise UX<span class="sep">·</span>B2B SaaS</div>
+    <h1 class="cs-hero-title">Recon<em>ciliation</em></h1>
+    <ul class="cs-hero-facts" aria-label="Project facts">
+      <li>Product Designer</li>
+      <li>Juspay Hyperswitch</li>
+      <li>Exception Resolution</li>
+    </ul>
   </div>
-  <div class="cs-hero-scroll">
-    <span>Scroll</span>
-    <div class="cs-hero-scroll-line"></div>
-  </div>
+  <figure class="cs-wrap cs-wrap--showcase cs-cover">
+    <div class="cs-shot cs-shot--bezel">
+      <img src="assets/recon/cover-one-to-one.jpg?v=2" alt="Reconciliation app, Exception Detail screen: a settlement entry recorded in the wrong direction, with the OMS and Adyen entry tables below" fetchpriority="high" />
+    </div>
+  </figure>
 </header>
 
 <!-- ═══════════════════════ 01 — ONE TRANSACTION, MULTIPLE VERSIONS ═══════════════════════ -->
@@ -1467,5 +1471,6 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 const navEl = document.querySelector('nav');
 window.addEventListener('scroll', () => { navEl.classList.toggle('is-scrolled', window.scrollY > 8); }, { passive: true });
 </script>
+<script src="assets/cs-toc.js" defer></script>
 </body>
 </html>
