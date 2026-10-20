@@ -45,6 +45,14 @@ html[data-hero="glow"] .cs-hero--article::before {
   box-shadow: 0 32px 80px rgb(var(--sh-rgb) / calc(0.5 * var(--sh-k)));
 }
 .cs-cover img { display: block; width: 100%; height: auto; }
+/* Device bezel, measured from the frame baked into the HyperSense cover image and kept
+   proportional to the cover's width (cqw), so all three covers share the same corners:
+   rim 0.81%, outer corners 1.78%, inner (screen) corners 1.07%, rim colour 20% white. */
+.cs-cover { container-type: inline-size; }
+.cs-cover .cs-shot--bezel { padding: 0.81cqw; border: 0; border-radius: 1.78cqw; background: rgb(255 255 255 / 0.2); }
+.cs-cover .cs-shot--bezel img { border-radius: 1.07cqw; }
+/* HyperSense's image already carries the bezel; its frame only clips to the same outer corner */
+.cs-cover .cs-shot--baked { border: 0; border-radius: 1.78cqw; }
 .cs-cover .cs-board { margin: 0; }
 .cs-section { padding: clamp(64px, 8vw, 104px) 0; }
 .cs-hero--article + .cs-section { padding-top: 72px; }
