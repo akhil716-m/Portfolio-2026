@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="white">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Akhil Male, Product Designer</title>
+<meta name="robots" content="noindex">
+<meta name="description" content="Product Designer at Juspay, designing 0→1 enterprise products across payment recovery, observability, and merchant operations.">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Geist+Mono:wght@400&family=Public+Sans:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles-v3.css">
+<script>
+  // Apply the saved theme before first paint (white is the default)
+  try { var t = localStorage.getItem('v3-theme'); if (t === 'dark' || t === 'paper') document.documentElement.dataset.theme = t; } catch (e) {}
+</script>
+</head>
+<body>
+<div class="v3">
+
+  <nav class="v3-nav" aria-label="Main">
+    <a class="nav-name" href="#top">Akhil Male</a>
+    <div class="nav-group">
+      <span class="nav-dot" aria-hidden="true"></span>
+      <ul class="nav-list" data-sound="chime">
+        <li><a href="#top" data-spy="top"><span>Home</span></a></li>
+        <li><a href="#work" data-spy="work"><span>Work</span></a></li>
+        <li><a href="#side" data-spy="side"><span>Side projects</span></a></li>
+        <li><a href="#about" data-spy="about"><span>About</span></a></li>
+        <li><a href="#contact" data-spy="contact"><span>Contact</span></a></li>
+      </ul>
+      <ul class="nav-list nav-ext">
+        <li><a href="/resume"><span>Resume</span><span class="arr">↗</span></a></li>
+      </ul>
+    </div>
+    <div class="theme" role="group" aria-label="Theme">
+      <span class="theme-label">theme</span>
+      <div class="theme-set">
+        <button class="sw-white" data-set-theme="white" aria-pressed="true" aria-label="White theme" title="White"></button>
+        <button class="sw-dark" data-set-theme="dark" aria-pressed="false" aria-label="Dark theme" title="Dark"></button>
+        <button class="sw-paper" data-set-theme="paper" aria-pressed="false" aria-label="Paper theme" title="Paper"></button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="v3-main" id="top">
+
+    <!-- Hero illustration. A stand-in line drawing (hills, a winding road, the sun):
+         swap for a real hand-drawn piece later, keeping the same width. -->
+    <figure class="sketch in" style="--d:0s">
+      <svg viewBox="0 0 600 210" role="img" aria-label="A line drawing of hills with a road winding into them under the sun">
+        <defs>
+          <filter id="wobble"><feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="4"/><feDisplacementMap in="SourceGraphic" scale="2.2"/></filter>
+          <pattern id="stip" width="6" height="6" patternUnits="userSpaceOnUse">
+            <circle cx="1.2" cy="1.4" r=".75"/><circle cx="4.3" cy="4.4" r=".6"/>
+          </pattern>
+          <pattern id="stip-dense" width="4" height="4" patternUnits="userSpaceOnUse">
+            <circle cx="1" cy="1" r=".7"/><circle cx="3" cy="3" r=".6"/>
+          </pattern>
+          <clipPath id="far"><path d="M0 132 C 60 104 110 92 170 112 S 290 70 360 100 S 500 84 600 116 V 210 H 0 Z"/></clipPath>
+          <clipPath id="near"><path d="M0 176 C 90 150 180 160 260 154 S 430 140 600 168 V 210 H 0 Z"/></clipPath>
+        </defs>
+        <g filter="url(#wobble)">
+          <!-- stipple shading, fades in under the lines -->
+          <g class="dots fade" style="--d:.9s;--o:1">
+            <rect clip-path="url(#far)" x="0" y="96" width="600" height="60" fill="url(#stip)"/>
+            <rect clip-path="url(#near)" x="0" y="150" width="600" height="60" fill="url(#stip-dense)"/>
+          </g>
+          <!-- sun -->
+          <circle class="ink draw" style="--d:.2s" pathLength="1" cx="470" cy="58" r="17"/>
+          <g class="sun-rays"><g class="ink ink-thin fade" style="--d:1.1s">
+            <path d="M470 30v-8M470 94v-8M442 58h-8M506 58h-8M450 38l-6-6M496 84l-6-6M490 38l6-6M444 84l6-6"/>
+          </g></g>
+          <!-- far ridge, near ridge -->
+          <path class="ink draw" style="--d:0s" pathLength="1" d="M0 132 C 60 104 110 92 170 112 S 290 70 360 100 S 500 84 600 116"/>
+          <path class="ink draw" style="--d:.25s" pathLength="1" d="M0 176 C 90 150 180 160 260 154 S 430 140 600 168"/>
+          <!-- the road, narrowing into the hills -->
+          <path class="ink draw" style="--d:.5s" pathLength="1" d="M236 210 C 262 192 300 186 290 172 C 282 162 318 158 330 146 C 338 138 326 128 336 118"/>
+          <path class="ink draw" style="--d:.55s" pathLength="1" d="M292 210 C 306 196 330 186 318 172 C 310 162 338 156 344 146 C 348 138 340 128 342 118"/>
+          <path class="ink ink-thin draw" style="--d:.9s" pathLength="1" stroke-dasharray="3 6" d="M264 208 C 282 194 316 186 304 172 C 296 162 328 157 337 146"/>
+          <!-- pines -->
+          <g class="ink ink-thin fade" style="--d:1.2s">
+            <path d="M120 150 l8 -22 l8 22 M122 142 h12 M128 150 v6"/>
+            <path d="M146 154 l6 -16 l6 16 M152 154 v5"/>
+            <path d="M420 142 l9 -24 l9 24 M423 133 h12 M429 142 v6"/>
+            <path d="M446 146 l6 -15 l6 15 M452 146 v5"/>
+            <path d="M560 160 l7 -18 l7 18 M567 160 v5"/>
+            <path d="M40 166 l7 -18 l7 18 M47 166 v5"/>
+          </g>
+          <!-- a cloud and two birds -->
+          <path class="ink ink-thin fade" style="--d:1.3s" d="M92 62 c2 -9 14 -10 18 -3 c3 -8 16 -8 18 1 c7 -1 11 5 8 9 h-48 c-4 -3 -2 -8 4 -7z"/>
+          <g class="fade" style="--d:1.5s"><path class="ink ink-thin bird" d="M232 52 q5 -5 9 0 q4 -5 9 0"/><path class="ink ink-thin bird" d="M262 40 q4 -4 7 0 q3 -4 7 0"/></g>
+        </g>
+      </svg>
+      <figcaption class="meta"><span>Fig. 01 · Somewhere in the hills, on the way to a track day.</span><span class="ph-tag">placeholder</span></figcaption>
+    </figure>
+
+    <section class="intro">
+      <div class="status in" style="--d:.1s"><i></i>Open to select projects</div>
+      <div class="in" style="--d:.15s">
+        <p class="hey">Hey,</p>
+        <h1 class="h-reset">I'm <strong>Akhil Male</strong>, a product designer. I design products that <strong>balance complexity with care</strong>.</h1>
+        <p>Currently at
+          <a class="chip" href="https://juspay.io" target="_blank" rel="noopener">Juspay</a>,
+          designing 0→1 enterprise products across payment recovery, observability and merchant operations.</p>
+        <p>Before that I spent two years at Go Better, designing for frontline workers with low digital literacy.
+          I live in <span class="place" tabindex="0">Bengaluru<span class="place-tip" role="tooltip">12°58′ N 77°35′ E · <span data-clock>--:--</span> here</span></span>,
+          and I'm usually planning the next trip to the hills.</p>
+      </div>
+      <div class="links in" style="--d:.3s">
+        <a class="ul" href="/resume">Resume</a>
+        <button class="copy" type="button" data-copy="akhilmale.ux@gmail.com"><span class="idle">Copy email</span><span class="done">Copied ✓</span></button>
+        <a href="https://www.linkedin.com/in/male-akhil/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://x.com/akhilmale_uxd" target="_blank" rel="noopener">X</a>
+      </div>
+    </section>
+
+    <!-- Currently: a small "now" card. Fill Reading / Listening with real picks. -->
+    <section class="now in" style="--d:.38s" aria-labelledby="now-h">
+      <div>
+        <h2 id="now-h">Currently</h2>
+        <dl>
+          <div><dt>Designing</dt><dd>payment recovery at Juspay</dd></div>
+          <div><dt>Building</dt><dd>Holdr, a portfolio tracker</dd></div>
+          <div><dt>Reading</dt><dd>A book title <span class="ph-tag">placeholder</span></dd></div>
+          <div><dt>Listening to</dt><dd>A song or album <span class="ph-tag">placeholder</span></dd></div>
+        </dl>
+        <p class="meta"><i></i>Last updated · Oct 26</p>
+      </div>
+      <div class="stack" aria-hidden="true">
+        <img src="assets/life/life-14.webp" alt="" width="480" height="640" style="--r:-9deg;--x:-24px;--r2:-15deg;--x2:-40px">
+        <img src="assets/life/life-6.webp" alt="" width="480" height="640" style="--r:7deg;--x:24px;--r2:13deg;--x2:40px">
+        <img src="assets/life/life-9.webp" alt="" width="480" height="640" style="--r:-1deg;--x:0px;--r2:0deg;--x2:0px">
+      </div>
+    </section>
+
+    <section class="sec" id="work" data-section aria-labelledby="work-h">
+      <div class="sec-head"><h2 id="work-h">Selected work</h2><a href="/resume">Full résumé →</a></div>
+      <div class="frame"><span class="cm" aria-hidden="true"></span>
+        <div class="group">
+          <div class="group-head meta"><span>Juspay</span><span>2024 — now</span></div>
+          <ul class="rows">
+            <li><a class="row" href="/work-hypersense" data-peek="assets/hypersense-behance-cover.webp"><span class="row-name">HyperSense</span><span class="row-desc">Payment cost observability, from concept to a demo for Apple</span><span class="row-meta">Case study →</span></a></li>
+            <li><a class="row" href="/work-reconciliation" data-peek="assets/recon/cover.webp"><span class="row-name">Reconciliation</span><span class="row-desc">A clearer path through exception resolution</span><span class="row-meta">Case study →</span></a></li>
+            <li><a class="row" href="/rr-glimpse" data-peek="assets/rr/glimpse/v2/hero-thumb.webp"><span class="row-name">Revenue Recovery</span><span class="row-desc">0→1 recovery for subscription businesses</span><span class="row-meta">Glimpse →</span></a></li>
+          </ul>
+        </div>
+        <div class="group">
+          <div class="group-head meta"><span>Go Better</span><span>2022 — 2024</span></div>
+          <ul class="rows">
+            <li><a class="row" href="/work-skilling" data-peek="assets/skilling-behance.webp"><span class="row-name">Up-skill</span><span class="row-desc">Learning for frontline workers with low digital literacy</span><span class="row-meta">Case study →</span></a></li>
+            <li><a class="row" href="https://www.behance.net/gallery/196838779/Attendance-app-for-blue-collars" target="_blank" rel="noopener" data-peek="assets/attendance-behance.webp"><span class="row-name">Attendance</span><span class="row-desc">A faster daily check-in for the workforce</span><span class="row-meta">Behance ↗</span></a></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec" id="side" data-section aria-labelledby="side-h">
+      <div class="sec-head"><h2 id="side-h">Side projects</h2></div>
+      <ul class="rows">
+        <li><div class="row" data-peek="assets/holdr-cover.webp"><span class="row-name">Holdr</span><span class="row-desc">A calm portfolio tracker for long-term investors</span><span class="pill">in the works</span></div></li>
+        <li><div class="row"><span class="row-name">Next experiment</span><span class="row-desc">A small thing built for fun <span class="ph-tag">placeholder</span></span><span class="row-meta">soon</span></div></li>
+      </ul>
+    </section>
+
+    <!-- Notes: a short writing list, as most of the references have. Point at Medium or real posts. -->
+    <section class="sec" id="notes" aria-labelledby="notes-h">
+      <div class="sec-head"><h2 id="notes-h">Notes <span class="ph-tag">placeholder</span></h2><a href="https://medium.com/@akhilmale" target="_blank" rel="noopener">See all ↗</a></div>
+      <ul class="rows">
+        <li><a class="note-row" href="https://medium.com/@akhilmale" target="_blank" rel="noopener"><span>Designing for people who read numbers all day</span><span class="meta">Oct 2026</span></a></li>
+        <li><a class="note-row" href="https://medium.com/@akhilmale" target="_blank" rel="noopener"><span>What frontline workers taught me about onboarding</span><span class="meta">Aug 2026</span></a></li>
+      </ul>
+    </section>
+
+    <section class="sec" id="about" data-section aria-labelledby="about-h">
+      <div class="sec-head"><h2 id="about-h">About</h2></div>
+      <div class="about">
+        <div>
+          <p>I've worked across workforce tech and fintech, designing for both frontline workers and enterprise teams. The domains changed; the job didn't: <strong>turning complexity into clarity</strong>.</p>
+          <p>I've always been curious about how things work. That curiosity led me to design, and it still shapes how I start on a problem.</p>
+          <p class="meta" style="margin-top:20px">Off the clock</p>
+          <ul class="offclock">
+            <li>into the hills</li><li>track days</li><li>new recipes</li><li>galleries</li><li>sunrises</li><li>new places</li>
+          </ul>
+        </div>
+        <figure class="portrait" style="margin:0">
+          <img src="assets/akhil.webp" width="800" height="1067" alt="Akhil Male" loading="lazy">
+          <img class="alt" src="assets/akhil-hover.webp" width="800" height="1067" alt="" loading="lazy">
+          <figcaption class="meta">akhil.png · Bengaluru</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="sec contact" id="contact" data-section aria-labelledby="contact-h">
+      <div class="sec-head"><h2 id="contact-h">Say hello</h2></div>
+      <p class="big">Always happy to talk about design, payments, or the best roads out of Bengaluru. Write to <a class="ul" href="mailto:akhilmale.ux@gmail.com">akhilmale.ux@gmail.com</a>.</p>
+      <div class="links">
+        <a href="https://www.linkedin.com/in/male-akhil/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://dribbble.com/Akhil-716uxd" target="_blank" rel="noopener">Dribbble</a>
+        <a href="https://www.behance.net/akhilmale1" target="_blank" rel="noopener">Behance</a>
+        <a href="https://x.com/akhilmale_uxd" target="_blank" rel="noopener">X</a>
+        <a href="https://www.instagram.com/akhilmale_uxd" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://medium.com/@akhilmale" target="_blank" rel="noopener">Medium</a>
+      </div>
+      <div class="hand" aria-hidden="true"><svg viewBox="0 0 44 34"><path d="M40 4 C 30 6 14 10 8 26 M8 26 l-1 -8 M8 26 l7 -4"/></svg>I reply, promise</div>
+    </section>
+
+    <footer class="foot meta">
+      <span>© 2026 Akhil Male · Rev. 2026.10</span>
+      <span><span data-clock>--:--</span> in Bengaluru · <span data-doing>probably sketching</span></span>
+    </footer>
+  </main>
+</div>
+
+<div class="peek" aria-hidden="true"><img alt=""></div>
+
+<script>
+(function () {
+  var root = document.documentElement;
+
+  // Theme switch
+  var buttons = document.querySelectorAll('[data-set-theme]');
+  function mark(t) { buttons.forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.setTheme === t); }); }
+  mark(root.dataset.theme);
+  buttons.forEach(function (b) {
+    b.addEventListener('click', function () {
+      var t = b.dataset.setTheme;
+      root.dataset.theme = t;
+      mark(t);
+      try { localStorage.setItem('v3-theme', t); } catch (e) {}
+    });
+  });
+
+  // Bengaluru clock, and what I'm likely doing at that hour
+  var clocks = document.querySelectorAll('[data-clock]');
+  var doing = document.querySelector('[data-doing]');
+  function tick() {
+    var now = new Date();
+    var time = now.toLocaleTimeString('en-IN', { hour: 'numeric', minute: '2-digit', hour12: true, timeZone: 'Asia/Kolkata' }).toLowerCase();
+    var h = +now.toLocaleString('en-GB', { hour: '2-digit', hour12: false, timeZone: 'Asia/Kolkata' });
+    clocks.forEach(function (c) { c.textContent = time; });
+    if (doing) doing.textContent = h < 7 ? 'asleep, probably' : h < 10 ? 'on coffee number one' : h < 19 ? 'designing at Juspay' : h < 23 ? 'tinkering on Holdr' : 'should be asleep';
+  }
+  tick(); setInterval(tick, 30000);
+
+  // Copy email
+  document.querySelectorAll('[data-copy]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var done = function () { b.classList.add('is-done'); setTimeout(function () { b.classList.remove('is-done'); }, 1800); };
+      if (navigator.clipboard) navigator.clipboard.writeText(b.dataset.copy).then(done, function () { location.href = 'mailto:' + b.dataset.copy; });
+      else location.href = 'mailto:' + b.dataset.copy;
+    });
+  });
+
+  // Click sounds, made with Web Audio (no files), after directoryyy.com: the nav plays
+  // a two-note chime with a short echo, every other button or link a soft press.
+  var SOUNDS = {
+    chime: { gain: .5, layers: [
+      { type: 'tone', freq: 1046.5, attack: .006, decay: .22, peak: .09 },
+      { type: 'tone', freq: 1568, offset: .09, attack: .006, decay: .26, peak: .08 }
+    ], echo: { delay: .12, feedback: .25, wet: .18, lowpass: 4000 } },
+    press: { gain: .4, layers: [
+      { type: 'noise', filter: 'bandpass', freq: 1700, q: 1.4, attack: .001, decay: .02, peak: .13 }
+    ] }
+  };
+  var VOLUME = .4, ctx = null, bus = null;
+  function audio() {
+    if (ctx) return ctx;
+    var AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC) return null;
+    try { ctx = new AC(); } catch (e) { return null; }
+    var boost = ctx.createGain(); boost.gain.value = 4;
+    var comp = ctx.createDynamicsCompressor();
+    comp.threshold.value = -8; comp.knee.value = 6; comp.ratio.value = 12; comp.attack.value = .002; comp.release.value = .08;
+    boost.connect(comp).connect(ctx.destination);
+    bus = boost;
+    return ctx;
+  }
+  function envelope(g, l, t) {
+    g.gain.setValueAtTime(1e-4, t);
+    g.gain.exponentialRampToValueAtTime(l.peak, t + l.attack);
+    g.gain.exponentialRampToValueAtTime(1e-4, t + l.attack + l.decay);
+  }
+  function play(name) {
+    var c = audio(); if (!c) return;
+    var s = SOUNDS[name];
+    var go = function () {
+      var now = c.currentTime, out = c.createGain();
+      out.gain.value = s.gain * VOLUME;
+      out.connect(bus);
+      if (s.echo) {
+        var d = c.createDelay(1), lp = c.createBiquadFilter(), fb = c.createGain(), wet = c.createGain();
+        d.delayTime.value = s.echo.delay; lp.type = 'lowpass'; lp.frequency.value = s.echo.lowpass;
+        fb.gain.value = s.echo.feedback; wet.gain.value = s.echo.wet;
+        out.connect(d); d.connect(lp); lp.connect(fb); fb.connect(d); lp.connect(wet); wet.connect(bus);
+        setTimeout(function () { out.disconnect(); d.disconnect(); lp.disconnect(); fb.disconnect(); wet.disconnect(); }, 1500);
+      }
+      s.layers.forEach(function (l) {
+        var t = now + (l.offset || 0), end = t + l.attack + l.decay + .05, g = c.createGain(), src;
+        envelope(g, l, t);
+        if (l.type === 'tone') {
+          src = c.createOscillator(); src.type = 'sine'; src.frequency.setValueAtTime(l.freq, t);
+          src.connect(g);
+        } else {
+          var n = Math.max(1, Math.floor((end - t) * c.sampleRate)), buf = c.createBuffer(1, n, c.sampleRate), data = buf.getChannelData(0);
+          for (var i = 0; i < n; i++) data[i] = Math.random() * 2 - 1;
+          src = c.createBufferSource(); src.buffer = buf;
+          var f = c.createBiquadFilter(); f.type = l.filter; f.frequency.value = l.freq; f.Q.value = l.q;
+          src.connect(f).connect(g);
+        }
+        g.connect(out); src.start(t); src.stop(end);
+      });
+    };
+    if (c.state === 'running') go(); else c.resume().then(function () { if (c.state === 'running') go(); }, function () {});
+  }
+  document.addEventListener('click', function (e) {
+    var el = e.target instanceof Element && e.target.closest('button, a[href], summary, [role="button"]');
+    if (!el || el.matches(':disabled')) return;
+    var tag = el.closest('[data-sound]');
+    var kind = tag ? tag.getAttribute('data-sound') : 'press';
+    if (kind !== 'off') play(kind === 'chime' ? 'chime' : 'press');
+  }, true);
+
+  // Nav dot: sits 8px after the current label and, when the section changes, springs
+  // along a slight curve to the new one (spring 200 / damping 24, 45ms delay)
+  var group = document.querySelector('.nav-group');
+  var dot = document.querySelector('.nav-dot');
+  var dotPos = null, dotAnim = 0;
+  function target(a) {
+    var label = a.querySelector('span');
+    return { x: label.offsetLeft + label.offsetWidth + 8, y: a.offsetTop + (a.offsetHeight - 7) / 2 };
+  }
+  function place(p) { dot.style.transform = 'translate(' + p.x + 'px,' + p.y + 'px)'; }
+  function moveDot(a) {
+    if (!dot || getComputedStyle(dot).display === 'none') return;
+    var to = target(a);
+    if (!dotPos || matchMedia('(prefers-reduced-motion: reduce)').matches) { dotPos = to; place(to); return; }
+    var from = { x: dotPos.x, y: dotPos.y };
+    var dx = to.x - from.x, dy = to.y - from.y;
+    // control point pushed sideways so the dot arcs out to the right on the way down
+    var bend = .35 * (dy > 0 ? 1 : -1);
+    var ctrl = { x: (from.x + to.x) / 2 + Math.abs(dy) * Math.abs(bend), y: (from.y + to.y) / 2 - dx * bend };
+    var x = 0, v = 0, last = null, id = ++dotAnim, start = performance.now() + 45;
+    function step(now) {
+      if (id !== dotAnim) return;
+      if (now < start) return requestAnimationFrame(step);
+      var dt = Math.min(.032, last == null ? .016 : (now - last) / 1000); last = now;
+      v += (-200 * (x - 1) - 24 * v) * dt;
+      x += v * dt;
+      var u = 1 - x;
+      dotPos = { x: u * u * from.x + 2 * u * x * ctrl.x + x * x * to.x, y: u * u * from.y + 2 * u * x * ctrl.y + x * x * to.y };
+      place(dotPos);
+      if (Math.abs(1 - x) > .001 || Math.abs(v) > .01) requestAnimationFrame(step);
+      else { dotPos = to; place(to); }
+    }
+    requestAnimationFrame(step);
+  }
+
+  // Nav: mark the section in view. A clicked item stays marked until the reader scrolls
+  // by hand (near the bottom, About and Contact are both on screen).
+  var links = {}, active = null, pinned = null;
+  document.querySelectorAll('[data-spy]').forEach(function (a) {
+    links[a.dataset.spy] = a;
+    a.addEventListener('click', function () { pinned = a.dataset.spy; setActive(pinned); });
+  });
+  function unpin() { if (pinned) { pinned = null; spy(); } }
+  ['wheel', 'touchmove'].forEach(function (ev) { window.addEventListener(ev, unpin, { passive: true }); });
+  window.addEventListener('keydown', function (e) { if (/^(Arrow|Page|Home|End| )/.test(e.key)) unpin(); });
+  // Labels change width once the web font arrives, or on resize: re-seat the dot
+  function reseat() { if (active) { dotPos = null; moveDot(links[active]); } }
+  if (document.fonts) document.fonts.ready.then(reseat);
+  window.addEventListener('resize', reseat);
+  function setActive(id) {
+    if (id === active) return;
+    active = id;
+    Object.keys(links).forEach(function (k) { links[k].classList.toggle('is-active', k === id); });
+    moveDot(links[id]);
+  }
+  var sections = document.querySelectorAll('[data-section]');
+  var queued = false;
+  function spy() {
+    queued = false;
+    if (pinned) return;
+    var current = 'top';
+    sections.forEach(function (s) { if (s.getBoundingClientRect().top < window.innerHeight * 0.45) current = s.id; });
+    // At the very bottom the last section can't reach the line, so mark it anyway
+    if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) current = sections[sections.length - 1].id;
+    setActive(current);
+  }
+  window.addEventListener('scroll', function () { if (!queued) { queued = true; requestAnimationFrame(spy); } }, { passive: true });
+  spy();
+
+  // Work rows: a cover follows the cursor
+  var peek = document.querySelector('.peek');
+  var img = peek.querySelector('img');
+  if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    document.querySelectorAll('[data-peek]').forEach(function (row, i) {
+      var pre = new Image(); pre.src = row.dataset.peek;
+      row.addEventListener('mouseenter', function () { img.src = row.dataset.peek; peek.style.setProperty('--pr', (i % 2 ? 3 : -3) + 'deg'); peek.classList.add('is-on'); });
+      row.addEventListener('mouseleave', function () { peek.classList.remove('is-on'); });
+      row.addEventListener('mousemove', function (e) {
+        peek.style.setProperty('--px', (e.clientX + 24) + 'px');
+        peek.style.setProperty('--py', (e.clientY - 90) + 'px');
+      });
+    });
+  }
+})();
+</script>
+</body>
+</html>
