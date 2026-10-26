@@ -69,11 +69,9 @@
 .v3-cs .cs-hero-facts { font: 500 14px/1.5 var(--font); color: var(--text-muted); margin-top: 14px; }
 .v3-cs .cs-hero-facts li + li::before { background: currentColor; opacity: .5; }
 .v3-cs .cs-cover { margin-top: 48px; }
-/* The cover sits in the same soft grey frame as the recording stages */
-.v3-cs .cs-cover .cs-shot {
-  padding: clamp(10px, 1.6vw, 18px); background: var(--stage);
-  border: 1px solid var(--line); border-radius: 16px; box-shadow: none;
-}
+/* The cover's own rim takes the recording stages' colour: the v3 cover image has a clear rim,
+   so the stage colour behind it shows through (no extra frame) */
+.v3-cs .cs-cover .cs-shot { background: var(--stage); box-shadow: none; }
 
 /* --- Sections: no rules between them, more air (like the home page) --- */
 .v3-cs .cs-section { border-top: 0; padding: 0; margin-top: 140px; }
