@@ -250,13 +250,8 @@ p { margin: 0 0 24px; }
 .place:hover .place-tip, .place:focus .place-tip { opacity: 1; transform: translate(-50%, 0); }
 
 .links { display: flex; flex-wrap: wrap; gap: 6px 20px; font-size: 14px; }
-.links a, .links button { color: var(--text-soft); transition: color .2s ease; }
-.links a:hover, .links button:hover { color: var(--text); }
-.links .ul { color: var(--text); }
-.copy { background: none; border: 0; padding: 0; font: inherit; cursor: pointer; }
-.copy .done { display: none; }
-.copy.is-done .idle { display: none; }
-.copy.is-done .done { display: inline; color: var(--live); }
+.links a { color: var(--text-soft); transition: color .2s ease; }
+.links a:hover { color: var(--text); }
 
 /* ===== Currently card, with a fanned photo stack that opens on hover ===== */
 .now {

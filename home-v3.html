@@ -108,12 +108,6 @@
           I live in <span class="place" tabindex="0">Bengaluru<span class="place-tip" role="tooltip">12°58′ N 77°35′ E · <span data-clock>--:--</span> here</span></span>,
           and I'm usually planning the next trip to the hills.</p>
       </div>
-      <div class="links in" style="--d:.3s">
-        <a class="ul" href="/resume">Resume</a>
-        <button class="copy" type="button" data-copy="akhilmale.ux@gmail.com"><span class="idle">Copy email</span><span class="done">Copied ✓</span></button>
-        <a href="https://www.linkedin.com/in/male-akhil/" target="_blank" rel="noopener">LinkedIn</a>
-        <a href="https://x.com/akhilmale_uxd" target="_blank" rel="noopener">X</a>
-      </div>
     </section>
 
     <!-- Currently: a small "now" card. Fill Reading / Listening with real picks. -->
@@ -243,15 +237,6 @@
     if (doing) doing.textContent = h < 7 ? 'asleep, probably' : h < 10 ? 'on coffee number one' : h < 19 ? 'designing at Juspay' : h < 23 ? 'tinkering on Holdr' : 'should be asleep';
   }
   tick(); setInterval(tick, 30000);
-
-  // Copy email
-  document.querySelectorAll('[data-copy]').forEach(function (b) {
-    b.addEventListener('click', function () {
-      var done = function () { b.classList.add('is-done'); setTimeout(function () { b.classList.remove('is-done'); }, 1800); };
-      if (navigator.clipboard) navigator.clipboard.writeText(b.dataset.copy).then(done, function () { location.href = 'mailto:' + b.dataset.copy; });
-      else location.href = 'mailto:' + b.dataset.copy;
-    });
-  });
 
   // Click sounds, made with Web Audio (no files), after directoryyy.com: the nav plays
   // a two-note chime with a short echo, every other button or link a soft press.
