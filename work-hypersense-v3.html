@@ -20,10 +20,17 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles-v3.css?v=4">
+<link rel="stylesheet" href="styles-v3.css?v=7">
 <script>
-  // Apply the saved theme before first paint (white is the default)
-  try { var t = localStorage.getItem('v3-theme'); if (t === 'dark' || t === 'paper') document.documentElement.dataset.theme = t; } catch (e) {}
+  // Theme before first paint: the visitor's pick if they made one, otherwise Auto
+  // (dark from 7 pm to 5 am, white the rest of the day)
+  (function () {
+    var r = document.documentElement, t = null;
+    try { t = localStorage.getItem('v3-theme'); } catch (e) {}
+    if (t !== 'white' && t !== 'dark' && t !== 'paper') { var h = new Date().getHours(); r.dataset.themeChoice = 'auto'; t = h >= 19 || h < 5 ? 'dark' : 'white'; }
+    else r.dataset.themeChoice = t;
+    r.dataset.theme = t;
+  })();
 </script>
 <script type="text/javascript">
   (function(c,l,a,r,i,t,y){
@@ -1266,7 +1273,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 
 </style>
 <link rel="stylesheet" href="assets/cs-article.css">
-<link rel="stylesheet" href="assets/cs-v3.css?v=4">
+<link rel="stylesheet" href="assets/cs-v3.css?v=5">
 <script>
 /* fx preview: canvas diagrams read the live accent and ground from the theme tokens */
 (function () {
@@ -1292,10 +1299,16 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 
     <header class="topbar">
       <a class="tb-back" href="/home-v3"><span aria-hidden="true">←</span> Back</a>
-      <div class="theme" role="group" aria-label="Theme">
-        <button data-set-theme="white" aria-pressed="true" aria-label="White theme" title="White"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="3"/><path d="M8 1.5v1.6M8 12.9v1.6M1.5 8h1.6M12.9 8h1.6M3.4 3.4l1.1 1.1M11.5 11.5l1.1 1.1M12.6 3.4l-1.1 1.1M4.5 11.5l-1.1 1.1"/></svg></button>
-        <button data-set-theme="dark" aria-pressed="false" aria-label="Dark theme" title="Dark"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M13.2 9.6A5.6 5.6 0 0 1 6.4 2.8a5.6 5.6 0 1 0 6.8 6.8z"/></svg></button>
-        <button data-set-theme="paper" aria-pressed="false" aria-label="Paper theme" title="Paper"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2h5.5L12 4.5V14H4z"/><path d="M9.5 2v2.5H12M6 8h4M6 10.5h4"/></svg></button>
+      <div class="pop theme-menu" data-pop>
+        <button class="pop-toggle theme-toggle" type="button" data-pop-toggle aria-expanded="false" aria-label="Theme" title="Theme">
+          <span data-show="auto"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="5.5"/><path d="M8 2.5v11a5.5 5.5 0 0 0 0-11z" fill="currentColor" stroke="none"/></svg></span><span data-show="white"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="3"/><path d="M8 1.5v1.6M8 12.9v1.6M1.5 8h1.6M12.9 8h1.6M3.4 3.4l1.1 1.1M11.5 11.5l1.1 1.1M12.6 3.4l-1.1 1.1M4.5 11.5l-1.1 1.1"/></svg></span><span data-show="dark"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M13.2 9.6A5.6 5.6 0 0 1 6.4 2.8a5.6 5.6 0 1 0 6.8 6.8z"/></svg></span><span data-show="paper"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2h5.5L12 4.5V14H4z"/><path d="M9.5 2v2.5H12M6 8h4M6 10.5h4"/></svg></span>
+        </button>
+        <div class="pop-panel theme" role="group" aria-label="Theme">
+          <button data-set-theme="auto" aria-pressed="false" title="Follows your time of day">Auto</button>
+          <button data-set-theme="white" aria-pressed="false" aria-label="White theme" title="White"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="3"/><path d="M8 1.5v1.6M8 12.9v1.6M1.5 8h1.6M12.9 8h1.6M3.4 3.4l1.1 1.1M11.5 11.5l1.1 1.1M12.6 3.4l-1.1 1.1M4.5 11.5l-1.1 1.1"/></svg></button>
+          <button data-set-theme="dark" aria-pressed="false" aria-label="Dark theme" title="Dark"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M13.2 9.6A5.6 5.6 0 0 1 6.4 2.8a5.6 5.6 0 1 0 6.8 6.8z"/></svg></button>
+          <button data-set-theme="paper" aria-pressed="false" aria-label="Paper theme" title="Paper"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2h5.5L12 4.5V14H4z"/><path d="M9.5 2v2.5H12M6 8h4M6 10.5h4"/></svg></button>
+        </div>
       </div>
     </header>
 
@@ -3104,6 +3117,6 @@ console.log('%cYou found the HyperSense case study: eight sections, start to fin
   document.addEventListener('fullscreenchange', sync);
 })();
 </script>
-<script src="assets/v3.js?v=4"></script>
+<script src="assets/v3.js?v=5"></script>
 </body>
 </html>

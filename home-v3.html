@@ -10,13 +10,47 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Geist+Mono:wght@400&family=Public+Sans:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles-v3.css?v=4">
+<link rel="stylesheet" href="styles-v3.css?v=7">
 <script>
-  // Apply the saved theme before first paint (white is the default)
-  try { var t = localStorage.getItem('v3-theme'); if (t === 'dark' || t === 'paper') document.documentElement.dataset.theme = t; } catch (e) {}
+  // Theme before first paint: the visitor's pick if they made one, otherwise Auto
+  // (dark from 7 pm to 5 am, white the rest of the day)
+  (function () {
+    var r = document.documentElement, t = null;
+    try { t = localStorage.getItem('v3-theme'); } catch (e) {}
+    if (t !== 'white' && t !== 'dark' && t !== 'paper') { var h = new Date().getHours(); r.dataset.themeChoice = 'auto'; t = h >= 19 || h < 5 ? 'dark' : 'white'; }
+    else r.dataset.themeChoice = t;
+    r.dataset.theme = t;
+  })();
 </script>
 </head>
 <body>
+<!-- Cover: the hills across the top of the page, graded to the visitor's time of day
+     (morning / afternoon / evening / night). The corner label opens the other moods. -->
+<header class="scene cover" data-mood="afternoon">
+  <div class="scene-view">
+    <div class="scene-depth">
+      <img class="scene-img" src="assets/v3/hills.webp" width="1750" height="863" alt="Someone sitting on a rock on a grassy hill, looking out over a lake and blue mountains under big clouds" fetchpriority="high">
+    </div>
+    <div class="scene-tint" aria-hidden="true"></div>
+    <div class="scene-shade" aria-hidden="true"></div>
+    <div class="scene-mist" aria-hidden="true"></div>
+    <div class="scene-stars" aria-hidden="true"></div>
+    <div class="scene-moon" aria-hidden="true"></div>
+    <div class="scene-grain" aria-hidden="true"></div>
+    <span class="scene-bar scene-bar--top" aria-hidden="true"></span>
+    <span class="scene-bar scene-bar--bottom" aria-hidden="true"></span>
+  </div>
+  <div class="pop cover-pop" data-pop>
+    <button class="pop-toggle cover-chip" type="button" data-pop-toggle aria-expanded="false" title="Time of day"><span data-mood-line>This afternoon</span></button>
+    <div class="pop-panel moods" role="group" aria-label="Time of day">
+      <button type="button" data-mood-set="auto" aria-pressed="true" title="Your time of day">Auto</button>
+      <button type="button" data-mood-set="morning" aria-pressed="false" aria-label="Morning" title="Morning"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 11.5h10M5 11.5a3 3 0 0 1 6 0M8 4.5v1.6M3.6 7.1l1 1M12.4 7.1l-1 1M5 14h6"/></svg></button>
+      <button type="button" data-mood-set="afternoon" aria-pressed="false" aria-label="Afternoon" title="Afternoon"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="3"/><path d="M8 1.5v1.6M8 12.9v1.6M1.5 8h1.6M12.9 8h1.6M3.4 3.4l1.1 1.1M11.5 11.5l1.1 1.1M12.6 3.4l-1.1 1.1M4.5 11.5l-1.1 1.1"/></svg></button>
+      <button type="button" data-mood-set="evening" aria-pressed="false" aria-label="Evening" title="Evening"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 10.5h11M4.8 10.5a3.2 3.2 0 0 1 6.4 0M4 13h8M8 4.2v1.3M10.8 8.6l.9-.9M5.2 8.6l-.9-.9"/></svg></button>
+      <button type="button" data-mood-set="night" aria-pressed="false" aria-label="Night" title="Night"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M13.2 9.6A5.6 5.6 0 0 1 6.4 2.8a5.6 5.6 0 1 0 6.8 6.8z"/></svg></button>
+    </div>
+  </div>
+</header>
 <div class="v3">
 
   <nav class="v3-nav" aria-label="Main">
@@ -39,42 +73,19 @@
     <header class="topbar">
       <button class="tb-link" type="button" data-open-resume>Resume</button>
       <span class="tb-rule" aria-hidden="true"></span>
-      <div class="theme" role="group" aria-label="Theme">
-        <button data-set-theme="white" aria-pressed="true" aria-label="White theme" title="White"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="3"/><path d="M8 1.5v1.6M8 12.9v1.6M1.5 8h1.6M12.9 8h1.6M3.4 3.4l1.1 1.1M11.5 11.5l1.1 1.1M12.6 3.4l-1.1 1.1M4.5 11.5l-1.1 1.1"/></svg></button>
-        <button data-set-theme="dark" aria-pressed="false" aria-label="Dark theme" title="Dark"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M13.2 9.6A5.6 5.6 0 0 1 6.4 2.8a5.6 5.6 0 1 0 6.8 6.8z"/></svg></button>
-        <button data-set-theme="paper" aria-pressed="false" aria-label="Paper theme" title="Paper"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2h5.5L12 4.5V14H4z"/><path d="M9.5 2v2.5H12M6 8h4M6 10.5h4"/></svg></button>
+      <div class="pop theme-menu" data-pop>
+        <button class="pop-toggle theme-toggle" type="button" data-pop-toggle aria-expanded="false" aria-label="Theme" title="Theme">
+          <span data-show="auto"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="5.5"/><path d="M8 2.5v11a5.5 5.5 0 0 0 0-11z" fill="currentColor" stroke="none"/></svg></span><span data-show="white"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="3"/><path d="M8 1.5v1.6M8 12.9v1.6M1.5 8h1.6M12.9 8h1.6M3.4 3.4l1.1 1.1M11.5 11.5l1.1 1.1M12.6 3.4l-1.1 1.1M4.5 11.5l-1.1 1.1"/></svg></span><span data-show="dark"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M13.2 9.6A5.6 5.6 0 0 1 6.4 2.8a5.6 5.6 0 1 0 6.8 6.8z"/></svg></span><span data-show="paper"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2h5.5L12 4.5V14H4z"/><path d="M9.5 2v2.5H12M6 8h4M6 10.5h4"/></svg></span>
+        </button>
+        <div class="pop-panel theme" role="group" aria-label="Theme">
+          <button data-set-theme="auto" aria-pressed="false" title="Follows your time of day">Auto</button>
+          <button data-set-theme="white" aria-pressed="false" aria-label="White theme" title="White"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="3"/><path d="M8 1.5v1.6M8 12.9v1.6M1.5 8h1.6M12.9 8h1.6M3.4 3.4l1.1 1.1M11.5 11.5l1.1 1.1M12.6 3.4l-1.1 1.1M4.5 11.5l-1.1 1.1"/></svg></button>
+          <button data-set-theme="dark" aria-pressed="false" aria-label="Dark theme" title="Dark"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M13.2 9.6A5.6 5.6 0 0 1 6.4 2.8a5.6 5.6 0 1 0 6.8 6.8z"/></svg></button>
+          <button data-set-theme="paper" aria-pressed="false" aria-label="Paper theme" title="Paper"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2h5.5L12 4.5V14H4z"/><path d="M9.5 2v2.5H12M6 8h4M6 10.5h4"/></svg></button>
+        </div>
       </div>
     </header>
 
-    <!-- Hero scene: the hills at the visitor's time of day. data-mood is set by the script
-         (morning / afternoon / evening / night); clicking the caption's mood shows the others. -->
-    <figure class="scene in" style="--d:0s" data-mood="afternoon">
-      <div class="scene-frame">
-        <div class="scene-view">
-          <div class="scene-depth">
-            <img class="scene-img" src="assets/v3/hills.webp" width="1750" height="863" alt="Someone sitting on a rock on a grassy hill, looking out over a lake and blue mountains under big clouds" fetchpriority="high">
-          </div>
-          <div class="scene-tint" aria-hidden="true"></div>
-          <div class="scene-shade" aria-hidden="true"></div>
-          <div class="scene-mist" aria-hidden="true"></div>
-          <div class="scene-stars" aria-hidden="true"></div>
-          <div class="scene-moon" aria-hidden="true"></div>
-          <div class="scene-grain" aria-hidden="true"></div>
-          <span class="scene-bar scene-bar--top" aria-hidden="true"></span>
-          <span class="scene-bar scene-bar--bottom" aria-hidden="true"></span>
-        </div>
-      </div>
-      <figcaption class="meta">
-        <span>Fig. 01 · <span data-mood-line>This afternoon</span>, somewhere in the hills.</span>
-        <div class="moods" role="group" aria-label="Time of day">
-          <button type="button" data-mood-set="auto" aria-pressed="true" title="Your time of day">Auto</button>
-          <button type="button" data-mood-set="morning" aria-pressed="false" aria-label="Morning" title="Morning"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 11.5h10M5 11.5a3 3 0 0 1 6 0M8 4.5v1.6M3.6 7.1l1 1M12.4 7.1l-1 1M5 14h6"/></svg></button>
-          <button type="button" data-mood-set="afternoon" aria-pressed="false" aria-label="Afternoon" title="Afternoon"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="3"/><path d="M8 1.5v1.6M8 12.9v1.6M1.5 8h1.6M12.9 8h1.6M3.4 3.4l1.1 1.1M11.5 11.5l1.1 1.1M12.6 3.4l-1.1 1.1M4.5 11.5l-1.1 1.1"/></svg></button>
-          <button type="button" data-mood-set="evening" aria-pressed="false" aria-label="Evening" title="Evening"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 10.5h11M4.8 10.5a3.2 3.2 0 0 1 6.4 0M4 13h8M8 4.2v1.3M10.8 8.6l.9-.9M5.2 8.6l-.9-.9"/></svg></button>
-          <button type="button" data-mood-set="night" aria-pressed="false" aria-label="Night" title="Night"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M13.2 9.6A5.6 5.6 0 0 1 6.4 2.8a5.6 5.6 0 1 0 6.8 6.8z"/></svg></button>
-        </div>
-      </figcaption>
-    </figure>
 
     <section class="intro">
       <div class="status in" style="--d:.1s"><i></i>Open to select projects</div>
@@ -246,7 +257,7 @@
 
 <div class="peek" aria-hidden="true"><img alt=""></div>
 
-<script src="assets/v3.js?v=4"></script>
+<script src="assets/v3.js?v=5"></script>
 <script>
 (function () {
   // Hero scene: the hills at the visitor's own time of day. The caption's mood button steps
@@ -264,6 +275,7 @@
     var setMood = function (m) {
       scene.dataset.mood = m;
       scene.querySelector('[data-mood-line]').textContent = LINES[m];
+      var pop = scene.querySelector('[data-pop]'); if (pop && pop.closePop) pop.closePop();
       moodBtns.forEach(function (b) {
         b.setAttribute('aria-pressed', b.dataset.moodSet === (auto ? 'auto' : m));
       });

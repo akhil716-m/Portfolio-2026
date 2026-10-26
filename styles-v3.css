@@ -161,12 +161,14 @@ p { margin: 0 0 24px; }
    A matted frame (like the case studies' video stages). It opens like a film (letterbox bars part,
    the picture comes into focus), then drifts very slowly. Each mood is a grade on the same image:
    morning cool and misty, afternoon as painted, evening golden, night dark blue with moon and stars. */
-.scene { margin: 56px 0 48px; }
-.scene-frame { padding: 8px; border-radius: 18px; background: var(--bg-soft); border: 1px solid var(--line); }
-.scene-view { position: relative; aspect-ratio: 1750 / 863; border-radius: 11px; overflow: hidden; background: #0d1426; isolation: isolate; }
+/* The cover runs edge to edge across the top, like a page cover: a band of the picture
+   (the hills, the lake, the figure), not the whole of it */
+.cover { position: relative; }
+.scene-view { position: relative; height: clamp(200px, 22vw, 320px); overflow: hidden; background: #0d1426; isolation: isolate; }
+.cover::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: var(--line); }
 .scene-depth { position: absolute; inset: -3%; transition: transform 1.2s var(--ease); transform: translate(var(--px, 0), var(--py, 0)); }
 .scene-img {
-  width: 100%; height: 100%; object-fit: cover;
+  width: 100%; height: 100%; object-fit: cover; object-position: 50% 72%;
   animation: scene-in 2.2s var(--ease) backwards, scene-drift 46s ease-in-out 2.2s infinite alternate;
   transition: filter 1.6s ease;
 }
@@ -212,15 +214,24 @@ p { margin: 0 0 24px; }
 @keyframes twinkle { from { opacity: .15; } to { opacity: .95; } }
 .scene-moon::before {
   content: ""; position: absolute; left: 40%; top: 12%;
-  width: 4.2%; aspect-ratio: 1; border-radius: 50%;
+  width: clamp(18px, 2.4%, 34px); aspect-ratio: 1; border-radius: 50%;
   background: radial-gradient(circle at 38% 36%, #fffdf3, #e9e4d2 70%);
   box-shadow: 0 0 18px 6px rgb(255 248 220 / .35), 0 0 60px 26px rgb(170 190 255 / .18);
   animation: moon-glow 6s ease-in-out infinite alternate;
 }
 @keyframes moon-glow { to { box-shadow: 0 0 22px 8px rgb(255 248 220 / .45), 0 0 80px 34px rgb(170 190 255 / .22); } }
 
-.scene figcaption { margin-top: 12px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 12px; }
-/* Time-of-day switcher: Auto follows the visitor's clock; the icons show each mood */
+/* Time-of-day: a quiet label in the cover's corner; clicking it opens the moods
+   (Auto follows the visitor's clock) */
+.pop.cover-pop { position: absolute; right: 16px; bottom: 14px; z-index: 7; display: flex; flex-direction: column; align-items: flex-end; }
+.cover-chip {
+  border: 0; cursor: pointer; padding: 5px 10px; border-radius: 99px;
+  font: 400 11px/1.2 var(--mono); letter-spacing: .01em; color: #fff;
+  background: rgb(0 0 0 / .28); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  opacity: .8; transition: opacity .2s ease, background-color .2s ease;
+}
+.cover-chip:hover, .cover-pop.is-open .cover-chip { opacity: 1; background: rgb(0 0 0 / .42); }
+.cover-pop .pop-panel { bottom: calc(100% + 8px); right: 0; top: auto; }
 .moods { display: flex; gap: 2px; padding: 3px; border-radius: 99px; background: var(--bg-soft); flex: none; }
 .moods button {
   height: 26px; min-width: 28px; padding: 0 8px;
@@ -240,6 +251,7 @@ p { margin: 0 0 24px; }
 @keyframes fadein { to { opacity: var(--o, 1); } }
 
 /* ===== Intro ===== */
+.intro { margin-top: 64px; }
 .status { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text-muted); margin-bottom: 24px; }
 .status i {
   width: 7px; height: 7px; border-radius: 50%;
@@ -450,6 +462,31 @@ p { margin: 0 0 24px; }
 .tb-link:hover { color: var(--text); }
 .tb-rule { width: 1px; height: 16px; background: var(--line-strong); }
 .theme { display: flex; gap: 2px; padding: 3px; border-radius: 99px; background: var(--bg-soft); }
+.theme > button:first-child { width: auto; padding: 0 9px; font: 400 11px/1 var(--mono); }
+
+/* Panels that open on click (theme, cover mood): hidden until their toggle is pressed */
+.pop { position: relative; }
+.pop-panel {
+  position: absolute; right: 0; top: calc(100% + 8px); z-index: 20;
+  border: 1px solid var(--line); box-shadow: var(--shadow);
+  opacity: 0; visibility: hidden; transform: translateY(-4px) scale(.97); transform-origin: top right;
+  transition: opacity .18s ease, transform .25s var(--ease), visibility 0s linear .25s;
+}
+.pop.is-open .pop-panel { opacity: 1; visibility: visible; transform: none; transition: opacity .18s ease, transform .25s var(--ease); }
+.cover-pop .pop-panel { transform-origin: bottom right; transform: translateY(4px) scale(.97); }
+.cover-pop.is-open .pop-panel { transform: none; }
+.theme-toggle {
+  width: 32px; height: 32px; display: grid; place-items: center;
+  border: 0; border-radius: 50%; background: var(--bg-soft); color: var(--text-soft); cursor: pointer;
+  transition: color .15s ease;
+}
+.theme-toggle:hover, .theme-menu.is-open .theme-toggle { color: var(--text); }
+.theme-toggle span { display: none; }
+.theme-toggle svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 1.3; stroke-linecap: round; stroke-linejoin: round; }
+:root[data-theme-choice="auto"] .theme-toggle [data-show="auto"],
+:root[data-theme-choice="white"] .theme-toggle [data-show="white"],
+:root[data-theme-choice="dark"] .theme-toggle [data-show="dark"],
+:root[data-theme-choice="paper"] .theme-toggle [data-show="paper"] { display: grid; }
 .theme button {
   width: 28px; height: 28px;
   display: grid; place-items: center;

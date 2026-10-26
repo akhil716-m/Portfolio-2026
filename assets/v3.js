@@ -5,18 +5,47 @@
 (function () {
   var root = document.documentElement;
 
-  // Theme switch
+  // Theme: Auto (the default) follows the visitor's clock, dark from 7 pm to 5 am and white
+  // the rest of the day; picking white, dark or paper keeps that pick.
   var buttons = document.querySelectorAll('[data-set-theme]');
-  function mark(t) { buttons.forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.setTheme === t); }); }
-  mark(root.dataset.theme);
+  function timeTheme() { var h = new Date().getHours(); return h >= 19 || h < 5 ? 'dark' : 'white'; }
+  function applyTheme(choice) {
+    var t = choice === 'auto' ? timeTheme() : choice;
+    root.dataset.themeChoice = choice;
+    buttons.forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.setTheme === choice); });
+    if (root.dataset.theme !== t) {
+      root.dataset.theme = t;
+      document.dispatchEvent(new CustomEvent('v3:theme', { detail: t }));
+    }
+  }
+  applyTheme(root.dataset.themeChoice || 'auto');
   buttons.forEach(function (b) {
     b.addEventListener('click', function () {
-      var t = b.dataset.setTheme;
-      root.dataset.theme = t;
-      mark(t);
-      try { localStorage.setItem('v3-theme', t); } catch (e) {}
-      document.dispatchEvent(new CustomEvent('v3:theme', { detail: t }));
+      var choice = b.dataset.setTheme;
+      try { if (choice === 'auto') localStorage.removeItem('v3-theme'); else localStorage.setItem('v3-theme', choice); } catch (e) {}
+      applyTheme(choice);
+      var pop = b.closest('[data-pop]'); if (pop && pop.closePop) pop.closePop();
     });
+  });
+  setInterval(function () { if (root.dataset.themeChoice === 'auto') applyTheme('auto'); }, 60000);
+
+  // Small panels that open on click (theme, cover mood) and close on a pick, Escape or a
+  // click elsewhere
+  document.querySelectorAll('[data-pop]').forEach(function (pop) {
+    var toggle = pop.querySelector('[data-pop-toggle]');
+    pop.closePop = function () { pop.classList.remove('is-open'); toggle.setAttribute('aria-expanded', 'false'); };
+    toggle.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var open = !pop.classList.contains('is-open');
+      document.querySelectorAll('[data-pop].is-open').forEach(function (p) { p.closePop(); });
+      if (open) { pop.classList.add('is-open'); toggle.setAttribute('aria-expanded', 'true'); }
+    });
+  });
+  document.addEventListener('click', function (e) {
+    document.querySelectorAll('[data-pop].is-open').forEach(function (p) { if (!p.contains(e.target)) p.closePop(); });
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') document.querySelectorAll('[data-pop].is-open').forEach(function (p) { p.closePop(); });
   });
 
   // Click sounds, made with Web Audio (no files), after directoryyy.com: the nav plays
