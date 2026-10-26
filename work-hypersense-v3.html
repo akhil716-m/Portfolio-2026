@@ -20,7 +20,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles-v3.css?v=9">
+<link rel="stylesheet" href="styles-v3.css?v=10">
 <script>
   // Time of day before first paint: the visitor's pick, or Auto from their clock. It sets the
   // cover mood and its theme (morning/afternoon white, evening paper, night dark).
@@ -1300,15 +1300,11 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 
     <header class="topbar">
       <a class="tb-back" href="/home-v3"><span aria-hidden="true">←</span> Back</a>
-      <div class="pop time-pop" data-pop>
-        <button class="pop-toggle time-chip" type="button" data-pop-toggle aria-expanded="false" title="Time of day and theme"><span data-mood-line>This afternoon</span></button>
-        <div class="pop-panel moods" role="group" aria-label="Time of day">
-          <button type="button" data-set-time="auto" aria-pressed="true" title="Your time of day">Auto</button>
-          <button type="button" data-set-time="morning" aria-pressed="false" aria-label="Morning" title="Morning"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 11.5h10M5 11.5a3 3 0 0 1 6 0M8 4.5v1.6M3.6 7.1l1 1M12.4 7.1l-1 1M5 14h6"/></svg></button>
-          <button type="button" data-set-time="afternoon" aria-pressed="false" aria-label="Afternoon" title="Afternoon"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="3"/><path d="M8 1.5v1.6M8 12.9v1.6M1.5 8h1.6M12.9 8h1.6M3.4 3.4l1.1 1.1M11.5 11.5l1.1 1.1M12.6 3.4l-1.1 1.1M4.5 11.5l-1.1 1.1"/></svg></button>
-          <button type="button" data-set-time="evening" aria-pressed="false" aria-label="Evening" title="Evening"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 10.5h11M4.8 10.5a3.2 3.2 0 0 1 6.4 0M4 13h8M8 4.2v1.3M10.8 8.6l.9-.9M5.2 8.6l-.9-.9"/></svg></button>
-          <button type="button" data-set-time="night" aria-pressed="false" aria-label="Night" title="Night"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M13.2 9.6A5.6 5.6 0 0 1 6.4 2.8a5.6 5.6 0 1 0 6.8 6.8z"/></svg></button>
-        </div>
+      <div class="time-tabs" role="group" aria-label="Time of day and theme">
+        <button type="button" data-set-time="morning" aria-pressed="false" title="Morning"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 11.5h10M5 11.5a3 3 0 0 1 6 0M8 4.5v1.6M3.6 7.1l1 1M12.4 7.1l-1 1M5 14h6"/></svg><span class="tab-label">Morning</span></button>
+        <button type="button" data-set-time="afternoon" aria-pressed="false" title="Afternoon"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="3"/><path d="M8 1.5v1.6M8 12.9v1.6M1.5 8h1.6M12.9 8h1.6M3.4 3.4l1.1 1.1M11.5 11.5l1.1 1.1M12.6 3.4l-1.1 1.1M4.5 11.5l-1.1 1.1"/></svg><span class="tab-label">Afternoon</span></button>
+        <button type="button" data-set-time="evening" aria-pressed="false" title="Evening"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 10.5h11M4.8 10.5a3.2 3.2 0 0 1 6.4 0M4 13h8M8 4.2v1.3M10.8 8.6l.9-.9M5.2 8.6l-.9-.9"/></svg><span class="tab-label">Evening</span></button>
+        <button type="button" data-set-time="night" aria-pressed="false" title="Tonight"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M13.2 9.6A5.6 5.6 0 0 1 6.4 2.8a5.6 5.6 0 1 0 6.8 6.8z"/></svg><span class="tab-label">Tonight</span></button>
       </div>
     </header>
 
@@ -3117,6 +3113,6 @@ console.log('%cYou found the HyperSense case study: eight sections, start to fin
   document.addEventListener('fullscreenchange', sync);
 })();
 </script>
-<script src="assets/v3.js?v=8"></script>
+<script src="assets/v3.js?v=10"></script>
 </body>
 </html>

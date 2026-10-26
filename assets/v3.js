@@ -5,11 +5,11 @@
 (function () {
   var root = document.documentElement;
 
-  // Time of day: one setting for the whole site. Auto (the default) follows the visitor's clock;
-  // a pick is remembered. It sets the cover's mood and the theme that goes with it:
+  // Time of day: one setting for the whole site, shown as tabs (the selected one is named).
+  // Auto (the default) follows the visitor's clock; a pick is remembered, and picking the tab
+  // for the visitor's own time goes back to Auto. It sets the cover's mood and the theme that goes with it:
   // morning and afternoon white, evening paper, night dark.
   var MOOD_THEME = { morning: 'white', afternoon: 'white', evening: 'paper', night: 'dark' };
-  var LINES = { morning: 'This morning', afternoon: 'This afternoon', evening: 'This evening', night: 'Tonight' };
   var GREETS = { morning: 'Good morning.', afternoon: 'Good afternoon.', evening: 'Good evening.', night: 'Hello, night owl.' };
   var timeBtns = document.querySelectorAll('[data-set-time]');
   function moodNow() {
@@ -20,8 +20,7 @@
     var mood = choice === 'auto' ? moodNow() : choice, theme = MOOD_THEME[mood];
     root.dataset.timeChoice = choice;
     root.dataset.mood = mood;
-    timeBtns.forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.setTime === choice); });
-    document.querySelectorAll('[data-mood-line]').forEach(function (el) { el.textContent = LINES[mood]; });
+    timeBtns.forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.setTime === mood); });
     document.querySelectorAll('[data-greet]').forEach(function (el) { el.textContent = GREETS[mood]; });
     if (root.dataset.theme !== theme) {
       root.dataset.theme = theme;
@@ -31,32 +30,13 @@
   applyTime(root.dataset.timeChoice || 'auto');
   timeBtns.forEach(function (b) {
     b.addEventListener('click', function () {
-      var choice = b.dataset.setTime;
+      // the tab for the visitor's own time of day means Auto again
+      var choice = b.dataset.setTime === moodNow() ? 'auto' : b.dataset.setTime;
       try { if (choice === 'auto') localStorage.removeItem('v3-time'); else localStorage.setItem('v3-time', choice); } catch (e) {}
       applyTime(choice);
-      var pop = b.closest('[data-pop]'); if (pop && pop.closePop) pop.closePop();
     });
   });
   setInterval(function () { if (root.dataset.timeChoice === 'auto') applyTime('auto'); }, 60000);
-
-  // Small panels that open on click (theme, cover mood) and close on a pick, Escape or a
-  // click elsewhere
-  document.querySelectorAll('[data-pop]').forEach(function (pop) {
-    var toggle = pop.querySelector('[data-pop-toggle]');
-    pop.closePop = function () { pop.classList.remove('is-open'); toggle.setAttribute('aria-expanded', 'false'); };
-    toggle.addEventListener('click', function (e) {
-      e.stopPropagation();
-      var open = !pop.classList.contains('is-open');
-      document.querySelectorAll('[data-pop].is-open').forEach(function (p) { p.closePop(); });
-      if (open) { pop.classList.add('is-open'); toggle.setAttribute('aria-expanded', 'true'); }
-    });
-  });
-  document.addEventListener('click', function (e) {
-    document.querySelectorAll('[data-pop].is-open').forEach(function (p) { if (!p.contains(e.target)) p.closePop(); });
-  });
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape') document.querySelectorAll('[data-pop].is-open').forEach(function (p) { p.closePop(); });
-  });
 
   // Click sounds, made with Web Audio (no files), after directoryyy.com: the nav plays
   // a two-note chime with a short echo, every other button or link a soft press.
