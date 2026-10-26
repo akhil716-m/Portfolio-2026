@@ -1,33 +1,43 @@
-/* v3 shared behaviour for every v3 page: the theme pill, click / scroll sounds, and the
+/* v3 shared behaviour for every v3 page: the time-of-day setting (cover mood + theme), click / scroll sounds, and the
    left nav (a dot that springs to the section in view). Pages mark their nav links with
    data-spy="<id>" and the matching sections with data-section; the first link stands
    for the top of the page. Page-specific scripts stay inline in each page. */
 (function () {
   var root = document.documentElement;
 
-  // Theme: Auto (the default) follows the visitor's clock, dark from 7 pm to 5 am and white
-  // the rest of the day; picking white, dark or paper keeps that pick.
-  var buttons = document.querySelectorAll('[data-set-theme]');
-  function timeTheme() { var h = new Date().getHours(); return h >= 19 || h < 5 ? 'dark' : 'white'; }
-  function applyTheme(choice) {
-    var t = choice === 'auto' ? timeTheme() : choice;
-    root.dataset.themeChoice = choice;
-    buttons.forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.setTheme === choice); });
-    if (root.dataset.theme !== t) {
-      root.dataset.theme = t;
-      document.dispatchEvent(new CustomEvent('v3:theme', { detail: t }));
+  // Time of day: one setting for the whole site. Auto (the default) follows the visitor's clock;
+  // a pick is remembered. It sets the cover's mood and the theme that goes with it:
+  // morning and afternoon white, evening paper, night dark.
+  var MOOD_THEME = { morning: 'white', afternoon: 'white', evening: 'paper', night: 'dark' };
+  var LINES = { morning: 'This morning', afternoon: 'This afternoon', evening: 'This evening', night: 'Tonight' };
+  var GREETS = { morning: 'Good morning.', afternoon: 'Good afternoon.', evening: 'Good evening.', night: 'Hello, night owl.' };
+  var timeBtns = document.querySelectorAll('[data-set-time]');
+  function moodNow() {
+    var h = new Date().getHours();
+    return h >= 5 && h < 11 ? 'morning' : h < 16 ? 'afternoon' : h < 19 ? 'evening' : 'night';
+  }
+  function applyTime(choice) {
+    var mood = choice === 'auto' ? moodNow() : choice, theme = MOOD_THEME[mood];
+    root.dataset.timeChoice = choice;
+    root.dataset.mood = mood;
+    timeBtns.forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.setTime === choice); });
+    document.querySelectorAll('[data-mood-line]').forEach(function (el) { el.textContent = LINES[mood]; });
+    document.querySelectorAll('[data-greet]').forEach(function (el) { el.textContent = GREETS[mood]; });
+    if (root.dataset.theme !== theme) {
+      root.dataset.theme = theme;
+      document.dispatchEvent(new CustomEvent('v3:theme', { detail: theme }));
     }
   }
-  applyTheme(root.dataset.themeChoice || 'auto');
-  buttons.forEach(function (b) {
+  applyTime(root.dataset.timeChoice || 'auto');
+  timeBtns.forEach(function (b) {
     b.addEventListener('click', function () {
-      var choice = b.dataset.setTheme;
-      try { if (choice === 'auto') localStorage.removeItem('v3-theme'); else localStorage.setItem('v3-theme', choice); } catch (e) {}
-      applyTheme(choice);
+      var choice = b.dataset.setTime;
+      try { if (choice === 'auto') localStorage.removeItem('v3-time'); else localStorage.setItem('v3-time', choice); } catch (e) {}
+      applyTime(choice);
       var pop = b.closest('[data-pop]'); if (pop && pop.closePop) pop.closePop();
     });
   });
-  setInterval(function () { if (root.dataset.themeChoice === 'auto') applyTheme('auto'); }, 60000);
+  setInterval(function () { if (root.dataset.timeChoice === 'auto') applyTime('auto'); }, 60000);
 
   // Small panels that open on click (theme, cover mood) and close on a pick, Escape or a
   // click elsewhere

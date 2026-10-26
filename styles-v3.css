@@ -164,7 +164,27 @@ p { margin: 0 0 24px; }
 /* The cover runs edge to edge across the top, like a page cover: a band of the picture
    (the hills, the lake, the figure), not the whole of it */
 .cover { position: relative; }
-.scene-view { position: relative; height: clamp(200px, 22vw, 320px); overflow: hidden; background: #0d1426; isolation: isolate; }
+.scene-view {
+  position: relative; height: clamp(100px, 11vw, 160px); overflow: hidden; background: #0d1426; isolation: isolate;
+  animation: cover-settle 1.3s cubic-bezier(.7, 0, .2, 1) 3.6s backwards;
+}
+/* The story: the cover opens at full height, says hello, then settles to half height */
+@keyframes cover-settle { from { height: clamp(200px, 22vw, 320px); } }
+.cover-greet {
+  position: absolute; inset: 0; z-index: 5; overflow: hidden;
+  display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
+  color: #fff; pointer-events: none; padding: 0 24px;
+  text-shadow: 0 1px 2px rgb(0 0 0 / .35), 0 8px 30px rgb(0 0 0 / .35);
+  opacity: 0; animation: greet 3.4s ease 1.2s both;
+}
+.greet-line { margin: 0; font: 500 clamp(26px, 3.2vw, 40px)/1.15 var(--font); letter-spacing: -.02em; }
+.greet-sub { margin: 10px 0 0; font: 500 clamp(13px, 1.1vw, 15px)/1.5 var(--font); opacity: .9; }
+@keyframes greet {
+  0% { opacity: 0; transform: translateY(10px); filter: blur(4px); }
+  25% { opacity: 1; transform: none; filter: none; }
+  72% { opacity: 1; transform: none; filter: none; }
+  100% { opacity: 0; transform: translateY(-8px); filter: blur(2px); }
+}
 .cover::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: var(--line); }
 .scene-depth { position: absolute; inset: -3%; transition: transform 1.2s var(--ease); transform: translate(var(--px, 0), var(--py, 0)); }
 .scene-img {
@@ -189,23 +209,23 @@ p { margin: 0 0 24px; }
 }
 
 /* Morning: cool light, a low mist over the valley */
-.scene[data-mood="morning"] .scene-img { filter: brightness(1.06) contrast(.9) saturate(.78) hue-rotate(-10deg); }
-.scene[data-mood="morning"] .scene-tint { opacity: 1; background: linear-gradient(180deg, rgb(170 205 255 / .7) 0%, rgb(255 205 215 / .55) 62%, rgb(255 255 255 / 0) 80%); }
-.scene[data-mood="morning"] .scene-mist { opacity: 1; background: linear-gradient(0deg, rgb(236 241 250 / .5) 0%, rgb(236 241 250 / .35) 22%, rgb(236 241 250 / .12) 40%, transparent 58%); }
+:root[data-mood="morning"] .scene .scene-img { filter: brightness(1.06) contrast(.9) saturate(.78) hue-rotate(-10deg); }
+:root[data-mood="morning"] .scene .scene-tint { opacity: 1; background: linear-gradient(180deg, rgb(170 205 255 / .7) 0%, rgb(255 205 215 / .55) 62%, rgb(255 255 255 / 0) 80%); }
+:root[data-mood="morning"] .scene .scene-mist { opacity: 1; background: linear-gradient(0deg, rgb(236 241 250 / .5) 0%, rgb(236 241 250 / .35) 22%, rgb(236 241 250 / .12) 40%, transparent 58%); }
 
 /* Afternoon: as painted, a touch of warm sun from the right */
-.scene[data-mood="afternoon"] .scene-tint { opacity: 1; background: radial-gradient(60% 70% at 85% 20%, rgb(255 236 200 / .45), transparent 70%); }
+:root[data-mood="afternoon"] .scene .scene-tint { opacity: 1; background: radial-gradient(60% 70% at 85% 20%, rgb(255 236 200 / .45), transparent 70%); }
 
 /* Evening: golden hour, the light low and warm */
-.scene[data-mood="evening"] .scene-img { filter: saturate(1.25) contrast(1.08) sepia(.34) brightness(.9) hue-rotate(-8deg); }
-.scene[data-mood="evening"] .scene-tint { opacity: 1; background: linear-gradient(180deg, rgb(255 140 60 / .85), rgb(255 185 110 / .55) 58%, rgb(255 110 70 / .35)); }
-.scene[data-mood="evening"] .scene-shade { opacity: 1; background: linear-gradient(180deg, rgb(255 150 90 / .18), transparent 40%, rgb(110 40 90 / .45)); }
-.scene[data-mood="evening"] .scene-mist { opacity: 1; mix-blend-mode: screen; background: radial-gradient(38% 30% at 78% 70%, rgb(255 175 95 / .55), transparent 70%); }
+:root[data-mood="evening"] .scene .scene-img { filter: saturate(1.25) contrast(1.08) sepia(.34) brightness(.9) hue-rotate(-8deg); }
+:root[data-mood="evening"] .scene .scene-tint { opacity: 1; background: linear-gradient(180deg, rgb(255 140 60 / .85), rgb(255 185 110 / .55) 58%, rgb(255 110 70 / .35)); }
+:root[data-mood="evening"] .scene .scene-shade { opacity: 1; background: linear-gradient(180deg, rgb(255 150 90 / .18), transparent 40%, rgb(110 40 90 / .45)); }
+:root[data-mood="evening"] .scene .scene-mist { opacity: 1; mix-blend-mode: screen; background: radial-gradient(38% 30% at 78% 70%, rgb(255 175 95 / .55), transparent 70%); }
 
 /* Night: blue dark, a moon, slow stars */
-.scene[data-mood="night"] .scene-img { filter: brightness(.36) contrast(1.15) saturate(.55) hue-rotate(14deg); }
-.scene[data-mood="night"] .scene-shade { opacity: 1; background: linear-gradient(180deg, rgb(20 30 85 / .55), rgb(10 18 50 / .4)); }
-.scene[data-mood="night"] .scene-stars, .scene[data-mood="night"] .scene-moon { opacity: 1; }
+:root[data-mood="night"] .scene .scene-img { filter: brightness(.36) contrast(1.15) saturate(.55) hue-rotate(14deg); }
+:root[data-mood="night"] .scene .scene-shade { opacity: 1; background: linear-gradient(180deg, rgb(20 30 85 / .55), rgb(10 18 50 / .4)); }
+:root[data-mood="night"] .scene .scene-stars, :root[data-mood="night"] .scene .scene-moon { opacity: 1; }
 .scene-stars i {
   position: absolute; width: var(--s); height: var(--s); border-radius: 50%;
   background: #fff; box-shadow: 0 0 4px rgb(255 255 255 / .8);
@@ -232,6 +252,13 @@ p { margin: 0 0 24px; }
 }
 .cover-chip:hover, .cover-pop.is-open .cover-chip { opacity: 1; background: rgb(0 0 0 / .42); }
 .cover-pop .pop-panel { bottom: calc(100% + 8px); right: 0; top: auto; }
+/* On a case study (no cover) the same control sits in the top bar */
+.time-chip {
+  border: 0; cursor: pointer; padding: 6px 11px; border-radius: 99px;
+  font: 400 11px/1.2 var(--mono); color: var(--text-soft); background: var(--bg-soft);
+  transition: color .15s ease;
+}
+.time-chip:hover, .time-pop.is-open .time-chip { color: var(--text); }
 .moods { display: flex; gap: 2px; padding: 3px; border-radius: 99px; background: var(--bg-soft); flex: none; }
 .moods button {
   height: 26px; min-width: 28px; padding: 0 8px;
@@ -461,8 +488,6 @@ p { margin: 0 0 24px; }
 }
 .tb-link:hover { color: var(--text); }
 .tb-rule { width: 1px; height: 16px; background: var(--line-strong); }
-.theme { display: flex; gap: 2px; padding: 3px; border-radius: 99px; background: var(--bg-soft); }
-.theme > button:first-child { width: auto; padding: 0 9px; font: 400 11px/1 var(--mono); }
 
 /* Panels that open on click (theme, cover mood): hidden until their toggle is pressed */
 .pop { position: relative; }
@@ -475,30 +500,7 @@ p { margin: 0 0 24px; }
 .pop.is-open .pop-panel { opacity: 1; visibility: visible; transform: none; transition: opacity .18s ease, transform .25s var(--ease); }
 .cover-pop .pop-panel { transform-origin: bottom right; transform: translateY(4px) scale(.97); }
 .cover-pop.is-open .pop-panel { transform: none; }
-.theme-toggle {
-  width: 32px; height: 32px; display: grid; place-items: center;
-  border: 0; border-radius: 50%; background: var(--bg-soft); color: var(--text-soft); cursor: pointer;
-  transition: color .15s ease;
-}
-.theme-toggle:hover, .theme-menu.is-open .theme-toggle { color: var(--text); }
-.theme-toggle span { display: none; }
-.theme-toggle svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 1.3; stroke-linecap: round; stroke-linejoin: round; }
-:root[data-theme-choice="auto"] .theme-toggle [data-show="auto"],
-:root[data-theme-choice="white"] .theme-toggle [data-show="white"],
-:root[data-theme-choice="dark"] .theme-toggle [data-show="dark"],
-:root[data-theme-choice="paper"] .theme-toggle [data-show="paper"] { display: grid; }
-.theme button {
-  width: 28px; height: 28px;
-  display: grid; place-items: center;
-  border: 0; border-radius: 50%;
-  background: transparent;
-  color: var(--text-muted);
-  cursor: pointer;
-  transition: color .15s ease, background-color .2s ease, box-shadow .2s ease;
-}
-.theme button:hover { color: var(--text); }
-.theme button[aria-pressed="true"] { background: var(--bg); color: var(--text); box-shadow: 0 1px 2px rgb(0 0 0 / .12); }
-.theme svg, .view svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 1.3; stroke-linecap: round; stroke-linejoin: round; }
+.view svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 1.3; stroke-linecap: round; stroke-linejoin: round; }
 
 /* ===== Company logos, stacked like app icons; hover fans them and names each ===== */
 .logos { display: inline-flex; vertical-align: -7px; margin-left: 6px; }
