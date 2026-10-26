@@ -262,27 +262,30 @@
 /* phones keep the stacked list (the original vertical version) */
 @media (max-width: 600px) { .iso-flow { display: none; } }
 
-/* ===== "Same 2%, growing cost" (merchant scale), in Hairline's language =====
-   Three tiers on one track. The grey cube is a year's payment volume and the blue cube beside it
-   the fees on it; both are sized by volume, so the blue is always 2% of its grey: a speck for
-   a small merchant, a block for an enterprise. They build once as the figure comes into view;
-   pointing at a tier (cubes or words) brings it forward. */
-.cs-scale { background: var(--bg-card); border: 1px solid var(--line); border-radius: 16px; padding: 36px 32px 28px; }
-.iso-scale { width: 100%; height: auto; display: block; overflow: visible; }
+/* ===== Merchant scale: same base, different volume, different cost =====
+   Every merchant stands on the same 10x10 base, so the three compare directly. Each pillar is
+   the same unit of yearly volume (small 1, mid 10, enterprise 100) and the blue is the fees,
+   always 2% of it. Pillars rise once as the figure comes into view; pointing at a tier
+   (pillars or words) brings it forward. */
+.cs-scale { background: var(--bg-card); border: 1px solid var(--line); border-radius: 16px; padding: 40px 32px 28px; }
+.iso-scale { width: 100%; max-width: 240px; height: auto; display: block; overflow: visible; margin: 0 auto 18px; }
 .iso-scale polygon { stroke-width: 1; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
 .iso-scale .f-t { fill: var(--bg); }
 .iso-scale .f-l { fill: var(--bg-soft); }
 .iso-scale .f-r { fill: color-mix(in srgb, var(--bg-soft) 70%, var(--line-strong)); }
-.iso-scale .tile polygon { stroke: rgb(var(--fg-rgb) / .22); }
-.iso-scale .pad polygon { stroke: rgb(var(--fg-rgb) / .3); }
-.iso-scale .vol polygon { stroke: rgb(var(--fg-rgb) / .62); }
-.iso-scale .fee polygon { stroke: var(--accent); }
-.iso-scale .fee .f-t { fill: color-mix(in srgb, var(--accent) 16%, var(--bg)); }
-.iso-scale .fee .f-l, .iso-scale .fee .f-r { fill: color-mix(in srgb, var(--accent) 26%, var(--bg)); }
-.iso-scale .vol, .iso-scale .fee { transform-box: fill-box; transform-origin: 50% 100%; }
+.iso-scale .plinth polygon { stroke: rgb(var(--fg-rgb) / .35); }
+.iso-scale .cell { fill: none; stroke: rgb(var(--fg-rgb) / .14); }
+.iso-scale .pil polygon { stroke: rgb(var(--fg-rgb) / .5); }
+.iso-scale .pil--fee polygon, .iso-scale .pil-cap polygon { stroke: var(--accent); }
+.iso-scale .pil--fee .f-t, .iso-scale .pil-cap .f-t { fill: color-mix(in srgb, var(--accent) 30%, var(--bg)); }
+.iso-scale .pil--fee .f-l, .iso-scale .pil--fee .f-r, .iso-scale .pil-cap .f-l, .iso-scale .pil-cap .f-r { fill: color-mix(in srgb, var(--accent) 42%, var(--bg)); }
+/* a partial fee is a band round the top of its pillar (sides only), so the small merchant's
+   2% of one pillar stays the hairline it is */
+.iso-scale .pil-cap .f-t { fill: var(--bg); stroke: rgb(var(--fg-rgb) / .5); }
+.iso-scale .pil { transform-box: fill-box; transform-origin: 50% 100%; }
 .iso-scale .st { transition: opacity .3s ease; }
 
-.cs-scale-cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 20px; }
+.cs-scale-cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
 .cs-scale-col { text-align: center; transition: opacity .3s ease; }
 .cs-scale-eyebrow { display: block; font: 400 11px/1.3 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--text-muted); }
 .cs-scale-lead { margin: 8px 0 4px; font: 500 15px/1.4 var(--font); color: var(--text); }
@@ -298,15 +301,14 @@
 .cs-scale:has([data-tier="2"]:hover) [data-tier]:not([data-tier="2"]) { opacity: .3; }
 
 @media (prefers-reduced-motion: no-preference) {
-  .cs-scale.reveal:not(.is-visible) .vol, .cs-scale.reveal:not(.is-visible) .fee { transform: scaleY(0); }
-  .cs-scale.is-visible .vol { animation: iso-rise .9s cubic-bezier(.22, 1, .36, 1) var(--d) both; }
-  .cs-scale.is-visible .fee { animation: iso-pop .6s cubic-bezier(.34, 1.4, .64, 1) var(--d) both; }
+  .cs-scale.reveal:not(.is-visible) .pil { transform: scaleY(0); }
+  .cs-scale.is-visible .pil { animation: iso-rise .8s cubic-bezier(.22, 1, .36, 1) var(--d) both; }
 }
 @keyframes iso-rise { from { transform: scaleY(0); } }
-@keyframes iso-pop { from { transform: scale(0); opacity: 0; } }
 
 @media (max-width: 600px) {
   .cs-scale { padding: 24px 18px 20px; }
-  .cs-scale-cols { grid-template-columns: 1fr; gap: 18px; }
+  .cs-scale-cols { grid-template-columns: 1fr; gap: 32px; }
+  .iso-scale { max-width: 200px; }
   .cs-scale-foot { flex-direction: column; gap: 4px; }
 }
