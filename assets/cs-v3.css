@@ -180,3 +180,84 @@
   .v3-cs .cs-hero--article .cs-hero-title { font-size: 28px; }
   .v3-cs .cs-display { font-size: 21px; }
 }
+
+/* ===== "Where the money goes", in Hairline's language =====
+   Isometric hairlines on flat faces in the page colours. A block of money slides from the
+   customer to the merchant over a row of tiles; the three intermediaries are faint dashed pads
+   (invisible to the merchant), and at each one a thin blue layer (the fee) lifts off the block
+   and fades. The block reaches the merchant shorter. One loop is 8s. */
+.cs-vis--iso .cs-vis-body { padding: 36px 24px 28px !important; }
+.iso-flow { width: 100%; height: auto; display: block; overflow: visible; }
+.iso-flow polygon { stroke-width: 1; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.iso-flow .f-t { fill: var(--bg); }
+.iso-flow .f-l { fill: var(--bg-soft); }
+.iso-flow .f-r { fill: color-mix(in srgb, var(--bg-soft) 70%, var(--line-strong)); }
+.iso-flow .tile polygon { stroke: rgb(var(--fg-rgb) / .22); }
+.iso-flow .pad polygon { stroke: rgb(var(--fg-rgb) / .45); }
+.iso-flow .pad--hidden polygon { fill: transparent; stroke: rgb(var(--fg-rgb) / .3); stroke-dasharray: 3 3; transition: stroke .3s ease; }
+.iso-flow .blk-base polygon { stroke: rgb(var(--fg-rgb) / .7); }
+.iso-flow .blk-fee polygon { stroke: var(--accent); }
+.iso-flow .blk-fee .f-t { fill: color-mix(in srgb, var(--accent) 16%, var(--bg)); }
+.iso-flow .blk-fee .f-l, .iso-flow .blk-fee .f-r { fill: color-mix(in srgb, var(--accent) 24%, var(--bg)); }
+.iso-flow text { font-family: var(--font); }
+.iso-cap { font: 400 10.5px/1 var(--mono); letter-spacing: .1em; fill: var(--text-muted); }
+.iso-brace { fill: none; stroke: var(--line-strong); stroke-width: 1; }
+.iso-name { font-size: 12.5px; font-weight: 500; fill: var(--text-soft); }
+.iso-name--end { fill: var(--text); }
+.iso-amt { font: 500 13px/1 var(--mono); fill: var(--text); }
+.iso-fee { font: 400 12px/1 var(--mono); fill: var(--accent); }
+
+@media (prefers-reduced-motion: no-preference) {
+  .cs-vis--iso.is-visible .blk-base { animation: iso-base 8s cubic-bezier(.45, 0, .25, 1) infinite; }
+  .cs-vis--iso.is-visible .blk-acquiring { animation: iso-peel-1 8s cubic-bezier(.45, 0, .25, 1) infinite; }
+  .cs-vis--iso.is-visible .blk-network { animation: iso-peel-2 8s cubic-bezier(.45, 0, .25, 1) infinite; }
+  .cs-vis--iso.is-visible .blk-issuing { animation: iso-peel-3 8s cubic-bezier(.45, 0, .25, 1) infinite; }
+  .cs-vis--iso.is-visible .pad1 polygon { animation: iso-pad-1 8s linear infinite; }
+  .cs-vis--iso.is-visible .pad2 polygon { animation: iso-pad-2 8s linear infinite; }
+  .cs-vis--iso.is-visible .pad3 polygon { animation: iso-pad-3 8s linear infinite; }
+  .cs-vis--iso.is-visible .iso-amt-out { animation: iso-arrive 8s ease infinite; }
+}
+/* the block: rests on the customer pad, stops at each intermediary, rests on the merchant pad */
+@keyframes iso-base {
+  0% { transform: translateX(0); opacity: 0; }
+  5%, 14% { transform: translateX(0); opacity: 1; }
+  28%, 33% { transform: translateX(210px); }
+  45%, 50% { transform: translateX(360px); }
+  62%, 67% { transform: translateX(510px); }
+  80% { transform: translateX(720px); opacity: 1; }
+  93% { transform: translateX(720px); opacity: 1; }
+  100% { transform: translateX(720px); opacity: 0; }
+}
+/* each fee layer rides along to its intermediary, then lifts away and fades */
+@keyframes iso-peel-1 {
+  0% { transform: translate(0, 0); opacity: 0; }
+  5%, 14% { transform: translate(0, 0); opacity: 1; }
+  28% { transform: translate(210px, 0); opacity: 1; }
+  40% { transform: translate(210px, -26px); opacity: 0; }
+  100% { transform: translate(210px, -26px); opacity: 0; }
+}
+@keyframes iso-peel-2 {
+  0% { transform: translate(0, 0); opacity: 0; }
+  5%, 14% { transform: translate(0, 0); opacity: 1; }
+  28%, 33% { transform: translate(210px, 0); }
+  45% { transform: translate(360px, 0); opacity: 1; }
+  57% { transform: translate(360px, -26px); opacity: 0; }
+  100% { transform: translate(360px, -26px); opacity: 0; }
+}
+@keyframes iso-peel-3 {
+  0% { transform: translate(0, 0); opacity: 0; }
+  5%, 14% { transform: translate(0, 0); opacity: 1; }
+  28%, 33% { transform: translate(210px, 0); }
+  45%, 50% { transform: translate(360px, 0); }
+  62% { transform: translate(510px, 0); opacity: 1; }
+  74% { transform: translate(510px, -26px); opacity: 0; }
+  100% { transform: translate(510px, -26px); opacity: 0; }
+}
+/* the intermediary shows itself only while it takes its cut */
+@keyframes iso-pad-1 { 0%, 24%, 40%, 100% { stroke: rgb(var(--fg-rgb) / .3); } 29%, 33% { stroke: var(--accent); } }
+@keyframes iso-pad-2 { 0%, 41%, 57%, 100% { stroke: rgb(var(--fg-rgb) / .3); } 46%, 50% { stroke: var(--accent); } }
+@keyframes iso-pad-3 { 0%, 58%, 74%, 100% { stroke: rgb(var(--fg-rgb) / .3); } 63%, 67% { stroke: var(--accent); } }
+@keyframes iso-arrive { 0%, 76% { opacity: .35; } 82%, 96% { opacity: 1; } 100% { opacity: .35; } }
+
+/* phones keep the stacked list (the original vertical version) */
+@media (max-width: 600px) { .iso-flow { display: none; } }
