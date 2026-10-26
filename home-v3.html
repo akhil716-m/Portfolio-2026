@@ -30,21 +30,21 @@
         <li><a href="#about" data-spy="about"><span>About</span></a></li>
         <li><a href="#contact" data-spy="contact"><span>Contact</span></a></li>
       </ul>
-      <ul class="nav-list nav-ext">
-        <li><a href="/resume"><span>Resume</span><span class="arr">↗</span></a></li>
-      </ul>
-    </div>
-    <div class="theme" role="group" aria-label="Theme">
-      <span class="theme-label">theme</span>
-      <div class="theme-set">
-        <button class="sw-white" data-set-theme="white" aria-pressed="true" aria-label="White theme" title="White"></button>
-        <button class="sw-dark" data-set-theme="dark" aria-pressed="false" aria-label="Dark theme" title="Dark"></button>
-        <button class="sw-paper" data-set-theme="paper" aria-pressed="false" aria-label="Paper theme" title="Paper"></button>
-      </div>
     </div>
   </nav>
 
   <main class="v3-main" id="top">
+
+    <!-- Top bar: résumé opens on this page; theme as a small pill -->
+    <header class="topbar">
+      <button class="tb-link" type="button" data-open-resume>Resume</button>
+      <span class="tb-rule" aria-hidden="true"></span>
+      <div class="theme" role="group" aria-label="Theme">
+        <button data-set-theme="white" aria-pressed="true" aria-label="White theme" title="White"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="3"/><path d="M8 1.5v1.6M8 12.9v1.6M1.5 8h1.6M12.9 8h1.6M3.4 3.4l1.1 1.1M11.5 11.5l1.1 1.1M12.6 3.4l-1.1 1.1M4.5 11.5l-1.1 1.1"/></svg></button>
+        <button data-set-theme="dark" aria-pressed="false" aria-label="Dark theme" title="Dark"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M13.2 9.6A5.6 5.6 0 0 1 6.4 2.8a5.6 5.6 0 1 0 6.8 6.8z"/></svg></button>
+        <button data-set-theme="paper" aria-pressed="false" aria-label="Paper theme" title="Paper"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2h5.5L12 4.5V14H4z"/><path d="M9.5 2v2.5H12M6 8h4M6 10.5h4"/></svg></button>
+      </div>
+    </header>
 
     <!-- Hero illustration. A stand-in line drawing (hills, a winding road, the sun):
          swap for a real hand-drawn piece later, keeping the same width. -->
@@ -100,7 +100,13 @@
       <div class="status in" style="--d:.1s"><i></i>Open to select projects</div>
       <div class="in" style="--d:.15s">
         <p class="hey">Hey,</p>
-        <h1 class="h-reset">I'm <strong>Akhil Male</strong>, a product designer. I design products that <strong>balance complexity with care</strong>.</h1>
+        <h1 class="h-reset">I'm <strong>Akhil Male</strong>, a product designer
+          <span class="logos" aria-label="Companies: Juspay, Go Better">
+            <!-- Stand-in logo tiles: swap the letters for assets/logos/juspay.svg and go-better.svg -->
+            <a class="logo" href="https://juspay.io" target="_blank" rel="noopener" style="--tile:#1a56db" data-name="Juspay · 2024 — now">J</a>
+            <a class="logo" href="https://gobetter.co" target="_blank" rel="noopener" style="--tile:#0f9d58" data-name="Go Better · 2022 — 2024">G</a>
+          </span><span class="ph-tag">logos</span>
+          <br>I design products that <strong>balance complexity with care</strong>.</h1>
         <p>Currently at
           <a class="chip" href="https://juspay.io" target="_blank" rel="noopener">Juspay</a>,
           designing 0→1 enterprise products across payment recovery, observability and merchant operations.</p>
@@ -130,21 +136,26 @@
     </section>
 
     <section class="sec" id="work" data-section aria-labelledby="work-h">
-      <div class="sec-head"><h2 id="work-h">Selected work</h2><a href="/resume">Full résumé →</a></div>
-      <div class="frame"><span class="cm" aria-hidden="true"></span>
+      <div class="sec-head"><h2 id="work-h">Selected work</h2>
+        <div class="view" role="group" aria-label="Layout">
+          <button type="button" data-view="list" aria-pressed="true" aria-label="List" title="List"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 4.5h10M3 8h10M3 11.5h10"/></svg></button>
+          <button type="button" data-view="grid" aria-pressed="false" aria-label="Grid" title="Grid"><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="2.5" y="2.5" width="4.5" height="4.5" rx="1"/><rect x="9" y="2.5" width="4.5" height="4.5" rx="1"/><rect x="2.5" y="9" width="4.5" height="4.5" rx="1"/><rect x="9" y="9" width="4.5" height="4.5" rx="1"/></svg></button>
+        </div>
+      </div>
+      <div class="frame" id="work-list" data-layout="list"><span class="cm" aria-hidden="true"></span>
         <div class="group">
           <div class="group-head meta"><span>Juspay</span><span>2024 — now</span></div>
           <ul class="rows">
-            <li><a class="row" href="/work-hypersense" data-peek="assets/hypersense-behance-cover.webp"><span class="row-name">HyperSense</span><span class="row-desc">Payment cost observability, from concept to a demo for Apple</span><span class="row-meta">Case study →</span></a></li>
-            <li><a class="row" href="/work-reconciliation" data-peek="assets/recon/cover.webp"><span class="row-name">Reconciliation</span><span class="row-desc">A clearer path through exception resolution</span><span class="row-meta">Case study →</span></a></li>
-            <li><a class="row" href="/rr-glimpse" data-peek="assets/rr/glimpse/v2/hero-thumb.webp"><span class="row-name">Revenue Recovery</span><span class="row-desc">0→1 recovery for subscription businesses</span><span class="row-meta">Glimpse →</span></a></li>
+            <li><a class="row" href="/work-hypersense" data-peek="assets/hypersense-behance-cover.webp"><span class="row-cover"><img src="assets/hypersense-behance-cover.webp" alt="" loading="lazy"></span><span class="row-name">HyperSense</span><span class="row-desc">Payment cost observability, from concept to a demo for Apple</span><span class="row-meta">Case study →</span></a></li>
+            <li><a class="row" href="/work-reconciliation" data-peek="assets/recon/cover.webp"><span class="row-cover"><img src="assets/recon/cover.webp" alt="" loading="lazy"></span><span class="row-name">Reconciliation</span><span class="row-desc">A clearer path through exception resolution</span><span class="row-meta">Case study →</span></a></li>
+            <li><a class="row" href="/rr-glimpse" data-peek="assets/rr/glimpse/v2/hero-thumb.webp"><span class="row-cover"><img src="assets/rr/glimpse/v2/hero-thumb.webp" alt="" loading="lazy"></span><span class="row-name">Revenue Recovery</span><span class="row-desc">0→1 recovery for subscription businesses</span><span class="row-meta">Glimpse →</span></a></li>
           </ul>
         </div>
         <div class="group">
           <div class="group-head meta"><span>Go Better</span><span>2022 — 2024</span></div>
           <ul class="rows">
-            <li><a class="row" href="/work-skilling" data-peek="assets/skilling-behance.webp"><span class="row-name">Up-skill</span><span class="row-desc">Learning for frontline workers with low digital literacy</span><span class="row-meta">Case study →</span></a></li>
-            <li><a class="row" href="https://www.behance.net/gallery/196838779/Attendance-app-for-blue-collars" target="_blank" rel="noopener" data-peek="assets/attendance-behance.webp"><span class="row-name">Attendance</span><span class="row-desc">A faster daily check-in for the workforce</span><span class="row-meta">Behance ↗</span></a></li>
+            <li><a class="row" href="/work-skilling" data-peek="assets/skilling-behance.webp"><span class="row-cover"><img src="assets/skilling-behance.webp" alt="" loading="lazy"></span><span class="row-name">Up-skill</span><span class="row-desc">Learning for frontline workers with low digital literacy</span><span class="row-meta">Case study →</span></a></li>
+            <li><a class="row" href="https://www.behance.net/gallery/196838779/Attendance-app-for-blue-collars" target="_blank" rel="noopener" data-peek="assets/attendance-behance.webp"><span class="row-cover"><img src="assets/attendance-behance.webp" alt="" loading="lazy"></span><span class="row-name">Attendance</span><span class="row-desc">A faster daily check-in for the workforce</span><span class="row-meta">Behance ↗</span></a></li>
           </ul>
         </div>
       </div>
@@ -207,6 +218,52 @@
   </main>
 </div>
 
+<!-- Résumé, opened in place from the top bar (content from resume.html) -->
+<dialog class="cv" id="cv" aria-labelledby="cv-h">
+  <div class="cv-bar">
+    <span class="meta">Résumé · 2026</span>
+    <div class="cv-actions">
+      <a class="cv-dl" href="assets/resume.pdf" download>Download PDF</a>
+      <button class="cv-x" type="button" data-close-resume aria-label="Close résumé">Close <kbd>esc</kbd></button>
+    </div>
+  </div>
+  <div class="cv-body">
+    <h2 id="cv-h">Akhil Male</h2>
+    <p>Product Designer with 3.5+ years of experience simplifying complex enterprise and B2B products.</p>
+    <p class="meta"><a class="ul" href="mailto:akhilmale.ux@gmail.com">akhilmale.ux@gmail.com</a> · <a class="ul" href="https://www.linkedin.com/in/male-akhil/" target="_blank" rel="noopener">LinkedIn</a></p>
+
+    <h3>Experience</h3>
+    <div class="cv-job">
+      <div class="cv-row"><strong>Juspay</strong><span class="meta">Jun 2024 — now</span></div>
+      <div class="cv-role">Product Designer</div>
+      <p>Designed enterprise payment products across the Hyperswitch suite and the domestic payment ecosystem, contributing to several 0→1 initiatives that turned complex payment systems into clear decision-making experiences for enterprise merchants.</p>
+      <ul>
+        <li><strong>HyperSense</strong> · An investigation-first cost observability experience that turns fragmented payment cost signals into one coherent story. From early concept through merchant adoption.</li>
+        <li><strong>Hyperswitch</strong> · Product experiences across revenue recovery, reconciliation and payment operations, helping enterprise teams understand, investigate and decide.</li>
+      </ul>
+    </div>
+    <div class="cv-job">
+      <div class="cv-row"><strong>Go Better</strong><span class="meta">Dec 2022 — Mar 2024</span></div>
+      <div class="cv-role">Associate Product Designer</div>
+      <p>Designed mobile experiences across Go Better's HRMS products, making learning and daily workforce operations more intuitive and reliable for frontline workers.</p>
+      <ul>
+        <li><strong>Oust</strong> · Redesigned the end-to-end learning experience into a more engaging, personalised, role-based journey that encourages continuous up-skilling.</li>
+        <li><strong>Attendance</strong> · Made a critical daily workflow faster, more reliable and easier to complete accurately.</li>
+      </ul>
+    </div>
+
+    <h3>Education</h3>
+    <div class="cv-row"><span><strong>Avanthi Degree &amp; PG College</strong> · B.Sc Computer Science</span><span class="meta">2018 — 2021</span></div>
+
+    <h3>Skills</h3>
+    <dl class="cv-skills">
+      <div><dt>Design</dt><dd>Product design, enterprise UX, data visualisation, vibe-coding, UX writing, interactive prototyping, design documentation, information architecture</dd></div>
+      <div><dt>Research &amp; strategy</dt><dd>Product strategy, problem framing, product &amp; user research, systems thinking, usability testing, stakeholder collaboration</dd></div>
+      <div><dt>Tools</dt><dd>Figma, Claude Code, Cursor, Lovable, Mixpanel, GitHub, Supabase, Clarity</dd></div>
+    </dl>
+  </div>
+</dialog>
+
 <div class="peek" aria-hidden="true"><img alt=""></div>
 
 <script>
@@ -238,6 +295,25 @@
   }
   tick(); setInterval(tick, 30000);
 
+  // Résumé: opens on this page instead of sending people to /resume
+  var cv = document.getElementById('cv');
+  document.querySelectorAll('[data-open-resume]').forEach(function (b) {
+    b.addEventListener('click', function () { cv.showModal(); });
+  });
+  cv.querySelector('[data-close-resume]').addEventListener('click', function () { cv.close(); });
+  cv.addEventListener('click', function (e) { if (e.target === cv) cv.close(); });
+
+  // Work: list or grid, remembered per visitor
+  var work = document.getElementById('work-list');
+  var viewBtns = document.querySelectorAll('[data-view]');
+  function setView(v) {
+    work.dataset.layout = v;
+    viewBtns.forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.view === v); });
+    try { localStorage.setItem('v3-view', v); } catch (e) {}
+  }
+  viewBtns.forEach(function (b) { b.addEventListener('click', function () { setView(b.dataset.view); }); });
+  try { if (localStorage.getItem('v3-view') === 'grid') setView('grid'); } catch (e) {}
+
   // Click sounds, made with Web Audio (no files), after directoryyy.com: the nav plays
   // a two-note chime with a short echo, every other button or link a soft press.
   var SOUNDS = {
@@ -245,6 +321,10 @@
       { type: 'tone', freq: 1046.5, attack: .006, decay: .22, peak: .09 },
       { type: 'tone', freq: 1568, offset: .09, attack: .006, decay: .26, peak: .08 }
     ], echo: { delay: .12, feedback: .25, wet: .18, lowpass: 4000 } },
+    tick: { gain: .4, layers: [
+      { type: 'noise', filter: 'bandpass', freq: 5400, q: 1.8, attack: .001, decay: .018, peak: .14 },
+      { type: 'tone', freq: 2600, attack: .001, decay: .012, peak: .018 }
+    ] },
     press: { gain: .4, layers: [
       { type: 'noise', filter: 'bandpass', freq: 1700, q: 1.4, attack: .001, decay: .02, peak: .13 }
     ] }
@@ -268,6 +348,7 @@
     g.gain.exponentialRampToValueAtTime(1e-4, t + l.attack + l.decay);
   }
   function play(name) {
+    if (navigator.userActivation && !navigator.userActivation.hasBeenActive) return;
     var c = audio(); if (!c) return;
     var s = SOUNDS[name];
     var go = function () {
@@ -356,8 +437,12 @@
   function reseat() { if (active) { dotPos = null; moveDot(links[active]); } }
   if (document.fonts) document.fonts.ready.then(reseat);
   window.addEventListener('resize', reseat);
-  function setActive(id) {
+  function setActive(id, fromScroll) {
     if (id === active) return;
+    if (fromScroll && active) {
+      play('tick');
+      if (navigator.vibrate && navigator.userActivation && navigator.userActivation.hasBeenActive) navigator.vibrate(8);
+    }
     active = id;
     Object.keys(links).forEach(function (k) { links[k].classList.toggle('is-active', k === id); });
     moveDot(links[id]);
@@ -371,7 +456,7 @@
     sections.forEach(function (s) { if (s.getBoundingClientRect().top < window.innerHeight * 0.45) current = s.id; });
     // At the very bottom the last section can't reach the line, so mark it anyway
     if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) current = sections[sections.length - 1].id;
-    setActive(current);
+    setActive(current, true);
   }
   window.addEventListener('scroll', function () { if (!queued) { queued = true; requestAnimationFrame(spy); } }, { passive: true });
   spy();
@@ -382,7 +467,7 @@
   if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
     document.querySelectorAll('[data-peek]').forEach(function (row, i) {
       var pre = new Image(); pre.src = row.dataset.peek;
-      row.addEventListener('mouseenter', function () { img.src = row.dataset.peek; peek.style.setProperty('--pr', (i % 2 ? 3 : -3) + 'deg'); peek.classList.add('is-on'); });
+      row.addEventListener('mouseenter', function () { if (row.closest('[data-layout="grid"]')) return; img.src = row.dataset.peek; peek.style.setProperty('--pr', (i % 2 ? 3 : -3) + 'deg'); peek.classList.add('is-on'); });
       row.addEventListener('mouseleave', function () { peek.classList.remove('is-on'); });
       row.addEventListener('mousemove', function (e) {
         peek.style.setProperty('--px', (e.clientX + 24) + 'px');
