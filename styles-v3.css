@@ -160,7 +160,7 @@ p { margin: 0 0 24px; }
 /* ===== Hero scene: the hills, in the visitor's time of day =====
    A matted frame (like the case studies' video stages). It opens like a film (letterbox bars part,
    the picture comes into focus), then drifts very slowly. Each mood is a grade on the same image:
-   morning cool and misty, afternoon as painted, evening golden, night dark blue with moon and stars. */
+   Day as painted, Mid golden hour, Night dark blue with moon and stars. */
 /* The cover runs edge to edge across the top, like a page cover: a band of the picture
    (the hills, the lake, the figure), not the whole of it */
 .cover { position: relative; }
@@ -208,19 +208,15 @@ p { margin: 0 0 24px; }
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-/* Morning: cool light, a low mist over the valley */
-:root[data-mood="morning"] .scene .scene-img { filter: brightness(1.06) contrast(.9) saturate(.78) hue-rotate(-10deg); }
-:root[data-mood="morning"] .scene .scene-tint { opacity: 1; background: linear-gradient(180deg, rgb(170 205 255 / .7) 0%, rgb(255 205 215 / .55) 62%, rgb(255 255 255 / 0) 80%); }
-:root[data-mood="morning"] .scene .scene-mist { opacity: 1; background: linear-gradient(0deg, rgb(236 241 250 / .5) 0%, rgb(236 241 250 / .35) 22%, rgb(236 241 250 / .12) 40%, transparent 58%); }
 
-/* Afternoon: as painted, a touch of warm sun from the right */
-:root[data-mood="afternoon"] .scene .scene-tint { opacity: 1; background: radial-gradient(60% 70% at 85% 20%, rgb(255 236 200 / .45), transparent 70%); }
+/* Day: as painted, a touch of warm sun from the right */
+:root[data-mood="day"] .scene .scene-tint { opacity: 1; background: radial-gradient(60% 70% at 85% 20%, rgb(255 236 200 / .45), transparent 70%); }
 
-/* Evening: golden hour, the light low and warm */
-:root[data-mood="evening"] .scene .scene-img { filter: saturate(1.25) contrast(1.08) sepia(.34) brightness(.9) hue-rotate(-8deg); }
-:root[data-mood="evening"] .scene .scene-tint { opacity: 1; background: linear-gradient(180deg, rgb(255 140 60 / .85), rgb(255 185 110 / .55) 58%, rgb(255 110 70 / .35)); }
-:root[data-mood="evening"] .scene .scene-shade { opacity: 1; background: linear-gradient(180deg, rgb(255 150 90 / .18), transparent 40%, rgb(110 40 90 / .45)); }
-:root[data-mood="evening"] .scene .scene-mist { opacity: 1; mix-blend-mode: screen; background: radial-gradient(38% 30% at 78% 70%, rgb(255 175 95 / .55), transparent 70%); }
+/* Mid: golden hour, the light low and warm */
+:root[data-mood="mid"] .scene .scene-img { filter: saturate(1.25) contrast(1.08) sepia(.34) brightness(.9) hue-rotate(-8deg); }
+:root[data-mood="mid"] .scene .scene-tint { opacity: 1; background: linear-gradient(180deg, rgb(255 140 60 / .85), rgb(255 185 110 / .55) 58%, rgb(255 110 70 / .35)); }
+:root[data-mood="mid"] .scene .scene-shade { opacity: 1; background: linear-gradient(180deg, rgb(255 150 90 / .18), transparent 40%, rgb(110 40 90 / .45)); }
+:root[data-mood="mid"] .scene .scene-mist { opacity: 1; mix-blend-mode: screen; background: radial-gradient(38% 30% at 78% 70%, rgb(255 175 95 / .55), transparent 70%); }
 
 /* Night: blue dark, a moon, slow stars */
 :root[data-mood="night"] .scene .scene-img { filter: brightness(.36) contrast(1.15) saturate(.55) hue-rotate(14deg); }
@@ -241,19 +237,21 @@ p { margin: 0 0 24px; }
 }
 @keyframes moon-glow { to { box-shadow: 0 0 22px 8px rgb(255 248 220 / .45), 0 0 80px 34px rgb(170 190 255 / .22); } }
 
-/* Time of day as tabs (also the theme): each tab is an icon; the selected one also shows its name */
-.time-tabs { display: flex; gap: 2px; padding: 3px; border-radius: 99px; background: var(--bg-soft); }
+/* Time of day (also the theme): only the selected mode shows, as icon + name; clicking it
+   opens all three (Day, Mid, Night), and a pick closes it again */
+.time-tabs { display: flex; padding: 3px; border-radius: 99px; background: var(--bg-soft); }
 .time-tabs button {
-  height: 26px; padding: 0 7px; display: flex; align-items: center; gap: 0;
-  border: 0; border-radius: 99px; background: transparent; cursor: pointer;
+  height: 26px; padding: 0 10px 0 8px; display: flex; align-items: center; gap: 6px;
+  border: 0; border-radius: 99px; background: transparent; cursor: pointer; overflow: hidden;
   font: 400 11px/1 var(--mono); color: var(--text-muted); white-space: nowrap;
-  transition: color .15s ease, background-color .25s ease, box-shadow .25s ease, gap .3s var(--ease);
+  max-width: 100px; opacity: 1;
+  transition: max-width .4s var(--ease), padding .4s var(--ease), opacity .25s ease, color .15s ease, background-color .25s ease, box-shadow .25s ease;
 }
+.time-tabs:not(.is-open) button:not([aria-pressed="true"]) { max-width: 0; padding: 0; opacity: 0; pointer-events: none; }
 .time-tabs button:hover { color: var(--text); }
-.time-tabs button[aria-pressed="true"] { background: var(--bg); color: var(--text); box-shadow: 0 1px 2px rgb(0 0 0 / .12); gap: 6px; padding-right: 10px; }
+.time-tabs button[aria-pressed="true"] { background: var(--bg); color: var(--text); box-shadow: 0 1px 2px rgb(0 0 0 / .12); }
 .time-tabs svg { width: 14px; height: 14px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.3; stroke-linecap: round; stroke-linejoin: round; }
-.tab-label { display: inline-block; max-width: 0; opacity: 0; overflow: hidden; transition: max-width .35s var(--ease), opacity .2s ease; }
-.time-tabs button[aria-pressed="true"] .tab-label { max-width: 80px; opacity: 1; }
+.tab-label { display: inline-block; }
 /* On the cover: frosted, light on the picture */
 .time-tabs--cover { position: absolute; right: 16px; bottom: 14px; z-index: 7; background: rgb(0 0 0 / .28); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
 .time-tabs--cover button { color: rgb(255 255 255 / .7); }

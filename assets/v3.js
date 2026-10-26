@@ -5,37 +5,49 @@
 (function () {
   var root = document.documentElement;
 
-  // Time of day: one setting for the whole site, shown as tabs (the selected one is named).
-  // Auto (the default) follows the visitor's clock; a pick is remembered, and picking the tab
-  // for the visitor's own time goes back to Auto. It sets the cover's mood and the theme that goes with it:
-  // morning and afternoon white, evening paper, night dark.
-  var MOOD_THEME = { morning: 'white', afternoon: 'white', evening: 'paper', night: 'dark' };
-  var GREETS = { morning: 'Good morning.', afternoon: 'Good afternoon.', evening: 'Good evening.', night: 'Hello, night owl.' };
+  // Time of day: one setting for the whole site, with three modes that are also the themes:
+  // Day (white), Mid (paper), Night (dark). Auto (the default) follows the visitor's clock:
+  // Day 6 am to 4 pm, Mid 4 to 7 pm, Night 7 pm to 6 am. The control shows only the selected
+  // mode; clicking it opens all three. A pick is remembered; picking the mode for the
+  // visitor's own time goes back to Auto.
+  var MOOD_THEME = { day: 'white', mid: 'paper', night: 'dark' };
   var timeBtns = document.querySelectorAll('[data-set-time]');
   function moodNow() {
     var h = new Date().getHours();
-    return h >= 5 && h < 11 ? 'morning' : h < 16 ? 'afternoon' : h < 19 ? 'evening' : 'night';
+    return h >= 6 && h < 16 ? 'day' : h >= 16 && h < 19 ? 'mid' : 'night';
+  }
+  function greeting(mood) {
+    if (mood === 'night') return 'Hello, night owl.';
+    if (mood === 'mid') return 'Good evening.';
+    return new Date().getHours() < 12 ? 'Good morning.' : 'Good afternoon.';
   }
   function applyTime(choice) {
     var mood = choice === 'auto' ? moodNow() : choice, theme = MOOD_THEME[mood];
     root.dataset.timeChoice = choice;
     root.dataset.mood = mood;
     timeBtns.forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.setTime === mood); });
-    document.querySelectorAll('[data-greet]').forEach(function (el) { el.textContent = GREETS[mood]; });
+    document.querySelectorAll('[data-greet]').forEach(function (el) { el.textContent = greeting(mood); });
     if (root.dataset.theme !== theme) {
       root.dataset.theme = theme;
       document.dispatchEvent(new CustomEvent('v3:theme', { detail: theme }));
     }
   }
   applyTime(root.dataset.timeChoice || 'auto');
+  var tabGroups = document.querySelectorAll('.time-tabs');
+  function closeTabs() { tabGroups.forEach(function (g) { g.classList.remove('is-open'); }); }
   timeBtns.forEach(function (b) {
-    b.addEventListener('click', function () {
-      // the tab for the visitor's own time of day means Auto again
+    b.addEventListener('click', function (e) {
+      var group = b.closest('.time-tabs');
+      e.stopPropagation();
+      if (!group.classList.contains('is-open')) { closeTabs(); group.classList.add('is-open'); return; }
       var choice = b.dataset.setTime === moodNow() ? 'auto' : b.dataset.setTime;
-      try { if (choice === 'auto') localStorage.removeItem('v3-time'); else localStorage.setItem('v3-time', choice); } catch (e) {}
+      try { if (choice === 'auto') localStorage.removeItem('v3-time'); else localStorage.setItem('v3-time', choice); } catch (err) {}
       applyTime(choice);
+      closeTabs();
     });
   });
+  document.addEventListener('click', closeTabs);
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeTabs(); });
   setInterval(function () { if (root.dataset.timeChoice === 'auto') applyTime('auto'); }, 60000);
 
   // Click sounds, made with Web Audio (no files), after directoryyy.com: the nav plays
