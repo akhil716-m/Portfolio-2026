@@ -1,0 +1,184 @@
+/* ===== Case studies in the v3 language =====
+   Loaded last on work-*-v3 pages, after the page's own styles and cs-article.css. The page keeps
+   its markup and components; this file swaps the look: v3 grounds and type, the reading column
+   in the same place as the home page (centred), no left nav, no section rules. Wide visuals
+   break out of the column on both sides, centred on the page. */
+
+/* --- Tokens the case-study components read (the project colour is per theme here) --- */
+:root {
+  --accent: #3a63d8; --acc-rgb: 58 99 216;
+  --acc-soft: #dce5ff; --acc-mid: #9db4f5; --acc-ink: #0a1638; --on-accent: #ffffff;
+  --proj: #3a63d8; --proj-rgb: 58 99 216;
+  --glow: rgb(58 99 216 / .12); --tray: #eef2fd;
+  --fg-rgb: 10 10 10; --bg-rgb: 251 251 251;
+  --sh-rgb: 0 0 0; --sh-k: .3;
+  --bg-card: #ffffff;
+  --error: var(--text);
+  --r-frame: 12px;
+}
+:root[data-theme="dark"] {
+  --accent: #6f9bff; --acc-rgb: 111 155 255;
+  --acc-soft: #d6e2ff; --acc-mid: #2a4fb0; --acc-ink: #0a1638; --on-accent: #0a1638;
+  --proj: #6f9bff; --proj-rgb: 111 155 255;
+  --glow: rgb(111 155 255 / .15); --tray: #0a1638;
+  --fg-rgb: 255 255 255; --bg-rgb: 12 12 12;
+  --sh-rgb: 0 0 0; --sh-k: 1;
+  --bg-card: #151515;
+  --error: var(--text);
+}
+:root[data-theme="paper"] {
+  --accent: #3556bf; --acc-rgb: 53 86 191;
+  --acc-soft: #dde3f5; --acc-mid: #9aaee6; --acc-ink: #0a1638; --on-accent: #ffffff;
+  --proj: #3556bf; --proj-rgb: 53 86 191;
+  --glow: rgb(53 86 191 / .1); --tray: #e9e6f0;
+  --fg-rgb: 36 33 28; --bg-rgb: 244 240 232;
+  --sh-rgb: 60 45 20; --sh-k: .3;
+  --bg-card: #faf7f0;
+  --error: var(--text);
+}
+
+/* --- Page frame: the old globals (styles.css) are not loaded, so reset what they gave --- */
+.v3-cs h1, .v3-cs h2, .v3-cs h3, .v3-cs h4, .v3-cs figure, .v3-cs ul, .v3-cs ol, .v3-cs blockquote { margin: 0; }
+.v3-cs ul, .v3-cs ol { padding: 0; }
+.v3-cs button { font: inherit; }
+.v3-cs .v3-main { padding-bottom: 64px; }
+/* No left nav on case studies: the top bar carries Back and the theme */
+.v3-cs .topbar { justify-content: space-between; }
+.tb-back { font: 500 14px/1 var(--font); color: var(--text-soft); transition: color .15s ease; }
+.tb-back:hover { color: var(--text); }
+
+/* --- Reading column: the page's own wraps sit in the v3 column --- */
+.v3-cs .cs-wrap { max-width: none; margin: 0; padding: 0; }
+/* Wide visuals: up to 960px, centred on the page (the column is centred, so centring on it
+   centres them on the page too); on small screens they keep a 24px margin each side */
+.v3-cs .cs-wrap--wide,
+.v3-cs .cs-wrap--showcase { width: min(960px, calc(100vw - 48px)); max-width: none; margin-left: calc(50% - min(480px, 50vw - 24px)); }
+.v3-cs .cs-vis--wide { --vis-w: min(960px, calc(100vw - 48px)); margin-left: calc(50% - var(--vis-w) / 2) !important; }
+
+/* --- Hero: a quiet article header like the home intro --- */
+.v3-cs .cs-hero { overflow: visible; }
+.v3-cs .cs-hero.cs-hero--article { padding: 56px 0 0; }
+.v3-cs .cs-hero--article::before { display: none; }
+.v3-cs .cs-hero--article .cs-hero-eyebrow {
+  font: 400 12px/1.4 var(--mono); letter-spacing: .01em; text-transform: none; color: var(--text-muted); margin: 0 0 14px;
+}
+.v3-cs .cs-hero--article .cs-hero-title {
+  font: 500 32px/1.2 var(--font); letter-spacing: -.02em; color: var(--text);
+}
+.v3-cs .cs-hero--article .cs-hero-title em { font-weight: 500; color: inherit; }
+.v3-cs .cs-hero-facts { font: 500 14px/1.5 var(--font); color: var(--text-muted); margin-top: 14px; }
+.v3-cs .cs-hero-facts li + li::before { background: currentColor; opacity: .5; }
+.v3-cs .cs-cover { margin-top: 48px; }
+/* The cover sits in the same soft grey frame as the recording stages */
+.v3-cs .cs-cover .cs-shot {
+  padding: clamp(10px, 1.6vw, 18px); background: var(--stage);
+  border: 1px solid var(--line); border-radius: 16px; box-shadow: none;
+}
+
+/* --- Sections: no rules between them, more air (like the home page) --- */
+.v3-cs .cs-section { border-top: 0; padding: 0; margin-top: 140px; }
+.v3-cs .cs-hero--article + .cs-section { padding-top: 0; margin-top: 120px; }
+
+/* Label: mono meta, the number a step quieter */
+.v3-cs .cs-label {
+  font: 400 12px/1.4 var(--mono); letter-spacing: .01em; text-transform: none;
+  color: var(--text-muted); margin-bottom: 16px; gap: 8px;
+}
+.v3-cs .cs-label::after { display: none; }
+.v3-cs .cs-label .num { color: var(--text-muted); }
+
+/* Headings and body in the home page's type: Public Sans, grey copy, ink for what matters */
+.v3-cs .cs-display {
+  font: 500 24px/1.35 var(--font); letter-spacing: -.015em; color: var(--text);
+  max-width: 30ch; margin: 0 0 24px;
+}
+.v3-cs .cs-display em { font-weight: 500; color: inherit; }
+.v3-cs .cs-h3 { font: 500 17px/1.4 var(--font); color: var(--text); }
+.v3-cs .cs-p, .v3-cs .cs-lead, .v3-cs .cs-list li {
+  font: 500 15px/1.65 var(--font); letter-spacing: 0; color: var(--text-soft); max-width: none;
+}
+.v3-cs .cs-p, .v3-cs .cs-lead { margin: 0 0 24px; }
+.v3-cs .cs-p strong, .v3-cs .cs-lead strong, .v3-cs .cs-list li strong { color: var(--text); font-weight: 500; }
+
+/* --- Colour: v3 is monochrome. HyperSense blue stays only where it means something
+   (key numbers, active / selected states, the diagrams); labels, icons, emphasis, callouts
+   and card tints go to the v3 greys. --- */
+.v3-cs .cs-hero-eyebrow, .v3-cs .cs-module-tag, .v3-cs .cs-tip-term, .v3-cs .cs-fee-why-num,
+.v3-cs .cs-num, .v3-cs .cs-deck-label, .v3-cs .cs-challenge-tag, .v3-cs .cs-scenario-tag,
+.v3-cs .cs-outcome-next-tag, .v3-cs .cs-iter-step--active .cs-iter-tag, .v3-cs .cs-shot-url span em,
+.v3-cs .cs-arc-row--win .cs-arc-eyebrow, .v3-cs .cs-arc-row--win.is-hl .cs-arc-eyebrow,
+.v3-cs .cs-fstat--win .cs-fstat-eyebrow, .v3-cs .cs-fstat--win .cs-fstat-num .cs-fstat-sym,
+.v3-cs .cs-fstat--win .cs-fstat-num .cs-fstat-sym-pre { color: var(--text-muted); }
+.v3-cs .cs-role-icon, .v3-cs .cs-persona-icon, .v3-cs .cs-tension-icon,
+.v3-cs .cs-list li::before, .v3-cs .cs-tension-arrow, .v3-cs .cs-thanks-mark { color: var(--text-soft); }
+.v3-cs .cs-p strong, .v3-cs .cs-fstat-desc strong { color: var(--text); }
+.v3-cs .cs-gloss { border-bottom-color: var(--line-strong); }
+.v3-cs .cs-gloss:hover, .v3-cs .cs-gloss:focus-visible { color: var(--text); border-bottom-color: currentColor; }
+.v3-cs .cs-subdivider::before { background: var(--line-strong); }
+/* Side-ruled callouts: a neutral rule, no tint */
+.v3-cs .cs-quote, .v3-cs .cs-principle-callout, .v3-cs .cs-cost-callout, .v3-cs .cs-challenge,
+.v3-cs .cs-outcome, .v3-cs .cs-outcome-next, .v3-cs .cs-sim-callout, .v3-cs .cs-sim-dg {
+  border-left-color: var(--line-strong); background: none;
+}
+.v3-cs .cs-challenge, .v3-cs .cs-sim-callout, .v3-cs .cs-sim-dg { background: var(--bg-soft); }
+/* Stat cards: plain cards, no gradient or glow; the highlighted one keeps its number in blue */
+.v3-cs .cs-fstat, .v3-cs .cs-fstat--win { background: var(--bg-card); border-color: var(--line); }
+.v3-cs .cs-fstat::before, .v3-cs .cs-fstat--win::before { display: none; }
+.v3-cs .cs-outcome-step--win, .v3-cs .cs-iter-step--active { background: var(--bg-soft); }
+.v3-cs .cs-sim-final { background: none; border-color: var(--line-strong); }
+.v3-cs .cs-sim-stage.is-active { border-color: var(--line-strong); }
+.v3-cs .cs-journey-step:last-child .cs-journey-dot { border-color: var(--text); }
+.v3-cs .cs-journey-step:last-child .cs-journey-num { color: var(--text); }
+/* Glows are a dark-ground effect; drop them */
+.v3-cs .cs-flow-dot { box-shadow: none; }
+.v3-cs .cs-sim-rail-progress, .v3-cs .cs-sim-rail-bubble { box-shadow: none; }
+.v3-cs .cs-tl-dot--active { box-shadow: 0 0 0 4px var(--bg-soft); }
+.v3-cs .cs-cta:hover { background: var(--text); border-color: var(--text); color: var(--bg); }
+
+/* --- Recording stages: the recordings play as they are, inside a soft grey frame that follows
+   the theme (a step lighter than the page on dark, so the frame still reads). --- */
+:root { --stage: #f2f2f2; }
+:root[data-theme="paper"] { --stage: #ebe6db; }
+:root[data-theme="dark"] { --stage: #1e1e1e; }
+.v3-cs .cs-stage { background: var(--stage); border: 1px solid var(--line); }
+.v3-cs .cs-stage::before { display: none; }
+.v3-cs .cs-stage > video { mix-blend-mode: normal; }
+.v3-cs .cs-stage > video:fullscreen::backdrop { background: #101309; }
+
+/* --- Text inside components: one quieter scale. Headings keep their size; titles inside
+   cards and lists read at 16px, supporting notes at 14px, big numbers a step down. --- */
+.v3-cs .cs-tensions { margin-top: 20px; }
+.v3-cs .cs-tension-row { padding: 18px 0; gap: 0 14px; grid-template-columns: 16px 1fr; }
+.v3-cs .cs-tension-icon { width: 16px; height: 16px; margin-top: 3px; }
+.v3-cs .cs-tension-title { font: 500 16px/1.4 var(--font); letter-spacing: -.005em; gap: 4px 10px; margin-bottom: 4px; }
+.v3-cs .cs-tension-arrow { width: 14px; height: 14px; }
+.v3-cs .cs-tension-friction { font: 500 14px/1.6 var(--font); }
+.v3-cs .cs-scenario-title, .v3-cs .cs-persona-name, .v3-cs .cs-principle-statement,
+.v3-cs .cs-cost-callout-headline, .v3-cs .cs-thanks-note p, .v3-cs .cs-sim-teaser-title {
+  font: 500 16px/1.5 var(--font); letter-spacing: -.005em;
+}
+.v3-cs .cs-docs-title, .v3-cs .cs-more-title { font: 500 20px/1.35 var(--font); letter-spacing: -.01em; color: var(--text); }
+.v3-cs .cs-cost-callout-context, .v3-cs .cs-principle-context { font: 500 14px/1.6 var(--font); }
+.v3-cs .cs-quote { font: 500 17px/1.6 var(--font); font-style: normal; }
+/* Numbers */
+.v3-cs .cs-fstat-num { font-size: 40px; }
+.v3-cs .cs-cost-callout-rate { font-size: 32px; }
+.v3-cs .cs-fee-rate { font-size: 26px; }
+.v3-cs .cs-stat-num { font-size: 22px; }
+.v3-cs .cs-sim-final-amt { font-size: 20px; }
+.v3-cs .cs-sim-source-amt, .v3-cs .cs-sim-amt { font-size: 20px; }
+.v3-cs .cs-sim-stage-amt { font-size: 17px; }
+
+/* Footer: the home page's footer line */
+.v3-cs .foot { display: flex; justify-content: space-between; }
+.v3-cs .foot a { color: var(--text-muted); transition: color .2s ease; }
+.v3-cs .foot a:hover { color: var(--text); }
+
+/* Below the two-column layout the column is the full width, and so are wide visuals */
+@media (max-width: 960px) {
+  .v3-cs .cs-section { margin-top: 104px; }
+}
+@media (max-width: 600px) {
+  .v3-cs .cs-hero--article .cs-hero-title { font-size: 28px; }
+  .v3-cs .cs-display { font-size: 21px; }
+}

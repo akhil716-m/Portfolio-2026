@@ -458,15 +458,15 @@ p { margin: 0 0 24px; }
 .frame[data-layout="grid"] .row-meta { margin-top: 10px; }
 .frame[data-layout="grid"] .row:hover .row-meta { transform: translateX(3px); }
 
-/* ===== Résumé sheet, slides in from the right ===== */
+/* ===== Résumé, a sheet centred on the page in the content column's width ===== */
 .cv {
-  margin: 0 0 0 auto;
-  width: min(560px, 100vw);
+  margin: auto;
+  width: min(var(--col), calc(100vw - 32px));
   max-width: none;
-  height: 100dvh; max-height: none;
+  max-height: min(86dvh, 860px);
   padding: 0;
-  border: 0;
-  border-left: 1px solid var(--line);
+  border: 1px solid var(--line);
+  border-radius: 16px;
   background: var(--bg);
   color: var(--text-soft);
   box-shadow: var(--shadow);
@@ -474,7 +474,7 @@ p { margin: 0 0 24px; }
 .cv::backdrop { background: rgb(0 0 0 / .28); backdrop-filter: blur(2px); }
 .cv[open] { animation: cv-in .45s var(--ease); }
 .cv[open]::backdrop { animation: fadein .3s ease; }
-@keyframes cv-in { from { transform: translateX(40px); opacity: 0; } }
+@keyframes cv-in { from { transform: translateY(16px) scale(.98); opacity: 0; } }
 .cv-bar {
   position: sticky; top: 0; z-index: 1;
   display: flex; align-items: center; justify-content: space-between; gap: 12px;

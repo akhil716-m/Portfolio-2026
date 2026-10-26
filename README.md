@@ -7,7 +7,7 @@ The live site is whatever is on `main`; the three versions below are kept so any
 | **v1** | The site as deployed before the redesign (`origin/main` at `003734d`, lime accent, original home) | git tag `v1-live`; browsable at `/home-v1`, `/work-hypersense-v1`, `/work-reconciliation-v1`, `/work-skilling-v1`, `/resume-v1`, `/contact-v1` (all noindex, styled by `styles-v1.css`) |
 | **v1b** | Work in progress on this branch just before the home-v2 promotion (Variation B, glass cards, copy edits) | git tag `pre-home-v2` |
 | **v2** | The current design: home-v2 as the home, dark + neutral white, project colour on case studies, polaroid section, Up-skill rail everywhere, page transitions | git tag `v2`; it is the live pages (`index.html`, `work-*.html`, `resume.html`, `styles.css`) |
-| **v3** (in progress) | Minimal refresh: one narrow column, left nav, white / dark / paper themes, hand-drawn hero sketch, "Currently" card, work as a list | `/home-v3` (noindex, styled by `styles-v3.css`); not linked from the live site yet |
+| **v3** (in progress) | Minimal refresh: one narrow column, left nav, white / dark / paper themes, hand-drawn hero sketch, "Currently" card, work as a list | `/home-v3` and `/work-hypersense-v3` (noindex). Shared look in `styles-v3.css`, shared nav / sound / theme script in `assets/v3.js`, case-study skin in `assets/cs-v3.css`; not linked from the live site yet |
 
 ## The colour + shader lab (the "preview theme" panel)
 The theme, colour and shader switcher is stored, not deleted. Open it at `/lab-home`, `/lab-work-hypersense`,
