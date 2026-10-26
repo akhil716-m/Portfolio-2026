@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Instrument+Serif:ital@0;1&family=Geist+Mono:wght@400&family=Public+Sans:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles-v3.css?v=12">
+<link rel="stylesheet" href="styles-v3.css?v=13">
 <script>
   // Time of day before first paint: the visitor's pick, or Auto from their clock
   // (Day 6 am-4 pm, Mid 4-7 pm, Night 7 pm-6 am). Day is the white theme, Mid paper, Night dark.
@@ -72,6 +72,10 @@
 
     <!-- Top bar: the résumé opens on this page -->
     <header class="topbar">
+      <!-- Where the visitor is: their time, city and the weather there (city from their
+           connection via GeoJS, weather from Open-Meteo; both free, no key) -->
+      <p class="here meta" aria-live="polite"><span data-here-time>--:--</span><span data-here-place hidden></span><span data-here-weather hidden></span></p>
+      <span class="tb-rule" aria-hidden="true"></span>
       <button class="tb-link" type="button" data-open-resume>Resume</button>
     </header>
 
@@ -259,6 +263,43 @@
       var x = Math.random() * 100, y = Math.random() * 52;
       star.style.cssText = 'left:' + x + '%;top:' + y + '%;--s:' + (Math.random() < .15 ? 2 : 1) + 'px;--t:' + (2 + Math.random() * 4).toFixed(1) + 's;--dl:-' + (Math.random() * 6).toFixed(1) + 's';
       sky.appendChild(star);
+    }
+  }
+
+  // The visitor's own time, city and weather beside Resume. The city comes from their
+  // connection (GeoJS) and the weather from Open-Meteo; kept for 30 minutes in the tab.
+  // If either service can't be reached, the time still shows on its own.
+  var hereTime = document.querySelector('[data-here-time]');
+  if (hereTime) {
+    var herePlace = document.querySelector('[data-here-place]'), hereWeather = document.querySelector('[data-here-weather]');
+    var tickHere = function () { hereTime.textContent = new Date().toLocaleTimeString('en-IN', { hour: 'numeric', minute: '2-digit', hour12: true }).toLowerCase(); };
+    tickHere(); setInterval(tickHere, 30000);
+    var SKY = function (c) {
+      return c === 0 ? 'Clear' : c <= 2 ? 'Partly cloudy' : c === 3 ? 'Cloudy' : c <= 48 ? 'Fog' : c <= 57 ? 'Drizzle'
+        : c <= 67 ? 'Rain' : c <= 77 ? 'Snow' : c <= 82 ? 'Showers' : 'Thunderstorm';
+    };
+    var showHere = function (h) {
+      if (h.city) { herePlace.textContent = h.city; herePlace.hidden = false; }
+      if (typeof h.temp === 'number') { hereWeather.textContent = Math.round(h.temp) + '° ' + SKY(h.code); hereWeather.hidden = false; }
+    };
+    var getJSON = function (url) {
+      var ctl = window.AbortController ? new AbortController() : null;
+      if (ctl) setTimeout(function () { ctl.abort(); }, 5000);
+      return fetch(url, ctl ? { signal: ctl.signal } : {}).then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); });
+    };
+    var cached = null;
+    try { cached = JSON.parse(sessionStorage.getItem('v3-here') || 'null'); } catch (e) {}
+    if (cached && Date.now() - cached.at < 30 * 60 * 1000) showHere(cached);
+    else {
+      getJSON('https://get.geojs.io/v1/ip/geo.json').then(function (g) {
+        var here = { city: g.city, at: Date.now() };
+        showHere(here);
+        return getJSON('https://api.open-meteo.com/v1/forecast?latitude=' + g.latitude + '&longitude=' + g.longitude + '&current=temperature_2m,weather_code').then(function (w) {
+          here.temp = w.current.temperature_2m; here.code = w.current.weather_code;
+          showHere(here);
+          try { sessionStorage.setItem('v3-here', JSON.stringify(here)); } catch (e) {}
+        });
+      }).catch(function () {});
     }
   }
 
