@@ -157,22 +157,87 @@ p { margin: 0 0 24px; }
 .sec-head a { font-size: 13px; font-weight: 500; color: var(--text-muted); transition: color .2s ease; }
 .sec-head a:hover { color: var(--text); }
 
-/* ===== Hero illustration: hand-drawn line + stipple, drawn in on load ===== */
-.sketch { margin: 56px 0 48px; color: var(--text); }
-.sketch svg { width: 100%; height: auto; overflow: visible; }
-.sketch .ink { fill: none; stroke: currentColor; stroke-width: 1.3; stroke-linecap: round; stroke-linejoin: round; }
-.sketch .ink-thin { stroke-width: .9; }
-.sketch .dots { fill: currentColor; opacity: var(--stipple); }
-.sketch .draw { stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 1.8s var(--ease) forwards; animation-delay: var(--d, 0s); }
-.sketch .fade { opacity: 0; animation: fadein 1.2s ease forwards; animation-delay: var(--d, .6s); }
-.sketch .sun-rays { transform-origin: 470px 58px; animation: spin 40s linear infinite; }
-.sketch .bird { animation: drift 9s ease-in-out infinite alternate; }
-.sketch .bird + .bird { animation-duration: 11s; animation-delay: -3s; }
-.sketch figcaption { margin-top: 10px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-@keyframes draw { to { stroke-dashoffset: 0; } }
+/* ===== Hero scene: the hills, in the visitor's time of day =====
+   A matted frame (like the case studies' video stages). It opens like a film (letterbox bars part,
+   the picture comes into focus), then drifts very slowly. Each mood is a grade on the same image:
+   morning cool and misty, afternoon as painted, evening golden, night dark blue with moon and stars. */
+.scene { margin: 56px 0 48px; }
+.scene-frame { padding: 8px; border-radius: 18px; background: var(--bg-soft); border: 1px solid var(--line); }
+.scene-view { position: relative; aspect-ratio: 1750 / 863; border-radius: 11px; overflow: hidden; background: #0d1426; isolation: isolate; }
+.scene-depth { position: absolute; inset: -3%; transition: transform 1.2s var(--ease); transform: translate(var(--px, 0), var(--py, 0)); }
+.scene-img {
+  width: 100%; height: 100%; object-fit: cover;
+  animation: scene-in 2.2s var(--ease) backwards, scene-drift 46s ease-in-out 2.2s infinite alternate;
+  transition: filter 1.6s ease;
+}
+@keyframes scene-in { from { filter: blur(10px) brightness(.8); transform: scale(1.14); } to { transform: scale(1.04); } }
+@keyframes scene-drift { from { transform: scale(1.04) translate(0, 0); } to { transform: scale(1.1) translate(-1.6%, -1%); } }
+.scene-bar { position: absolute; left: 0; right: 0; height: 50%; background: #0b0b0b; z-index: 6; animation: bar-open 1.5s cubic-bezier(.7, 0, .2, 1) .15s both; }
+.scene-bar--top { top: 0; transform-origin: top; }
+.scene-bar--bottom { bottom: 0; transform-origin: bottom; }
+@keyframes bar-open { from { transform: scaleY(1); } to { transform: scaleY(0); } }
+
+/* Grade layers, each fades in for its mood */
+.scene-tint, .scene-shade, .scene-mist, .scene-stars, .scene-moon { position: absolute; inset: 0; opacity: 0; transition: opacity 1.6s ease; pointer-events: none; }
+.scene-tint { mix-blend-mode: soft-light; }
+.scene-shade { mix-blend-mode: multiply; }
+.scene-grain {
+  position: absolute; inset: 0; pointer-events: none; opacity: .09; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Morning: cool light, a low mist over the valley */
+.scene[data-mood="morning"] .scene-img { filter: brightness(1.06) contrast(.9) saturate(.78) hue-rotate(-10deg); }
+.scene[data-mood="morning"] .scene-tint { opacity: 1; background: linear-gradient(180deg, rgb(170 205 255 / .7) 0%, rgb(255 205 215 / .55) 62%, rgb(255 255 255 / 0) 80%); }
+.scene[data-mood="morning"] .scene-mist { opacity: 1; background: linear-gradient(0deg, rgb(236 241 250 / .5) 0%, rgb(236 241 250 / .35) 22%, rgb(236 241 250 / .12) 40%, transparent 58%); }
+
+/* Afternoon: as painted, a touch of warm sun from the right */
+.scene[data-mood="afternoon"] .scene-tint { opacity: 1; background: radial-gradient(60% 70% at 85% 20%, rgb(255 236 200 / .45), transparent 70%); }
+
+/* Evening: golden hour, the light low and warm */
+.scene[data-mood="evening"] .scene-img { filter: saturate(1.25) contrast(1.08) sepia(.34) brightness(.9) hue-rotate(-8deg); }
+.scene[data-mood="evening"] .scene-tint { opacity: 1; background: linear-gradient(180deg, rgb(255 140 60 / .85), rgb(255 185 110 / .55) 58%, rgb(255 110 70 / .35)); }
+.scene[data-mood="evening"] .scene-shade { opacity: 1; background: linear-gradient(180deg, rgb(255 150 90 / .18), transparent 40%, rgb(110 40 90 / .45)); }
+.scene[data-mood="evening"] .scene-mist { opacity: 1; mix-blend-mode: screen; background: radial-gradient(38% 30% at 78% 70%, rgb(255 175 95 / .55), transparent 70%); }
+
+/* Night: blue dark, a moon, slow stars */
+.scene[data-mood="night"] .scene-img { filter: brightness(.36) contrast(1.15) saturate(.55) hue-rotate(14deg); }
+.scene[data-mood="night"] .scene-shade { opacity: 1; background: linear-gradient(180deg, rgb(20 30 85 / .55), rgb(10 18 50 / .4)); }
+.scene[data-mood="night"] .scene-stars, .scene[data-mood="night"] .scene-moon { opacity: 1; }
+.scene-stars i {
+  position: absolute; width: var(--s); height: var(--s); border-radius: 50%;
+  background: #fff; box-shadow: 0 0 4px rgb(255 255 255 / .8);
+  animation: twinkle var(--t) ease-in-out var(--dl) infinite alternate;
+}
+@keyframes twinkle { from { opacity: .15; } to { opacity: .95; } }
+.scene-moon::before {
+  content: ""; position: absolute; left: 40%; top: 12%;
+  width: 4.2%; aspect-ratio: 1; border-radius: 50%;
+  background: radial-gradient(circle at 38% 36%, #fffdf3, #e9e4d2 70%);
+  box-shadow: 0 0 18px 6px rgb(255 248 220 / .35), 0 0 60px 26px rgb(170 190 255 / .18);
+  animation: moon-glow 6s ease-in-out infinite alternate;
+}
+@keyframes moon-glow { to { box-shadow: 0 0 22px 8px rgb(255 248 220 / .45), 0 0 80px 34px rgb(170 190 255 / .22); } }
+
+.scene figcaption { margin-top: 12px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 12px; }
+/* Time-of-day switcher: Auto follows the visitor's clock; the icons show each mood */
+.moods { display: flex; gap: 2px; padding: 3px; border-radius: 99px; background: var(--bg-soft); flex: none; }
+.moods button {
+  height: 26px; min-width: 28px; padding: 0 8px;
+  display: grid; place-items: center;
+  border: 0; border-radius: 99px; background: transparent; cursor: pointer;
+  font: 400 11px/1 var(--mono); color: var(--text-muted);
+  transition: color .15s ease, background-color .2s ease, box-shadow .2s ease;
+}
+.moods button:hover { color: var(--text); }
+.moods button[aria-pressed="true"] { background: var(--bg); color: var(--text); box-shadow: 0 1px 2px rgb(0 0 0 / .12); }
+.moods svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1.3; stroke-linecap: round; stroke-linejoin: round; }
+@media (hover: hover) and (pointer: fine) { .scene-view:hover .scene-depth { transition-duration: .4s; } }
+@media (prefers-reduced-motion: reduce) {
+  .scene-img { animation: none; transform: scale(1.04); }
+  .scene-bar { display: none; }
+}
 @keyframes fadein { to { opacity: var(--o, 1); } }
-@keyframes spin { to { transform: rotate(360deg); } }
-@keyframes drift { from { transform: translate(0, 0); } to { transform: translate(14px, -5px); } }
 
 /* ===== Intro ===== */
 .status { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text-muted); margin-bottom: 24px; }

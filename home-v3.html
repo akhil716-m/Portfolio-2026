@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Geist+Mono:wght@400&family=Public+Sans:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles-v3.css">
+<link rel="stylesheet" href="styles-v3.css?v=4">
 <script>
   // Apply the saved theme before first paint (white is the default)
   try { var t = localStorage.getItem('v3-theme'); if (t === 'dark' || t === 'paper') document.documentElement.dataset.theme = t; } catch (e) {}
@@ -46,54 +46,34 @@
       </div>
     </header>
 
-    <!-- Hero illustration. A stand-in line drawing (hills, a winding road, the sun):
-         swap for a real hand-drawn piece later, keeping the same width. -->
-    <figure class="sketch in" style="--d:0s">
-      <svg viewBox="0 0 600 210" role="img" aria-label="A line drawing of hills with a road winding into them under the sun">
-        <defs>
-          <filter id="wobble"><feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="4"/><feDisplacementMap in="SourceGraphic" scale="2.2"/></filter>
-          <pattern id="stip" width="6" height="6" patternUnits="userSpaceOnUse">
-            <circle cx="1.2" cy="1.4" r=".75"/><circle cx="4.3" cy="4.4" r=".6"/>
-          </pattern>
-          <pattern id="stip-dense" width="4" height="4" patternUnits="userSpaceOnUse">
-            <circle cx="1" cy="1" r=".7"/><circle cx="3" cy="3" r=".6"/>
-          </pattern>
-          <clipPath id="far"><path d="M0 132 C 60 104 110 92 170 112 S 290 70 360 100 S 500 84 600 116 V 210 H 0 Z"/></clipPath>
-          <clipPath id="near"><path d="M0 176 C 90 150 180 160 260 154 S 430 140 600 168 V 210 H 0 Z"/></clipPath>
-        </defs>
-        <g filter="url(#wobble)">
-          <!-- stipple shading, fades in under the lines -->
-          <g class="dots fade" style="--d:.9s;--o:1">
-            <rect clip-path="url(#far)" x="0" y="96" width="600" height="60" fill="url(#stip)"/>
-            <rect clip-path="url(#near)" x="0" y="150" width="600" height="60" fill="url(#stip-dense)"/>
-          </g>
-          <!-- sun -->
-          <circle class="ink draw" style="--d:.2s" pathLength="1" cx="470" cy="58" r="17"/>
-          <g class="sun-rays"><g class="ink ink-thin fade" style="--d:1.1s">
-            <path d="M470 30v-8M470 94v-8M442 58h-8M506 58h-8M450 38l-6-6M496 84l-6-6M490 38l6-6M444 84l6-6"/>
-          </g></g>
-          <!-- far ridge, near ridge -->
-          <path class="ink draw" style="--d:0s" pathLength="1" d="M0 132 C 60 104 110 92 170 112 S 290 70 360 100 S 500 84 600 116"/>
-          <path class="ink draw" style="--d:.25s" pathLength="1" d="M0 176 C 90 150 180 160 260 154 S 430 140 600 168"/>
-          <!-- the road, narrowing into the hills -->
-          <path class="ink draw" style="--d:.5s" pathLength="1" d="M236 210 C 262 192 300 186 290 172 C 282 162 318 158 330 146 C 338 138 326 128 336 118"/>
-          <path class="ink draw" style="--d:.55s" pathLength="1" d="M292 210 C 306 196 330 186 318 172 C 310 162 338 156 344 146 C 348 138 340 128 342 118"/>
-          <path class="ink ink-thin draw" style="--d:.9s" pathLength="1" stroke-dasharray="3 6" d="M264 208 C 282 194 316 186 304 172 C 296 162 328 157 337 146"/>
-          <!-- pines -->
-          <g class="ink ink-thin fade" style="--d:1.2s">
-            <path d="M120 150 l8 -22 l8 22 M122 142 h12 M128 150 v6"/>
-            <path d="M146 154 l6 -16 l6 16 M152 154 v5"/>
-            <path d="M420 142 l9 -24 l9 24 M423 133 h12 M429 142 v6"/>
-            <path d="M446 146 l6 -15 l6 15 M452 146 v5"/>
-            <path d="M560 160 l7 -18 l7 18 M567 160 v5"/>
-            <path d="M40 166 l7 -18 l7 18 M47 166 v5"/>
-          </g>
-          <!-- a cloud and two birds -->
-          <path class="ink ink-thin fade" style="--d:1.3s" d="M92 62 c2 -9 14 -10 18 -3 c3 -8 16 -8 18 1 c7 -1 11 5 8 9 h-48 c-4 -3 -2 -8 4 -7z"/>
-          <g class="fade" style="--d:1.5s"><path class="ink ink-thin bird" d="M232 52 q5 -5 9 0 q4 -5 9 0"/><path class="ink ink-thin bird" d="M262 40 q4 -4 7 0 q3 -4 7 0"/></g>
-        </g>
-      </svg>
-      <figcaption class="meta"><span>Fig. 01 · Somewhere in the hills, on the way to a track day.</span><span class="ph-tag">placeholder</span></figcaption>
+    <!-- Hero scene: the hills at the visitor's time of day. data-mood is set by the script
+         (morning / afternoon / evening / night); clicking the caption's mood shows the others. -->
+    <figure class="scene in" style="--d:0s" data-mood="afternoon">
+      <div class="scene-frame">
+        <div class="scene-view">
+          <div class="scene-depth">
+            <img class="scene-img" src="assets/v3/hills.webp" width="1750" height="863" alt="Someone sitting on a rock on a grassy hill, looking out over a lake and blue mountains under big clouds" fetchpriority="high">
+          </div>
+          <div class="scene-tint" aria-hidden="true"></div>
+          <div class="scene-shade" aria-hidden="true"></div>
+          <div class="scene-mist" aria-hidden="true"></div>
+          <div class="scene-stars" aria-hidden="true"></div>
+          <div class="scene-moon" aria-hidden="true"></div>
+          <div class="scene-grain" aria-hidden="true"></div>
+          <span class="scene-bar scene-bar--top" aria-hidden="true"></span>
+          <span class="scene-bar scene-bar--bottom" aria-hidden="true"></span>
+        </div>
+      </div>
+      <figcaption class="meta">
+        <span>Fig. 01 · <span data-mood-line>This afternoon</span>, somewhere in the hills.</span>
+        <div class="moods" role="group" aria-label="Time of day">
+          <button type="button" data-mood-set="auto" aria-pressed="true" title="Your time of day">Auto</button>
+          <button type="button" data-mood-set="morning" aria-pressed="false" aria-label="Morning" title="Morning"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 11.5h10M5 11.5a3 3 0 0 1 6 0M8 4.5v1.6M3.6 7.1l1 1M12.4 7.1l-1 1M5 14h6"/></svg></button>
+          <button type="button" data-mood-set="afternoon" aria-pressed="false" aria-label="Afternoon" title="Afternoon"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="3"/><path d="M8 1.5v1.6M8 12.9v1.6M1.5 8h1.6M12.9 8h1.6M3.4 3.4l1.1 1.1M11.5 11.5l1.1 1.1M12.6 3.4l-1.1 1.1M4.5 11.5l-1.1 1.1"/></svg></button>
+          <button type="button" data-mood-set="evening" aria-pressed="false" aria-label="Evening" title="Evening"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 10.5h11M4.8 10.5a3.2 3.2 0 0 1 6.4 0M4 13h8M8 4.2v1.3M10.8 8.6l.9-.9M5.2 8.6l-.9-.9"/></svg></button>
+          <button type="button" data-mood-set="night" aria-pressed="false" aria-label="Night" title="Night"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M13.2 9.6A5.6 5.6 0 0 1 6.4 2.8a5.6 5.6 0 1 0 6.8 6.8z"/></svg></button>
+        </div>
+      </figcaption>
     </figure>
 
     <section class="intro">
@@ -266,9 +246,58 @@
 
 <div class="peek" aria-hidden="true"><img alt=""></div>
 
-<script src="assets/v3.js"></script>
+<script src="assets/v3.js?v=4"></script>
 <script>
 (function () {
+  // Hero scene: the hills at the visitor's own time of day. The caption's mood button steps
+  // through the others; a new hour picks the mood up again unless someone chose one.
+  var scene = document.querySelector('.scene');
+  if (scene) {
+    var MOODS = ['morning', 'afternoon', 'evening', 'night'];
+    var LINES = { morning: 'This morning', afternoon: 'This afternoon', evening: 'This evening', night: 'Tonight' };
+    var auto = true;
+    var moodNow = function () {
+      var h = new Date().getHours();
+      return h >= 5 && h < 11 ? 'morning' : h < 16 ? 'afternoon' : h < 19 ? 'evening' : 'night';
+    };
+    var moodBtns = scene.querySelectorAll('[data-mood-set]');
+    var setMood = function (m) {
+      scene.dataset.mood = m;
+      scene.querySelector('[data-mood-line]').textContent = LINES[m];
+      moodBtns.forEach(function (b) {
+        b.setAttribute('aria-pressed', b.dataset.moodSet === (auto ? 'auto' : m));
+      });
+    };
+    setMood(moodNow());
+    setInterval(function () { if (auto) setMood(moodNow()); }, 60000);
+    moodBtns.forEach(function (b) {
+      b.addEventListener('click', function () {
+        auto = b.dataset.moodSet === 'auto';
+        setMood(auto ? moodNow() : b.dataset.moodSet);
+      });
+    });
+
+    // Stars: scattered over the sky (the top half), each on its own slow twinkle
+    var sky = scene.querySelector('.scene-stars');
+    for (var i = 0; i < 70; i++) {
+      var star = document.createElement('i');
+      var x = Math.random() * 100, y = Math.random() * 52;
+      star.style.cssText = 'left:' + x + '%;top:' + y + '%;--s:' + (Math.random() < .15 ? 2 : 1) + 'px;--t:' + (2 + Math.random() * 4).toFixed(1) + 's;--dl:-' + (Math.random() * 6).toFixed(1) + 's';
+      sky.appendChild(star);
+    }
+
+    // Depth: the picture leans a few pixels away from the pointer
+    var view = scene.querySelector('.scene-view'), depth = scene.querySelector('.scene-depth');
+    if (matchMedia('(hover: hover) and (pointer: fine)').matches && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      view.addEventListener('mousemove', function (e) {
+        var r = view.getBoundingClientRect();
+        depth.style.setProperty('--px', ((e.clientX - r.left) / r.width - .5) * -12 + 'px');
+        depth.style.setProperty('--py', ((e.clientY - r.top) / r.height - .5) * -8 + 'px');
+      });
+      view.addEventListener('mouseleave', function () { depth.style.setProperty('--px', '0px'); depth.style.setProperty('--py', '0px'); });
+    }
+  }
+
   // Bengaluru clock, and what I'm likely doing at that hour
   var clocks = document.querySelectorAll('[data-clock]');
   var doing = document.querySelector('[data-doing]');
