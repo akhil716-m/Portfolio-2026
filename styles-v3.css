@@ -397,6 +397,7 @@ p { margin: 0 0 24px; }
 .rows:hover .row { opacity: .45; }
 .rows .row:hover, .rows .row:focus-visible { opacity: 1; }
 .row:hover .row-meta { color: var(--text); transform: translateX(-3px); }
+.row-go { font: 400 15px/1 var(--font); }      /* a plain arrow: → opens the case study, ↗ leaves the site */
 .pill {
   font: 400 11px/1 var(--mono);
   padding: 4px 7px;
