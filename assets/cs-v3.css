@@ -438,14 +438,17 @@
 .cs-sys .cs-recon-node-title { font: 500 15px/1.3 var(--font); color: var(--text); }
 .cs-sys .cs-recon-node-sub { font: 500 13px/1.5 var(--font); color: var(--text-muted); margin-top: 2px; }
 @media (prefers-reduced-motion: no-preference) {
-  .cs-sys.is-visible .sys-slip { animation: sys-land 6s cubic-bezier(.22, 1, .36, 1) calc(var(--k) * .5s) infinite; }
+  /* one clock for all: the token, then each record lands in turn, and all fade out together */
+  .cs-sys.is-visible .sys-slip { animation: sys-land-0 6s cubic-bezier(.22, 1, .36, 1) infinite; }
+  .cs-sys.is-visible .sys-slip[style*="--k:1"] { animation-name: sys-land-1; }
+  .cs-sys.is-visible .sys-slip[style*="--k:2"] { animation-name: sys-land-2; }
+  .cs-sys.is-visible .sys-slip[style*="--k:3"] { animation-name: sys-land-3; }
   .cs-sys.is-visible .sys-link { animation: sys-link 6s ease infinite; }
 }
-@keyframes sys-land {
-  0% { transform: translateY(-22px); opacity: 0; }
-  10%, 86% { transform: translateY(0); opacity: 1; }
-  96%, 100% { transform: translateY(0); opacity: 0; }
-}
+@keyframes sys-land-0 { 0% { transform: translateY(-22px); opacity: 0; } 10%, 86% { transform: none; opacity: 1; } 96%, 100% { transform: none; opacity: 0; } }
+@keyframes sys-land-1 { 0%, 8% { transform: translateY(-22px); opacity: 0; } 18%, 86% { transform: none; opacity: 1; } 96%, 100% { transform: none; opacity: 0; } }
+@keyframes sys-land-2 { 0%, 16% { transform: translateY(-22px); opacity: 0; } 26%, 86% { transform: none; opacity: 1; } 96%, 100% { transform: none; opacity: 0; } }
+@keyframes sys-land-3 { 0%, 24% { transform: translateY(-22px); opacity: 0; } 34%, 86% { transform: none; opacity: 1; } 96%, 100% { transform: none; opacity: 0; } }
 @keyframes sys-link { 0%, 30% { opacity: 0; } 42%, 86% { opacity: 1; } 96%, 100% { opacity: 0; } }
 /* ===== Reconciliation 2: comparison layers =====
    The same objects as visual 1, one per node, open on the page instead of in cards; the result is
