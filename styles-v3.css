@@ -610,3 +610,19 @@ p { margin: 0 0 24px; }
    controls that press in a touch while held ===== */
 .click-spark { position: fixed; inset: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 9999; color: var(--text); }
 button:active, .row:active, .nav-list a:active, .sec-head a:active { scale: .98; }
+
+/* ===== Sections stack (desktop): only the current section shows. When the reader reaches the
+   next one it rises in from below with a small overshoot, and the one before fades away.
+   The nav list sits at the middle of the screen. ===== */
+@media (min-width: 961px) {
+  .nav-group { margin: auto 0; }
+  .v3-nav { padding-bottom: 72px; }
+  /* each section holds its place while the next one comes up behind it */
+  .stack-on [data-stack] { position: sticky; top: var(--stack-top, 18vh); pointer-events: none; opacity: 0; transform: translateY(56px); transition: opacity .25s ease, transform .25s ease; }
+  .stack-on [data-stack].is-tall { position: relative; top: auto; }
+  .stack-on .screen--home .intro { margin-top: 0; }   /* Home's place is set in v3.js, level with the nav */
+  .stack-on [data-stack].is-current { z-index: 2; pointer-events: auto; opacity: 1; transform: none; transition: opacity .3s ease, transform .55s cubic-bezier(.34, 1.56, .64, 1); }
+}
+@media (min-width: 961px) and (prefers-reduced-motion: reduce) {
+  .stack-on [data-stack], .stack-on [data-stack].is-current { transform: none; transition: opacity .2s ease; }
+}

@@ -57,9 +57,9 @@
       { type: 'tone', freq: 1046.5, attack: .006, decay: .22, peak: .09 },
       { type: 'tone', freq: 1568, offset: .09, attack: .006, decay: .26, peak: .08 }
     ], echo: { delay: .12, feedback: .25, wet: .18, lowpass: 4000 } },
-    tick: { gain: .4, layers: [
-      { type: 'noise', filter: 'bandpass', freq: 5400, q: 1.8, attack: .001, decay: .018, peak: .14 },
-      { type: 'tone', freq: 2600, attack: .001, decay: .012, peak: .018 }
+    tick: { gain: .55, layers: [
+      { type: 'noise', filter: 'bandpass', freq: 3200, q: 1.6, attack: .001, decay: .035, peak: .22 },
+      { type: 'tone', freq: 1760, attack: .002, decay: .06, peak: .05 }
     ] },
     press: { gain: .4, layers: [
       { type: 'noise', filter: 'bandpass', freq: 1700, q: 1.4, attack: .001, decay: .02, peak: .13 }
@@ -116,6 +116,11 @@
     };
     if (c.state === 'running') go(); else c.resume().then(function () { if (c.state === 'running') go(); }, function () {});
   }
+  // Browsers only allow sound after the first tap, click or key press: wake the audio then,
+  // so the scroll ticks that follow can be heard
+  ['pointerdown', 'keydown', 'touchstart'].forEach(function (ev) {
+    window.addEventListener(ev, function wake() { var c = audio(); if (c && c.state !== 'running') c.resume(); window.removeEventListener(ev, wake); }, { passive: true });
+  });
   document.addEventListener('click', function (e) {
     var el = e.target instanceof Element && e.target.closest('button, a[href], summary, [role="button"]');
     if (!el || el.matches(':disabled')) return;
@@ -127,6 +132,7 @@
   // Click spark, after ch.sh: every click sends six short strokes out from the pointer,
   // in the text colour at low opacity, gone in 300ms. Drawn on one canvas over the page
   // that ignores the pointer; it only runs while a spark is alive.
+  var burst = function () {};   // set below; the nav reuses it as a visual tick
   if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
     var spark = document.createElement('canvas'), sctx = spark.getContext('2d'), sparks = [], sraf = 0;
     spark.className = 'click-spark';
@@ -155,6 +161,11 @@
         return true;
       });
       sraf = sparks.length ? requestAnimationFrame(drawSpark) : 0;
+    };
+    burst = function (x, y) {
+      var t0 = performance.now();
+      for (var i = 0; i < 6; i++) sparks.push({ x: x, y: y, a: Math.PI * 2 * i / 6, t0: t0 });
+      if (!sraf) sraf = requestAnimationFrame(drawSpark);
     };
     window.addEventListener('click', function (e) {
       if (!e.clientX && !e.clientY) return;                    // keyboard "clicks" have no pointer
@@ -202,6 +213,33 @@
   // Nav: mark the section in view. A clicked item stays marked until the reader scrolls
   // by hand (near the bottom, About and Contact are both on screen).
   var links = {}, active = null, pinned = null;
+  // Home page: sections stack, only the current one shows (styles-v3.css)
+  var stack = document.querySelectorAll('[data-stack]');
+  if (stack.length) document.documentElement.classList.add('stack-on');
+  // a section taller than most of the screen can't hold its place, so it scrolls as usual
+  // each pinned section sits with its middle level with the middle of the nav list
+  function measure() {
+    // measured inside the nav, which is pinned to the top of the screen once the page scrolls
+    var nav = document.querySelector('.v3-nav'), g = document.querySelector('.nav-group');
+    var mid = nav && g && g.offsetHeight ? g.getBoundingClientRect().top - nav.getBoundingClientRect().top + g.offsetHeight / 2 : window.innerHeight / 2;
+    var v3 = document.querySelector('.v3'), v3Top = v3 ? v3.getBoundingClientRect().top + window.scrollY : 0;
+    stack.forEach(function (s, i) {
+      var h = s.offsetHeight;
+      if (i === 0) {   // Home: pushed down so it opens level with the middle of the nav
+        s.style.paddingTop = '0px'; h = s.offsetHeight;   // padding, as the intro's own margin would swallow a margin
+        var top = s.getBoundingClientRect().top + window.scrollY;
+        var pad = Math.max(0, Math.round(v3Top + mid - h / 2 - top));
+        s.style.paddingTop = pad + 'px';
+        s.style.setProperty('--stack-top', Math.round(mid - h / 2 - pad) + 'px');   // pinned, the content (not the padding) stays centred
+        s.classList.toggle('is-tall', h > window.innerHeight * .78);
+        return;
+      }
+      if (i === stack.length - 1) s.style.marginBottom = Math.max(0, Math.round(window.innerHeight - mid - h / 2)) + 'px';
+      s.classList.toggle('is-tall', h > window.innerHeight * .78);
+      s.style.setProperty('--stack-top', Math.max(24, Math.round(mid - h / 2)) + 'px');
+    });
+  }
+  if (stack.length) { measure(); window.addEventListener('resize', measure); if (document.fonts) document.fonts.ready.then(measure); }
   document.querySelectorAll('[data-spy]').forEach(function (a) {
     links[a.dataset.spy] = a;
     a.addEventListener('click', function () { pinned = a.dataset.spy; setActive(pinned); });
@@ -218,8 +256,11 @@
     if (fromScroll && active) {
       play('tick');
       if (navigator.vibrate && navigator.userActivation && navigator.userActivation.hasBeenActive) navigator.vibrate(8);
+      // visual tick: a small spark where the nav mark lands
+      setTimeout(function () { if (!dot) return; var r = dot.getBoundingClientRect(); if (r.width) burst(r.left + r.width / 2, r.top + r.height / 2); }, 320);
     }
     active = id;
+    stack.forEach(function (s) { s.classList.toggle('is-current', s.getAttribute('data-stack') === id); });
     Object.keys(links).forEach(function (k) { links[k].classList.toggle('is-active', k === id); });
     moveDot(links[id]);
   }

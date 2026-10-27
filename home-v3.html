@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Instrument+Serif:ital@0;1&family=Geist+Mono:wght@400&family=Public+Sans:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles-v3.css?v=33">
+<link rel="stylesheet" href="styles-v3.css?v=38">
 <script>
   // Time of day before first paint: the visitor's pick, or Auto from their clock
   // (Day 6 am-4 pm, Mid 4-7 pm, Night 7 pm-6 am). Day is the white theme, Mid paper, Night dark.
@@ -83,6 +83,8 @@
       <div class="status in" style="--d:.1s"><i></i>Open to select projects</div>
     </header>
 
+    <!-- Home, then each section, shows on its own: the next one rises in as you reach it -->
+    <div class="screen screen--home" data-stack="top">
     <section class="intro">
       <div class="in" style="--d:.15s">
         <p class="hey">Hey,</p>
@@ -112,7 +114,9 @@
       </dl>
     </section>
 
-    <section class="sec" id="work" data-section aria-labelledby="work-h">
+    </div>
+
+    <section class="sec" id="work" data-section data-stack="work" aria-labelledby="work-h">
       <div class="sec-head"><h2 id="work-h">Selected work</h2>
         <div class="view" role="group" aria-label="Layout">
           <button type="button" data-view="list" aria-pressed="true" aria-label="List" title="List"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 4.5h10M3 8h10M3 11.5h10"/></svg></button>
@@ -138,7 +142,7 @@
       </div>
     </section>
 
-    <section class="sec" id="side" data-section aria-labelledby="side-h">
+    <section class="sec" id="side" data-section data-stack="side" aria-labelledby="side-h">
       <div class="sec-head"><h2 id="side-h">Side projects</h2></div>
       <ul class="rows">
         <li><div class="row" data-peek="assets/holdr-cover.webp"><span class="row-name">Holdr</span><span class="row-desc">A calm portfolio tracker for long-term investors</span><span class="pill">in the works</span></div></li>
@@ -146,7 +150,7 @@
       </ul>
     </section>
 
-    <section class="sec" id="about" data-section aria-labelledby="about-h">
+    <section class="sec" id="about" data-section data-stack="about" aria-labelledby="about-h">
       <div class="sec-head"><h2 id="about-h">About</h2></div>
       <div class="about">
         <div>
@@ -175,7 +179,7 @@
     </section>
 
     <!-- Experience: the résumé in short (roles, skills, tools), with the full PDF to download -->
-    <section class="sec" id="experience" data-section aria-labelledby="xp-h">
+    <section class="sec" id="experience" data-section data-stack="experience" aria-labelledby="xp-h">
       <div class="sec-head"><h2 id="xp-h">Experience</h2><a href="assets/resume.pdf" download>Download résumé ↓</a></div>
       <ul class="xp">
         <li><div class="xp-row"><span>Product Designer, <strong>Juspay</strong></span><span class="meta">2024 — now</span></div>
@@ -222,7 +226,7 @@
       </div>
     </section>
 
-    <section class="sec contact" id="contact" data-section aria-labelledby="contact-h">
+    <section class="sec contact" id="contact" data-section data-stack="contact" aria-labelledby="contact-h">
       <div class="sec-head"><h2 id="contact-h">Say hello</h2></div>
       <p class="big">Always happy to talk about design, payments, or the best roads out of Bengaluru. Write to <a class="ul" href="mailto:akhilmale.ux@gmail.com">akhilmale.ux@gmail.com</a>.</p>
       <div class="links">
@@ -246,7 +250,7 @@
 
 <div class="peek" aria-hidden="true"><img alt=""></div>
 
-<script src="assets/v3.js?v=13"></script>
+<script src="assets/v3.js?v=20"></script>
 <script>
 (function () {
   // Cover: stars for the night sky
