@@ -530,7 +530,10 @@
 .v3-cs .cs-exc-tile::before, .v3-cs .cs-exc-tile::after, .v3-cs .cs-match-cell::before, .v3-cs .cs-match-cell::after { content: none; position: absolute; background: var(--line); }
 .v3-cs .cs-exc-tile:nth-child(3n+1)::after, .v3-cs .cs-exc-tile:nth-child(3n+2)::after,
 .v3-cs .cs-match-cell:nth-child(odd)::after { content: ""; top: 18%; bottom: 18%; width: 1px; right: -12px; }
-.v3-cs .cs-exc-tile:nth-child(-n+3)::before, .v3-cs .cs-match-cell:nth-child(-n+2)::before { content: ""; left: 30%; right: 30%; height: 1px; bottom: -20px; }
+/* the horizontal divider runs end to end: each cell draws its share, meeting across the column gaps */
+.v3-cs .cs-exc-tile:nth-child(-n+3)::before, .v3-cs .cs-match-cell:nth-child(-n+2)::before { content: ""; left: -12px; right: -12px; height: 1px; bottom: -20px; }
+.v3-cs .cs-exc-tile:nth-child(3n+1)::before, .v3-cs .cs-match-cell:nth-child(odd)::before { left: 0; }
+.v3-cs .cs-exc-tile:nth-child(3n)::before, .v3-cs .cs-match-cell:nth-child(even)::before { right: 0; }
 .v3-cs .cs-match-cell:nth-child(-n+2)::before { bottom: -24px; }
 .v3-cs .cs-match-grid { margin-bottom: 64px; }
 @media (max-width: 760px) {
