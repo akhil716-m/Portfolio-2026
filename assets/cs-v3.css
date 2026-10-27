@@ -520,6 +520,17 @@
 .v3-cs .cs-exc-visual, .v3-cs .cs-match-diagram { height: auto; margin-bottom: 14px; }
 .v3-cs .cs-match-grid { gap: 48px 24px; background: none; border-radius: 0; overflow: visible; }
 .v3-cs .cs-match-desc { max-width: 300px; margin: 0 auto; }
+/* short hairline dividers between the cells, centred in the gaps, and air below the match grid */
+.v3-cs .cs-exc-tile, .v3-cs .cs-match-cell { position: relative; }
+.v3-cs .cs-exc-tile::before, .v3-cs .cs-exc-tile::after, .v3-cs .cs-match-cell::before, .v3-cs .cs-match-cell::after { content: none; position: absolute; background: var(--line); }
+.v3-cs .cs-exc-tile:nth-child(3n+1)::after, .v3-cs .cs-exc-tile:nth-child(3n+2)::after,
+.v3-cs .cs-match-cell:nth-child(odd)::after { content: ""; top: 18%; bottom: 18%; width: 1px; right: -12px; }
+.v3-cs .cs-exc-tile:nth-child(-n+3)::before, .v3-cs .cs-match-cell:nth-child(-n+2)::before { content: ""; left: 30%; right: 30%; height: 1px; bottom: -20px; }
+.v3-cs .cs-match-cell:nth-child(-n+2)::before { bottom: -24px; }
+.v3-cs .cs-match-grid { margin-bottom: 64px; }
+@media (max-width: 760px) {
+  .v3-cs .cs-exc-tile::before, .v3-cs .cs-exc-tile::after, .v3-cs .cs-match-cell::before, .v3-cs .cs-match-cell::after { content: none !important; }
+}
 .cs-topo-mini .iso-mini { width: 76px; }
 .iso-cmp--exc .sys-obj polygon { stroke: rgba(220, 70, 60, .7); }
 @media (max-width: 760px) {
