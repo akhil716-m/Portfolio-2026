@@ -679,3 +679,6 @@ html:root[data-theme="dark"] { --stage: #1e1e1e; }
 
 /* moments timeline: stage name > intervention title > description */
 .cs-skilling .cs-mend-title { font-size: 15.5px; font-weight: 500; line-height: 1.35; margin-bottom: 8px; }
+.cs-skilling .cs-list { gap: 4px; }
+.cs-skilling .cs-list li { margin-bottom: 0; }
+.cs-skilling .cs-list + .cs-p { margin-top: 20px; }
