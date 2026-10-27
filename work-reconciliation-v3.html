@@ -658,7 +658,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 @media (prefers-reduced-motion: reduce) { nav .logo a.cs-back { transition: none; } }
 </style>
 <link rel="stylesheet" href="assets/cs-article.css">
-<link rel="stylesheet" href="assets/cs-v3.css?v=68">
+<link rel="stylesheet" href="assets/cs-v3.css?v=72">
 <style>
 /* This project's colour, per theme (deeper on white and paper so it stays readable) */
 :root { --accent: #c2611a; --acc-rgb: 194 97 26; --proj: #c2611a; --proj-rgb: 194 97 26; }
@@ -805,7 +805,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
   <div class="cs-label reveal"><span class="num">/02</span> What's an Exception</div>
   <h2 class="cs-display reveal">Sometimes the records <em>don't agree.</em></h2>
 
-  <p class="cs-p reveal" style="margin-top: 24px;">When two records don't agree, an exception is created. That's where the investigation begins.</p>
+  <p class="cs-p reveal">When two records don't agree, an exception is created. That's where the investigation begins.</p>
 
   <div class="cs-recon-layers cs-recon-layers--iso reveal" style="margin: 40px 0 40px;">
   <div class="cs-recon-layer-flow">
@@ -886,7 +886,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
   <div class="cs-label reveal"><span class="num">/03</span> Why Resolution Slows Down</div>
   <h2 class="cs-display reveal">One mismatch can hide <em>many different stories.</em></h2>
 
-  <p class="cs-p reveal" style="margin-top: 24px;">The mismatch type only tells part of the story. Understanding how accounts and entries are connected is what determines how it's resolved.</p>
+  <p class="cs-p reveal">The mismatch type only tells part of the story. Understanding how accounts and entries are connected is what determines how it's resolved.</p>
   <p class="cs-p reveal">Transactions don't always map one-to-one. A single order can split into multiple settlement entries, while several orders can eventually settle into one bank record. That means two exceptions with the same mismatch reason can have entirely different structures underneath.</p>
   <p class="cs-p reveal">Before they can act, analysts first need to reconstruct how those accounts and entries relate to one another.</p>
 
@@ -954,7 +954,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
   <div class="cs-label reveal"><span class="num">/04</span> Designing the Investigation</div>
   <h2 class="cs-display reveal">Analysts shouldn't have to rebuild the story <em>every time.</em></h2>
 
-  <p class="cs-p reveal" style="margin-top: 24px;">Every exception already contained the information analysts needed to make a decision. It was simply buried across accounts, entries, relationships, and metadata.</p>
+  <p class="cs-p reveal">Every exception already contained the information analysts needed to make a decision. It was simply buried across accounts, entries, relationships, and metadata.</p>
   <p class="cs-p reveal">Because analysts handle exceptions repeatedly, even small amounts of reconstruction effort compound quickly at scale.</p>
 
 
