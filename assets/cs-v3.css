@@ -608,7 +608,7 @@ html:root[data-theme="dark"] { --stage: #1e1e1e; }
 /* a note on a whole screen has no highlight, so no line or dot either */
 .cs-step.is-frame .cs-step-title::before, .cs-step.is-frame .cs-step-title::after { display: none; }
 /* the workers, cut out, straight on the page */
-.v3-cs .cs-users-stage .cs-fig-frame { background: none; border: 0; padding: 0; }
+.v3-cs .cs-users-stage .cs-fig-frame { background: none; border: 0; padding: 0; border-radius: 0; overflow: visible; }
 .v3-cs .cs-users-stage .cs-fig-frame img { border-radius: 0; width: min(100%, 1040px); margin: 0 auto; }
 .v3-cs .cs-users-stage + .cs-wrap .cs-chips { margin-top: 40px; }
 
@@ -617,3 +617,41 @@ html:root[data-theme="dark"] { --stage: #1e1e1e; }
 .v3-cs .cs-step--right .cs-step-title::before { --dir: left; }
 .v3-cs .cs-step--left .cs-step-title::before { --dir: right; }
 .v3-cs .cs-step-title::after { width: 9px; height: 9px; margin-top: -4px; background: var(--accent); box-shadow: 0 0 0 3px var(--bg), 0 0 0 4px rgb(var(--acc-rgb) / .45); }
+
+/* theme switcher: a clear ring on the picked swatch in every theme, its name read as a caption above the row */
+.v3-cs .cs-swatch.is-active { box-shadow: 0 0 0 3px var(--stage), 0 0 0 4.5px var(--text); }
+.v3-cs .cs-swatch--tile:not(.is-active) { opacity: .6; }
+.v3-cs .cs-theme-type { margin: 32px 0 14px; color: var(--text); }
+.v3-cs .cs-theme-type::before { content: 'Brand colour / '; color: var(--text-muted); white-space: pre; }
+.v3-cs .cs-theme-type + .cs-swatches { margin-top: 0; }
+/* answer types: an index of everything the assessment handles, each with its own icon; the shown one marked by a short accent tick */
+.v3-cs .cs-swatches--list { display: grid; grid-template-columns: 1fr 1fr; gap: 0 24px; margin-top: 24px; }
+.v3-cs .cs-swatches--list .cs-swatch--text {
+  position: relative; display: flex; align-items: center; gap: 12px; width: 100%; height: auto; min-height: 34px; padding: 6px 0 6px 10px;
+  border-radius: 0; background: none; box-shadow: none; text-align: left;
+  font-size: 14px; font-weight: 400; color: var(--text-muted); transition: color .2s ease;
+}
+.v3-cs .cs-swatches--list .cs-swatch--text svg { flex: none; width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.3; stroke-linecap: round; stroke-linejoin: round; opacity: .8; }
+.v3-cs .cs-swatches--list .cs-swatch--text::before { content: ''; position: absolute; left: 0; top: 50%; width: 2px; height: 14px; margin-top: -7px; border-radius: 2px; background: var(--accent); transform: scaleY(0); transition: transform .25s ease; }
+.v3-cs .cs-swatches--list .cs-swatch--text:hover { color: var(--text); transform: none; }
+.v3-cs .cs-swatches--list .cs-swatch--text.is-active { color: var(--text); background: none; box-shadow: none; }
+.v3-cs .cs-swatches--list .cs-swatch--text.is-active::before { transform: none; }
+.v3-cs .cs-swatches--list .cs-swatch--text.is-active svg { color: var(--accent); opacity: 1; }
+.v3-cs .cs-swatches--list .cs-swatch--text:last-child:nth-child(odd) { grid-column: 1 / -1; }
+@media (max-width: 600px) { .v3-cs .cs-swatches--list { grid-template-columns: 1fr; } }
+/* Up-skill hero: its light-blue board gets a matted frame so it holds its edge on the grey stage */
+.v3-cs .cs-cover-stage img[src*="skilling/"] { padding: 8px; background: var(--bg); border-radius: 14px; box-shadow: 0 0 0 1px var(--line), 0 0 32px rgb(var(--sh-rgb) / calc(.22 * var(--sh-k))); }
+
+/* dark: the hero mat is a soft grey, not black */
+:root[data-theme="dark"] .v3-cs .cs-cover-stage img[src*="skilling/"] { background: #2a2a2a; box-shadow: 0 0 0 1px rgb(255 255 255 / .12), 0 0 32px rgb(0 0 0 / .4); }
+/* workers fade out at their feet rather than stopping on a hard line */
+.v3-cs .cs-users-stage .cs-fig-frame img { -webkit-mask-image: linear-gradient(#000 80%, transparent); mask-image: linear-gradient(#000 80%, transparent); }
+/* annotation pin: a small frosted-glass lens with the accent dot inside */
+.v3-cs .cs-step-title::after {
+  width: 16px; height: 16px; margin-top: -8px; border-radius: 50%;
+  background: radial-gradient(circle, var(--accent) 0 3.5px, transparent 4px), rgb(255 255 255 / .16);
+  border: 1px solid rgb(255 255 255 / .4); box-shadow: 0 2px 8px rgb(0 0 0 / .25), inset 0 1px 0 rgb(255 255 255 / .35);
+  -webkit-backdrop-filter: blur(6px) saturate(1.4); backdrop-filter: blur(6px) saturate(1.4);
+}
+.v3-cs .cs-step--left .cs-step-title::after { left: calc(100% + 12px + var(--len, var(--gap)) - 8px); }
+.v3-cs .cs-step--right .cs-step-title::after { right: calc(100% + 12px + var(--len, var(--gap)) - 8px); }
