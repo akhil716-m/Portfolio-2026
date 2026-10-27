@@ -297,12 +297,12 @@ a.cs-cta { margin-top: 28px; }
   position: relative; overflow: hidden; cursor: zoom-in;
   padding: var(--pad);
   border-radius: clamp(14px, 2vw, 22px);
-  background: rgba(var(--wash, 255,255,255), 0.06);
+  background: var(--stage);
   border: 1px solid rgb(var(--fg-rgb) / 0.07);
   transition: border-color 0.25s ease, background 0.25s ease;
   -webkit-tap-highlight-color: transparent;
 }
-.cs-fig-frame:hover { border-color: rgb(var(--fg-rgb) / 0.16); background: rgba(var(--wash, 255,255,255), 0.09); }
+.cs-fig-frame:hover { border-color: rgb(var(--fg-rgb) / 0.16); background: var(--stage); }
 .cs-fig-frame:hover img { filter: brightness(1); }
 .cs-fig-frame:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
 .cs-fig-frame img { display: block; width: 100%; height: auto; border-radius: clamp(8px, 1.1vw, 12px); filter: brightness(0.94); transition: filter 0.3s ease; }
@@ -466,7 +466,7 @@ body.cs-lb-lock { overflow: hidden; }
 .cs-split--ba { grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); }
 .cs-ba {
   padding: 20px 20px 26px; border-radius: 22px;
-  background: rgba(var(--wash), 0.06); border: 1px solid rgb(var(--fg-rgb) / 0.07);
+  background: var(--stage); border: 1px solid var(--line);
 }
 .cs-tabs { display: flex; gap: 4px; width: fit-content; max-width: 100%; margin-bottom: 22px; padding: 4px; border-radius: 100px; background: rgb(var(--fg-rgb) / 0.05); }
 .cs-tab {
@@ -578,7 +578,7 @@ body.cs-lb-lock { overflow: hidden; }
 .cs-strip-item { flex: 0 0 auto; display: flex; flex-direction: column; scroll-snap-align: start; }
 .cs-strip-media {
   display: flex; align-items: flex-end; gap: 14px; padding: 28px 32px;
-  border-radius: 22px; background: rgba(var(--wash), 0.08); border: 1px solid rgb(var(--fg-rgb) / 0.07);
+  border-radius: 22px; background: var(--stage); border: 1px solid var(--line);
 }
 .cs-strip-media img { display: block; height: var(--ph); width: auto; filter: drop-shadow(0 20px 30px rgb(var(--sh-rgb) / calc(0.45 * var(--sh-k)))); }
 /* raw screenshots, no phone frame: rounded like a screen */
@@ -592,7 +592,7 @@ body.cs-lb-lock { overflow: hidden; }
 .cs-theme {
   --glow: rgba(65,105,102,0.55); transition: --glow 0.6s ease;
   position: relative; overflow: hidden; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: clamp(24px, 5vw, 72px);
-  padding: clamp(24px, 4vw, 48px); border-radius: 24px; background: rgba(var(--wash), 0.06); border: 1px solid rgb(var(--fg-rgb) / 0.07);
+  padding: clamp(24px, 4vw, 48px); border-radius: 24px; background: var(--stage); border: 1px solid var(--line);
 }
 .cs-theme-stage { position: relative; height: min(64dvh, 540px); aspect-ratio: 520 / 1071; margin: 0 auto; }
 .cs-theme-glow { display: none; }
@@ -1021,7 +1021,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 @media (prefers-reduced-motion: reduce) { nav .logo a.cs-back { transition: none; } }
 </style>
 <link rel="stylesheet" href="assets/cs-article.css">
-<link rel="stylesheet" href="assets/cs-v3.css?v=52">
+<link rel="stylesheet" href="assets/cs-v3.css?v=56">
 <style>
 /* This project's colour, per theme (deeper on white and paper so it stays readable) */
 :root { --accent: #1f8a74; --acc-rgb: 31 138 116; --proj: #1f8a74; --proj-rgb: 31 138 116; }
@@ -1128,7 +1128,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 </div>
 
 <div class="cs-wrap cs-wrap--board cs-users-stage">
-<figure class="cs-board cs-board--photo settle"><div class="cs-fig-frame"><img src="assets/skilling/users-photo.jpg" alt="Workers from across industries in their work gear" width="2600" height="943" loading="lazy" decoding="async"></div></figure>
+<figure class="cs-board cs-board--photo settle"><div class="cs-fig-frame"><img src="assets/skilling/users-cutout.webp" alt="Workers from across industries in their work gear" width="1658" height="562" loading="lazy" decoding="async"></div></figure>
 </div>
 <div class="cs-wrap">
   <div class="cs-chips cs-chips--lg cs-chips--center" aria-label="Industries served">
@@ -1398,9 +1398,8 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 </div>
 <div class="cs-wrap cs-wrap--board">
 <figure class="cs-board settle">
-  <div class="cs-fig-frame" role="button" tabindex="0" aria-label="Expand: The Up-skill user flow" data-full="assets/skilling/user-flow-full.webp" data-alt="Flowchart of the Up-skill user flow: from home into all learning, modules, events, any entry point, and newly assigned or critical courses, assessments and playlists">
+  <div class="cs-fig-frame cs-fig-static">
     <img src="assets/skilling/user-flow.webp" alt="Flowchart of the Up-skill user flow: from home into all learning, modules, events, any entry point, and newly assigned or critical courses, assessments and playlists" width="2080" height="2965" loading="lazy" decoding="async">
-    <span class="cs-fig-zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
   </div>
 </figure>
 </div>
@@ -2262,6 +2261,7 @@ var CS_REDUCE = window.matchMedia && window.matchMedia('(prefers-reduced-motion:
       var st = stage.getBoundingClientRect(), sc = screen.getBoundingClientRect();
       notes.forEach(function(n, i) {
         var r = root.querySelector('.cs-ring[data-step="' + n.getAttribute('data-step') + '"]');
+        n.classList.toggle('is-frame', r.classList.contains('cs-ring--frame'));
         var fh = views[parseInt(n.getAttribute('data-view'), 10) || 0].querySelector('.cs-phone-feed').offsetHeight;
         var y = (parseFloat(n.getAttribute('data-y')) || 0) / 100 * fh;
         var t = parseFloat(r.style.getPropertyValue('--t')) / 100 * fh;

@@ -589,6 +589,31 @@
 .v3-cs .cs-pgroup + .cs-pgroup { margin-top: 120px; }
 .v3-cs .cs-mend-who { margin-top: 20px; }
 .v3-cs .cs-mend-list { padding-top: 0; }
-.v3-cs .cs-mend-list li { padding-top: 32px; }
-.v3-cs .cs-mend-list li:first-child { padding-top: 0; }
+.v3-cs .cs-mend-list li { padding-top: 16px; margin-top: 16px; }
+.v3-cs .cs-mend-list li:first-child { padding-top: 0; margin-top: 0; }
+.v3-cs .cs-mend-list li + li::before { top: 0; }
 .v3-cs .cs-mend-item { padding-right: 8px; }
+
+/* a static figure: no click, no hover, same stage colour as everywhere */
+.cs-fig-static, .cs-fig-static:hover { cursor: default; background: var(--stage); border-color: var(--line); transform: none; }
+.cs-fig-static img, .cs-fig-static:hover img { filter: none; }
+.cs-fig-static .cs-fig-zoom { display: none; }
+
+/* captions sit clear of the tile above them */
+.v3-cs .cs-strip-title { margin-top: 24px; }
+/* a lighter stage on this page, so the user flow's grey boxes don't melt into it */
+html:root { --stage: #f7f7f7; }
+html:root[data-theme="paper"] { --stage: #ebe6db; }
+html:root[data-theme="dark"] { --stage: #1e1e1e; }
+/* a note on a whole screen has no highlight, so no line or dot either */
+.cs-step.is-frame .cs-step-title::before, .cs-step.is-frame .cs-step-title::after { display: none; }
+/* the workers, cut out, straight on the page */
+.v3-cs .cs-users-stage .cs-fig-frame { background: none; border: 0; padding: 0; }
+.v3-cs .cs-users-stage .cs-fig-frame img { border-radius: 0; width: min(100%, 1040px); margin: 0 auto; }
+.v3-cs .cs-users-stage + .cs-wrap .cs-chips { margin-top: 40px; }
+
+/* annotation pointer: a hairline that fades in from the note and lands on a pin at the highlight */
+.v3-cs .cs-step-title::before { height: 1px; background: linear-gradient(to var(--dir, left), rgb(var(--fg-rgb) / .08), rgb(var(--fg-rgb) / .45)); }
+.v3-cs .cs-step--right .cs-step-title::before { --dir: left; }
+.v3-cs .cs-step--left .cs-step-title::before { --dir: right; }
+.v3-cs .cs-step-title::after { width: 9px; height: 9px; margin-top: -4px; background: var(--accent); box-shadow: 0 0 0 3px var(--bg), 0 0 0 4px rgb(var(--acc-rgb) / .45); }
