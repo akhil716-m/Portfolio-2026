@@ -312,3 +312,86 @@
   .iso-scale { max-width: 200px; }
   .cs-scale-foot { flex-direction: column; gap: 4px; }
 }
+
+/* ===== "Many fragmented signals, one investigation", in Hairline's language =====
+   Left, the signals lie crooked like loose paperwork; HyperSense is one block; right, the five
+   modules lie perfectly in line. Faint threads join them. Each 8s loop: pulses run from the
+   signals into HyperSense, then the modules light up one after another, Overview to Forecast. */
+.cs-vis--conv { background: none !important; border: 0 !important; box-shadow: none !important; border-radius: 0; }
+/* no card: the title sits above the drawing as a quiet caption */
+.cs-vis--conv .cs-vis-label {
+  background: none; border: 0; padding: 0; margin: 0 0 28px; text-align: center;
+  font: 400 11px/1.3 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--text-muted);
+}
+.cs-vis--conv .cs-vis-body { padding: 0 !important; background: none; }
+.iso-conv { width: 100%; height: auto; display: block; overflow: visible; }
+.iso-conv--narrow { display: none; max-width: 400px; margin: 0 auto; }
+.iso-conv polygon, .iso-conv .src path, .iso-conv .src ellipse { stroke-width: 1; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.iso-conv .src polygon, .iso-conv .src path, .iso-conv .src ellipse { stroke: rgb(var(--fg-rgb) / .42); }
+.iso-conv .f-t { fill: var(--bg); }
+.iso-conv .f-l { fill: var(--bg-soft); }
+.iso-conv ellipse.f-t { fill: var(--bg); }
+.iso-conv .f-r { fill: color-mix(in srgb, var(--bg-soft) 70%, var(--line-strong)); }
+.iso-conv .slip polygon { stroke: rgb(var(--fg-rgb) / .38); }
+.iso-conv .slip--step polygon { stroke: rgb(var(--fg-rgb) / .55); }
+.iso-conv .hub polygon { stroke: rgb(var(--fg-rgb) / .7); }
+.iso-conv .thr { fill: none; stroke-width: 1; vector-effect: non-scaling-stroke; }
+.iso-conv .thr-in { stroke: rgb(var(--fg-rgb) / .1); }
+.iso-conv .thr-out { stroke: rgb(var(--fg-rgb) / .16); }
+.iso-conv .pulse { fill: none; stroke: rgb(var(--fg-rgb) / .5); stroke-width: 1.4; stroke-linecap: round; vector-effect: non-scaling-stroke; stroke-dasharray: .06 1; stroke-dashoffset: .06; opacity: 0; }
+.iso-conv .lit { fill: none; stroke: var(--accent); stroke-width: 1.2; vector-effect: non-scaling-stroke; stroke-dasharray: 1; stroke-dashoffset: 1; }
+.iso-conv text { font-family: var(--font); }
+.iso-conv .cap { font: 400 10.5px/1 var(--mono); letter-spacing: .1em; fill: var(--text-muted); }
+.iso-conv .sig { font-size: 12px; font-weight: 500; fill: var(--text-muted); }
+.iso-conv .sig--sm { font-size: 11px; }
+.iso-conv .hub-name { font-size: 13px; font-weight: 600; fill: var(--text); }
+.iso-conv .step-name { font-size: 13.5px; font-weight: 500; fill: var(--text); }
+.iso-conv .step-q { font-size: 12px; font-weight: 500; fill: var(--text-muted); }
+.iso-conv .step .f-t { transition: fill .3s ease; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .cs-vis--conv.is-visible .pulse { animation: conv-pulse 8s linear var(--d) infinite; }
+  .cs-vis--conv.is-visible .hub .f-t { animation: conv-hub 8s ease infinite; }
+  .cs-vis--conv.is-visible .lit { animation: conv-lit 8s ease calc(var(--k) * .45s) infinite; }
+  .cs-vis--conv.is-visible .step .slip--step polygon { animation: conv-step-line 8s ease calc(var(--k) * .45s) infinite; }
+  .cs-vis--conv.is-visible .step .slip--step .f-t { animation: conv-step-face 8s ease calc(var(--k) * .45s) infinite; }
+}
+/* static: the modules already in place, in blue */
+@media (prefers-reduced-motion: reduce) {
+  .iso-conv .lit { stroke-dashoffset: 0; }
+  .iso-conv .slip--step polygon { stroke: var(--accent); }
+}
+/* signals travel in: a short dash runs each thread to HyperSense */
+@keyframes conv-pulse {
+  0% { stroke-dashoffset: .06; opacity: 0; }
+  2% { opacity: 1; }
+  20% { stroke-dashoffset: -.96; opacity: 1; }
+  22%, 100% { stroke-dashoffset: -.96; opacity: 0; }
+}
+/* HyperSense takes them in */
+@keyframes conv-hub {
+  0%, 18% { fill: var(--bg); }
+  28%, 82% { fill: color-mix(in srgb, var(--accent) 22%, var(--bg)); }
+  94%, 100% { fill: var(--bg); }
+}
+/* and hands one investigation out, module by module */
+@keyframes conv-lit {
+  0%, 26% { stroke-dashoffset: 1; opacity: 1; }
+  33%, 84% { stroke-dashoffset: 0; opacity: 1; }
+  92%, 100% { stroke-dashoffset: 0; opacity: 0; }
+}
+@keyframes conv-step-line {
+  0%, 31% { stroke: rgb(var(--fg-rgb) / .55); }
+  35%, 84% { stroke: var(--accent); }
+  92%, 100% { stroke: rgb(var(--fg-rgb) / .55); }
+}
+@keyframes conv-step-face {
+  0%, 31% { fill: var(--bg); }
+  35%, 84% { fill: color-mix(in srgb, var(--accent) 18%, var(--bg)); }
+  92%, 100% { fill: var(--bg); }
+}
+
+@media (max-width: 600px) {
+  .iso-conv--wide { display: none; }
+  .iso-conv--narrow { display: block; }
+}
