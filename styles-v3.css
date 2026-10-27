@@ -279,7 +279,7 @@ p { margin: 0 0 24px; }
 @keyframes fadein { to { opacity: var(--o, 1); } }
 
 /* ===== Intro ===== */
-.intro { margin-top: 100px; }
+.intro { margin-top: 64px; }
 .status { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text-muted); margin-bottom: 24px; }
 .status i {
   width: 7px; height: 7px; border-radius: 50%;
@@ -488,6 +488,7 @@ p { margin: 0 0 24px; }
 /* ===== Small screens: the nav becomes a top bar ===== */
 /* ===== Top bar: Resume · theme pill (like the reference header) ===== */
 .topbar { display: flex; align-items: center; justify-content: flex-end; gap: 14px; height: 36px; }
+.topbar .status { margin-bottom: 0; }
 .tb-link {
   background: none; border: 0; padding: 4px 2px; cursor: pointer;
   font: 500 14px/1 var(--font); color: var(--text-soft);
