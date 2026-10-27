@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Instrument+Serif:ital@0;1&family=Geist+Mono:wght@400&family=Public+Sans:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles-v3.css?v=15">
+<link rel="stylesheet" href="styles-v3.css?v=18">
 <script>
   // Time of day before first paint: the visitor's pick, or Auto from their clock
   // (Day 6 am-4 pm, Mid 4-7 pm, Night 7 pm-6 am). Day is the white theme, Mid paper, Night dark.
@@ -69,17 +69,13 @@
         <li><a href="#work" data-spy="work"><span>Work</span></a></li>
         <li><a href="#side" data-spy="side"><span>Side projects</span></a></li>
         <li><a href="#about" data-spy="about"><span>About</span></a></li>
+        <li><a href="#experience" data-spy="experience"><span>Experience</span></a></li>
         <li><a href="#contact" data-spy="contact"><span>Contact</span></a></li>
       </ul>
     </div>
   </nav>
 
   <main class="v3-main" id="top">
-
-    <!-- Top bar: the résumé opens on this page -->
-    <header class="topbar">
-      <button class="tb-link" type="button" data-open-resume>Resume</button>
-    </header>
 
 
     <section class="intro">
@@ -155,15 +151,6 @@
       </ul>
     </section>
 
-    <!-- Notes: a short writing list, as most of the references have. Point at Medium or real posts. -->
-    <section class="sec" id="notes" aria-labelledby="notes-h">
-      <div class="sec-head"><h2 id="notes-h">Notes <span class="ph-tag">placeholder</span></h2><a href="https://medium.com/@akhilmale" target="_blank" rel="noopener">See all ↗</a></div>
-      <ul class="rows">
-        <li><a class="note-row" href="https://medium.com/@akhilmale" target="_blank" rel="noopener"><span>Designing for people who read numbers all day</span><span class="meta">Oct 2026</span></a></li>
-        <li><a class="note-row" href="https://medium.com/@akhilmale" target="_blank" rel="noopener"><span>What frontline workers taught me about onboarding</span><span class="meta">Aug 2026</span></a></li>
-      </ul>
-    </section>
-
     <section class="sec" id="about" data-section aria-labelledby="about-h">
       <div class="sec-head"><h2 id="about-h">About</h2></div>
       <div class="about">
@@ -181,6 +168,25 @@
           <figcaption class="meta">akhil.png · Bengaluru</figcaption>
         </figure>
       </div>
+    </section>
+
+    <!-- Experience: the résumé in short (roles, skills, tools), with the full PDF to download -->
+    <section class="sec" id="experience" data-section aria-labelledby="xp-h">
+      <div class="sec-head"><h2 id="xp-h">Experience</h2><a href="assets/resume.pdf" download>Download résumé ↓</a></div>
+      <ul class="xp">
+        <li><div class="xp-row"><span>Product Designer, <strong>Juspay</strong></span><span class="meta">2024 — now</span></div>
+          <p>Designed enterprise payment products across the Hyperswitch suite and the domestic payment ecosystem, contributing to several 0→1 initiatives that turned complex payment systems into clear decision-making experiences for enterprise merchants.</p></li>
+        <li><div class="xp-row"><span>Associate Product Designer, <strong>Go Better</strong></span><span class="meta">2022 — 24</span></div>
+          <p>Designed mobile experiences across Go Better's HRMS products, making learning and daily workforce operations more intuitive and reliable for frontline workers.</p></li>
+      </ul>
+      <p class="meta xp-label">Skills</p>
+      <ul class="xp-words">
+        <li>Product design</li><li>Enterprise UX</li><li>Data visualisation</li><li>Interactive prototyping</li><li>Information architecture</li><li>Product strategy</li><li>User research</li><li>Systems thinking</li>
+      </ul>
+      <p class="meta xp-label">Tools</p>
+      <ul class="xp-words">
+        <li>Figma</li><li>Claude Code</li><li>Cursor</li><li>Lovable</li><li>Mixpanel</li><li>GitHub</li><li>Supabase</li><li>Clarity</li>
+      </ul>
     </section>
 
     <section class="sec contact" id="contact" data-section aria-labelledby="contact-h">
@@ -204,51 +210,6 @@
   </main>
 </div>
 
-<!-- Résumé, opened in the middle of the page from the top bar (content from resume.html) -->
-<dialog class="cv" id="cv" aria-labelledby="cv-h">
-  <div class="cv-bar">
-    <span class="meta">Résumé · 2026</span>
-    <div class="cv-actions">
-      <a class="cv-dl" href="assets/resume.pdf" download>Download PDF</a>
-      <button class="cv-x" type="button" data-close-resume aria-label="Close résumé">Close <kbd>esc</kbd></button>
-    </div>
-  </div>
-  <div class="cv-body">
-    <h2 id="cv-h">Akhil Male</h2>
-    <p>Product Designer with 3.5+ years of experience simplifying complex enterprise and B2B products.</p>
-    <p class="meta"><a class="ul" href="mailto:akhilmale.ux@gmail.com">akhilmale.ux@gmail.com</a> · <a class="ul" href="https://www.linkedin.com/in/male-akhil/" target="_blank" rel="noopener">LinkedIn</a></p>
-
-    <h3>Experience</h3>
-    <div class="cv-job">
-      <div class="cv-row"><strong>Juspay</strong><span class="meta">Jun 2024 — now</span></div>
-      <div class="cv-role">Product Designer</div>
-      <p>Designed enterprise payment products across the Hyperswitch suite and the domestic payment ecosystem, contributing to several 0→1 initiatives that turned complex payment systems into clear decision-making experiences for enterprise merchants.</p>
-      <ul>
-        <li><strong>HyperSense</strong> · An investigation-first cost observability experience that turns fragmented payment cost signals into one coherent story. From early concept through merchant adoption.</li>
-        <li><strong>Hyperswitch</strong> · Product experiences across revenue recovery, reconciliation and payment operations, helping enterprise teams understand, investigate and decide.</li>
-      </ul>
-    </div>
-    <div class="cv-job">
-      <div class="cv-row"><strong>Go Better</strong><span class="meta">Dec 2022 — Mar 2024</span></div>
-      <div class="cv-role">Associate Product Designer</div>
-      <p>Designed mobile experiences across Go Better's HRMS products, making learning and daily workforce operations more intuitive and reliable for frontline workers.</p>
-      <ul>
-        <li><strong>Oust</strong> · Redesigned the end-to-end learning experience into a more engaging, personalised, role-based journey that encourages continuous up-skilling.</li>
-        <li><strong>Attendance</strong> · Made a critical daily workflow faster, more reliable and easier to complete accurately.</li>
-      </ul>
-    </div>
-
-    <h3>Education</h3>
-    <div class="cv-row"><span><strong>Avanthi Degree &amp; PG College</strong> · B.Sc Computer Science</span><span class="meta">2018 — 2021</span></div>
-
-    <h3>Skills</h3>
-    <dl class="cv-skills">
-      <div><dt>Design</dt><dd>Product design, enterprise UX, data visualisation, vibe-coding, UX writing, interactive prototyping, design documentation, information architecture</dd></div>
-      <div><dt>Research &amp; strategy</dt><dd>Product strategy, problem framing, product &amp; user research, systems thinking, usability testing, stakeholder collaboration</dd></div>
-      <div><dt>Tools</dt><dd>Figma, Claude Code, Cursor, Lovable, Mixpanel, GitHub, Supabase, Clarity</dd></div>
-    </dl>
-  </div>
-</dialog>
 
 <div class="peek" aria-hidden="true"><img alt=""></div>
 
@@ -316,14 +277,6 @@
     if (doing) doing.textContent = h < 7 ? 'asleep, probably' : h < 10 ? 'on coffee number one' : h < 19 ? 'designing at Juspay' : h < 23 ? 'tinkering on Holdr' : 'should be asleep';
   }
   tick(); setInterval(tick, 30000);
-
-  // Résumé: opens on this page instead of sending people to /resume
-  var cv = document.getElementById('cv');
-  document.querySelectorAll('[data-open-resume]').forEach(function (b) {
-    b.addEventListener('click', function () { cv.showModal(); });
-  });
-  cv.querySelector('[data-close-resume]').addEventListener('click', function () { cv.close(); });
-  cv.addEventListener('click', function (e) { if (e.target === cv) cv.close(); });
 
   // Work: list or grid, remembered per visitor
   var work = document.getElementById('work-list');
