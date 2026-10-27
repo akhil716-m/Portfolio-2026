@@ -574,8 +574,21 @@
 @media (max-width: 1240px) { .cs-spy { display: none; } }
 /* Up-skill: on Day and Mid the screen is light, so a light veil hid the highlight; darken around it instead */
 :root:not([data-theme="dark"]) .cs-phone { --dim: rgb(18 18 18 / .5); }
-:root:not([data-theme="dark"]) .cs-ring { box-shadow: 0 0 0 1400px rgb(18 18 18 / .5), inset 0 0 0 1.5px var(--accent); }
+:root:not([data-theme="dark"]) .cs-ring:not(.cs-ring--frame) { box-shadow: 0 0 0 1400px rgb(18 18 18 / .5), inset 0 0 0 1.5px rgb(255 255 255 / .9); }
+.cs-ring--frame, :root:not([data-theme="dark"]) .cs-ring--frame { box-shadow: none; }
+.cs-ring:not(.cs-ring--frame) { box-shadow: 0 0 0 1400px rgb(var(--bg-rgb) / 0.72), inset 0 0 0 1.5px rgb(255 255 255 / .55); }
+.cs-ring--frame { outline: none; }
 /* Up-skill spacing: the walkthroughs need the wide stage for their notes, and every visual gets air from the text above it */
 .v3-cs .cs-pin { width: min(1040px, calc(100vw - 48px)); margin-left: calc(50% - min(520px, 50vw - 24px)); margin-top: 48px; }
 .v3-cs .cs-wrap + .cs-wrap--board:not([style*="margin-top"]) { margin-top: 48px; }
 .v3-cs .cs-list + .cs-p { margin-top: 24px; }
+
+/* Up-skill spacing: problem groups and the moments timeline */
+.v3-cs .cs-pgroup-tag { margin-bottom: 40px; }
+.v3-cs .cs-pains { margin-top: 0; row-gap: 48px; }
+.v3-cs .cs-pgroup + .cs-pgroup { margin-top: 120px; }
+.v3-cs .cs-mend-who { margin-top: 20px; }
+.v3-cs .cs-mend-list { padding-top: 0; }
+.v3-cs .cs-mend-list li { padding-top: 32px; }
+.v3-cs .cs-mend-list li:first-child { padding-top: 0; }
+.v3-cs .cs-mend-item { padding-right: 8px; }
