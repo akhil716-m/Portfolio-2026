@@ -655,3 +655,15 @@ html:root[data-theme="dark"] { --stage: #1e1e1e; }
 }
 .v3-cs .cs-step--left .cs-step-title::after { left: calc(100% + 12px + var(--len, var(--gap)) - 8px); }
 .v3-cs .cs-step--right .cs-step-title::after { right: calc(100% + 12px + var(--len, var(--gap)) - 8px); }
+
+/* Up-skill: one paragraph style everywhere (the description style), with room between blocks */
+.cs-skilling .cs-p, .cs-skilling .cs-lead, .cs-skilling .cs-list li, .cs-skilling .cs-list-who,
+.cs-skilling .cs-force-desc, .cs-skilling .cs-pain-desc, .cs-skilling .cs-mend-desc, .cs-skilling .cs-step-desc,
+.cs-skilling .cs-strip-desc, .cs-skilling .cs-pgroup-tag, .cs-skilling .cs-theme-desc, .cs-skilling .cs-closing-line {
+  font-size: 14.5px; font-weight: 400; line-height: 1.7; letter-spacing: 0; color: var(--text-soft);
+}
+.cs-skilling .cs-p, .cs-skilling .cs-lead { margin: 0 0 28px; }
+.cs-skilling .cs-p:last-child, .cs-skilling .cs-lead:last-child { margin-bottom: 0; }
+.cs-skilling .cs-list li { padding-top: 0; margin-bottom: 8px; }
+.cs-skilling .cs-force-title, .cs-skilling .cs-pain-title, .cs-skilling .cs-mend-title, .cs-skilling .cs-step-title { margin-bottom: 12px; }
+.cs-skilling .cs-p strong, .cs-skilling .cs-lead strong { font-weight: 500; }
