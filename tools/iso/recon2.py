@@ -15,10 +15,10 @@ F = {name: fn for name, fn, _ in SYSTEMS}
 out = []
 for name in ('oms', 'psp', 'bank'):                          # the layers: the same record everywhere
     body, top = F[name]()
-    out.append(svg(body, slip(top + 6)))
-out.append(svg(pad, slip(6) + slip(9.2)))                    # matched
+    out.append(svg(body, slip(top)))
+out.append(svg(pad, slip(4) + slip(5.8)))                    # matched
 for name, foot in (('oms', SQUARE), ('psp', STRIP)):         # the exception: each its own form
     body, top = F[name]()
-    out.append(svg(body, slab(foot, 3, top + 6)))
+    out.append(svg(body, slab(foot, 3, top)))
 out.append(svg(pad, slab(SQUARE, 3, 6, X - 6, Y + 2) + slab(STRIP, 3, 9.5, X + 5, Y - 3), " iso-cmp--exc"))
 print('\n@@SPLIT@@\n'.join(out))

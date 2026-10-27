@@ -27,7 +27,7 @@ def face(a, b0, b1, z0, z1, c):
     return poly([proj(X, Y, a, b0, z0), proj(X, Y, a, b1, z0), proj(X, Y, a, b1, z1), proj(X, Y, a, b0, z1)], c)
 # All three are about 40 x 30 on the ground and 27 tall, so they read as equals.
 def oms():          # the order system's records: a loose stack of order papers
-    return ''.join(prism(X + (i % 3) * .9, Y, 34, 24, -10 + (i * 37 % 19), 2, i * 3.1) for i in range(8)), 27
+    return ''.join(prism(X + (i % 3) * .9, Y, 34, 24, -10 + (i * 37 % 19), 2, i * 3.1) for i in range(8)), 23.7      # top of the 8th paper
 def psp():          # the processor: a two-tier server block, a slot light on each tier
     g = prism(X, Y, 40, 30, 0, 12) + prism(X, Y, 40, 30, 0, 12, 15)
     for z in (5, 20):
@@ -62,15 +62,15 @@ if __name__ == "__main__":
     CIRCLE = [(24 * math.cos(math.radians(a)), 24 * math.sin(math.radians(a))) for a in range(0, 360, 15)]
     out = ['<svg class="iso-sys iso-txn" viewBox="0 0 600 96" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">']
     for cx, (_, fn, _) in zip((100, 300, 500), SYSTEMS):   # a lower object gets a longer line
-        out.append(f'<path class="sys-link" d="M 300 52 L {cx} {128 + (27 - fn()[1]) * 1.67:.0f}"/>')
+        out.append(f'<path class="sys-link" d="M 300 52 L {cx} {138 + (27 - fn()[1]) * 1.67:.0f}"/>')
     out.append(f'<g class="sys-slip" style="--k:0">{slab(CIRCLE, 5, 0, 300, 38)}</g>')
     out += ['</svg>', '@@SPLIT@@']
     for k, (name, fn, foot) in enumerate(SYSTEMS):
         body, top = fn()
         out.append(f'<svg class="iso-sys" viewBox="{VX} {VY} {VW} {VH}" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">')
         out.append(f'<g class="sys-obj">{body}</g>')
-        # the transaction, landing on top in this system's own form
-        out.append(f'<g class="sys-slip" style="--k:{k + 1}">{slab(foot, 3, top + 6)}</g>')
+        # the transaction, resting centred on top in this system's own form
+        out.append(f'<g class="sys-slip" style="--k:{k + 1}">{slab(foot, 3, top)}</g>')
         out.append('</svg>')
         out.append('@@SPLIT@@')
     print('\n'.join(out))
