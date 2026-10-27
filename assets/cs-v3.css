@@ -121,6 +121,28 @@
 .v3-cs .cs-challenge, .v3-cs .cs-sim-callout, .v3-cs .cs-sim-dg { background: var(--bg-soft); }
 /* Stat cards: plain cards, no gradient or glow; the highlighted one keeps its number in blue */
 .v3-cs .cs-fstat, .v3-cs .cs-fstat--win { background: var(--bg-card); border-color: var(--line); }
+/* Outcome stats: no cards; each stat is a small isometric drawing with its words beneath,
+   like the merchant-scale figure */
+.v3-cs .cs-fstat-grid--iso { gap: 28px; margin: 40px 0 8px; }
+.v3-cs .cs-fstat-grid--iso .cs-fstat { background: none; border: 0; border-radius: 0; padding: 0; overflow: visible; align-items: center; text-align: center; gap: 6px; }
+.v3-cs .cs-fstat-grid--iso .cs-fstat-num { font: 500 32px/1 var(--font); letter-spacing: -.02em; margin-top: 10px; }
+.v3-cs .cs-fstat-grid--iso .cs-fstat-label { font: 500 15px/1.3 var(--font); color: var(--text); }
+.v3-cs .cs-fstat-grid--iso .cs-fstat-desc { font: 500 13.5px/1.55 var(--font); color: var(--text-muted); max-width: 26ch; margin: 2px auto 0; }
+.iso-stat { width: 100%; max-width: 220px; height: auto; display: block; overflow: visible; margin: 0 auto; }
+.iso-stat polygon { stroke-width: 1; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.iso-stat .f-t { fill: var(--bg); }
+.iso-stat .f-l { fill: var(--bg-soft); }
+.iso-stat .f-r { fill: color-mix(in srgb, var(--bg-soft) 70%, var(--line-strong)); }
+.iso-stat .plinth polygon { stroke: rgb(var(--fg-rgb) / .3); }
+.iso-stat .pil polygon { stroke: rgb(var(--fg-rgb) / .5); }
+.iso-stat .pil--fee polygon { stroke: var(--accent); }
+.iso-stat .pil--fee .f-t { fill: color-mix(in srgb, var(--accent) 30%, var(--bg)); }
+.iso-stat .pil--fee .f-l, .iso-stat .pil--fee .f-r { fill: color-mix(in srgb, var(--accent) 42%, var(--bg)); }
+.iso-stat .pil { transform-box: fill-box; transform-origin: 50% 100%; }
+@media (prefers-reduced-motion: no-preference) {
+  .cs-fstat-grid--iso.reveal:not(.is-visible) .pil { transform: scaleY(0); }
+  .cs-fstat-grid--iso.is-visible .pil { animation: iso-rise .8s cubic-bezier(.22, 1, .36, 1) var(--d) both; }
+}
 .v3-cs .cs-fstat::before, .v3-cs .cs-fstat--win::before { display: none; }
 .v3-cs .cs-outcome-step--win, .v3-cs .cs-iter-step--active { background: var(--bg-soft); }
 .v3-cs .cs-sim-final { background: none; border-color: var(--line-strong); }

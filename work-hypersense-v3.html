@@ -1272,7 +1272,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 
 </style>
 <link rel="stylesheet" href="assets/cs-article.css">
-<link rel="stylesheet" href="assets/cs-v3.css?v=22">
+<link rel="stylesheet" href="assets/cs-v3.css?v=23">
 <script>
 /* fx preview: canvas diagrams read the live accent and ground from the theme tokens */
 (function () {
@@ -2259,18 +2259,57 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
   <p class="cs-p reveal">HyperSense evolved from an internal concept into a product validated by enterprise merchants.</p>
   <p class="cs-p reveal">Through demos, pilots, and customer conversations, we confirmed that payment cost visibility wasn't just an operational problem; it was a business-critical one worth solving.</p>
 
-  <div class="cs-fstat-grid reveal">
+  <!-- Outcome, in the same isometric language: one unit per merchant, the same size in all three.
+       20 flat tiles (demoed), 6 raised pillars (piloted), 2 tall blue pillars (converted). -->
+  <div class="cs-fstat-grid cs-fstat-grid--iso reveal">
     <div class="cs-fstat">
+      <svg class="iso-stat" viewBox="0 0 220 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <g class="plinth"><polygon class="f-l" points="50.7,81.2 104.4,112.2 104.4,108.2 50.7,77.2"/><polygon class="f-r" points="104.4,112.2 169.3,74.8 169.3,70.8 104.4,108.2"/><polygon class="f-t" points="50.7,77.2 104.4,108.2 169.3,70.8 115.6,39.8"/></g>
+      <g class="pil" style="--d:0.10s"><polygon class="f-l" points="106.4,51.2 115.6,56.5 115.6,53.5 106.4,48.2"/><polygon class="f-r" points="115.6,56.5 124.8,51.2 124.8,48.2 115.6,53.5"/><polygon class="f-t" points="106.4,48.2 115.6,53.5 124.8,48.2 115.6,43.0"/></g>
+      <g class="pil" style="--d:0.13s"><polygon class="f-l" points="95.2,57.8 104.4,63.0 104.4,60.0 95.2,54.8"/><polygon class="f-r" points="104.4,63.0 113.6,57.8 113.6,54.8 104.4,60.0"/><polygon class="f-t" points="95.2,54.8 104.4,60.0 113.6,54.8 104.4,49.5"/></g>
+      <g class="pil" style="--d:0.16s"><polygon class="f-l" points="117.7,57.8 126.9,63.0 126.9,60.0 117.7,54.8"/><polygon class="f-r" points="126.9,63.0 136.1,57.8 136.1,54.8 126.9,60.0"/><polygon class="f-t" points="117.7,54.8 126.9,60.0 136.1,54.8 126.9,49.5"/></g>
+      <g class="pil" style="--d:0.19s"><polygon class="f-l" points="83.9,64.2 93.1,69.5 93.1,66.5 83.9,61.2"/><polygon class="f-r" points="93.1,69.5 102.3,64.2 102.3,61.2 93.1,66.5"/><polygon class="f-t" points="83.9,61.2 93.1,66.5 102.3,61.2 93.1,56.0"/></g>
+      <g class="pil" style="--d:0.22s"><polygon class="f-l" points="106.4,64.2 115.6,69.5 115.6,66.5 106.4,61.2"/><polygon class="f-r" points="115.6,69.5 124.8,64.2 124.8,61.2 115.6,66.5"/><polygon class="f-t" points="106.4,61.2 115.6,66.5 124.8,61.2 115.6,56.0"/></g>
+      <g class="pil" style="--d:0.25s"><polygon class="f-l" points="129.0,64.2 138.1,69.5 138.1,66.5 129.0,61.2"/><polygon class="f-r" points="138.1,69.5 147.3,64.2 147.3,61.2 138.1,66.5"/><polygon class="f-t" points="129.0,61.2 138.1,66.5 147.3,61.2 138.1,56.0"/></g>
+      <g class="pil" style="--d:0.28s"><polygon class="f-l" points="72.7,70.8 81.9,76.0 81.9,73.0 72.7,67.8"/><polygon class="f-r" points="81.9,76.0 91.0,70.8 91.0,67.8 81.9,73.0"/><polygon class="f-t" points="72.7,67.8 81.9,73.0 91.0,67.8 81.9,62.5"/></g>
+      <g class="pil" style="--d:0.31s"><polygon class="f-l" points="95.2,70.8 104.4,76.0 104.4,73.0 95.2,67.8"/><polygon class="f-r" points="104.4,76.0 113.6,70.8 113.6,67.8 104.4,73.0"/><polygon class="f-t" points="95.2,67.8 104.4,73.0 113.6,67.8 104.4,62.5"/></g>
+      <g class="pil" style="--d:0.34s"><polygon class="f-l" points="117.7,70.8 126.9,76.0 126.9,73.0 117.7,67.8"/><polygon class="f-r" points="126.9,76.0 136.1,70.8 136.1,67.8 126.9,73.0"/><polygon class="f-t" points="117.7,67.8 126.9,73.0 136.1,67.8 126.9,62.5"/></g>
+      <g class="pil" style="--d:0.37s"><polygon class="f-l" points="140.2,70.8 149.4,76.0 149.4,73.0 140.2,67.8"/><polygon class="f-r" points="149.4,76.0 158.6,70.8 158.6,67.8 149.4,73.0"/><polygon class="f-t" points="140.2,67.8 149.4,73.0 158.6,67.8 149.4,62.5"/></g>
+      <g class="pil" style="--d:0.40s"><polygon class="f-l" points="61.4,77.2 70.6,82.5 70.6,79.5 61.4,74.2"/><polygon class="f-r" points="70.6,82.5 79.8,77.2 79.8,74.2 70.6,79.5"/><polygon class="f-t" points="61.4,74.2 70.6,79.5 79.8,74.2 70.6,69.0"/></g>
+      <g class="pil" style="--d:0.43s"><polygon class="f-l" points="83.9,77.2 93.1,82.5 93.1,79.5 83.9,74.2"/><polygon class="f-r" points="93.1,82.5 102.3,77.2 102.3,74.2 93.1,79.5"/><polygon class="f-t" points="83.9,74.2 93.1,79.5 102.3,74.2 93.1,69.0"/></g>
+      <g class="pil" style="--d:0.46s"><polygon class="f-l" points="106.4,77.2 115.6,82.5 115.6,79.5 106.4,74.2"/><polygon class="f-r" points="115.6,82.5 124.8,77.2 124.8,74.2 115.6,79.5"/><polygon class="f-t" points="106.4,74.2 115.6,79.5 124.8,74.2 115.6,69.0"/></g>
+      <g class="pil" style="--d:0.49s"><polygon class="f-l" points="129.0,77.2 138.1,82.5 138.1,79.5 129.0,74.2"/><polygon class="f-r" points="138.1,82.5 147.3,77.2 147.3,74.2 138.1,79.5"/><polygon class="f-t" points="129.0,74.2 138.1,79.5 147.3,74.2 138.1,69.0"/></g>
+      <g class="pil" style="--d:0.52s"><polygon class="f-l" points="72.7,83.8 81.9,89.0 81.9,86.0 72.7,80.8"/><polygon class="f-r" points="81.9,89.0 91.0,83.8 91.0,80.8 81.9,86.0"/><polygon class="f-t" points="72.7,80.8 81.9,86.0 91.0,80.8 81.9,75.5"/></g>
+      <g class="pil" style="--d:0.55s"><polygon class="f-l" points="95.2,83.8 104.4,89.0 104.4,86.0 95.2,80.8"/><polygon class="f-r" points="104.4,89.0 113.6,83.8 113.6,80.8 104.4,86.0"/><polygon class="f-t" points="95.2,80.8 104.4,86.0 113.6,80.8 104.4,75.5"/></g>
+      <g class="pil" style="--d:0.58s"><polygon class="f-l" points="117.7,83.8 126.9,89.0 126.9,86.0 117.7,80.8"/><polygon class="f-r" points="126.9,89.0 136.1,83.8 136.1,80.8 126.9,86.0"/><polygon class="f-t" points="117.7,80.8 126.9,86.0 136.1,80.8 126.9,75.5"/></g>
+      <g class="pil" style="--d:0.61s"><polygon class="f-l" points="83.9,90.2 93.1,95.5 93.1,92.5 83.9,87.2"/><polygon class="f-r" points="93.1,95.5 102.3,90.2 102.3,87.2 93.1,92.5"/><polygon class="f-t" points="83.9,87.2 93.1,92.5 102.3,87.2 93.1,82.0"/></g>
+      <g class="pil" style="--d:0.64s"><polygon class="f-l" points="106.4,90.2 115.6,95.5 115.6,92.5 106.4,87.2"/><polygon class="f-r" points="115.6,95.5 124.8,90.2 124.8,87.2 115.6,92.5"/><polygon class="f-t" points="106.4,87.2 115.6,92.5 124.8,87.2 115.6,82.0"/></g>
+      <g class="pil" style="--d:0.67s"><polygon class="f-l" points="95.2,96.8 104.4,102.0 104.4,99.0 95.2,93.8"/><polygon class="f-r" points="104.4,102.0 113.6,96.8 113.6,93.8 104.4,99.0"/><polygon class="f-t" points="95.2,93.8 104.4,99.0 113.6,93.8 104.4,88.5"/></g>
+      </svg>
       <div class="cs-fstat-num">20<span class="cs-fstat-sym">+</span></div>
       <div class="cs-fstat-label">Demoed</div>
       <p class="cs-fstat-desc">Presented to 20+ enterprise merchants, including <strong>Apple and SpaceX</strong>.</p>
     </div>
     <div class="cs-fstat">
+      <svg class="iso-stat" viewBox="0 0 220 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <g class="plinth"><polygon class="f-l" points="73.2,81.2 104.4,99.2 104.4,95.2 73.2,77.2"/><polygon class="f-r" points="104.4,99.2 146.8,74.8 146.8,70.8 104.4,95.2"/><polygon class="f-t" points="73.2,77.2 104.4,95.2 146.8,70.8 115.6,52.8"/></g>
+      <g class="pil" style="--d:0.40s"><polygon class="f-l" points="106.4,64.2 115.6,69.5 115.6,49.5 106.4,44.2"/><polygon class="f-r" points="115.6,69.5 124.8,64.2 124.8,44.2 115.6,49.5"/><polygon class="f-t" points="106.4,44.2 115.6,49.5 124.8,44.2 115.6,39.0"/></g>
+      <g class="pil" style="--d:0.43s"><polygon class="f-l" points="95.2,70.8 104.4,76.0 104.4,56.0 95.2,50.8"/><polygon class="f-r" points="104.4,76.0 113.6,70.8 113.6,50.8 104.4,56.0"/><polygon class="f-t" points="95.2,50.8 104.4,56.0 113.6,50.8 104.4,45.5"/></g>
+      <g class="pil" style="--d:0.46s"><polygon class="f-l" points="117.7,70.8 126.9,76.0 126.9,56.0 117.7,50.8"/><polygon class="f-r" points="126.9,76.0 136.1,70.8 136.1,50.8 126.9,56.0"/><polygon class="f-t" points="117.7,50.8 126.9,56.0 136.1,50.8 126.9,45.5"/></g>
+      <g class="pil" style="--d:0.49s"><polygon class="f-l" points="83.9,77.2 93.1,82.5 93.1,62.5 83.9,57.2"/><polygon class="f-r" points="93.1,82.5 102.3,77.2 102.3,57.2 93.1,62.5"/><polygon class="f-t" points="83.9,57.2 93.1,62.5 102.3,57.2 93.1,52.0"/></g>
+      <g class="pil" style="--d:0.52s"><polygon class="f-l" points="106.4,77.2 115.6,82.5 115.6,62.5 106.4,57.2"/><polygon class="f-r" points="115.6,82.5 124.8,77.2 124.8,57.2 115.6,62.5"/><polygon class="f-t" points="106.4,57.2 115.6,62.5 124.8,57.2 115.6,52.0"/></g>
+      <g class="pil" style="--d:0.55s"><polygon class="f-l" points="95.2,83.8 104.4,89.0 104.4,69.0 95.2,63.8"/><polygon class="f-r" points="104.4,89.0 113.6,83.8 113.6,63.8 104.4,69.0"/><polygon class="f-t" points="95.2,63.8 104.4,69.0 113.6,63.8 104.4,58.5"/></g>
+      </svg>
       <div class="cs-fstat-num">6</div>
       <div class="cs-fstat-label">Piloted</div>
       <p class="cs-fstat-desc">Piloted with 6 merchants using real payment cost data.</p>
     </div>
     <div class="cs-fstat cs-fstat--win">
+      <svg class="iso-stat" viewBox="0 0 220 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <g class="plinth"><polygon class="f-l" points="84.5,81.2 104.4,92.8 104.4,88.8 84.5,77.2"/><polygon class="f-r" points="104.4,92.8 135.5,74.8 135.5,70.8 104.4,88.8"/><polygon class="f-t" points="84.5,77.2 104.4,88.8 135.5,70.8 115.6,59.2"/></g>
+      <g class="pil pil--fee" style="--d:0.70s"><polygon class="f-l" points="106.4,70.8 115.6,76.0 115.6,44.0 106.4,38.8"/><polygon class="f-r" points="115.6,76.0 124.8,70.8 124.8,38.8 115.6,44.0"/><polygon class="f-t" points="106.4,38.8 115.6,44.0 124.8,38.8 115.6,33.5"/></g>
+      <g class="pil pil--fee" style="--d:0.73s"><polygon class="f-l" points="95.2,77.2 104.4,82.5 104.4,50.5 95.2,45.2"/><polygon class="f-r" points="104.4,82.5 113.6,77.2 113.6,45.2 104.4,50.5"/><polygon class="f-t" points="95.2,45.2 104.4,50.5 113.6,45.2 104.4,40.0"/></g>
+      </svg>
       <div class="cs-fstat-num">2</div>
       <div class="cs-fstat-label">Converted</div>
       <p class="cs-fstat-desc">Two pilot merchants moved into commercial engagements.</p>
