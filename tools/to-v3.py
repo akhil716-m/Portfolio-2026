@@ -22,7 +22,7 @@ def hexrgb(h): h = h.lstrip('#'); return ' '.join(str(int(h[i:i + 2], 16)) for i
 # <html>: theme from v3; the project colour moves into a small style block per theme
 s = re.sub(r'<html lang="en"[^>]*>', '<html lang="en" data-theme="white" data-inside="project">', s, 1)
 s = re.sub(r'(<title>[^<]*</title>)', r'\1\n<meta name="robots" content="noindex">', s, 1)
-s = re.sub(r'<link href="https://fonts.googleapis.com/css2\?family=Playfair[^"]*" rel="stylesheet">',
+s = re.sub(r'<link href="https://fonts.googleapis.com/css2\?family=(?:Playfair|Geist:)[^"]*" rel="stylesheet">',
            '<link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">', s, 1)
 head_script = re.search(r'<script>\n  // Time of day before first paint:[\s\S]*?</script>', ref).group(0)
 v3css = re.search(r'<link rel="stylesheet" href="styles-v3\.css\?v=\d+">', ref).group(0)
@@ -39,7 +39,8 @@ rep('<link rel="stylesheet" href="assets/cs-article.css">', '<link rel="styleshe
 s = s.replace("'Geist', sans-serif", "var(--font)")
 
 # chrome: progress bar, side rail and old top nav give way to the v3 layout and top bar
-rep('<div id="cs-progress"></div>\n', '')
+s, n = re.subn(r'<div id="cs-progress"[^>]*></div>\n(<div id="cs-sentinel"[^>]*></div>\n)?', '', s, 1)   # Up-skill also has a sentinel
+assert n == 1
 s = re.sub(r'<!-- CONTEXT RAIL[\s\S]*?</aside>\n\n', '', s, 1)
 topbar = re.search(r'    <header class="topbar">[\s\S]*?\n    </header>\n', ref).group(0)
 s, n = re.subn(r'<nav>\n  <div class="logo">[\s\S]*?\n</nav>\n',
@@ -57,9 +58,10 @@ rep('''<footer>
 s = s.replace('<a class="cs-cta" href="/">', '<a class="cs-cta" href="/home-v3#work">')
 
 # scripts: the rail / chapter-bar script and the old nav's scroll listener go; v3.js joins
-s, n = re.subn(r'/\* Context rail \+ chapter bar:[\s\S]*?\n\}\)\(\);\n', '', s, 1)
+s, n = re.subn(r'/\* Context rail(?: \+ chapter bar|: grouped by act)[\s\S]*?\n\}\)\(\);\n', '', s, 1)
 assert n == 1, 'rail script not found'
-rep('''<script>
+s = re.sub(r'/\* Nav hairline: [\s\S]*?\n\}\)\(\);\n\n', '', s, 1)   # Up-skill's sentinel version of it
+if 'const navEl' in s: rep('''<script>
 const navEl = document.querySelector('nav');
 window.addEventListener('scroll', () => { navEl.classList.toggle('is-scrolled', window.scrollY > 8); }, { passive: true });
 </script>

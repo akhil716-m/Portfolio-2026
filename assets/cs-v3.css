@@ -51,7 +51,7 @@
 .v3-cs .cs-wrap { max-width: none; margin: 0; padding: 0; }
 /* Wide visuals: up to 960px, centred on the page (the column is centred, so centring on it
    centres them on the page too); on small screens they keep a 24px margin each side */
-.v3-cs .cs-wrap--wide,
+.v3-cs .cs-wrap--wide, .v3-cs .cs-wrap--board,
 .v3-cs .cs-wrap--showcase { width: min(960px, calc(100vw - 48px)); max-width: none; margin-left: calc(50% - min(480px, 50vw - 24px)); }
 .v3-cs .cs-vis--wide { --vis-w: min(960px, calc(100vw - 48px)); margin-left: calc(50% - var(--vis-w) / 2) !important; }
 
