@@ -676,3 +676,6 @@ html:root[data-theme="dark"] { --stage: #1e1e1e; }
 .cs-skilling .cs-display + .cs-lead, .cs-skilling .cs-display + .cs-p { margin-top: 16px; }
 .cs-skilling #cs-overview, .cs-skilling #cs-users, .cs-skilling #cs-challenges, .cs-skilling #cs-scope, .cs-skilling #cs-courses,
 .cs-skilling #cs-assess, .cs-skilling #cs-playlists, .cs-skilling #cs-mylearning, .cs-skilling #cs-events, .cs-skilling #cs-conclusion { margin-top: clamp(88px, 10vw, 128px); }
+
+/* moments timeline: stage name > intervention title > description */
+.cs-skilling .cs-mend-title { font-size: 15.5px; font-weight: 500; line-height: 1.35; margin-bottom: 8px; }
