@@ -465,6 +465,11 @@
    The same objects as visual 1, one per node, open on the page instead of in cards; the result is
    a low pad with the two slips lying square on one another (matched). */
 .cs-recon-layers--iso { gap: 28px; }
+/* a hairline between the two layers, so they read as two separate comparisons */
+.cs-recon-layers--iso .cs-recon-layer + .cs-recon-layer { position: relative; padding-top: 28px; }
+.cs-recon-layers--iso .cs-recon-layer + .cs-recon-layer::before {
+  content: ""; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: var(--line);
+}
 .cs-recon-layers--iso .cs-recon-node,
 .cs-recon-layers--iso .cs-recon-node--result { border: 0; background: none; padding: 0; min-width: 0; flex: 1; }
 .cs-recon-layers--iso .cs-recon-node-title { font: 500 14px/1.3 var(--font); color: var(--text); margin-bottom: 2px; }
