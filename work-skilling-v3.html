@@ -1018,7 +1018,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 @media (prefers-reduced-motion: reduce) { nav .logo a.cs-back { transition: none; } }
 </style>
 <link rel="stylesheet" href="assets/cs-article.css">
-<link rel="stylesheet" href="assets/cs-v3.css?v=46">
+<link rel="stylesheet" href="assets/cs-v3.css?v=51">
 <style>
 /* This project's colour, per theme (deeper on white and paper so it stays readable) */
 :root { --accent: #1f8a74; --acc-rgb: 31 138 116; --proj: #1f8a74; --proj-rgb: 31 138 116; }
@@ -1029,6 +1029,19 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 <body>
 
 
+<!-- Scrollspy: the four parts of the story, at the right edge (the home nav's cube marks the current one) -->
+<nav class="cs-spy" aria-label="Parts of the case study">
+  <div class="nav-group">
+    <span class="nav-dot" aria-hidden="true"><svg viewBox="0 0 14 15"><polygon class="f-l" points="1.5,4.2 7,7.4 7,13.6 1.5,10.4"/><polygon class="f-r" points="7,7.4 12.5,4.2 12.5,10.4 7,13.6"/><polygon class="f-t" points="7,1 12.5,4.2 7,7.4 1.5,4.2"/></svg></span>
+    <ul class="nav-list">
+      <li><a href="#top" data-spy="top"><span>Overview</span></a></li>
+      <li><a href="#act-problem" data-spy="act-problem"><span>Problem</span></a></li>
+      <li><a href="#act-approach" data-spy="act-approach"><span>Approach</span></a></li>
+      <li><a href="#act-product" data-spy="act-product"><span>Product</span></a></li>
+      <li><a href="#act-conclusion" data-spy="act-conclusion"><span>Conclusion</span></a></li>
+    </ul>
+  </div>
+</nav>
 <div class="v3 v3-cs">
 
   <main class="v3-main" id="top">
@@ -1124,13 +1137,10 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 </section>
 
 <!-- ═══════════════════════ ACT — THE PROBLEM ═══════════════════════ -->
-<section class="cs-act" id="act-problem" data-wash="amber" aria-labelledby="act-problem-t">
-  <img class="cs-act-bg" src="assets/skilling/act-problem.jpg" alt="" width="2800" height="1278" loading="lazy" decoding="async">
-  <div class="cs-act-scrim" aria-hidden="true"></div>
-  <div class="cs-act-copy">
-    <h2 class="cs-act-title" id="act-problem-t"><span class="cs-act-mask"><span class="cs-act-line">The <em>problem</em></span></span></h2>
-  </div>
-</section>
+<div class="cs-wrap cs-part" id="act-problem" data-section>
+  <div class="cs-part-num">01 / 04</div>
+  <h2 class="cs-part-title">The <em>problem</em></h2>
+</div>
 
 <!-- ═══════════════════════ 03 — WHY REDESIGN ═══════════════════════ -->
 <section class="cs-section" id="cs-why" data-wash="amber">
@@ -1360,13 +1370,10 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 </section>
 
 <!-- ═══════════════════════ ACT — THE APPROACH ═══════════════════════ -->
-<section class="cs-act" id="act-approach" data-wash="steel" aria-labelledby="act-approach-t">
-  <img class="cs-act-bg" src="assets/skilling/act-approach.jpg" alt="" width="2800" height="1280" loading="lazy" decoding="async">
-  <div class="cs-act-scrim" aria-hidden="true"></div>
-  <div class="cs-act-copy">
-    <h2 class="cs-act-title" id="act-approach-t"><span class="cs-act-mask"><span class="cs-act-line">The <em>approach</em></span></span></h2>
-  </div>
-</section>
+<div class="cs-wrap cs-part" id="act-approach" data-section>
+  <div class="cs-part-num">02 / 04</div>
+  <h2 class="cs-part-title">The <em>approach</em></h2>
+</div>
 
 <!-- ═══════════════════════ 06 — DESIGN APPROACH ═══════════════════════ -->
 <section class="cs-section" id="cs-process" data-wash="steel">
@@ -1400,14 +1407,10 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 </section>
 
 <!-- ═══════════════════════ ACT — THE PRODUCT ═══════════════════════ -->
-<section class="cs-act" id="act-product" data-wash="teal" aria-labelledby="act-product-t">
-  <div class="cs-act-bg cs-act-bg--fill" aria-hidden="true"></div>
-  <img class="cs-act-cutout" src="assets/skilling/act-product.webp" alt="" width="1039" height="1500" loading="lazy" decoding="async">
-  <div class="cs-act-scrim" aria-hidden="true"></div>
-  <div class="cs-act-copy">
-    <h2 class="cs-act-title" id="act-product-t"><span class="cs-act-mask"><span class="cs-act-line">The <em>product</em></span></span></h2>
-  </div>
-</section>
+<div class="cs-wrap cs-part" id="act-product" data-section>
+  <div class="cs-part-num">03 / 04</div>
+  <h2 class="cs-part-title">The <em>product</em></h2>
+</div>
 
 <!-- ═══════════════════════ 07 — HOME ═══════════════════════ -->
 <section class="cs-section" id="cs-home" data-wash="teal">
@@ -2079,13 +2082,10 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 </section>
 
 <!-- ═══════════════════════ ACT — THE CONCLUSION ═══════════════════════ -->
-<section class="cs-act" id="act-conclusion" data-wash="green" aria-labelledby="act-conclusion-t">
-  <img class="cs-act-bg" src="assets/skilling/act-conclusion.jpg" alt="" width="2800" height="1459" loading="lazy" decoding="async">
-  <div class="cs-act-scrim" aria-hidden="true"></div>
-  <div class="cs-act-copy">
-    <h2 class="cs-act-title" id="act-conclusion-t"><span class="cs-act-mask"><span class="cs-act-line">The <em>conclusion</em></span></span></h2>
-  </div>
-</section>
+<div class="cs-wrap cs-part" id="act-conclusion" data-section>
+  <div class="cs-part-num">04 / 04</div>
+  <h2 class="cs-part-title">The <em>conclusion</em></h2>
+</div>
 
 <!-- ═══════════════════════ 13 — CONCLUSION ═══════════════════════ -->
 <section class="cs-section" id="cs-conclusion" data-wash="green">
