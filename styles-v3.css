@@ -614,3 +614,8 @@ p { margin: 0 0 24px; }
 
 /* The intro's h1 reads as a paragraph, as on the reference */
 .h-reset { margin: 0 0 24px; font: inherit; color: var(--text-soft); }
+
+/* ===== Click feedback, after ch.sh: a spark canvas over the page (see v3.js), and
+   controls that press in a touch while held ===== */
+.click-spark { position: fixed; inset: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 9999; color: var(--text); }
+button:active, .row:active, .nav-list a:active, .sec-head a:active { scale: .98; }

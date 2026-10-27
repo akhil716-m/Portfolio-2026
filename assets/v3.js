@@ -124,6 +124,46 @@
     if (kind !== 'off') play(kind === 'chime' ? 'chime' : 'press');
   }, true);
 
+  // Click spark, after ch.sh: every click sends six short strokes out from the pointer,
+  // in the text colour at low opacity, gone in 300ms. Drawn on one canvas over the page
+  // that ignores the pointer; it only runs while a spark is alive.
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    var spark = document.createElement('canvas'), sctx = spark.getContext('2d'), sparks = [], sraf = 0;
+    spark.className = 'click-spark';
+    spark.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(spark);
+    var sizeSpark = function () {
+      var r = window.devicePixelRatio || 1;
+      spark.width = innerWidth * r; spark.height = innerHeight * r;
+      sctx.setTransform(r, 0, 0, r, 0, 0);
+    };
+    sizeSpark();
+    window.addEventListener('resize', sizeSpark);
+    var drawSpark = function (now) {
+      sctx.clearRect(0, 0, innerWidth, innerHeight);
+      sctx.strokeStyle = getComputedStyle(spark).color;
+      sctx.globalAlpha = .3; sctx.lineWidth = 1.5; sctx.lineCap = 'round';
+      sparks = sparks.filter(function (p) {
+        var t = (now - p.t0) / 300;
+        if (t >= 1) return false;
+        var e = t * (2 - t), d = e * 12, len = 6 * (1 - e);      // ease-out; travels 12px, shrinks from 6px
+        var cx = Math.cos(p.a), cy = Math.sin(p.a);
+        sctx.beginPath();
+        sctx.moveTo(p.x + d * cx, p.y + d * cy);
+        sctx.lineTo(p.x + (d + len) * cx, p.y + (d + len) * cy);
+        sctx.stroke();
+        return true;
+      });
+      sraf = sparks.length ? requestAnimationFrame(drawSpark) : 0;
+    };
+    window.addEventListener('click', function (e) {
+      if (!e.clientX && !e.clientY) return;                    // keyboard "clicks" have no pointer
+      var t0 = performance.now();
+      for (var i = 0; i < 6; i++) sparks.push({ x: e.clientX, y: e.clientY, a: Math.PI * 2 * i / 6, t0: t0 });
+      if (!sraf) sraf = requestAnimationFrame(drawSpark);
+    });
+  }
+
   // Nav dot: sits 8px after the current label and, when the section changes, springs
   // along a slight curve to the new one (spring 200 / damping 24, 45ms delay)
   var group = document.querySelector('.nav-group');
