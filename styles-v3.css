@@ -467,8 +467,14 @@ p { margin: 0 0 24px; }
 .xp p { margin: 6px 0 0; max-width: 56ch; font-size: 14px; line-height: 1.6; color: var(--text-muted); }
 .xp strong { font-weight: 500; color: var(--text); }
 .xp .meta { white-space: nowrap; }
-.xp-label { margin: 36px 0 10px; }
-.xp-words { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px 22px; font-size: 15px; color: var(--text); }
+.xp-label { margin: 10px 0 12px; }
+/* Skills and tools: two columns, each under its isometric object, the words in a tidy two-up list */
+.kit { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 56px; }
+.kit .iso-now { max-width: 96px; }
+.kit-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 172px), 1fr)); gap: 8px 16px; font-size: 14px; line-height: 1.4; color: var(--text); }
+.kit-col:hover .iso-now g { transform: translateY(-3px); }
+.kit-list--tools li { display: flex; align-items: center; gap: 10px; }
+.tool-ic { flex: none; width: 16px; height: 16px; color: var(--text); }
 
 /* ===== Contact + handwritten aside ===== */
 .contact { position: relative; }
@@ -582,6 +588,7 @@ p { margin: 0 0 24px; }
 @media (max-width: 600px) {
   .nav-list li:nth-child(n+3) { display: none; }
   .now dl { grid-template-columns: 1fr 1fr; }
+  .kit { grid-template-columns: 1fr; gap: 40px; }
   .about { grid-template-columns: 1fr; }
   .row { grid-template-columns: auto 1fr; }
   .row-desc { grid-column: 1 / -1; grid-row: 2; white-space: normal; font-size: 14px; }
