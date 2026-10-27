@@ -695,3 +695,20 @@ html:root[data-theme="dark"] { --stage: #1e1e1e; }
 .v3-cs .cs-proto-cap-title, .v3-cs .cs-tension-title { margin-bottom: 12px; }
 .v3-cs .cs-journey-title, .v3-cs .cs-sim-stage-name { margin-bottom: 8px; }
 .v3-cs .foot { margin-top: clamp(88px, 10vw, 128px); }
+
+/* ======================================================================
+   One type scale for every v3 case study (the Up-skill one):
+   title 32/500 · section 24/500 · sub-heading 17/500 · body 14.5/1.7/400 grey · bold in body 500 dark
+   ====================================================================== */
+.v3-cs .cs-p, .v3-cs .cs-lead, .v3-cs .cs-list li, .v3-cs .cs-facts dd,
+.v3-cs .cs-persona-desc, .v3-cs .cs-persona-meta p, .v3-cs .cs-persona-meta li,
+.v3-cs .cs-docs-body p, .v3-cs .cs-proto-cap-desc, .v3-cs .cs-closing-line, .v3-cs .cs-role-row dd, .v3-cs .cs-outcome-next p {
+  font-size: 14.5px; font-weight: 400; line-height: 1.7; letter-spacing: 0; color: var(--text-soft);
+}
+.v3-cs .cs-p strong, .v3-cs .cs-lead strong, .v3-cs .cs-list li strong, .v3-cs .cs-persona-meta strong, .v3-cs .cs-docs-body strong, .v3-cs .cs-fstat-desc strong {
+  font-weight: 500; color: var(--text);
+}
+.v3-cs .cs-display { font-size: 24px; font-weight: 500; line-height: 1.35; letter-spacing: -0.015em; color: var(--text); }
+.v3-cs .cs-h3 { font-size: 17px; font-weight: 500; line-height: 1.4; letter-spacing: -0.01em; }
+/* small component notes keep their size but share the regular weight */
+.v3-cs .cs-journey-note, .v3-cs .cs-sim-teaser-desc, .v3-cs .cs-sim-stage-role, .v3-cs .cs-challenge-lines p, .v3-cs .cs-match-desc, .v3-cs .cs-tension-friction, .v3-cs .cs-fstat-desc, .v3-cs .cs-exc-sub, .v3-cs .cs-topo-tag { font-weight: 400; }
