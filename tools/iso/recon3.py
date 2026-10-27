@@ -58,3 +58,25 @@ if __name__ == "__main__":
         print(f'<!-- {n} to {m} -->\n{match(n, m)}')
     for k, v in EXC.items():
         print(f'<!-- {k} -->\n{v}')
+
+# Account and entry level, nested: two accounts (OMS and PSP trays) compared as a whole, and
+# inside them four entries each, linked one-to-one (1-1), one-to-many (2-2,3) and many-to-one (3,4-4).
+# The trays lie side by side with their entries facing, so the links run across like rungs.
+def topology():
+    TX, TY, GAP, Z = 200, 150, 104, 4               # left tray centre (screen), tray spacing, height
+    DA = (-48, -16, 16, 48)                         # entries along each tray
+    P = lambda a, b, z=Z + 1.8: proj(TX, TY, a, b, z)
+    pairs = [(0, 0), (1, 1), (1, 2), (2, 3), (3, 3)]
+    g = [f'<g class="sys-obj">{prism(TX, TY, 128, 36, 0, Z)}{prism(TX, TY, 128, 36, 0, Z, db=GAP)}</g>']
+    g += [f'<path class="mlink" d="M {P(DA[i], 7)[0]:.1f} {P(DA[i], 7)[1]:.1f} L {P(DA[j], GAP - 7)[0]:.1f} {P(DA[j], GAP - 7)[1]:.1f}"/>'
+          for i, j in pairs]
+    g.append('<g class="sys-slip">' + ''.join(prism(TX, TY, 22, 14, 0, 1.8, Z, da=a) for a in DA) + '</g>')
+    g.append('<g class="sys-obj">' + ''.join(prism(TX, TY, 22, 14, 0, 1.8, Z, da=a, db=GAP) for a in DA) + '</g>')
+    # the account-level comparison: one ⇄ beyond the far ends of the trays, between the two names
+    (lx, ly), (rx, ry) = P(-80, 0, 0), P(-80, GAP, 0)
+    mx, my = (lx + rx) / 2, (ly + ry) / 2 - 4
+    g.append(f'<path class="cmp" d="M {mx - 12:.1f} {my - 5:.1f} L {mx + 12:.1f} {my - 5:.1f} M {mx + 8:.1f} {my - 9:.1f} L {mx + 12:.1f} {my - 5:.1f} L {mx + 8:.1f} {my - 1:.1f}"/>'
+             f'<path class="cmp" d="M {mx + 12:.1f} {my + 5:.1f} L {mx - 12:.1f} {my + 5:.1f} M {mx - 8:.1f} {my + 1:.1f} L {mx - 12:.1f} {my + 5:.1f} L {mx - 8:.1f} {my + 9:.1f}"/>')
+    g.append(f'<text class="iso-cap" x="{lx:.1f}" y="{ly + 2:.1f}" text-anchor="middle">OMS</text>'
+             f'<text class="iso-cap" x="{rx:.1f}" y="{ry + 2:.1f}" text-anchor="middle">PSP</text>')
+    return f'<svg class="iso-topo" viewBox="110 40 270 160" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">{"".join(g)}</svg>'
