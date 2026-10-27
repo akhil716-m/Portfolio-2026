@@ -667,3 +667,12 @@ html:root[data-theme="dark"] { --stage: #1e1e1e; }
 .cs-skilling .cs-list li { padding-top: 0; margin-bottom: 8px; }
 .cs-skilling .cs-force-title, .cs-skilling .cs-pain-title, .cs-skilling .cs-mend-title, .cs-skilling .cs-step-title { margin-bottom: 12px; }
 .cs-skilling .cs-p strong, .cs-skilling .cs-lead strong { font-weight: 500; }
+
+/* Up-skill rhythm: every title sits 12px above its description; sections are spaced evenly */
+.cs-skilling .cs-strip-title, .cs-skilling .cs-theme-title, .cs-skilling .cs-force-title, .cs-skilling .cs-pain-title,
+.cs-skilling .cs-mend-title, .cs-skilling .cs-step-title { margin-bottom: 12px; }
+.cs-skilling .cs-pgroup-tag { margin-top: 12px; }
+.cs-skilling .cs-list-who { margin-bottom: 12px; }
+.cs-skilling .cs-display + .cs-lead, .cs-skilling .cs-display + .cs-p { margin-top: 16px; }
+.cs-skilling #cs-overview, .cs-skilling #cs-users, .cs-skilling #cs-challenges, .cs-skilling #cs-scope, .cs-skilling #cs-courses,
+.cs-skilling #cs-assess, .cs-skilling #cs-playlists, .cs-skilling #cs-mylearning, .cs-skilling #cs-events, .cs-skilling #cs-conclusion { margin-top: clamp(88px, 10vw, 128px); }
