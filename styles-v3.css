@@ -413,11 +413,35 @@ p { margin: 0 0 24px; }
 
 /* ===== About ===== */
 .about { display: grid; grid-template-columns: 1fr 150px; gap: 32px; align-items: start; }
-.portrait { position: relative; width: 150px; margin-top: 4px; }
-.portrait img { width: 150px; height: 188px; object-fit: cover; border-radius: 8px; transition: opacity .35s ease; }
-.portrait .alt { position: absolute; inset: 0; opacity: 0; }
+/* The portrait: one print with a thin matte and a hairline, standing on an isometric plinth whose
+   top face meets its bottom edge. On hover the colour photo fades in and the print lifts a touch. */
+.portrait { width: 150px; margin-top: 4px; }
+.print {
+  position: relative; z-index: 1; display: block; width: 104px; margin: 0 auto;
+  padding: 4px; border-radius: 3px; background: var(--bg); cursor: pointer; font: inherit;
+  border: 1px solid color-mix(in srgb, var(--text) 45%, transparent);
+  transition: transform .5s var(--ease);
+}
+.shot { position: absolute; inset: 4px; opacity: 0; transition: opacity .35s ease; }
+.shot:first-child { position: relative; inset: auto; display: block; }
+.shot.is-on { opacity: 1; }
+.print img { display: block; width: 100%; aspect-ratio: 4 / 5; height: auto; object-fit: cover; border-radius: 1px; transition: opacity .35s ease, filter .35s ease; }
+.print .alt { position: absolute; inset: 0; height: 100%; opacity: 0; }
+.print .gray { filter: grayscale(1); }
+.portrait:hover .print { transform: translateY(-3px); }
 .portrait:hover .alt { opacity: 1; }
-.portrait figcaption { margin-top: 8px; }
+.portrait:hover .gray { filter: none; }
+/* a new photo drops onto the stand with a slight tilt that settles */
+.print.is-flip { animation: print-flip .5s var(--ease); }
+@keyframes print-flip { 0% { transform: translateY(-8px) rotate(-3deg); } 100% { transform: translateY(-3px) rotate(0); } }
+@media (hover: none) { .print.is-flip { animation-name: print-flip-touch; } }
+@keyframes print-flip-touch { 0% { transform: translateY(-6px) rotate(-3deg); } 100% { transform: none; } }
+.print-n { margin-left: 4px; opacity: .6; }
+.iso-plinth { display: block; width: 100%; height: auto; margin-top: -45px; overflow: visible; }
+.iso-plinth polygon { stroke: color-mix(in srgb, var(--text) 45%, transparent); stroke-width: 1; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.iso-plinth .f-t { fill: var(--bg); }
+.iso-plinth .f-l { fill: var(--bg-soft); }
+.portrait figcaption { margin-top: 10px; text-align: center; white-space: nowrap; }
 .offclock { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 6px; }
 .offclock li {
   list-style: none;

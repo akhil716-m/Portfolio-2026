@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Instrument+Serif:ital@0;1&family=Geist+Mono:wght@400&family=Public+Sans:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles-v3.css?v=22">
+<link rel="stylesheet" href="styles-v3.css?v=25">
 <script>
   // Time of day before first paint: the visitor's pick, or Auto from their clock
   // (Day 6 am-4 pm, Mid 4-7 pm, Night 7 pm-6 am). Day is the white theme, Mid paper, Night dark.
@@ -162,10 +162,19 @@
             <li>into the hills</li><li>track days</li><li>new recipes</li><li>galleries</li><li>sunrises</li><li>new places</li>
           </ul>
         </div>
+        <!-- One print, standing on a thin isometric plinth (the Currently objects' style). Black and white,
+             colour on hover; a click swaps it for the next photo (off the grid, new places) and back. -->
         <figure class="portrait" style="margin:0">
-          <img src="assets/akhil.webp" width="800" height="1067" alt="Akhil Male" loading="lazy">
-          <img class="alt" src="assets/akhil-hover.webp" width="800" height="1067" alt="" loading="lazy">
-          <figcaption class="meta">akhil.png · Bengaluru</figcaption>
+          <button class="print" type="button" aria-label="Show the next photo" data-print>
+            <span class="shot is-on" data-cap="akhil.png · Bengaluru">
+              <img src="assets/akhil.webp" width="800" height="1067" alt="Akhil Male" loading="lazy">
+              <img class="alt" src="assets/akhil-hover.webp" width="800" height="1067" alt="" loading="lazy">
+            </span>
+            <span class="shot" data-cap="off the grid"><img class="gray" src="assets/life/life-14.webp" width="480" height="640" alt="Akhil by a lake, off the grid" loading="lazy"></span>
+            <span class="shot" data-cap="new places"><img class="gray" src="assets/life/life-1.webp" width="480" height="640" alt="Akhil exploring somewhere new in the hills" loading="lazy"></span>
+          </button>
+          <svg class="iso-plinth" viewBox="8 -1 144 88" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><polygon class="f-l" points="66.1,5.0 10.7,37.0 10.7,32.0 66.1,0.0"/><polygon class="f-l" points="149.3,53.0 66.1,5.0 66.1,0.0 149.3,48.0"/><polygon class="f-l" points="10.7,37.0 93.9,85.0 93.9,80.0 10.7,32.0"/><polygon class="f-l" points="93.9,85.0 149.3,53.0 149.3,48.0 93.9,80.0"/><polygon class="f-t" points="10.7,32.0 93.9,80.0 149.3,48.0 66.1,0.0"/></svg>
+          <figcaption class="meta"><span data-print-cap aria-live="polite">akhil.png · Bengaluru</span> <span class="print-n" data-print-n>1/3</span></figcaption>
         </figure>
       </div>
     </section>
@@ -277,6 +286,21 @@
     if (doing) doing.textContent = h < 7 ? 'asleep, probably' : h < 10 ? 'on coffee number one' : h < 19 ? 'designing at Juspay' : h < 23 ? 'tinkering on Holdr' : 'should be asleep';
   }
   tick(); setInterval(tick, 30000);
+
+  // About: the print shows the next photo on each click, and wraps back to the portrait
+  var print = document.querySelector('[data-print]');
+  if (print) {
+    var shots = print.querySelectorAll('.shot'), shotAt = 0;
+    var printCap = document.querySelector('[data-print-cap]'), printN = document.querySelector('[data-print-n]');
+    print.addEventListener('click', function () {
+      shots[shotAt].classList.remove('is-on');
+      shotAt = (shotAt + 1) % shots.length;
+      shots[shotAt].classList.add('is-on');
+      printCap.textContent = shots[shotAt].getAttribute('data-cap');
+      printN.textContent = (shotAt + 1) + '/' + shots.length;
+      print.classList.remove('is-flip'); void print.offsetWidth; print.classList.add('is-flip');
+    });
+  }
 
   // Work: list or grid, remembered per visitor
   var work = document.getElementById('work-list');
