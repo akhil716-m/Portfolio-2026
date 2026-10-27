@@ -620,7 +620,8 @@ button:active, .row:active, .nav-list a:active, .sec-head a:active { scale: .98;
   /* each section holds its place while the next one comes up behind it */
   .stack-on [data-stack] { position: sticky; top: var(--stack-top, 18vh); pointer-events: none; opacity: 0; transform: translateY(56px); transition: opacity .25s ease, transform .25s ease; }
   .stack-on [data-stack].is-tall { position: relative; top: auto; }
-  .stack-on .screen--home .intro { margin-top: 0; }   /* Home's place is set in v3.js, level with the nav */
+  .stack-on .screen--home .intro { margin-top: 0; }
+  .stack-measure [data-stack] { position: relative !important; top: auto !important; }   /* Home's place is set in v3.js, level with the nav */
   .stack-on [data-stack].is-current { z-index: 2; pointer-events: auto; opacity: 1; transform: none; transition: opacity .3s ease, transform .55s cubic-bezier(.34, 1.56, .64, 1); }
 }
 @media (min-width: 961px) and (prefers-reduced-motion: reduce) {

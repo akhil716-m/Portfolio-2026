@@ -57,9 +57,9 @@
       { type: 'tone', freq: 1046.5, attack: .006, decay: .22, peak: .09 },
       { type: 'tone', freq: 1568, offset: .09, attack: .006, decay: .26, peak: .08 }
     ], echo: { delay: .12, feedback: .25, wet: .18, lowpass: 4000 } },
-    tick: { gain: .55, layers: [
-      { type: 'noise', filter: 'bandpass', freq: 3200, q: 1.6, attack: .001, decay: .035, peak: .22 },
-      { type: 'tone', freq: 1760, attack: .002, decay: .06, peak: .05 }
+    tick: { gain: .8, layers: [
+      { type: 'noise', filter: 'bandpass', freq: 2600, q: 1.4, attack: .001, decay: .04, peak: .3 },
+      { type: 'tone', freq: 880, attack: .002, decay: .09, peak: .12 }
     ] },
     press: { gain: .4, layers: [
       { type: 'noise', filter: 'bandpass', freq: 1700, q: 1.4, attack: .001, decay: .02, peak: .13 }
@@ -219,6 +219,8 @@
   // a section taller than most of the screen can't hold its place, so it scrolls as usual
   // each pinned section sits with its middle level with the middle of the nav list
   function measure() {
+    // measure the natural layout: pinned sections would report where they are stuck, not where they sit
+    var root = document.documentElement; root.classList.add('stack-measure');
     // measured inside the nav, which is pinned to the top of the screen once the page scrolls
     var nav = document.querySelector('.v3-nav'), g = document.querySelector('.nav-group');
     var mid = nav && g && g.offsetHeight ? g.getBoundingClientRect().top - nav.getBoundingClientRect().top + g.offsetHeight / 2 : window.innerHeight / 2;
@@ -234,10 +236,27 @@
         s.classList.toggle('is-tall', h > window.innerHeight * .78);
         return;
       }
-      if (i === stack.length - 1) s.style.marginBottom = Math.max(0, Math.round(window.innerHeight - mid - h / 2)) + 'px';
+      // every section gets the same stretch of scrolling, so a short one (Side projects) isn't skipped
+      s.style.marginTop = '';
+      var gap = parseFloat(getComputedStyle(s).marginTop) || 0, prevH = stack[i - 1].offsetHeight - (parseFloat(stack[i - 1].style.paddingTop) || 0);
+      s.style.marginTop = Math.max(gap, Math.round(window.innerHeight * .6 - prevH)) + 'px';
+      var stackTop = Math.max(24, Math.round(mid - h / 2));
       s.classList.toggle('is-tall', h > window.innerHeight * .78);
-      s.style.setProperty('--stack-top', Math.max(24, Math.round(mid - h / 2)) + 'px');
+      s.style.setProperty('--stack-top', stackTop + 'px');
+      // the last one: exactly enough room after it that, scrolled to the very end, it rests at its place
+      if (i === stack.length - 1) {
+        // the page's own height doesn't track this margin one-for-one, so settle it in a few passes
+        var mb = 0;
+        for (var k = 0; k < 4; k++) {
+          s.style.marginBottom = mb + 'px';
+          var T = s.getBoundingClientRect().top + window.scrollY;
+          var rest = T - (document.documentElement.scrollHeight - window.innerHeight);   // where it sits when scrolled to the end
+          mb = Math.max(0, Math.round(mb + rest - stackTop));
+        }
+        s.style.marginBottom = mb + 'px';
+      }
     });
+    root.classList.remove('stack-measure');
   }
   if (stack.length) { measure(); window.addEventListener('resize', measure); if (document.fonts) document.fonts.ready.then(measure); }
   document.querySelectorAll('[data-spy]').forEach(function (a) {
@@ -272,7 +291,10 @@
     queued = false;
     if (pinned) return;
     var current = first;
-    sections.forEach(function (s) { if (s.getBoundingClientRect().top < window.innerHeight * 0.45) current = s.id; });
+    sections.forEach(function (s) {
+      var line = stack.length ? (parseFloat(s.style.getPropertyValue('--stack-top')) || window.innerHeight * .45) + 2 : window.innerHeight * 0.45;
+      if (s.getBoundingClientRect().top < line) current = s.id;
+    });
     // At the very bottom the last section can't reach the line, so mark it anyway
     if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) current = sections[sections.length - 1].id;
     setActive(current, true);
