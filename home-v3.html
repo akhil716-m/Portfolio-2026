@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Instrument+Serif:ital@0;1&family=Geist+Mono:wght@400&family=Public+Sans:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles-v3.css?v=21">
+<link rel="stylesheet" href="styles-v3.css?v=22">
 <script>
   // Time of day before first paint: the visitor's pick, or Auto from their clock
   // (Day 6 am-4 pm, Mid 4-7 pm, Night 7 pm-6 am). Day is the white theme, Mid paper, Night dark.
@@ -103,22 +103,18 @@
     </section>
 
     <!-- Currently: a small "now" card. Fill Reading / Listening with real picks. -->
+    <!-- Currently: a small desk still-life, one isometric object per line, in the case studies' language -->
     <section class="now in" style="--d:.38s" aria-labelledby="now-h">
-      <div>
-        <h2 id="now-h">Currently</h2>
-        <dl>
-          <div><dt>Designing</dt><dd>payment recovery at Juspay</dd></div>
-          <div><dt>Building</dt><dd>Holdr, a portfolio tracker</dd></div>
-          <div><dt>Reading</dt><dd>A book title <span class="ph-tag">placeholder</span></dd></div>
-          <div><dt>Listening to</dt><dd>A song or album <span class="ph-tag">placeholder</span></dd></div>
-        </dl>
-        <p class="meta"><i></i>Last updated · Oct 26</p>
+      <div class="now-head">
+        <h2 id="now-h"><i aria-hidden="true"></i>Currently</h2>
+        <p class="now-note">as of Oct 26</p>
       </div>
-      <div class="stack" aria-hidden="true">
-        <img src="assets/life/life-14.webp" alt="" width="480" height="640" style="--r:-9deg;--x:-24px;--r2:-15deg;--x2:-40px">
-        <img src="assets/life/life-6.webp" alt="" width="480" height="640" style="--r:7deg;--x:24px;--r2:13deg;--x2:40px">
-        <img src="assets/life/life-9.webp" alt="" width="480" height="640" style="--r:-1deg;--x:0px;--r2:0deg;--x2:0px">
-      </div>
+      <dl>
+          <div style="--k:0"><svg class="iso-now" viewBox="20 18 80 56" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g><polygon class="f-l" points="54.8,40.0 25.4,57.0 25.4,54.0 54.8,37.0"/><polygon class="f-l" points="94.6,63.0 54.8,40.0 54.8,37.0 94.6,60.0"/><polygon class="f-l" points="25.4,57.0 65.2,80.0 65.2,77.0 25.4,54.0"/><polygon class="f-l" points="65.2,80.0 94.6,63.0 94.6,60.0 65.2,77.0"/><polygon class="f-t" points="25.4,54.0 65.2,77.0 94.6,60.0 54.8,37.0"/><polygon class="f-l" points="54.8,43.0 40.9,51.0 40.9,49.6 54.8,41.6"/><polygon class="f-l" points="73.9,54.0 54.8,43.0 54.8,41.6 73.9,52.6"/><polygon class="f-l" points="40.9,51.0 60.0,62.0 60.0,60.6 40.9,49.6"/><polygon class="f-l" points="60.0,62.0 73.9,54.0 73.9,52.6 60.0,60.6"/><polygon class="f-t" points="40.9,49.6 60.0,60.6 73.9,52.6 54.8,41.6"/><polygon class="f-l" points="71.3,67.0 63.5,62.5 63.5,61.1 71.3,65.6"/><polygon class="f-l" points="63.5,62.5 55.7,67.0 55.7,65.6 63.5,61.1"/><polygon class="f-l" points="55.7,67.0 63.5,71.5 63.5,70.1 55.7,65.6"/><polygon class="f-l" points="63.5,71.5 71.3,67.0 71.3,65.6 63.5,70.1"/><polygon class="f-t f-acc" points="55.7,65.6 63.5,70.1 71.3,65.6 63.5,61.1"/></g></svg><dt>Designing</dt><dd>payment recovery at Juspay</dd></div>
+          <div style="--k:1"><svg class="iso-now" viewBox="20 18 80 56" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g><polygon class="f-l" points="77.3,60.0 60.0,50.0 60.0,40.0 77.3,50.0"/><polygon class="f-l" points="60.0,50.0 42.7,60.0 42.7,50.0 60.0,40.0"/><polygon class="f-l" points="42.7,60.0 60.0,70.0 60.0,60.0 42.7,50.0"/><polygon class="f-l" points="60.0,70.0 77.3,60.0 77.3,50.0 60.0,60.0"/><polygon class="f-t" points="42.7,50.0 60.0,60.0 77.3,50.0 60.0,40.0"/><polygon class="f-l" points="76.3,49.1 58.4,41.6 58.4,31.6 76.3,39.1"/><polygon class="f-l" points="58.4,41.6 45.5,51.9 45.5,41.9 58.4,31.6"/><polygon class="f-l" points="63.3,59.4 76.3,49.1 76.3,39.1 63.3,49.4"/><polygon class="f-l" points="45.5,51.9 63.3,59.4 63.3,49.4 45.5,41.9"/><polygon class="f-t" points="45.5,41.9 63.3,49.4 76.3,39.1 58.4,31.6"/><polygon class="f-l" points="61.6,31.6 47.1,38.1 47.1,28.1 61.6,21.6"/><polygon class="f-l" points="72.9,39.9 61.6,31.6 61.6,21.6 72.9,29.9"/><polygon class="f-l" points="47.1,38.1 58.4,46.4 58.4,36.4 47.1,28.1"/><polygon class="f-l" points="58.4,46.4 72.9,39.9 72.9,29.9 58.4,36.4"/><polygon class="f-t f-acc" points="47.1,28.1 58.4,36.4 72.9,29.9 61.6,21.6"/></g></svg><dt>Building</dt><dd>Holdr, a portfolio tracker</dd></div>
+          <div style="--k:2"><svg class="iso-now" viewBox="20 18 80 56" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g><polygon class="f-l" points="55.7,45.5 34.9,57.5 34.9,51.5 55.7,39.5"/><polygon class="f-l" points="85.1,62.5 55.7,45.5 55.7,39.5 85.1,56.5"/><polygon class="f-l" points="34.9,57.5 64.3,74.5 64.3,68.5 34.9,51.5"/><polygon class="f-l" points="64.3,74.5 85.1,62.5 85.1,56.5 64.3,68.5"/><polygon class="f-t" points="34.9,51.5 64.3,68.5 85.1,56.5 55.7,39.5"/><polygon class="f-l" points="84.9,53.1 52.8,42.9 52.8,37.9 84.9,48.1"/><polygon class="f-l" points="52.8,42.9 40.3,55.9 40.3,50.9 52.8,37.9"/><polygon class="f-l" points="72.4,66.1 84.9,53.1 84.9,48.1 72.4,61.1"/><polygon class="f-l" points="40.3,55.9 72.4,66.1 72.4,61.1 40.3,50.9"/><polygon class="f-t f-acc" points="40.3,50.9 72.4,61.1 84.9,48.1 52.8,37.9"/></g></svg><dt>Reading</dt><dd>A book title <span class="ph-tag">placeholder</span></dd></div>
+          <div style="--k:3"><svg class="iso-now" viewBox="20 18 80 56" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g><polygon class="f-l" points="89.4,56.0 60.0,39.0 60.0,37.0 89.4,54.0"/><polygon class="f-l" points="60.0,39.0 30.6,56.0 30.6,54.0 60.0,37.0"/><polygon class="f-l" points="30.6,56.0 60.0,73.0 60.0,71.0 30.6,54.0"/><polygon class="f-l" points="60.0,73.0 89.4,56.0 89.4,54.0 60.0,71.0"/><polygon class="f-t" points="30.6,54.0 60.0,71.0 89.4,54.0 60.0,37.0"/><path class="f-l" d="M 49.7 54.0 L 49.7 52.4 A 18.3 10.5 0 0 0 86.3 52.4 L 86.3 54.0 A 18.3 10.5 0 0 1 49.7 54.0 Z"/><ellipse class="f-t" cx="68.0" cy="52.4" rx="18.3" ry="10.5"/><ellipse class="f-acc-fill" cx="68.0" cy="52.4" rx="5.5" ry="3.2"/></g></svg><dt>Listening to</dt><dd>A song or album <span class="ph-tag">placeholder</span></dd></div>
+      </dl>
     </section>
 
     <section class="sec" id="work" data-section aria-labelledby="work-h">

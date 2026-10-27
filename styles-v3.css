@@ -328,41 +328,26 @@ p { margin: 0 0 24px; }
 .links a { color: var(--text-soft); transition: color .2s ease; }
 .links a:hover { color: var(--text); }
 
-/* ===== Currently card, with a fanned photo stack that opens on hover ===== */
-.now {
-  margin-top: 96px;
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 24px;
-  align-items: center;
-  padding: 20px 24px;
-  border-radius: 14px;
-  background: var(--bg-soft);
-  transition: background-color .35s ease;
-}
-.now h2 { margin: 0 0 12px; font-size: 15px; font-weight: 500; color: var(--text); }
-.now dl { margin: 0; display: grid; gap: 4px; font-size: 15px; }
-.now dl div { display: block; }
-.now dt, .now dd { display: inline; }
-.now dt { color: var(--text-muted); }
-.now dt::after { content: " —"; }
-.now dd { margin: 0 0 0 .3em; color: var(--text); }
-.now .meta { margin-top: 14px; display: flex; align-items: center; gap: 7px; }
-.now .meta i { width: 6px; height: 6px; border-radius: 50%; background: var(--live); }
-
-.stack { position: relative; width: 132px; height: 128px; }
-.stack img {
-  position: absolute;
-  top: 14px; left: 30px;
-  width: 72px; height: 96px;
-  object-fit: cover;
-  border-radius: 6px;
-  border: 3px solid #fff;
-  box-shadow: var(--shadow);
-  transform: rotate(var(--r)) translateX(var(--x));
-  transition: transform .5s var(--ease);
-}
-.stack:hover img { transform: rotate(var(--r2)) translateX(var(--x2)) translateY(-4px); }
+/* ===== Currently: no card, four small isometric objects on the page (see the case studies),
+   one per line, with the green "live" dot as the only colour. Each lifts a little on hover. ===== */
+.now { margin-top: 96px; }
+.now-head { display: flex; align-items: baseline; gap: 14px; margin-bottom: 18px; }
+.now h2 { margin: 0; display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 500; color: var(--text); }
+.now h2 i { width: 6px; height: 6px; border-radius: 50%; background: var(--live); }
+.now-note { margin: 0; font: 600 19px/1 var(--hand); color: var(--text-muted); transform: rotate(-3deg); }
+.now dl { margin: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px 20px; }
+.now dl > div { min-width: 0; }
+.now dt { margin-top: 10px; font: 400 12px/1.4 var(--mono); color: var(--text-muted); letter-spacing: .01em; }
+.now dd { margin: 2px 0 0; font-size: 15px; line-height: 1.4; color: var(--text); }
+.now dd .ph-tag { margin: 4px 0 0; }
+.iso-now { display: block; width: 100%; max-width: 120px; height: auto; overflow: visible; }
+.iso-now polygon, .iso-now path, .iso-now ellipse { stroke: color-mix(in srgb, var(--text) 45%, transparent); stroke-width: 1; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.iso-now .f-t { fill: var(--bg); }
+.iso-now .f-l { fill: var(--bg-soft); }
+.iso-now .f-acc { fill: color-mix(in srgb, var(--live) 28%, var(--bg)); stroke: var(--live); }
+.iso-now .f-acc-fill { fill: var(--live); stroke: none; }
+.iso-now g { transition: transform .5s var(--ease); }
+.now dl > div:hover .iso-now g { transform: translateY(-3px); }
 
 /* ===== Work list (keeps v2's corner marks, lighter) ===== */
 .frame { position: relative; padding: 4px 0; }
@@ -598,8 +583,7 @@ p { margin: 0 0 24px; }
 }
 @media (max-width: 600px) {
   .nav-list li:nth-child(n+3) { display: none; }
-  .now { grid-template-columns: 1fr; padding: 20px; }
-  .stack { margin: 0 auto; }
+  .now dl { grid-template-columns: 1fr 1fr; }
   .about { grid-template-columns: 1fr; }
   .row { grid-template-columns: auto 1fr; }
   .row-desc { grid-column: 1 / -1; grid-row: 2; white-space: normal; font-size: 14px; }
