@@ -15,3 +15,4 @@ Run from this folder (isokit.py and isoplinth.py reuse the helpers in isonow.py)
 | isoplinth.py | About portrait stand | home-v3 |
 | isoflow.py, isoscale.py, isoconverge.py, isostats.py | HyperSense visuals | work-hypersense-v3 |
 | recon1.py | One transaction, three records | work-reconciliation-v3 |
+| recon2.py | Comparison layers (OMS, PSP, Bank, matched pad) | work-reconciliation-v3 |
