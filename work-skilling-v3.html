@@ -283,7 +283,9 @@ a.cs-cta { margin-top: 28px; }
   border: 1px solid var(--line); background: var(--bg-card);
   font-family: var(--font); font-size: 14px; font-weight: 400; color: var(--text-soft);
 }
-.cs-chips--lg .cs-chip { min-height: 48px; padding: 0 24px; font-size: 16px; color: var(--text); }
+.cs-chips--lg .cs-chip { min-height: 30px; padding: 0 10px; gap: 8px; border-radius: 6px; background: var(--bg-soft); color: var(--text); font: 400 12px/1 var(--mono); letter-spacing: .06em; text-transform: uppercase; }
+.cs-chips--lg .cs-chip:not(:has(svg))::before { content: ''; width: 5px; height: 5px; background: var(--accent); transform: rotate(45deg); }
+.cs-chips--lg .cs-chip svg { width: 14px; height: 14px; fill: none; stroke: var(--accent); stroke-width: 1.3; stroke-linecap: round; stroke-linejoin: round; flex: none; }
 
 /* ---------- FIGURES — cropped design boards, click to expand ---------- */
 .cs-wrap--board { max-width: min(66vw, 1040px); padding: 0; }
@@ -372,7 +374,7 @@ body.cs-lb-lock { overflow: hidden; }
   .cs-stat { padding: 24px 20px; }
   .cs-board { margin-top: 32px; }
   .cs-sub { margin-top: 64px; }
-  .cs-chips--lg .cs-chip { min-height: 44px; padding: 0 18px; font-size: 15px; }
+  .cs-chips--lg .cs-chip { min-height: 28px; padding: 0 9px; font-size: 11px; }
   .cs-fig-zoom { top: 10px; right: 10px; }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -738,7 +740,7 @@ body.cs-lb-lock { overflow: hidden; }
 /* Small text: descriptions, captions, notes, chips, tabs */
 .cs-facts dd, .cs-strip-desc, .cs-ba-note, .cs-hero-meta-item span { font-size: var(--fs-small); font-weight: 400; }
 .cs-chip, .cs-tab { font-size: var(--fs-small); }
-.cs-chips--lg .cs-chip { font-size: 16px; }
+.cs-chips--lg .cs-chip { font-size: 12px; }
 
 /* Micro labels (mono, caps): a hard 12px floor */
 .cs-hero-eyebrow, .cs-phase-tag, .cs-stat-label,
@@ -748,7 +750,7 @@ body.cs-lb-lock { overflow: hidden; }
 
 @media (max-width: 760px) {
   .cs-display { max-width: none; }
-  .cs-chips--lg .cs-chip { font-size: 15px; }
+  .cs-chips--lg .cs-chip { font-size: 11px; }
 }
 
 /* =====================================================================
@@ -773,8 +775,8 @@ body.cs-lb-lock { overflow: hidden; }
 }
 
 /* Stats: big numerals on hairlines instead of three boxes */
-.cs-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; background: none; border-radius: 0; overflow: visible; margin: 44px 0 8px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-.cs-stat { background: none; padding: 36px 24px 32px; border-left: 1px solid var(--line); text-align: center; }
+.cs-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; background: none; border-radius: 0; overflow: visible; margin: 64px 0 8px; }
+.cs-stat { background: none; padding: 4px 24px; border-left: 1px solid var(--line); text-align: center; }
 .cs-stat:first-child { border-left: 0; }
 .cs-stat-num { font-size: var(--fs-stat); letter-spacing: -0.035em; }
 
@@ -798,7 +800,8 @@ body.cs-lb-lock { overflow: hidden; }
 @media (max-width: 760px) {
   .cs-stats { grid-template-columns: 1fr; }
   .cs-stat, .cs-stat:first-child { padding: 22px 0; border-left: 0; text-align: center; }
-  .cs-stat + .cs-stat { border-top: 1px solid var(--line); }
+  .cs-stat + .cs-stat::before { content: ''; display: block; width: 32px; height: 1px; margin: 0 auto 22px; background: var(--line); }
+  .cs-stat + .cs-stat { padding-top: 0; }
   .cs-facts--2, .cs-facts--3 { grid-template-columns: 1fr; gap: 28px; }
   .cs-forces { grid-template-columns: 1fr; row-gap: 28px; }
   .cs-bridge { margin-top: 72px; }
@@ -1038,7 +1041,6 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
       <li><a href="#act-problem" data-spy="act-problem"><span>Problem</span></a></li>
       <li><a href="#act-approach" data-spy="act-approach"><span>Approach</span></a></li>
       <li><a href="#act-product" data-spy="act-product"><span>Product</span></a></li>
-      <li><a href="#act-conclusion" data-spy="act-conclusion"><span>Conclusion</span></a></li>
     </ul>
   </div>
 </nav>
@@ -1130,7 +1132,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 </div>
 <div class="cs-wrap">
   <div class="cs-chips cs-chips--lg cs-chips--center" aria-label="Industries served">
-    <span class="cs-chip">Retail</span><span class="cs-chip">Hospitality</span><span class="cs-chip">E-commerce</span><span class="cs-chip">Construction</span><span class="cs-chip">Factory</span><span class="cs-chip">Delivery</span><span class="cs-chip">Security</span><span class="cs-chip">Supermarket</span><span class="cs-chip">Manufacturing</span>
+    <span class="cs-chip"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 6h10l-1 8H4z"/><path d="M6 6V4.5a2 2 0 0 1 4 0V6"/></svg>Retail</span><span class="cs-chip"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 6h8v4a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3z"/><path d="M11 7h1a1.5 1.5 0 0 1 0 3h-1"/><path d="M6 2.5v1.5M8.5 2.5v1.5"/></svg>Hospitality</span><span class="cs-chip"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 3h2l1.5 7h7L14 5H5"/><circle cx="6.5" cy="13" r="1"/><circle cx="11.5" cy="13" r="1"/></svg>E-commerce</span><span class="cs-chip"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 3.5h12v9H2z"/><path d="M2 6.5h12M2 9.5h12M6 3.5v3M10 3.5v3M4 6.5v3M8 6.5v3M12 6.5v3M6 9.5v3M10 9.5v3"/></svg>Construction</span><span class="cs-chip"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 14V7l4 2.5V7l4 2.5V3h3v11z"/></svg>Factory</span><span class="cs-chip"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M1.5 4h8v7h-8z"/><path d="M9.5 6.5h3l2 2.5V11h-5"/><circle cx="4.5" cy="12" r="1.2"/><circle cx="11.5" cy="12" r="1.2"/></svg>Delivery</span><span class="cs-chip"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2l5 2v4c0 3-2.2 5-5 6-2.8-1-5-3-5-6V4z"/></svg>Security</span><span class="cs-chip"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 6.5l1-3.5h10l1 3.5z"/><path d="M3 6.5V14h10V6.5"/><path d="M6.5 14v-4h3v4"/></svg>Supermarket</span><span class="cs-chip"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M12.20 6.12 L14.31 6.45 L14.31 9.55 L12.20 9.88 L12.30 9.64 L13.56 11.37 L11.37 13.56 L9.64 12.30 L9.88 12.20 L9.55 14.31 L6.45 14.31 L6.12 12.20 L6.36 12.30 L4.63 13.56 L2.44 11.37 L3.70 9.64 L3.80 9.88 L1.69 9.55 L1.69 6.45 L3.80 6.12 L3.70 6.36 L2.44 4.63 L4.63 2.44 L6.36 3.70 L6.12 3.80 L6.45 1.69 L9.55 1.69 L9.88 3.80 L9.64 3.70 L11.37 2.44 L13.56 4.63 L12.30 6.36Z"/><circle cx="8" cy="8" r="2"/></svg>Manufacturing</span>
   </div>
 </div>
 
@@ -1138,7 +1140,6 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 
 <!-- ═══════════════════════ ACT — THE PROBLEM ═══════════════════════ -->
 <div class="cs-wrap cs-part" id="act-problem" data-section>
-  <div class="cs-part-num">01 / 04</div>
   <h2 class="cs-part-title">The <em>problem</em></h2>
 </div>
 
@@ -1371,7 +1372,6 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 
 <!-- ═══════════════════════ ACT — THE APPROACH ═══════════════════════ -->
 <div class="cs-wrap cs-part" id="act-approach" data-section>
-  <div class="cs-part-num">02 / 04</div>
   <h2 class="cs-part-title">The <em>approach</em></h2>
 </div>
 
@@ -1408,7 +1408,6 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 
 <!-- ═══════════════════════ ACT — THE PRODUCT ═══════════════════════ -->
 <div class="cs-wrap cs-part" id="act-product" data-section>
-  <div class="cs-part-num">03 / 04</div>
   <h2 class="cs-part-title">The <em>product</em></h2>
 </div>
 
@@ -2080,12 +2079,6 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 </div>
 
 </section>
-
-<!-- ═══════════════════════ ACT — THE CONCLUSION ═══════════════════════ -->
-<div class="cs-wrap cs-part" id="act-conclusion" data-section>
-  <div class="cs-part-num">04 / 04</div>
-  <h2 class="cs-part-title">The <em>conclusion</em></h2>
-</div>
 
 <!-- ═══════════════════════ 13 — CONCLUSION ═══════════════════════ -->
 <section class="cs-section" id="cs-conclusion" data-wash="green">
