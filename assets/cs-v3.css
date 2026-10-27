@@ -467,6 +467,26 @@
 .iso-cmp .sys-slip .f-t { fill: color-mix(in srgb, var(--accent) 18%, var(--bg)); }
 .iso-cmp .sys-slip .f-l { fill: color-mix(in srgb, var(--accent) 34%, var(--bg)); }
 .cs-recon-layers--iso .cs-recon-node--exception .cs-recon-node-title { color: #e05858; }
+
+/* ===== Reconciliation /02 exception types and /03 match shapes =====
+   Records are the same orange slips; links are faint dashed lines; a missing record is a dashed
+   outline. Drawn by tools/iso/recon3.py. */
+.iso-mini { width: 100%; max-width: 160px; height: auto; display: block; overflow: visible; margin: 0 auto; }
+.iso-mini polygon { stroke-width: 1; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.iso-mini .f-t { fill: var(--bg); }
+.iso-mini .f-l { fill: var(--bg-soft); }
+.iso-mini .sys-obj polygon { stroke: rgb(var(--fg-rgb) / .5); }
+.iso-mini .sys-slip polygon { stroke: var(--accent); }
+.iso-mini .sys-slip .f-t { fill: color-mix(in srgb, var(--accent) 18%, var(--bg)); }
+.iso-mini .sys-slip .f-l { fill: color-mix(in srgb, var(--accent) 34%, var(--bg)); }
+.iso-mini .ink { fill: var(--accent); stroke: none; }
+.iso-mini .ink-diff { fill: #e05858; stroke: none; }
+.iso-mini .cmp { fill: none; stroke: rgb(var(--fg-rgb) / .45); stroke-width: 1; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.iso-mini .ghost polygon { fill: none; stroke: rgb(var(--fg-rgb) / .35); stroke-dasharray: 3 3; }
+.iso-mini .mlink { fill: none; stroke: rgb(var(--fg-rgb) / .25); stroke-width: 1; stroke-dasharray: 2 3; vector-effect: non-scaling-stroke; }
+.cs-exc-visual .iso-mini { max-width: 150px; }
+.cs-match-diagram .iso-mini { max-width: 170px; }
+.cs-topo-mini .iso-mini { width: 76px; }
 .iso-cmp--exc .sys-obj polygon { stroke: rgba(220, 70, 60, .7); }
 @media (max-width: 760px) {
   .cs-recon-layers--iso .cs-recon-layer-flow { flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 8px 6px; }
