@@ -164,14 +164,14 @@
     });
   }
 
-  // Nav dot: sits 8px after the current label and, when the section changes, springs
+  // Nav mark: sits 8px before the current label and, when the section changes, springs
   // along a slight curve to the new one (spring 200 / damping 24, 45ms delay)
   var group = document.querySelector('.nav-group');
   var dot = document.querySelector('.nav-dot');
   var dotPos = null, dotAnim = 0;
   function target(a) {
     var label = a.querySelector('span');
-    return { x: label.offsetLeft + label.offsetWidth + 8, y: a.offsetTop + (a.offsetHeight - 7) / 2 };
+    return { x: label.offsetLeft - dot.offsetWidth - 8, y: a.offsetTop + (a.offsetHeight - dot.offsetHeight) / 2 };
   }
   function place(p) { dot.style.transform = 'translate(' + p.x + 'px,' + p.y + 'px)'; }
   function moveDot(a) {
@@ -180,9 +180,9 @@
     if (!dotPos || matchMedia('(prefers-reduced-motion: reduce)').matches) { dotPos = to; place(to); return; }
     var from = { x: dotPos.x, y: dotPos.y };
     var dx = to.x - from.x, dy = to.y - from.y;
-    // control point pushed sideways so the dot arcs out to the right on the way down
+    // control point pushed sideways so the mark arcs out to the left on the way down
     var bend = .35 * (dy > 0 ? 1 : -1);
-    var ctrl = { x: (from.x + to.x) / 2 + Math.abs(dy) * Math.abs(bend), y: (from.y + to.y) / 2 - dx * bend };
+    var ctrl = { x: (from.x + to.x) / 2 - Math.abs(dy) * Math.abs(bend), y: (from.y + to.y) / 2 - dx * bend };
     var x = 0, v = 0, last = null, id = ++dotAnim, start = performance.now() + 45;
     function step(now) {
       if (id !== dotAnim) return;
