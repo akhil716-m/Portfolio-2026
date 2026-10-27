@@ -717,3 +717,7 @@ body:not(.cs-skilling) .cs-phase-tag { margin-top: 72px; }
 
 /* figures sit 48px from the text above and below, on every case study (the Up-skill board gap) */
 .v3-cs .cs-vis:not(.cs-sim-modal-panel), .v3-cs .cs-scale, .v3-cs .cs-docs, .v3-cs .cs-recon-layers { margin-top: 48px; margin-bottom: 48px; }
+
+/* kicker labels (phase / module tags) share Up-skill's 12px mono; principle titles sit at the sub-heading size */
+.v3-cs .cs-phase-tag, .v3-cs .cs-module-tag { font-size: 12px; letter-spacing: 0.14em; }
+.v3-cs .cs-principle-title { font-size: 17px; line-height: 1.4; }
