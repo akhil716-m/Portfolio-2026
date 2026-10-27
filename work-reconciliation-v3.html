@@ -658,7 +658,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 @media (prefers-reduced-motion: reduce) { nav .logo a.cs-back { transition: none; } }
 </style>
 <link rel="stylesheet" href="assets/cs-article.css">
-<link rel="stylesheet" href="assets/cs-v3.css?v=76">
+<link rel="stylesheet" href="assets/cs-v3.css?v=80">
 <style>
 /* This project's colour, per theme (deeper on white and paper so it stays readable) */
 :root { --accent: #c2611a; --acc-rgb: 194 97 26; --proj: #c2611a; --proj-rgb: 194 97 26; }
@@ -746,7 +746,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 
   <p class="cs-p reveal">As transaction volumes grow, even small discrepancies become difficult to investigate at scale, so reconciliation solves this by comparing each system against another and verifying that every version tells the same story about where the money went.</p>
 
-  <div class="cs-recon-layers cs-recon-layers--iso reveal" style="margin: 64px 0 28px;">
+  <div class="cs-recon-layers cs-recon-layers--iso reveal">
     <div class="cs-recon-layer">
       <div class="cs-recon-layer-lbl">Layer 1</div>
       <div class="cs-recon-layer-flow">
@@ -807,7 +807,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 
   <p class="cs-p reveal">When two records don't agree, an exception is created. That's where the investigation begins.</p>
 
-  <div class="cs-recon-layers cs-recon-layers--iso reveal" style="margin: 40px 0 40px;">
+  <div class="cs-recon-layers cs-recon-layers--iso reveal">
   <div class="cs-recon-layer-flow">
     <div class="cs-recon-node cs-recon-node--oms">
       <svg class="iso-cmp" viewBox="56 52 108 92" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g class="sys-obj"><polygon class="f-l" points="110.1,97.3 86.0,107.0 86.0,105.0 110.1,95.3"/><polygon class="f-l" points="134.0,117.0 110.1,97.3 110.1,95.3 134.0,115.0"/><polygon class="f-l" points="86.0,107.0 109.9,126.7 109.9,124.7 86.0,105.0"/><polygon class="f-l" points="109.9,126.7 134.0,117.0 134.0,115.0 109.9,124.7"/><polygon class="f-t" points="86.0,105.0 109.9,124.7 134.0,115.0 110.1,95.3"/><polygon class="f-l" points="103.1,94.9 85.4,108.4 85.4,106.4 103.1,92.9"/><polygon class="f-l" points="136.4,109.4 103.1,94.9 103.1,92.9 136.4,107.4"/><polygon class="f-l" points="85.4,108.4 118.7,122.9 118.7,120.9 85.4,106.4"/><polygon class="f-l" points="118.7,122.9 136.4,109.4 136.4,107.4 118.7,120.9"/><polygon class="f-t" points="85.4,106.4 118.7,120.9 136.4,107.4 103.1,92.9"/><polygon class="f-l" points="104.4,91.7 86.3,105.1 86.3,103.1 104.4,89.7"/><polygon class="f-l" points="137.3,106.5 104.4,91.7 104.4,89.7 137.3,104.5"/><polygon class="f-l" points="86.3,105.1 119.2,119.9 119.2,117.9 86.3,103.1"/><polygon class="f-l" points="119.2,119.9 137.3,106.5 137.3,104.5 119.2,117.9"/><polygon class="f-t" points="86.3,103.1 119.2,117.9 137.3,104.5 104.4,89.7"/><polygon class="f-l" points="103.1,88.5 84.6,101.7 84.6,99.7 103.1,86.5"/><polygon class="f-l" points="135.4,103.7 103.1,88.5 103.1,86.5 135.4,101.7"/><polygon class="f-l" points="84.6,101.7 116.9,116.9 116.9,114.9 84.6,99.7"/><polygon class="f-l" points="116.9,116.9 135.4,103.7 135.4,101.7 116.9,114.9"/><polygon class="f-t" points="84.6,99.7 116.9,114.9 135.4,101.7 103.1,86.5"/><polygon class="f-l" points="104.4,85.4 85.5,98.4 85.5,96.4 104.4,83.4"/><polygon class="f-l" points="136.3,100.8 104.4,85.4 104.4,83.4 136.3,98.8"/><polygon class="f-l" points="85.5,98.4 117.4,113.8 117.4,111.8 85.5,96.4"/><polygon class="f-l" points="117.4,113.8 136.3,100.8 136.3,98.8 117.4,111.8"/><polygon class="f-t" points="85.5,96.4 117.4,111.8 136.3,98.8 104.4,83.4"/><polygon class="f-l" points="105.7,82.2 86.4,95.0 86.4,93.0 105.7,80.2"/><polygon class="f-l" points="137.2,98.0 105.7,82.2 105.7,80.2 137.2,96.0"/><polygon class="f-l" points="86.4,95.0 117.9,110.8 117.9,108.8 86.4,93.0"/><polygon class="f-l" points="117.9,110.8 137.2,98.0 137.2,96.0 117.9,108.8"/><polygon class="f-t" points="86.4,93.0 117.9,108.8 137.2,96.0 105.7,80.2"/><polygon class="f-l" points="104.4,79.1 84.7,91.7 84.7,89.7 104.4,77.1"/><polygon class="f-l" points="135.3,95.1 104.4,79.1 104.4,77.1 135.3,93.1"/><polygon class="f-l" points="84.7,91.7 115.6,107.7 115.6,105.7 84.7,89.7"/><polygon class="f-l" points="115.6,107.7 135.3,95.1 135.3,93.1 115.6,105.7"/><polygon class="f-t" points="84.7,89.7 115.6,105.7 135.3,93.1 104.4,77.1"/><polygon class="f-l" points="105.7,75.9 85.6,88.3 85.6,86.3 105.7,73.9"/><polygon class="f-l" points="136.2,92.3 105.7,75.9 105.7,73.9 136.2,90.3"/><polygon class="f-l" points="85.6,88.3 116.1,104.7 116.1,102.7 85.6,86.3"/><polygon class="f-l" points="116.1,104.7 136.2,92.3 136.2,90.3 116.1,102.7"/><polygon class="f-t" points="85.6,86.3 116.1,102.7 136.2,90.3 105.7,73.9"/></g><g class="sys-slip"><polygon class="f-l" points="125.6,88.3 110.0,79.3 110.0,76.3 125.6,85.3"/><polygon class="f-l" points="110.0,79.3 94.4,88.3 94.4,85.3 110.0,76.3"/><polygon class="f-l" points="94.4,88.3 110.0,97.3 110.0,94.3 94.4,85.3"/><polygon class="f-l" points="110.0,97.3 125.6,88.3 125.6,85.3 110.0,94.3"/><polygon class="f-t" points="94.4,85.3 110.0,94.3 125.6,85.3 110.0,76.3"/></g></svg>
@@ -923,7 +923,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 
   <p class="cs-p reveal">The exception label tells you what failed, but not how the records relate underneath.</p>
 
-  <p class="cs-h3 reveal" style="margin-top: 40px;">Analysts need to understand both layers before they can act:</p>
+  <p class="cs-h3 reveal" style="margin-top: 72px;">Analysts need to understand both layers before they can act:</p>
   <ul class="cs-list reveal">
     <li>Who is being compared (Account level)</li>
     <li>What is being compared underneath (Entry level)</li>
@@ -937,7 +937,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
     </div>
   </div>
 
-  <p class="cs-h3 reveal" style="margin-top: 40px;">Why resolution slows down</p>
+  <p class="cs-h3 reveal" style="margin-top: 72px;">Why resolution slows down</p>
   <ul class="cs-list reveal">
     <li>The exception label hides the structure beneath it.</li>
     <li>The same mismatch can require entirely different resolutions.</li>
@@ -958,7 +958,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
   <p class="cs-p reveal">Because analysts handle exceptions repeatedly, even small amounts of reconstruction effort compound quickly at scale.</p>
 
 
-  <p class="cs-lead reveal" style="margin-top: 40px;">Before resolving an exception, analysts answered the same questions every time:</p>
+  <p class="cs-lead reveal" style="margin-top: 72px;">Before resolving an exception, analysts answered the same questions every time:</p>
   <ul class="cs-list reveal">
     <li>Which transaction is affected?</li>
     <li>Which accounts and entries are involved?</li>
@@ -966,7 +966,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
     <li>What needs to happen next?</li>
   </ul>
 
-  <h3 class="cs-h3 reveal" style="margin-top: 40px;">Design principles</h3>
+  <h3 class="cs-h3 reveal" style="margin-top: 72px;">Design principles</h3>
   <p class="cs-p reveal">Every investigation was designed around two simple principles.</p>
 
   <div class="cs-principles reveal">
@@ -996,7 +996,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 </div>
 <!-- 03 / The many faces of an exception -->
 <div class="cs-wrap">
-  <div class="cs-phase-tag reveal" style="margin-top: 56px;">Understand the exception</div>
+  <div class="cs-phase-tag reveal" style="margin-top: 72px;">Understand the exception</div>
   <h3 class="cs-h3 reveal">One experience. Many structures</h3>
   <p class="cs-p reveal">Regardless of how accounts and entries were connected underneath, analysts followed the same investigation experience, and the interface adapted to each topology while preserving a familiar workflow.</p>
 </div>
@@ -1032,7 +1032,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 
 <!-- 04 / Resolution actions prototype -->
 <div class="cs-wrap">
-  <div class="cs-phase-tag reveal" style="margin-top: 56px;">Take action</div>
+  <div class="cs-phase-tag reveal" style="margin-top: 72px;">Take action</div>
   <h3 class="cs-h3 reveal">Make resolution obvious</h3>
   <p class="cs-p reveal">Once the discrepancy was understood, the interface surfaced only the actions relevant to that exception, allowing analysts to resolve issues without leaving the investigation.</p>
 </div>

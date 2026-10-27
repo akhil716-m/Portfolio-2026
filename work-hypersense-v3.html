@@ -1272,7 +1272,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 
 </style>
 <link rel="stylesheet" href="assets/cs-article.css">
-<link rel="stylesheet" href="assets/cs-v3.css?v=76">
+<link rel="stylesheet" href="assets/cs-v3.css?v=80">
 <script>
 /* fx preview: canvas diagrams read the live accent and ground from the theme tokens */
 (function () {
@@ -1336,7 +1336,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
   <p class="cs-p reveal">On the surface, payments appear simple. A customer pays, and the merchant gets paid.</p>
 
   <!-- Payment flow — simplified journey -->
-  <div class="cs-vis cs-vis--wide cs-vis--iso reveal" style="margin: 24px 0;">
+  <div class="cs-vis cs-vis--wide cs-vis--iso reveal">
     <div class="cs-vis-body" style="padding: 44px 28px 40px;">
       <div class="cs-flow-stage">
       <!-- Drawn in Hairline's language (isometric hairlines, flat faces): the money block loses a
@@ -1431,14 +1431,14 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 
   <p class="cs-p reveal">In reality, every transaction passes through multiple participants before reaching the merchant, each introducing its own fees and rules. Individually these costs seem small, but at enterprise scale they become one of a merchant's largest variable expenses.</p>
 
-  <h3 class="cs-h3 reveal" style="margin-top: 52px;">The visibility gap</h3>
+  <h3 class="cs-h3 reveal" style="margin-top: 72px;">The visibility gap</h3>
   <p class="cs-p reveal">Merchants knew how much they were paying, but had very little understanding of what changed, why it changed, or <strong>where their money was going</strong>.</p>
   <p class="cs-p reveal">Payment costs look small, typically 1.5-3.5% of payment volume, but at enterprise scale they quickly translate into millions of dollars in avoidable spend.</p>
 
   <!-- Merchant scale (Hairline's isometric language): every pillar is the same unit of yearly
        volume, and each base is just big enough for its pillars: small 1, mid a 2x5 grid of 10,
        enterprise 10x10. Blue is the fees, always 2%: a hairline, a fifth of a pillar, two pillars. -->
-  <div class="cs-scale cs-vis--wide reveal" style="margin: 48px 0 24px;">
+  <div class="cs-scale cs-vis--wide reveal">
     <div class="cs-scale-cols" role="group" aria-label="Cubes showing payment cost scaling from small to enterprise merchants">
       <div class="cs-scale-col" data-tier="0">
         <svg class="iso-scale" viewBox="0 0 220 144" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -1636,7 +1636,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
   <p class="cs-p reveal">Blended applies one fixed rate to every transaction: simple and predictable, but expensive at high volume. IC++ charges the actual cost of each transaction, which creates room to save at scale. That's why enterprise merchants prefer it.</p>
 
   <!-- IC++ FEE SIMULATOR — teaser -->
-  <div class="cs-vis reveal cs-sim-teaser" style="margin: 24px 0 40px;">
+  <div class="cs-vis reveal cs-sim-teaser">
     <div class="cs-vis-label">IC++ fee simulation</div>
     <div class="cs-vis-body cs-sim-teaser-body">
       <div class="cs-sim-teaser-preview cs-sim-teaser-flow" aria-hidden="true">
@@ -1662,13 +1662,13 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
     </div>
   </div>
 
-  <h3 class="cs-h3 reveal" style="margin-top: 40px;">The same transparency that creates savings also creates complexity.</h3>
+  <h3 class="cs-h3 reveal" style="margin-top: 72px;">The same transparency that creates savings also creates complexity.</h3>
 
   <p class="cs-p reveal">In <span class="cs-gloss" tabindex="0" data-gloss="ic-plus-plus">IC++</span> pricing, no two transactions are guaranteed to be priced the same. Card type, authentication, settlement timing, geography, and data quality all influence the final fee. Each variable can quietly shift a transaction into a different fee tier, and most merchants never see it happen.</p>
   <p class="cs-p reveal">Without visibility, enterprise merchants often pay more than they should. The gap between expected and actual payment costs can reach <span class="cs-num">7-10%</span>.</p>
 
   <!-- THE RAW DOCUMENTS -->
-  <div class="cs-docs reveal" style="margin: 24px 0 40px;">
+  <div class="cs-docs reveal">
     <div class="cs-docs-header">
       <div class="cs-docs-tag">The raw documents</div>
       <h3 class="cs-docs-title">Payment cost data is <em>fragmented.</em></h3>
@@ -1879,7 +1879,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 
 </div>
 
-  <p class="cs-p reveal" style="margin-top: 48px;">By this point, we understood the ecosystem. The challenge was turning a fragmented payment system into a coherent cost story that different teams could trust and act on. While each team entered from a different perspective and carried different responsibilities, they were ultimately trying to answer the same question: where payment costs were coming from and what to do about them.</p>
+  <p class="cs-p reveal" style="margin-top: 72px;">By this point, we understood the ecosystem. The challenge was turning a fragmented payment system into a coherent cost story that different teams could trust and act on. While each team entered from a different perspective and carried different responsibilities, they were ultimately trying to answer the same question: where payment costs were coming from and what to do about them.</p>
 
 </div>
 </section>
@@ -1894,7 +1894,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
   <p class="cs-p reveal">Instead, we looked at how investigations actually unfolded. Regardless of where teams started, they were all trying to answer the same core questions.</p>
   <p class="cs-p reveal">That insight shaped the product strategy.</p>
 
-  <div class="cs-vis cs-vis--wide cs-vis--conv reveal" style="margin: 24px 0;">
+  <div class="cs-vis cs-vis--wide cs-vis--conv reveal">
     <div class="cs-vis-label">Many fragmented signals. One investigation.</div>
     <div class="cs-vis-body">
       <!-- Drawn in Hairline's language: each signal is the kind of thing it is (paper, coins, a crate),
@@ -2128,7 +2128,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
   <p class="cs-p reveal">With the investigation flow established, the next challenge was turning it into a cohesive product experience.</p>
   <p class="cs-p reveal">Each module served a distinct purpose, but together they needed to feel like a single investigation that teams could navigate naturally every month.</p>
 
-  <div class="cs-module-tag reveal" style="margin-top: 56px;">Overview</div>
+  <div class="cs-module-tag reveal" style="margin-top: 72px;">Overview</div>
   <h3 class="cs-h3 reveal">What's my cost story at a glance?</h3>
   <p class="cs-p reveal">Before teams investigate anomalies or optimize costs, they first need to understand where they stand today.</p>
   <p class="cs-p reveal">I designed Overview as the system's source of truth: a unified cost layer that consolidates fragmented signals into a single cost story.</p>
@@ -2151,7 +2151,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 </div>
 <div class="cs-wrap">
 
-  <div class="cs-module-tag reveal" style="margin-top: 80px;">Drill-Down</div>
+  <div class="cs-module-tag reveal" style="margin-top: 72px;">Drill-Down</div>
   <h3 class="cs-h3 reveal">How is cost distributed across my business?</h3>
   <p class="cs-p reveal">A single number rarely explains why costs change. Teams needed the ability to break costs down across processors, regions, <span class="cs-gloss" tabindex="0" data-gloss="corridor">corridors</span>, fee types, and currencies.</p>
   <p class="cs-p reveal">Drill-Down became the investigation layer of the product, helping teams move from cost summaries to the underlying drivers behind them.</p>
@@ -2174,7 +2174,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 </div>
 <div class="cs-wrap">
 
-  <div class="cs-module-tag reveal" style="margin-top: 80px;">Fee Spikes</div>
+  <div class="cs-module-tag reveal" style="margin-top: 72px;">Fee Spikes</div>
   <h3 class="cs-h3 reveal">Is this cost increase a problem?</h3>
   <p class="cs-p reveal">Not every increase in payment cost is a problem. The same spike could be driven by healthy sales growth, expansion into new markets, operational issues, or preventable leakage.</p>
   <p class="cs-p reveal">Fee Spikes was designed as an early warning layer that surfaces meaningful cost changes and explains what is driving them.</p>
@@ -2195,7 +2195,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
     <li>Does it require action?</li>
   </ul>
 
-  <div class="cs-module-tag reveal" style="margin-top: 80px;">Audit</div>
+  <div class="cs-module-tag reveal" style="margin-top: 72px;">Audit</div>
   <h3 class="cs-h3 reveal">Can every fee be verified?</h3>
   <p class="cs-p reveal">Processor invoices show what was charged, but rarely explain whether those charges were accurate.</p>
   <div class="cs-challenge reveal">
@@ -2224,7 +2224,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
   </ul>
   <p class="cs-p reveal">Instead of forcing teams to manually reconcile invoices, contracts, and transaction exports, the experience progressively moved from summary-level variances down to transaction-level evidence, making every discrepancy traceable and easy to defend.</p>
 
-  <div class="cs-module-tag reveal" style="margin-top: 80px;">Forecast</div>
+  <div class="cs-module-tag reveal" style="margin-top: 72px;">Forecast</div>
   <h3 class="cs-h3 reveal">What will upcoming network changes cost me?</h3>
   <p class="cs-p reveal">Card networks like Visa and Mastercard regularly introduce new fees, revise existing programs, and update qualification rules. Although these changes are published weeks in advance, they are often buried inside dense technical documentation.</p>
   <p class="cs-p reveal">For merchants, the challenge wasn't access to information. It was understanding which updates would actually affect their business and what their financial impact would be. Without that visibility, teams often discovered the impact only after it appeared on the following month's invoice.</p>
