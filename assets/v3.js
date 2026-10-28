@@ -213,52 +213,8 @@
   // Nav: mark the section in view. A clicked item stays marked until the reader scrolls
   // by hand (near the bottom, About and Contact are both on screen).
   var links = {}, active = null, pinned = null;
-  // Home page: sections stack, only the current one shows (styles-v3.css)
-  var stack = document.querySelectorAll('[data-stack]');
-  if (stack.length) document.documentElement.classList.add('stack-on');
-  // a section taller than most of the screen can't hold its place, so it scrolls as usual
-  // each pinned section sits with its middle level with the middle of the nav list
-  function measure() {
-    // measure the natural layout: pinned sections would report where they are stuck, not where they sit
-    var root = document.documentElement; root.classList.add('stack-measure');
-    // measured inside the nav, which is pinned to the top of the screen once the page scrolls
-    var nav = document.querySelector('.v3-nav'), g = document.querySelector('.nav-group');
-    var mid = nav && g && g.offsetHeight ? g.getBoundingClientRect().top - nav.getBoundingClientRect().top + g.offsetHeight / 2 : window.innerHeight / 2;
-    var v3 = document.querySelector('.v3'), v3Top = v3 ? v3.getBoundingClientRect().top + window.scrollY : 0;
-    stack.forEach(function (s, i) {
-      var h = s.offsetHeight;
-      if (i === 0) {   // Home: pushed down so it opens level with the middle of the nav
-        s.style.paddingTop = '0px'; h = s.offsetHeight;   // padding, as the intro's own margin would swallow a margin
-        var top = s.getBoundingClientRect().top + window.scrollY;
-        var pad = Math.max(0, Math.round(v3Top + mid - h / 2 - top));
-        s.style.paddingTop = pad + 'px';
-        s.style.setProperty('--stack-top', Math.round(mid - h / 2 - pad) + 'px');   // pinned, the content (not the padding) stays centred
-        s.classList.toggle('is-tall', h > window.innerHeight * .78);
-        return;
-      }
-      // every section gets the same stretch of scrolling, so a short one (Side projects) isn't skipped
-      s.style.marginTop = '';
-      var gap = parseFloat(getComputedStyle(s).marginTop) || 0, prevH = stack[i - 1].offsetHeight - (parseFloat(stack[i - 1].style.paddingTop) || 0);
-      s.style.marginTop = Math.max(gap, Math.round(window.innerHeight * .6 - prevH)) + 'px';
-      var stackTop = Math.max(24, Math.round(mid - h / 2));
-      s.classList.toggle('is-tall', h > window.innerHeight * .78);
-      s.style.setProperty('--stack-top', stackTop + 'px');
-      // the last one: exactly enough room after it that, scrolled to the very end, it rests at its place
-      if (i === stack.length - 1) {
-        // the page's own height doesn't track this margin one-for-one, so settle it in a few passes
-        var mb = 0;
-        for (var k = 0; k < 4; k++) {
-          s.style.marginBottom = mb + 'px';
-          var T = s.getBoundingClientRect().top + window.scrollY;
-          var rest = T - (document.documentElement.scrollHeight - window.innerHeight);   // where it sits when scrolled to the end
-          mb = Math.max(0, Math.round(mb + rest - stackTop));
-        }
-        s.style.marginBottom = mb + 'px';
-      }
-    });
-    root.classList.remove('stack-measure');
-  }
-  if (stack.length) { measure(); window.addEventListener('resize', measure); if (document.fonts) document.fonts.ready.then(measure); }
+  // Home page: sections stack, only the current one shows (styles-v3.css; driven at the end of this file)
+  var stack = [].slice.call(document.querySelectorAll('[data-stack]')), stackMode = false;
   document.querySelectorAll('[data-spy]').forEach(function (a) {
     links[a.dataset.spy] = a;
     a.addEventListener('click', function () { pinned = a.dataset.spy; setActive(pinned); });
@@ -289,16 +245,73 @@
   var queued = false;
   function spy() {
     queued = false;
-    if (pinned) return;
+    if (pinned || stackMode) return;
     var current = first;
-    sections.forEach(function (s) {
-      var line = stack.length ? (parseFloat(s.style.getPropertyValue('--stack-top')) || window.innerHeight * .45) + 2 : window.innerHeight * 0.45;
-      if (s.getBoundingClientRect().top < line) current = s.id;
-    });
+    sections.forEach(function (s) { if (s.getBoundingClientRect().top < window.innerHeight * 0.45) current = s.id; });
     // At the very bottom the last section can't reach the line, so mark it anyway
     if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) current = sections[sections.length - 1].id;
     setActive(current, true);
   }
   window.addEventListener('scroll', function () { if (!queued) { queued = true; requestAnimationFrame(spy); } }, { passive: true });
+
+  // Stack mode (home, desktop): the stage pins to the screen; scroll position alone decides which
+  // section shows, in even steps, so scrolling and the nav always agree.
+  var stage = document.querySelector('.stack-stage'), mainEl = document.querySelector('.v3-main');
+  var step = 0, stageOffset = 0, shown = -1, heading = null;   // heading: a nav click on its way, so passing sections stay quiet
+  function stackLayout() {
+    if (!stage || !stack.length) return;
+    var root = document.documentElement;
+    root.classList.add('stack-on');
+    mainEl.style.height = '';
+    var tallest = 0;
+    stack.forEach(function (s) { tallest = Math.max(tallest, s.offsetHeight); });
+    if (!matchMedia('(min-width: 961px)').matches || tallest > window.innerHeight * .9) {
+      root.classList.remove('stack-on'); stackMode = false; spy(); return;   // too small a screen: the page scrolls as usual
+    }
+    var nav = document.querySelector('.v3-nav'), g = document.querySelector('.nav-group');
+    var mid = g.getBoundingClientRect().top - nav.getBoundingClientRect().top + g.offsetHeight / 2;
+    stack.forEach(function (s) { s.style.setProperty('--stack-top', Math.max(16, Math.round(mid - s.offsetHeight / 2)) + 'px'); });
+    step = Math.round(window.innerHeight * .6);
+    // where the stage starts inside main, read while it isn't pinned
+    stage.style.position = 'relative';
+    stageOffset = stage.getBoundingClientRect().top - mainEl.getBoundingClientRect().top;
+    stage.style.position = '';
+    mainEl.style.height = Math.round(stageOffset + window.innerHeight + (stack.length - 1) * step) + 'px';
+    stackMode = true;
+    stackUpdate();
+  }
+  function stageStart() { return mainEl.getBoundingClientRect().top + window.scrollY + stageOffset; }
+  function stackUpdate() {
+    if (!stackMode) return;
+    var i = Math.round((window.scrollY - stageStart()) / step);
+    i = Math.max(0, Math.min(stack.length - 1, i));
+    if (i === shown) return;
+    var id = stack[i].getAttribute('data-stack');
+    if (heading && id !== heading) {   // passing through on a nav click: swap quietly, no tick
+      shown = i; stack.forEach(function (s, k) { s.classList.toggle('is-current', k === i); }); return;
+    }
+    heading = null;
+    var quiet = shown < 0;
+    shown = i;
+    active = active === id ? null : active;   // let setActive run even if the click already marked it
+    setActive(id, !quiet);
+  }
+  Object.keys(links).forEach(function (id) {
+    links[id].addEventListener('click', function (e) {
+      if (!stackMode) return;
+      var i = stack.map(function (s) { return s.getAttribute('data-stack'); }).indexOf(id);
+      if (i < 0) return;
+      e.preventDefault();
+      heading = id;
+      // jump straight there: only the chosen section rises in, nothing flickers past on the way
+      window.scrollTo({ top: stageStart() + i * step, behavior: 'instant' });
+      stackUpdate();
+    });
+  });
+  window.addEventListener('scroll', stackUpdate, { passive: true });
+  window.addEventListener('resize', stackLayout);
+  if (document.fonts) document.fonts.ready.then(stackLayout);
+  window.addEventListener('load', stackLayout);
+  stackLayout();
   spy();
 })();
