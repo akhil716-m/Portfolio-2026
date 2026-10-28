@@ -634,3 +634,15 @@ button:active, .row:active, .nav-list a:active, .sec-head a:active { scale: .98;
 @media (min-width: 961px) and (prefers-reduced-motion: reduce) {
   .stack-on [data-stack], .stack-on [data-stack].is-current { transform: none; transition: opacity .2s ease; }
 }
+
+/* ===== The case studies' type system, on Home (see assets/cs-v3.css):
+   section 24/500 · sub-heading 17/500 · body 14.5/1.7/400 grey · bold in body 500 dark ===== */
+.sec-head h2 { font-size: 24px; font-weight: 500; line-height: 1.35; letter-spacing: -.015em; }
+.sec-head { margin-bottom: 16px; }
+.now h2 { font-size: 17px; line-height: 1.4; letter-spacing: -.01em; }
+.hey, .h-reset, .intro p, .about p:not(.meta), .contact .big, .xp p {
+  font-size: 14.5px; font-weight: 400; line-height: 1.7; letter-spacing: 0; color: var(--text-soft);
+}
+.hey, .h-reset, .intro p, .about p:not(.meta), .contact .big { margin-bottom: 28px; }
+.row { font-size: 14.5px; }
+.row-desc { font-weight: 400; }
