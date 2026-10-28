@@ -63,6 +63,22 @@
     ] },
     press: { gain: .4, layers: [
       { type: 'noise', filter: 'bandpass', freq: 1700, q: 1.4, attack: .001, decay: .02, peak: .13 }
+    ] },
+    // Home "Currently" hovers, one per drawing: a card slid on paper, a block set down, a page
+    // flicked, a record starting. Quieter than a click; `to` glides the pitch or filter.
+    slide: { gain: .7, layers: [
+      { type: 'noise', filter: 'bandpass', freq: 900, to: 2200, q: 2, attack: .05, decay: .24, peak: .2 }
+    ] },
+    stack: { gain: .8, layers: [
+      { type: 'noise', filter: 'bandpass', freq: 1300, q: 1, attack: .001, decay: .04, peak: .18 },
+      { type: 'tone', freq: 392, attack: .002, decay: .16, peak: .22 }
+    ] },
+    page: { gain: .7, layers: [
+      { type: 'noise', filter: 'highpass', freq: 2800, to: 5200, q: .7, attack: .025, decay: .17, peak: .18 }
+    ] },
+    spin: { gain: .7, layers: [
+      { type: 'tone', freq: 784, attack: .015, decay: .42, peak: .1 },
+      { type: 'tone', freq: 1175, offset: .09, attack: .015, decay: .5, peak: .08 }
     ] }
   };
   var VOLUME = .4, ctx = null, bus = null;
@@ -103,12 +119,14 @@
         envelope(g, l, t);
         if (l.type === 'tone') {
           src = c.createOscillator(); src.type = 'sine'; src.frequency.setValueAtTime(l.freq, t);
+          if (l.to) src.frequency.exponentialRampToValueAtTime(l.to, t + l.attack + l.decay);
           src.connect(g);
         } else {
           var n = Math.max(1, Math.floor((end - t) * c.sampleRate)), buf = c.createBuffer(1, n, c.sampleRate), data = buf.getChannelData(0);
           for (var i = 0; i < n; i++) data[i] = Math.random() * 2 - 1;
           src = c.createBufferSource(); src.buffer = buf;
-          var f = c.createBiquadFilter(); f.type = l.filter; f.frequency.value = l.freq; f.Q.value = l.q;
+          var f = c.createBiquadFilter(); f.type = l.filter; f.frequency.setValueAtTime(l.freq, t); f.Q.value = l.q;
+          if (l.to) f.frequency.exponentialRampToValueAtTime(l.to, t + l.attack + l.decay);
           src.connect(f).connect(g);
         }
         g.connect(out); src.start(t); src.stop(end);
@@ -116,6 +134,7 @@
     };
     if (c.state === 'running') go(); else c.resume().then(function () { if (c.state === 'running') go(); }, function () {});
   }
+  window.v3Sound = play;   // for page scripts (home's Currently hovers)
   // Browsers only allow sound after the first tap, click or key press: wake the audio then,
   // so the scroll ticks that follow can be heard
   ['pointerdown', 'keydown', 'touchstart'].forEach(function (ev) {

@@ -252,7 +252,7 @@
 
 <div class="peek" aria-hidden="true"><img alt=""></div>
 
-<script src="assets/v3.js?v=32"></script>
+<script src="assets/v3.js?v=34"></script>
 <script>
 (function () {
   // Cover: stars for the night sky
@@ -456,6 +456,8 @@
         raf = requestAnimationFrame(frame);
       }
       cell.addEventListener('mouseenter', function () {
+        // its own small sound, once per visit (not again while it is still settling)
+        if (!raf && window.v3Sound) window.v3Sound(['slide', 'stack', 'page', 'spin'][k]);
         on = true;
         if (!raf) { last = performance.now(); raf = requestAnimationFrame(frame); }
       });
