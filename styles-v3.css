@@ -353,6 +353,7 @@ p { margin: 0 0 24px; }
 .iso-now .f-acc { fill: color-mix(in srgb, var(--live) 28%, var(--bg)); stroke: var(--live); }
 .iso-now .f-acc-fill { fill: var(--live); stroke: none; }
 .iso-now g { transition: transform .5s var(--ease); }
+.now .iso-now { max-width: 96px; }   /* a size down from 120, for room around each one */
 /* hover acts each drawing out (script in home-v3.html); the record's spin mark */
 .iso-now .f-tick { stroke: var(--live); stroke-width: 1.4; stroke-linecap: round; fill: none; }
 
