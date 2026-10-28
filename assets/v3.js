@@ -278,7 +278,7 @@
   var stage = document.querySelector('.stack-stage'), mainEl = document.querySelector('.v3-main');
   var step = 0, stageOffset = 0, pinTop = 0, shown = -1, heading = null;   // heading: a nav click on its way, so passing sections stay quiet
   var starts = [], extra = [];   // where each section's turn begins, and how far a tall one slides up inside it
-  function stackLayout() {
+  function stackLayout(keep) {
     if (!stage || !stack.length) return;
     var root = document.documentElement;
     root.classList.add('stack-on');
@@ -306,7 +306,7 @@
     var last = stack.length - 1;
     mainEl.style.height = Math.round(stageOffset + stage.offsetHeight + starts[last] + extra[last]) + 'px';
     stackMode = true;
-    shown = -1;
+    if (keep !== true) shown = -1;
     stackUpdate();
   }
   function stageStart() { return mainEl.getBoundingClientRect().top + window.scrollY + stageOffset - pinTop; }
@@ -339,9 +339,19 @@
     });
   });
   window.addEventListener('scroll', stackUpdate, { passive: true });
-  window.addEventListener('resize', stackLayout);
-  if (document.fonts) document.fonts.ready.then(stackLayout);
-  window.addEventListener('load', stackLayout);
+  window.addEventListener('resize', function () { stackLayout(); });
+  if (document.fonts) document.fonts.ready.then(function () { stackLayout(); });
+  window.addEventListener('load', function () { stackLayout(); });
+  // The cover opens tall and then settles shorter: the pinned name, status and nav follow its real
+  // height, so they are never tucked behind it (a scroll or reload during the greeting)
+  var cover = document.querySelector('.cover'), coverQueued = false;
+  if (cover && window.ResizeObserver) {
+    new ResizeObserver(function () {
+      root.style.setProperty('--cover-h', cover.offsetHeight + 'px');
+      if (coverQueued) return; coverQueued = true;
+      requestAnimationFrame(function () { coverQueued = false; stackLayout(true); });
+    }).observe(cover);
+  }
   stackLayout();
   spy();
 })();
