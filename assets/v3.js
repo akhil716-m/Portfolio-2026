@@ -257,34 +257,45 @@
   // Stack mode (home, desktop): the stage pins to the screen; scroll position alone decides which
   // section shows, in even steps, so scrolling and the nav always agree.
   var stage = document.querySelector('.stack-stage'), mainEl = document.querySelector('.v3-main');
-  var step = 0, stageOffset = 0, shown = -1, heading = null;   // heading: a nav click on its way, so passing sections stay quiet
+  var step = 0, stageOffset = 0, pinTop = 0, shown = -1, heading = null;   // heading: a nav click on its way, so passing sections stay quiet
+  var starts = [], extra = [];   // where each section's turn begins, and how far a tall one slides up inside it
   function stackLayout() {
     if (!stage || !stack.length) return;
     var root = document.documentElement;
     root.classList.add('stack-on');
     mainEl.style.height = '';
-    var tallest = 0;
-    stack.forEach(function (s) { tallest = Math.max(tallest, s.offsetHeight); });
-    if (!matchMedia('(min-width: 961px)').matches || tallest > window.innerHeight * .9) {
-      root.classList.remove('stack-on'); stackMode = false; spy(); return;   // too small a screen: the page scrolls as usual
+    if (!matchMedia('(min-width: 961px)').matches) {
+      root.classList.remove('stack-on'); stackMode = false; spy(); return;   // small screens: the page scrolls as usual
     }
+    // every section starts level with the nav; one taller than the room left slides up before the next comes in
     var nav = document.querySelector('.v3-nav'), g = document.querySelector('.nav-group');
-    var mid = g.getBoundingClientRect().top - nav.getBoundingClientRect().top + g.offsetHeight / 2;
-    stack.forEach(function (s) { s.style.setProperty('--stack-top', Math.max(16, Math.round(mid - s.offsetHeight / 2)) + 'px'); });
+    var navTop = Math.round(g.getBoundingClientRect().top - nav.getBoundingClientRect().top);
+    var room = stage.offsetHeight - navTop - 48;
+    stage.style.setProperty('--nav-top', navTop + 'px');
     step = Math.round(window.innerHeight * .6);
+    var at = 0;
+    stack.forEach(function (s, k) {
+      s.style.setProperty('--stack-top', navTop + 'px');
+      starts[k] = at; extra[k] = Math.max(0, s.offsetHeight - room);
+      at += extra[k] + step;
+    });
     // where the stage starts inside main, read while it isn't pinned
+    pinTop = parseFloat(getComputedStyle(stage).top) || 0;
     stage.style.position = 'relative';
     stageOffset = stage.getBoundingClientRect().top - mainEl.getBoundingClientRect().top;
     stage.style.position = '';
-    mainEl.style.height = Math.round(stageOffset + window.innerHeight + (stack.length - 1) * step) + 'px';
+    var last = stack.length - 1;
+    mainEl.style.height = Math.round(stageOffset + stage.offsetHeight + starts[last] + extra[last]) + 'px';
     stackMode = true;
+    shown = -1;
     stackUpdate();
   }
-  function stageStart() { return mainEl.getBoundingClientRect().top + window.scrollY + stageOffset; }
+  function stageStart() { return mainEl.getBoundingClientRect().top + window.scrollY + stageOffset - pinTop; }
   function stackUpdate() {
     if (!stackMode) return;
-    var i = Math.round((window.scrollY - stageStart()) / step);
-    i = Math.max(0, Math.min(stack.length - 1, i));
+    var p = window.scrollY - stageStart(), i = 0;
+    for (var k = 1; k < stack.length; k++) if (p >= starts[k] - step / 2) i = k;
+    stack.forEach(function (s, k) { s.style.setProperty('--stack-pan', -Math.round(Math.max(0, Math.min(extra[k], p - starts[k]))) + 'px'); });
     if (i === shown) return;
     var id = stack[i].getAttribute('data-stack');
     if (heading && id !== heading) {   // passing through on a nav click: swap quietly, no tick
@@ -304,7 +315,7 @@
       e.preventDefault();
       heading = id;
       // jump straight there: only the chosen section rises in, nothing flickers past on the way
-      window.scrollTo({ top: stageStart() + i * step, behavior: 'instant' });
+      window.scrollTo({ top: stageStart() + starts[i], behavior: 'instant' });
       stackUpdate();
     });
   });

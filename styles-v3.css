@@ -616,18 +616,24 @@ button:active, .row:active, .nav-list a:active, .sec-head a:active { scale: .98;
    level with the middle of the nav. Scrolling moves through them in even steps; the next one
    rises in from below with a small overshoot while the last fades away. ===== */
 @media (min-width: 961px) {
-  .nav-group { margin: auto 0; }
   .v3-nav { padding-bottom: 72px; }
-  .stack-on .stack-stage { position: sticky; top: 0; height: 100vh; }
-  /* the stage starts where the nav starts, so Home opens level with it; the status floats top right */
+  /* the cover, the name, the status and the nav stay put under the settled cover; only the sections change */
+  .stack-on { --cover-h: clamp(140px, 15.4vw, 224px); }
+  .stack-on .cover { position: sticky; top: 0; z-index: 4; }
+  .stack-on .v3-nav { top: var(--cover-h); height: calc(100vh - var(--cover-h)); }
+  .stack-on .stack-stage { position: sticky; top: var(--cover-h); height: calc(100vh - var(--cover-h)); overflow: hidden;
+    /* a tall section sliding up fades out before it reaches the name and status */
+    -webkit-mask-image: linear-gradient(transparent calc(var(--nav-top, 0px) - 40px), #000 calc(var(--nav-top, 0px) - 8px));
+    mask-image: linear-gradient(transparent calc(var(--nav-top, 0px) - 40px), #000 calc(var(--nav-top, 0px) - 8px)); }
+  /* the stage starts where the nav starts, so every section opens level with it; the status sits top right */
   .stack-on .v3-main { position: relative; padding-top: 0; }
-  .stack-on .topbar { position: absolute; top: 32px; left: 0; right: 0; z-index: 3; }
+  .stack-on .topbar { position: sticky; top: var(--cover-h); height: 0; padding-top: 32px; margin-bottom: -32px; z-index: 3; }
   /* the footer rests at the very bottom, in the empty space under the last section */
   .stack-on .v3-main { padding-bottom: 0; }
   .stack-on .v3-main > .foot { position: absolute; left: 0; right: 0; bottom: 32px; margin: 0; z-index: 3; }
   .stack-on [data-stack] {
     position: absolute; left: 0; right: 0; top: var(--stack-top, 20vh); margin: 0 !important;
-    pointer-events: none; opacity: 0; transform: translateY(56px);
+    pointer-events: none; opacity: 0; transform: translateY(56px); translate: 0 var(--stack-pan, 0);
     transition: opacity .2s ease, transform .2s ease;
   }
   .stack-on [data-stack].is-current { pointer-events: auto; opacity: 1; transform: none; transition: opacity .3s ease, transform .55s cubic-bezier(.34, 1.56, .64, 1); }
