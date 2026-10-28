@@ -337,7 +337,8 @@ p { margin: 0 0 24px; }
    one per line, with the green "live" dot as the only colour. Each lifts a little on hover. ===== */
 .now { margin-top: 96px; }
 .now-head { display: flex; align-items: baseline; gap: 14px; margin-bottom: 18px; }
-.now h2 { margin: 0; display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 500; color: var(--text); }
+/* the live dot hangs in the margin, so "Currently" lines up with the text and the drawings */
+.now h2 { margin: 0 0 0 -14px; display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 500; color: var(--text); }
 .now h2 i { width: 6px; height: 6px; border-radius: 50%; background: var(--live); }
 .now-note { margin: 0; font: 600 19px/1 var(--hand); color: var(--text-muted); transform: rotate(-3deg); }
 .now dl { margin: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px 20px; }
@@ -352,7 +353,8 @@ p { margin: 0 0 24px; }
 .iso-now .f-acc { fill: color-mix(in srgb, var(--live) 28%, var(--bg)); stroke: var(--live); }
 .iso-now .f-acc-fill { fill: var(--live); stroke: none; }
 .iso-now g { transition: transform .5s var(--ease); }
-.now dl > div:hover .iso-now g { transform: translateY(-3px); }
+/* hover acts each drawing out (script in home-v3.html); the record's spin mark */
+.iso-now .f-tick { stroke: var(--live); stroke-width: 1.4; stroke-linecap: round; fill: none; }
 
 /* ===== Work list (keeps v2's corner marks, lighter) ===== */
 .frame { position: relative; padding: 4px 0; }
@@ -591,6 +593,7 @@ p { margin: 0 0 24px; }
 @media (max-width: 600px) {
   .nav-list li:nth-child(n+3) { display: none; }
   .now dl { grid-template-columns: 1fr 1fr; }
+  .now h2 { margin-left: 0; }   /* too close to the screen edge to hang the dot */
   .about { grid-template-columns: 1fr; }
   .row { grid-template-columns: auto 1fr; }
   .row-desc { grid-column: 1 / -1; grid-row: 2; white-space: normal; font-size: 14px; }
@@ -622,6 +625,7 @@ button:active, .row:active, .nav-list a:active, .sec-head a:active { scale: .98;
   .stack-on .cover { position: sticky; top: 0; z-index: 4; }
   .stack-on .v3-nav { top: var(--cover-h); height: calc(100vh - var(--cover-h)); }
   .stack-on .stack-stage { position: sticky; top: var(--cover-h); height: calc(100vh - var(--cover-h)); overflow: hidden;
+    margin: 0 -32px;   /* 32px of room each side, so marks that hang in the margin (the live dot) aren't cut */
     /* a tall section sliding up fades out before it reaches the name and status */
     -webkit-mask-image: linear-gradient(transparent calc(var(--nav-top, 0px) - 40px), #000 calc(var(--nav-top, 0px) - 8px));
     mask-image: linear-gradient(transparent calc(var(--nav-top, 0px) - 40px), #000 calc(var(--nav-top, 0px) - 8px)); }
@@ -632,7 +636,7 @@ button:active, .row:active, .nav-list a:active, .sec-head a:active { scale: .98;
   .stack-on .v3-main { padding-bottom: 0; }
   .stack-on .v3-main > .foot { position: absolute; left: 0; right: 0; bottom: 32px; margin: 0; z-index: 3; }
   .stack-on [data-stack] {
-    position: absolute; left: 0; right: 0; top: var(--stack-top, 20vh); margin: 0 !important;
+    position: absolute; left: 32px; right: 32px; top: var(--stack-top, 20vh); margin: 0 !important;
     pointer-events: none; opacity: 0; transform: translateY(56px); translate: 0 var(--stack-pan, 0);
     transition: opacity .2s ease, transform .2s ease;
   }
