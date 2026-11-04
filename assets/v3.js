@@ -355,3 +355,96 @@
   stackLayout();
   spy();
 })();
+
+/* Home cover: the ambient sound of whichever time of day is showing.
+   Sound is made with Web Audio (no files), starts off, and remembers the visitor's choice. */
+(function () {
+  var cover = document.querySelector('.scene.cover');
+  if (!cover) return;
+  var root = document.documentElement;
+
+  // Sound
+  var btn = cover.querySelector('[data-ambient]');
+  var AC = window.AudioContext || window.webkitAudioContext;
+  if (!btn || !AC) { if (btn) btn.hidden = true; return; }
+  var ctx, master, beds = {}, on = false, timer = 0;
+
+  var noise = function () {
+    var b = ctx.createBuffer(1, ctx.sampleRate * 4, ctx.sampleRate), d = b.getChannelData(0), last = 0;
+    for (var i = 0; i < d.length; i++) { last = (last + .02 * (Math.random() * 2 - 1)) / 1.02; d[i] = last * 3.5; }
+    var s = ctx.createBufferSource(); s.buffer = b; s.loop = true; s.start(); return s;
+  };
+  var wind = function (out, freq, level, rate) {
+    var f = ctx.createBiquadFilter(), g = ctx.createGain(), lfo = ctx.createOscillator(), depth = ctx.createGain();
+    f.type = 'lowpass'; f.frequency.value = freq; g.gain.value = level;
+    lfo.frequency.value = rate; depth.gain.value = level * .6;
+    lfo.connect(depth); depth.connect(g.gain); lfo.start();
+    noise().connect(f); f.connect(g); g.connect(out);
+  };
+  var bed = function (name) { var g = ctx.createGain(); g.gain.value = 0; g.connect(master); beds[name] = g; return g; };
+  var tone = function (out, type, f0, f1, at, len, level) {
+    var o = ctx.createOscillator(), g = ctx.createGain();
+    o.type = type; o.frequency.setValueAtTime(f0, at); o.frequency.exponentialRampToValueAtTime(f1, at + len);
+    g.gain.setValueAtTime(0, at); g.gain.linearRampToValueAtTime(level, at + Math.min(.03, len / 3));
+    g.gain.exponentialRampToValueAtTime(.0001, at + len);
+    o.connect(g); g.connect(out); o.start(at); o.stop(at + len + .02);
+  };
+  var build = function () {
+    ctx = new AC();
+    master = ctx.createGain(); master.gain.value = 0; master.connect(ctx.destination);
+    wind(bed('day'), 1100, .1, .09);
+    wind(bed('mid'), 620, .11, .06);
+    var night = bed('night');
+    wind(night, 340, .07, .05);
+    [110, 164.8].forEach(function (f) { var o = ctx.createOscillator(), g = ctx.createGain(); o.frequency.value = f; g.gain.value = .014; o.connect(g); g.connect(night); o.start(); });
+  };
+  var moments = {
+    day: function (t) { // a bird
+      var n = 2 + Math.floor(Math.random() * 3), base = 2600 + Math.random() * 1200;
+      for (var i = 0; i < n; i++) tone(beds.day, 'sine', base, base * (i % 2 ? .82 : 1.22), t + i * .14, .11, .028);
+      return 2500 + Math.random() * 5000;
+    },
+    mid: function (t) { // a slow chime
+      var notes = [392, 440, 523.25, 587.33, 659.25, 783.99], f = notes[Math.floor(Math.random() * notes.length)];
+      tone(beds.mid, 'sine', f, f, t, 3.4, .03); tone(beds.mid, 'sine', f * 2, f * 2, t, 1.6, .007);
+      return 3000 + Math.random() * 4500;
+    },
+    night: function (t) { // crickets
+      for (var i = 0; i < 5; i++) tone(beds.night, 'sine', 4300, 4250, t + i * .075, .05, .007);
+      return 900 + Math.random() * 1200;
+    }
+  };
+  var tick = function () {
+    if (!on) return;
+    var m = moments[root.dataset.mood] || moments.day;
+    timer = setTimeout(tick, m(ctx.currentTime + .05));
+  };
+  var showBed = function () {
+    if (!ctx) return;
+    Object.keys(beds).forEach(function (k) { beds[k].gain.setTargetAtTime(k === root.dataset.mood ? 1 : 0, ctx.currentTime, .7); });
+  };
+  var set = function (want, remember) {
+    on = want;
+    btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+    if (remember) { try { localStorage.setItem('v3-ambient', on ? 'on' : 'off'); } catch (e) {} }
+    clearTimeout(timer);
+    if (on) { if (!ctx) build(); ctx.resume(); showBed(); master.gain.setTargetAtTime(1, ctx.currentTime, .8); tick(); }
+    else if (ctx) master.gain.setTargetAtTime(0, ctx.currentTime, .3);
+  };
+  btn.addEventListener('click', function () { set(!on, true); });
+  new MutationObserver(function () { showBed(); }).observe(root, { attributes: true, attributeFilter: ['data-mood'] });
+  document.addEventListener('visibilitychange', function () {
+    if (!ctx) return;
+    if (document.hidden) { ctx.suspend(); clearTimeout(timer); } else if (on) { ctx.resume(); tick(); }
+  });
+  // A returning visitor who left it on: browsers need one tap or key first
+  var saved = null; try { saved = localStorage.getItem('v3-ambient'); } catch (e) {}
+  if (saved === 'on') {
+    btn.setAttribute('aria-pressed', 'true');
+    var wake = function (e) {
+      removeEventListener('pointerdown', wake); removeEventListener('keydown', wake);
+      if (!e.target.closest || !e.target.closest('[data-ambient]')) set(true, false);
+    };
+    addEventListener('pointerdown', wake); addEventListener('keydown', wake);
+  }
+})();

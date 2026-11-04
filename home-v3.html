@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Instrument+Serif:ital@0;1&family=Geist+Mono:wght@400&family=Public+Sans:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles-v3.css?v=63">
+<link rel="stylesheet" href="styles-v3.css?v=69">
 <script>
   // Time of day before first paint: the visitor's pick, or Auto from their clock
   // (Day 6 am-4 pm, Mid 4-7 pm, Night 7 pm-6 am). Day is the white theme, Mid paper, Night dark.
@@ -30,11 +30,10 @@
 <header class="scene cover">
   <div class="scene-view">
     <div class="scene-pic">
-      <img class="scene-img scene-img--day" src="assets/v3/cover-day.webp" width="3000" height="1000" alt="A tree on a grassy hill with a rock beneath it, looking out over a lake and blue mountains under big clouds" fetchpriority="high">
-      <img class="scene-img scene-img--mid" src="assets/v3/cover-evening.webp" width="3000" height="1000" alt="" aria-hidden="true">
-      <img class="scene-img scene-img--night" src="assets/v3/cover-night.webp" width="3000" height="1000" alt="" aria-hidden="true">
+      <img class="scene-img scene-img--day" src="assets/v3/cover-day.webp?v=3" width="3000" height="1000" alt="Green hills and pine trees rolling down to a lake and blue mountains under big clouds" fetchpriority="high">
+      <img class="scene-img scene-img--mid" src="assets/v3/cover-evening.webp?v=3" width="3000" height="1000" alt="" aria-hidden="true">
+      <img class="scene-img scene-img--night" src="assets/v3/cover-night.webp?v=3" width="3000" height="1000" alt="" aria-hidden="true">
     </div>
-    <div class="scene-grain" aria-hidden="true"></div>
     <span class="scene-bar scene-bar--top" aria-hidden="true"></span>
     <span class="scene-bar scene-bar--bottom" aria-hidden="true"></span>
   </div>
@@ -47,6 +46,7 @@
        city from their connection via GeoJS, weather from Open-Meteo, both free, no key), then the
        Day / Mid / Night control -->
   <div class="cover-bar">
+    <button type="button" class="ambient" data-ambient data-sound="" aria-pressed="false" aria-label="Sound of the scene" title="Sound of the scene"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 6.2v3.6h2.3L8 12.4V3.6L4.8 6.2z"/><path class="ambient-on" d="M10.4 6a3 3 0 0 1 0 4M12 4.4a5.2 5.2 0 0 1 0 7.2"/><path class="ambient-off" d="M10.5 6.2l3.4 3.6M13.9 6.2l-3.4 3.6"/></svg></button>
     <p class="here" aria-live="polite"><span data-here-time>--:--</span><span data-here-place hidden></span><span data-here-weather hidden></span></p>
     <div class="time-tabs time-tabs--cover" role="group" aria-label="Time of day and theme">
       <button type="button" data-set-time="day" aria-pressed="false" title="Day · white"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="3"/><path d="M8 1.5v1.6M8 12.9v1.6M1.5 8h1.6M12.9 8h1.6M3.4 3.4l1.1 1.1M11.5 11.5l1.1 1.1M12.6 3.4l-1.1 1.1M4.5 11.5l-1.1 1.1"/></svg><span class="tab-label">Day</span></button>
@@ -240,7 +240,7 @@
 
 <div class="peek" aria-hidden="true"><img alt=""></div>
 
-<script src="assets/v3.js?v=36"></script>
+<script src="assets/v3.js?v=39"></script>
 <script>
 (function () {
   // The visitor's own time, city and weather beside Resume. The city comes from their
