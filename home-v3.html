@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Instrument+Serif:ital@0;1&family=Geist+Mono:wght@400&family=Public+Sans:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles-v3.css?v=57">
+<link rel="stylesheet" href="styles-v3.css?v=63">
 <script>
   // Time of day before first paint: the visitor's pick, or Auto from their clock
   // (Day 6 am-4 pm, Mid 4-7 pm, Night 7 pm-6 am). Day is the white theme, Mid paper, Night dark.
@@ -25,18 +25,15 @@
 </script>
 </head>
 <body>
-<!-- Cover: the hills across the top of the page, graded to the visitor's time of day
+<!-- Cover: the hills across the top of the page, one painting per time of day
      (day / mid / night). The control in the corner switches it, and the theme with it. -->
 <header class="scene cover">
   <div class="scene-view">
     <div class="scene-pic">
-      <img class="scene-img" src="assets/v3/hills.webp" width="1750" height="863" alt="Someone sitting on a rock on a grassy hill, looking out over a lake and blue mountains under big clouds" fetchpriority="high">
+      <img class="scene-img scene-img--day" src="assets/v3/cover-day.webp" width="3000" height="1000" alt="A tree on a grassy hill with a rock beneath it, looking out over a lake and blue mountains under big clouds" fetchpriority="high">
+      <img class="scene-img scene-img--mid" src="assets/v3/cover-evening.webp" width="3000" height="1000" alt="" aria-hidden="true">
+      <img class="scene-img scene-img--night" src="assets/v3/cover-night.webp" width="3000" height="1000" alt="" aria-hidden="true">
     </div>
-    <div class="scene-tint" aria-hidden="true"></div>
-    <div class="scene-shade" aria-hidden="true"></div>
-    <div class="scene-mist" aria-hidden="true"></div>
-    <div class="scene-stars" aria-hidden="true"></div>
-    <div class="scene-moon" aria-hidden="true"></div>
     <div class="scene-grain" aria-hidden="true"></div>
     <span class="scene-bar scene-bar--top" aria-hidden="true"></span>
     <span class="scene-bar scene-bar--bottom" aria-hidden="true"></span>
@@ -246,19 +243,6 @@
 <script src="assets/v3.js?v=36"></script>
 <script>
 (function () {
-  // Cover: stars for the night sky
-  var scene = document.querySelector('.scene');
-  if (scene) {
-    // Stars: scattered over the sky (the top half), each on its own slow twinkle
-    var sky = scene.querySelector('.scene-stars');
-    for (var i = 0; i < 70; i++) {
-      var star = document.createElement('i');
-      var x = Math.random() * 100, y = Math.random() * 52;
-      star.style.cssText = 'left:' + x + '%;top:' + y + '%;--s:' + (Math.random() < .15 ? 2 : 1) + 'px;--t:' + (2 + Math.random() * 4).toFixed(1) + 's;--dl:-' + (Math.random() * 6).toFixed(1) + 's';
-      sky.appendChild(star);
-    }
-  }
-
   // The visitor's own time, city and weather beside Resume. The city comes from their
   // connection (GeoJS) and the weather from Open-Meteo; kept for 30 minutes in the tab.
   // If either service can't be reached, the time still shows on its own.

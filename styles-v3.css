@@ -191,12 +191,17 @@ p { margin: 0 0 24px; }
   100% { opacity: 0; transform: translateY(-8px); filter: blur(2px); }
 }
 .cover::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: var(--line); }
-.scene-pic { position: absolute; inset: 0; }
-.scene-img {
-  width: 100%; height: 100%; object-fit: cover; object-position: 50% 72%;
+.scene-pic {
+  position: absolute; inset: 0;
   animation: scene-in 2.2s var(--ease) backwards, scene-drift 46s ease-in-out 2.2s infinite alternate;
-  transition: filter 1.6s ease;
 }
+/* One painting per time of day, crossfading */
+.scene-img {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; object-position: 50% 64%;
+  opacity: 0; transition: opacity 1.6s ease;
+}
+:root[data-mood="day"] .scene-img--day, :root[data-mood="mid"] .scene-img--mid, :root[data-mood="night"] .scene-img--night { opacity: 1; }
 @keyframes scene-in { from { filter: blur(10px) brightness(.8); transform: scale(1.14); } to { transform: scale(1.04); } }
 @keyframes scene-drift { from { transform: scale(1.04) translate(0, 0); } to { transform: scale(1.1) translate(-1.6%, -1%); } }
 .scene-bar { position: absolute; left: 0; right: 0; height: 50%; background: #0b0b0b; z-index: 6; animation: bar-open 1.5s cubic-bezier(.7, 0, .2, 1) .15s both; }
@@ -204,43 +209,11 @@ p { margin: 0 0 24px; }
 .scene-bar--bottom { bottom: 0; transform-origin: bottom; }
 @keyframes bar-open { from { transform: scaleY(1); } to { transform: scaleY(0); } }
 
-/* Grade layers, each fades in for its mood */
-.scene-tint, .scene-shade, .scene-mist, .scene-stars, .scene-moon { position: absolute; inset: 0; opacity: 0; transition: opacity 1.6s ease; pointer-events: none; }
-.scene-tint { mix-blend-mode: soft-light; }
-.scene-shade { mix-blend-mode: multiply; }
 .scene-grain {
   position: absolute; inset: 0; pointer-events: none; opacity: .09; mix-blend-mode: overlay;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-
-/* Day: as painted, a touch of warm sun from the right */
-:root[data-mood="day"] .scene .scene-tint { opacity: 1; background: radial-gradient(60% 70% at 85% 20%, rgb(255 236 200 / .45), transparent 70%); }
-
-/* Mid: golden hour, the light low and warm */
-:root[data-mood="mid"] .scene .scene-img { filter: saturate(1.25) contrast(1.08) sepia(.34) brightness(.9) hue-rotate(-8deg); }
-:root[data-mood="mid"] .scene .scene-tint { opacity: 1; background: linear-gradient(180deg, rgb(255 140 60 / .85), rgb(255 185 110 / .55) 58%, rgb(255 110 70 / .35)); }
-:root[data-mood="mid"] .scene .scene-shade { opacity: 1; background: linear-gradient(180deg, rgb(255 150 90 / .18), transparent 40%, rgb(110 40 90 / .45)); }
-:root[data-mood="mid"] .scene .scene-mist { opacity: 1; mix-blend-mode: screen; background: radial-gradient(38% 30% at 78% 70%, rgb(255 175 95 / .55), transparent 70%); }
-
-/* Night: blue dark, a moon, slow stars */
-:root[data-mood="night"] .scene .scene-img { filter: brightness(.36) contrast(1.15) saturate(.55) hue-rotate(14deg); }
-:root[data-mood="night"] .scene .scene-shade { opacity: 1; background: linear-gradient(180deg, rgb(20 30 85 / .55), rgb(10 18 50 / .4)); }
-:root[data-mood="night"] .scene .scene-stars, :root[data-mood="night"] .scene .scene-moon { opacity: 1; }
-.scene-stars i {
-  position: absolute; width: var(--s); height: var(--s); border-radius: 50%;
-  background: #fff; box-shadow: 0 0 4px rgb(255 255 255 / .8);
-  animation: twinkle var(--t) ease-in-out var(--dl) infinite alternate;
-}
-@keyframes twinkle { from { opacity: .15; } to { opacity: .95; } }
-.scene-moon::before {
-  content: ""; position: absolute; left: 40%; top: 12%;
-  width: clamp(18px, 2.4%, 34px); aspect-ratio: 1; border-radius: 50%;
-  background: radial-gradient(circle at 38% 36%, #fffdf3, #e9e4d2 70%);
-  box-shadow: 0 0 18px 6px rgb(255 248 220 / .35), 0 0 60px 26px rgb(170 190 255 / .18);
-  animation: moon-glow 6s ease-in-out infinite alternate;
-}
-@keyframes moon-glow { to { box-shadow: 0 0 22px 8px rgb(255 248 220 / .45), 0 0 80px 34px rgb(170 190 255 / .22); } }
 
 /* Time of day (also the theme): only the selected mode shows, as icon + name; clicking it
    opens all three (Day, Mid, Night), and a pick closes it again */
@@ -278,7 +251,7 @@ p { margin: 0 0 24px; }
 .time-tabs--cover button:hover { color: #fff; }
 .time-tabs--cover button[aria-pressed="true"] { background: rgb(255 255 255 / .94); color: #111; box-shadow: 0 1px 3px rgb(0 0 0 / .25); }
 @media (prefers-reduced-motion: reduce) {
-  .scene-img { animation: none; transform: scale(1.04); }
+  .scene-pic { animation: none; transform: scale(1.04); }
   .scene-bar { display: none; }
 }
 @keyframes fadein { to { opacity: var(--o, 1); } }
