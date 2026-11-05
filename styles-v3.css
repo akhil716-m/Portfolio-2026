@@ -208,6 +208,11 @@ p { margin: 0 0 24px; }
   .sky i { transition: none; }
 }
 @keyframes fadein { to { opacity: var(--o, 1); } }
+/* Switching light/dark: the page crossfades as one (see v3.js), the new icon turns in */
+::view-transition-old(root), ::view-transition-new(root) { animation-duration: .6s; animation-timing-function: ease-in-out; }
+.mode-switching *, .mode-switching *::before, .mode-switching *::after { transition: none !important; }
+.mode-switching .time-tabs button[aria-pressed="true"] svg { animation: mode-icon .6s var(--ease); }
+@keyframes mode-icon { from { transform: rotate(-60deg) scale(.7); } }
 
 /* ===== Intro ===== */
 .intro { margin-top: 64px; }

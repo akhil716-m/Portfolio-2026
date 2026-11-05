@@ -36,9 +36,15 @@
       var next = root.dataset.mood === 'day' ? 'night' : 'day';
       var choice = next === moodNow() ? 'auto' : next;
       try { if (choice === 'auto') localStorage.removeItem('v3-time'); else localStorage.setItem('v3-time', choice); } catch (err) {}
-      applyTime(choice);
-      var shown = b.parentNode.querySelector('[data-set-time="' + next + '"]');
-      if (shown) shown.focus();
+      var swap = function () {
+        applyTime(choice);
+        var shown = b.parentNode.querySelector('[data-set-time="' + next + '"]');
+        if (shown) shown.focus();
+      };
+      // One soft crossfade of the whole page, so sky, background, text and drawings change together.
+      if (!document.startViewTransition || matchMedia('(prefers-reduced-motion: reduce)').matches) { swap(); return; }
+      root.classList.add('mode-switching');
+      document.startViewTransition(swap).finished.finally(function () { root.classList.remove('mode-switching'); });
     });
   });
   setInterval(function () { if (root.dataset.timeChoice === 'auto') applyTime('auto'); }, 60000);
