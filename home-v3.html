@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Instrument+Serif:ital@0;1&family=Geist+Mono:wght@400&family=Public+Sans:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles-v3.css?v=75">
+<link rel="stylesheet" href="styles-v3.css?v=78">
 <script>
   // Time of day before first paint: the visitor's pick, or Auto from their clock
   // (Day 6 am-4 pm, Mid 4-7 pm, Night 7 pm-6 am). Day is the white theme, Mid paper, Night dark.
@@ -25,16 +25,12 @@
 </script>
 </head>
 <body>
-<!-- Cover: the hills as three thin ridge lines, with the sun or moon crossing by the hour
+<!-- Sky: a very soft wash of colour from the top of the page, one per time of day -->
+<div class="sky" aria-hidden="true"><i class="sky-day"></i><i class="sky-mid"></i><i class="sky-night"></i></div>
+<!-- Top band: no picture, just the greeting and the controls
      (day / mid / night). The control in the corner switches it, and the theme with it. -->
 <header class="scene cover">
   <div class="scene-view">
-    <i class="scene-orb" aria-hidden="true"></i>
-      <svg class="ridge" viewBox="0 0 1440 300" preserveAspectRatio="none" aria-hidden="true">
-        <g class="ridge-far"><path class="ridge-fill" d="M0 132L95 104L190 128L255 99L330 66L413 100.5L499 102.9L588 108.9L670 136L749 99.7L826 62.2L900 65.3L971 102.8L1059 110.6L1154 105.6L1230 132L1305 100.1L1390 100.3L1440 116L1440 300L0 300Z"/><path class="ridge-line" d="M0 132L95 104L190 128L255 99L330 66L413 100.5L499 102.9L588 108.9L670 136L749 99.7L826 62.2L900 65.3L971 102.8L1059 110.6L1154 105.6L1230 132L1305 100.1L1390 100.3L1440 116"/></g>
-        <g class="ridge-mid"><path class="ridge-fill" d="M0 184L71 159.4L150 132L221 158.7L290 186L373 164.1L454 167.4L535 192.3L609 191.4L683 149.1L762 148L850 184L920 169L1002 177.9L1073 203.6L1154 202L1226 184.4L1300 179.7L1375 191.2L1440 204L1440 300L0 300Z"/><path class="ridge-line" d="M0 184L71 159.4L150 132L221 158.7L290 186L373 164.1L454 167.4L535 192.3L609 191.4L683 149.1L762 148L850 184L920 169L1002 177.9L1073 203.6L1154 202L1226 184.4L1300 179.7L1375 191.2L1440 204"/></g>
-        <g class="ridge-near"><path class="ridge-fill" d="M0 226L91 205.7L168 207.7L244 231.3L310 225.6L384 197.9L450 176L523 202.5L599 234.7L675 240.2L760 218.6L840 223.3L925 258L1002 279L1075 292L1151 292L1226 296.4L1298 294.2L1363 296.2L1440 296L1440 300L0 300Z"/><path class="ridge-line" d="M0 226L91 205.7L168 207.7L244 231.3L310 225.6L384 197.9L450 176L523 202.5L599 234.7L675 240.2L760 218.6L840 223.3L925 258L1002 279L1075 292L1151 292L1226 296.4L1298 294.2L1363 296.2L1440 296"/></g>
-      </svg>
   </div>
   <!-- Greeting (placeholder copy): shows once the cover has opened, then the cover settles to half height -->
   <div class="cover-greet" aria-hidden="true">
@@ -240,24 +236,6 @@
 <div class="peek" aria-hidden="true"><img alt=""></div>
 
 <script src="assets/v3.js?v=41"></script>
-<script>
-(function () {
-  // The sun or moon crosses by the visitor's hour and sets behind the ridges. If they picked a
-  // mode that isn't the real time of day, it sits at a typical spot for that mode.
-  var root = document.documentElement, orb = document.querySelector('.scene-orb');
-  function place() {
-    var m = root.dataset.mood, d = new Date(), h = d.getHours() + d.getMinutes() / 60;
-    var real = h >= 6 && h < 16 ? 'day' : h >= 16 && h < 19 ? 'mid' : 'night';
-    if (m !== real) h = { day: 10.5, mid: 17, night: 22 }[m];
-    var t = m === 'night' ? ((h + 24 - 19) % 24) / 11 : (h - 6) / 13;
-    orb.style.left = (6 + t * 88) + '%';
-    orb.style.top = (72 - Math.pow(Math.sin(t * Math.PI), .6) * 60) + '%';
-  }
-  place();
-  new MutationObserver(place).observe(root, { attributes: true, attributeFilter: ['data-mood'] });
-  setInterval(place, 60000);
-})();
-</script>
 <script>
 (function () {
   // The visitor's own time, city and weather beside Resume. The city comes from their
