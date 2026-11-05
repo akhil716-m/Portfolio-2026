@@ -34,6 +34,7 @@
   timeBtns.forEach(function (b) {
     b.addEventListener('click', function () {
       var next = root.dataset.mood === 'day' ? 'night' : 'day';
+      play(next === 'day' ? 'toLight' : 'toDark');
       var choice = next === moodNow() ? 'auto' : next;
       try { if (choice === 'auto') localStorage.removeItem('v3-time'); else localStorage.setItem('v3-time', choice); } catch (err) {}
       var swap = function () {
@@ -74,6 +75,15 @@
     ] },
     page: { gain: .7, layers: [
       { type: 'noise', filter: 'highpass', freq: 2800, to: 5200, q: .7, attack: .025, decay: .17, peak: .18 }
+    ] },
+    // The light/dark switch: two soft notes, rising to light and falling to dark
+    toLight: { gain: .6, layers: [
+      { type: 'tone', freq: 587.3, attack: .008, decay: .2, peak: .12 },
+      { type: 'tone', freq: 880, offset: .08, attack: .008, decay: .32, peak: .1 }
+    ] },
+    toDark: { gain: .6, layers: [
+      { type: 'tone', freq: 587.3, attack: .008, decay: .2, peak: .12 },
+      { type: 'tone', freq: 392, offset: .08, attack: .008, decay: .32, peak: .12 }
     ] },
     spin: { gain: .7, layers: [
       { type: 'tone', freq: 784, attack: .015, decay: .42, peak: .1 },
@@ -141,7 +151,7 @@
   });
   document.addEventListener('click', function (e) {
     var el = e.target instanceof Element && e.target.closest('button, a[href], summary, [role="button"]');
-    if (!el || el.matches(':disabled')) return;
+    if (!el || el.matches(':disabled') || el.matches('[data-set-time]')) return;   // the mode switch has its own sound
     var tag = el.closest('[data-sound]');
     var kind = tag ? tag.getAttribute('data-sound') : 'press';
     if (kind !== 'off') play(kind === 'chime' ? 'chime' : 'press');
