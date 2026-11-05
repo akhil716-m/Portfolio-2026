@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Instrument+Serif:ital@0;1&family=Geist+Mono:wght@400&family=Public+Sans:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles-v3.css?v=82">
+<link rel="stylesheet" href="styles-v3.css?v=84">
 <script>
   // Time of day before first paint: the visitor's pick, or Auto from their clock
   // (Day 6 am-4 pm, Mid 4-7 pm, Night 7 pm-6 am). Day is the white theme, Mid paper, Night dark.
@@ -52,13 +52,15 @@
     <!-- Top bar, level with the name: the visitor's time, city and weather (city from their connection
          via GeoJS, weather from Open-Meteo, both free, no key), the Day / Mid / Night switch, availability -->
     <header class="topbar topbar--home">
+      <div class="status in" style="--d:.1s"><i></i>Open to select projects</div>
+      <div class="top-info">
       <p class="here" aria-live="polite"><span data-here-time>--:--</span><span data-here-place hidden></span><span data-here-weather hidden></span></p>
       <div class="time-tabs time-tabs--plain" role="group" aria-label="Time of day and theme">
       <button type="button" data-set-time="day" aria-pressed="false" title="Day · white"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="3"/><path d="M8 1.5v1.6M8 12.9v1.6M1.5 8h1.6M12.9 8h1.6M3.4 3.4l1.1 1.1M11.5 11.5l1.1 1.1M12.6 3.4l-1.1 1.1M4.5 11.5l-1.1 1.1"/></svg><span class="tab-label">Day</span></button>
       <button type="button" data-set-time="mid" aria-pressed="false" title="Mid · paper"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 10.5h11M4.8 10.5a3.2 3.2 0 0 1 6.4 0M4 13h8M8 4.2v1.3M10.8 8.6l.9-.9M5.2 8.6l-.9-.9"/></svg><span class="tab-label">Mid</span></button>
       <button type="button" data-set-time="night" aria-pressed="false" title="Night · dark"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M13.2 9.6A5.6 5.6 0 0 1 6.4 2.8a5.6 5.6 0 1 0 6.8 6.8z"/></svg><span class="tab-label">Night</span></button>
     </div>
-      <div class="status in" style="--d:.1s"><i></i>Open to select projects</div>
+      </div>
     </header>
 
     <!-- Home, then each section, shows on its own: the next one rises in as you reach it -->

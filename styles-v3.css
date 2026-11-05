@@ -441,16 +441,24 @@ p { margin: 0 0 24px; }
 /* Visitor's time · city · weather, quiet mono beside Resume */
 .here { margin: 0; display: flex; align-items: center; gap: 0; white-space: nowrap; }
 /* Phone: sits above the pills so the view stays clear */
-/* Home top bar: plain words on the page, no pills */
-.topbar--home { gap: 20px; font-size: 13px; }
-.topbar--home .status { color: var(--text-soft); }
-.topbar--home .here { color: var(--text-soft); margin-right: auto; font-variant-numeric: tabular-nums; }
-.time-tabs--plain { padding: 0; background: none; border-radius: 0; gap: 4px; }
-.time-tabs--plain:not(.is-open) { gap: 0; }
-.time-tabs--plain button { height: 21px; padding: 0 2px; font: inherit; color: var(--text-soft); background: none; border-radius: 4px; }
-.time-tabs--plain button:hover, .time-tabs--plain button[aria-pressed="true"] { color: var(--text); background: none; box-shadow: none; }
+/* Home top bar: availability at the column's start; time, place, weather and a quiet mode icon at its end */
+.topbar--home { gap: 16px; font-size: 13px; justify-content: space-between; --top-ink: color-mix(in srgb, var(--text) 78%, transparent); color: var(--top-ink); }
+.topbar--home .status { color: inherit; white-space: nowrap; }
+.top-info { display: flex; align-items: center; gap: 8px; }
+.top-info .here { color: inherit; font-size: 13px; font-variant-numeric: tabular-nums; }
+.top-info:has(.is-open) [data-here-weather] { display: none; }
+.time-tabs--plain { padding: 0; background: none; border-radius: 0; margin-right: -8px; }
+.time-tabs--plain button { width: 32px; height: 32px; padding: 0; justify-content: center; color: var(--top-ink); border-radius: 8px; transition: color .15s ease; }
+.time-tabs--plain:not(.is-open) button:not([aria-pressed="true"]) { display: none; }
+.time-tabs--plain button:hover { color: var(--text); }
+.time-tabs--plain button[aria-pressed="true"] { background: none; box-shadow: none; color: var(--text); }
+.time-tabs--plain.is-open button:not([aria-pressed="true"]) { opacity: .6; }
+.time-tabs--plain.is-open button:hover { opacity: 1; }
+.time-tabs--plain svg { width: 16px; height: 16px; }
+.time-tabs--plain .tab-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
 @media (min-width: 961px) { .stack-on .topbar.topbar--home { height: 61px; padding-top: 40px; margin-bottom: -61px; } }
-@media (max-width: 960px) { .topbar--home { flex-wrap: wrap; height: auto; gap: 8px 16px; justify-content: flex-start; } .topbar--home .here { width: 100%; margin: 0; } }
+@media (min-width: 961px) { .stack-on .nav-name { visibility: hidden; } }
+@media (max-width: 960px) { .topbar--home { flex-wrap: wrap; height: auto; gap: 8px 16px; justify-content: flex-start; } }
 @media (max-width: 600px) { .here [data-here-weather] { display: none; } }
 .here span + span::before { content: "·"; margin: 0 7px; opacity: .6; }
 
