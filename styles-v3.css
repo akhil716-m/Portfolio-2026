@@ -301,9 +301,9 @@ p { margin: 0 0 24px; }
 .iso-now .f-acc-fill { fill: var(--live); stroke: none; }
 .iso-now g { transition: transform .5s var(--ease); }
 .now .iso-now { max-width: 72px; }
-.now .iso-now polygon, .now .iso-now path, .now .iso-now ellipse { stroke: color-mix(in srgb, var(--text) 30%, transparent); }
-.now .iso-now .f-acc { fill: color-mix(in srgb, var(--live) 12%, var(--bg)); stroke: color-mix(in srgb, var(--live) 65%, transparent); }
-.now .iso-now .f-acc-fill { fill: color-mix(in srgb, var(--live) 70%, transparent); stroke: none; }
+.now .iso-now polygon, .now .iso-now path, .now .iso-now ellipse { stroke: color-mix(in srgb, var(--text) 45%, var(--bg)); }
+.now .iso-now .f-acc { fill: color-mix(in srgb, var(--live) 70%, var(--bg)); stroke: color-mix(in srgb, var(--text) 45%, var(--bg)); }
+.now .iso-now .f-acc-fill { fill: var(--live); stroke: none; }
 /* hover acts each drawing out (script in home-v3.html); the record's spin mark */
 .iso-now .f-tick { stroke: var(--live); stroke-width: 1.4; stroke-linecap: round; fill: none; }
 

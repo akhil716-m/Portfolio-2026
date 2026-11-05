@@ -76,6 +76,10 @@
     page: { gain: .7, layers: [
       { type: 'noise', filter: 'highpass', freq: 2800, to: 5200, q: .7, attack: .025, decay: .17, peak: .18 }
     ] },
+    // Hovering a Start here drawing: one short, quiet note, the same for all four
+    hover: { gain: .35, layers: [
+      { type: 'tone', freq: 880, attack: .006, decay: .12, peak: .07 }
+    ] },
     // The light/dark switch: two soft notes, rising to light and falling to dark
     toLight: { gain: .6, layers: [
       { type: 'tone', freq: 587.3, attack: .008, decay: .2, peak: .12 },
