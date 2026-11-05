@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Instrument+Serif:ital@0;1&family=Geist+Mono:wght@400&family=Public+Sans:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles-v3.css?v=84">
+<link rel="stylesheet" href="styles-v3.css?v=88">
 <script>
   // Time of day before first paint: the visitor's pick, or Auto from their clock
   // (Day 6 am-4 pm, Mid 4-7 pm, Night 7 pm-6 am). Day is the white theme, Mid paper, Night dark.
@@ -52,7 +52,12 @@
     <!-- Top bar, level with the name: the visitor's time, city and weather (city from their connection
          via GeoJS, weather from Open-Meteo, both free, no key), the Day / Mid / Night switch, availability -->
     <header class="topbar topbar--home">
-      <div class="status in" style="--d:.1s"><i></i>Open to select projects</div>
+    </header>
+
+    <!-- Home, then each section, shows on its own: the next one rises in as you reach it -->
+    <div class="stack-stage">
+    <div class="screen screen--home" data-stack="top">
+    <section class="intro">
       <div class="top-info">
       <p class="here" aria-live="polite"><span data-here-time>--:--</span><span data-here-place hidden></span><span data-here-weather hidden></span></p>
       <div class="time-tabs time-tabs--plain" role="group" aria-label="Time of day and theme">
@@ -61,12 +66,6 @@
       <button type="button" data-set-time="night" aria-pressed="false" title="Night · dark"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M13.2 9.6A5.6 5.6 0 0 1 6.4 2.8a5.6 5.6 0 1 0 6.8 6.8z"/></svg><span class="tab-label">Night</span></button>
     </div>
       </div>
-    </header>
-
-    <!-- Home, then each section, shows on its own: the next one rises in as you reach it -->
-    <div class="stack-stage">
-    <div class="screen screen--home" data-stack="top">
-    <section class="intro">
       <div class="in" style="--d:.15s">
         <p class="hey">Hey,</p>
         <h1 class="h-reset">I'm <strong>Akhil Male</strong>, a product designer
@@ -200,6 +199,7 @@
 
     <section class="sec contact" id="contact" data-section data-stack="contact" aria-labelledby="contact-h">
       <div class="sec-head"><h2 id="contact-h">Say hello</h2></div>
+      <div class="status"><i></i>Open to select projects</div>
       <p class="big">Always happy to talk about design, payments, or the best roads out of Bengaluru. Write to <a class="ul" href="mailto:akhilmale.ux@gmail.com">akhilmale.ux@gmail.com</a>.</p>
       <div class="links">
         <a href="https://www.linkedin.com/in/male-akhil/" target="_blank" rel="noopener">LinkedIn</a>
