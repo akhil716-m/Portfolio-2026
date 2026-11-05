@@ -134,8 +134,10 @@ p { margin: 0 0 24px; }
 .nav-dot svg { display: block; width: 100%; height: 100%; overflow: visible; }
 .nav-dot polygon { stroke: color-mix(in srgb, var(--text) 60%, var(--bg)); stroke-width: .75; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
 .nav-dot .f-t { fill: color-mix(in srgb, var(--live) 70%, var(--bg)); }
-.nav-dot .f-l { fill: color-mix(in srgb, var(--live) 40%, var(--bg)); }
-.nav-dot .f-r { fill: color-mix(in srgb, var(--live) 22%, var(--bg)); }
+.nav-dot .f-l { fill: #fff; }
+.nav-dot .f-r { fill: #e2e2e2; }
+:root[data-theme="dark"] .nav-dot .f-l { fill: #2e2e2e; }
+:root[data-theme="dark"] .nav-dot .f-r { fill: #1c1c1c; }
 
 /* ===== Placeholder marking (remove the class once real content is in) ===== */
 .ph-tag {
