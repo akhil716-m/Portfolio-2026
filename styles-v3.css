@@ -312,8 +312,8 @@ p { margin: 0 0 24px; }
 /* ===== Work list ===== */
 .frame { position: relative; padding: 4px 0; }
 
-.group + .group { margin-top: 28px; }
-.group-head { display: flex; justify-content: space-between; gap: 12px; margin-bottom: 6px; }
+.group + .group { margin-top: 40px; }
+.group-head { display: flex; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
 .rows { list-style: none; margin: 0; padding: 0; }
 .row {
   display: grid;
@@ -395,10 +395,11 @@ p { margin: 0 0 24px; }
 
 /* ===== Experience: roles with years, then skills and tools as plain words ===== */
 .xp { list-style: none; margin: 0; padding: 0; }
-.xp { display: grid; gap: 24px; }
+.xp { display: grid; gap: 40px; }
 .xp-row { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; font-size: 15px; color: var(--text-soft); }
-.xp p { margin: 6px 0 0; max-width: 56ch; font-size: 14px; line-height: 1.6; color: var(--text-muted); }
+.xp p { margin: 12px 0 0; max-width: 56ch; font-size: 14px; line-height: 1.6; color: var(--text-muted); }
 .xp strong { font-weight: 500; color: var(--text); }
+.xp-row > span:first-child { font-weight: 500; color: var(--text); }   /* role and company read as one line */
 .xp .meta { white-space: nowrap; }
 .xp-label { margin: 10px 0 12px; }
 /* Skills and tools: two columns, each under its isometric object, the words in a tidy two-up list */
@@ -600,7 +601,7 @@ button:active, .row:active, .nav-list a:active, .sec-head a:active { scale: .98;
 /* ===== The case studies' type system, on Home (see assets/cs-v3.css):
    section 24/500 · sub-heading 17/500 · body 14.5/1.7/400 grey · bold in body 500 dark ===== */
 .sec-head h2 { font-size: 24px; font-weight: 500; line-height: 1.35; letter-spacing: -.015em; }
-.sec-head { margin-bottom: 16px; }
+.sec-head { margin-bottom: 32px; }
 .now h2 { font-size: 17px; line-height: 1.4; letter-spacing: -.01em; }
 .hey, .h-reset, .intro p, .about p:not(.meta), .contact .big, .xp p {
   font-size: 14.5px; font-weight: 400; line-height: 1.7; letter-spacing: 0; color: var(--text-soft);

@@ -314,7 +314,7 @@
     // every section starts level with the nav; one taller than the room left slides up before the next comes in
     var nav = document.querySelector('.v3-nav'), g = document.querySelector('.nav-group');
     var navTop = Math.round(g.getBoundingClientRect().top - nav.getBoundingClientRect().top);
-    var room = stage.offsetHeight - navTop - 88;   // keeps a tall last section clear of the footer
+    var room = stage.offsetHeight - navTop - 152;   // keeps a tall last section well clear of the footer
     stage.style.setProperty('--nav-top', navTop + 'px');
     step = Math.round(window.innerHeight * .6);
     var at = 0;
