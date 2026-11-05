@@ -12,7 +12,7 @@
   --text-muted: #8f8f8f;
   --line: #ebebeb;
   --line-strong: #d6d6d6;
-  --live: #22a55b;
+  --live: #2b7fd4;
   --shadow: 0 1px 2px rgb(0 0 0 / .06), 0 8px 24px rgb(0 0 0 / .08);
   --stipple: .22;
   color-scheme: light;
@@ -32,7 +32,7 @@
   --text-muted: #5c5c5c;
   --line: #1f1f1f;
   --line-strong: #2c2c2c;
-  --live: #3ccf7a;
+  --live: #7ea6ff;
   --shadow: 0 1px 2px rgb(0 0 0 / .5), 0 10px 30px rgb(0 0 0 / .6);
   --stipple: .3;
   color-scheme: dark;
@@ -45,7 +45,7 @@
   --text-muted: #776f62;
   --line: #e2dccf;
   --line-strong: #d3cbbb;
-  --live: #3f8f4f;
+  --live: #cc6a2c;
   --shadow: 0 1px 2px rgb(60 45 20 / .08), 0 8px 24px rgb(60 45 20 / .1);
   --stipple: .26;
   color-scheme: light;
@@ -168,38 +168,21 @@ p { margin: 0 0 24px; }
    Day as painted, Mid golden hour, Night dark blue with moon and stars. */
 /* The cover runs edge to edge across the top, like a page cover: a band of the picture
    (the hills, the lake, the figure), not the whole of it */
-.cover { position: relative; }
-.scene-view {
-  position: relative; height: clamp(72px, 7vw, 96px); overflow: hidden; isolation: isolate;
-  animation: cover-settle 1.3s cubic-bezier(.7, 0, .2, 1) 3.6s backwards;
-}
-/* The story: the cover opens at full height, says hello, then settles 30% shorter */
-@keyframes cover-settle { from { height: clamp(200px, 22vw, 320px); } }
-.cover-greet {
-  position: absolute; inset: 0; z-index: 5; overflow: hidden;
-  display: flex; flex-direction: column; justify-content: center; align-items: flex-start; text-align: left;
-  color: var(--text); pointer-events: none; padding: 0 max(20px, calc(50% - 300px));
-  opacity: 0; animation: greet 3.4s ease 1.2s both;
-}
-.greet-line { margin: 0; font: italic 400 clamp(32px, 4vw, 52px)/1.05 "Instrument Serif", Georgia, serif; letter-spacing: -.01em; }
-.greet-sub { margin: 10px 0 0; font: 500 clamp(13px, 1.1vw, 15px)/1.5 var(--font); opacity: .9; }
-@keyframes greet {
-  0% { opacity: 0; transform: translateY(10px); filter: blur(4px); }
-  25% { opacity: 1; transform: none; filter: none; }
-  72% { opacity: 1; transform: none; filter: none; }
-  100% { opacity: 0; transform: translateY(-8px); filter: blur(2px); }
-}
+.cover { height: clamp(72px, 7vw, 96px); pointer-events: none; }
 /* The sky: colour from the top of the page, gone by the middle of the screen. Long, eased stops so it has no edge. */
-.sky { position: fixed; inset: 0 0 auto; height: 60vh; z-index: -1; pointer-events: none; }
+.sky { position: fixed; inset: 0 0 auto; height: 72vh; z-index: -1; pointer-events: none; }
 .sky i { position: absolute; inset: 0; opacity: 0; transition: opacity 1.4s ease; }
-.sky-day { --c: #e4eff9; } .sky-mid { --c: #f5dcc4; } .sky-night { --c: #151c35; }
-.sky i { background: linear-gradient(to bottom,
+.sky-day { --c: #d3e7fa; --g: #a6d0f7; } .sky-mid { --c: #f7dcc3; --g: #efae8c; } .sky-night { --c: #1a2350; --g: #35428f; }
+.sky i { background: radial-gradient(95% 80% at 72% -14%, color-mix(in srgb, var(--g) 85%, transparent), transparent 72%), linear-gradient(to bottom,
   var(--c) 0%,
-  color-mix(in srgb, var(--c) 72%, transparent) 18%,
-  color-mix(in srgb, var(--c) 42%, transparent) 38%,
-  color-mix(in srgb, var(--c) 18%, transparent) 60%,
-  color-mix(in srgb, var(--c) 5%, transparent) 82%,
+  color-mix(in srgb, var(--c) 80%, transparent) 11%,
+  color-mix(in srgb, var(--c) 56%, transparent) 26%,
+  color-mix(in srgb, var(--c) 32%, transparent) 44%,
+  color-mix(in srgb, var(--c) 14%, transparent) 64%,
+  color-mix(in srgb, var(--c) 4%, transparent) 84%,
   transparent 100%); }
+/* a fine grain so the long fade doesn't show bands */
+.sky::after { content: ""; position: absolute; inset: 0; opacity: .07; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .5 0 0 0 0 .5 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E"); -webkit-mask-image: linear-gradient(#000, transparent); mask-image: linear-gradient(#000, transparent); }
 :root[data-mood="day"] .sky-day, :root[data-mood="mid"] .sky-mid, :root[data-mood="night"] .sky-night { opacity: 1; }
 
 
@@ -220,34 +203,6 @@ p { margin: 0 0 24px; }
 .time-tabs svg { width: 14px; height: 14px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.3; stroke-linecap: round; stroke-linejoin: round; }
 .tab-label { display: inline-block; }
 /* On the cover: frosted, light on the picture */
-.cover-bar { position: absolute; right: 16px; bottom: 14px; z-index: 7; display: flex; align-items: center; gap: 8px; }
-/* Glass on the picture: smoked over the bright Day and Mid skies, frosted lighter over Night,
-   always with a fine edge, a top highlight and a soft shadow so it holds its shape on any image */
-.cover-bar { --glass: rgb(16 18 24 / .34); --glass-edge: rgb(255 255 255 / .22); --glass-hi: rgb(255 255 255 / .18); }
-:root[data-mood="night"] .cover-bar { --glass: rgb(255 255 255 / .12); --glass-edge: rgb(255 255 255 / .26); --glass-hi: rgb(255 255 255 / .22); }
-.time-tabs--cover, .cover-bar .here {
-  background: var(--glass);
-  backdrop-filter: blur(14px) saturate(1.4); -webkit-backdrop-filter: blur(14px) saturate(1.4);
-  box-shadow: inset 0 0 0 1px var(--glass-edge), inset 0 1px 0 var(--glass-hi), 0 6px 18px rgb(0 0 0 / .22);
-  transition: background-color .4s ease, box-shadow .4s ease;
-}
-/* the visitor's time, city and weather, frosted like the control beside it */
-.cover-bar .here {
-  height: 32px; padding: 0 12px; border-radius: 99px;
-  font: 400 11px/1 var(--mono); letter-spacing: .01em; color: rgb(255 255 255 / .88);
-}
-.time-tabs--cover button { color: rgb(255 255 255 / .78); }
-.time-tabs--cover button:hover { color: #fff; }
-.time-tabs--cover button[aria-pressed="true"] { background: rgb(255 255 255 / .94); color: #111; box-shadow: 0 1px 3px rgb(0 0 0 / .25); }
-/* The cover is now the page's own ground, so its controls use the page's colours */
-.cover-bar, :root[data-mood="night"] .cover-bar { --glass: color-mix(in srgb, var(--text) 5%, transparent); --glass-edge: color-mix(in srgb, var(--text) 9%, transparent); --glass-hi: transparent; }
-.time-tabs--cover, .cover-bar .here { box-shadow: inset 0 0 0 1px var(--glass-edge); }
-.cover-bar .here { color: var(--text-soft); text-shadow: none; }
-.time-tabs--cover button { color: var(--text-soft); }
-.time-tabs--cover button:hover { color: var(--text); }
-.time-tabs--cover button[aria-pressed="true"] { background: var(--bg); color: var(--text); box-shadow: 0 0 0 1px var(--line); }
-.cover-bar .ambient { color: var(--text-soft); }
-.cover-bar .ambient:hover { color: var(--text); }
 @media (prefers-reduced-motion: reduce) {
   .sky i { transition: none; }
 }
@@ -485,13 +440,18 @@ p { margin: 0 0 24px; }
 .tb-rule { width: 1px; height: 16px; background: var(--line-strong); }
 /* Visitor's time · city · weather, quiet mono beside Resume */
 .here { margin: 0; display: flex; align-items: center; gap: 0; white-space: nowrap; }
-.ambient { flex: none; width: 32px; height: 32px; padding: 0; display: grid; place-items: center; border-radius: 50%; cursor: pointer; color: rgb(255 255 255 / .85); background: var(--glass); border: 1px solid var(--glass-edge); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); transition: color .2s, transform .15s; }
-.ambient:hover { color: #fff; } .ambient:active { transform: scale(.94); }
-.ambient svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.3; stroke-linecap: round; stroke-linejoin: round; }
-.ambient .ambient-on { display: none; } .ambient[aria-pressed="true"] .ambient-on { display: block; } .ambient[aria-pressed="true"] .ambient-off { display: none; }
 /* Phone: sits above the pills so the view stays clear */
-@media (max-width: 600px) { .ambient { width: 28px; height: 28px; } }
-@media (max-width: 600px) { .cover-bar .here [data-here-weather] { display: none; } }
+/* Home top bar: plain words on the page, no pills */
+.topbar--home { gap: 20px; font-size: 13px; }
+.topbar--home .status { color: var(--text-soft); }
+.topbar--home .here { color: var(--text-soft); margin-right: auto; font-variant-numeric: tabular-nums; }
+.time-tabs--plain { padding: 0; background: none; border-radius: 0; gap: 4px; }
+.time-tabs--plain:not(.is-open) { gap: 0; }
+.time-tabs--plain button { height: 21px; padding: 0 2px; font: inherit; color: var(--text-soft); background: none; border-radius: 4px; }
+.time-tabs--plain button:hover, .time-tabs--plain button[aria-pressed="true"] { color: var(--text); background: none; box-shadow: none; }
+@media (min-width: 961px) { .stack-on .topbar.topbar--home { height: 61px; padding-top: 40px; margin-bottom: -61px; } }
+@media (max-width: 960px) { .topbar--home { flex-wrap: wrap; height: auto; gap: 8px 16px; justify-content: flex-start; } .topbar--home .here { width: 100%; margin: 0; } }
+@media (max-width: 600px) { .here [data-here-weather] { display: none; } }
 .here span + span::before { content: "·"; margin: 0 7px; opacity: .6; }
 
 .view svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 1.3; stroke-linecap: round; stroke-linejoin: round; }
