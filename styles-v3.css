@@ -1,6 +1,6 @@
 /* ===== v3: minimal =====
    One narrow column, a quiet nav on the left, grey body copy with the key phrases
-   in full ink. Three grounds: white (default), dark and paper. The theme is set on
+   in full ink. Two grounds: white (default) and dark. The theme is set on
    <html data-theme> by a tiny script in each page's <head> before first paint.
    The v2 site keeps using styles.css; nothing here touches it. */
 
@@ -8,7 +8,7 @@
   --bg: #fbfbfb;
   --bg-soft: #f2f2f2;
   --text: #0a0a0a;
-  --text-soft: #707070;
+  --text-soft: #4f4f4f;
   --text-muted: #8f8f8f;
   --line: #ebebeb;
   --line-strong: #d6d6d6;
@@ -28,11 +28,11 @@
   --bg: #0c0c0c;
   --bg-soft: #151515;
   --text: #f5f5f5;
-  --text-soft: #8a8a8a;
+  --text-soft: #b0b0b0;
   --text-muted: #5c5c5c;
   --line: #1f1f1f;
   --line-strong: #2c2c2c;
-  --live: #7ea6ff;
+  --live: #a78bfa;
   --shadow: 0 1px 2px rgb(0 0 0 / .5), 0 10px 30px rgb(0 0 0 / .6);
   --stipple: .3;
   color-scheme: dark;
@@ -41,7 +41,7 @@
   --bg: #f4f0e8;
   --bg-soft: #ebe6db;
   --text: #24211c;
-  --text-soft: #676156;
+  --text-soft: #4d483f;
   --text-muted: #776f62;
   --line: #e2dccf;
   --line-strong: #d3cbbb;
@@ -170,10 +170,11 @@ p { margin: 0 0 24px; }
    (the hills, the lake, the figure), not the whole of it */
 .cover { height: clamp(72px, 7vw, 96px); pointer-events: none; }
 /* The sky: colour from the top of the page, gone by the middle of the screen. Long, eased stops so it has no edge. */
-.sky { position: fixed; inset: 0 0 auto; height: 72vh; z-index: -1; pointer-events: none; }
+.sky { position: fixed; inset: 0 0 auto; height: var(--sky-h, 72vh); z-index: -1; pointer-events: none; }
 .sky i { position: absolute; inset: 0; opacity: 0; transition: opacity 1.4s ease; }
-.sky-day { --c: #d3e7fa; --g: #a6d0f7; } .sky-mid { --c: #f7dcc3; --g: #efae8c; } .sky-night { --c: #1a2350; --g: #35428f; }
-.sky i { background: radial-gradient(95% 80% at 72% -14%, color-mix(in srgb, var(--g) 85%, transparent), transparent 72%), linear-gradient(to bottom,
+:root[data-mood="day"] { --sky-h: 47vh; }
+.sky-day { --c: #a3d3ff; --g: #add6ff; --glow: 100%; --gs: .45; } .sky-night { --c: #1e1230; --g: #472579; --glow: 89%; --gs: 1; }
+.sky i { background: radial-gradient(calc(95% * var(--gs)) calc(80% * var(--gs)) at var(--gx, 50%) -14%, color-mix(in srgb, var(--g) var(--glow), transparent), transparent 72%), linear-gradient(to bottom,
   var(--c) 0%,
   color-mix(in srgb, var(--c) 80%, transparent) 11%,
   color-mix(in srgb, var(--c) 56%, transparent) 26%,
@@ -183,7 +184,7 @@ p { margin: 0 0 24px; }
   transparent 100%); }
 /* a fine grain so the long fade doesn't show bands */
 .sky::after { content: ""; position: absolute; inset: 0; opacity: .07; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .5 0 0 0 0 .5 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E"); -webkit-mask-image: linear-gradient(#000, transparent); mask-image: linear-gradient(#000, transparent); }
-:root[data-mood="day"] .sky-day, :root[data-mood="mid"] .sky-mid, :root[data-mood="night"] .sky-night { opacity: 1; }
+:root[data-mood="day"] .sky-day, :root[data-mood="night"] .sky-night { opacity: 1; }
 
 
 

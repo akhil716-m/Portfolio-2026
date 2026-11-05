@@ -5,20 +5,18 @@
 (function () {
   var root = document.documentElement;
 
-  // Time of day: one setting for the whole site, with three modes that are also the themes:
-  // Day (white), Mid (paper), Night (dark). Auto (the default) follows the visitor's clock:
-  // Day 6 am to 4 pm, Mid 4 to 7 pm, Night 7 pm to 6 am. The control shows only the selected
-  // mode; clicking it opens all three. A pick is remembered; picking the mode for the
-  // visitor's own time goes back to Auto.
-  var MOOD_THEME = { day: 'white', mid: 'paper', night: 'dark' };
+  // Light or dark: one setting for the whole site (internally 'day' and 'night').
+  // Auto (the default) follows the visitor's clock: light 6 am to 7 pm, dark otherwise.
+  // The control shows the current mode's icon; clicking it flips to the other. A pick is
+  // remembered; picking the mode for the visitor's own time goes back to Auto.
+  var MOOD_THEME = { day: 'white', night: 'dark' };
   var timeBtns = document.querySelectorAll('[data-set-time]');
   function moodNow() {
     var h = new Date().getHours();
-    return h >= 6 && h < 16 ? 'day' : h >= 16 && h < 19 ? 'mid' : 'night';
+    return h >= 6 && h < 19 ? 'day' : 'night';
   }
   function greeting(mood) {
     if (mood === 'night') return 'Hello, night owl.';
-    if (mood === 'mid') return 'Good evening.';
     return new Date().getHours() < 12 ? 'Good morning.' : 'Good afternoon.';
   }
   function applyTime(choice) {
@@ -33,21 +31,16 @@
     }
   }
   applyTime(root.dataset.timeChoice || 'auto');
-  var tabGroups = document.querySelectorAll('.time-tabs');
-  function closeTabs() { tabGroups.forEach(function (g) { g.classList.remove('is-open'); }); }
   timeBtns.forEach(function (b) {
-    b.addEventListener('click', function (e) {
-      var group = b.closest('.time-tabs');
-      e.stopPropagation();
-      if (!group.classList.contains('is-open')) { closeTabs(); group.classList.add('is-open'); return; }
-      var choice = b.dataset.setTime === moodNow() ? 'auto' : b.dataset.setTime;
+    b.addEventListener('click', function () {
+      var next = root.dataset.mood === 'day' ? 'night' : 'day';
+      var choice = next === moodNow() ? 'auto' : next;
       try { if (choice === 'auto') localStorage.removeItem('v3-time'); else localStorage.setItem('v3-time', choice); } catch (err) {}
       applyTime(choice);
-      closeTabs();
+      var shown = b.parentNode.querySelector('[data-set-time="' + next + '"]');
+      if (shown) shown.focus();
     });
   });
-  document.addEventListener('click', closeTabs);
-  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeTabs(); });
   setInterval(function () { if (root.dataset.timeChoice === 'auto') applyTime('auto'); }, 60000);
 
   // Click sounds, made with Web Audio (no files), after directoryyy.com: the nav plays
