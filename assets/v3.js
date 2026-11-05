@@ -77,8 +77,9 @@
       { type: 'noise', filter: 'highpass', freq: 2800, to: 5200, q: .7, attack: .025, decay: .17, peak: .18 }
     ] },
     // Hovering a Start here drawing: one short, quiet note, the same for all four
-    hover: { gain: .35, layers: [
-      { type: 'tone', freq: 880, attack: .006, decay: .12, peak: .07 }
+    hover: { gain: .8, layers: [
+      { type: 'tone', freq: 880, attack: .006, decay: .14, peak: .14 },
+      { type: 'tone', freq: 1320, offset: .035, attack: .006, decay: .12, peak: .06 }
     ] },
     // The light/dark switch: two soft notes, rising to light and falling to dark
     toLight: { gain: .6, layers: [
