@@ -307,19 +307,8 @@ p { margin: 0 0 24px; }
 /* hover acts each drawing out (script in home-v3.html); the record's spin mark */
 .iso-now .f-tick { stroke: var(--live); stroke-width: 1.4; stroke-linecap: round; fill: none; }
 
-/* ===== Work list (keeps v2's corner marks, lighter) ===== */
+/* ===== Work list ===== */
 .frame { position: relative; padding: 4px 0; }
-.frame::before, .frame::after, .frame > .cm::before, .frame > .cm::after {
-  content: "";
-  position: absolute;
-  width: 7px; height: 7px;
-  border: 1px solid var(--line-strong);
-  background: var(--bg);
-}
-.frame::before { top: -4px; left: -24px; }
-.frame::after { top: -4px; right: -24px; }
-.frame > .cm::before { bottom: -4px; left: -24px; }
-.frame > .cm::after { bottom: -4px; right: -24px; }
 
 .group + .group { margin-top: 28px; }
 .group-head { display: flex; justify-content: space-between; gap: 12px; margin-bottom: 6px; }
@@ -549,7 +538,6 @@ p { margin: 0 0 24px; }
   .nav-list { flex-direction: row; gap: 16px; overflow-x: auto; scrollbar-width: none; }
   .nav-list a, .nav-list a.is-active { height: auto; padding: 0; font-weight: 400; }
   .nav-dot { display: none; }
-  .frame::before, .frame::after, .frame > .cm::before, .frame > .cm::after { display: none; }
 }
 @media (max-width: 600px) {
   .nav-list li:nth-child(n+3) { display: none; }
