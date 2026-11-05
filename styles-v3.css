@@ -464,7 +464,7 @@ p { margin: 0 0 24px; }
 .top-info { --top-ink: color-mix(in srgb, var(--text) 78%, transparent); color: var(--top-ink); font-size: 13px; display: flex; align-items: center; gap: 8px; }
 @media (min-width: 961px) { .top-info { position: absolute; top: -4px; right: 0; z-index: 1; } }
 @media (max-width: 960px) { .top-info { margin: -48px 0 24px; } }
-.intro .top-info .here { margin: 0; color: inherit; font-size: 13px; line-height: 1; font-variant-numeric: tabular-nums; }
+.intro .top-info .here { margin: 0; color: inherit; font-size: 13px; line-height: 1; }
 .here [data-here-weather] { display: none; }
 .time-tabs--plain { padding: 0; background: none; border-radius: 0; margin-right: -8px; }
 .time-tabs--plain button { width: 32px; height: 32px; padding: 0; justify-content: center; color: var(--top-ink); border-radius: 8px; transition: color .15s ease; }
