@@ -170,7 +170,7 @@ p { margin: 0 0 24px; }
    (the hills, the lake, the figure), not the whole of it */
 .cover { position: relative; }
 .scene-view {
-  position: relative; height: clamp(140px, 17vw, 300px); overflow: hidden; background: #0d1426; isolation: isolate;
+  position: relative; height: clamp(140px, 17vw, 300px); overflow: hidden; background: var(--bg); isolation: isolate;
   animation: cover-settle 1.3s cubic-bezier(.7, 0, .2, 1) 3.6s backwards;
 }
 /* The story: the cover opens at full height, says hello, then settles 30% shorter */
@@ -178,8 +178,8 @@ p { margin: 0 0 24px; }
 .cover-greet {
   position: absolute; inset: 0; z-index: 5; overflow: hidden;
   display: flex; flex-direction: column; justify-content: center; align-items: flex-start; text-align: left;
-  color: #fff; pointer-events: none; padding: 0 max(20px, calc(50% - 300px));
-  text-shadow: 0 1px 2px rgb(0 0 0 / .35), 0 8px 30px rgb(0 0 0 / .35);
+  color: var(--text); pointer-events: none; padding: 0 max(20px, calc(50% - 300px));
+  text-shadow: 0 0 10px var(--bg), 0 0 10px var(--bg), 0 0 18px var(--bg), 0 0 18px var(--bg);   /* the lines fade around the words */
   opacity: 0; animation: greet 3.4s ease 1.2s both;
 }
 .greet-line { margin: 0; font: italic 400 clamp(32px, 4vw, 52px)/1.05 "Instrument Serif", Georgia, serif; letter-spacing: -.01em; }
@@ -191,23 +191,21 @@ p { margin: 0 0 24px; }
   100% { opacity: 0; transform: translateY(-8px); filter: blur(2px); }
 }
 .cover::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: var(--line); }
-.scene-pic {
-  position: absolute; inset: 0;
-  animation: scene-in 2.2s var(--ease) backwards, scene-drift 46s ease-in-out 2.2s infinite alternate;
-}
-/* One painting per time of day, crossfading */
-.scene-img {
-  position: absolute; inset: 0; width: 100%; height: 100%;
-  object-fit: cover; object-position: 50% 100%;
-  opacity: 0; transition: opacity 1.6s ease;
-}
-:root[data-mood="day"] .scene-img--day, :root[data-mood="mid"] .scene-img--mid, :root[data-mood="night"] .scene-img--night { opacity: 1; }
-@keyframes scene-in { from { filter: blur(10px) brightness(.8); transform: scale(1.14); } to { transform: scale(1.04); } }
-@keyframes scene-drift { from { transform: scale(1.04) translate(0, 0); } to { transform: scale(1.1) translate(-1.6%, -1%); } }
-.scene-bar { position: absolute; left: 0; right: 0; height: 50%; background: #0b0b0b; z-index: 6; animation: bar-open 1.5s cubic-bezier(.7, 0, .2, 1) .15s both; }
-.scene-bar--top { top: 0; transform-origin: top; }
-.scene-bar--bottom { bottom: 0; transform-origin: bottom; }
-@keyframes bar-open { from { transform: scaleY(1); } to { transform: scaleY(0); } }
+/* Three thin ridges, far to near; each hides what is behind it, so the sun sets behind the hills */
+.ridge { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.ridge-fill { fill: var(--bg); stroke: none; transition: fill .35s ease; }
+.ridge-line { fill: none; stroke-width: 1; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.ridge-far .ridge-line { stroke: var(--line-strong); }
+.ridge-mid .ridge-line { stroke: color-mix(in srgb, var(--text) 38%, var(--bg)); }
+.ridge-near .ridge-line { stroke: var(--text); }
+.ridge g { animation: ridge-draw 1.8s var(--ease) backwards; }   /* the hills draw in, left to right */
+.ridge-mid { animation-delay: .18s !important; } .ridge-near { animation-delay: .36s !important; }
+@keyframes ridge-draw { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+.scene-orb { position: absolute; width: clamp(20px, 2.3vw, 34px); aspect-ratio: 1; translate: -50% -50%; border-radius: 50%; transition: left 1.2s var(--ease), top 1.2s var(--ease), background-color .6s ease, box-shadow .6s ease; animation: orb-in 1s ease 1s backwards; }
+:root[data-mood="day"] .scene-orb { background: #e8b84a; }
+:root[data-mood="mid"] .scene-orb { background: #d96c42; }
+:root[data-mood="night"] .scene-orb { background: transparent; box-shadow: inset -7px 2px 0 0 #e8e4d4; }
+@keyframes orb-in { from { opacity: 0; } }
 
 
 
@@ -246,9 +244,17 @@ p { margin: 0 0 24px; }
 .time-tabs--cover button { color: rgb(255 255 255 / .78); }
 .time-tabs--cover button:hover { color: #fff; }
 .time-tabs--cover button[aria-pressed="true"] { background: rgb(255 255 255 / .94); color: #111; box-shadow: 0 1px 3px rgb(0 0 0 / .25); }
+/* The cover is now the page's own ground, so its controls use the page's colours */
+.cover-bar, :root[data-mood="night"] .cover-bar { --glass: var(--bg-soft); --glass-edge: var(--line); --glass-hi: transparent; }
+.time-tabs--cover, .cover-bar .here { box-shadow: inset 0 0 0 1px var(--glass-edge); }
+.cover-bar .here { color: var(--text-soft); text-shadow: none; }
+.time-tabs--cover button { color: var(--text-soft); }
+.time-tabs--cover button:hover { color: var(--text); }
+.time-tabs--cover button[aria-pressed="true"] { background: var(--bg); color: var(--text); box-shadow: 0 0 0 1px var(--line); }
+.cover-bar .ambient { color: var(--text-soft); }
+.cover-bar .ambient:hover { color: var(--text); }
 @media (prefers-reduced-motion: reduce) {
-  .scene-pic { animation: none; transform: scale(1.04); }
-  .scene-bar { display: none; }
+  .ridge g, .scene-orb { animation: none; transition: none; }
 }
 @keyframes fadein { to { opacity: var(--o, 1); } }
 
