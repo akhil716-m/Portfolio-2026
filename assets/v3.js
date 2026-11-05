@@ -61,7 +61,7 @@
       { type: 'noise', filter: 'bandpass', freq: 2600, q: 1.4, attack: .001, decay: .04, peak: .3 },
       { type: 'tone', freq: 880, attack: .002, decay: .09, peak: .12 }
     ] },
-    press: { gain: .4, layers: [
+    press: { gain: .6, layers: [
       { type: 'noise', filter: 'bandpass', freq: 1700, q: 1.4, attack: .001, decay: .02, peak: .13 }
     ] },
     // Home "Currently" hovers, one per drawing: a card slid on paper, a block set down, a page
@@ -160,6 +160,33 @@
     var kind = tag ? tag.getAttribute('data-sound') : 'press';
     if (kind !== 'off') play(kind === 'chime' ? 'chime' : 'press');
   }, true);
+  // Hover: the same one soft note for everything you can press (links, buttons, the Start here
+  // cards), once each time the pointer enters it, never more than one every 90ms.
+  if (matchMedia('(hover: hover)').matches) {
+    var lastHover = 0;
+    var pressable = function (t) { return t instanceof Element ? t.closest('a[href], button, summary, [role="button"], .now dl > div') : null; };
+    document.addEventListener('mouseover', function (e) {
+      var el = pressable(e.target);
+      if (!el || el.matches(':disabled') || el.closest('[data-sound="off"]')) return;
+      var from = pressable(e.relatedTarget);
+      if (from === el) return;
+      var now = performance.now();
+      if (now - lastHover < 90) return;
+      lastHover = now;
+      play('hover');
+    });
+  }
+  // A link that leaves the page would cut its own click sound short, so hold the jump for a moment
+  // (same tab, real page links only; in-page jumps, new tabs, mail links and modified clicks go as usual)
+  document.addEventListener('click', function (e) {
+    var a = e.target instanceof Element && e.target.closest('a[href]');
+    if (!a || e.defaultPrevented || e.button || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    if ((a.target && a.target !== '_self') || a.hasAttribute('download') || a.closest('[data-sound="off"]')) return;
+    var u; try { u = new URL(a.href, location.href); } catch (err) { return; }
+    if (!/^https?:$/.test(u.protocol) || (u.pathname === location.pathname && u.search === location.search && u.origin === location.origin)) return;
+    e.preventDefault();
+    setTimeout(function () { location.href = u.href; }, 160);
+  });
 
   // Click spark, after ch.sh: every click sends six short strokes out from the pointer,
   // in the text colour at low opacity, gone in 300ms. Drawn on one canvas over the page

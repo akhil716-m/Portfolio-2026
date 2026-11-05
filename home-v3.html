@@ -203,7 +203,7 @@
 
 <div class="peek" aria-hidden="true"><img alt=""></div>
 
-<script src="assets/v3.js?v=46"></script>
+<script src="assets/v3.js?v=48"></script>
 <script>
 (function () {
   // The visitor's own time, city and weather beside Resume. The city comes from their
@@ -368,8 +368,6 @@
         raf = requestAnimationFrame(frame);
       }
       cell.addEventListener('mouseenter', function () {
-        // its own small sound, once per visit (not again while it is still settling)
-        if (!raf && window.v3Sound) window.v3Sound('hover');
         on = true;
         if (!raf) { last = performance.now(); raf = requestAnimationFrame(frame); }
       });
