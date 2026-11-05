@@ -265,7 +265,21 @@ p { margin: 0 0 24px; }
 .now h2 { margin: 0; display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 500; color: var(--text); }
 .now-note { margin: 0; font: 600 16px/1 var(--hand); color: var(--text-muted); transform: rotate(-3deg); }
 .now dl { margin: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px 20px; }
-.now dl > div { min-width: 0; }
+.now dl > div { min-width: 0; position: relative; }
+.now dd a { color: inherit; text-decoration: none; }
+.now dd a::after { content: ""; position: absolute; inset: 0; }
+.now-arrow { display: inline-block; color: var(--text-muted); transition: transform .2s var(--ease), color .15s ease; }
+.now dl > div:hover .now-arrow { color: var(--text); transform: translateX(2px); }
+/* Labels up front; the specific line appears on hover or keyboard focus. Touch screens have no hover, so it stays visible there. */
+.now dl > div > dt { color: var(--text-soft); font-size: 13px; transition: color .15s ease; }
+.now dl > div:hover > dt, .now dl > div:focus-within > dt { color: var(--text); }
+.now .now-head { margin-bottom: 14px; }
+.now .now-head h2 { font: 600 20px/1 var(--hand); letter-spacing: 0; color: var(--text-soft); transform: rotate(-2deg); transform-origin: left center; gap: 6px; align-items: flex-start; }
+.now .now-head h2 svg { width: 26px; height: 20px; margin-top: 8px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.3; stroke-linecap: round; stroke-linejoin: round; }
+@media (hover: hover) and (min-width: 961px) {
+  .now dl > div > dd { position: absolute; top: 100%; left: 0; right: 0; margin-top: 2px; font-size: 13px; color: var(--text-soft); opacity: 0; transform: translateY(-3px); transition: opacity .18s ease, transform .18s var(--ease); }
+  .now dl > div:hover > dd, .now dl > div:focus-within > dd { opacity: 1; transform: none; }
+}
 .now dt { margin-top: 12px; font-size: 13px; line-height: 1.4; color: var(--text-soft); }
 .now dd { margin: 2px 0 0; font-size: 14px; line-height: 1.4; color: var(--text); }
 .now dd .ph-tag { margin: 4px 0 0; }
