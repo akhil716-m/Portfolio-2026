@@ -160,22 +160,6 @@
     var kind = tag ? tag.getAttribute('data-sound') : 'press';
     if (kind !== 'off') play(kind === 'chime' ? 'chime' : 'press');
   }, true);
-  // Hover: the same one soft note for everything you can press (links, buttons, the Start here
-  // cards), once each time the pointer enters it, never more than one every 90ms.
-  if (matchMedia('(hover: hover)').matches) {
-    var lastHover = 0;
-    var pressable = function (t) { return t instanceof Element ? t.closest('a[href], button, summary, [role="button"], .now dl > div') : null; };
-    document.addEventListener('mouseover', function (e) {
-      var el = pressable(e.target);
-      if (!el || el.matches(':disabled') || el.closest('[data-sound="off"]')) return;
-      var from = pressable(e.relatedTarget);
-      if (from === el) return;
-      var now = performance.now();
-      if (now - lastHover < 90) return;
-      lastHover = now;
-      play('hover');
-    });
-  }
   // A link that leaves the page would cut its own click sound short, so hold the jump for a moment
   // (same tab, real page links only; in-page jumps, new tabs, mail links and modified clicks go as usual)
   document.addEventListener('click', function (e) {
