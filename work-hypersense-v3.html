@@ -1634,8 +1634,8 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
   <div class="cs-label reveal">Understanding the terrain</div>
   <h2 class="cs-display reveal">The industry's most transparent pricing model comes with an <em>invisible tradeoff.</em></h2>
 
-  <p class="cs-p reveal">Every card payment carries a cost, and how it's calculated depends on the merchant's pricing model: <span class="cs-gloss" tabindex="0" data-gloss="blended-pricing">Blended</span> or <span class="cs-gloss" tabindex="0" data-gloss="ic-plus-plus">IC++</span>.</p>
-  <p class="cs-p reveal">Blended applies one fixed rate to every transaction: simple and predictable, but expensive at high volume. IC++ charges the actual cost of each transaction, which creates room to save at scale. That's why enterprise merchants prefer it.</p>
+  <p class="cs-p reveal">Every card payment carries a cost. How that cost is calculated depends on the merchant's pricing model: <span class="cs-gloss" tabindex="0" data-gloss="blended-pricing">Blended</span> or <span class="cs-gloss" tabindex="0" data-gloss="ic-plus-plus">IC++</span>.</p>
+  <p class="cs-p reveal">Blended pricing applies a fixed rate to every transaction, making costs predictable but often more expensive at scale. IC++ passes through the underlying processing costs for each transaction, creating opportunities to optimise costs.</p>
 
   <!-- Same payment, different cost: two $100 payments under Blended and IC++ -->
   <div class="txn-compare reveal">
@@ -1661,8 +1661,8 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 
   <h3 class="cs-h3 reveal" style="margin-top: 72px;">The same transparency that creates savings also creates complexity.</h3>
 
-  <p class="cs-p reveal">In <span class="cs-gloss" tabindex="0" data-gloss="ic-plus-plus">IC++</span> pricing, no two transactions are guaranteed to be priced the same. Card type, authentication, settlement timing, geography, and data quality all influence the final fee. Each variable can quietly shift a transaction into a different fee tier, and most merchants never see it happen.</p>
-  <p class="cs-p reveal">Without visibility, enterprise merchants often pay more than they should. The gap between expected and actual payment costs can reach <span class="cs-num">7-10%</span>.</p>
+  <p class="cs-p reveal">In <span class="cs-gloss" tabindex="0" data-gloss="ic-plus-plus">IC++</span> pricing, every transaction is priced independently. Card type, authentication, settlement timing, geography, and data quality all influence the final fee. Each variable can shift a transaction into a different fee tier, making costs harder to track.</p>
+  <p class="cs-p reveal">Without visibility, enterprise merchants often pay more than they should. The gap between expected and actual payment costs can reach <span class="cs-num">7&ndash;10%</span>.</p>
 
   <!-- THE RAW DOCUMENTS -->
   <div class="cs-docs reveal">
@@ -1672,7 +1672,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
     </div>
     <div class="cs-docs-body">
       <div class="cs-docs-text">
-        <p>Understanding the complete cost story often means piecing together fragmented payment cost data spread across invoices, settlement reports, and network documentation.</p>
+        <p>Teams piece together invoices, settlement reports, and network documentation to understand what they were actually charged.</p>
       </div>
       <div>
         <div class="cs-docs-trio">
@@ -1696,8 +1696,8 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 <div class="cs-wrap">
 
   <div class="cs-label reveal">Users</div>
-  <h2 class="cs-display reveal">Three users. One blind spot. <em>Different stakes.</em></h2>
-  <p class="cs-p reveal">Once we understood the problem, we needed to understand who was responsible for solving it. We discovered that payment costs weren't owned by a single team. Three different stakeholders interacted with the same problem from different angles, each carrying a different responsibility, but all missing the same visibility.</p>
+  <h2 class="cs-display reveal" style="max-width:none;">Three users. One blind spot. <em>Different stakes.</em></h2>
+  <p class="cs-p reveal">Payment costs weren&rsquo;t owned by a single team. Analysts reconciled fees, finance tracked their impact, and operations made decisions that influenced them. Yet all three lacked a clear understanding of why costs changed.</p>
 
 <!-- Three users around one gap (the walkthrough's drawing, in Hairline's light lines) -->
   <div class="cs-users-vis reveal">
@@ -1707,19 +1707,17 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
   <div class="cs-user-rows reveal">
     <div class="cs-user-row">
       <div class="cs-user-who"><div class="cs-user-name">Payment Analyst</div><div class="cs-user-owns">Owns the monthly fee audit.</div></div>
-      <div class="cs-user-what"><p class="cs-user-note">Hundreds of fee line items must be reconciled, explained and defended before the billing cycle closes.</p><p class="cs-user-ask"><span>Needs to know</span>What changed, and which fees need attention?</p></div>
+      <div class="cs-user-what"><p class="cs-user-note">Hundreds of fee line items need to be reconciled and explained before the billing cycle closes.</p><p class="cs-user-ask"><span>Needs to know</span>What changed, and which fees need attention?</p></div>
     </div>
     <div class="cs-user-row">
       <div class="cs-user-who"><div class="cs-user-name">Finance Lead</div><div class="cs-user-owns">Owns forecasting and budget accountability.</div></div>
-      <div class="cs-user-what"><p class="cs-user-note">When costs move, they must explain why and predict what happens next.</p><p class="cs-user-ask"><span>Needs to know</span>Which costs are expected, and which are avoidable?</p></div>
+      <div class="cs-user-what"><p class="cs-user-note">Must explain cost movements and anticipate their impact on future budgets.</p><p class="cs-user-ask"><span>Needs to know</span>Which costs are expected, and which are avoidable?</p></div>
     </div>
     <div class="cs-user-row">
-      <div class="cs-user-who"><div class="cs-user-name">Ops Head</div><div class="cs-user-owns">Owns the decisions that shape costs.</div></div>
-      <div class="cs-user-what"><p class="cs-user-note">Routing and authentication choices change costs, but the impact often shows up weeks later.</p><p class="cs-user-ask"><span>Needs to know</span>Which of our changes moved costs?</p></div>
+      <div class="cs-user-who"><div class="cs-user-name">Operations Head</div><div class="cs-user-owns">Owns the operational decisions that influence payment costs.</div></div>
+      <div class="cs-user-what"><p class="cs-user-note">Routing and authentication changes affect costs, but their impact often surfaces weeks later.</p><p class="cs-user-ask"><span>Needs to know</span>Which operational changes drove the cost increase?</p></div>
     </div>
   </div>
-
-  <p class="cs-p reveal" style="margin-top: 72px;">By this point, we understood the ecosystem. The challenge was turning a fragmented payment system into a coherent cost story that different teams could trust and act on. While each team entered from a different perspective and carried different responsibilities, they were ultimately trying to answer the same question: where payment costs were coming from and what to do about them.</p>
 
 </div>
 </section>
