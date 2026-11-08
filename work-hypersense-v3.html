@@ -1272,7 +1272,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 
 </style>
 <link rel="stylesheet" href="assets/cs-article.css">
-<link rel="stylesheet" href="assets/cs-v3.css?v=83">
+<link rel="stylesheet" href="assets/cs-v3.css?v=87">
 <style>
 /* This project's colour in dark mode: the purple of the night sky */
 :root[data-theme="dark"] {
@@ -1454,7 +1454,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
         </svg>
         <span class="cs-scale-eyebrow">Small merchant</span>
         <p class="cs-scale-lead">Costs are rarely a priority.</p>
-        <p class="cs-scale-note">Processing $5M a year costs about $100K in fees.<br>A 5 bps rise adds only <b>$2.5K</b>, barely noticeable.</p>
+        <p class="cs-scale-note">$5M a year costs about $100K in fees, so a 5 bps rise adds just <b>$2.5K</b>.</p>
       </div>
       <div class="cs-scale-col" data-tier="1">
         <svg class="iso-scale" viewBox="74.8 -20.2 70.4 130" preserveAspectRatio="xMinYMax meet" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -1474,7 +1474,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
         </svg>
         <span class="cs-scale-eyebrow">Mid-sized merchant</span>
         <p class="cs-scale-lead">Costs become noticeable.</p>
-        <p class="cs-scale-note">Processing $50M a year costs about $1M in fees.<br>The same 5 bps rise adds <b>$25K</b>, which starts to show.</p>
+        <p class="cs-scale-note">$50M a year costs about $1M in fees, so the same rise adds <b>$25K</b>.</p>
       </div>
       <div class="cs-scale-col cs-scale-col--win" data-tier="2">
         <svg class="iso-scale" viewBox="24.1 9 171.8 130" preserveAspectRatio="xMinYMax meet" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -1584,7 +1584,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
         </svg>
         <span class="cs-scale-eyebrow">Enterprise merchant</span>
         <p class="cs-scale-lead">Every basis point matters.</p>
-        <p class="cs-scale-note">Processing $500M a year costs about $10M in fees.<br>The same 5 bps rise adds <b>$250K</b>, too much to ignore.</p>
+        <p class="cs-scale-note">$500M a year costs about $10M in fees, so the same rise adds <b>$250K</b>.</p>
       </div>
     </div>
     <div class="cs-scale-foot">
@@ -3045,6 +3045,57 @@ console.log('%cYou found the HyperSense case study: eight sections, start to fin
   }, { threshold: [0, 0.25, 0.5, 0.75, 1] });
   videos.forEach(function(v) { io.observe(v); });
   document.addEventListener('fullscreenchange', sync);
+})();
+</script>
+<script>
+/* Merchant scale: Hairline's Terrain gesture. Pillars near the pointer grow taller, the farther
+   the less, each on its own spring, and settle back to rest when the pointer leaves. A pillar
+   grows by lifting its top face and the top edge of its sides (and any fee band on top). */
+(() => {
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  // Terrain's falloff: full height under the pointer, a third at one radius, a trace beyond
+  const fall = (u) => u <= 0 ? 1 : u <= .417 ? 1 - u / .417 * .6875 : u <= 1 ? .3125 - (u - .417) / .583 * .2185 : .094;
+  const pts = (el) => el.getAttribute('points').trim().split(/\s+/).map((p) => p.split(',').map(Number));
+  document.querySelectorAll('.cs-scale .iso-scale').forEach((svg) => {
+    const pils = [...svg.querySelectorAll('.pil')].map((g) => {
+      const polys = [...g.querySelectorAll('polygon')].map((el) => {
+        const p = pts(el);
+        const all = el.classList.contains('f-t') || !!el.closest('.pil-cap');
+        return { el, p, lift: p.map((_, k) => all || k >= 2) };
+      });
+      const side = polys.find((q) => q.el.classList.contains('f-l')).p;
+      return { polys, bx: side[1][0], by: side[1][1], w: Math.abs(side[1][0] - side[0][0]) * 2, x: 0, v: 0, t: 0, drawn: 0 };
+    });
+    if (!pils.length) return;
+    const w = pils[0].w, R = w * 3.2, HMAX = w * 2.2;
+    let raf = 0, last = 0;
+    const draw = (c) => {
+      if (Math.abs(c.x - c.drawn) < .01) return;
+      c.drawn = c.x;
+      c.polys.forEach((q) => q.el.setAttribute('points', q.p.map(([x, y], k) => x + ',' + (q.lift[k] ? y - c.x : y).toFixed(2)).join(' ')));
+    };
+    const tick = (now) => {
+      const dt = Math.min(.032, (now - last) / 1000 || .016); last = now;
+      let moving = false;
+      for (const c of pils) {
+        // a soft spring, like Hairline's: pulls to the target, damped so it settles without a wobble
+        c.v += ((c.t - c.x) * 170 - c.v * 22) * dt;
+        c.x += c.v * dt;
+        if (Math.abs(c.t - c.x) > .02 || Math.abs(c.v) > .02) moving = true; else { c.x = c.t; c.v = 0; }
+        draw(c);
+      }
+      raf = moving ? requestAnimationFrame(tick) : 0;
+    };
+    const wake = () => { if (!raf) { last = performance.now(); raf = requestAnimationFrame(tick); } };
+    svg.addEventListener('pointermove', (e) => {
+      const m = svg.getScreenCTM(); if (!m) return;
+      const p = new DOMPoint(e.clientX, e.clientY).matrixTransform(m.inverse());
+      // distance on the ground plane: the isometric view squashes depth to half height
+      for (const c of pils) c.t = HMAX * fall(Math.hypot(p.x - c.bx, (p.y - c.by) * 2) / R);
+      wake();
+    });
+    svg.addEventListener('pointerleave', () => { for (const c of pils) c.t = 0; wake(); });
+  });
 })();
 </script>
 <script src="assets/v3.js?v=51"></script>

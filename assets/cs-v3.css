@@ -222,14 +222,13 @@
 .cs-vis--iso { background: none !important; border: 0 !important; box-shadow: none !important; border-radius: 0; }
 .cs-vis--iso .cs-vis-body { padding: 0 !important; background: none; }
 .iso-flow { width: 100%; height: auto; display: block; overflow: visible; }
-.iso-flow polygon { stroke-width: 1; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.iso-flow polygon { stroke-width: .9; stroke-linejoin: round; stroke-linecap: round; vector-effect: non-scaling-stroke; }
 .iso-flow .f-t { fill: var(--bg); }
-.iso-flow .f-l { fill: var(--bg-soft); }
-.iso-flow .f-r { fill: color-mix(in srgb, var(--bg-soft) 70%, var(--line-strong)); }
-.iso-flow .tile polygon { stroke: rgb(var(--fg-rgb) / .22); }
-.iso-flow .pad polygon { stroke: rgb(var(--fg-rgb) / .45); }
-.iso-flow .pad--hidden polygon { fill: transparent; stroke: rgb(var(--fg-rgb) / .3); stroke-dasharray: 3 3; transition: stroke .3s ease; }
-.iso-flow .blk-base polygon { stroke: rgb(var(--fg-rgb) / .7); }
+.iso-flow .f-l, .iso-flow .f-r { fill: var(--bg); }
+.iso-flow .tile polygon { stroke: rgb(var(--fg-rgb) / .14); }
+.iso-flow .pad polygon { stroke: rgb(var(--fg-rgb) / .24); }
+.iso-flow .pad--hidden polygon { fill: transparent; stroke: rgb(var(--fg-rgb) / .22); stroke-dasharray: 3 3; transition: stroke .3s ease; }
+.iso-flow .blk-base polygon { stroke: rgb(var(--fg-rgb) / .3); }
 .iso-flow .blk-fee polygon { stroke: var(--accent); }
 .iso-flow .blk-fee .f-t { fill: color-mix(in srgb, var(--accent) 16%, var(--bg)); }
 .iso-flow .blk-fee .f-l, .iso-flow .blk-fee .f-r { fill: color-mix(in srgb, var(--accent) 24%, var(--bg)); }
@@ -296,9 +295,9 @@
   100% { transform: translate(690px, -26px); opacity: 0; }
 }
 /* the intermediary shows itself only while it takes its cut */
-@keyframes iso-pad-1 { 0%, 24%, 40%, 100% { stroke: rgb(var(--fg-rgb) / .3); } 29%, 33% { stroke: var(--accent); } }
-@keyframes iso-pad-2 { 0%, 41%, 57%, 100% { stroke: rgb(var(--fg-rgb) / .3); } 46%, 50% { stroke: var(--accent); } }
-@keyframes iso-pad-3 { 0%, 58%, 74%, 100% { stroke: rgb(var(--fg-rgb) / .3); } 63%, 67% { stroke: var(--accent); } }
+@keyframes iso-pad-1 { 0%, 24%, 40%, 100% { stroke: rgb(var(--fg-rgb) / .22); } 29%, 33% { stroke: var(--accent); } }
+@keyframes iso-pad-2 { 0%, 41%, 57%, 100% { stroke: rgb(var(--fg-rgb) / .22); } 46%, 50% { stroke: var(--accent); } }
+@keyframes iso-pad-3 { 0%, 58%, 74%, 100% { stroke: rgb(var(--fg-rgb) / .22); } 63%, 67% { stroke: var(--accent); } }
 @keyframes iso-arrive { 0%, 76% { opacity: .35; } 82%, 96% { opacity: 1; } 100% { opacity: .35; } }
 /* what happens between the players: each name shows as the block passes, then goes */
 @keyframes iso-tag-1 { 0%, 17%, 33%, 100% { opacity: 0; } 19.5%, 31% { opacity: 1; } }
@@ -315,37 +314,33 @@
    always 2% of it. Pillars rise once as the figure comes into view; pointing at a tier
    (pillars or words) brings it forward. */
 .cs-scale { background: none; border: 0; padding: 0; }
-.iso-scale { width: auto; max-width: 100%; height: 130px; display: block; overflow: visible; margin: 0 0 22px; }
-.iso-scale polygon { stroke-width: 1; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.iso-scale { width: auto; max-width: 100%; height: 130px; display: block; overflow: visible; margin: 0 auto 22px; }
+.iso-scale polygon { stroke-width: .9; stroke-linejoin: round; stroke-linecap: round; vector-effect: non-scaling-stroke; }
 .iso-scale .f-t { fill: var(--bg); }
-.iso-scale .f-l { fill: var(--bg-soft); }
-.iso-scale .f-r { fill: color-mix(in srgb, var(--bg-soft) 70%, var(--line-strong)); }
-.iso-scale .plinth polygon { stroke: rgb(var(--fg-rgb) / .35); }
-.iso-scale .cell { fill: none; stroke: rgb(var(--fg-rgb) / .14); }
-.iso-scale .pil polygon { stroke: rgb(var(--fg-rgb) / .5); }
+.iso-scale .f-l, .iso-scale .f-r { fill: var(--bg); }
+.iso-scale .plinth polygon { stroke: rgb(var(--fg-rgb) / .3); }
+.iso-scale .cell { fill: none; stroke: rgb(var(--fg-rgb) / .1); }
+.iso-scale .pil polygon { stroke: rgb(var(--fg-rgb) / .24); }
 .iso-scale .pil--fee polygon, .iso-scale .pil-cap polygon { stroke: var(--accent); }
 .iso-scale .pil--fee .f-t, .iso-scale .pil-cap .f-t { fill: color-mix(in srgb, var(--accent) 30%, var(--bg)); }
 .iso-scale .pil--fee .f-l, .iso-scale .pil--fee .f-r, .iso-scale .pil-cap .f-l, .iso-scale .pil-cap .f-r { fill: color-mix(in srgb, var(--accent) 42%, var(--bg)); }
 /* a partial fee is a band round the top of its pillar (sides only), so the small merchant's
    2% of one pillar stays the hairline it is */
-.iso-scale .pil-cap .f-t { fill: var(--bg); stroke: rgb(var(--fg-rgb) / .5); }
+.iso-scale .pil-cap .f-t { fill: var(--bg); stroke: rgb(var(--fg-rgb) / .24); }
 .iso-scale .pil { transform-box: fill-box; transform-origin: 50% 100%; }
-.iso-scale .st { transition: opacity .3s ease; }
 
 .cs-scale-cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-.cs-scale-col { text-align: left; transition: opacity .3s ease; }
+.cs-scale-col { text-align: center; }
 .cs-scale-eyebrow { display: block; font: 400 11px/1.3 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--text-muted); }
 .cs-scale-lead { margin: 8px 0 4px; font: 500 15px/1.4 var(--font); color: var(--text); }
-.cs-scale-note { margin: 0; font: 400 13.5px/1.55 var(--font); color: var(--text-soft); }
+.cs-scale-note { max-width: 30ch; margin: 0 auto; font: 400 13.5px/1.55 var(--font); color: var(--text-soft); }
 .cs-scale-note b { font-weight: 400; color: var(--text); }
 .cs-scale-col--win .cs-scale-note b { color: var(--accent); }
 .cs-scale-foot { display: flex; justify-content: space-between; gap: 16px; margin-top: 26px; padding-top: 14px; border-top: 1px solid var(--line); }
 .cs-scale-foot .cs-arcs-caption, .cs-scale-foot .cs-arcs-note { margin: 0; font: 400 11px/1.3 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--text-muted); }
 
-/* point at a tier: it comes forward, the others step back */
-.cs-scale:has([data-tier="0"]:hover) [data-tier]:not([data-tier="0"]),
-.cs-scale:has([data-tier="1"]:hover) [data-tier]:not([data-tier="1"]),
-.cs-scale:has([data-tier="2"]:hover) [data-tier]:not([data-tier="2"]) { opacity: .3; }
+/* point at the cubes: pillars near the pointer rise, the farther the less, and settle back on a
+   spring when it leaves (Hairline's Terrain gesture; driven by the script at the end of the page) */
 
 @media (prefers-reduced-motion: no-preference) {
   .cs-scale.reveal:not(.is-visible) .pil { transform: scaleY(0); }
@@ -372,15 +367,15 @@
 .cs-vis--conv .cs-vis-body { padding: 0 !important; background: none; }
 .iso-conv { width: 100%; height: auto; display: block; overflow: visible; }
 .iso-conv--narrow { display: none; max-width: 400px; margin: 0 auto; }
-.iso-conv polygon, .iso-conv .src path, .iso-conv .src ellipse { stroke-width: 1; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
-.iso-conv .src polygon, .iso-conv .src path, .iso-conv .src ellipse { stroke: rgb(var(--fg-rgb) / .42); }
+.iso-conv polygon, .iso-conv .src path, .iso-conv .src ellipse { stroke-width: .9; stroke-linejoin: round; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+.iso-conv .src polygon, .iso-conv .src path, .iso-conv .src ellipse { stroke: rgb(var(--fg-rgb) / .24); }
 .iso-conv .f-t { fill: var(--bg); }
-.iso-conv .f-l { fill: var(--bg-soft); }
+.iso-conv .f-l { fill: var(--bg); }
 .iso-conv ellipse.f-t { fill: var(--bg); }
-.iso-conv .f-r { fill: color-mix(in srgb, var(--bg-soft) 70%, var(--line-strong)); }
-.iso-conv .slip polygon { stroke: rgb(var(--fg-rgb) / .38); }
-.iso-conv .slip--step polygon { stroke: rgb(var(--fg-rgb) / .55); }
-.iso-conv .hub polygon { stroke: rgb(var(--fg-rgb) / .7); }
+.iso-conv .f-r { fill: var(--bg); }
+.iso-conv .slip polygon { stroke: rgb(var(--fg-rgb) / .24); }
+.iso-conv .slip--step polygon { stroke: rgb(var(--fg-rgb) / .3); }
+.iso-conv .hub polygon { stroke: rgb(var(--fg-rgb) / .3); }
 .iso-conv .thr { fill: none; stroke-width: 1; vector-effect: non-scaling-stroke; }
 .iso-conv .thr-in { stroke: rgb(var(--fg-rgb) / .1); }
 .iso-conv .thr-out { stroke: rgb(var(--fg-rgb) / .16); }
@@ -427,9 +422,9 @@
   92%, 100% { stroke-dashoffset: 0; opacity: 0; }
 }
 @keyframes conv-step-line {
-  0%, 31% { stroke: rgb(var(--fg-rgb) / .55); }
+  0%, 31% { stroke: rgb(var(--fg-rgb) / .3); }
   35%, 84% { stroke: var(--accent); }
-  92%, 100% { stroke: rgb(var(--fg-rgb) / .55); }
+  92%, 100% { stroke: rgb(var(--fg-rgb) / .3); }
 }
 @keyframes conv-step-face {
   0%, 31% { fill: var(--bg); }
