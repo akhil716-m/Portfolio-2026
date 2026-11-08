@@ -815,3 +815,12 @@ body:not(.cs-skilling) .cs-phase-tag { margin-top: 72px; }
 }
 .v3-cs .cs-impact-head { margin: 72px 0 0; }
 .v3-cs .cs-impact-head + .cs-fstat-grid--iso, .v3-cs .cs-impact-head + .cs-impact { margin-top: 32px; }
+
+/* ===== HyperSense iterations (placeholders) */
+.cs-iter { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin: 48px 0; }
+.v3-cs .cs-iter { background: none; border: 0; border-radius: 0; box-shadow: none; padding: 0; overflow: visible; }
+.v3-cs .cs-iter figure { margin: 0; padding: 0; background: none; border: 0; border-radius: 0; box-shadow: none; }
+.cs-iter-ph { aspect-ratio: 1920/1387; display: grid; place-items: center; border: 1px dashed rgb(var(--fg-rgb) / .18); font: 400 11px/1 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--text-muted); }
+.cs-iter figcaption { margin-top: 12px; font: 400 13.5px/1.55 var(--font); color: var(--text-soft); }
+.cs-iter figcaption span { display: block; margin-bottom: 4px; font: 400 11px/1.4 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--text); }
+@media (max-width: 640px) { .cs-iter { grid-template-columns: 1fr; } }
