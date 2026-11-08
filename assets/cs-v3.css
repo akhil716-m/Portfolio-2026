@@ -221,7 +221,7 @@
    and fades. The block reaches the merchant shorter. One loop is 8s. */
 .cs-vis--iso { background: none !important; border: 0 !important; box-shadow: none !important; border-radius: 0; }
 .cs-vis--iso .cs-vis-body { padding: 0 !important; background: none; }
-.iso-flow { width: 100%; height: auto; display: block; overflow: visible; }
+.iso-flow { width: 100%; max-width: 768px; height: auto; display: block; overflow: visible; margin: 0 auto; }
 .iso-flow polygon { stroke-width: .9; stroke-linejoin: round; stroke-linecap: round; vector-effect: non-scaling-stroke; }
 .iso-flow .f-t { fill: var(--bg); }
 .iso-flow .f-l, .iso-flow .f-r { fill: var(--bg); }
@@ -262,37 +262,37 @@
 @keyframes iso-base {
   0% { transform: translateX(0); opacity: 0; }
   5%, 14% { transform: translateX(0); opacity: 1; }
-  28%, 33% { transform: translateX(230px); }
-  45%, 50% { transform: translateX(460px); }
-  62%, 67% { transform: translateX(690px); }
-  80% { transform: translateX(920px); opacity: 1; }
-  93% { transform: translateX(920px); opacity: 1; }
-  100% { transform: translateX(920px); opacity: 0; }
+  28%, 33% { transform: translateX(184px); }
+  45%, 50% { transform: translateX(368px); }
+  62%, 67% { transform: translateX(552px); }
+  80% { transform: translateX(736px); opacity: 1; }
+  93% { transform: translateX(736px); opacity: 1; }
+  100% { transform: translateX(736px); opacity: 0; }
 }
 /* each fee layer rides along to its intermediary, then lifts away and fades */
 @keyframes iso-peel-1 {
   0% { transform: translate(0, 0); opacity: 0; }
   5%, 14% { transform: translate(0, 0); opacity: 1; }
-  28% { transform: translate(230px, 0); opacity: 1; }
-  40% { transform: translate(230px, -26px); opacity: 0; }
-  100% { transform: translate(230px, -26px); opacity: 0; }
+  28% { transform: translate(184px, 0); opacity: 1; }
+  40% { transform: translate(184px, -26px); opacity: 0; }
+  100% { transform: translate(184px, -26px); opacity: 0; }
 }
 @keyframes iso-peel-2 {
   0% { transform: translate(0, 0); opacity: 0; }
   5%, 14% { transform: translate(0, 0); opacity: 1; }
-  28%, 33% { transform: translate(230px, 0); }
-  45% { transform: translate(460px, 0); opacity: 1; }
-  57% { transform: translate(460px, -26px); opacity: 0; }
-  100% { transform: translate(460px, -26px); opacity: 0; }
+  28%, 33% { transform: translate(184px, 0); }
+  45% { transform: translate(368px, 0); opacity: 1; }
+  57% { transform: translate(368px, -26px); opacity: 0; }
+  100% { transform: translate(368px, -26px); opacity: 0; }
 }
 @keyframes iso-peel-3 {
   0% { transform: translate(0, 0); opacity: 0; }
   5%, 14% { transform: translate(0, 0); opacity: 1; }
-  28%, 33% { transform: translate(230px, 0); }
-  45%, 50% { transform: translate(460px, 0); }
-  62% { transform: translate(690px, 0); opacity: 1; }
-  74% { transform: translate(690px, -26px); opacity: 0; }
-  100% { transform: translate(690px, -26px); opacity: 0; }
+  28%, 33% { transform: translate(184px, 0); }
+  45%, 50% { transform: translate(368px, 0); }
+  62% { transform: translate(552px, 0); opacity: 1; }
+  74% { transform: translate(552px, -26px); opacity: 0; }
+  100% { transform: translate(552px, -26px); opacity: 0; }
 }
 /* the intermediary shows itself only while it takes its cut */
 @keyframes iso-pad-1 { 0%, 24%, 40%, 100% { stroke: rgb(var(--fg-rgb) / .22); } 29%, 33% { stroke: var(--accent); } }
@@ -725,6 +725,8 @@ body:not(.cs-skilling) .cs-phase-tag { margin-top: 72px; }
 
 /* figures sit 48px from the text above and below, on every case study (the Up-skill board gap) */
 .v3-cs .cs-vis:not(.cs-sim-modal-panel), .v3-cs .cs-scale, .v3-cs .cs-docs, .v3-cs .cs-recon-layers { margin-top: 48px; margin-bottom: 48px; }
+/* the payment flow is a short strip, so it gets more air than the taller drawings */
+.v3-cs .cs-vis.cs-vis--iso:not(.cs-sim-modal-panel) { margin-top: 80px; margin-bottom: 80px; }
 
 /* kicker labels (phase / module tags) share Up-skill's 12px mono; principle titles sit at the sub-heading size */
 .v3-cs .cs-phase-tag, .v3-cs .cs-module-tag { font-size: 12px; letter-spacing: 0.14em; }
