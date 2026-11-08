@@ -1272,7 +1272,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 
 </style>
 <link rel="stylesheet" href="assets/cs-article.css">
-<link rel="stylesheet" href="assets/cs-v3.css?v=94">
+<link rel="stylesheet" href="assets/cs-v3.css?v=97">
 <style>
 /* This project's colour in dark mode: the purple of the night sky */
 :root[data-theme="dark"] {
@@ -1727,7 +1727,39 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 </div>
 </section>
 
-<!-- ═══════════════════════ 05 — PRODUCT STRATEGY AND DESIGN ═══════════════════════ -->
+<!-- ═══════════════════════ 05 — APPROACH ═══════════════════════ -->
+<section class="cs-section" id="cs-approach" data-section>
+<div class="cs-wrap">
+
+  <div class="cs-label reveal">Approach</div>
+  <h2 class="cs-display reveal">Starting with <em>very little.</em></h2>
+  <p class="cs-p reveal">With the terrain and the users clear, we needed to understand the ecosystem ourselves. We started with <span class="cs-num">industry reports</span>, insights from the <span class="cs-num">agencies</span> that audit these costs by hand, and conversations with merchants at <span class="cs-num">payment events</span>, where we also pitched the idea to test it.</p>
+  <p class="cs-p reveal">That gave us a starting point, but not much to design from. No product like this existed, so there were no patterns to borrow. Transaction data sits behind NDAs, so we couldn&rsquo;t know what fee reports would contain, and we were new to the domain. Early decisions had to start from hypotheses.</p>
+  <p class="cs-p reveal">So we built a first cut with what we had: four lightweight modules, Overview, Observe, Deviations and Audit, each giving merchants a first look at their costs.</p>
+
+  <!-- First cut: four screens in one frame; the tabs move on by themselves, or pick one -->
+  <div class="cs-fc cs-vis--wide reveal">
+    <div class="cs-fc-stack"><img class="on" src="assets/hypersense/first-cut-overview.webp" alt="First-cut design: Overview screen" width="1920" height="1387" loading="lazy" decoding="async" /><img src="assets/hypersense/first-cut-observe.webp" alt="First-cut design: Observe screen" width="1920" height="1387" loading="lazy" decoding="async" /><img src="assets/hypersense/first-cut-deviations.webp" alt="First-cut design: Deviations screen" width="1920" height="1387" loading="lazy" decoding="async" /><img src="assets/hypersense/first-cut-audit.webp" alt="First-cut design: Audit screen" width="1920" height="1387" loading="lazy" decoding="async" /></div>
+    <div class="cs-fc-tabs" role="group" aria-label="First-cut screens"><button type="button" class="on" aria-current="true">Overview</button><button type="button">Observe</button><button type="button">Deviations</button><button type="button">Audit</button></div>
+  </div>
+
+  <!-- Iterations: designs to come -->
+
+  <p class="cs-p reveal">Demos and pilots, and eventually real payment data, showed where it fell short. The module names didn&rsquo;t explain themselves. The modules didn&rsquo;t connect, so each was used on its own. And every merchant&rsquo;s setup was different, from one PSP to many, and from Blended to IC++.</p>
+  <p class="cs-p reveal">What we learned became the principles that shaped the experience:</p>
+  <ol class="cs-prin-list reveal">
+    <li><span>Anchor on questions.</span> Each module follows the questions teams ask once an invoice arrives.</li>
+    <li><span>Guide, don&rsquo;t show everything.</span> Only what needs attention is highlighted; the rest is a click away.</li>
+    <li><span>Disclose progressively.</span> Start broad, find the driver, then reach the evidence when it&rsquo;s needed.</li>
+    <li><span>Surface the signal.</span> Detect meaningful deviations so nobody scans the data by hand.</li>
+    <li><span>Relevance over volume.</span> Show the changes that matter to each merchant, not every change.</li>
+  </ol>
+  <p class="cs-p reveal">Those principles shaped how we organised the product.</p>
+
+</div>
+</section>
+
+<!-- ═══════════════════════ 06 — PRODUCT STRATEGY AND DESIGN ═══════════════════════ -->
 <section class="cs-section" id="cs-strategy" data-section>
 <div class="cs-wrap">
 
@@ -1905,7 +1937,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 </div>
 </section>
 
-<!-- ═══════════════════════ 06 — DESIGN CHALLENGE ═══════════════════════ -->
+<!-- ═══════════════════════ 07 — DESIGN CHALLENGE ═══════════════════════ -->
 <section class="cs-section" id="cs-challenge" data-section>
 <div class="cs-wrap">
 
@@ -1961,7 +1993,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 </div>
 </section>
 
-<!-- ═══════════════════════ 07 — PRODUCT EXPERIENCE ═══════════════════════ -->
+<!-- ═══════════════════════ 08 — PRODUCT EXPERIENCE ═══════════════════════ -->
 <section class="cs-section" id="cs-ui" data-section>
 <div class="cs-wrap">
 
@@ -2092,7 +2124,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 </div>
 </section>
 
-<!-- ═══════════════════════ 08 — OUTCOME ═══════════════════════ -->
+<!-- ═══════════════════════ 09 — OUTCOME ═══════════════════════ -->
 <section class="cs-section" id="cs-outcome" data-section>
 <div class="cs-wrap">
 
@@ -2213,10 +2245,11 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
     { id: 'cs-begins', num: '02', name: 'Where HyperSense Begins' },
     { id: 'cs-terrain', num: '03', name: 'Understanding the Terrain' },
     { id: 'cs-users', num: '04', name: 'Users' },
-    { id: 'cs-strategy', num: '05', name: 'Product Strategy and Design' },
-    { id: 'cs-challenge', num: '06', name: 'Design Challenge' },
-    { id: 'cs-ui', num: '07', name: 'Product Experience' },
-    { id: 'cs-outcome', num: '08', name: 'Outcome' }
+    { id: 'cs-approach', num: '05', name: 'Approach' },
+    { id: 'cs-strategy', num: '06', name: 'Product Strategy and Design' },
+    { id: 'cs-challenge', num: '07', name: 'Design Challenge' },
+    { id: 'cs-ui', num: '08', name: 'Product Experience' },
+    { id: 'cs-outcome', num: '09', name: 'Outcome' }
   ];
   var byId = {};
   SECTIONS.forEach(function(s) { byId[s.id] = s; });
@@ -2455,7 +2488,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 
 
 console.log('%cHi.','font-family:"Instrument Serif",serif;font-size:32px;font-style:italic;color:#ededed;');
-console.log('%cYou found the HyperSense case study: eight sections, start to finish. → akhilmale.ux@gmail.com','font-family:monospace;font-size:12px;color:#8a8a8a;');
+console.log('%cYou found the HyperSense case study: nine sections, start to finish. → akhilmale.ux@gmail.com','font-family:monospace;font-size:12px;color:#8a8a8a;');
 </script>
 
 <script>
@@ -2566,6 +2599,24 @@ console.log('%cYou found the HyperSense case study: eight sections, start to fin
     });
     svg.addEventListener('pointerleave', () => { for (const c of pils) c.t = 0; wake(); });
   });
+})();
+</script>
+<script>
+/* First cut: the four screens take turns while the frame is on screen; picking a tab holds it */
+(() => {
+  const box = document.querySelector('.cs-fc'); if (!box) return;
+  const imgs = box.querySelectorAll('.cs-fc-stack img'), tabs = box.querySelectorAll('.cs-fc-tabs button');
+  let cur = 0, timer = 0, held = false;
+  const show = (i) => {
+    imgs.forEach((im, k) => im.classList.toggle('on', k === i));
+    tabs.forEach((t, k) => { t.classList.toggle('on', k === i); if (k === i) t.setAttribute('aria-current', 'true'); else t.removeAttribute('aria-current'); });
+    cur = i;
+  };
+  const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const run = () => { if (held || still || timer) return; box.classList.add('is-auto'); timer = setInterval(() => show((cur + 1) % imgs.length), 4000); };
+  const stop = () => { clearInterval(timer); timer = 0; box.classList.remove('is-auto'); };
+  tabs.forEach((t, k) => t.addEventListener('click', () => { held = true; stop(); show(k); }));
+  new IntersectionObserver(([e]) => e.isIntersecting ? run() : stop(), { threshold: .4 }).observe(box);
 })();
 </script>
 <script src="assets/v3.js?v=51"></script>
