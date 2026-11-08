@@ -763,6 +763,11 @@ body:not(.cs-skilling) .cs-phase-tag { margin-top: 72px; }
 .user-vis text { font-family: var(--font); }
 .user-vis .lb-t { font-size: 15px; font-weight: 500; fill: var(--text); }
 .user-vis .lb-s { font-size: 13px; fill: var(--text-muted); }
+.user-vis ellipse { stroke-width: .9; vector-effect: non-scaling-stroke; }
+.user-vis ellipse.ring { stroke: rgb(var(--fg-rgb) / .24); fill: none; }
+.user-vis ellipse.hot { stroke: none; fill: color-mix(in srgb, var(--accent) 14%, var(--bg)); }
+.user-vis .hotdot { fill: var(--accent); stroke: none; }
+.user-vis .lb-k { font: 400 11px var(--mono); letter-spacing: .08em; text-transform: uppercase; fill: var(--accent); }
 
 .cs-user-rows { margin: 48px 0; }
 .cs-user-row { display: grid; grid-template-columns: minmax(150px, 200px) 1fr; gap: 40px; padding: 32px 0; border-top: 1px solid var(--line); outline: none; }
