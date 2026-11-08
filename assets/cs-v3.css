@@ -731,3 +731,22 @@ body:not(.cs-skilling) .cs-phase-tag { margin-top: 72px; }
 /* kicker labels (phase / module tags) share Up-skill's 12px mono; principle titles sit at the sub-heading size */
 .v3-cs .cs-phase-tag, .v3-cs .cs-module-tag { font-size: 12px; letter-spacing: 0.14em; }
 .v3-cs .cs-principle-title { font-size: 17px; line-height: 1.4; }
+
+/* ===== Same payment, different cost (from the walkthrough's slide 5) =====
+   Two $100 payments: Blended charges both the same, IC++ charges each what it costs. Open rows,
+   no card. */
+.txn-compare { margin: 48px 0; }
+.txn-colhead { display: flex; justify-content: space-between; padding-bottom: 12px; border-bottom: 1px solid var(--line); font: 400 13px/1.4 var(--font); color: var(--text-muted); }
+.txn-row { display: flex; justify-content: space-between; align-items: center; gap: 24px; padding: 22px 0; border-bottom: 1px solid var(--line); }
+.txn-row:last-child { border-bottom: 0; padding-bottom: 0; }
+.txn-left { min-width: 0; }
+.txn-amount, .txn-val { font: 500 26px/1.1 var(--font); letter-spacing: -0.02em; color: var(--text); }
+.txn-tags { margin-top: 8px; font: 400 13px/1.4 var(--font); color: var(--text-muted); }
+.txn-cols { display: flex; gap: clamp(24px, 3.4vw, 48px); }
+.txn-cols > * { width: clamp(72px, 8vw, 104px); text-align: right; }
+.txn-compare .txn-val--ic { color: var(--accent); }
+@media (max-width: 600px) {
+  .txn-amount, .txn-val { font-size: 21px; }
+  .txn-cols { gap: 16px; }
+  .txn-cols > * { width: 60px; }
+}

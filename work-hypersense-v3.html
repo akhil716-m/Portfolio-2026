@@ -1272,7 +1272,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 
 </style>
 <link rel="stylesheet" href="assets/cs-article.css">
-<link rel="stylesheet" href="assets/cs-v3.css?v=90">
+<link rel="stylesheet" href="assets/cs-v3.css?v=91">
 <style>
 /* This project's colour in dark mode: the purple of the night sky */
 :root[data-theme="dark"] {
@@ -1640,30 +1640,25 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
   <p class="cs-p reveal">Every card payment carries a cost, and how it's calculated depends on the merchant's pricing model: <span class="cs-gloss" tabindex="0" data-gloss="blended-pricing">Blended</span> or <span class="cs-gloss" tabindex="0" data-gloss="ic-plus-plus">IC++</span>.</p>
   <p class="cs-p reveal">Blended applies one fixed rate to every transaction: simple and predictable, but expensive at high volume. IC++ charges the actual cost of each transaction, which creates room to save at scale. That's why enterprise merchants prefer it.</p>
 
-  <!-- IC++ FEE SIMULATOR — teaser -->
-  <div class="cs-vis reveal cs-sim-teaser">
-    <div class="cs-vis-label">IC++ fee simulation</div>
-    <div class="cs-vis-body cs-sim-teaser-body">
-      <div class="cs-sim-teaser-preview cs-sim-teaser-flow" aria-hidden="true">
-        <div class="cs-sim-flow-node">
-          <span class="cs-sim-teaser-dot cs-sim-teaser-dot--start"></span>
-          <span class="cs-sim-flow-label">Customer Pays</span>
-        </div>
-        <span class="cs-sim-teaser-dot"></span>
-        <span class="cs-sim-teaser-dot"></span>
-        <div class="cs-sim-flow-node">
-          <span class="cs-sim-teaser-dot"></span>
-          <span class="cs-sim-flow-label">Payment Costs</span>
-        </div>
-        <span class="cs-sim-teaser-dot"></span>
-        <span class="cs-sim-teaser-dot"></span>
-        <div class="cs-sim-flow-node">
-          <span class="cs-sim-teaser-dot cs-sim-teaser-dot--end"></span>
-          <span class="cs-sim-flow-label">Merchant Receives</span>
-        </div>
+  <!-- Same payment, different cost: two $100 payments under Blended and IC++ -->
+  <div class="txn-compare reveal">
+    <div class="txn-colhead">
+      <span>Transaction</span>
+      <span class="txn-cols"><span>Blended</span><span>IC++</span></span>
+    </div>
+    <div class="txn-row">
+      <div class="txn-left">
+        <div class="txn-amount">$100</div>
+        <div class="txn-tags">US &middot; Visa &middot; Credit &middot; Card present</div>
       </div>
-      <p class="cs-sim-teaser-desc">A payment may look like a single event, but it's actually a chain of participants, systems, and decisions, each contributing to the final cost.</p>
-      <button class="cs-sim-btn" id="cs-sim-open"><span class="play"></span> See the Cost Flow</button>
+      <div class="txn-cols"><div class="txn-val">$2.50</div><div class="txn-val txn-val--ic">$2.12</div></div>
+    </div>
+    <div class="txn-row">
+      <div class="txn-left">
+        <div class="txn-amount">$100</div>
+        <div class="txn-tags">US &middot; Visa &middot; Credit &middot; Card not present</div>
+      </div>
+      <div class="txn-cols"><div class="txn-val">$2.50</div><div class="txn-val txn-val--ic">$2.41</div></div>
     </div>
   </div>
 
@@ -1693,35 +1688,6 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
     </div>
   </div>
 
-  <!-- IC++ FEE SIMULATOR — modal -->
-  <div class="cs-sim-modal" id="cs-sim-modal" role="dialog" aria-modal="true" aria-labelledby="cs-sim-modal-title" aria-hidden="true">
-    <div class="cs-sim-modal-backdrop" id="cs-sim-modal-backdrop"></div>
-    <div class="cs-vis cs-sim-modal-panel">
-      <button class="cs-sim-modal-close" id="cs-sim-modal-close" aria-label="Close simulation">✕</button>
-      <div class="cs-vis-label" id="cs-sim-modal-title">IC++ fee simulation: select a card type, then run the transaction</div>
-      <div class="cs-vis-body">
-        <div class="cs-sim-hint">Card type</div>
-        <div class="cs-sim-switch" id="cs-sim-switch"></div>
-        <div class="cs-sim-flow" id="cs-sim-flow">
-          <div class="cs-sim-rail" id="cs-sim-rail" aria-hidden="true"></div>
-          <div class="cs-sim-rail-progress" id="cs-sim-rail-progress" aria-hidden="true"></div>
-          <div class="cs-sim-rail-bubble" id="cs-sim-bubble" aria-hidden="true"></div>
-          <div class="cs-sim-source">
-            <div class="cs-sim-source-info">
-              <div class="cs-sim-source-cap">Customer pays</div>
-              <div class="cs-sim-source-amt" id="cs-sim-source-amt">$1,000.00</div>
-            </div>
-            <button class="cs-sim-btn" id="cs-sim-btn"><span class="play"></span> Simulate transaction</button>
-          </div>
-          <div class="cs-sim-stages" id="cs-sim-stages"></div>
-        </div>
-        <div class="cs-sim-strip">
-          <div class="cs-sim-amt-block"><label>Total deducted</label><span class="cs-sim-amt cs-sim-amt--neg" id="cs-sim-ded">-</span></div>
-          <div class="cs-sim-amt-block"><label>Merchant receives</label><span class="cs-sim-amt cs-sim-amt--pos" id="cs-sim-net">-</span></div>
-        </div>
-      </div>
-    </div>
-  </div>
 
 
 
@@ -2614,363 +2580,6 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
   tip.addEventListener('mouseenter', () => clearTimeout(hideTO));
   tip.addEventListener('mouseleave', hideTip);
 })();
-
-/* ================================================================
-   IC++ FEE SIMULATOR — full interactive parity with the source,
-   re-themed: entity labels in the accent, amounts in white, avoidable cost in red
-   reveal, soft greys for gateway/acquirer.
-   ================================================================ */
-(function() {
-  const sw = document.getElementById('cs-sim-switch');
-  const stagesEl = document.getElementById('cs-sim-stages');
-  const btn = document.getElementById('cs-sim-btn');
-  const dedEl = document.getElementById('cs-sim-ded');
-  const netEl = document.getElementById('cs-sim-net');
-  const flow = document.getElementById('cs-sim-flow');
-  const rail = document.getElementById('cs-sim-rail');
-  const progress = document.getElementById('cs-sim-rail-progress');
-  const bubble = document.getElementById('cs-sim-bubble');
-  if (!sw || !stagesEl || !btn) return;
-
-  // The rail is anchored at the "Customer pays $1,000" source amount's vertical
-  // centre and spans down to the settlement row's centre — the glow lifts off
-  // from where the transaction actually originates and rides to "the end".
-  // Recomputed whenever layout shifts (render, the downgrade-detail reveal,
-  // viewport resize, fonts loading) so it always lines up with where those two
-  // elements actually sit.
-  // Each card has a small connector stub bridging it to the rail (see
-  // .cs-sim-stage::before / .cs-sim-final::before) — that joint is the visual
-  // "attachment point" between card and spine, and it's where the bubble
-  // should glide to a stop, not the card's vertical middle. Keep this in sync
-  // with that rule's `top` value so the pause always lands exactly on the joint.
-  const NODE_OFFSET = 27;
-  let railTop = null;
-  function layoutRail() {
-    if (!rail || !flow) return;
-    const sourceAmt = document.getElementById('cs-sim-source-amt');
-    const finalEl = document.getElementById('cs-sim-final');
-    if (!sourceAmt || !finalEl) return;
-    const fr = flow.getBoundingClientRect();
-    const br = sourceAmt.getBoundingClientRect();
-    const er = finalEl.getBoundingClientRect();
-    const top = br.top - fr.top + br.height / 2;
-    const bottom = er.top - fr.top + NODE_OFFSET;
-    railTop = top;
-    rail.style.top = `${top}px`;
-    rail.style.height = `${Math.max(bottom - top, 0)}px`;
-    if (progress) progress.style.top = `${top}px`;
-    if (bubble) bubble.style.top = `${top}px`;
-  }
-  let railResizeTO;
-  window.addEventListener('resize', () => { clearTimeout(railResizeTO); railResizeTO = setTimeout(layoutRail, 150); });
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => layoutRail());
-
-  // Moves the glowing pulse to vertically align with `el`'s connector joint
-  // (NODE_OFFSET down from its top — see above), measured from the rail's
-  // anchor point, animating the trip over `dur` ms (0 = snap instantly, e.g.
-  // to park it at the source amount). The lit trail behind it grows to match —
-  // so the rail visibly "fills in" with lime as the transaction passes through,
-  // and the bubble's resting point always reads as "attached" to the card via
-  // that little stub, never drifting past it toward the card's middle.
-  function placeBubble(el, dur) {
-    if (!bubble || !flow || !el || railTop === null) return;
-    const fr = flow.getBoundingClientRect();
-    const er = el.getBoundingClientRect();
-    const y = Math.max((er.top - fr.top + NODE_OFFSET) - railTop, 0);
-    bubble.style.transitionDuration = `${dur}ms, 320ms`;
-    bubble.style.transform = `translateY(${y}px)`;
-    if (progress) {
-      progress.style.transitionDuration = `${dur}ms, 300ms`;
-      progress.style.opacity = '1';
-      progress.style.height = `${y}px`;
-    }
-  }
-  function showBubble(visible) { if (bubble) bubble.style.opacity = visible ? '1' : '0'; }
-
-  // Inside the modal, taller stage stacks can overflow the visible area —
-  // keep the card the bubble is travelling to in view as the trace runs.
-  function scrollStageIntoView(el) {
-    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  }
-
-  const TXN = 1000;
-  const CARDS = [
-    { id: 'debit',  label: 'Domestic debit' },
-    { id: 'credit', label: 'Consumer credit' },
-    { id: 'corp',   label: 'Corporate card' },
-    { id: 'intl',   label: 'International' }
-  ];
-  const STAGES = [
-    { id: 'gw', entity: 'Payment Gateway', name: 'Processing', color: 'var(--text)',
-      role: "Securely captures the customer's payment details and routes the transaction to the card network for authorisation.",
-      fees: {
-        debit:  [{ n: 'Processing fee', flat: 0.15 }, { n: 'Tokenisation', flat: 0.05 }, { n: '3DS initiation', flat: 0.05 }],
-        credit: [{ n: 'Processing fee', flat: 0.15 }, { n: 'Tokenisation', flat: 0.05 }, { n: '3DS initiation', flat: 0.05 }],
-        corp:   [{ n: 'Processing fee', flat: 0.15 }, { n: 'Tokenisation', flat: 0.05 }, { n: '3DS initiation', flat: 0.08 }],
-        intl:   [{ n: 'Processing fee', flat: 0.15 }, { n: 'Tokenisation', flat: 0.05 }, { n: '3DS initiation', flat: 0.1 }, { n: 'International surcharge', pct: 0.15 }]
-      } },
-    { id: 'net', entity: 'Card Network', name: 'Authorisation & scheme fees', color: 'var(--text)',
-      role: 'Routes the transaction between banks and charges fees for processing it.',
-      fees: {
-        debit:  [{ n: 'Per-authorisation fee', flat: 0.03 }, { n: 'Scheme fee', pct: 0.04 }],
-        credit: [{ n: 'Per-authorisation fee', flat: 0.03 }, { n: 'Scheme fee', pct: 0.08 }],
-        corp:   [{ n: 'Per-authorisation fee', flat: 0.05 }, { n: 'Scheme fee', pct: 0.12 }],
-        intl:   [{ n: 'Per-authorisation fee', flat: 0.05 }, { n: 'Scheme fee (base + cross-border + FX)', pct: 0.4 }]
-      } },
-    { id: 'iss', entity: 'Issuing Bank', name: 'Interchange', color: 'var(--text)',
-      role: "The customer's bank funds the transaction, absorbs credit risk and potential fraud liability, and earns interchange in return. It's the single largest variable in IC++ pricing.",
-      fees: {
-        debit:  [{ n: 'Interchange', pct: 0.95 }],
-        credit: [{ n: 'Interchange', pct: 2.4 }],
-        corp:   [{ n: 'Interchange', pct: 2.95 }],
-        intl:   [{ n: 'Interchange (cross-border corridor rate)', pct: 2.5 }]
-      } },
-    { id: 'acq', entity: 'Acquirer + PSP', name: 'Markup, settlement & payout', color: 'var(--text)',
-      role: "The acquiring bank and payment processor handle settlement, disputes, and transfer funds to the merchant's bank account.",
-      fees: {
-        debit:  [{ n: 'Acquirer markup', pct: 0.1 },  { n: 'Settlement fee (ACH/SEPA)', flat: 0.08 }, { n: 'Payout fee', flat: 0.12 }],
-        credit: [{ n: 'Acquirer markup', pct: 0.15 }, { n: 'Settlement fee (ACH/SEPA)', flat: 0.08 }, { n: 'Payout fee', flat: 0.12 }],
-        corp:   [{ n: 'Acquirer markup', pct: 0.2 },  { n: 'Settlement fee (ACH/SEPA)', flat: 0.08 }, { n: 'Payout fee', flat: 0.12 }],
-        intl:   [{ n: 'Acquirer markup (FX risk)', pct: 0.25 }, { n: 'Settlement fee (ACH/SEPA)', flat: 0.08 }, { n: 'Payout fee', flat: 0.15 }]
-      } }
-  ];
-  const DOWNGRADE = {
-    debit:  { expected: 0.8, actual: 0.95, trigger: 'Settlement submitted 48hrs post-authorisation. Visa requires under 24hrs for this card type to qualify for the standard debit tier.' },
-    credit: { expected: 1.5, actual: 2.4,  trigger: 'Settlement submitted 72hrs post-authorisation. Visa requires under 24hrs for this card type to qualify for the standard tier.' },
-    corp:   { expected: 2.2, actual: 2.95, trigger: 'Missing Level II purchase data. Corporate card programmes require enhanced transaction data to qualify for the standard commercial rate.' },
-    intl:   { expected: 1.8, actual: 2.5,  trigger: 'Cross-border corridor rate applied. Authentication method did not meet strong customer authentication threshold for the standard tier.' }
-  };
-
-  let card = 'debit', timeouts = [];
-  const amt = f => f.flat !== undefined ? f.flat : (f.pct / 100) * TXN;
-  const rateLbl = f => f.flat !== undefined ? `$${f.flat.toFixed(2)} flat` : `${f.pct.toFixed(2)}%`;
-  const stageTotal = s => s.fees[card].reduce((sum, f) => sum + amt(f), 0);
-  const grandTotal = () => STAGES.reduce((sum, s) => sum + stageTotal(s), 0);
-
-  function easeOutCubic(p) { return 1 - Math.pow(1 - p, 3); }
-  function countUp(el, dur) {
-    if (!el || el.dataset.target === undefined) return;
-    const target = parseFloat(el.dataset.target);
-    const neg = target < 0, abs = Math.abs(target), pre = neg ? '−$' : '$', t0 = performance.now();
-    (function step(now) {
-      const p = Math.min((now - t0) / dur, 1), e = easeOutCubic(p);
-      el.textContent = pre + (abs * e).toFixed(2);
-      if (p < 1) requestAnimationFrame(step); else el.textContent = pre + abs.toFixed(2);
-    })(t0);
-  }
-  function countUpRate(el, dur) {
-    const tgt = el.dataset.rate; if (!tgt) return;
-    const isFlat = tgt.includes('flat'), num = parseFloat(tgt.replace(/[^0-9.]/g, '')), t0 = performance.now();
-    (function step(now) {
-      const p = Math.min((now - t0) / dur, 1), e = easeOutCubic(p), v = num * e;
-      el.textContent = isFlat ? `$${v.toFixed(2)} flat` : `${v.toFixed(2)}%`;
-      if (p < 1) requestAnimationFrame(step); else el.textContent = tgt;
-    })(t0);
-  }
-  function animateAmt(el, target, dur) {
-    if (!el) return;
-    const neg = target < 0, abs = Math.abs(target), pre = neg ? '−$' : '$', t0 = performance.now();
-    (function step(now) {
-      const p = Math.min((now - t0) / dur, 1), e = easeOutCubic(p);
-      el.textContent = pre + (abs * e).toFixed(2);
-      if (p < 1) requestAnimationFrame(step); else el.textContent = pre + abs.toFixed(2);
-    })(t0);
-  }
-
-  function render() {
-    timeouts.forEach(clearTimeout); timeouts = [];
-    sw.innerHTML = CARDS.map(c => `<button class="${c.id === card ? 'on' : ''}" data-card="${c.id}">${c.label}</button>`).join('');
-    sw.querySelectorAll('button').forEach(b => b.addEventListener('click', () => { card = b.dataset.card; render(); }));
-
-    let html = '';
-    STAGES.forEach((s, si) => {
-      const total = stageTotal(s), dg = DOWNGRADE[card], isIss = s.id === 'iss';
-      const feesHtml = isIss
-        ? `<div class="cs-sim-fee-row"><span class="fr-name" id="cs-sim-iss-name">Interchange</span><span class="fr-rate" id="cs-sim-iss-rate">0.00%</span><span class="fr-amt" style="color:${s.color}" data-target="-${amt(s.fees[card][0]).toFixed(2)}" id="cs-sim-iss-amt">−$0.00</span></div>
-           <div class="cs-sim-dg" id="cs-sim-dg-detail">
-             <div class="cs-sim-fee-row"><span class="fr-name">Expected rate</span><span class="fr-rate">${dg.expected.toFixed(2)}%</span><span class="fr-amt" style="color:${s.color}">−$${((dg.expected/100)*TXN).toFixed(2)}</span></div>
-             <div class="cs-sim-fee-row" style="border-top:1px solid var(--line);margin-top:6px;padding-top:8px;"><span class="fr-name" style="font-style:italic;">Avoidable cost</span><span></span><span class="fr-amt" style="color:var(--error);font-weight:600;">+$${(((dg.actual-dg.expected)/100)*TXN).toFixed(2)}</span></div>
-             <div style="margin-top:10px;font-style:italic;">${dg.trigger}</div>
-           </div>`
-        : s.fees[card].map(f => `<div class="cs-sim-fee-row"><span class="fr-name">${f.n}</span><span class="fr-rate" data-rate="${rateLbl(f)}">${f.flat !== undefined ? '$0.00 flat' : '0.00%'}</span><span class="fr-amt" style="color:${s.color}" data-target="-${amt(f).toFixed(2)}">−$0.00</span></div>`).join('');
-
-      html += `<div class="cs-sim-stage" id="cs-sim-stage-${si}">
-        <div>
-          <div class="cs-sim-stage-entity" style="color:var(--accent)">${s.entity}</div>
-          <div class="cs-sim-stage-name">${s.name}</div>
-          <div class="cs-sim-stage-role">${s.role}</div>
-          <div class="cs-sim-stage-fees">${feesHtml}</div>
-        </div>
-        <div class="cs-sim-stage-amt" style="color:${s.color}" data-target="-${total.toFixed(2)}">−$0.00</div>
-      </div>`;
-    });
-    const net = TXN - grandTotal();
-    html += `<div class="cs-sim-final" id="cs-sim-final">
-      <div class="cs-sim-final-label">Merchant's bank account receives</div>
-      <div class="cs-sim-final-amt" data-target="${net.toFixed(2)}" id="cs-sim-final-amt">$0.00</div>
-    </div>`;
-    const dgDelta = ((DOWNGRADE[card].actual - DOWNGRADE[card].expected) / 100) * TXN;
-    const annualRaw = 500000000 * (DOWNGRADE[card].actual - DOWNGRADE[card].expected) / 100;
-    const annualFmt = annualRaw >= 1e6 ? `$${(annualRaw/1e6).toFixed(1)}M` : `$${(annualRaw/1e3).toFixed(0)}K`;
-    html += `<div class="cs-sim-callout" id="cs-sim-callout">This transaction lost <strong>$${dgDelta.toFixed(2)}</strong> to a downgrade. At $500M annual volume, that rate of avoidable loss accounts for <strong>${annualFmt}</strong> per year, across dozens of reasons, none of them visible on the invoice.</div>`;
-
-    stagesEl.innerHTML = html;
-    dedEl.textContent = '-';
-    netEl.textContent = '-';
-    btn.disabled = false;
-    btn.classList.remove('is-dissolved');
-    layoutRail();
-    if (bubble) {
-      bubble.style.transitionDuration = '0ms, 0ms, 0ms, 0ms';
-      bubble.style.opacity = '0.6';
-      bubble.style.transform = 'translateY(0px)';
-      bubble.classList.add('is-idle');
-    }
-    if (progress) {
-      progress.style.transitionDuration = '0ms, 0ms';
-      progress.style.opacity = '0';
-      progress.style.height = '0px';
-    }
-  }
-
-  function activateStage(idx) {
-    const stage = document.getElementById(`cs-sim-stage-${idx}`);
-    if (!stage) return;
-    stage.classList.add('is-active');
-    stage.querySelectorAll('[data-target]').forEach(el => countUp(el, 700));
-    stage.querySelectorAll('[data-rate]').forEach(el => countUpRate(el, 700));
-  }
-
-  function runSimulation() {
-    if (btn.disabled) return;
-    btn.disabled = true;
-    btn.classList.add('is-dissolved');
-    timeouts.forEach(clearTimeout); timeouts = [];
-
-    // The bubble is the visual stand-in for the transaction itself: it lifts off
-    // the "$1,000" source amount — where the money actually starts — travels to
-    // each entity in turn, and only once it *arrives* does that stage light up —
-    // elevated, glowing, active. TRAVEL + DWELL together match the previous
-    // per-stage cadence (STEP+GAP = 1080ms) so the overall pacing of the
-    // sequence feels the same as before.
-    const TRAVEL = 720, DWELL = 520;
-    let t = 60;
-
-    // Lift off: snap the bubble onto the source amount, then fade it in.
-    timeouts.push(setTimeout(() => {
-      placeBubble(document.getElementById('cs-sim-source-amt'), 0);
-      bubble.classList.remove('is-idle');
-      showBubble(true);
-    }, t));
-    t += 180;
-
-    STAGES.forEach((s, si) => {
-      timeouts.push(setTimeout(() => {
-        const stageEl = document.getElementById(`cs-sim-stage-${si}`);
-        placeBubble(stageEl, TRAVEL);
-        scrollStageIntoView(stageEl);
-      }, t));
-      t += TRAVEL;
-      const arriveAt = t;
-      timeouts.push(setTimeout(() => activateStage(si), arriveAt));
-      if (s.id === 'iss') {
-        timeouts.push(setTimeout(() => {
-          const dd = document.getElementById('cs-sim-dg-detail');
-          if (dd) dd.classList.add('is-revealed');
-          // The downgrade detail expands the Issuing Bank card, pushing the
-          // settlement row further down — re-measure so the rail's far end
-          // still lands exactly on it.
-          layoutRail();
-          const nm = document.getElementById('cs-sim-iss-name');
-          if (nm) { nm.style.transition = 'color .3s ease'; nm.style.color = 'var(--error)'; nm.textContent = 'Actual rate'; }
-          const am = document.getElementById('cs-sim-iss-amt');
-          if (am) { am.style.transition = 'color .3s ease'; am.style.color = 'var(--error)'; }
-          const rl = document.getElementById('cs-sim-iss-rate');
-          if (rl) {
-            const dg = DOWNGRADE[card];
-            rl.innerHTML = `<span style="color:var(--error);font-family:'Geist Mono',monospace;">${dg.actual.toFixed(2)}%</span> <span style="background:var(--bg-soft);color:var(--error);padding:2px 8px;border-radius:4px;font-size:9.5px;letter-spacing:0.06em;text-transform:uppercase;white-space:nowrap;">↑ downgraded</span>`;
-          }
-        }, arriveAt + 340));
-      }
-      t += DWELL;
-    });
-
-    // Final leg: the bubble settles into the merchant payout row, then dissolves
-    // as the receipt totals count up.
-    timeouts.push(setTimeout(() => {
-      const finalEl = document.getElementById('cs-sim-final');
-      placeBubble(finalEl, TRAVEL);
-      scrollStageIntoView(finalEl);
-    }, t));
-    t += TRAVEL;
-    timeouts.push(setTimeout(() => {
-      const final = document.getElementById('cs-sim-final');
-      if (final) final.classList.add('is-active');
-      countUp(document.getElementById('cs-sim-final-amt'), 900);
-      const tot = grandTotal();
-      animateAmt(dedEl, -tot, 900);
-      animateAmt(netEl, TXN - tot, 900);
-      showBubble(false);
-      timeouts.push(setTimeout(() => {
-        const callout = document.getElementById('cs-sim-callout');
-        if (callout) callout.classList.add('is-visible');
-      }, 500));
-    }, t));
-  }
-
-  btn.addEventListener('click', runSimulation);
-  render();
-})();
-
-/* ================================================================
-   IC++ FEE SIMULATOR — modal open/close
-   ================================================================ */
-(function() {
-  const openBtn  = document.getElementById('cs-sim-open');
-  const modal    = document.getElementById('cs-sim-modal');
-  const closeBtn = document.getElementById('cs-sim-modal-close');
-  const backdrop = document.getElementById('cs-sim-modal-backdrop');
-  if (!openBtn || !modal || !closeBtn || !backdrop) return;
-
-  let lastFocus = null;
-  const focusables = () => Array.prototype.filter.call(
-    modal.querySelectorAll('button, [href], [tabindex]:not([tabindex="-1"])'),
-    el => !el.disabled && el.offsetParent !== null);
-
-  function openModal() {
-    lastFocus = document.activeElement;
-    modal.classList.add('is-open');
-    modal.setAttribute('aria-hidden', 'false');
-    document.body.style.overflow = 'hidden';
-    // The rail/bubble layout is computed from element offsets, which are 0
-    // while the modal is hidden — recompute now that it's visible.
-    window.dispatchEvent(new Event('resize'));
-    closeBtn.focus({ preventScroll: true });
-    requestAnimationFrame(() => { if (modal.classList.contains('is-open') && !modal.contains(document.activeElement)) closeBtn.focus({ preventScroll: true }); });
-  }
-  function closeModal() {
-    modal.classList.remove('is-open');
-    modal.setAttribute('aria-hidden', 'true');
-    document.body.style.overflow = '';
-    if (lastFocus && lastFocus.focus) lastFocus.focus();
-  }
-  /* Keep Tab inside the dialog while it is open */
-  modal.addEventListener('keydown', (e) => {
-    if (e.key !== 'Tab') return;
-    const f = focusables(); if (!f.length) return;
-    const first = f[0], last = f[f.length - 1];
-    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
-    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
-  });
-
-  openBtn.addEventListener('click', openModal);
-  closeBtn.addEventListener('click', closeModal);
-  backdrop.addEventListener('click', closeModal);
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modal.classList.contains('is-open')) closeModal();
-  });
-})();
-
 
 /* PERSONAS: each card's month opens and closes from the row at its foot */
 (function() {
