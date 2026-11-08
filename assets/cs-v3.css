@@ -750,3 +750,31 @@ body:not(.cs-skilling) .cs-phase-tag { margin-top: 72px; }
   .txn-cols { gap: 16px; }
   .txn-cols > * { width: 60px; }
 }
+
+/* ===== Users: three people around one gap (the walkthrough's slide 11) =====
+   Hairline's light lines, plain faces. The gap in the middle is the accent: what none of them
+   could see. */
+.cs-users-vis { margin: 48px 0; }
+.user-vis { display: block; width: 100%; max-width: 520px; height: auto; margin: 0 auto; overflow: visible; }
+.user-vis polygon, .user-vis path, .user-vis circle { stroke: rgb(var(--fg-rgb) / .24); stroke-width: .9; stroke-linejoin: round; stroke-linecap: round; vector-effect: non-scaling-stroke; fill: var(--bg); }
+.user-vis .plinth polygon { stroke: rgb(var(--fg-rgb) / .2); }
+.user-vis polygon.hot { stroke: var(--accent); }
+.user-vis .f-t.hot { fill: color-mix(in srgb, var(--accent) 16%, var(--bg)); }
+.user-vis .f-l.hot, .user-vis .f-r.hot { fill: color-mix(in srgb, var(--accent) 26%, var(--bg)); }
+.user-vis .dash { stroke: rgb(var(--fg-rgb) / .22); stroke-width: .9; stroke-dasharray: 3 4; vector-effect: non-scaling-stroke; }
+.user-vis .hotline { stroke: var(--accent); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.user-vis text { font-family: var(--font); }
+.user-vis .lb-t { font-size: 15px; font-weight: 500; fill: var(--text); }
+.user-vis .lb-s { font-size: 13px; fill: var(--text-muted); }
+
+.cs-user-rows { margin: 48px 0; }
+.cs-user-row { display: grid; grid-template-columns: minmax(150px, 200px) 1fr; gap: 40px; padding: 32px 0; border-top: 1px solid var(--line); outline: none; }
+.cs-user-row:last-child { padding-bottom: 0; }
+.cs-user-name { font: 500 17px/1.35 var(--font); color: var(--text); }
+.cs-user-owns { margin-top: 4px; font: 400 13px/1.45 var(--font); color: var(--text-muted); }
+.cs-user-note { margin: 0; font: 400 15px/1.6 var(--font); color: var(--text-soft); }
+.cs-user-ask { margin: 20px 0 0; font: 400 15px/1.5 var(--font); color: var(--text); }
+.cs-user-ask span { display: block; margin-bottom: 6px; font: 400 11px/1.3 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--accent); }
+@media (max-width: 600px) {
+  .cs-user-row { grid-template-columns: 1fr; gap: 12px; padding: 24px 0; }
+}
