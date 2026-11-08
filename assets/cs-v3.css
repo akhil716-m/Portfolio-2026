@@ -330,7 +330,7 @@
 .cs-scale-col { text-align: center; }
 .cs-scale-eyebrow { display: block; font: 400 11px/1.3 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--text-muted); }
 .cs-scale-lead { margin: 8px 0 4px; font: 500 15px/1.4 var(--font); color: var(--text); }
-.cs-scale-note { max-width: 30ch; margin: 0 auto; font: 400 13.5px/1.55 var(--font); color: var(--text-soft); }
+.cs-scale-note { max-width: 30ch; margin: 12px auto 0; font: 400 13.5px/1.55 var(--font); color: var(--text-soft); }
 .cs-scale-note b { font-weight: 400; color: var(--text); }
 .cs-scale-col--win .cs-scale-note b { color: var(--accent); }
 .cs-scale-foot { display: flex; justify-content: space-between; gap: 16px; margin-top: 26px; padding-top: 14px; border-top: 1px solid var(--line); }
