@@ -829,3 +829,14 @@ body:not(.cs-skilling) .cs-phase-tag { margin-top: 72px; }
 .cs-iter figcaption { margin-top: 12px; font: 400 13.5px/1.55 var(--font); color: var(--text-soft); }
 .cs-iter figcaption span { display: block; margin-bottom: 4px; font: 400 11px/1.4 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--text); }
 @media (max-width: 640px) { .cs-iter { grid-template-columns: 1fr; } }
+
+/* ===== HyperSense approach: three-up open rows (research, constraints, gaps) */
+.cs-trio { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin: 36px 0 8px; }
+.cs-trio-item { border-top: 1px solid var(--line); padding-top: 16px; }
+.cs-trio-k { font: 400 11px/1.4 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 10px; }
+.cs-trio-t { font: 400 15px/1.45 var(--font); color: var(--text); }
+.cs-trio-d { margin: 6px 0 0; font: 400 13.5px/1.55 var(--font); color: var(--text-soft); }
+@media (max-width: 640px) { .cs-trio { grid-template-columns: 1fr; gap: 20px; } }
+#cs-approach .cs-h3 { margin-top: 72px; }
+#cs-approach .cs-display + .cs-h3 { margin-top: 32px; }
+#cs-approach .cs-role + .cs-p { margin-top: 32px; }

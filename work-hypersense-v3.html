@@ -1272,7 +1272,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 
 </style>
 <link rel="stylesheet" href="assets/cs-article.css">
-<link rel="stylesheet" href="assets/cs-v3.css?v=107">
+<link rel="stylesheet" href="assets/cs-v3.css?v=111">
 <style>
 /* This project's colour in dark mode: the purple of the night sky */
 :root[data-theme="dark"] {
@@ -1728,9 +1728,25 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 
   <div class="cs-label reveal">Approach</div>
   <h2 class="cs-display reveal">Starting with <em>very little.</em></h2>
-  <p class="cs-p reveal">With the terrain and the users clear, we needed to understand the ecosystem ourselves. We started with <span class="cs-num">industry reports</span>, insights from the <span class="cs-num">agencies</span> that audit these costs by hand, and conversations with merchants at <span class="cs-num">payment events</span>, where we also pitched the idea to test it.</p>
-  <p class="cs-p reveal">That gave us a starting point, but not much to design from. No product like this existed, so there were no patterns to borrow. Transaction data sits behind NDAs, so we couldn&rsquo;t know what fee reports would contain, and we were new to the domain. Early decisions had to start from hypotheses.</p>
-  <p class="cs-p reveal">So we built a first cut with what we had: four lightweight modules, Overview, Observe, Deviations and Audit, each giving merchants a first look at their costs.</p>
+
+  <h3 class="cs-h3 reveal">Understanding the ecosystem became our first step.</h3>
+  <p class="cs-p reveal">We started with industry reports, insights from agencies that manually audit payment costs, and conversations with merchants at industry events. This helped us understand how payment costs were structured and where merchants struggled with visibility.</p>
+  <div class="cs-trio reveal">
+    <div class="cs-trio-item"><div class="cs-trio-k">Secondary</div><div class="cs-trio-t">Industry reports</div><p class="cs-trio-d">How payment leaders describe cost structures.</p></div>
+    <div class="cs-trio-item"><div class="cs-trio-k">Agencies</div><div class="cs-trio-t">Cost-audit firms</div><p class="cs-trio-d">Where merchants struggle to see their costs.</p></div>
+    <div class="cs-trio-item"><div class="cs-trio-k">Events</div><div class="cs-trio-t">Merchant conversations</div><p class="cs-trio-d">Pitching the idea and testing it in person.</p></div>
+  </div>
+
+  <h3 class="cs-h3 reveal">We had little to design from.</h3>
+  <p class="cs-p reveal">There were no established product patterns to follow, access to real transaction data was restricted by NDAs, and we were still learning a domain with complex pricing structures. Much of our early design work had to begin with hypotheses rather than established patterns or validated data.</p>
+  <div class="cs-trio reveal">
+    <div class="cs-trio-item"><div class="cs-trio-t">No patterns to follow</div><p class="cs-trio-d">Nothing comparable existed to borrow from.</p></div>
+    <div class="cs-trio-item"><div class="cs-trio-t">Data behind NDAs</div><p class="cs-trio-d">Real transaction data was off limits.</p></div>
+    <div class="cs-trio-item"><div class="cs-trio-t">A complex, new domain</div><p class="cs-trio-d">Pricing structures we were still learning.</p></div>
+  </div>
+
+  <h3 class="cs-h3 reveal">Our first cut was four lightweight modules.</h3>
+  <p class="cs-p reveal">We built Overview, Observe, Deviations and Audit to give merchants an initial view of their payment costs and test our assumptions about what they needed.</p>
 
   <!-- First cut: four screens in one frame; the tabs move on by themselves, or pick one -->
   <div class="cs-fc cs-vis--wide reveal">
@@ -1738,24 +1754,24 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
     <div class="cs-fc-tabs" role="group" aria-label="First-cut screens"><button type="button" class="on" aria-current="true">Overview</button><button type="button">Observe</button><button type="button">Deviations</button><button type="button">Audit</button></div>
   </div>
 
-  <!-- Iterations: placeholders. Replace each .cs-iter-ph with an <img> when the designs are ready. -->
-  <p class="cs-p reveal">We kept iterating on that first cut as we learned more.</p>
-  <div class="cs-iter cs-vis--wide reveal">
-    <figure><div class="cs-iter-ph">Design to come</div><figcaption><span>Iteration 01</span> What changed in this round.</figcaption></figure>
-    <figure><div class="cs-iter-ph">Design to come</div><figcaption><span>Iteration 02</span> What changed in this round.</figcaption></figure>
-    <figure><div class="cs-iter-ph">Design to come</div><figcaption><span>Iteration 03</span> What changed in this round.</figcaption></figure>
+  <h3 class="cs-h3 reveal">Taking the first cut to merchants revealed three gaps.</h3>
+  <p class="cs-p reveal">We used early demos, merchant conversations and pilots to understand where the experience fell short. Three things became clear:</p>
+  <div class="cs-trio reveal">
+    <div class="cs-trio-item"><div class="cs-trio-t">Disconnected experience</div><p class="cs-trio-d">Modules worked independently rather than guiding merchants through an investigation.</p></div>
+    <div class="cs-trio-item"><div class="cs-trio-t">Unclear navigation</div><p class="cs-trio-d">Names like Observe and Deviations didn&rsquo;t communicate their purpose.</p></div>
+    <div class="cs-trio-item"><div class="cs-trio-t">Different merchant setups</div><p class="cs-trio-d">Multiple PSPs and pricing models meant the experience needed to adapt to different configurations.</p></div>
   </div>
 
-  <p class="cs-p reveal">Each round, demos and pilots, and eventually real payment data, showed where it fell short. The module names didn&rsquo;t explain themselves. The modules didn&rsquo;t connect, so each was used on its own. And every merchant&rsquo;s setup was different, from one PSP to many, and from Blended to IC++.</p>
-  <p class="cs-p reveal">What we learned became the principles that shaped the experience:</p>
-  <ol class="cs-prin-list reveal">
-    <li><span>Anchor on questions.</span> Each module follows the questions teams ask once an invoice arrives.</li>
-    <li><span>Guide, don&rsquo;t show everything.</span> Only what needs attention is highlighted; the rest is a click away.</li>
-    <li><span>Disclose progressively.</span> Start broad, find the driver, then reach the evidence when it&rsquo;s needed.</li>
-    <li><span>Surface the signal.</span> Detect meaningful deviations so nobody scans the data by hand.</li>
-    <li><span>Relevance over volume.</span> Show the changes that matter to each merchant, not every change.</li>
-  </ol>
-  <p class="cs-p reveal">Those principles shaped how we organised the product.</p>
+  <h3 class="cs-h3 reveal">Principles that shaped the experience.</h3>
+  <p class="cs-p reveal">Payment cost data is dense, and the challenge was to make it easier to investigate without losing the detail teams need to act.</p>
+  <dl class="cs-role cs-role--plain reveal">
+    <div class="cs-role-row"><dt><span>Anchor on questions.</span></dt><dd>Organise the experience around the questions teams need answered.</dd></div>
+    <div class="cs-role-row"><dt><span>Guide, don&rsquo;t show everything.</span></dt><dd>Highlight what needs attention and keep supporting detail accessible.</dd></div>
+    <div class="cs-role-row"><dt><span>Disclose progressively.</span></dt><dd>Start broad, identify the driver, then reveal the evidence.</dd></div>
+    <div class="cs-role-row"><dt><span>Surface the signal.</span></dt><dd>Bring meaningful deviations forward instead of making teams scan everything.</dd></div>
+    <div class="cs-role-row"><dt><span>Relevance over volume.</span></dt><dd>Show what matters to each merchant, not every change.</dd></div>
+  </dl>
+  <p class="cs-p reveal">These principles shaped how we brought fragmented payment signals into one connected investigation experience.</p>
 
 </div>
 </section>
