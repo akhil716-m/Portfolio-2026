@@ -840,3 +840,7 @@ body:not(.cs-skilling) .cs-phase-tag { margin-top: 72px; }
 #cs-approach .cs-h3 { margin-top: 72px; }
 #cs-approach .cs-display + .cs-h3 { margin-top: 32px; }
 #cs-approach .cs-role + .cs-p { margin-top: 32px; }
+.cs-gap-main { margin: 36px 0 0; border-top-color: var(--accent); }
+.cs-gap-main .cs-trio-t { color: var(--accent); }
+.cs-gap-main .cs-trio-d { max-width: 62ch; font-size: 14.5px; line-height: 1.7; }
+.cs-gap-main + .cs-trio { margin-top: 40px; }
