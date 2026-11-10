@@ -1272,7 +1272,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 
 </style>
 <link rel="stylesheet" href="assets/cs-article.css">
-<link rel="stylesheet" href="assets/cs-v3.css?v=124">
+<link rel="stylesheet" href="assets/cs-v3.css?v=125">
 <style>
 /* This project's colour in dark mode: the purple of the night sky */
 :root[data-theme="dark"] {
@@ -2117,18 +2117,39 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 </section>
 <div class="cs-evo-lb" id="cs-evo-lb" role="dialog" aria-modal="true" aria-label="Iteration screen" hidden>
   <button type="button" class="cs-evo-lb-x" aria-label="Close">Close</button>
+  <button type="button" class="cs-evo-lb-nav cs-evo-lb-prev" aria-label="Previous screen"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M12.5 4.5L7 10l5.5 5.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+  <button type="button" class="cs-evo-lb-nav cs-evo-lb-next" aria-label="Next screen"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7.5 4.5L13 10l-5.5 5.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
   <div class="cs-evo-lb-scroll"><img alt=""></div>
 </div>
 <script>
 (function(){
   var lb=document.getElementById('cs-evo-lb'); if(!lb) return;
-  var img=lb.querySelector('img'), sc=lb.querySelector('.cs-evo-lb-scroll'), last=null;
+  document.body.appendChild(lb);
+  var img=lb.querySelector('img'), sc=lb.querySelector('.cs-evo-lb-scroll'),
+      prev=lb.querySelector('.cs-evo-lb-prev'), next=lb.querySelector('.cs-evo-lb-next'),
+      set=[], at=0, last=null;
+  function show(i){
+    at=i; var b=set[i], s=b.querySelector('img');
+    img.src=s.currentSrc||s.src; img.alt=s.alt; sc.scrollTop=0;
+    prev.disabled=i===0; next.disabled=i===set.length-1;
+  }
   function close(){ lb.hidden=true; document.documentElement.style.overflow=''; img.removeAttribute('src'); if(last) last.focus(); }
   document.querySelectorAll('.cs-evo-shot').forEach(function(b){
-    b.addEventListener('click',function(){ var i=b.querySelector('img'); last=b; img.src=i.currentSrc||i.src; img.alt=i.alt; sc.scrollTop=0; lb.hidden=false; document.documentElement.style.overflow='hidden'; lb.querySelector('.cs-evo-lb-x').focus(); });
+    b.addEventListener('click',function(){
+      set=[].slice.call(b.closest('.cs-evo-strip').querySelectorAll('.cs-evo-shot')); last=b;
+      lb.hidden=false; document.documentElement.style.overflow='hidden'; show(set.indexOf(b));
+      lb.querySelector('.cs-evo-lb-x').focus();
+    });
   });
+  prev.addEventListener('click',function(){ if(at>0) show(at-1); });
+  next.addEventListener('click',function(){ if(at<set.length-1) show(at+1); });
   lb.addEventListener('click',function(e){ if(e.target===lb||e.target===sc||e.target.classList.contains('cs-evo-lb-x')) close(); });
-  document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&!lb.hidden) close(); });
+  document.addEventListener('keydown',function(e){
+    if(lb.hidden) return;
+    if(e.key==='Escape') close();
+    else if(e.key==='ArrowLeft'&&at>0) show(at-1);
+    else if(e.key==='ArrowRight'&&at<set.length-1) show(at+1);
+  });
 })();
 </script>
 
