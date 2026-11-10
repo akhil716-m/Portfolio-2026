@@ -844,3 +844,16 @@ body:not(.cs-skilling) .cs-phase-tag { margin-top: 72px; }
 .cs-gap-main .cs-trio-t { color: var(--accent); }
 .cs-gap-main .cs-trio-d { max-width: 62ch; font-size: 14.5px; line-height: 1.7; }
 .cs-gap-main + .cs-trio { margin-top: 40px; }
+
+/* HyperSense: Design Evolution (one strip of iterations per module) */
+.cs-evo-mod { margin-top: 112px; }
+.v3-cs .cs-evo-mod .cs-h3 { margin-top: 12px; }
+.cs-evo-strip { display: flex; gap: 20px; margin: 36px 0 8px; padding-bottom: 16px; overflow-x: auto; scroll-snap-type: x proximity; scrollbar-width: thin; scrollbar-color: rgb(var(--fg-rgb) / .2) transparent; }
+.v3-cs .cs-evo-frame { flex: 0 0 46%; margin: 0; padding: 0; background: none; border: 0; border-radius: 0; box-shadow: none; scroll-snap-align: start; }
+.cs-evo-shot { aspect-ratio: 1200/1380; overflow: hidden; background: #fff; border: 1px solid var(--line); }
+.cs-evo-shot img { display: block; width: 100%; height: auto; }
+.cs-evo-frame figcaption { margin-top: 12px; font: 400 13.5px/1.55 var(--font); color: var(--text-soft); }
+.cs-evo-frame figcaption span { display: block; margin-bottom: 4px; font: 400 11px/1.4 var(--mono); letter-spacing: .06em; color: var(--text-muted); }
+.cs-evo-frame:last-child figcaption span { color: var(--accent); }
+.cs-evo-mod .cs-role { margin-top: 28px; }
+@media (max-width: 640px) { .v3-cs .cs-evo-frame { flex-basis: 82%; } .cs-evo-mod { margin-top: 80px; } }
