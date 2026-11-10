@@ -2044,20 +2044,20 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
   </div>
 
   <div class="cs-evo-mod">
-    <div class="cs-module-tag reveal">Observe</div>
+    <div class="cs-module-tag reveal">Drill-Down</div>
     <h3 class="cs-h3 reveal">How deep can a cost be broken down?</h3>
-    <div class="cs-evo-strip cs-vis--wide reveal" tabindex="0" aria-label="Observe iterations, scroll sideways">
-      <figure class="cs-evo-frame"><button type="button" class="cs-evo-shot" aria-label="View Observe iteration 1 full size"><img src="assets/hypersense/iterations/observe-01.webp" alt="Observe iteration 1" loading="lazy" decoding="async" width="2000" height="3833"></button></figure>
-      <figure class="cs-evo-frame"><button type="button" class="cs-evo-shot" aria-label="View Observe iteration 2 full size"><img src="assets/hypersense/iterations/observe-02.webp" alt="Observe iteration 2" loading="lazy" decoding="async" width="2000" height="4975"></button></figure>
-      <figure class="cs-evo-frame"><button type="button" class="cs-evo-shot" aria-label="View Observe iteration 3 full size"><img src="assets/hypersense/iterations/observe-03.webp" alt="Observe iteration 3" loading="lazy" decoding="async" width="2000" height="5328"></button></figure>
-      <figure class="cs-evo-frame"><button type="button" class="cs-evo-shot" aria-label="View Observe iteration 4 full size"><img src="assets/hypersense/iterations/observe-04.webp" alt="Observe iteration 4" loading="lazy" decoding="async" width="2000" height="3839"></button></figure>
-      <figure class="cs-evo-frame"><button type="button" class="cs-evo-shot" aria-label="View Observe iteration 5 full size"><img src="assets/hypersense/iterations/observe-05.webp" alt="Observe iteration 5" loading="lazy" decoding="async" width="2000" height="5277"></button></figure>
-      <figure class="cs-evo-frame"><button type="button" class="cs-evo-shot" aria-label="View Observe iteration 6 full size"><img src="assets/hypersense/iterations/observe-06.webp" alt="Observe iteration 6" loading="lazy" decoding="async" width="2000" height="4703"></button></figure>
+    <div class="cs-evo-strip cs-vis--wide reveal" tabindex="0" aria-label="Drill-Down iterations, scroll sideways">
+      <figure class="cs-evo-frame"><button type="button" class="cs-evo-shot" aria-label="View Drill-Down iteration 1 full size"><img src="assets/hypersense/iterations/observe-01.webp" alt="Drill-Down iteration 1" loading="lazy" decoding="async" width="2000" height="3833"></button></figure>
+      <figure class="cs-evo-frame"><button type="button" class="cs-evo-shot" aria-label="View Drill-Down iteration 2 full size"><img src="assets/hypersense/iterations/observe-02.webp" alt="Drill-Down iteration 2" loading="lazy" decoding="async" width="2000" height="4975"></button></figure>
+      <figure class="cs-evo-frame"><button type="button" class="cs-evo-shot" aria-label="View Drill-Down iteration 3 full size"><img src="assets/hypersense/iterations/observe-03.webp" alt="Drill-Down iteration 3" loading="lazy" decoding="async" width="2000" height="5328"></button></figure>
+      <figure class="cs-evo-frame"><button type="button" class="cs-evo-shot" aria-label="View Drill-Down iteration 4 full size"><img src="assets/hypersense/iterations/observe-04.webp" alt="Drill-Down iteration 4" loading="lazy" decoding="async" width="2000" height="3839"></button></figure>
+      <figure class="cs-evo-frame"><button type="button" class="cs-evo-shot" aria-label="View Drill-Down iteration 5 full size"><img src="assets/hypersense/iterations/observe-05.webp" alt="Drill-Down iteration 5" loading="lazy" decoding="async" width="2000" height="5277"></button></figure>
+      <figure class="cs-evo-frame"><button type="button" class="cs-evo-shot" aria-label="View Drill-Down iteration 6 full size"><img src="assets/hypersense/iterations/observe-06.webp" alt="Drill-Down iteration 6" loading="lazy" decoding="async" width="2000" height="4703"></button></figure>
     </div>
     <dl class="cs-role cs-role--plain reveal">
-      <div class="cs-role-row"><dt><span>What we explored</span></dt><dd>Different levels of analytical depth, with flexible grouping and filters across fee types, processors, business units, card types, and other cost dimensions. We also explored how much detail to surface at once.</dd></div>
-      <div class="cs-role-row"><dt><span>What we learned</span></dt><dd>Not every cost can be broken down to the same level. IC++ fees expose granular components, while blended and event-based fees often don&rsquo;t. Showing every dimension together added noise and implied a level of detail that wasn&rsquo;t always available.</dd></div>
-      <div class="cs-role-row"><dt><span>What changed</span></dt><dd>We made Drill-Down more focused on meaningful cost dimensions, giving analysts the flexibility to group and filter wherever detailed data was available. We also made the limits of each breakdown clearer, while keeping broader cost trends and FX insights in Overview.</dd></div>
+      <div class="cs-role-row"><dt><span>What we explored</span></dt><dd>Different levels of analytical depth, testing how analysts could group and filter costs across fee types, processors, business units and card types, and how much detail to surface at once.</dd></div>
+      <div class="cs-role-row"><dt><span>What we learned</span></dt><dd>Not every cost supports the same level of breakdown. IC++ fees expose granular components, while blended and other bundled fees often don&rsquo;t. Showing every dimension together created noise and implied a level of detail the data couldn&rsquo;t support.</dd></div>
+      <div class="cs-role-row"><dt><span>What changed</span></dt><dd>We separated drillable costs from those that couldn&rsquo;t be broken down further. Analysts could explore available costs through relevant dimensions, with the limits of each breakdown made explicit. Broader cost trends and FX insights remained in Overview.</dd></div>
     </dl>
   </div>
 
@@ -2195,9 +2195,9 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 <div class="cs-wrap">
 
   <div class="cs-module-tag reveal" style="margin-top: 72px;">Drill-Down</div>
-  <h3 class="cs-h3 reveal">How is cost distributed across my business?</h3>
-  <p class="cs-p reveal">A single number rarely explains why costs change. Teams needed the ability to break costs down across processors, regions, <span class="cs-gloss" tabindex="0" data-gloss="corridor">corridors</span>, fee types, and currencies.</p>
-  <p class="cs-p reveal">Drill-Down became the investigation layer of the product, helping teams move from cost summaries to the underlying drivers behind them.</p>
+  <h3 class="cs-h3 reveal">Where is my cost coming from?</h3>
+  <p class="cs-p reveal">A total cost only tells part of the story. Teams need to understand what contributes to it and where they can investigate further.</p>
+  <p class="cs-p reveal">Drill-Down separates costs with available component-level data from those that cannot be broken down further. This gives analysts the flexibility to group and filter costs across processors, fee types, business units and card types, tracing the underlying drivers without implying detail that isn&rsquo;t available.</p>
 
 </div>
 <div class="cs-wrap cs-wrap--showcase">
@@ -2208,11 +2208,11 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
   </div>
 </div>
 <div class="cs-wrap">
-  <p class="cs-p reveal">I designed Drill-Down to answer three questions:</p>
+  <p class="cs-p reveal">Drill-Down helps teams answer three questions:</p>
   <ul class="cs-list reveal">
-    <li>Why did costs change?</li>
-    <li>Which segment is driving the change?</li>
-    <li>How much impact is it creating?</li>
+    <li>What makes up my total cost?</li>
+    <li>Which segments contribute to it?</li>
+    <li>How much of that cost can I investigate further?</li>
   </ul>
 </div>
 <div class="cs-wrap">
