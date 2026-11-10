@@ -2094,9 +2094,9 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
       <figure class="cs-evo-frame"><button type="button" class="cs-evo-shot" aria-label="View Audit iteration 10 full size"><img src="assets/hypersense/iterations/audit-10.webp?v=3" alt="Audit iteration 10" loading="lazy" decoding="async" width="2000" height="1667"></button></figure>
     </div>
     <dl class="cs-role cs-role--plain reveal">
-      <div class="cs-role-row"><dt><span>What we explored</span></dt><dd>An audit overview with top insights, rate-by-rate comparison tables, classification errors and comparison across PSPs.</dd></div>
-      <div class="cs-role-row"><dt><span>What we learned</span></dt><dd>Rate tables only work for IC++. Merchants on blended pricing need a check against their contracted rate.</dd></div>
-      <div class="cs-role-row"><dt><span>What changed</span></dt><dd>Audit opens with the extra charged per processor, then splits by pricing model.</dd></div>
+      <div class="cs-role-row"><dt><span>What we explored</span></dt><dd>Different ways to structure a complex audit: a dedicated overview within Audit to surface key findings, followed by separate audit reports for deeper investigation across fee types and processors.</dd></div>
+      <div class="cs-role-row"><dt><span>What we learned</span></dt><dd>With multiple PSPs, networks, pricing models, and fee combinations, a flat list of audit reports made it difficult to navigate and identify where discrepancies existed. Users needed a clearer hierarchy to make sense of the complexity.</dd></div>
+      <div class="cs-role-row"><dt><span>What changed</span></dt><dd>We structured the audit around key fee entities: Interchange, Scheme, and Processor, with nested groupings for networks, fee categories. We surfaced extra charges and discrepancies upfront, giving users clear starting points before diving into individual reports.</dd></div>
     </dl>
   </div>
 
