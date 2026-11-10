@@ -834,6 +834,7 @@ body:not(.cs-skilling) .cs-phase-tag { margin-top: 72px; }
 .cs-trio { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin: 36px 0 8px; }
 .cs-trio-item { border-top: 1px solid var(--line); padding-top: 16px; }
 .cs-trio-k { font: 400 11px/1.4 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 10px; }
+.v3-cs .cs-trio-icon { display: block; width: 18px; height: 18px; margin: 4px 0 14px; color: var(--text-soft); }
 .cs-trio-t { font: 400 15px/1.45 var(--font); color: var(--text); }
 .cs-trio-d { margin: 6px 0 0; font: 400 13.5px/1.55 var(--font); color: var(--text-soft); }
 @media (max-width: 640px) { .cs-trio { grid-template-columns: 1fr; gap: 20px; } }
