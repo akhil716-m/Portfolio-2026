@@ -853,7 +853,6 @@ body:not(.cs-skilling) .cs-phase-tag { margin-top: 72px; }
 .cs-evo-shot { display: flex; align-items: flex-start; width: 100%; padding: 0; aspect-ratio: 3/2; overflow: hidden; background: #fff; border: 1px solid var(--line); cursor: zoom-in; transition: border-color .2s ease; }
 .cs-evo-shot:hover, .cs-evo-shot:focus-visible { border-color: rgb(var(--fg-rgb) / .35); }
 .v3-cs .cs-evo-shot img { display: block; width: 100%; height: auto; }
-.cs-evo-frame figcaption { margin-top: 10px; font: 400 11px/1.4 var(--mono); letter-spacing: .06em; color: var(--text-muted); }
 .cs-evo-lb { position: fixed; inset: 0; z-index: 1000; background: rgb(0 0 0 / .82); }
 .cs-evo-lb[hidden] { display: none; }
 .cs-evo-lb-scroll { position: absolute; inset: 0; overflow-y: auto; padding: 56px 24px; cursor: zoom-out; }
