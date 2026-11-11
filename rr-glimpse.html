@@ -56,7 +56,8 @@
 /* Screens: each on its own stage, with a lot of room around it and the image in the middle,
    like an app window resting on a matte. The stage is the same grey as the case studies'
    recording stages; the screen keeps a hairline and a soft shadow so it lifts off it. */
-.rr-show { display: grid; gap: 20px; margin-top: 56px; }
+.rr-show { display: grid; gap: 20px; }
+.v3-cs .cs-wrap.rr-show { margin-top: 56px; }   /* the v3 wrapper rules (loaded later) zero the margin, so the screens sat right under the text */
 .rr-stage {
   display: flex; align-items: center; justify-content: center; margin: 0;
   padding: clamp(28px, 7.5%, 80px); border-radius: 16px;
@@ -167,7 +168,15 @@
   </div>
 
   <figure class="rr-stage reveal">
-    <img src="assets/rr/glimpse/v3/invoice-details.webp" width="1996" height="1132" alt="Invoice recovery details: the attempts history beside a What's happening? feed explaining each retry" loading="lazy">
+    <img src="assets/rr/glimpse/v4/invoice-details-01.webp" width="1996" height="1133" alt="Invoice recovery details: the merchant's own retries failed, with a Start now prompt to recover the invoice with Revenue Recovery" loading="lazy">
+  </figure>
+
+  <figure class="rr-stage reveal">
+    <img src="assets/rr/glimpse/v4/invoice-details-02.webp" width="1996" height="1133" alt="Invoice recovery details after starting recovery: the next retry is scheduled, and the feed explains what is happening" loading="lazy">
+  </figure>
+
+  <figure class="rr-stage reveal">
+    <img src="assets/rr/glimpse/v4/invoice-details-03.webp" width="1996" height="1133" alt="Invoice recovery details once retries run: $20 of $100 partially recovered, with hard declines and Partial Auth explained in the feed" loading="lazy">
   </figure>
 </div>
 </section>
