@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Instrument+Serif:ital@0;1&family=Geist+Mono:wght@400&family=Public+Sans:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles-v3.css?v=110">
+<link rel="stylesheet" href="styles-v3.css?v=111">
 <script>
   // Time of day before first paint: the visitor's pick, or Auto from their clock
   // (Light 6 am-7 pm, Dark 7 pm-6 am). Internally day is the white theme, night the dark one.
@@ -134,7 +134,7 @@
         </figure>
         <div>
           <p>I'm Akhil, a self-taught product designer with a background in Computer Science. An introvert and, apparently, a serious thinker.</p>
-          <p>I'm based in Hyderabad, though I spent a few years living in Bengaluru.</p>
+          <p>I'm based in <span class="city"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 14.5h11 M3.5 14.5V4.5 M12.5 14.5V4.5 M3.5 8h9 M6 14.5v-3a2 2 0 0 1 4 0v3 M3.5 4.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z M12.5 4.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z M3.5 2.5v-1 M12.5 2.5v-1"/></svg>Hyderabad</span>, though I spent a few years living in <span class="city"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M1.5 14.5h13 M2.5 14.5V9h11v5.5 M5 14.5V11.5 M8 14.5V11.5 M11 14.5V11.5 M5 9a3 3 0 0 1 6 0 M8 6V4.5"/></svg>Bengaluru</span>.</p>
           <p>I've always been curious about how things work, why they're the way they are, and what could make them better. I enjoy questioning the obvious, exploring different possibilities, and experimenting with ideas just to see where they lead. Design eventually became a natural extension of that mindset. It gave me a way to turn those questions and ideas into something tangible. What started as an exploration gradually grew into something I genuinely enjoy doing.</p>
           <p>Over the years, I've worked across fintech and HRMS, designing B2B and enterprise product experiences.</p>
           <p class="meta" style="margin:44px 0 12px">Off the clock</p>
@@ -379,6 +379,12 @@
     });
   }
 })();
+</script>
+<script>
+  // Off the clock: the same soft hover note as the Start here drawings, once per chip entered
+  document.querySelectorAll('.offclock li').forEach(function (li) {
+    li.addEventListener('mouseenter', function () { if (window.v3Sound) window.v3Sound('hover'); });
+  });
 </script>
 </body>
 </html>
