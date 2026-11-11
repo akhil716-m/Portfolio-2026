@@ -440,10 +440,10 @@
    through the three slips. Each loop is 6s. */
 .cs-sys { display: grid; grid-template-columns: repeat(3, 1fr); margin: 36px 0 32px; text-align: center; }
 .iso-sys { width: 100%; height: auto; display: block; overflow: visible; margin-bottom: 6px; }
-.iso-sys polygon { stroke-width: 1; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.iso-sys polygon { stroke-width: .9; stroke-linejoin: round; stroke-linecap: round; vector-effect: non-scaling-stroke; }
 .iso-sys .f-t { fill: var(--bg); }
 .iso-sys .f-l { fill: var(--bg-soft); }
-.iso-sys .sys-obj polygon { stroke: rgb(var(--fg-rgb) / .5); }
+.iso-sys .sys-obj polygon { stroke: rgb(var(--fg-rgb) / .24); }
 .iso-sys .sys-obj .row, .iso-cmp .sys-obj .row { fill: rgb(var(--fg-rgb) / .28); stroke: none; }
 .iso-sys .sys-slip polygon { stroke: var(--accent); }
 .iso-sys .sys-slip .f-t { fill: color-mix(in srgb, var(--accent) 18%, var(--bg)); }
@@ -480,10 +480,10 @@
 .cs-recon-layers--iso .cs-recon-node-title { font: 500 14px/1.3 var(--font); color: var(--text); margin-bottom: 2px; }
 .cs-recon-layers--iso .cs-recon-node-sub { font: 400 12px/1.5 var(--font); color: var(--text-muted); }
 .iso-cmp { width: 100%; max-width: 132px; height: auto; display: block; overflow: visible; margin: 0 auto 6px; }
-.iso-cmp polygon { stroke-width: 1; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.iso-cmp polygon { stroke-width: .9; stroke-linejoin: round; stroke-linecap: round; vector-effect: non-scaling-stroke; }
 .iso-cmp .f-t { fill: var(--bg); }
 .iso-cmp .f-l { fill: var(--bg-soft); }
-.iso-cmp .sys-obj polygon { stroke: rgb(var(--fg-rgb) / .5); }
+.iso-cmp .sys-obj polygon { stroke: rgb(var(--fg-rgb) / .24); }
 .iso-cmp .sys-slip polygon { stroke: var(--accent); }
 .iso-cmp .sys-slip .f-t { fill: color-mix(in srgb, var(--accent) 18%, var(--bg)); }
 .iso-cmp .sys-slip .f-l { fill: color-mix(in srgb, var(--accent) 34%, var(--bg)); }
@@ -493,32 +493,32 @@
    Records are the same orange slips; links are faint dashed lines; a missing record is a dashed
    outline. Drawn by tools/iso/recon3.py. */
 .iso-mini { width: 100%; max-width: 160px; height: auto; display: block; overflow: visible; margin: 0 auto; }
-.iso-mini polygon { stroke-width: 1; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.iso-mini polygon { stroke-width: .9; stroke-linejoin: round; stroke-linecap: round; vector-effect: non-scaling-stroke; }
 .iso-mini .f-t { fill: var(--bg); }
 .iso-mini .f-l { fill: var(--bg-soft); }
-.iso-mini .sys-obj polygon { stroke: rgb(var(--fg-rgb) / .5); }
+.iso-mini .sys-obj polygon { stroke: rgb(var(--fg-rgb) / .24); }
 .iso-mini .sys-slip polygon { stroke: var(--accent); }
 .iso-mini .sys-slip .f-t { fill: color-mix(in srgb, var(--accent) 18%, var(--bg)); }
 .iso-mini .sys-slip .f-l { fill: color-mix(in srgb, var(--accent) 34%, var(--bg)); }
 .iso-mini .ink { fill: var(--accent); stroke: none; }
 .iso-mini .ink-diff { fill: #e05858; stroke: none; }
-.iso-mini .cmp { fill: none; stroke: rgb(var(--fg-rgb) / .45); stroke-width: 1; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
-.iso-mini .ghost polygon { fill: none; stroke: rgb(var(--fg-rgb) / .35); stroke-dasharray: 3 3; }
+.iso-mini .cmp { fill: none; stroke: rgb(var(--fg-rgb) / .3); stroke-width: 1; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.iso-mini .ghost polygon { fill: none; stroke: rgb(var(--fg-rgb) / .22); stroke-dasharray: 3 3; }
 .iso-mini .mlink { fill: none; stroke: rgb(var(--fg-rgb) / .25); stroke-width: 1; stroke-dasharray: 2 3; vector-effect: non-scaling-stroke; }
 .cs-exc-visual .iso-mini { max-width: 150px; }
 .cs-match-diagram .iso-mini { max-width: 170px; }
 /* Account and entry level, nested in one drawing: two account trays compared (⇄ over the gap),
    their entries linked underneath; the two levels named in a key below */
 .iso-topo { width: 100%; max-width: 440px; height: auto; display: block; overflow: visible; margin: 0 auto; }
-.iso-topo polygon { stroke-width: 1; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.iso-topo polygon { stroke-width: .9; stroke-linejoin: round; stroke-linecap: round; vector-effect: non-scaling-stroke; }
 .iso-topo .f-t { fill: var(--bg); }
 .iso-topo .f-l { fill: var(--bg-soft); }
-.iso-topo .sys-obj polygon { stroke: rgb(var(--fg-rgb) / .5); }
+.iso-topo .sys-obj polygon { stroke: rgb(var(--fg-rgb) / .24); }
 .iso-topo .sys-slip polygon { stroke: var(--accent); }
 .iso-topo .sys-slip .f-t { fill: color-mix(in srgb, var(--accent) 18%, var(--bg)); }
 .iso-topo .sys-slip .f-l { fill: color-mix(in srgb, var(--accent) 34%, var(--bg)); }
-.iso-topo .mlink { fill: none; stroke: rgb(var(--fg-rgb) / .5); stroke-width: 1; stroke-dasharray: 3 3; vector-effect: non-scaling-stroke; }
-.iso-topo .cmp { fill: none; stroke: rgb(var(--fg-rgb) / .45); stroke-width: 1; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.iso-topo .mlink { fill: none; stroke: rgb(var(--fg-rgb) / .25); stroke-width: 1; stroke-dasharray: 3 3; vector-effect: non-scaling-stroke; }
+.iso-topo .cmp { fill: none; stroke: rgb(var(--fg-rgb) / .3); stroke-width: 1; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
 .iso-topo .iso-cap { font: 400 10.5px/1 var(--mono); letter-spacing: .1em; fill: var(--text-muted); }
 .cs-topo-key { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 24px; text-align: center; }
 .cs-topo-key .cs-topo-tag { margin-bottom: 0; }
