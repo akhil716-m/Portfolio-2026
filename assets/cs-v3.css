@@ -841,6 +841,7 @@ body:not(.cs-skilling) .cs-phase-tag { margin-top: 72px; }
 #cs-approach .cs-h3 { margin-top: 72px; }
 #cs-approach .cs-display + .cs-h3 { margin-top: 32px; }
 #cs-principles .cs-role { margin-top: 36px; }
+#cs-principles .cs-role-row { grid-template-columns: minmax(270px, 0.45fr) 1fr; }
 .cs-gap-main { margin: 36px 0 0; border-top-color: var(--accent); }
 .cs-gap-main .cs-trio-t { color: var(--accent); }
 .cs-gap-main .cs-trio-d { max-width: 62ch; font-size: 14.5px; line-height: 1.7; }
