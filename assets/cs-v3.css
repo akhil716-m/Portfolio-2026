@@ -884,3 +884,5 @@ body:not(.cs-skilling) .cs-phase-tag { margin-top: 72px; }
 .cs-evo-paths li > span { color: var(--text); font-weight: 400; }
 .cs-evo-mod .cs-role dd .cs-evo-dir { font-size: 22px; line-height: 1.4; letter-spacing: -0.01em; }
 @media (max-width: 600px) { .cs-evo-paths li { grid-template-columns: 1fr; gap: 4px; } }
+/* Design Evolution: objective sits under the chapter tag, above the iterations */
+.cs-evo-obj { margin: 14px 0 28px; max-width: 72ch; font-size: 15px; font-weight: 300; line-height: 1.6; color: var(--text-soft); }
