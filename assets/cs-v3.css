@@ -572,11 +572,6 @@
 .v3-cs .cs-part-title { font-size: clamp(32px, 4.4vw, 44px); line-height: 1.1; font-weight: 500; letter-spacing: -.02em; color: var(--text); margin: 0; }
 .v3-cs .cs-part-title em { font-style: normal; color: var(--text-muted); }
 .v3-cs .cs-part + .cs-section { margin-top: 0; padding-top: 40px; }
-/* Up-skill: a scrollspy at the right edge, only where the margin has room for it */
-.cs-spy { position: fixed; right: 24px; top: 50%; transform: translateY(-50%); z-index: 20; font-size: 13px; font-weight: 500; }
-.cs-spy .nav-group { margin: 0; }
-.cs-spy .nav-list a { height: 30px; padding: 0 0 0 28px; justify-content: flex-end; }
-@media (max-width: 1240px) { .cs-spy { display: none; } }
 /* Up-skill: on Day and Mid the screen is light, so a light veil hid the highlight; darken around it instead */
 :root:not([data-theme="dark"]) .cs-phone { --dim: rgb(18 18 18 / .5); }
 :root:not([data-theme="dark"]) .cs-ring:not(.cs-ring--frame) { box-shadow: 0 0 0 1400px rgb(18 18 18 / .5), inset 0 0 0 1.5px rgb(255 255 255 / .9); }
@@ -890,23 +885,29 @@ body:not(.cs-skilling) .cs-phase-tag { margin-top: 72px; }
 
 /* Case-study index (assets/cs-index.js): ticks at the right edge, one per section.
    Quiet by default; the current tick grows and fills in the project colour as you read it.
-   Names show on hover/focus, and briefly when you cross into a new section. */
-.cs-index { position: fixed; right: 28px; width: 44px; top: 50%; transform: translateY(-50%); z-index: 20; opacity: 0; pointer-events: none; transition: opacity .5s ease; }
-.cs-index.is-on { opacity: 1; pointer-events: auto; }
-.cs-index ol { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
-.cs-index a { position: relative; display: flex; align-items: center; justify-content: flex-end; width: 44px; height: 22px; margin-left: auto; color: var(--text-muted); text-decoration: none; }
+   Names show on hover/focus (over a soft fade so they never sit on the page's text), and the
+   current one shows briefly when you cross into a new section. Names line up in one column
+   just left of the longest tick. */
+.cs-index { position: fixed; right: 28px; width: 32px; top: 50%; transform: translateY(-50%); z-index: 20; opacity: 0; pointer-events: none; transition: opacity .5s ease; }
+/* the nav's own box never catches the mouse: only the ticks do (and the fade, once open) */
+.cs-index.is-on { opacity: 1; }
+.cs-index.is-on a { pointer-events: auto; }
+/* the fade behind the names: covers the gap between ticks and names, so hover holds while moving across */
+.cs-index::before { content: ""; position: absolute; top: -32px; bottom: -32px; right: -28px; width: 340px; background: linear-gradient(to left, var(--bg) 62%, transparent); opacity: 0; pointer-events: none; transition: opacity .3s ease; }
+.cs-index:hover::before, .cs-index:focus-within::before { opacity: 1; pointer-events: auto; }
+.cs-index ol { position: relative; list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.cs-index a { position: relative; display: flex; align-items: center; justify-content: flex-end; width: 32px; height: 16px; margin-left: auto; color: var(--text-muted); text-decoration: none; }
 .cs-index a:focus-visible { outline: none; }
-.cs-index a:focus-visible .ci-name { color: var(--text); }
-.cs-index .ci-name { position: absolute; right: 46px; top: 50%; margin-top: -11px; padding: 5px 8px; border-radius: 6px; background: var(--bg); pointer-events: none; font: 400 12px/1 var(--mono); letter-spacing: .02em; white-space: nowrap; opacity: 0; transform: translateX(6px); transition: opacity .25s ease, transform .3s cubic-bezier(.2,.8,.2,1), color .2s; }
-.cs-index .ci-tick { position: relative; width: 10px; height: 1px; background: currentColor; opacity: .55; transition: width .45s cubic-bezier(.2,.8,.2,1), opacity .3s; }
+.cs-index .ci-tick { position: relative; width: 10px; height: 1px; background: color-mix(in srgb, currentColor 55%, transparent); transition: width .45s cubic-bezier(.2,.8,.2,1), background .3s; }
 .cs-index .ci-tick i { position: absolute; inset: 0; background: var(--accent); transform-origin: left; transform: scaleX(0); transition: transform .2s linear; }
-.cs-index a.is-past .ci-tick { opacity: .9; }
-.cs-index a:hover .ci-tick { width: 18px; opacity: 1; }
-.cs-index a.is-active { color: var(--text); }
-.cs-index a.is-active .ci-tick { width: 32px; opacity: 1; background: var(--line); }
+.cs-index .ci-name { position: absolute; right: calc(100% + 10px); top: 50%; transform: translate(6px, -50%); padding: 2px 6px; border-radius: 4px; font: 400 12px/1 var(--mono); letter-spacing: .02em; white-space: nowrap; color: var(--text-muted); opacity: 0; pointer-events: none; transition: opacity .25s ease, transform .3s cubic-bezier(.2,.8,.2,1), color .2s; }
+.cs-index a.is-past .ci-tick { background: color-mix(in srgb, currentColor 85%, transparent); }
+.cs-index a:hover .ci-tick { width: 18px; background: var(--text); }
+.cs-index a.is-active .ci-tick { width: 32px; background: color-mix(in srgb, var(--text-muted) 40%, transparent); }
 .cs-index a.is-active .ci-tick i { transform: scaleX(var(--p, 0)); }
-.cs-index:hover .ci-name, .cs-index:focus-within .ci-name,
-.cs-index.is-telling a.is-active .ci-name { opacity: 1; transform: none; }
-.cs-index a:hover .ci-name { color: var(--text); }
+.cs-index:hover .ci-name, .cs-index:focus-within .ci-name { opacity: 1; transform: translate(0, -50%); pointer-events: auto; }
+.cs-index a:hover .ci-name, .cs-index a:focus-visible .ci-name, .cs-index a.is-active .ci-name { color: var(--text); }
+/* crossing into a section: only its name shows, on a small backing of the page colour */
+.cs-index.is-telling a.is-active .ci-name { opacity: 1; transform: translate(0, -50%); background: var(--bg); }
 @media (max-width: 1360px) { .cs-index { display: none; } }
-@media (prefers-reduced-motion: reduce) { .cs-index, .cs-index * { transition: none !important; } }
+@media (prefers-reduced-motion: reduce) { .cs-index, .cs-index *, .cs-index::before { transition: none !important; } }

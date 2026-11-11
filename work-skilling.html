@@ -1020,7 +1020,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 @media (prefers-reduced-motion: reduce) { nav .logo a.cs-back { transition: none; } }
 </style>
 <link rel="stylesheet" href="assets/cs-article.css">
-<link rel="stylesheet" href="assets/cs-v3.css?v=148">
+<link rel="stylesheet" href="assets/cs-v3.css?v=156">
 <style>
 /* This project's colour, same as Hypersense: shared default in light/paper, purple in dark */
 :root[data-theme="dark"] { --accent: #a78bfa; --acc-rgb: 167 139 250; --acc-soft: #e6deff; --acc-mid: #5b3fb0; --acc-ink: #1a0f38; --on-accent: #1a0f38; --proj: #a78bfa; --proj-rgb: 167 139 250; --glow: rgb(167 139 250 / .15); --tray: #1a0f38; }
@@ -1029,18 +1029,6 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 <body class="cs-skilling">
 
 
-<!-- Scrollspy: the four parts of the story, at the right edge (the home nav's cube marks the current one) -->
-<nav class="cs-spy" aria-label="Parts of the case study">
-  <div class="nav-group">
-    <span class="nav-dot" aria-hidden="true"><svg viewBox="0 0 14 15"><polygon class="f-l" points="1.5,4.2 7,7.4 7,13.6 1.5,10.4"/><polygon class="f-r" points="7,7.4 12.5,4.2 12.5,10.4 7,13.6"/><polygon class="f-t" points="7,1 12.5,4.2 7,7.4 1.5,4.2"/></svg></span>
-    <ul class="nav-list" data-sound="chime">
-      <li><a href="#top" data-spy="top"><span>Overview</span></a></li>
-      <li><a href="#act-problem" data-spy="act-problem"><span>Problem</span></a></li>
-      <li><a href="#act-approach" data-spy="act-approach"><span>Approach</span></a></li>
-      <li><a href="#act-product" data-spy="act-product"><span>Product</span></a></li>
-    </ul>
-  </div>
-</nav>
 <div class="v3 v3-cs">
 
   <main class="v3-main" id="top">
@@ -1067,7 +1055,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 </header>
 
 <!-- ═══════════════════════ 01 — OVERVIEW ═══════════════════════ -->
-<section class="cs-section" id="cs-overview" data-wash="teal">
+<section class="cs-section" id="cs-overview" data-index="Overview" data-wash="teal">
 <div class="cs-wrap">
 
   <h2 class="cs-display reveal-title">Crafting meaningful learning for <em>blue-collar workers.</em></h2>
@@ -1092,7 +1080,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 </section>
 
 <!-- ═══════════════════════ 02 — USERS ═══════════════════════ -->
-<section class="cs-section" id="cs-users" data-wash="teal">
+<section class="cs-section" id="cs-users" data-index="Users" data-wash="teal">
 <div class="cs-wrap">
 
   <h2 class="cs-display reveal-title">A learning platform built around <em>frontline work.</em></h2>
@@ -1135,7 +1123,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 </div>
 
 <!-- ═══════════════════════ 03 — WHY REDESIGN ═══════════════════════ -->
-<section class="cs-section" id="cs-why" data-wash="amber">
+<section class="cs-section" id="cs-why" data-index="Why redesign" data-wash="amber">
 <div class="cs-wrap">
 
   <h2 class="cs-display reveal-title">Three forces made the redesign <em>necessary.</em></h2>
@@ -1207,7 +1195,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 </section>
 
 <!-- ═══════════════════════ 04 — CHALLENGES ═══════════════════════ -->
-<section class="cs-section" id="cs-challenges" data-wash="amber">
+<section class="cs-section" id="cs-challenges" data-index="Where it broke" data-wash="amber">
 <div class="cs-wrap">
 
   <h2 class="cs-display reveal-title">Where the journey <em>kept breaking.</em></h2>
@@ -1305,7 +1293,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 </section>
 
 <!-- ═══════════════════════ 05 — SCOPE ═══════════════════════ -->
-<section class="cs-section" id="cs-scope" data-wash="amber">
+<section class="cs-section" id="cs-scope" data-index="Scope" data-wash="amber">
 <div class="cs-wrap">
 
   <h2 class="cs-display reveal-title">The moments <em>we chose to fix.</em></h2>
@@ -1367,7 +1355,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 </div>
 
 <!-- ═══════════════════════ 06 — DESIGN APPROACH ═══════════════════════ -->
-<section class="cs-section" id="cs-process" data-wash="steel">
+<section class="cs-section" id="cs-process" data-index="Process" data-wash="steel">
 <div class="cs-wrap">
 
   <h2 class="cs-display reveal-title">Designing the structure <em>before the surface.</em></h2>
@@ -1402,7 +1390,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 </div>
 
 <!-- ═══════════════════════ 07 — HOME ═══════════════════════ -->
-<section class="cs-section" id="cs-home" data-wash="teal">
+<section class="cs-section" id="cs-home" data-index="Home" data-wash="teal">
 <div class="cs-wrap">
 
   <h2 class="cs-display reveal-title">Making learning <em>frontline friendly.</em></h2>
@@ -1461,7 +1449,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 </section>
 
 <!-- ═══════════════════════ 08 — COURSES ═══════════════════════ -->
-<section class="cs-section" id="cs-courses" data-wash="teal">
+<section class="cs-section" id="cs-courses" data-index="Courses" data-wash="teal">
 <div class="cs-wrap">
 
   <h2 class="cs-display reveal-title">Familiar controls. <em>Clearer paths.</em></h2>
@@ -1595,7 +1583,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 </section>
 
 <!-- ═══════════════════════ 09 — ASSESSMENTS ═══════════════════════ -->
-<section class="cs-section" id="cs-assess" data-wash="indigo">
+<section class="cs-section" id="cs-assess" data-index="Assessments" data-wash="indigo">
 <div class="cs-wrap">
 
   <h2 class="cs-display reveal-title">Assessments that feel less like <em>forms.</em></h2>
@@ -1774,7 +1762,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 </section>
 
 <!-- ═══════════════════════ 10 — PLAYLISTS ═══════════════════════ -->
-<section class="cs-section" id="cs-playlists" data-wash="green">
+<section class="cs-section" id="cs-playlists" data-index="Playlists" data-wash="green">
 <div class="cs-wrap">
 
   <h2 class="cs-display reveal-title">Learning, <em>organised into a journey.</em></h2>
@@ -1856,7 +1844,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 </section>
 
 <!-- ═══════════════════════ 11 — MY LEARNING ═══════════════════════ -->
-<section class="cs-section" id="cs-mylearning" data-wash="teal">
+<section class="cs-section" id="cs-mylearning" data-index="My learning" data-wash="teal">
 <div class="cs-wrap">
 
   <h2 class="cs-display reveal-title">A catalogue of the user's <em>learning journey.</em></h2>
@@ -1930,7 +1918,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 </section>
 
 <!-- ═══════════════════════ 12 — EVENTS & MICRO ═══════════════════════ -->
-<section class="cs-section" id="cs-events" data-wash="amber">
+<section class="cs-section" id="cs-events" data-index="Events" data-wash="amber">
 <div class="cs-wrap">
 
   <h2 class="cs-display reveal-title">Beyond courses: <em>learning in different formats.</em></h2>
@@ -2071,7 +2059,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 </section>
 
 <!-- ═══════════════════════ 13 — CONCLUSION ═══════════════════════ -->
-<section class="cs-section" id="cs-conclusion" data-wash="green">
+<section class="cs-section" id="cs-conclusion" data-index="Conclusion" data-wash="green">
 <div class="cs-wrap">
 
   <div class="cs-closing settle">
@@ -2450,6 +2438,7 @@ var CS_REDUCE = window.matchMedia && window.matchMedia('(prefers-reduced-motion:
 })();
 
 </script>
+<script src="assets/cs-index.js?v=4"></script>
 <script src="assets/v3.js?v=51"></script>
 </body>
 </html>
