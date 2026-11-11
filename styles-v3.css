@@ -555,6 +555,18 @@ p { margin: 0 0 24px; }
   .nav-list a, .nav-list a.is-active { height: auto; padding: 0; font-weight: 400; }
   .nav-dot { display: none; }
 }
+/* Phones: Home keeps no top nav at all, it's one scroll; on case studies only the Back link stays, pinned on top */
+@media (max-width: 960px) {
+  .v3:not(.v3-cs) .v3-nav { display: none; }
+  .v3:not(.v3-cs) .top-info { margin-top: -60px; }   /* the nav's room is gone, so the time row moves up */
+  .v3-cs .topbar {
+    position: sticky; top: 0; z-index: 10;
+    height: 52px; margin: -20px -20px 0; padding: 0 20px;
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+}
 @media (max-width: 600px) {
   .nav-list li:nth-child(n+3) { display: none; }
   .now dl { grid-template-columns: 1fr 1fr; }
@@ -622,3 +634,16 @@ button:active, .row:active, .nav-list a:active, .sec-head a:active { scale: .98;
 .hey, .h-reset, .intro p, .about p:not(.meta), .contact .big { margin-bottom: 28px; }
 .row { font-size: 14.5px; }
 .row-desc { font-weight: 400; }
+
+/* Phones get a step-down type scale: desktop sizes read too large on a small screen */
+@media (max-width: 600px) {
+  .v3 .hey, .v3 .h-reset, .v3 .intro p, .v3 .about p:not(.meta), .v3 .contact .big, .v3 .xp p { font-size: 14px; line-height: 1.65; margin-bottom: 22px; }
+  .sec-head h2 { font-size: 20px; }
+  .now h2 { font-size: 15px; }
+  .now dt { font-size: 12px; }
+  .now dd { font-size: 13px; }
+  .row, .xp-row, .row-go { font-size: 13.5px; }
+  .row-desc { font-size: 13px; }
+  .meta, .foot { font-size: 11px; }
+  .kit-list { font-size: 13px; gap: 10px 20px; }
+}
