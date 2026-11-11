@@ -885,7 +885,7 @@ body:not(.cs-skilling) .cs-phase-tag { margin-top: 72px; }
 
 /* Case-study index (assets/cs-index.js): ticks at the right edge, one per section.
    Quiet by default; the current tick grows and fills in the project colour as you read it.
-   Names show on hover/focus (over a soft fade so they never sit on the page's text), and the
+   Names show on hover/focus (in the page's paragraph type, over a soft fade so they never sit on the page's text), and the
    current one shows briefly when you cross into a new section. Names line up in one column
    just left of the longest tick. */
 .cs-index { position: fixed; right: 28px; width: 32px; top: 50%; transform: translateY(-50%); z-index: 20; opacity: 0; pointer-events: none; transition: opacity .5s ease; }
@@ -896,11 +896,11 @@ body:not(.cs-skilling) .cs-phase-tag { margin-top: 72px; }
 .cs-index::before { content: ""; position: absolute; top: -32px; bottom: -32px; right: -28px; width: 340px; background: linear-gradient(to left, var(--bg) 62%, transparent); opacity: 0; pointer-events: none; transition: opacity .3s ease; }
 .cs-index:hover::before, .cs-index:focus-within::before { opacity: 1; pointer-events: auto; }
 .cs-index ol { position: relative; list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
-.cs-index a { position: relative; display: flex; align-items: center; justify-content: flex-end; width: 32px; height: 16px; margin-left: auto; color: var(--text-muted); text-decoration: none; }
+.cs-index a { position: relative; display: flex; align-items: center; justify-content: flex-end; width: 32px; height: 24px; margin-left: auto; color: var(--text-muted); text-decoration: none; }
 .cs-index a:focus-visible { outline: none; }
 .cs-index .ci-tick { position: relative; width: 10px; height: 1px; background: color-mix(in srgb, currentColor 55%, transparent); transition: width .45s cubic-bezier(.2,.8,.2,1), background .3s; }
 .cs-index .ci-tick i { position: absolute; inset: 0; background: var(--accent); transform-origin: left; transform: scaleX(0); transition: transform .2s linear; }
-.cs-index .ci-name { position: absolute; right: calc(100% + 10px); top: 50%; transform: translate(6px, -50%); padding: 2px 6px; border-radius: 4px; font: 400 12px/1 var(--mono); letter-spacing: .02em; white-space: nowrap; color: var(--text-muted); opacity: 0; pointer-events: none; transition: opacity .25s ease, transform .3s cubic-bezier(.2,.8,.2,1), color .2s; }
+.cs-index .ci-name { position: absolute; right: calc(100% + 16px); top: 50%; transform: translate(6px, -50%); padding: 2px 6px; border-radius: 4px; font: 400 12px/1.2 var(--font); white-space: nowrap; color: var(--text-muted); opacity: 0; pointer-events: none; transition: opacity .25s ease, transform .3s cubic-bezier(.2,.8,.2,1), color .2s; }
 .cs-index a.is-past .ci-tick { background: color-mix(in srgb, currentColor 85%, transparent); }
 .cs-index a:hover .ci-tick { width: 18px; background: var(--text); }
 .cs-index a.is-active .ci-tick { width: 32px; background: color-mix(in srgb, var(--text-muted) 40%, transparent); }
