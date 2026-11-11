@@ -1272,7 +1272,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 
 </style>
 <link rel="stylesheet" href="assets/cs-article.css">
-<link rel="stylesheet" href="assets/cs-v3.css?v=130">
+<link rel="stylesheet" href="assets/cs-v3.css?v=134">
 <style>
 /* This project's colour in dark mode: the purple of the night sky */
 :root[data-theme="dark"] {
@@ -2026,7 +2026,6 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 
   <div class="cs-evo-mod">
     <div class="cs-module-tag reveal">Overview</div>
-    <h3 class="cs-h3 reveal">Where does a cost investigation start?</h3>
     <div class="cs-evo-strip cs-vis--wide reveal" tabindex="0" aria-label="Overview iterations, scroll sideways">
       <figure class="cs-evo-frame"><button type="button" class="cs-evo-shot" aria-label="View Overview iteration 1 full size"><img src="assets/hypersense/iterations/overview-05.webp" alt="Overview iteration 1" loading="lazy" decoding="async" width="2000" height="2715"></button></figure>
       <figure class="cs-evo-frame"><button type="button" class="cs-evo-shot" aria-label="View Overview iteration 2 full size"><img src="assets/hypersense/iterations/overview-06.webp" alt="Overview iteration 2" loading="lazy" decoding="async" width="2000" height="2878"></button></figure>
@@ -2037,15 +2036,14 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
       <figure class="cs-evo-frame"><button type="button" class="cs-evo-shot" aria-label="View Overview iteration 7 full size"><img src="assets/hypersense/iterations/overview-04.webp" alt="Overview iteration 7" loading="lazy" decoding="async" width="2000" height="3968"></button></figure>
     </div>
     <dl class="cs-role cs-role--plain reveal">
-      <div class="cs-role-row"><dt><span>What we explored</span></dt><dd>Different ways to introduce the cost story: leading with active deviations, cost trends or an overall breakdown, while keeping key metrics anchored at the top.</dd></div>
-      <div class="cs-role-row"><dt><span>What we learned</span></dt><dd>Leading with deviations took users straight to individual issues without enough context. They first needed to understand their overall costs, what contributed to them, and then investigate what changed. The experience also needed to adapt to different merchant setups and pricing models.</dd></div>
-      <div class="cs-role-row"><dt><span>What changed</span></dt><dd>We made the overall cost picture the starting point. Key metrics and cost breakdowns establish where merchants stand, while progressive layers of detail help them understand what&rsquo;s driving their costs. Relevant signals then guide them towards deeper investigations through Fee Spikes, Audit and Forecast.</dd></div>
+      <div class="cs-role-row"><dt><span>What we explored</span></dt><dd><ol class="cs-evo-paths"><li><h4>Deviation-led overview</h4><p>Bringing active cost deviations upfront to help merchants identify issues that need attention.</p></li><li><h4>Metrics and trends-led overview</h4><p>Prioritising key metrics and cost trends to establish the merchant&rsquo;s overall payment cost position.</p></li><li><h4>Cost breakdown-led overview</h4><p>Exploring different ways to explain how costs are distributed across processors, fee categories and transaction types.</p></li><li><h4>Connected cost investigation</h4><p>Exploring ways to link cost drivers and insights to deeper investigations across different modules.</p></li></ol></dd></div>
+      <div class="cs-role-row"><dt><span>What we learned</span></dt><dd>Leading with deviations brought individual issues into focus before merchants had enough context to understand their overall cost position. Metrics and breakdowns provided that context, but simply presenting data wasn&rsquo;t enough. Merchants also needed a way to understand what was driving their costs and where to investigate further.</dd></div>
+      <div class="cs-role-row"><dt><span>Design direction</span></dt><dd><p class="cs-evo-dir">Establish the cost picture. Connect it to the investigation.</p><p>We made the overall cost position the starting point, bringing together key metrics, cost composition and trends. A dedicated Cost Drivers section then connects relevant signals to Fee Spikes, Audit and Forecast, guiding merchants towards deeper investigations.</p></dd></div>
     </dl>
   </div>
 
   <div class="cs-evo-mod">
     <div class="cs-module-tag reveal">Drill-Down</div>
-    <h3 class="cs-h3 reveal">How deep can a cost be broken down?</h3>
     <div class="cs-evo-strip cs-vis--wide reveal" tabindex="0" aria-label="Drill-Down iterations, scroll sideways">
       <figure class="cs-evo-frame"><button type="button" class="cs-evo-shot" aria-label="View Drill-Down iteration 1 full size"><img src="assets/hypersense/iterations/observe-01.webp" alt="Drill-Down iteration 1" loading="lazy" decoding="async" width="2000" height="3833"></button></figure>
       <figure class="cs-evo-frame"><button type="button" class="cs-evo-shot" aria-label="View Drill-Down iteration 2 full size"><img src="assets/hypersense/iterations/observe-02.webp" alt="Drill-Down iteration 2" loading="lazy" decoding="async" width="2000" height="4975"></button></figure>
@@ -2063,7 +2061,6 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 
   <div class="cs-evo-mod">
     <div class="cs-module-tag reveal">Fee Spikes</div>
-    <h3 class="cs-h3 reveal">Growth, or something worth investigating?</h3>
     <div class="cs-evo-strip cs-vis--wide reveal" tabindex="0" aria-label="Fee Spikes iterations, scroll sideways">
       <figure class="cs-evo-frame"><button type="button" class="cs-evo-shot" aria-label="View Fee Spikes iteration 1 full size"><img src="assets/hypersense/iterations/fee-spikes-01.webp" alt="Fee Spikes iteration 1" loading="lazy" decoding="async" width="2000" height="1336"></button></figure>
       <figure class="cs-evo-frame"><button type="button" class="cs-evo-shot" aria-label="View Fee Spikes iteration 2 full size"><img src="assets/hypersense/iterations/fee-spikes-02.webp" alt="Fee Spikes iteration 2" loading="lazy" decoding="async" width="2000" height="1536"></button></figure>
@@ -2086,7 +2083,6 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 
   <div class="cs-evo-mod">
     <div class="cs-module-tag reveal">Audit</div>
-    <h3 class="cs-h3 reveal">Was I charged correctly?</h3>
     <div class="cs-evo-strip cs-vis--wide reveal" tabindex="0" aria-label="Audit iterations, scroll sideways">
       <figure class="cs-evo-frame"><button type="button" class="cs-evo-shot" aria-label="View Audit iteration 1 full size"><img src="assets/hypersense/iterations/audit-01.webp?v=3" alt="Audit iteration 1" loading="lazy" decoding="async" width="2000" height="1939"></button></figure>
       <figure class="cs-evo-frame"><button type="button" class="cs-evo-shot" aria-label="View Audit iteration 2 full size"><img src="assets/hypersense/iterations/audit-02.webp?v=3" alt="Audit iteration 2" loading="lazy" decoding="async" width="2000" height="2347"></button></figure>
@@ -2108,7 +2104,6 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 
   <div class="cs-evo-mod">
     <div class="cs-module-tag reveal">Forecast</div>
-    <h3 class="cs-h3 reveal">What is about to change?</h3>
     <div class="cs-evo-strip cs-vis--wide reveal" tabindex="0" aria-label="Forecast iterations, scroll sideways">
       <figure class="cs-evo-frame"><button type="button" class="cs-evo-shot" aria-label="View Forecast iteration 1 full size"><img src="assets/hypersense/iterations/forecast-01.webp?v=2" alt="Forecast iteration 1" loading="lazy" decoding="async" width="2000" height="1556"></button></figure>
       <figure class="cs-evo-frame"><button type="button" class="cs-evo-shot" aria-label="View Forecast iteration 2 full size"><img src="assets/hypersense/iterations/forecast-02.webp" alt="Forecast iteration 2" loading="lazy" decoding="async" width="2000" height="1336"></button></figure>
