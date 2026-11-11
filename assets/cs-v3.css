@@ -644,11 +644,9 @@ html:root[data-theme="dark"] { --stage: #1e1e1e; }
 .v3-cs .cs-swatches--list .cs-swatch--text.is-active svg { color: var(--accent); opacity: 1; }
 .v3-cs .cs-swatches--list .cs-swatch--text:last-child:nth-child(odd) { grid-column: 1 / -1; }
 @media (max-width: 600px) { .v3-cs .cs-swatches--list { grid-template-columns: 1fr; } }
-/* every case-study hero: the board gets a matted frame so it holds its edge on the grey stage */
-.v3-cs .cs-cover-stage img, .v3-cs .rr-cover .rr-stage img { padding: 8px; background: var(--bg); border-radius: 14px; box-shadow: 0 0 0 1px var(--line), 0 0 32px rgb(var(--sh-rgb) / calc(.22 * var(--sh-k))); }
 
-/* dark: the hero mat is a soft grey, not black */
-:root[data-theme="dark"] .v3-cs .cs-cover-stage img, :root[data-theme="dark"] .v3-cs .rr-cover .rr-stage img { background: #2a2a2a; box-shadow: 0 0 0 1px rgb(255 255 255 / .12), 0 0 32px rgb(0 0 0 / .4); }
+
+
 /* workers fade out at their feet rather than stopping on a hard line */
 .v3-cs .cs-users-stage .cs-fig-frame img { -webkit-mask-image: linear-gradient(#000 80%, transparent); mask-image: linear-gradient(#000 80%, transparent); }
 /* annotation pin: a small frosted-glass lens with the accent dot inside */
