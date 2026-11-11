@@ -518,6 +518,7 @@
 .iso-topo .sys-slip .f-t { fill: color-mix(in srgb, var(--accent) 18%, var(--bg)); }
 .iso-topo .sys-slip .f-l { fill: color-mix(in srgb, var(--accent) 34%, var(--bg)); }
 .iso-topo .mlink { fill: none; stroke: rgb(var(--fg-rgb) / .25); stroke-width: 1; stroke-dasharray: 3 3; vector-effect: non-scaling-stroke; }
+.iso-topo .alink { fill: none; stroke: rgb(var(--fg-rgb) / .45); stroke-width: 1.2; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
 .iso-topo .cmp { fill: none; stroke: rgb(var(--fg-rgb) / .3); stroke-width: 1; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
 .iso-topo .iso-cap { font: 400 10.5px/1 var(--mono); letter-spacing: .1em; fill: var(--text-muted); }
 .cs-topo-key { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 24px; text-align: center; }
@@ -572,11 +573,6 @@
 .v3-cs .cs-part-title { font-size: clamp(32px, 4.4vw, 44px); line-height: 1.1; font-weight: 500; letter-spacing: -.02em; color: var(--text); margin: 0; }
 .v3-cs .cs-part-title em { font-style: normal; color: var(--text-muted); }
 .v3-cs .cs-part + .cs-section { margin-top: 0; padding-top: 40px; }
-/* Up-skill: a scrollspy at the right edge, only where the margin has room for it */
-.cs-spy { position: fixed; right: 24px; top: 50%; transform: translateY(-50%); z-index: 20; font-size: 13px; font-weight: 500; }
-.cs-spy .nav-group { margin: 0; }
-.cs-spy .nav-list a { height: 30px; padding: 0 0 0 28px; justify-content: flex-end; }
-@media (max-width: 1240px) { .cs-spy { display: none; } }
 /* Up-skill: on Day and Mid the screen is light, so a light veil hid the highlight; darken around it instead */
 :root:not([data-theme="dark"]) .cs-phone { --dim: rgb(18 18 18 / .5); }
 :root:not([data-theme="dark"]) .cs-ring:not(.cs-ring--frame) { box-shadow: 0 0 0 1400px rgb(18 18 18 / .5), inset 0 0 0 1.5px rgb(255 255 255 / .9); }
@@ -644,11 +640,9 @@ html:root[data-theme="dark"] { --stage: #1e1e1e; }
 .v3-cs .cs-swatches--list .cs-swatch--text.is-active svg { color: var(--accent); opacity: 1; }
 .v3-cs .cs-swatches--list .cs-swatch--text:last-child:nth-child(odd) { grid-column: 1 / -1; }
 @media (max-width: 600px) { .v3-cs .cs-swatches--list { grid-template-columns: 1fr; } }
-/* every case-study hero: the board gets a matted frame so it holds its edge on the grey stage */
-.v3-cs .cs-cover-stage img, .v3-cs .rr-cover .rr-stage img { padding: 8px; background: var(--bg); border-radius: 14px; box-shadow: 0 0 0 1px var(--line), 0 0 32px rgb(var(--sh-rgb) / calc(.22 * var(--sh-k))); }
 
-/* dark: the hero mat is a soft grey, not black */
-:root[data-theme="dark"] .v3-cs .cs-cover-stage img, :root[data-theme="dark"] .v3-cs .rr-cover .rr-stage img { background: #2a2a2a; box-shadow: 0 0 0 1px rgb(255 255 255 / .12), 0 0 32px rgb(0 0 0 / .4); }
+
+
 /* workers fade out at their feet rather than stopping on a hard line */
 .v3-cs .cs-users-stage .cs-fig-frame img { -webkit-mask-image: linear-gradient(#000 80%, transparent); mask-image: linear-gradient(#000 80%, transparent); }
 /* annotation pin: a small frosted-glass lens with the accent dot inside */
@@ -889,3 +883,32 @@ body:not(.cs-skilling) .cs-phase-tag { margin-top: 72px; }
 .cs-evo-pt { display: block; font-size: 15px; font-weight: 500; line-height: 1.45; color: var(--text); margin-bottom: 4px; }
 .cs-evo-paths p { margin: 0; font-size: 14px; font-weight: 300; line-height: 1.6; color: var(--text-soft); }
 @media (max-width: 600px) { .cs-evo-paths { grid-template-columns: 1fr; gap: 22px; } }
+
+/* Case-study index (assets/cs-index.js): ticks at the right edge, one per section.
+   Quiet by default; the current tick grows and fills in the project colour as you read it.
+   Names show on hover/focus (in the page's paragraph type, over a soft fade so they never sit on the page's text), and the
+   current one shows briefly when you cross into a new section. Names line up in one column
+   just left of the longest tick. */
+.cs-index { position: fixed; right: 28px; width: 32px; top: 50%; transform: translateY(-50%); z-index: 20; opacity: 0; pointer-events: none; transition: opacity .5s ease; }
+/* the nav's own box never catches the mouse: only the ticks do (and the fade, once open) */
+.cs-index.is-on { opacity: 1; }
+.cs-index.is-on a { pointer-events: auto; }
+/* the fade behind the names: covers the gap between ticks and names, so hover holds while moving across */
+.cs-index::before { content: ""; position: absolute; top: -32px; bottom: -32px; right: -28px; width: 340px; background: linear-gradient(to left, var(--bg) 62%, transparent); opacity: 0; pointer-events: none; transition: opacity .3s ease; }
+.cs-index:hover::before, .cs-index:focus-within::before { opacity: 1; pointer-events: auto; }
+.cs-index ol { position: relative; list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.cs-index a { position: relative; display: flex; align-items: center; justify-content: flex-end; width: 32px; height: 24px; margin-left: auto; color: var(--text-muted); text-decoration: none; }
+.cs-index a:focus-visible { outline: none; }
+.cs-index .ci-tick { position: relative; width: 10px; height: 1px; background: color-mix(in srgb, currentColor 55%, transparent); transition: width .45s cubic-bezier(.2,.8,.2,1), background .3s; }
+.cs-index .ci-tick i { position: absolute; inset: 0; background: var(--accent); transform-origin: left; transform: scaleX(0); transition: transform .2s linear; }
+.cs-index .ci-name { position: absolute; right: calc(100% + 16px); top: 50%; transform: translate(6px, -50%); padding: 2px 6px; border-radius: 4px; font: 400 12px/1.2 var(--font); white-space: nowrap; color: var(--text-muted); opacity: 0; pointer-events: none; transition: opacity .25s ease, transform .3s cubic-bezier(.2,.8,.2,1), color .2s; }
+.cs-index a.is-past .ci-tick { background: color-mix(in srgb, currentColor 85%, transparent); }
+.cs-index a:hover .ci-tick { width: 18px; background: var(--text); }
+.cs-index a.is-active .ci-tick { width: 32px; background: color-mix(in srgb, var(--text-muted) 40%, transparent); }
+.cs-index a.is-active .ci-tick i { transform: scaleX(var(--p, 0)); }
+.cs-index:hover .ci-name, .cs-index:focus-within .ci-name { opacity: 1; transform: translate(0, -50%); pointer-events: auto; }
+.cs-index a:hover .ci-name, .cs-index a:focus-visible .ci-name, .cs-index a.is-active .ci-name { color: var(--text); }
+/* crossing into a section: only its name shows, on a small backing of the page colour */
+.cs-index.is-telling a.is-active .ci-name { opacity: 1; transform: translate(0, -50%); background: var(--bg); }
+@media (max-width: 1360px) { .cs-index { display: none; } }
+@media (prefers-reduced-motion: reduce) { .cs-index, .cs-index *, .cs-index::before { transition: none !important; } }

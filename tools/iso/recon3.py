@@ -32,14 +32,53 @@ def match(n, m):
     right = ''.join(slip(R, y) for y in rows(m))
     return svg(f'{links}<g class="sys-slip">{left}</g><g class="sys-obj">{right}</g>')
 
+
+# Figures and currency marks printed on a record: strokes drawn as thin ink bars on its top face.
+# Glyph space is x along the text (a) and y up the page (b); each glyph is about 4 wide and 7 tall.
+GLYPH = {
+    '0': [[(0, 0), (4, 0), (4, 7), (0, 7), (0, 0)]],
+    '4': [[(3, 0), (3, 7), (0, 2.5), (4.4, 2.5)]],
+    '5': [[(4, 7), (0, 7), (0, 3.6), (4, 3.6), (4, 0), (0, 0)]],
+    'rupee': [[(0, 7), (4.6, 7)], [(0, 5.2), (4.6, 5.2)],
+              [(0, 7), (2.4, 7), (3.8, 6.2), (3.8, 5.6), (2.4, 3.8), (0, 3.8)], [(0.4, 3.8), (3.8, 0)]],
+    'dollar': [[(4, 5.6), (0.8, 5.6), (0, 4.8), (0, 4.1), (0.8, 3.5), (3.2, 3.5), (4, 2.9), (4, 2.2), (3.2, 1.4), (0, 1.4)],
+               [(2, 0), (2, 7)]],
+}
+def stroke(x, y, p, q, t=1.1, c="ink"):
+    (x0, y0), (x1, y1) = p, q
+    d = math.hypot(x1 - x0, y1 - y0) or 1
+    nx, ny = -(y1 - y0) / d * t / 2, (x1 - x0) / d * t / 2
+    return poly([proj(x, y, x0 + nx, y0 + ny, 1.9), proj(x, y, x1 + nx, y1 + ny, 1.9),
+                 proj(x, y, x1 - nx, y1 - ny, 1.9), proj(x, y, x0 - nx, y0 - ny, 1.9)], c)
+def glyph(x, y, g, da, db, k=1, c="ink"):
+    out = ''
+    for line in GLYPH[g]:
+        pts = [(da + u * k, db + v * k) for u, v in line]
+        out += ''.join(stroke(x, y, pts[i], pts[i + 1], 1.1 * k ** .5, c) for i in range(len(pts) - 1))
+    return out
+def text(x, y, s, red=None, k=1.1):               # a short figure, centred on the record
+    w = (4 * len(s) + 2 * (len(s) - 1)) * k
+    return ''.join(glyph(x, y, ch, -w / 2 + i * 6 * k, -3.5 * k, k, "ink-diff" if i == red else "ink") for i, ch in enumerate(s))
+def mark(x, y, g):                                # one currency mark, centred and larger
+    return glyph(x, y, g, -2.2 * 1.35, -3.5 * 1.35, 1.35)
+
+
+def pairs(n):
+    """n accounts on each side, each linked only to its own partner: several one-to-one pairs side by side."""
+    links = ''.join(f'<path class="mlink" d="M {L + 18} {y - 1} L {R - 18} {y - 1}"/>' for y in rows(n))
+    left = ''.join(slip(L, y) for y in rows(n))
+    right = ''.join(slip(R, y) for y in rows(n))
+    return svg(f'{links}<g class="sys-slip">{left}</g><g class="sys-obj">{right}</g>')
+
 C = [(-10, -10), (10, -10), (10, 10), (-10, 10)]
 DISC = [(11 * math.cos(a / 12 * math.tau), 11 * math.sin(a / 12 * math.tau)) for a in range(12)]
 EXC = {
-    # the amounts differ: a taller stack against a shorter one
-    'amount': svg(CMP + f'<g class="sys-slip">{"".join(slip(L, 46, z * 2.6) for z in range(4))}'
-                  f'{"".join(slip(R, 46, z * 2.6) for z in range(2))}</g>'),
-    # the currencies differ: the same record in two different forms
-    'currency': svg(CMP + f'<g class="sys-slip">{slab(C, 2, 0, L, 44)}{slab(DISC, 2, 0, R, 44)}</g>'),
+    # the amounts differ: the same record, its figure not the same (500 against 400, the odd digit in red)
+    'amount': svg(CMP + f'<g class="sys-slip">{slip(L, 44)}{slip(R, 44)}</g>'
+                  f'{text(L, 44, "500")}{text(R, 44, "400", red=0)}'),
+    # the currencies differ: the same record, one marked in rupees and the other in dollars
+    'currency': svg(CMP + f'<g class="sys-slip">{slip(L, 44)}{slip(R, 44)}</g>'
+                    f'{mark(L, 44, "rupee")}{mark(R, 44, "dollar")}'),
     # the direction is flipped: the same record, its arrow pointing the other way
     'direction': svg(CMP + f'<g class="sys-slip">{slip(L, 44)}{slip(R, 44)}</g>'
                      f'{ink(L, 44, ARROW)}{ink(R, 44, [(-a, b) for a, b in ARROW])}'),
@@ -54,8 +93,9 @@ EXC = {
 }
 
 if __name__ == "__main__":
-    for n, m in ((1, 1), (1, 3), (3, 1), (3, 3)):
+    for n, m in ((1, 1), (1, 3), (3, 1)):
         print(f'<!-- {n} to {m} -->\n{match(n, m)}')
+    print(f'<!-- 3 to 3, as pairs -->\n{pairs(3)}')
     for k, v in EXC.items():
         print(f'<!-- {k} -->\n{v}')
 
@@ -72,11 +112,15 @@ def topology():
           for i, j in pairs]
     g.append('<g class="sys-slip">' + ''.join(prism(TX, TY, 22, 14, 0, 1.8, Z, da=a) for a in DA) + '</g>')
     g.append('<g class="sys-obj">' + ''.join(prism(TX, TY, 22, 14, 0, 1.8, Z, da=a, db=GAP) for a in DA) + '</g>')
-    # the account-level comparison: one ⇄ beyond the far ends of the trays, between the two names
+    # the account-level comparison: one link that joins the two trays themselves, at their near ends,
+    # ahead of the entry links (the same idea as grouping records in a tray: the whole account is compared)
     (lx, ly), (rx, ry) = P(-80, 0, 0), P(-80, GAP, 0)
-    mx, my = (lx + rx) / 2, (ly + ry) / 2 - 4
-    g.append(f'<path class="cmp" d="M {mx - 12:.1f} {my - 5:.1f} L {mx + 12:.1f} {my - 5:.1f} M {mx + 8:.1f} {my - 9:.1f} L {mx + 12:.1f} {my - 5:.1f} L {mx + 8:.1f} {my - 1:.1f}"/>'
-             f'<path class="cmp" d="M {mx + 12:.1f} {my + 5:.1f} L {mx - 12:.1f} {my + 5:.1f} M {mx - 8:.1f} {my + 1:.1f} L {mx - 12:.1f} {my + 5:.1f} L {mx - 8:.1f} {my + 9:.1f}"/>')
+    A, B0, B1 = -58, 18, GAP - 18                    # just before the first entry; tray edge to tray edge
+    head = lambda b, s: [P(A - 3, b - 5 * s, Z), P(A, b, Z), P(A + 3, b - 5 * s, Z)]
+    (x0, y0), (x1, y1) = P(A, B0, Z), P(A, B1, Z)
+    g.append(f'<path class="alink" d="M {x0:.1f} {y0:.1f} L {x1:.1f} {y1:.1f}"/>'
+             + ''.join('<path class="alink" d="M ' + ' L '.join(f'{x:.1f} {y:.1f}' for x, y in head(bb, sg)) + '"/>'
+                       for bb, sg in ((B1, 1), (B0, -1))))
     g.append(f'<text class="iso-cap" x="{lx:.1f}" y="{ly + 2:.1f}" text-anchor="middle">OMS</text>'
              f'<text class="iso-cap" x="{rx:.1f}" y="{ry + 2:.1f}" text-anchor="middle">PSP</text>')
     return f'<svg class="iso-topo" viewBox="110 40 270 160" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">{"".join(g)}</svg>'
