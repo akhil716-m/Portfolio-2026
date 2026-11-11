@@ -1250,8 +1250,10 @@ a.cs-cta { margin-top: 28px; }
    Headings follow Up-skill (white statement, the emphasised words in grey); body copy follows
    HyperSense (16px, light, open leading). Up-skill, HyperSense and Reconciliation carry the
    same block so the three read as one set. */
-.cs-display { font-size: clamp(34px, 4.6vw, 56px); font-weight: 500; line-height: 1.12; letter-spacing: -0.02em; color: var(--text); max-width: 19ch; text-wrap: balance; }
+.cs-display { font-size: clamp(34px, 4.6vw, 56px); font-weight: 500; line-height: 1.12; letter-spacing: -0.02em; color: var(--text); text-wrap: balance; }
 .cs-display em { font-style: normal; font-weight: 500; color: var(--text-soft); }
+.v3-cs h2.cs-display { max-width: none; }
+.v3-cs .cs-fstat-grid--iso.cs-vis--wide .cs-fstat-desc { max-width: 34ch; }
 .cs-h3 { font-size: clamp(21px, 2.1vw, 24px); font-weight: 500; line-height: 1.25; letter-spacing: -0.01em; text-wrap: balance; }
 .cs-p { font-size: 16px; font-weight: 300; line-height: 1.85; color: var(--text-soft); max-width: 720px; }
 .cs-list li { font-size: 16px; font-weight: 300; line-height: 1.7; }
@@ -1272,7 +1274,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 
 </style>
 <link rel="stylesheet" href="assets/cs-article.css">
-<link rel="stylesheet" href="assets/cs-v3.css?v=82">
+<link rel="stylesheet" href="assets/cs-v3.css?v=146">
 <style>
 /* This project's colour in dark mode: the purple of the night sky */
 :root[data-theme="dark"] {
@@ -1340,51 +1342,53 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 
   <!-- Payment flow — simplified journey -->
   <div class="cs-vis cs-vis--wide cs-vis--iso reveal">
-    <div class="cs-vis-body" style="padding: 44px 28px 40px;">
+    <div class="cs-vis-body">
       <div class="cs-flow-stage">
       <!-- Drawn in Hairline's language (isometric hairlines, flat faces): the money block loses a
            thin blue layer at each intermediary and reaches the merchant shorter -->
-      <svg class="iso-flow" viewBox="0 0 940 250" xmlns="http://www.w3.org/2000/svg" role="img">
+      <svg class="iso-flow" viewBox="100 64 800 166" preserveAspectRatio="xMinYMid meet" xmlns="http://www.w3.org/2000/svg" role="img">
       <title>Payment flow: $1,000 enters, intermediaries each extract a fee, the merchant receives $980</title>
-      <g class="tile"><polygon class="f-l" points="147.9,168.0 154.0,171.5 154.0,170.0 147.9,166.5"/><polygon class="f-r" points="154.0,171.5 160.1,168.0 160.1,166.5 154.0,170.0"/><polygon class="f-t" points="147.9,166.5 154.0,170.0 160.1,166.5 154.0,163.0"/></g>
-      <g class="tile"><polygon class="f-l" points="173.9,168.0 180.0,171.5 180.0,170.0 173.9,166.5"/><polygon class="f-r" points="180.0,171.5 186.1,168.0 186.1,166.5 180.0,170.0"/><polygon class="f-t" points="173.9,166.5 180.0,170.0 186.1,166.5 180.0,163.0"/></g>
-      <g class="tile"><polygon class="f-l" points="199.9,168.0 206.0,171.5 206.0,170.0 199.9,166.5"/><polygon class="f-r" points="206.0,171.5 212.1,168.0 212.1,166.5 206.0,170.0"/><polygon class="f-t" points="199.9,166.5 206.0,170.0 212.1,166.5 206.0,163.0"/></g>
-      <g class="tile"><polygon class="f-l" points="225.9,168.0 232.0,171.5 232.0,170.0 225.9,166.5"/><polygon class="f-r" points="232.0,171.5 238.1,168.0 238.1,166.5 232.0,170.0"/><polygon class="f-t" points="225.9,166.5 232.0,170.0 238.1,166.5 232.0,163.0"/></g>
-      <g class="tile"><polygon class="f-l" points="251.9,168.0 258.0,171.5 258.0,170.0 251.9,166.5"/><polygon class="f-r" points="258.0,171.5 264.1,168.0 264.1,166.5 258.0,170.0"/><polygon class="f-t" points="251.9,166.5 258.0,170.0 264.1,166.5 258.0,163.0"/></g>
-      <g class="tile"><polygon class="f-l" points="355.9,168.0 362.0,171.5 362.0,170.0 355.9,166.5"/><polygon class="f-r" points="362.0,171.5 368.1,168.0 368.1,166.5 362.0,170.0"/><polygon class="f-t" points="355.9,166.5 362.0,170.0 368.1,166.5 362.0,163.0"/></g>
-      <g class="tile"><polygon class="f-l" points="381.9,168.0 388.0,171.5 388.0,170.0 381.9,166.5"/><polygon class="f-r" points="388.0,171.5 394.1,168.0 394.1,166.5 388.0,170.0"/><polygon class="f-t" points="381.9,166.5 388.0,170.0 394.1,166.5 388.0,163.0"/></g>
-      <g class="tile"><polygon class="f-l" points="407.9,168.0 414.0,171.5 414.0,170.0 407.9,166.5"/><polygon class="f-r" points="414.0,171.5 420.1,168.0 420.1,166.5 414.0,170.0"/><polygon class="f-t" points="407.9,166.5 414.0,170.0 420.1,166.5 414.0,163.0"/></g>
-      <g class="tile"><polygon class="f-l" points="511.9,168.0 518.0,171.5 518.0,170.0 511.9,166.5"/><polygon class="f-r" points="518.0,171.5 524.1,168.0 524.1,166.5 518.0,170.0"/><polygon class="f-t" points="511.9,166.5 518.0,170.0 524.1,166.5 518.0,163.0"/></g>
-      <g class="tile"><polygon class="f-l" points="537.9,168.0 544.0,171.5 544.0,170.0 537.9,166.5"/><polygon class="f-r" points="544.0,171.5 550.1,168.0 550.1,166.5 544.0,170.0"/><polygon class="f-t" points="537.9,166.5 544.0,170.0 550.1,166.5 544.0,163.0"/></g>
-      <g class="tile"><polygon class="f-l" points="563.9,168.0 570.0,171.5 570.0,170.0 563.9,166.5"/><polygon class="f-r" points="570.0,171.5 576.1,168.0 576.1,166.5 570.0,170.0"/><polygon class="f-t" points="563.9,166.5 570.0,170.0 576.1,166.5 570.0,163.0"/></g>
-      <g class="tile"><polygon class="f-l" points="667.9,168.0 674.0,171.5 674.0,170.0 667.9,166.5"/><polygon class="f-r" points="674.0,171.5 680.1,168.0 680.1,166.5 674.0,170.0"/><polygon class="f-t" points="667.9,166.5 674.0,170.0 680.1,166.5 674.0,163.0"/></g>
-      <g class="tile"><polygon class="f-l" points="693.9,168.0 700.0,171.5 700.0,170.0 693.9,166.5"/><polygon class="f-r" points="700.0,171.5 706.1,168.0 706.1,166.5 700.0,170.0"/><polygon class="f-t" points="693.9,166.5 700.0,170.0 706.1,166.5 700.0,163.0"/></g>
-      <g class="tile"><polygon class="f-l" points="719.9,168.0 726.0,171.5 726.0,170.0 719.9,166.5"/><polygon class="f-r" points="726.0,171.5 732.1,168.0 732.1,166.5 726.0,170.0"/><polygon class="f-t" points="719.9,166.5 726.0,170.0 732.1,166.5 726.0,163.0"/></g>
-      <g class="tile"><polygon class="f-l" points="745.9,168.0 752.0,171.5 752.0,170.0 745.9,166.5"/><polygon class="f-r" points="752.0,171.5 758.1,168.0 758.1,166.5 752.0,170.0"/><polygon class="f-t" points="745.9,166.5 752.0,170.0 758.1,166.5 752.0,163.0"/></g>
-      <g class="tile"><polygon class="f-l" points="771.9,168.0 778.0,171.5 778.0,170.0 771.9,166.5"/><polygon class="f-r" points="778.0,171.5 784.1,168.0 784.1,166.5 778.0,170.0"/><polygon class="f-t" points="771.9,166.5 778.0,170.0 784.1,166.5 778.0,163.0"/></g>
-      <g class="pad"><polygon class="f-l" points="70.2,168.0 110.0,191.0 110.0,186.0 70.2,163.0"/><polygon class="f-r" points="110.0,191.0 149.8,168.0 149.8,163.0 110.0,186.0"/><polygon class="f-t" points="70.2,163.0 110.0,186.0 149.8,163.0 110.0,140.0"/></g>
-      <g class="pad"><polygon class="f-l" points="790.2,168.0 830.0,191.0 830.0,186.0 790.2,163.0"/><polygon class="f-r" points="830.0,191.0 869.8,168.0 869.8,163.0 830.0,186.0"/><polygon class="f-t" points="790.2,163.0 830.0,186.0 869.8,163.0 830.0,140.0"/></g>
-      <g class="pad pad--hidden pad1"><polygon class="f-l" points="285.4,168.0 320.0,188.0 320.0,185.0 285.4,165.0"/><polygon class="f-r" points="320.0,188.0 354.6,168.0 354.6,165.0 320.0,185.0"/><polygon class="f-t" points="285.4,165.0 320.0,185.0 354.6,165.0 320.0,145.0"/></g>
-      <g class="pad pad--hidden pad2"><polygon class="f-l" points="435.4,168.0 470.0,188.0 470.0,185.0 435.4,165.0"/><polygon class="f-r" points="470.0,188.0 504.6,168.0 504.6,165.0 470.0,185.0"/><polygon class="f-t" points="435.4,165.0 470.0,185.0 504.6,165.0 470.0,145.0"/></g>
-      <g class="pad pad--hidden pad3"><polygon class="f-l" points="585.4,168.0 620.0,188.0 620.0,185.0 585.4,165.0"/><polygon class="f-r" points="620.0,188.0 654.6,168.0 654.6,165.0 620.0,185.0"/><polygon class="f-t" points="585.4,165.0 620.0,185.0 654.6,165.0 620.0,145.0"/></g>
+      <g class="tile"><polygon class="f-l" points="186.5,168.0 192.6,171.5 192.6,170.0 186.5,166.5"/><polygon class="f-r" points="192.6,171.5 198.7,168.0 198.7,166.5 192.6,170.0"/><polygon class="f-t" points="186.5,166.5 192.6,170.0 198.7,166.5 192.6,163.0"/></g>
+      <g class="tile"><polygon class="f-l" points="220.0,168.0 226.1,171.5 226.1,170.0 220.0,166.5"/><polygon class="f-r" points="226.1,171.5 232.2,168.0 232.2,166.5 226.1,170.0"/><polygon class="f-t" points="220.0,166.5 226.1,170.0 232.2,166.5 226.1,163.0"/></g>
+      <g class="tile"><polygon class="f-l" points="253.6,168.0 259.7,171.5 259.7,170.0 253.6,166.5"/><polygon class="f-r" points="259.7,171.5 265.8,168.0 265.8,166.5 259.7,170.0"/><polygon class="f-t" points="253.6,166.5 259.7,170.0 265.8,166.5 259.7,163.0"/></g>
+      <g class="tile"><polygon class="f-l" points="367.3,168.0 373.4,171.5 373.4,170.0 367.3,166.5"/><polygon class="f-r" points="373.4,171.5 379.5,168.0 379.5,166.5 373.4,170.0"/><polygon class="f-t" points="367.3,166.5 373.4,170.0 379.5,166.5 373.4,163.0"/></g>
+      <g class="tile"><polygon class="f-l" points="401.9,168.0 408.0,171.5 408.0,170.0 401.9,166.5"/><polygon class="f-r" points="408.0,171.5 414.1,168.0 414.1,166.5 408.0,170.0"/><polygon class="f-t" points="401.9,166.5 408.0,170.0 414.1,166.5 408.0,163.0"/></g>
+      <g class="tile"><polygon class="f-l" points="436.5,168.0 442.6,171.5 442.6,170.0 436.5,166.5"/><polygon class="f-r" points="442.6,171.5 448.8,168.0 448.8,166.5 442.6,170.0"/><polygon class="f-t" points="436.5,166.5 442.6,170.0 448.8,166.5 442.6,163.0"/></g>
+      <g class="tile"><polygon class="f-l" points="551.2,168.0 557.4,171.5 557.4,170.0 551.2,166.5"/><polygon class="f-r" points="557.4,171.5 563.5,168.0 563.5,166.5 557.4,170.0"/><polygon class="f-t" points="551.2,166.5 557.4,170.0 563.5,166.5 557.4,163.0"/></g>
+      <g class="tile"><polygon class="f-l" points="585.9,168.0 592.0,171.5 592.0,170.0 585.9,166.5"/><polygon class="f-r" points="592.0,171.5 598.1,168.0 598.1,166.5 592.0,170.0"/><polygon class="f-t" points="585.9,166.5 592.0,170.0 598.1,166.5 592.0,163.0"/></g>
+      <g class="tile"><polygon class="f-l" points="620.5,168.0 626.6,171.5 626.6,170.0 620.5,166.5"/><polygon class="f-r" points="626.6,171.5 632.8,168.0 632.8,166.5 626.6,170.0"/><polygon class="f-t" points="620.5,166.5 626.6,170.0 632.8,166.5 626.6,163.0"/></g>
+      <g class="tile"><polygon class="f-l" points="734.3,168.0 740.4,171.5 740.4,170.0 734.3,166.5"/><polygon class="f-r" points="740.4,171.5 746.5,168.0 746.5,166.5 740.4,170.0"/><polygon class="f-t" points="734.3,166.5 740.4,170.0 746.5,166.5 740.4,163.0"/></g>
+      <g class="tile"><polygon class="f-l" points="767.8,168.0 773.9,171.5 773.9,170.0 767.8,166.5"/><polygon class="f-r" points="773.9,171.5 780.0,168.0 780.0,166.5 773.9,170.0"/><polygon class="f-t" points="767.8,166.5 773.9,170.0 780.0,166.5 773.9,163.0"/></g>
+      <g class="tile"><polygon class="f-l" points="801.3,168.0 807.5,171.5 807.5,170.0 801.3,166.5"/><polygon class="f-r" points="807.5,171.5 813.6,168.0 813.6,166.5 807.5,170.0"/><polygon class="f-t" points="801.3,166.5 807.5,170.0 813.6,166.5 807.5,163.0"/></g>
+      <g class="pad"><polygon class="f-l" points="92.2,168.0 132.0,191.0 132.0,186.0 92.2,163.0"/><polygon class="f-r" points="132.0,191.0 171.8,168.0 171.8,163.0 132.0,186.0"/><polygon class="f-t" points="92.2,163.0 132.0,186.0 171.8,163.0 132.0,140.0"/></g>
+      <g class="pad"><polygon class="f-l" points="828.2,168.0 868.0,191.0 868.0,186.0 828.2,163.0"/><polygon class="f-r" points="868.0,191.0 907.8,168.0 907.8,163.0 868.0,186.0"/><polygon class="f-t" points="828.2,163.0 868.0,186.0 907.8,163.0 868.0,140.0"/></g>
+      <g class="pad pad--hidden pad1"><polygon class="f-l" points="281.4,168.0 316.0,188.0 316.0,185.0 281.4,165.0"/><polygon class="f-r" points="316.0,188.0 350.6,168.0 350.6,165.0 316.0,185.0"/><polygon class="f-t" points="281.4,165.0 316.0,185.0 350.6,165.0 316.0,145.0"/></g>
+      <g class="pad pad--hidden pad2"><polygon class="f-l" points="465.4,168.0 500.0,188.0 500.0,185.0 465.4,165.0"/><polygon class="f-r" points="500.0,188.0 534.6,168.0 534.6,165.0 500.0,185.0"/><polygon class="f-t" points="465.4,165.0 500.0,185.0 534.6,165.0 500.0,145.0"/></g>
+      <g class="pad pad--hidden pad3"><polygon class="f-l" points="649.4,168.0 684.0,188.0 684.0,185.0 649.4,165.0"/><polygon class="f-r" points="684.0,188.0 718.6,168.0 718.6,165.0 684.0,185.0"/><polygon class="f-t" points="649.4,165.0 684.0,185.0 718.6,165.0 684.0,145.0"/></g>
       <g class="money">
-      <g class="blk blk-base"><polygon class="f-l" points="84.0,163.0 110.0,178.0 110.0,154.0 84.0,139.0"/><polygon class="f-r" points="110.0,178.0 136.0,163.0 136.0,139.0 110.0,154.0"/><polygon class="f-t" points="84.0,139.0 110.0,154.0 136.0,139.0 110.0,124.0"/></g>
-      <g class="blk blk-fee blk-issuing"><polygon class="f-l" points="84.0,139.0 110.0,154.0 110.0,146.0 84.0,131.0"/><polygon class="f-r" points="110.0,154.0 136.0,139.0 136.0,131.0 110.0,146.0"/><polygon class="f-t" points="84.0,131.0 110.0,146.0 136.0,131.0 110.0,116.0"/></g>
-      <g class="blk blk-fee blk-network"><polygon class="f-l" points="84.0,131.0 110.0,146.0 110.0,143.0 84.0,128.0"/><polygon class="f-r" points="110.0,146.0 136.0,131.0 136.0,128.0 110.0,143.0"/><polygon class="f-t" points="84.0,128.0 110.0,143.0 136.0,128.0 110.0,113.0"/></g>
-      <g class="blk blk-fee blk-acquiring"><polygon class="f-l" points="84.0,128.0 110.0,143.0 110.0,139.0 84.0,124.0"/><polygon class="f-r" points="110.0,143.0 136.0,128.0 136.0,124.0 110.0,139.0"/><polygon class="f-t" points="84.0,124.0 110.0,139.0 136.0,124.0 110.0,109.0"/></g>
+      <g class="blk blk-base"><polygon class="f-l" points="106.0,163.0 132.0,178.0 132.0,154.0 106.0,139.0"/><polygon class="f-r" points="132.0,178.0 158.0,163.0 158.0,139.0 132.0,154.0"/><polygon class="f-t" points="106.0,139.0 132.0,154.0 158.0,139.0 132.0,124.0"/></g>
+      <g class="blk blk-fee blk-issuing"><polygon class="f-l" points="106.0,139.0 132.0,154.0 132.0,146.0 106.0,131.0"/><polygon class="f-r" points="132.0,154.0 158.0,139.0 158.0,131.0 132.0,146.0"/><polygon class="f-t" points="106.0,131.0 132.0,146.0 158.0,131.0 132.0,116.0"/></g>
+      <g class="blk blk-fee blk-network"><polygon class="f-l" points="106.0,131.0 132.0,146.0 132.0,143.0 106.0,128.0"/><polygon class="f-r" points="132.0,146.0 158.0,131.0 158.0,128.0 132.0,143.0"/><polygon class="f-t" points="106.0,128.0 132.0,143.0 158.0,128.0 132.0,113.0"/></g>
+      <g class="blk blk-fee blk-acquiring"><polygon class="f-l" points="106.0,128.0 132.0,143.0 132.0,139.0 106.0,124.0"/><polygon class="f-r" points="132.0,143.0 158.0,128.0 158.0,124.0 132.0,139.0"/><polygon class="f-t" points="106.0,124.0 132.0,139.0 158.0,124.0 132.0,109.0"/></g>
       </g>
-      <text class="iso-cap" x="470.0" y="34" text-anchor="middle">PAYMENT COSTS, INVISIBLE TO MOST MERCHANTS</text>
-      <path class="iso-brace" d="M 280 50 L 280 44 L 660 44 L 660 50"/>
-      <text class="iso-name iso-name--end" x="110" y="78" text-anchor="middle">Customer pays</text>
-      <text class="iso-name" x="320" y="78" text-anchor="middle">Acquiring bank</text>
-      <text class="iso-name" x="470" y="78" text-anchor="middle">Card network</text>
-      <text class="iso-name" x="620" y="78" text-anchor="middle">Issuing bank</text>
-      <text class="iso-name iso-name--end" x="830" y="78" text-anchor="middle">Merchant receives</text>
-      <text class="iso-amt" x="110" y="222" text-anchor="middle">$1,000</text>
-      <text class="iso-fee iso-fee1" x="320" y="222" text-anchor="middle">−0.35%</text>
-      <text class="iso-fee iso-fee2" x="470" y="222" text-anchor="middle">−0.15%</text>
-      <text class="iso-fee iso-fee3" x="620" y="222" text-anchor="middle">−1.50%</text>
-      <text class="iso-amt iso-amt-out" x="830" y="222" text-anchor="middle">$980</text>
+      <text class="iso-name iso-name--end" x="132.0" y="78">Customer</text>
+      <text class="iso-name" x="316.0" y="78">Acquiring bank</text>
+      <text class="iso-name" x="500.0" y="78">Card network</text>
+      <text class="iso-name" x="684.0" y="78">Issuing bank</text>
+      <text class="iso-name iso-name--end" x="868.0" y="78">Merchant</text>
+      <text class="iso-amt" x="132.0" y="222">$1,000</text>
+      <text class="iso-fee iso-fee1" x="316.0" y="222">&minus;$3.50</text>
+      <text class="iso-fee iso-fee2" x="500.0" y="222">&minus;$1.50</text>
+      <text class="iso-fee iso-fee3" x="684.0" y="222">&minus;$15.00</text>
+      <text class="iso-amt iso-amt-out" x="868.0" y="222">$980</text>
+      <text class="iso-tag iso-tag1" x="192.6" y="192">Gateway</text>
+      <text class="iso-tag iso-tag1 iso-tag--late" x="259.7" y="192">Tokenisation</text>
+      <text class="iso-tag iso-tag2" x="373.4" y="192">Processing</text>
+      <text class="iso-tag iso-tag2 iso-tag--late" x="442.6" y="192">Routing</text>
+      <text class="iso-tag iso-tag3" x="557.4" y="192">Authorisation</text>
+      <text class="iso-tag iso-tag3 iso-tag--late" x="626.6" y="192">3DS</text>
+      <text class="iso-tag iso-tag4" x="740.4" y="192">Settlement</text>
+      <text class="iso-tag iso-tag4 iso-tag--late" x="807.5" y="192">Payout</text>
       </svg>
       <!-- Phones: the same chain stacked top to bottom, so every label stays readable -->
       <svg class="cs-flow-v" viewBox="0 0 300 372" xmlns="http://www.w3.org/2000/svg" role="img">
@@ -1444,18 +1448,17 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
   <div class="cs-scale cs-vis--wide reveal">
     <div class="cs-scale-cols" role="group" aria-label="Cubes showing payment cost scaling from small to enterprise merchants">
       <div class="cs-scale-col" data-tier="0">
-        <svg class="iso-scale" viewBox="0 0 220 144" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <svg class="iso-scale" viewBox="94.3 -31.5 31.4 130" preserveAspectRatio="xMinYMax meet" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <g class="st" data-tier="0">
         <g class="plinth"><polygon class="f-l" points="95.3,89.0 110.0,97.5 110.0,92.5 95.3,84.0"/><polygon class="f-r" points="110.0,97.5 124.7,89.0 124.7,84.0 110.0,92.5"/><polygon class="f-t" points="95.3,84.0 110.0,92.5 124.7,84.0 110.0,75.5"/></g>
         <g class="pil" style="--d:0.15s"><g class="pil-body"><polygon class="f-l" points="103.6,84.0 110.0,87.7 110.0,58.9 103.6,55.2"/><polygon class="f-r" points="110.0,87.7 116.4,84.0 116.4,55.2 110.0,58.9"/><polygon class="f-t" points="103.6,55.2 110.0,58.9 116.4,55.2 110.0,51.5"/></g><g class="pil-cap"><polygon class="f-l" points="103.6,55.2 110.0,58.9 110.0,57.7 103.6,54.0"/><polygon class="f-r" points="110.0,58.9 116.4,55.2 116.4,54.0 110.0,57.7"/><polygon class="f-t" points="103.6,54.0 110.0,57.7 116.4,54.0 110.0,50.3"/></g></g>
         </g>
         </svg>
         <span class="cs-scale-eyebrow">Small merchant</span>
-        <p class="cs-scale-lead">Costs are rarely a priority.</p>
-        <p class="cs-scale-metric"><strong>$5M</strong>/yr volume → <em>$100K</em>/yr fees</p>
+        <p class="cs-scale-note">$5M a year costs about $100K in fees, so a 5 bps rise adds just <b>$2.5K</b>.</p>
       </div>
       <div class="cs-scale-col" data-tier="1">
-        <svg class="iso-scale" viewBox="0 0 220 144" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <svg class="iso-scale" viewBox="74.8 -20.2 70.4 130" preserveAspectRatio="xMinYMax meet" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <g class="st" data-tier="1">
         <g class="plinth"><polygon class="f-l" points="75.8,95.8 98.3,108.8 98.3,103.8 75.8,90.8"/><polygon class="f-r" points="98.3,108.8 144.2,82.2 144.2,77.2 98.3,103.8"/><polygon class="f-t" points="75.8,90.8 98.3,103.8 144.2,77.2 121.7,64.2"/></g>
         <g class="pil" style="--d:0.67s"><polygon class="f-l" points="115.3,72.8 121.7,76.5 121.7,46.5 115.3,42.8"/><polygon class="f-r" points="121.7,76.5 128.1,72.8 128.1,42.8 121.7,46.5"/><polygon class="f-t" points="115.3,42.8 121.7,46.5 128.1,42.8 121.7,39.1"/></g>
@@ -1471,11 +1474,10 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
         </g>
         </svg>
         <span class="cs-scale-eyebrow">Mid-sized merchant</span>
-        <p class="cs-scale-lead">Costs become noticeable.</p>
-        <p class="cs-scale-metric"><strong>$50M</strong>/yr volume → <em>$1M</em>/yr fees</p>
+        <p class="cs-scale-note">$50M a year costs about $1M in fees, so the same rise adds <b>$25K</b>.</p>
       </div>
       <div class="cs-scale-col cs-scale-col--win" data-tier="2">
-        <svg class="iso-scale" viewBox="0 0 220 144" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <svg class="iso-scale" viewBox="24.1 9 171.8 130" preserveAspectRatio="xMinYMax meet" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <g class="st" data-tier="2">
         <g class="plinth"><polygon class="f-l" points="25.1,89.0 110.0,138.0 110.0,133.0 25.1,84.0"/><polygon class="f-r" points="110.0,138.0 194.9,89.0 194.9,84.0 110.0,133.0"/><polygon class="f-t" points="25.1,84.0 110.0,133.0 194.9,84.0 110.0,35.0"/></g>
         <g class="pil" style="--d:1.22s"><polygon class="f-l" points="103.6,43.5 110.0,47.2 110.0,17.2 103.6,13.5"/><polygon class="f-r" points="110.0,47.2 116.4,43.5 116.4,13.5 110.0,17.2"/><polygon class="f-t" points="103.6,13.5 110.0,17.2 116.4,13.5 110.0,9.8"/></g>
@@ -1581,8 +1583,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
         </g>
         </svg>
         <span class="cs-scale-eyebrow">Enterprise merchant</span>
-        <p class="cs-scale-lead">Every basis point matters.</p>
-        <p class="cs-scale-metric"><strong>$500M</strong>/yr volume → <em>$10M</em>/yr fees</p>
+        <p class="cs-scale-note">$500M a year costs about $10M in fees, so the same rise adds <b>$250K</b>.</p>
       </div>
     </div>
     <div class="cs-scale-foot">
@@ -1608,20 +1609,20 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 
   <dl class="cs-role reveal">
     <div class="cs-role-row">
-      <dt><span class="cs-role-icon" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="7.25"/><path d="M12.9 7.1l-1.7 4.1-4.1 1.7 1.7-4.1z"/></svg></span><span>Product strategy</span></dt>
-      <dd>Partnered with the PM to define the product vision, target users, and overall investigation experience.</dd>
+      <dt><span class="cs-role-icon" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="9" r="5.25"/><path d="M13 13l4 4"/></svg></span><span>Domain research</span></dt>
+      <dd>Researched payment-cost structures, fee models, and pricing mechanics through collaboration with business teams and agencies involved in manual cost analysis.</dd>
     </div>
     <div class="cs-role-row">
-      <dt><span class="cs-role-icon" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="9" r="5.25"/><path d="M13 13l4 4"/></svg></span><span>Domain research</span></dt>
-      <dd>Built an understanding of payment-cost structures, fee models, and pricing mechanics through collaboration with business development teams and agencies handling cost analysis manually.</dd>
+      <dt><span class="cs-role-icon" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="7.25"/><path d="M12.9 7.1l-1.7 4.1-4.1 1.7 1.7-4.1z"/></svg></span><span>Product strategy</span></dt>
+      <dd>Partnered with the PM to shape the product vision, define target users, and establish the core investigation experience.</dd>
     </div>
     <div class="cs-role-row">
       <dt><span class="cs-role-icon" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2.5l5 6.5-5 8.5-5-8.5z"/><circle cx="10" cy="9.6" r="1.4"/><path d="M10 11v6.5"/></svg></span><span>Product design</span></dt>
-      <dd>Designed the HyperSense product experience end-to-end, creating a coherent, scalable product that supports both IC++ and blended pricing models.</dd>
+      <dd>Designed the end-to-end experience for enterprise payments, translating complex payment-cost structures into intuitive investigation workflows, information architecture, and data visualisations.</dd>
     </div>
     <div class="cs-role-row">
       <dt><span class="cs-role-icon" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M11.8 3.2c2.7.3 4.7 2.3 5 5l-5.6 5.6-5-5z"/><path d="M6.2 8.8l-2.7.4-1 2.6 3.2-.4M11.2 13.8l-.4 2.7-2.6 1 .4-3.2"/><circle cx="12.8" cy="7.2" r="1.2"/></svg></span><span>Product execution</span></dt>
-      <dd>As the sole designer on a seven-person team, collaborated with product, engineering, and business development from early concept through merchant pilots.</dd>
+      <dd>Led design as the sole product designer on a seven-person cross-functional team, working across product, engineering, and business development from early concepts through merchant pilots.</dd>
     </div>
   </dl>
 
@@ -1635,40 +1636,35 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
   <div class="cs-label reveal">Understanding the terrain</div>
   <h2 class="cs-display reveal">The industry's most transparent pricing model comes with an <em>invisible tradeoff.</em></h2>
 
-  <p class="cs-p reveal">Every card payment carries a cost, and how it's calculated depends on the merchant's pricing model: <span class="cs-gloss" tabindex="0" data-gloss="blended-pricing">Blended</span> or <span class="cs-gloss" tabindex="0" data-gloss="ic-plus-plus">IC++</span>.</p>
-  <p class="cs-p reveal">Blended applies one fixed rate to every transaction: simple and predictable, but expensive at high volume. IC++ charges the actual cost of each transaction, which creates room to save at scale. That's why enterprise merchants prefer it.</p>
+  <p class="cs-p reveal">Every card payment carries a cost. How that cost is calculated depends on the merchant's pricing model: <span class="cs-gloss" tabindex="0" data-gloss="blended-pricing">Blended</span> or <span class="cs-gloss" tabindex="0" data-gloss="ic-plus-plus">IC++</span>.</p>
+  <p class="cs-p reveal">Blended pricing applies a fixed rate to every transaction, making costs predictable but often more expensive at scale. IC++ passes through the underlying processing costs for each transaction, creating opportunities to optimise costs.</p>
 
-  <!-- IC++ FEE SIMULATOR — teaser -->
-  <div class="cs-vis reveal cs-sim-teaser">
-    <div class="cs-vis-label">IC++ fee simulation</div>
-    <div class="cs-vis-body cs-sim-teaser-body">
-      <div class="cs-sim-teaser-preview cs-sim-teaser-flow" aria-hidden="true">
-        <div class="cs-sim-flow-node">
-          <span class="cs-sim-teaser-dot cs-sim-teaser-dot--start"></span>
-          <span class="cs-sim-flow-label">Customer Pays</span>
-        </div>
-        <span class="cs-sim-teaser-dot"></span>
-        <span class="cs-sim-teaser-dot"></span>
-        <div class="cs-sim-flow-node">
-          <span class="cs-sim-teaser-dot"></span>
-          <span class="cs-sim-flow-label">Payment Costs</span>
-        </div>
-        <span class="cs-sim-teaser-dot"></span>
-        <span class="cs-sim-teaser-dot"></span>
-        <div class="cs-sim-flow-node">
-          <span class="cs-sim-teaser-dot cs-sim-teaser-dot--end"></span>
-          <span class="cs-sim-flow-label">Merchant Receives</span>
-        </div>
+  <!-- Same payment, different cost: two $100 payments under Blended and IC++ -->
+  <div class="txn-compare reveal">
+    <div class="txn-colhead">
+      <span>Transaction</span>
+      <span class="txn-cols"><span>Blended</span><span>IC++</span></span>
+    </div>
+    <div class="txn-row">
+      <div class="txn-left">
+        <div class="txn-amount">$100</div>
+        <div class="txn-tags">US &middot; Visa &middot; Credit &middot; Card present</div>
       </div>
-      <p class="cs-sim-teaser-desc">A payment may look like a single event, but it's actually a chain of participants, systems, and decisions, each contributing to the final cost.</p>
-      <button class="cs-sim-btn" id="cs-sim-open"><span class="play"></span> See the Cost Flow</button>
+      <div class="txn-cols"><div class="txn-val">$2.50</div><div class="txn-val txn-val--ic">$2.12</div></div>
+    </div>
+    <div class="txn-row">
+      <div class="txn-left">
+        <div class="txn-amount">$100</div>
+        <div class="txn-tags">US &middot; Visa &middot; Credit &middot; Card not present</div>
+      </div>
+      <div class="txn-cols"><div class="txn-val">$2.50</div><div class="txn-val txn-val--ic">$2.41</div></div>
     </div>
   </div>
 
   <h3 class="cs-h3 reveal" style="margin-top: 72px;">The same transparency that creates savings also creates complexity.</h3>
 
-  <p class="cs-p reveal">In <span class="cs-gloss" tabindex="0" data-gloss="ic-plus-plus">IC++</span> pricing, no two transactions are guaranteed to be priced the same. Card type, authentication, settlement timing, geography, and data quality all influence the final fee. Each variable can quietly shift a transaction into a different fee tier, and most merchants never see it happen.</p>
-  <p class="cs-p reveal">Without visibility, enterprise merchants often pay more than they should. The gap between expected and actual payment costs can reach <span class="cs-num">7-10%</span>.</p>
+  <p class="cs-p reveal">In <span class="cs-gloss" tabindex="0" data-gloss="ic-plus-plus">IC++</span> pricing, every transaction is priced independently. Card type, authentication, settlement timing, geography, and data quality all influence the final fee. Each variable can shift a transaction into a different fee tier, making costs harder to track.</p>
+  <p class="cs-p reveal">Without visibility, enterprise merchants often pay more than they should. The gap between expected and actual payment costs can reach <span class="cs-num">7&ndash;10%</span>.</p>
 
   <!-- THE RAW DOCUMENTS -->
   <div class="cs-docs reveal">
@@ -1678,7 +1674,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
     </div>
     <div class="cs-docs-body">
       <div class="cs-docs-text">
-        <p>Understanding the complete cost story often means piecing together fragmented payment cost data spread across invoices, settlement reports, and network documentation.</p>
+        <p>Teams piece together invoices, settlement reports, and network documentation to understand what they were actually charged.</p>
       </div>
       <div>
         <div class="cs-docs-trio">
@@ -1691,35 +1687,6 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
     </div>
   </div>
 
-  <!-- IC++ FEE SIMULATOR — modal -->
-  <div class="cs-sim-modal" id="cs-sim-modal" role="dialog" aria-modal="true" aria-labelledby="cs-sim-modal-title" aria-hidden="true">
-    <div class="cs-sim-modal-backdrop" id="cs-sim-modal-backdrop"></div>
-    <div class="cs-vis cs-sim-modal-panel">
-      <button class="cs-sim-modal-close" id="cs-sim-modal-close" aria-label="Close simulation">✕</button>
-      <div class="cs-vis-label" id="cs-sim-modal-title">IC++ fee simulation: select a card type, then run the transaction</div>
-      <div class="cs-vis-body">
-        <div class="cs-sim-hint">Card type</div>
-        <div class="cs-sim-switch" id="cs-sim-switch"></div>
-        <div class="cs-sim-flow" id="cs-sim-flow">
-          <div class="cs-sim-rail" id="cs-sim-rail" aria-hidden="true"></div>
-          <div class="cs-sim-rail-progress" id="cs-sim-rail-progress" aria-hidden="true"></div>
-          <div class="cs-sim-rail-bubble" id="cs-sim-bubble" aria-hidden="true"></div>
-          <div class="cs-sim-source">
-            <div class="cs-sim-source-info">
-              <div class="cs-sim-source-cap">Customer pays</div>
-              <div class="cs-sim-source-amt" id="cs-sim-source-amt">$1,000.00</div>
-            </div>
-            <button class="cs-sim-btn" id="cs-sim-btn"><span class="play"></span> Simulate transaction</button>
-          </div>
-          <div class="cs-sim-stages" id="cs-sim-stages"></div>
-        </div>
-        <div class="cs-sim-strip">
-          <div class="cs-sim-amt-block"><label>Total deducted</label><span class="cs-sim-amt cs-sim-amt--neg" id="cs-sim-ded">-</span></div>
-          <div class="cs-sim-amt-block"><label>Merchant receives</label><span class="cs-sim-amt cs-sim-amt--pos" id="cs-sim-net">-</span></div>
-        </div>
-      </div>
-    </div>
-  </div>
 
 
 
@@ -1732,173 +1699,141 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 
   <div class="cs-label reveal">Users</div>
   <h2 class="cs-display reveal">Three users. One blind spot. <em>Different stakes.</em></h2>
-  <p class="cs-p reveal">Once we understood the problem, we needed to understand who was responsible for solving it. We discovered that payment costs weren't owned by a single team. Three different stakeholders interacted with the same problem from different angles, each carrying a different responsibility, but all missing the same visibility.</p>
+  <p class="cs-p reveal">Payment costs weren&rsquo;t owned by a single team. Analysts reconciled fees, finance tracked their impact, and operations made decisions that influenced them. Yet all three lacked a clear understanding of why costs changed.</p>
 
-<div class="cs-personas">
-
-  <!-- Persona 1 — Payment Analyst (open by default: its story carries the strongest numbers) -->
-  <div class="cs-persona reveal is-open">
-    <div class="cs-persona-head">
-      <div class="cs-persona-icon" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="8.5" cy="6.5" r="3"/><path d="M3 17c0-3.6 2.5-6.2 5.5-6.2"/><circle cx="14.5" cy="14.5" r="2.3"/><path d="M16.2 16.2l1.6 1.6"/></svg></div>
-      <div>
-        <div class="cs-persona-name">The Payment Analyst <span class="dash">–</span> <em>Owns the monthly fee audit.</em></div>
-        <p class="cs-persona-desc">Every month, processor invoices arrive with hundreds of fee line items that need to be reconciled, explained, and defended before the billing cycle closes.</p>
-      </div>
-    </div>
-    <div class="cs-persona-meta">
-      <div><span class="cs-persona-meta-label">Questions they need answered</span><ul>
-        <li>What changed?</li>
-        <li>Which fees need attention?</li>
-        <li>What should we do next?</li>
-      </ul></div>
-      <div><span class="cs-persona-meta-label">Why it matters</span><p>Every unexplained fee becomes an accepted cost from the next billing cycle.</p></div>
-    </div>
-    <button type="button" class="cs-journey-toggle" aria-expanded="true" aria-controls="cs-journey-1"><span>How it plays out</span><i aria-hidden="true"></i></button>
-    <div class="cs-journey-wrap" id="cs-journey-1"><div class="cs-journey-inner">
-    <div class="cs-journey">
-      <div class="cs-journey-step">
-        <div class="cs-journey-dot"></div>
-        <div class="cs-journey-num">01</div>
-        <div class="cs-journey-title">Invoice arrives</div>
-        <div class="cs-journey-note">A <span class="cs-num">$47K</span> cost increase appears on the monthly invoice.</div>
-      </div>
-      <div class="cs-journey-step">
-        <div class="cs-journey-dot"></div>
-        <div class="cs-journey-num">02</div>
-        <div class="cs-journey-title">Manual investigation</div>
-        <div class="cs-journey-note">The amount is clear. The cause is buried across invoices and exports.</div>
-      </div>
-      <div class="cs-journey-step">
-        <div class="cs-journey-dot"></div>
-        <div class="cs-journey-num">03</div>
-        <div class="cs-journey-title">Trail goes cold</div>
-        <div class="cs-journey-note">Thousands of transactions. Dozens of fee programs. The increase is visible. The cause isn't.</div>
-      </div>
-      <div class="cs-journey-step">
-        <div class="cs-journey-dot"></div>
-        <div class="cs-journey-num">04</div>
-        <div class="cs-journey-title">Cost becomes permanent</div>
-        <div class="cs-journey-note">The cycle closes before the answer arrives. The leakage continues next month.</div>
-      </div>
-    </div>
-    </div></div>
+<!-- Three users around one gap (the walkthrough's drawing, in Hairline's light lines) -->
+  <div class="cs-users-vis reveal">
+    <svg class="user-vis" viewBox="-285 -212 570 470" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Three overlapping areas on one base: the payment analyst reconciles fees, the finance lead tracks the impact, the operations head makes the decisions. Where all three overlap is the shared blind spot: why payment costs change."><defs><clipPath id="uv-b"><ellipse class="" cx="-75" cy="22" rx="98" ry="56.5"/></clipPath><clipPath id="uv-c"><ellipse class="" cx="75" cy="22" rx="98" ry="56.5"/></clipPath></defs><g class="plinth"><polygon points="-270,0 0,155.8 0,164.8 -270,9"/><polygon points="0,155.8 270,0 270,9 0,164.8"/><polygon points="0,-155.8 270,0 0,155.8 -270,0"/></g><g clip-path="url(#uv-b)"><g clip-path="url(#uv-c)"><ellipse class="hot" cx="0" cy="-44" rx="98" ry="56.5"/></g></g><ellipse class="ring" cx="0" cy="-44" rx="98" ry="56.5"/><ellipse class="ring" cx="-75" cy="22" rx="98" ry="56.5"/><ellipse class="ring" cx="75" cy="22" rx="98" ry="56.5"/><g class="who"><path d="M-15.0,-50 C-15.0,-75 -9.0,-88 0,-88 C9.0,-88 15.0,-75 15.0,-50 A15,8.2 0 0 1 -15.0,-50 Z"/><circle cx="0" cy="-99.5" r="10.4"/></g><g class="who"><path d="M-135.0,40 C-135.0,15 -129.0,2 -120,2 C-111.0,2 -105.0,15 -105.0,40 A15,8.2 0 0 1 -135.0,40 Z"/><circle cx="-120" cy="-9.5" r="10.4"/></g><g class="who"><path d="M105.0,40 C105.0,15 111.0,2 120,2 C129.0,2 135.0,15 135.0,40 A15,8.2 0 0 1 105.0,40 Z"/><circle cx="120" cy="-9.5" r="10.4"/></g><line class="hotline" x1="0" y1="2" x2="0" y2="204.8"/><circle class="hotdot" cx="0" cy="2" r="2.5"/><text class="lb-t" x="0" y="-188" text-anchor="middle">Payment Analyst</text><text class="lb-s" x="0" y="-171" text-anchor="middle">Reconciles fees</text><text class="lb-t" x="-200" y="100" text-anchor="middle">Finance Lead</text><text class="lb-s" x="-200" y="117" text-anchor="middle">Tracks the impact</text><text class="lb-t" x="200" y="100" text-anchor="middle">Operations Head</text><text class="lb-s" x="200" y="117" text-anchor="middle">Makes the decisions</text><text class="lb-k" x="0" y="228.8" text-anchor="middle">The shared blind spot</text><text class="lb-s" x="0" y="248.8" text-anchor="middle">Why payment costs change.</text></svg>
   </div>
 
-  <!-- Persona 2 — Treasury / Finance Lead -->
-  <div class="cs-persona reveal">
-    <div class="cs-persona-head">
-      <div class="cs-persona-icon" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="8.5" cy="6.5" r="3"/><path d="M3 17c0-3.6 2.5-6.2 5.5-6.2"/><path d="M11.3 16.3l1.7-2 1.3 1.3 2.5-2.8"/><path d="M15.3 11.8h1.5v1.5"/></svg></div>
-      <div>
-        <div class="cs-persona-name">The Treasury / Finance Lead <span class="dash">–</span> <em>Owns forecasting and budget accountability.</em></div>
-        <p class="cs-persona-desc">Payment costs are one of the largest variable expenses in the business, often representing <span class="cs-num">1.5-2.2% of revenue</span>. When those numbers move, finance teams are expected to explain why and predict what happens next.</p>
-      </div>
+  <div class="cs-user-rows reveal">
+    <div class="cs-user-row">
+      <div class="cs-user-who"><div class="cs-user-name">Payment Analyst</div><div class="cs-user-owns">Owns the monthly fee audit.</div></div>
+      <div class="cs-user-what"><p class="cs-user-note">Hundreds of fee line items need to be reconciled and explained before the billing cycle closes.</p><p class="cs-user-ask"><span>Needs to know</span>What changed, and which fees need attention?</p></div>
     </div>
-    <div class="cs-persona-meta">
-      <div><span class="cs-persona-meta-label">Questions they need answered</span><ul>
-        <li>What's driving the increase?</li>
-        <li>Which costs are expected vs avoidable?</li>
-        <li>What should we plan for next quarter?</li>
-      </ul></div>
-      <div><span class="cs-persona-meta-label">Why it matters</span><p>When cost increases can't be explained, finance can't tell the difference between growth, leakage, and operational issues.</p></div>
+    <div class="cs-user-row">
+      <div class="cs-user-who"><div class="cs-user-name">Finance Lead</div><div class="cs-user-owns">Owns forecasting and budget accountability.</div></div>
+      <div class="cs-user-what"><p class="cs-user-note">Must explain cost movements and anticipate their impact on future budgets.</p><p class="cs-user-ask"><span>Needs to know</span>Which costs are expected, and which are avoidable?</p></div>
     </div>
-    <button type="button" class="cs-journey-toggle" aria-expanded="false" aria-controls="cs-journey-2"><span>How it plays out</span><i aria-hidden="true"></i></button>
-    <div class="cs-journey-wrap" id="cs-journey-2"><div class="cs-journey-inner">
-    <div class="cs-journey">
-      <div class="cs-journey-step">
-        <div class="cs-journey-dot"></div>
-        <div class="cs-journey-num">01</div>
-        <div class="cs-journey-title">Variance detected</div>
-        <div class="cs-journey-note">Payment costs increased <span class="cs-num">13%</span> quarter-over-quarter. The CFO wants an explanation.</div>
-      </div>
-      <div class="cs-journey-step">
-        <div class="cs-journey-dot"></div>
-        <div class="cs-journey-num">02</div>
-        <div class="cs-journey-title">Manual investigation</div>
-        <div class="cs-journey-note">The increase is visible. The cause is scattered across invoices, reports, and rate updates.</div>
-      </div>
-      <div class="cs-journey-step">
-        <div class="cs-journey-dot"></div>
-        <div class="cs-journey-num">03</div>
-        <div class="cs-journey-title">Too many possibilities</div>
-        <div class="cs-journey-note">Growth, network changes, or processor errors. No clear way to separate signal from noise.</div>
-      </div>
-      <div class="cs-journey-step">
-        <div class="cs-journey-dot"></div>
-        <div class="cs-journey-num">04</div>
-        <div class="cs-journey-title">Planning in the dark</div>
-        <div class="cs-journey-note">Planning the next quarter without understanding what drove the last one.</div>
-      </div>
+    <div class="cs-user-row">
+      <div class="cs-user-who"><div class="cs-user-name">Operations Head</div><div class="cs-user-owns">Owns the operational decisions that influence payment costs.</div></div>
+      <div class="cs-user-what"><p class="cs-user-note">Routing and authentication changes affect costs, but their impact often surfaces weeks later.</p><p class="cs-user-ask"><span>Needs to know</span>Which operational changes drove the cost increase?</p></div>
     </div>
-    </div></div>
   </div>
-
-  <!-- Persona 3 — Payment Operations Head -->
-  <div class="cs-persona reveal">
-    <div class="cs-persona-head">
-      <div class="cs-persona-icon" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="8.5" cy="6.5" r="3"/><path d="M3 17c0-3.6 2.5-6.2 5.5-6.2"/><circle cx="14.5" cy="14.5" r="2.2"/><path d="M14.5 11.3v1M14.5 16.7v1M11.3 14.5h1M16.7 14.5h1M12.4 12.4l.7.7M16.3 12.4l-.7.7M12.4 16.6l.7-.7M16.3 16.6l-.7-.7"/></svg></div>
-      <div>
-        <div class="cs-persona-name">The Payment Operations Head <span class="dash">–</span> <em>Owns the operational decisions that influence payment costs.</em></div>
-        <p class="cs-persona-desc">Routing rules, authentication settings, and processor configurations all influence payment costs. But their impact often appears weeks later, long after the decision was made.</p>
-      </div>
-    </div>
-    <div class="cs-persona-meta">
-      <div><span class="cs-persona-meta-label">Questions they need answered</span><ul>
-        <li>Which decisions affected payment costs?</li>
-        <li>Are those costs expected or avoidable?</li>
-        <li>What should be corrected before the next release?</li>
-      </ul></div>
-      <div><span class="cs-persona-meta-label">Why it matters</span><p>Without a clear feedback loop, teams keep optimising while every unexplained cost increase becomes recurring spend.</p></div>
-    </div>
-    <button type="button" class="cs-journey-toggle" aria-expanded="false" aria-controls="cs-journey-3"><span>How it plays out</span><i aria-hidden="true"></i></button>
-    <div class="cs-journey-wrap" id="cs-journey-3"><div class="cs-journey-inner">
-    <div class="cs-journey">
-      <div class="cs-journey-step">
-        <div class="cs-journey-dot"></div>
-        <div class="cs-journey-num">01</div>
-        <div class="cs-journey-title">An optimisation ships</div>
-        <div class="cs-journey-note">A routing, authentication, or checkout change ships to improve conversion, acceptance, or reliability.</div>
-      </div>
-      <div class="cs-journey-step">
-        <div class="cs-journey-dot"></div>
-        <div class="cs-journey-num">02</div>
-        <div class="cs-journey-title">The signal arrives late</div>
-        <div class="cs-journey-note">The change succeeds. The cost impact appears weeks later through settlement and billing.</div>
-      </div>
-      <div class="cs-journey-step">
-        <div class="cs-journey-dot"></div>
-        <div class="cs-journey-num">03</div>
-        <div class="cs-journey-title">Cause becomes unclear</div>
-        <div class="cs-journey-note">Multiple releases, processor changes, and network updates happened in between.</div>
-      </div>
-      <div class="cs-journey-step">
-        <div class="cs-journey-dot"></div>
-        <div class="cs-journey-num">04</div>
-        <div class="cs-journey-title">The next release ships</div>
-        <div class="cs-journey-note">Teams keep optimising while the previous cost impact remains unresolved.</div>
-      </div>
-    </div>
-    </div></div>
-  </div>
-
-</div>
-
-  <p class="cs-p reveal" style="margin-top: 72px;">By this point, we understood the ecosystem. The challenge was turning a fragmented payment system into a coherent cost story that different teams could trust and act on. While each team entered from a different perspective and carried different responsibilities, they were ultimately trying to answer the same question: where payment costs were coming from and what to do about them.</p>
 
 </div>
 </section>
 
-<!-- ═══════════════════════ 05 — PRODUCT STRATEGY AND DESIGN ═══════════════════════ -->
+<!-- ═══════════════════════ 05 — APPROACH ═══════════════════════ -->
+<section class="cs-section" id="cs-approach" data-section>
+<div class="cs-wrap">
+
+  <div class="cs-label reveal">Approach</div>
+  <h2 class="cs-display reveal">Starting with <em>very little.</em></h2>
+
+  <h3 class="cs-h3 reveal">Understanding the ecosystem became our first step.</h3>
+  <p class="cs-p reveal">We started with industry reports, insights from agencies that manually audit payment costs, and conversations with merchants at industry events. This helped us understand how payment costs were structured and where merchants struggled with visibility.</p>
+  <div class="cs-trio reveal">
+    <div class="cs-trio-item"><svg class="cs-trio-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 2.75h7l3 3v11.5H5z"/><path d="M12 2.75v3h3"/><path d="M8 14.5v-2.5M10.5 14.5v-4.5M13 14.5v-1.5"/></svg><div class="cs-trio-t">Industry reports</div><p class="cs-trio-d">How payment leaders describe cost structures.</p></div>
+    <div class="cs-trio-item"><svg class="cs-trio-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 2.75h9v6"/><path d="M4 2.75v14.5l1.5-1 1.5 1 1.5-1"/><path d="M6.5 6h4M6.5 8.5h2.5"/><circle cx="13" cy="13" r="2.75"/><path d="M15 15l2.25 2.25"/></svg><div class="cs-trio-t">Cost-audit firms</div><p class="cs-trio-d">Where merchants struggle to see their costs.</p></div>
+    <div class="cs-trio-item"><svg class="cs-trio-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4.5h9v6H7l-3 2.5v-2.5H3z"/><path d="M12 7.5h5v6h-1v2.25l-2.5-2.25H9v-1.5"/></svg><div class="cs-trio-t">Merchant conversations</div><p class="cs-trio-d">Pitching the idea and testing it in person.</p></div>
+  </div>
+
+  <h3 class="cs-h3 reveal">We had little to design from.</h3>
+  <p class="cs-p reveal">There were no established product patterns to follow, access to real transaction data was restricted by NDAs, and we were still learning a domain with complex pricing structures. Much of our early design work had to begin with hypotheses rather than established patterns or validated data.</p>
+  <div class="cs-trio reveal">
+    <div class="cs-trio-item"><svg class="cs-trio-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="14" height="14" rx="1" stroke-dasharray="2 2.2"/><path d="M8.25 8.25a1.75 1.75 0 1 1 2.5 1.6c-.5.25-.75.6-.75 1.15"/><path d="M10 13.4v.1"/></svg><div class="cs-trio-t">No patterns to follow</div><p class="cs-trio-d">Nothing comparable existed to borrow from.</p></div>
+    <div class="cs-trio-item"><svg class="cs-trio-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4.5h10M3 8h10M3 11.5h5"/><rect x="10.75" y="12.25" width="6.25" height="5" rx="1"/><path d="M12.25 12.25v-1.5a1.6 1.6 0 0 1 3.2 0v1.5"/></svg><div class="cs-trio-t">Data behind NDAs</div><p class="cs-trio-d">Real transaction data was off limits.</p></div>
+    <div class="cs-trio-item"><svg class="cs-trio-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.75" y="5" width="14.5" height="10" rx="1.5"/><path d="M2.75 8.25h14.5"/><path d="M6 12h1.5M9 12h1.5M12 12h1.5"/></svg><div class="cs-trio-t">A complex, new domain</div><p class="cs-trio-d">Pricing structures we were still learning.</p></div>
+  </div>
+
+  <h3 class="cs-h3 reveal">Our first cut was four lightweight modules.</h3>
+  <p class="cs-p reveal">We built Overview, Observe, Deviations and Audit to give merchants an initial view of their payment costs and test our assumptions about what they needed.</p>
+
+  <!-- First cut: four screens in one frame; the tabs move on by themselves, or pick one -->
+  <div class="cs-fc cs-vis--wide reveal">
+    <div class="cs-fc-stack"><img class="on" src="assets/hypersense/first-cut-overview.webp" alt="First-cut design: Overview screen" width="1920" height="1387" loading="lazy" decoding="async" /><img src="assets/hypersense/first-cut-observe.webp" alt="First-cut design: Observe screen" width="1920" height="1387" loading="lazy" decoding="async" /><img src="assets/hypersense/first-cut-deviations.webp" alt="First-cut design: Deviations screen" width="1920" height="1387" loading="lazy" decoding="async" /><img src="assets/hypersense/first-cut-audit.webp" alt="First-cut design: Audit screen" width="1920" height="1387" loading="lazy" decoding="async" /></div>
+    <div class="cs-fc-tabs" role="group" aria-label="First-cut screens"><button type="button" class="on" aria-current="true">Overview</button><button type="button">Observe</button><button type="button">Deviations</button><button type="button">Audit</button></div>
+  </div>
+
+  <h3 class="cs-h3 reveal">Taking the first cut to merchants revealed a few gaps.</h3>
+  <p class="cs-p reveal">We used early demos, merchant conversations and pilots to understand where the experience fell short. Here is what became clear:</p>
+  <div class="cs-trio reveal">
+    <div class="cs-trio-item"><svg class="cs-trio-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.75" y="2.75" width="5" height="5" rx="1"/><rect x="12.25" y="2.75" width="5" height="5" rx="1"/><rect x="7.5" y="12.25" width="5" height="5" rx="1"/><path d="M7.75 5.25h4.5M5.25 7.75l2.6 4.2M14.75 7.75l-2.6 4.2" stroke-dasharray="1.2 1.8"/></svg><div class="cs-trio-t">Disconnected experience</div><p class="cs-trio-d">Modules worked independently rather than guiding merchants through an investigation.</p></div>
+    <div class="cs-trio-item"><svg class="cs-trio-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.75" y="3.25" width="14.5" height="13.5" rx="1.5"/><path d="M7.75 3.25v13.5"/><path d="M4.5 6.75h1.5M4.5 9.5h1.5M4.5 12.25h1.5"/><path d="M11.25 8.6a1.75 1.75 0 1 1 2.5 1.6c-.5.25-.75.6-.75 1.15"/><path d="M13 13.4v.1"/></svg><div class="cs-trio-t">Unclear navigation</div><p class="cs-trio-d">Names like Observe and Deviations didn&rsquo;t communicate their purpose.</p></div>
+    <div class="cs-trio-item"><svg class="cs-trio-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14"/><circle cx="7" cy="5" r="1.6" fill="var(--bg)"/><circle cx="13" cy="10" r="1.6" fill="var(--bg)"/><circle cx="9" cy="15" r="1.6" fill="var(--bg)"/></svg><div class="cs-trio-t">Different merchant setups</div><p class="cs-trio-d">Multiple PSPs and pricing models meant the experience needed to adapt to different configurations.</p></div>
+  </div>
+
+</div>
+</section>
+
+<!-- ═══════════════════════ 07 — DESIGN CHALLENGE ═══════════════════════ -->
+<section class="cs-section" id="cs-challenge" data-section>
+<div class="cs-wrap">
+
+  <div class="cs-label reveal">Design Considerations</div>
+  <h2 class="cs-display reveal">What the experience needed <em>to get right.</em></h2>
+  <p class="cs-p reveal">With the product direction established, the next challenge was translating it into an experience that worked for real payment teams. We needed to balance five things while designing.</p>
+  <div class="cs-module-tag cs-tensions-lead reveal">Five considerations shaped the design</div>
+
+  <div class="cs-tensions reveal">
+
+    <div class="cs-tension-row">
+      <svg class="cs-tension-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4.5c4 0 4.5 5.5 8.5 5.5M3 15.5c4 0 4.5-5.5 8.5-5.5M3 10h8.5"/><path d="M11.5 10H17M14.5 7.5L17 10l-2.5 2.5"/></svg>
+      <div class="cs-tension-tension">
+        <h3 class="cs-tension-title"><span class="cs-tension-from">Fragmented evidence</span><span class="visually-hidden"> to </span><svg class="cs-tension-arrow" viewBox="0 0 20 20" aria-hidden="true"><path d="M3.5 10h12.5M12 6l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="cs-tension-to">Traceable insights</span></h3>
+        <p class="cs-tension-friction">Bring together cost signals from different sources while allowing teams to trace every insight back to its underlying data.</p>
+      </div>
+    </div>
+
+    <div class="cs-tension-row">
+      <svg class="cs-tension-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 2.75l6 2.25v4.5c0 3.9-2.6 6.6-6 7.75-3.4-1.15-6-3.85-6-7.75V5z"/><path d="M7.4 10l1.8 1.8 3.5-3.6"/></svg>
+      <div class="cs-tension-tension">
+        <h3 class="cs-tension-title"><span class="cs-tension-from">Complex data</span><span class="visually-hidden"> to </span><svg class="cs-tension-arrow" viewBox="0 0 20 20" aria-hidden="true"><path d="M3.5 10h12.5M12 6l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="cs-tension-to">Clarity without losing detail</span></h3>
+        <p class="cs-tension-friction">Make dense payment information easier to understand without hiding the evidence teams need to verify their decisions.</p>
+      </div>
+    </div>
+
+    <div class="cs-tension-row">
+      <svg class="cs-tension-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="7.5" cy="10" r="4.5"/><circle cx="12.5" cy="10" r="4.5"/></svg>
+      <div class="cs-tension-tension">
+        <h3 class="cs-tension-title"><span class="cs-tension-from">Two pricing models</span><span class="visually-hidden"> to </span><svg class="cs-tension-arrow" viewBox="0 0 20 20" aria-hidden="true"><path d="M3.5 10h12.5M12 6l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="cs-tension-to">One adaptable experience</span></h3>
+        <p class="cs-tension-friction">Support both IC++ and blended pricing without compromising the experience or creating two separate products.</p>
+      </div>
+    </div>
+
+    <div class="cs-tension-row">
+      <svg class="cs-tension-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10h6"/><path d="M9 10l7-5.5M9 10l7 5.5"/><path d="M13.5 4.5H16v2.5M13.5 15.5H16V13"/></svg>
+      <div class="cs-tension-tension">
+        <h3 class="cs-tension-title"><span class="cs-tension-from">Cost movement</span><span class="visually-hidden"> to </span><svg class="cs-tension-arrow" viewBox="0 0 20 20" aria-hidden="true"><path d="M3.5 10h12.5M12 6l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="cs-tension-to">Meaningful context</span></h3>
+        <p class="cs-tension-friction">Help teams distinguish expected cost changes driven by business growth from unexpected increases caused by preventable leakage.</p>
+      </div>
+    </div>
+
+    <div class="cs-tension-row">
+      <svg class="cs-tension-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10" cy="10.5" r="2"/><circle cx="4" cy="4.5" r="1.6"/><circle cx="16" cy="4.5" r="1.6"/><circle cx="10" cy="17" r="1.6"/><path d="M5.2 5.7l3.3 3.4M14.8 5.7l-3.3 3.4M10 12.5v2.9"/></svg>
+      <div class="cs-tension-tension">
+        <h3 class="cs-tension-title"><span class="cs-tension-from">Different teams</span><span class="visually-hidden"> to </span><svg class="cs-tension-arrow" viewBox="0 0 20 20" aria-hidden="true"><path d="M3.5 10h12.5M12 6l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="cs-tension-to">One shared cost understanding</span></h3>
+        <p class="cs-tension-friction">Finance, Payments, and Operations approach costs from different perspectives. The experience needed to bring them together around a shared understanding of what changed, why it changed, and what needs attention.</p>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+</section>
+
+<!-- ═══════════════════════ 06 — PRODUCT STRATEGY AND DESIGN ═══════════════════════ -->
 <section class="cs-section" id="cs-strategy" data-section>
 <div class="cs-wrap">
 
   <div class="cs-label reveal">Product Strategy and Design</div>
   <h2 class="cs-display reveal">From fragmented signals to <em>one investigation.</em></h2>
-  <p class="cs-p reveal">Payment cost systems are naturally fragmented. Organising the product around processors, fee types, or reports would simply mirror that complexity.</p>
-  <p class="cs-p reveal">Instead, we looked at how investigations actually unfolded. Regardless of where teams started, they were all trying to answer the same core questions.</p>
+  <p class="cs-p reveal">Payment cost data is inherently fragmented. Organising the product around processors, fee types or reports would only mirror that complexity.</p>
+  <p class="cs-p reveal">Instead, we looked at how teams actually investigate costs. Regardless of where they started, they were trying to answer the same questions.</p>
   <p class="cs-p reveal">That insight shaped the product strategy.</p>
 
   <div class="cs-vis cs-vis--wide cs-vis--conv reveal">
-    <div class="cs-vis-label">Many fragmented signals. One investigation.</div>
     <div class="cs-vis-body">
       <!-- Drawn in Hairline's language: each signal is the kind of thing it is (paper, coins, a crate),
            lying crooked; HyperSense is one block; the five modules stand in line. Pulses run in, the
@@ -1942,7 +1877,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
       <path class="lit" pathLength="1" d="M 566.0 256.0 C 636.0 256.0, 636.0 330.0, 706.0 330.0" style="--k:3"/>
       <path class="thr thr-out" pathLength="1" d="M 566.0 256.0 C 636.0 256.0, 636.0 394.0, 706.0 394.0"/>
       <path class="lit" pathLength="1" d="M 566.0 256.0 C 636.0 256.0, 636.0 394.0, 706.0 394.0" style="--k:4"/>
-      <text class="cap" x="40.0" y="28.0" text-anchor="start">FRAGMENTED SIGNALS</text>
+      <text class="cap" x="63.2" y="28.0" text-anchor="start">FRAGMENTED SIGNALS</text>
       <g class="src src--paper"><polygon class="f-l" points="206.3,63.4 178.2,58.4 178.2,56.8 206.3,61.8"/><polygon class="f-l" points="178.2,58.4 172.7,68.6 172.7,67.0 178.2,56.8"/><polygon class="f-l" points="200.8,73.6 206.3,63.4 206.3,61.8 200.8,72.0"/><polygon class="f-l" points="172.7,68.6 200.8,73.6 200.8,72.0 172.7,67.0"/><polygon class="f-t" points="172.7,67.0 200.8,72.0 206.3,61.8 178.2,56.8"/><polygon class="f-l" points="207.4,59.9 178.5,56.9 178.5,55.3 207.4,58.3"/><polygon class="f-l" points="178.5,56.9 175.2,67.3 175.2,65.7 178.5,55.3"/><polygon class="f-l" points="204.1,70.3 207.4,59.9 207.4,58.3 204.1,68.7"/><polygon class="f-l" points="175.2,67.3 204.1,70.3 204.1,68.7 175.2,65.7"/><polygon class="f-t" points="175.2,65.7 204.1,68.7 207.4,58.3 178.5,55.3"/></g>
       <text class="sig" x="167.5" y="70.0" text-anchor="end">Processor invoices</text>
       <g class="src src--coins"><path class="f-l" d="M 241.9 94.5 L 241.9 91.9 A 7.9 4.5 0 0 0 257.7 91.9 L 257.7 94.5 A 7.9 4.5 0 0 1 241.9 94.5 Z"/><ellipse class="f-t" cx="249.8" cy="91.9" rx="7.9" ry="4.5"/><path class="f-l" d="M 243.5 91.3 L 243.5 88.7 A 7.9 4.5 0 0 0 259.3 88.7 L 259.3 91.3 A 7.9 4.5 0 0 1 243.5 91.3 Z"/><ellipse class="f-t" cx="251.4" cy="88.7" rx="7.9" ry="4.5"/></g>
@@ -1973,7 +1908,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
       <text class="sig" x="254.6" y="440.5" text-anchor="end">Gateway fees</text>
       <g class="hub"><polygon class="f-l" points="510.6,272.0 540.0,289.0 540.0,265.0 510.6,248.0"/><polygon class="f-r" points="540.0,289.0 569.4,272.0 569.4,248.0 540.0,265.0"/><polygon class="f-t" points="510.6,248.0 540.0,265.0 569.4,248.0 540.0,231.0"/></g>
       <text class="hub-name" x="540.0" y="312.0" text-anchor="middle">HyperSense</text>
-      <text class="cap" x="700.0" y="92.0" text-anchor="start">ONE INVESTIGATION</text>
+      <text class="cap" x="704.4" y="92.0" text-anchor="start">ONE INVESTIGATION</text>
       <g class="step" style="--k:0"><g class="slip slip--step"><polygon class="f-l" points="713.1,131.0 704.4,136.0 704.4,133.8 713.1,128.8"/><polygon class="f-l" points="735.6,144.0 713.1,131.0 713.1,128.8 735.6,141.8"/><polygon class="f-l" points="704.4,136.0 726.9,149.0 726.9,146.8 704.4,133.8"/><polygon class="f-l" points="726.9,149.0 735.6,144.0 735.6,141.8 726.9,146.8"/><polygon class="f-t" points="704.4,133.8 726.9,146.8 735.6,141.8 713.1,128.8"/></g><text class="step-name" x="748.0" y="137.0" text-anchor="start">Overview</text><text class="step-q" x="748.0" y="156.0" text-anchor="start">What am I paying today?</text></g>
       <g class="step" style="--k:1"><g class="slip slip--step"><polygon class="f-l" points="713.1,195.0 704.4,200.0 704.4,197.8 713.1,192.8"/><polygon class="f-l" points="735.6,208.0 713.1,195.0 713.1,192.8 735.6,205.8"/><polygon class="f-l" points="704.4,200.0 726.9,213.0 726.9,210.8 704.4,197.8"/><polygon class="f-l" points="726.9,213.0 735.6,208.0 735.6,205.8 726.9,210.8"/><polygon class="f-t" points="704.4,197.8 726.9,210.8 735.6,205.8 713.1,192.8"/></g><text class="step-name" x="748.0" y="201.0" text-anchor="start">Drill-Down</text><text class="step-q" x="748.0" y="220.0" text-anchor="start">Why did costs change?</text></g>
       <g class="step" style="--k:2"><g class="slip slip--step"><polygon class="f-l" points="713.1,259.0 704.4,264.0 704.4,261.8 713.1,256.8"/><polygon class="f-l" points="735.6,272.0 713.1,259.0 713.1,256.8 735.6,269.8"/><polygon class="f-l" points="704.4,264.0 726.9,277.0 726.9,274.8 704.4,261.8"/><polygon class="f-l" points="726.9,277.0 735.6,272.0 735.6,269.8 726.9,274.8"/><polygon class="f-t" points="704.4,261.8 726.9,274.8 735.6,269.8 713.1,256.8"/></g><text class="step-name" x="748.0" y="265.0" text-anchor="start">Fee Spikes</text><text class="step-q" x="748.0" y="284.0" text-anchor="start">What is driving it?</text></g>
@@ -2061,68 +1996,155 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
       </svg>
     </div>
   </div>
-  <p class="cs-p reveal">I designed the product around how teams investigate costs. Rather than asking teams to manually piece together fragmented reports, each module guided them toward the answers they needed: from understanding what changed to deciding what to do next. Together, they form a coherent cost story that teams could trust and act on.</p>
 
 </div>
 </section>
 
-<!-- ═══════════════════════ 06 — DESIGN CHALLENGE ═══════════════════════ -->
-<section class="cs-section" id="cs-challenge" data-section>
+<section class="cs-section" id="cs-principles" data-section>
 <div class="cs-wrap">
 
-  <div class="cs-label reveal">Design Challenge</div>
-  <h2 class="cs-display reveal">Making complex payment costs <em>easier to investigate.</em></h2>
-  <p class="cs-p reveal">Payment costs are fragmented, detailed, and constantly changing. The challenge was to create a clear investigation experience without stripping away the detail teams need to understand, trust, and act on the numbers.</p>
-  <div class="cs-module-tag cs-tensions-lead reveal">Five tensions shaped the experience</div>
+  <div class="cs-label reveal">Design Principles</div>
+  <h2 class="cs-display reveal">Principles that <em>shaped the experience.</em></h2>
+  <p class="cs-p reveal">Payment cost data is dense, and the challenge was to make it easier to investigate without losing the detail teams need to act.</p>
+  <dl class="cs-role cs-role--plain reveal">
+    <div class="cs-role-row"><dt><span class="cs-role-icon" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="7"/><path d="M7.9 7.75a2.15 2.15 0 0 1 4.2.6c0 1.4-2.1 1.9-2.1 3.15"/><path d="M10 14.25h.01"/></svg></span><span>Anchor on questions.</span></dt><dd>Organise the experience around the questions teams need answered.</dd></div>
+    <div class="cs-role-row"><dt><span class="cs-role-icon" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="7"/><path d="M12.75 7.25l-1.6 3.9-3.9 1.6 1.6-3.9z"/></svg></span><span>Guide, don&rsquo;t show everything.</span></dt><dd>Highlight what needs attention and keep supporting detail accessible.</dd></div>
+    <div class="cs-role-row"><dt><span class="cs-role-icon" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4.5h14M5.5 8.5h9M8 12.5h4"/><path d="M10 15.25v1.5"/></svg></span><span>Disclose progressively.</span></dt><dd>Start broad, identify the driver, then reveal the evidence.</dd></div>
+    <div class="cs-role-row"><dt><span class="cs-role-icon" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2.75 11h2.5l1.75-4 2.5 8.5 2-10.5 1.75 6h4"/></svg></span><span>Surface the signal.</span></dt><dd>Bring meaningful deviations forward instead of making teams scan everything.</dd></div>
+    <div class="cs-role-row"><dt><span class="cs-role-icon" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h14l-5.5 6.5v5.5l-3 1.5v-7z"/></svg></span><span>Relevance over volume.</span></dt><dd>Show what matters to each merchant, not every change.</dd></div>
+  </dl>
 
-  <div class="cs-tensions reveal">
+</div>
+</section>
 
-    <div class="cs-tension-row">
-      <svg class="cs-tension-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4.5c4 0 4.5 5.5 8.5 5.5M3 15.5c4 0 4.5-5.5 8.5-5.5M3 10h8.5"/><path d="M11.5 10H17M14.5 7.5L17 10l-2.5 2.5"/></svg>
-      <div class="cs-tension-tension">
-        <h3 class="cs-tension-title"><span class="cs-tension-from">Fragmented sources</span><span class="visually-hidden"> to </span><svg class="cs-tension-arrow" viewBox="0 0 20 20" aria-hidden="true"><path d="M3.5 10h12.5M12 6l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="cs-tension-to">One cost story</span></h3>
-        <p class="cs-tension-friction">Payment cost signals lived across invoices, settlement reports, processor data, and transaction records. Teams had to piece them together before they could understand what changed.</p>
-      </div>
+<section class="cs-section" id="cs-evolution" data-section>
+<div class="cs-wrap">
+
+  <div class="cs-label reveal">Design Evolution</div>
+  <h2 class="cs-display reveal">From the first cut to <em>a connected experience.</em></h2>
+  <p class="cs-p reveal">The initial product gave us a starting point, but the challenges revealed that more than individual features needed refining. We needed to rethink how information connected, how teams navigated costs, and how the product adapted to different merchant setups.</p>
+  <p class="cs-p reveal">Through successive iterations, we explored different ways to bring these pieces together into a more coherent investigation experience.</p>
+
+
+  <div class="cs-evo-mod">
+    <div class="cs-module-tag reveal">Overview</div>
+    <p class="cs-evo-obj reveal">Help merchants understand their payment cost story at a glance &mdash; where they stand, what contributes to their costs and what needs attention.</p>
+    <div class="cs-evo-strip cs-vis--wide reveal" tabindex="0" aria-label="Overview iterations, scroll sideways">
+      <figure class="cs-evo-frame"><button type="button" class="cs-evo-shot" aria-label="View Overview iteration 1 full size"><img src="assets/hypersense/iterations/overview-05.webp" alt="Overview iteration 1" loading="lazy" decoding="async" width="2000" height="2715"></button></figure>
+      <figure class="cs-evo-frame"><button type="button" class="cs-evo-shot" aria-label="View Overview iteration 2 full size"><img src="assets/hypersense/iterations/overview-06.webp" alt="Overview iteration 2" loading="lazy" decoding="async" width="2000" height="2878"></button></figure>
+      <figure class="cs-evo-frame"><button type="button" class="cs-evo-shot" aria-label="View Overview iteration 3 full size"><img src="assets/hypersense/iterations/overview-07.webp" alt="Overview iteration 3" loading="lazy" decoding="async" width="2000" height="3074"></button></figure>
+      <figure class="cs-evo-frame"><button type="button" class="cs-evo-shot" aria-label="View Overview iteration 4 full size"><img src="assets/hypersense/iterations/overview-01.webp" alt="Overview iteration 4" loading="lazy" decoding="async" width="2000" height="3618"></button></figure>
+      <figure class="cs-evo-frame"><button type="button" class="cs-evo-shot" aria-label="View Overview iteration 5 full size"><img src="assets/hypersense/iterations/overview-02.webp" alt="Overview iteration 5" loading="lazy" decoding="async" width="2000" height="4099"></button></figure>
+      <figure class="cs-evo-frame"><button type="button" class="cs-evo-shot" aria-label="View Overview iteration 6 full size"><img src="assets/hypersense/iterations/overview-03.webp" alt="Overview iteration 6" loading="lazy" decoding="async" width="2000" height="3449"></button></figure>
+      <figure class="cs-evo-frame"><button type="button" class="cs-evo-shot" aria-label="View Overview iteration 7 full size"><img src="assets/hypersense/iterations/overview-04.webp" alt="Overview iteration 7" loading="lazy" decoding="async" width="2000" height="3968"></button></figure>
     </div>
+    <div class="cs-evo-explored reveal"><div class="cs-evo-lbl">What we explored</div><ul class="cs-evo-paths"><li><span class="cs-evo-pt">Deviation-led overview</span><p>Bringing active cost deviations upfront to highlight issues.</p></li><li><span class="cs-evo-pt">Metrics and trends-led overview</span><p>Using key metrics and cost trends to establish the overall cost position.</p></li><li><span class="cs-evo-pt">Cost breakdown-led overview</span><p>Exploring how to communicate the composition of payment costs.</p></li><li><span class="cs-evo-pt">Connected cost investigation</span><p>Connecting cost drivers and insights to deeper investigations across modules.</p></li></ul></div>
+  </div>
 
-    <div class="cs-tension-row">
-      <svg class="cs-tension-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 2.75l6 2.25v4.5c0 3.9-2.6 6.6-6 7.75-3.4-1.15-6-3.85-6-7.75V5z"/><path d="M7.4 10l1.8 1.8 3.5-3.6"/></svg>
-      <div class="cs-tension-tension">
-        <h3 class="cs-tension-title"><span class="cs-tension-from">Complex data</span><span class="visually-hidden"> to </span><svg class="cs-tension-arrow" viewBox="0 0 20 20" aria-hidden="true"><path d="M3.5 10h12.5M12 6l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="cs-tension-to">Confidence to act</span></h3>
-        <p class="cs-tension-friction">Payment teams needed to make financial and operational decisions from data that was often difficult to verify, explain, or trace back to its source.</p>
-      </div>
+  <div class="cs-evo-mod">
+    <div class="cs-module-tag reveal">Drill-Down</div>
+    <p class="cs-evo-obj reveal">Help analysts understand what makes up their payment costs through deeper analysis across relevant dimensions.</p>
+    <div class="cs-evo-strip cs-vis--wide reveal" tabindex="0" aria-label="Drill-Down iterations, scroll sideways">
+      <figure class="cs-evo-frame"><button type="button" class="cs-evo-shot" aria-label="View Drill-Down iteration 1 full size"><img src="assets/hypersense/iterations/observe-01.webp" alt="Drill-Down iteration 1" loading="lazy" decoding="async" width="2000" height="3833"></button></figure>
+      <figure class="cs-evo-frame"><button type="button" class="cs-evo-shot" aria-label="View Drill-Down iteration 2 full size"><img src="assets/hypersense/iterations/observe-02.webp" alt="Drill-Down iteration 2" loading="lazy" decoding="async" width="2000" height="4975"></button></figure>
+      <figure class="cs-evo-frame"><button type="button" class="cs-evo-shot" aria-label="View Drill-Down iteration 3 full size"><img src="assets/hypersense/iterations/observe-03.webp" alt="Drill-Down iteration 3" loading="lazy" decoding="async" width="2000" height="5328"></button></figure>
+      <figure class="cs-evo-frame"><button type="button" class="cs-evo-shot" aria-label="View Drill-Down iteration 4 full size"><img src="assets/hypersense/iterations/observe-04.webp" alt="Drill-Down iteration 4" loading="lazy" decoding="async" width="2000" height="3839"></button></figure>
+      <figure class="cs-evo-frame"><button type="button" class="cs-evo-shot" aria-label="View Drill-Down iteration 5 full size"><img src="assets/hypersense/iterations/observe-05.webp" alt="Drill-Down iteration 5" loading="lazy" decoding="async" width="2000" height="5277"></button></figure>
+      <figure class="cs-evo-frame"><button type="button" class="cs-evo-shot" aria-label="View Drill-Down iteration 6 full size"><img src="assets/hypersense/iterations/observe-06.webp" alt="Drill-Down iteration 6" loading="lazy" decoding="async" width="2000" height="4703"></button></figure>
     </div>
+    <div class="cs-evo-explored reveal"><div class="cs-evo-lbl">What we explored</div><ul class="cs-evo-paths"><li><span class="cs-evo-pt">Multi-dimensional cost analysis</span><p>Exploring different ways to analyse costs across regions, corridors, card types, currencies and fee components.</p></li><li><span class="cs-evo-pt">Summary and detailed breakdowns</span><p>Experimenting with how key cost metrics and trends could connect to granular, component-level data for deeper investigation.</p></li><li><span class="cs-evo-pt">Dedicated cost analysis views</span><p>Exploring separate sections for FX exposure, card variants and regional cost behaviour to understand specific cost drivers.</p></li><li><span class="cs-evo-pt">Drillable vs. non-drillable costs</span><p>Exploring how to distinguish costs that support transaction-level breakdowns from bundled or fixed fees that don&rsquo;t offer the same level of detail.</p></li></ul></div>
+  </div>
 
-    <div class="cs-tension-row">
-      <svg class="cs-tension-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="7.5" cy="10" r="4.5"/><circle cx="12.5" cy="10" r="4.5"/></svg>
-      <div class="cs-tension-tension">
-        <h3 class="cs-tension-title"><span class="cs-tension-from">Two pricing models</span><span class="visually-hidden"> to </span><svg class="cs-tension-arrow" viewBox="0 0 20 20" aria-hidden="true"><path d="M3.5 10h12.5M12 6l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="cs-tension-to">One scalable experience</span></h3>
-        <p class="cs-tension-friction">HyperSense needed to support both IC++ and blended pricing, while adapting the level of cost detail without creating two fundamentally different products.</p>
-      </div>
+  <div class="cs-evo-mod">
+    <div class="cs-module-tag reveal">Fee Spikes</div>
+    <p class="cs-evo-obj reveal">Help merchants identify unusual payment-cost increases, understand what&rsquo;s driving them, and distinguish avoidable cost leakage from expected business growth.</p>
+    <div class="cs-evo-strip cs-vis--wide reveal" tabindex="0" aria-label="Fee Spikes iterations, scroll sideways">
+      <figure class="cs-evo-frame"><button type="button" class="cs-evo-shot" aria-label="View Fee Spikes iteration 1 full size"><img src="assets/hypersense/iterations/fee-spikes-01.webp" alt="Fee Spikes iteration 1" loading="lazy" decoding="async" width="2000" height="1336"></button></figure>
+      <figure class="cs-evo-frame"><button type="button" class="cs-evo-shot" aria-label="View Fee Spikes iteration 2 full size"><img src="assets/hypersense/iterations/fee-spikes-02.webp" alt="Fee Spikes iteration 2" loading="lazy" decoding="async" width="2000" height="1536"></button></figure>
+      <figure class="cs-evo-frame"><button type="button" class="cs-evo-shot" aria-label="View Fee Spikes iteration 3 full size"><img src="assets/hypersense/iterations/fee-spikes-03.webp" alt="Fee Spikes iteration 3" loading="lazy" decoding="async" width="2000" height="1536"></button></figure>
+      <figure class="cs-evo-frame"><button type="button" class="cs-evo-shot" aria-label="View Fee Spikes iteration 4 full size"><img src="assets/hypersense/iterations/fee-spikes-04.webp" alt="Fee Spikes iteration 4" loading="lazy" decoding="async" width="2000" height="1536"></button></figure>
+      <figure class="cs-evo-frame"><button type="button" class="cs-evo-shot" aria-label="View Fee Spikes iteration 5 full size"><img src="assets/hypersense/iterations/fee-spikes-05.webp" alt="Fee Spikes iteration 5" loading="lazy" decoding="async" width="2000" height="1983"></button></figure>
+      <figure class="cs-evo-frame"><button type="button" class="cs-evo-shot" aria-label="View Fee Spikes iteration 6 full size"><img src="assets/hypersense/iterations/fee-spikes-06.webp" alt="Fee Spikes iteration 6" loading="lazy" decoding="async" width="2000" height="1589"></button></figure>
+      <figure class="cs-evo-frame"><button type="button" class="cs-evo-shot" aria-label="View Fee Spikes iteration 7 full size"><img src="assets/hypersense/iterations/fee-spikes-07.webp" alt="Fee Spikes iteration 7" loading="lazy" decoding="async" width="2000" height="2789"></button></figure>
+      <figure class="cs-evo-frame"><button type="button" class="cs-evo-shot" aria-label="View Fee Spikes iteration 8 full size"><img src="assets/hypersense/iterations/fee-spikes-08.webp" alt="Fee Spikes iteration 8" loading="lazy" decoding="async" width="2000" height="2614"></button></figure>
+      <figure class="cs-evo-frame"><button type="button" class="cs-evo-shot" aria-label="View Fee Spikes iteration 9 full size"><img src="assets/hypersense/iterations/fee-spikes-10.webp" alt="Fee Spikes iteration 9" loading="lazy" decoding="async" width="2000" height="2061"></button></figure>
+      <figure class="cs-evo-frame"><button type="button" class="cs-evo-shot" aria-label="View Fee Spikes iteration 10 full size"><img src="assets/hypersense/iterations/fee-spikes-09.webp" alt="Fee Spikes iteration 10" loading="lazy" decoding="async" width="2000" height="2195"></button></figure>
+      <figure class="cs-evo-frame"><button type="button" class="cs-evo-shot" aria-label="View Fee Spikes iteration 11 full size"><img src="assets/hypersense/iterations/fee-spikes-11.webp" alt="Fee Spikes iteration 11" loading="lazy" decoding="async" width="2000" height="1628"></button></figure>
     </div>
+    <div class="cs-evo-explored reveal"><div class="cs-evo-lbl">What we explored</div><ul class="cs-evo-paths"><li><span class="cs-evo-pt">Category-based views</span><p>Exploring ways to organise deviations across Downgrades &amp; Penalties, Organic Growth and Non-Transactional Fees.</p></li><li><span class="cs-evo-pt">Different ways to visualise deviations</span><p>Experimenting with summary cards, timelines and charts to show new anomalies, recurring deviations and their cost impact over time.</p></li><li><span class="cs-evo-pt">Comparing sales and cost movements</span><p>Exploring how to compare business growth against cost increases to identify costs that exceed expected growth.</p></li><li><span class="cs-evo-pt">Deeper investigation of individual spikes</span><p>Exploring different ways to break down an increase into expected costs, additional costs and the underlying reasons behind it.</p></li></ul></div>
+  </div>
 
-    <div class="cs-tension-row">
-      <svg class="cs-tension-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10h6"/><path d="M9 10l7-5.5M9 10l7 5.5"/><path d="M13.5 4.5H16v2.5M13.5 15.5H16V13"/></svg>
-      <div class="cs-tension-tension">
-        <h3 class="cs-tension-title"><span class="cs-tension-from">Cost movement</span><span class="visually-hidden"> to </span><svg class="cs-tension-arrow" viewBox="0 0 20 20" aria-hidden="true"><path d="M3.5 10h12.5M12 6l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="cs-tension-to">Growth or leakage</span></h3>
-        <p class="cs-tension-friction">An increase in payment costs doesn't always indicate a problem. The experience needed to help teams distinguish expected business growth from preventable cost leakage.</p>
-      </div>
+  <div class="cs-evo-mod">
+    <div class="cs-module-tag reveal">Audit</div>
+    <p class="cs-evo-obj reveal">Help merchants verify whether they&rsquo;re being charged correctly by comparing applied fees against expected rates, and identify discrepancies that lead to additional costs.</p>
+    <div class="cs-evo-strip cs-vis--wide reveal" tabindex="0" aria-label="Audit iterations, scroll sideways">
+      <figure class="cs-evo-frame"><button type="button" class="cs-evo-shot" aria-label="View Audit iteration 1 full size"><img src="assets/hypersense/iterations/audit-01.webp?v=3" alt="Audit iteration 1" loading="lazy" decoding="async" width="2000" height="1939"></button></figure>
+      <figure class="cs-evo-frame"><button type="button" class="cs-evo-shot" aria-label="View Audit iteration 2 full size"><img src="assets/hypersense/iterations/audit-02.webp?v=3" alt="Audit iteration 2" loading="lazy" decoding="async" width="2000" height="2347"></button></figure>
+      <figure class="cs-evo-frame"><button type="button" class="cs-evo-shot" aria-label="View Audit iteration 3 full size"><img src="assets/hypersense/iterations/audit-03.webp?v=3" alt="Audit iteration 3" loading="lazy" decoding="async" width="2000" height="1822"></button></figure>
+      <figure class="cs-evo-frame"><button type="button" class="cs-evo-shot" aria-label="View Audit iteration 4 full size"><img src="assets/hypersense/iterations/audit-04.webp?v=3" alt="Audit iteration 4" loading="lazy" decoding="async" width="2000" height="1442"></button></figure>
+      <figure class="cs-evo-frame"><button type="button" class="cs-evo-shot" aria-label="View Audit iteration 5 full size"><img src="assets/hypersense/iterations/audit-05.webp?v=3" alt="Audit iteration 5" loading="lazy" decoding="async" width="2000" height="1719"></button></figure>
+      <figure class="cs-evo-frame"><button type="button" class="cs-evo-shot" aria-label="View Audit iteration 6 full size"><img src="assets/hypersense/iterations/audit-06.webp?v=3" alt="Audit iteration 6" loading="lazy" decoding="async" width="2000" height="1994"></button></figure>
+      <figure class="cs-evo-frame"><button type="button" class="cs-evo-shot" aria-label="View Audit iteration 7 full size"><img src="assets/hypersense/iterations/audit-07.webp?v=3" alt="Audit iteration 7" loading="lazy" decoding="async" width="2000" height="1836"></button></figure>
+      <figure class="cs-evo-frame"><button type="button" class="cs-evo-shot" aria-label="View Audit iteration 8 full size"><img src="assets/hypersense/iterations/audit-08.webp?v=3" alt="Audit iteration 8" loading="lazy" decoding="async" width="2000" height="1742"></button></figure>
+      <figure class="cs-evo-frame"><button type="button" class="cs-evo-shot" aria-label="View Audit iteration 9 full size"><img src="assets/hypersense/iterations/audit-09.webp?v=3" alt="Audit iteration 9" loading="lazy" decoding="async" width="2000" height="1782"></button></figure>
+      <figure class="cs-evo-frame"><button type="button" class="cs-evo-shot" aria-label="View Audit iteration 10 full size"><img src="assets/hypersense/iterations/audit-10.webp?v=3" alt="Audit iteration 10" loading="lazy" decoding="async" width="2000" height="1667"></button></figure>
     </div>
+    <div class="cs-evo-explored reveal"><div class="cs-evo-lbl">What we explored</div><ul class="cs-evo-paths"><li><span class="cs-evo-pt">Summary-led audit experience</span><p>Exploring ways to surface key discrepancies, extra charges and their financial impact upfront, rather than making merchants navigate individual reports to find them.</p></li><li><span class="cs-evo-pt">Fee-based audit structure</span><p>Exploring different ways to organise audit reports around Interchange, Scheme and Processor fees, with nested breakdowns across networks and card types.</p></li><li><span class="cs-evo-pt">Pricing model comparisons</span><p>Exploring how to compare applied and expected costs across IC++ and Blended pricing models, accounting for the different levels of detail each supports.</p></li><li><span class="cs-evo-pt">Discrepancy identification and traceability</span><p>Exploring ways to highlight rate mismatches, overcharges and other fee discrepancies, while connecting summary-level findings to detailed rate comparisons.</p></li></ul></div>
+  </div>
 
-    <div class="cs-tension-row">
-      <svg class="cs-tension-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10" cy="10.5" r="2"/><circle cx="4" cy="4.5" r="1.6"/><circle cx="16" cy="4.5" r="1.6"/><circle cx="10" cy="17" r="1.6"/><path d="M5.2 5.7l3.3 3.4M14.8 5.7l-3.3 3.4M10 12.5v2.9"/></svg>
-      <div class="cs-tension-tension">
-        <h3 class="cs-tension-title"><span class="cs-tension-from">Different teams</span><span class="visually-hidden"> to </span><svg class="cs-tension-arrow" viewBox="0 0 20 20" aria-hidden="true"><path d="M3.5 10h12.5M12 6l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="cs-tension-to">Shared cost understanding</span></h3>
-        <p class="cs-tension-friction">Finance, Payments, and Operations approached costs from different perspectives and asked different questions, but needed to arrive at the same understanding of what changed and why.</p>
-      </div>
+  <div class="cs-evo-mod">
+    <div class="cs-module-tag reveal">Forecast</div>
+    <p class="cs-evo-obj reveal">Help merchants anticipate upcoming payment network changes and understand how they could affect their payment costs.</p>
+    <div class="cs-evo-strip cs-vis--wide reveal" tabindex="0" aria-label="Forecast iterations, scroll sideways">
+      <figure class="cs-evo-frame"><button type="button" class="cs-evo-shot" aria-label="View Forecast iteration 1 full size"><img src="assets/hypersense/iterations/forecast-01.webp?v=2" alt="Forecast iteration 1" loading="lazy" decoding="async" width="2000" height="1556"></button></figure>
+      <figure class="cs-evo-frame"><button type="button" class="cs-evo-shot" aria-label="View Forecast iteration 2 full size"><img src="assets/hypersense/iterations/forecast-02.webp" alt="Forecast iteration 2" loading="lazy" decoding="async" width="2000" height="1336"></button></figure>
+      <figure class="cs-evo-frame"><button type="button" class="cs-evo-shot" aria-label="View Forecast iteration 3 full size"><img src="assets/hypersense/iterations/forecast-03.webp?v=2" alt="Forecast iteration 3" loading="lazy" decoding="async" width="2000" height="2103"></button></figure>
     </div>
-
+    <div class="cs-evo-explored reveal"><div class="cs-evo-lbl">What we explored</div><ul class="cs-evo-paths"><li><span class="cs-evo-pt">Different ways to present network updates</span><p>Exploring calendar, timeline and feed-based views to organise network announcements and upcoming fee changes.</p></li><li><span class="cs-evo-pt">Announced dates vs. effective dates</span><p>Exploring ways to distinguish when a network change is announced from when it actually takes effect, including changes with delayed implementation.</p></li><li><span class="cs-evo-pt">Merchant-specific relevance</span><p>Exploring how to identify which network updates apply to a merchant&rsquo;s payment setup, rather than presenting every announcement as equally relevant.</p></li><li><span class="cs-evo-pt">Estimated financial impact</span><p>Exploring ways to prioritise relevant updates based on their potential impact on the merchant&rsquo;s payment costs, instead of simply listing upcoming changes.</p></li></ul></div>
   </div>
 
 </div>
 </section>
+<div class="cs-evo-lb" id="cs-evo-lb" role="dialog" aria-modal="true" aria-label="Iteration screen" hidden>
+  <button type="button" class="cs-evo-lb-x" aria-label="Close">Close</button>
+  <button type="button" class="cs-evo-lb-nav cs-evo-lb-prev" aria-label="Previous screen"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M12.5 4.5L7 10l5.5 5.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+  <button type="button" class="cs-evo-lb-nav cs-evo-lb-next" aria-label="Next screen"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7.5 4.5L13 10l-5.5 5.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+  <div class="cs-evo-lb-scroll"><img alt=""></div>
+</div>
+<script>
+(function(){
+  var lb=document.getElementById('cs-evo-lb'); if(!lb) return;
+  document.body.appendChild(lb);
+  var img=lb.querySelector('img'), sc=lb.querySelector('.cs-evo-lb-scroll'),
+      prev=lb.querySelector('.cs-evo-lb-prev'), next=lb.querySelector('.cs-evo-lb-next'),
+      set=[], at=0, last=null;
+  function show(i){
+    at=i; var b=set[i], s=b.querySelector('img');
+    img.src=s.currentSrc||s.src; img.alt=s.alt; sc.scrollTop=0;
+    prev.disabled=i===0; next.disabled=i===set.length-1;
+  }
+  function close(){ lb.hidden=true; document.documentElement.style.overflow=''; img.removeAttribute('src'); if(last) last.focus(); }
+  document.querySelectorAll('.cs-evo-shot').forEach(function(b){
+    b.addEventListener('click',function(){
+      set=[].slice.call(b.closest('.cs-evo-strip').querySelectorAll('.cs-evo-shot')); last=b;
+      lb.hidden=false; document.documentElement.style.overflow='hidden'; show(set.indexOf(b));
+      lb.querySelector('.cs-evo-lb-x').focus();
+    });
+  });
+  prev.addEventListener('click',function(){ if(at>0) show(at-1); });
+  next.addEventListener('click',function(){ if(at<set.length-1) show(at+1); });
+  lb.addEventListener('click',function(e){ if(e.target===lb||e.target===sc||e.target.classList.contains('cs-evo-lb-x')) close(); });
+  document.addEventListener('keydown',function(e){
+    if(lb.hidden) return;
+    if(e.key==='Escape') close();
+    else if(e.key==='ArrowLeft'&&at>0) show(at-1);
+    else if(e.key==='ArrowRight'&&at<set.length-1) show(at+1);
+  });
+})();
+</script>
 
-<!-- ═══════════════════════ 07 — PRODUCT EXPERIENCE ═══════════════════════ -->
+
+<!-- ═══════════════════════ 08 — PRODUCT EXPERIENCE ═══════════════════════ -->
 <section class="cs-section" id="cs-ui" data-section>
 <div class="cs-wrap">
 
@@ -2133,9 +2155,9 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 
   <div class="cs-module-tag reveal" style="margin-top: 72px;">Overview</div>
   <h3 class="cs-h3 reveal">What's my cost story at a glance?</h3>
-  <p class="cs-p reveal">Before teams investigate anomalies or optimize costs, they first need to understand where they stand today.</p>
-  <p class="cs-p reveal">I designed Overview as the system's source of truth: a unified cost layer that consolidates fragmented signals into a single cost story.</p>
-  <p class="cs-p reveal">The same experience needed to work across very different merchant realities, from single processors to multi-<span class="cs-gloss" tabindex="0" data-gloss="psp">PSP</span> setups, and from simplified blended pricing to fully transparent IC++ models.</p>
+  <p class="cs-p reveal">Before investigating anomalies or optimising costs, teams need to understand where they stand today.</p>
+  <p class="cs-p reveal">Overview brings fragmented payment cost signals into one place, giving teams a unified view of their total costs, key metrics and cost composition.</p>
+  <p class="cs-p reveal">It works across different merchant setups, from single processors to multi-<span class="cs-gloss" tabindex="0" data-gloss="psp">PSP</span> configurations, and from blended pricing to transparent IC++ models.</p>
 </div>
 <div class="cs-wrap cs-wrap--showcase">
   <div class="cs-stage reveal">
@@ -2147,17 +2169,17 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 <div class="cs-wrap">
   <p class="cs-p reveal">Before any investigation begins, teams need answers to three questions:</p>
   <ul class="cs-list reveal">
-    <li>What changed?</li>
     <li>What am I paying today?</li>
-    <li>Where should I investigate first?</li>
+    <li>What&rsquo;s driving my costs?</li>
+    <li>Where should I investigate?</li>
   </ul>
 </div>
 <div class="cs-wrap">
 
   <div class="cs-module-tag reveal" style="margin-top: 72px;">Drill-Down</div>
-  <h3 class="cs-h3 reveal">How is cost distributed across my business?</h3>
-  <p class="cs-p reveal">A single number rarely explains why costs change. Teams needed the ability to break costs down across processors, regions, <span class="cs-gloss" tabindex="0" data-gloss="corridor">corridors</span>, fee types, and currencies.</p>
-  <p class="cs-p reveal">Drill-Down became the investigation layer of the product, helping teams move from cost summaries to the underlying drivers behind them.</p>
+  <h3 class="cs-h3 reveal">Where is my cost coming from?</h3>
+  <p class="cs-p reveal">A total cost only tells part of the story. Teams need to understand what contributes to it and where they can investigate further.</p>
+  <p class="cs-p reveal">Drill-Down separates costs with available component-level data from those that cannot be broken down further. This gives analysts the flexibility to group and filter costs across processors, fee types, business units and card types, tracing the underlying drivers without implying detail that isn&rsquo;t available.</p>
 
 </div>
 <div class="cs-wrap cs-wrap--showcase">
@@ -2168,19 +2190,19 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
   </div>
 </div>
 <div class="cs-wrap">
-  <p class="cs-p reveal">I designed Drill-Down to answer three questions:</p>
+  <p class="cs-p reveal">Drill-Down helps teams answer three questions:</p>
   <ul class="cs-list reveal">
-    <li>Why did costs change?</li>
-    <li>Which segment is driving the change?</li>
-    <li>How much impact is it creating?</li>
+    <li>What makes up my total cost?</li>
+    <li>Which segments contribute to it?</li>
+    <li>How much of that cost can I investigate further?</li>
   </ul>
 </div>
 <div class="cs-wrap">
 
   <div class="cs-module-tag reveal" style="margin-top: 72px;">Fee Spikes</div>
-  <h3 class="cs-h3 reveal">Is this cost increase a problem?</h3>
-  <p class="cs-p reveal">Not every increase in payment cost is a problem. The same spike could be driven by healthy sales growth, expansion into new markets, operational issues, or preventable leakage.</p>
-  <p class="cs-p reveal">Fee Spikes was designed as an early warning layer that surfaces meaningful cost changes and explains what is driving them.</p>
+  <h3 class="cs-h3 reveal">Growth, or something worth investigating?</h3>
+  <p class="cs-p reveal">Not every increase in payment cost signals a problem. Fee Spikes helps teams understand whether cost movements come from business growth, non-transactional charges, or downgrades and penalties, and identify those that may need attention.</p>
+  <p class="cs-p reveal">Instead of manually scanning reports and transaction data, teams can see meaningful deviations, understand their impact and investigate the underlying reasons.</p>
 
 </div>
 <div class="cs-wrap cs-wrap--showcase">
@@ -2193,14 +2215,16 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 <div class="cs-wrap">
   <p class="cs-p reveal">Every spike ultimately comes down to three questions:</p>
   <ul class="cs-list reveal">
-    <li>Is this increase expected?</li>
+    <li>What changed?</li>
     <li>What is driving it?</li>
     <li>Does it require action?</li>
   </ul>
 
+  <p class="cs-p reveal">Fee Spikes explains what changed. But teams also need to verify whether the fees they were charged match what was agreed.</p>
+
   <div class="cs-module-tag reveal" style="margin-top: 72px;">Audit</div>
-  <h3 class="cs-h3 reveal">Can every fee be verified?</h3>
-  <p class="cs-p reveal">Processor invoices show what was charged, but rarely explain whether those charges were accurate.</p>
+  <h3 class="cs-h3 reveal">Was I charged correctly?</h3>
+  <p class="cs-p reveal">Audit is the merchant&rsquo;s fee book. It lists every fee applied and sets it against what was agreed with the PSP. Processor invoices show what was charged, but rarely whether it was right.</p>
   <div class="cs-challenge reveal">
     <div class="cs-challenge-tag">What merchants actually see</div>
     <div class="cs-challenge-lines">
@@ -2223,9 +2247,9 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
   <ul class="cs-list reveal">
     <li>Was I charged correctly?</li>
     <li>What was actually charged?</li>
-    <li>What should it have been?</li>
+    <li>What should I have been charged?</li>
   </ul>
-  <p class="cs-p reveal">Instead of forcing teams to manually reconcile invoices, contracts, and transaction exports, the experience progressively moved from summary-level variances down to transaction-level evidence, making every discrepancy traceable and easy to defend.</p>
+  <p class="cs-p reveal">Instead of forcing teams to manually reconcile invoices, contracts, and transaction exports, the experience progressively moved from summary-level variances down to transaction-level evidence, making every discrepancy traceable.</p>
 
   <div class="cs-module-tag reveal" style="margin-top: 72px;">Forecast</div>
   <h3 class="cs-h3 reveal">What will upcoming network changes cost me?</h3>
@@ -2253,7 +2277,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 </div>
 </section>
 
-<!-- ═══════════════════════ 08 — OUTCOME ═══════════════════════ -->
+<!-- ═══════════════════════ 09 — OUTCOME ═══════════════════════ -->
 <section class="cs-section" id="cs-outcome" data-section>
 <div class="cs-wrap">
 
@@ -2264,7 +2288,8 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 
   <!-- Outcome, in the same isometric language: one unit per merchant, the same size in all three.
        20 flat tiles (demoed), 6 raised pillars (piloted), 2 tall blue pillars (converted). -->
-  <div class="cs-fstat-grid cs-fstat-grid--iso reveal">
+  <h3 class="cs-h3 cs-impact-head reveal">Business Impact</h3>
+  <div class="cs-fstat-grid cs-fstat-grid--iso cs-vis--wide reveal">
     <div class="cs-fstat">
       <svg class="iso-stat" viewBox="0 0 220 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       <g class="plinth"><polygon class="f-l" points="50.7,81.2 104.4,112.2 104.4,108.2 50.7,77.2"/><polygon class="f-r" points="104.4,112.2 169.3,74.8 169.3,70.8 104.4,108.2"/><polygon class="f-t" points="50.7,77.2 104.4,108.2 169.3,70.8 115.6,39.8"/></g>
@@ -2290,8 +2315,8 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
       <g class="pil" style="--d:0.67s"><polygon class="f-l" points="95.2,96.8 104.4,102.0 104.4,99.0 95.2,93.8"/><polygon class="f-r" points="104.4,102.0 113.6,96.8 113.6,93.8 104.4,99.0"/><polygon class="f-t" points="95.2,93.8 104.4,99.0 113.6,93.8 104.4,88.5"/></g>
       </svg>
       <div class="cs-fstat-num">20<span class="cs-fstat-sym">+</span></div>
-      <div class="cs-fstat-label">Demoed</div>
-      <p class="cs-fstat-desc">Presented to 20+ enterprise merchants, including <strong>Apple and SpaceX</strong>.</p>
+      <div class="cs-fstat-label">Enterprise demos</div>
+      <p class="cs-fstat-desc">Presented HyperSense to 20+ enterprise merchants, including Apple and SpaceX.</p>
     </div>
     <div class="cs-fstat">
       <svg class="iso-stat" viewBox="0 0 220 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -2304,8 +2329,8 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
       <g class="pil" style="--d:0.55s"><polygon class="f-l" points="95.2,83.8 104.4,89.0 104.4,69.0 95.2,63.8"/><polygon class="f-r" points="104.4,89.0 113.6,83.8 113.6,63.8 104.4,69.0"/><polygon class="f-t" points="95.2,63.8 104.4,69.0 113.6,63.8 104.4,58.5"/></g>
       </svg>
       <div class="cs-fstat-num">6</div>
-      <div class="cs-fstat-label">Piloted</div>
-      <p class="cs-fstat-desc">Piloted with 6 merchants using real payment cost data.</p>
+      <div class="cs-fstat-label">Merchant pilots</div>
+      <p class="cs-fstat-desc">Piloted the product with six merchants using real payment cost data.</p>
     </div>
     <div class="cs-fstat cs-fstat--win">
       <svg class="iso-stat" viewBox="0 0 220 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -2314,9 +2339,17 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
       <g class="pil pil--fee" style="--d:0.73s"><polygon class="f-l" points="95.2,77.2 104.4,82.5 104.4,50.5 95.2,45.2"/><polygon class="f-r" points="104.4,82.5 113.6,77.2 113.6,45.2 104.4,50.5"/><polygon class="f-t" points="95.2,45.2 104.4,50.5 113.6,45.2 104.4,40.0"/></g>
       </svg>
       <div class="cs-fstat-num">2</div>
-      <div class="cs-fstat-label">Converted</div>
-      <p class="cs-fstat-desc">Two pilot merchants moved into commercial engagements.</p>
+      <div class="cs-fstat-label">Commercial engagements</div>
+      <p class="cs-fstat-desc">Two pilot merchants progressed into commercial engagements, signalling early market traction.</p>
     </div>
+  </div>
+
+  <h3 class="cs-h3 cs-impact-head reveal">What changed for merchants</h3>
+  <div class="cs-impact reveal">
+    <div class="cs-impact-row"><div class="cs-impact-t">Observability</div><p class="cs-impact-d">Teams get one clear view of where their costs come from and why they move.</p></div>
+    <div class="cs-impact-row"><div class="cs-impact-t">Same-day clarity</div><p class="cs-impact-d">Merchants understood their cost story the day they received their reports, instead of waiting on a manual audit.</p></div>
+    <div class="cs-impact-row"><div class="cs-impact-t">Questions raised earlier</div><p class="cs-impact-d">Teams could go back to their PSP about a discrepancy or anomaly before the billing cycle closed.</p></div>
+    <div class="cs-impact-row"><div class="cs-impact-t">Discrepancy detection</div><p class="cs-impact-d">2&ndash;3 discrepancies surfaced in pilot data, worth hundreds of dollars. An early signal at pilot scale.</p></div>
   </div>
 
   <div class="cs-outcome-next reveal">
@@ -2344,7 +2377,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
   <div class="right"><a href="#">Back to top ↑</a></div>
 </footer>
   </main>
-</div>
+  </div>
 
 <script>
 
@@ -2374,10 +2407,11 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
     { id: 'cs-begins', num: '02', name: 'Where HyperSense Begins' },
     { id: 'cs-terrain', num: '03', name: 'Understanding the Terrain' },
     { id: 'cs-users', num: '04', name: 'Users' },
-    { id: 'cs-strategy', num: '05', name: 'Product Strategy and Design' },
-    { id: 'cs-challenge', num: '06', name: 'Design Challenge' },
-    { id: 'cs-ui', num: '07', name: 'Product Experience' },
-    { id: 'cs-outcome', num: '08', name: 'Outcome' }
+    { id: 'cs-approach', num: '05', name: 'Approach' },
+    { id: 'cs-strategy', num: '06', name: 'Product Strategy and Design' },
+    { id: 'cs-challenge', num: '07', name: 'Design Challenge' },
+    { id: 'cs-ui', num: '08', name: 'Product Experience' },
+    { id: 'cs-outcome', num: '09', name: 'Outcome' }
   ];
   var byId = {};
   SECTIONS.forEach(function(s) { byId[s.id] = s; });
@@ -2614,377 +2648,9 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
   tip.addEventListener('mouseleave', hideTip);
 })();
 
-/* ================================================================
-   IC++ FEE SIMULATOR — full interactive parity with the source,
-   re-themed: entity labels in the accent, amounts in white, avoidable cost in red
-   reveal, soft greys for gateway/acquirer.
-   ================================================================ */
-(function() {
-  const sw = document.getElementById('cs-sim-switch');
-  const stagesEl = document.getElementById('cs-sim-stages');
-  const btn = document.getElementById('cs-sim-btn');
-  const dedEl = document.getElementById('cs-sim-ded');
-  const netEl = document.getElementById('cs-sim-net');
-  const flow = document.getElementById('cs-sim-flow');
-  const rail = document.getElementById('cs-sim-rail');
-  const progress = document.getElementById('cs-sim-rail-progress');
-  const bubble = document.getElementById('cs-sim-bubble');
-  if (!sw || !stagesEl || !btn) return;
-
-  // The rail is anchored at the "Customer pays $1,000" source amount's vertical
-  // centre and spans down to the settlement row's centre — the glow lifts off
-  // from where the transaction actually originates and rides to "the end".
-  // Recomputed whenever layout shifts (render, the downgrade-detail reveal,
-  // viewport resize, fonts loading) so it always lines up with where those two
-  // elements actually sit.
-  // Each card has a small connector stub bridging it to the rail (see
-  // .cs-sim-stage::before / .cs-sim-final::before) — that joint is the visual
-  // "attachment point" between card and spine, and it's where the bubble
-  // should glide to a stop, not the card's vertical middle. Keep this in sync
-  // with that rule's `top` value so the pause always lands exactly on the joint.
-  const NODE_OFFSET = 27;
-  let railTop = null;
-  function layoutRail() {
-    if (!rail || !flow) return;
-    const sourceAmt = document.getElementById('cs-sim-source-amt');
-    const finalEl = document.getElementById('cs-sim-final');
-    if (!sourceAmt || !finalEl) return;
-    const fr = flow.getBoundingClientRect();
-    const br = sourceAmt.getBoundingClientRect();
-    const er = finalEl.getBoundingClientRect();
-    const top = br.top - fr.top + br.height / 2;
-    const bottom = er.top - fr.top + NODE_OFFSET;
-    railTop = top;
-    rail.style.top = `${top}px`;
-    rail.style.height = `${Math.max(bottom - top, 0)}px`;
-    if (progress) progress.style.top = `${top}px`;
-    if (bubble) bubble.style.top = `${top}px`;
-  }
-  let railResizeTO;
-  window.addEventListener('resize', () => { clearTimeout(railResizeTO); railResizeTO = setTimeout(layoutRail, 150); });
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => layoutRail());
-
-  // Moves the glowing pulse to vertically align with `el`'s connector joint
-  // (NODE_OFFSET down from its top — see above), measured from the rail's
-  // anchor point, animating the trip over `dur` ms (0 = snap instantly, e.g.
-  // to park it at the source amount). The lit trail behind it grows to match —
-  // so the rail visibly "fills in" with lime as the transaction passes through,
-  // and the bubble's resting point always reads as "attached" to the card via
-  // that little stub, never drifting past it toward the card's middle.
-  function placeBubble(el, dur) {
-    if (!bubble || !flow || !el || railTop === null) return;
-    const fr = flow.getBoundingClientRect();
-    const er = el.getBoundingClientRect();
-    const y = Math.max((er.top - fr.top + NODE_OFFSET) - railTop, 0);
-    bubble.style.transitionDuration = `${dur}ms, 320ms`;
-    bubble.style.transform = `translateY(${y}px)`;
-    if (progress) {
-      progress.style.transitionDuration = `${dur}ms, 300ms`;
-      progress.style.opacity = '1';
-      progress.style.height = `${y}px`;
-    }
-  }
-  function showBubble(visible) { if (bubble) bubble.style.opacity = visible ? '1' : '0'; }
-
-  // Inside the modal, taller stage stacks can overflow the visible area —
-  // keep the card the bubble is travelling to in view as the trace runs.
-  function scrollStageIntoView(el) {
-    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  }
-
-  const TXN = 1000;
-  const CARDS = [
-    { id: 'debit',  label: 'Domestic debit' },
-    { id: 'credit', label: 'Consumer credit' },
-    { id: 'corp',   label: 'Corporate card' },
-    { id: 'intl',   label: 'International' }
-  ];
-  const STAGES = [
-    { id: 'gw', entity: 'Payment Gateway', name: 'Processing', color: 'var(--text)',
-      role: "Securely captures the customer's payment details and routes the transaction to the card network for authorisation.",
-      fees: {
-        debit:  [{ n: 'Processing fee', flat: 0.15 }, { n: 'Tokenisation', flat: 0.05 }, { n: '3DS initiation', flat: 0.05 }],
-        credit: [{ n: 'Processing fee', flat: 0.15 }, { n: 'Tokenisation', flat: 0.05 }, { n: '3DS initiation', flat: 0.05 }],
-        corp:   [{ n: 'Processing fee', flat: 0.15 }, { n: 'Tokenisation', flat: 0.05 }, { n: '3DS initiation', flat: 0.08 }],
-        intl:   [{ n: 'Processing fee', flat: 0.15 }, { n: 'Tokenisation', flat: 0.05 }, { n: '3DS initiation', flat: 0.1 }, { n: 'International surcharge', pct: 0.15 }]
-      } },
-    { id: 'net', entity: 'Card Network', name: 'Authorisation & scheme fees', color: 'var(--text)',
-      role: 'Routes the transaction between banks and charges fees for processing it.',
-      fees: {
-        debit:  [{ n: 'Per-authorisation fee', flat: 0.03 }, { n: 'Scheme fee', pct: 0.04 }],
-        credit: [{ n: 'Per-authorisation fee', flat: 0.03 }, { n: 'Scheme fee', pct: 0.08 }],
-        corp:   [{ n: 'Per-authorisation fee', flat: 0.05 }, { n: 'Scheme fee', pct: 0.12 }],
-        intl:   [{ n: 'Per-authorisation fee', flat: 0.05 }, { n: 'Scheme fee (base + cross-border + FX)', pct: 0.4 }]
-      } },
-    { id: 'iss', entity: 'Issuing Bank', name: 'Interchange', color: 'var(--text)',
-      role: "The customer's bank funds the transaction, absorbs credit risk and potential fraud liability, and earns interchange in return. It's the single largest variable in IC++ pricing.",
-      fees: {
-        debit:  [{ n: 'Interchange', pct: 0.95 }],
-        credit: [{ n: 'Interchange', pct: 2.4 }],
-        corp:   [{ n: 'Interchange', pct: 2.95 }],
-        intl:   [{ n: 'Interchange (cross-border corridor rate)', pct: 2.5 }]
-      } },
-    { id: 'acq', entity: 'Acquirer + PSP', name: 'Markup, settlement & payout', color: 'var(--text)',
-      role: "The acquiring bank and payment processor handle settlement, disputes, and transfer funds to the merchant's bank account.",
-      fees: {
-        debit:  [{ n: 'Acquirer markup', pct: 0.1 },  { n: 'Settlement fee (ACH/SEPA)', flat: 0.08 }, { n: 'Payout fee', flat: 0.12 }],
-        credit: [{ n: 'Acquirer markup', pct: 0.15 }, { n: 'Settlement fee (ACH/SEPA)', flat: 0.08 }, { n: 'Payout fee', flat: 0.12 }],
-        corp:   [{ n: 'Acquirer markup', pct: 0.2 },  { n: 'Settlement fee (ACH/SEPA)', flat: 0.08 }, { n: 'Payout fee', flat: 0.12 }],
-        intl:   [{ n: 'Acquirer markup (FX risk)', pct: 0.25 }, { n: 'Settlement fee (ACH/SEPA)', flat: 0.08 }, { n: 'Payout fee', flat: 0.15 }]
-      } }
-  ];
-  const DOWNGRADE = {
-    debit:  { expected: 0.8, actual: 0.95, trigger: 'Settlement submitted 48hrs post-authorisation. Visa requires under 24hrs for this card type to qualify for the standard debit tier.' },
-    credit: { expected: 1.5, actual: 2.4,  trigger: 'Settlement submitted 72hrs post-authorisation. Visa requires under 24hrs for this card type to qualify for the standard tier.' },
-    corp:   { expected: 2.2, actual: 2.95, trigger: 'Missing Level II purchase data. Corporate card programmes require enhanced transaction data to qualify for the standard commercial rate.' },
-    intl:   { expected: 1.8, actual: 2.5,  trigger: 'Cross-border corridor rate applied. Authentication method did not meet strong customer authentication threshold for the standard tier.' }
-  };
-
-  let card = 'debit', timeouts = [];
-  const amt = f => f.flat !== undefined ? f.flat : (f.pct / 100) * TXN;
-  const rateLbl = f => f.flat !== undefined ? `$${f.flat.toFixed(2)} flat` : `${f.pct.toFixed(2)}%`;
-  const stageTotal = s => s.fees[card].reduce((sum, f) => sum + amt(f), 0);
-  const grandTotal = () => STAGES.reduce((sum, s) => sum + stageTotal(s), 0);
-
-  function easeOutCubic(p) { return 1 - Math.pow(1 - p, 3); }
-  function countUp(el, dur) {
-    if (!el || el.dataset.target === undefined) return;
-    const target = parseFloat(el.dataset.target);
-    const neg = target < 0, abs = Math.abs(target), pre = neg ? '−$' : '$', t0 = performance.now();
-    (function step(now) {
-      const p = Math.min((now - t0) / dur, 1), e = easeOutCubic(p);
-      el.textContent = pre + (abs * e).toFixed(2);
-      if (p < 1) requestAnimationFrame(step); else el.textContent = pre + abs.toFixed(2);
-    })(t0);
-  }
-  function countUpRate(el, dur) {
-    const tgt = el.dataset.rate; if (!tgt) return;
-    const isFlat = tgt.includes('flat'), num = parseFloat(tgt.replace(/[^0-9.]/g, '')), t0 = performance.now();
-    (function step(now) {
-      const p = Math.min((now - t0) / dur, 1), e = easeOutCubic(p), v = num * e;
-      el.textContent = isFlat ? `$${v.toFixed(2)} flat` : `${v.toFixed(2)}%`;
-      if (p < 1) requestAnimationFrame(step); else el.textContent = tgt;
-    })(t0);
-  }
-  function animateAmt(el, target, dur) {
-    if (!el) return;
-    const neg = target < 0, abs = Math.abs(target), pre = neg ? '−$' : '$', t0 = performance.now();
-    (function step(now) {
-      const p = Math.min((now - t0) / dur, 1), e = easeOutCubic(p);
-      el.textContent = pre + (abs * e).toFixed(2);
-      if (p < 1) requestAnimationFrame(step); else el.textContent = pre + abs.toFixed(2);
-    })(t0);
-  }
-
-  function render() {
-    timeouts.forEach(clearTimeout); timeouts = [];
-    sw.innerHTML = CARDS.map(c => `<button class="${c.id === card ? 'on' : ''}" data-card="${c.id}">${c.label}</button>`).join('');
-    sw.querySelectorAll('button').forEach(b => b.addEventListener('click', () => { card = b.dataset.card; render(); }));
-
-    let html = '';
-    STAGES.forEach((s, si) => {
-      const total = stageTotal(s), dg = DOWNGRADE[card], isIss = s.id === 'iss';
-      const feesHtml = isIss
-        ? `<div class="cs-sim-fee-row"><span class="fr-name" id="cs-sim-iss-name">Interchange</span><span class="fr-rate" id="cs-sim-iss-rate">0.00%</span><span class="fr-amt" style="color:${s.color}" data-target="-${amt(s.fees[card][0]).toFixed(2)}" id="cs-sim-iss-amt">−$0.00</span></div>
-           <div class="cs-sim-dg" id="cs-sim-dg-detail">
-             <div class="cs-sim-fee-row"><span class="fr-name">Expected rate</span><span class="fr-rate">${dg.expected.toFixed(2)}%</span><span class="fr-amt" style="color:${s.color}">−$${((dg.expected/100)*TXN).toFixed(2)}</span></div>
-             <div class="cs-sim-fee-row" style="border-top:1px solid var(--line);margin-top:6px;padding-top:8px;"><span class="fr-name" style="font-style:italic;">Avoidable cost</span><span></span><span class="fr-amt" style="color:var(--error);font-weight:600;">+$${(((dg.actual-dg.expected)/100)*TXN).toFixed(2)}</span></div>
-             <div style="margin-top:10px;font-style:italic;">${dg.trigger}</div>
-           </div>`
-        : s.fees[card].map(f => `<div class="cs-sim-fee-row"><span class="fr-name">${f.n}</span><span class="fr-rate" data-rate="${rateLbl(f)}">${f.flat !== undefined ? '$0.00 flat' : '0.00%'}</span><span class="fr-amt" style="color:${s.color}" data-target="-${amt(f).toFixed(2)}">−$0.00</span></div>`).join('');
-
-      html += `<div class="cs-sim-stage" id="cs-sim-stage-${si}">
-        <div>
-          <div class="cs-sim-stage-entity" style="color:var(--accent)">${s.entity}</div>
-          <div class="cs-sim-stage-name">${s.name}</div>
-          <div class="cs-sim-stage-role">${s.role}</div>
-          <div class="cs-sim-stage-fees">${feesHtml}</div>
-        </div>
-        <div class="cs-sim-stage-amt" style="color:${s.color}" data-target="-${total.toFixed(2)}">−$0.00</div>
-      </div>`;
-    });
-    const net = TXN - grandTotal();
-    html += `<div class="cs-sim-final" id="cs-sim-final">
-      <div class="cs-sim-final-label">Merchant's bank account receives</div>
-      <div class="cs-sim-final-amt" data-target="${net.toFixed(2)}" id="cs-sim-final-amt">$0.00</div>
-    </div>`;
-    const dgDelta = ((DOWNGRADE[card].actual - DOWNGRADE[card].expected) / 100) * TXN;
-    const annualRaw = 500000000 * (DOWNGRADE[card].actual - DOWNGRADE[card].expected) / 100;
-    const annualFmt = annualRaw >= 1e6 ? `$${(annualRaw/1e6).toFixed(1)}M` : `$${(annualRaw/1e3).toFixed(0)}K`;
-    html += `<div class="cs-sim-callout" id="cs-sim-callout">This transaction lost <strong>$${dgDelta.toFixed(2)}</strong> to a downgrade. At $500M annual volume, that rate of avoidable loss accounts for <strong>${annualFmt}</strong> per year, across dozens of reasons, none of them visible on the invoice.</div>`;
-
-    stagesEl.innerHTML = html;
-    dedEl.textContent = '-';
-    netEl.textContent = '-';
-    btn.disabled = false;
-    btn.classList.remove('is-dissolved');
-    layoutRail();
-    if (bubble) {
-      bubble.style.transitionDuration = '0ms, 0ms, 0ms, 0ms';
-      bubble.style.opacity = '0.6';
-      bubble.style.transform = 'translateY(0px)';
-      bubble.classList.add('is-idle');
-    }
-    if (progress) {
-      progress.style.transitionDuration = '0ms, 0ms';
-      progress.style.opacity = '0';
-      progress.style.height = '0px';
-    }
-  }
-
-  function activateStage(idx) {
-    const stage = document.getElementById(`cs-sim-stage-${idx}`);
-    if (!stage) return;
-    stage.classList.add('is-active');
-    stage.querySelectorAll('[data-target]').forEach(el => countUp(el, 700));
-    stage.querySelectorAll('[data-rate]').forEach(el => countUpRate(el, 700));
-  }
-
-  function runSimulation() {
-    if (btn.disabled) return;
-    btn.disabled = true;
-    btn.classList.add('is-dissolved');
-    timeouts.forEach(clearTimeout); timeouts = [];
-
-    // The bubble is the visual stand-in for the transaction itself: it lifts off
-    // the "$1,000" source amount — where the money actually starts — travels to
-    // each entity in turn, and only once it *arrives* does that stage light up —
-    // elevated, glowing, active. TRAVEL + DWELL together match the previous
-    // per-stage cadence (STEP+GAP = 1080ms) so the overall pacing of the
-    // sequence feels the same as before.
-    const TRAVEL = 720, DWELL = 520;
-    let t = 60;
-
-    // Lift off: snap the bubble onto the source amount, then fade it in.
-    timeouts.push(setTimeout(() => {
-      placeBubble(document.getElementById('cs-sim-source-amt'), 0);
-      bubble.classList.remove('is-idle');
-      showBubble(true);
-    }, t));
-    t += 180;
-
-    STAGES.forEach((s, si) => {
-      timeouts.push(setTimeout(() => {
-        const stageEl = document.getElementById(`cs-sim-stage-${si}`);
-        placeBubble(stageEl, TRAVEL);
-        scrollStageIntoView(stageEl);
-      }, t));
-      t += TRAVEL;
-      const arriveAt = t;
-      timeouts.push(setTimeout(() => activateStage(si), arriveAt));
-      if (s.id === 'iss') {
-        timeouts.push(setTimeout(() => {
-          const dd = document.getElementById('cs-sim-dg-detail');
-          if (dd) dd.classList.add('is-revealed');
-          // The downgrade detail expands the Issuing Bank card, pushing the
-          // settlement row further down — re-measure so the rail's far end
-          // still lands exactly on it.
-          layoutRail();
-          const nm = document.getElementById('cs-sim-iss-name');
-          if (nm) { nm.style.transition = 'color .3s ease'; nm.style.color = 'var(--error)'; nm.textContent = 'Actual rate'; }
-          const am = document.getElementById('cs-sim-iss-amt');
-          if (am) { am.style.transition = 'color .3s ease'; am.style.color = 'var(--error)'; }
-          const rl = document.getElementById('cs-sim-iss-rate');
-          if (rl) {
-            const dg = DOWNGRADE[card];
-            rl.innerHTML = `<span style="color:var(--error);font-family:'Geist Mono',monospace;">${dg.actual.toFixed(2)}%</span> <span style="background:var(--bg-soft);color:var(--error);padding:2px 8px;border-radius:4px;font-size:9.5px;letter-spacing:0.06em;text-transform:uppercase;white-space:nowrap;">↑ downgraded</span>`;
-          }
-        }, arriveAt + 340));
-      }
-      t += DWELL;
-    });
-
-    // Final leg: the bubble settles into the merchant payout row, then dissolves
-    // as the receipt totals count up.
-    timeouts.push(setTimeout(() => {
-      const finalEl = document.getElementById('cs-sim-final');
-      placeBubble(finalEl, TRAVEL);
-      scrollStageIntoView(finalEl);
-    }, t));
-    t += TRAVEL;
-    timeouts.push(setTimeout(() => {
-      const final = document.getElementById('cs-sim-final');
-      if (final) final.classList.add('is-active');
-      countUp(document.getElementById('cs-sim-final-amt'), 900);
-      const tot = grandTotal();
-      animateAmt(dedEl, -tot, 900);
-      animateAmt(netEl, TXN - tot, 900);
-      showBubble(false);
-      timeouts.push(setTimeout(() => {
-        const callout = document.getElementById('cs-sim-callout');
-        if (callout) callout.classList.add('is-visible');
-      }, 500));
-    }, t));
-  }
-
-  btn.addEventListener('click', runSimulation);
-  render();
-})();
-
-/* ================================================================
-   IC++ FEE SIMULATOR — modal open/close
-   ================================================================ */
-(function() {
-  const openBtn  = document.getElementById('cs-sim-open');
-  const modal    = document.getElementById('cs-sim-modal');
-  const closeBtn = document.getElementById('cs-sim-modal-close');
-  const backdrop = document.getElementById('cs-sim-modal-backdrop');
-  if (!openBtn || !modal || !closeBtn || !backdrop) return;
-
-  let lastFocus = null;
-  const focusables = () => Array.prototype.filter.call(
-    modal.querySelectorAll('button, [href], [tabindex]:not([tabindex="-1"])'),
-    el => !el.disabled && el.offsetParent !== null);
-
-  function openModal() {
-    lastFocus = document.activeElement;
-    modal.classList.add('is-open');
-    modal.setAttribute('aria-hidden', 'false');
-    document.body.style.overflow = 'hidden';
-    // The rail/bubble layout is computed from element offsets, which are 0
-    // while the modal is hidden — recompute now that it's visible.
-    window.dispatchEvent(new Event('resize'));
-    closeBtn.focus({ preventScroll: true });
-    requestAnimationFrame(() => { if (modal.classList.contains('is-open') && !modal.contains(document.activeElement)) closeBtn.focus({ preventScroll: true }); });
-  }
-  function closeModal() {
-    modal.classList.remove('is-open');
-    modal.setAttribute('aria-hidden', 'true');
-    document.body.style.overflow = '';
-    if (lastFocus && lastFocus.focus) lastFocus.focus();
-  }
-  /* Keep Tab inside the dialog while it is open */
-  modal.addEventListener('keydown', (e) => {
-    if (e.key !== 'Tab') return;
-    const f = focusables(); if (!f.length) return;
-    const first = f[0], last = f[f.length - 1];
-    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
-    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
-  });
-
-  openBtn.addEventListener('click', openModal);
-  closeBtn.addEventListener('click', closeModal);
-  backdrop.addEventListener('click', closeModal);
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modal.classList.contains('is-open')) closeModal();
-  });
-})();
-
-
-/* PERSONAS: each card's month opens and closes from the row at its foot */
-(function() {
-  document.querySelectorAll('.cs-journey-toggle').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const card = btn.closest('.cs-persona');
-      const open = !card.classList.contains('is-open');
-      card.classList.toggle('is-open', open);
-      btn.setAttribute('aria-expanded', String(open));
-    });
-  });
-})();
 
 console.log('%cHi.','font-family:"Instrument Serif",serif;font-size:32px;font-style:italic;color:#ededed;');
-console.log('%cYou found the HyperSense case study: eight sections, start to finish. → akhilmale.ux@gmail.com','font-family:monospace;font-size:12px;color:#8a8a8a;');
+console.log('%cYou found the HyperSense case study: nine sections, start to finish. → akhilmale.ux@gmail.com','font-family:monospace;font-size:12px;color:#8a8a8a;');
 </script>
 
 <script>
@@ -3044,6 +2710,75 @@ console.log('%cYou found the HyperSense case study: eight sections, start to fin
   }, { threshold: [0, 0.25, 0.5, 0.75, 1] });
   videos.forEach(function(v) { io.observe(v); });
   document.addEventListener('fullscreenchange', sync);
+})();
+</script>
+<script>
+/* Merchant scale: Hairline's Terrain gesture. Pillars near the pointer grow taller, the farther
+   the less, each on its own spring, and settle back to rest when the pointer leaves. A pillar
+   grows by lifting its top face and the top edge of its sides (and any fee band on top). */
+(() => {
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  // Terrain's falloff: full height under the pointer, a third at one radius, a trace beyond
+  const fall = (u) => u <= 0 ? 1 : u <= .417 ? 1 - u / .417 * .6875 : u <= 1 ? .3125 - (u - .417) / .583 * .2185 : .094;
+  const pts = (el) => el.getAttribute('points').trim().split(/\s+/).map((p) => p.split(',').map(Number));
+  document.querySelectorAll('.cs-scale .iso-scale').forEach((svg) => {
+    const pils = [...svg.querySelectorAll('.pil')].map((g) => {
+      const polys = [...g.querySelectorAll('polygon')].map((el) => {
+        const p = pts(el);
+        const all = el.classList.contains('f-t') || !!el.closest('.pil-cap');
+        return { el, p, lift: p.map((_, k) => all || k >= 2) };
+      });
+      const side = polys.find((q) => q.el.classList.contains('f-l')).p;
+      return { polys, bx: side[1][0], by: side[1][1], w: Math.abs(side[1][0] - side[0][0]) * 2, x: 0, v: 0, t: 0, drawn: 0 };
+    });
+    if (!pils.length) return;
+    const w = pils[0].w, R = w * 3.2, HMAX = w * 2.2;
+    let raf = 0, last = 0;
+    const draw = (c) => {
+      if (Math.abs(c.x - c.drawn) < .01) return;
+      c.drawn = c.x;
+      c.polys.forEach((q) => q.el.setAttribute('points', q.p.map(([x, y], k) => x + ',' + (q.lift[k] ? y - c.x : y).toFixed(2)).join(' ')));
+    };
+    const tick = (now) => {
+      const dt = Math.min(.032, (now - last) / 1000 || .016); last = now;
+      let moving = false;
+      for (const c of pils) {
+        // a soft spring, like Hairline's: pulls to the target, damped so it settles without a wobble
+        c.v += ((c.t - c.x) * 170 - c.v * 22) * dt;
+        c.x += c.v * dt;
+        if (Math.abs(c.t - c.x) > .02 || Math.abs(c.v) > .02) moving = true; else { c.x = c.t; c.v = 0; }
+        draw(c);
+      }
+      raf = moving ? requestAnimationFrame(tick) : 0;
+    };
+    const wake = () => { if (!raf) { last = performance.now(); raf = requestAnimationFrame(tick); } };
+    svg.addEventListener('pointermove', (e) => {
+      const m = svg.getScreenCTM(); if (!m) return;
+      const p = new DOMPoint(e.clientX, e.clientY).matrixTransform(m.inverse());
+      // distance on the ground plane: the isometric view squashes depth to half height
+      for (const c of pils) c.t = HMAX * fall(Math.hypot(p.x - c.bx, (p.y - c.by) * 2) / R);
+      wake();
+    });
+    svg.addEventListener('pointerleave', () => { for (const c of pils) c.t = 0; wake(); });
+  });
+})();
+</script>
+<script>
+/* First cut: the four screens take turns while the frame is on screen; picking a tab holds it */
+(() => {
+  const box = document.querySelector('.cs-fc'); if (!box) return;
+  const imgs = box.querySelectorAll('.cs-fc-stack img'), tabs = box.querySelectorAll('.cs-fc-tabs button');
+  let cur = 0, timer = 0, held = false;
+  const show = (i) => {
+    imgs.forEach((im, k) => im.classList.toggle('on', k === i));
+    tabs.forEach((t, k) => { t.classList.toggle('on', k === i); if (k === i) t.setAttribute('aria-current', 'true'); else t.removeAttribute('aria-current'); });
+    cur = i;
+  };
+  const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const run = () => { if (held || still || timer) return; box.classList.add('is-auto'); timer = setInterval(() => show((cur + 1) % imgs.length), 4000); };
+  const stop = () => { clearInterval(timer); timer = 0; box.classList.remove('is-auto'); };
+  tabs.forEach((t, k) => t.addEventListener('click', () => { held = true; stop(); show(k); }));
+  new IntersectionObserver(([e]) => e.isIntersecting ? run() : stop(), { threshold: .4 }).observe(box);
 })();
 </script>
 <script src="assets/v3.js?v=51"></script>
