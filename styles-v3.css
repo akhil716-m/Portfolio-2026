@@ -1,0 +1,649 @@
+/* ===== v3: minimal =====
+   One narrow column, a quiet nav on the left, grey body copy with the key phrases
+   in full ink. Two grounds: white (default) and dark. The theme is set on
+   <html data-theme> by a tiny script in each page's <head> before first paint.
+   The v2 site keeps using styles.css; nothing here touches it. */
+
+:root {
+  --bg: #fbfbfb;
+  --bg-soft: #f2f2f2;
+  --text: #0a0a0a;
+  --text-soft: #4f4f4f;
+  --text-muted: #8f8f8f;
+  --nav-ink: #737373;
+  --line: #ebebeb;
+  --line-strong: #d6d6d6;
+  --live: #2b7fd4;
+  --shadow: 0 1px 2px rgb(0 0 0 / .06), 0 8px 24px rgb(0 0 0 / .08);
+  --stipple: .22;
+  color-scheme: light;
+
+  --font: "Public Sans", system-ui, -apple-system, sans-serif;
+  --mono: "Geist Mono", ui-monospace, monospace;
+  --hand: "Caveat", cursive;
+  --col: 600px;
+  --nav: 176px;
+  --ease: cubic-bezier(.22, 1, .36, 1);
+}
+:root[data-theme="dark"] {
+  --bg: #0c0c0c;
+  --bg-soft: #151515;
+  --text: #f5f5f5;
+  --text-soft: #b0b0b0;
+  --text-muted: #5c5c5c;
+  --nav-ink: #8f8f8f;
+  --line: #1f1f1f;
+  --line-strong: #2c2c2c;
+  --live: #a78bfa;
+  --shadow: 0 1px 2px rgb(0 0 0 / .5), 0 10px 30px rgb(0 0 0 / .6);
+  --stipple: .3;
+  color-scheme: dark;
+}
+:root[data-theme="paper"] {
+  --bg: #f4f0e8;
+  --bg-soft: #ebe6db;
+  --text: #24211c;
+  --text-soft: #4d483f;
+  --text-muted: #776f62;
+  --line: #e2dccf;
+  --line-strong: #d3cbbb;
+  --live: #cc6a2c;
+  --shadow: 0 1px 2px rgb(60 45 20 / .08), 0 8px 24px rgb(60 45 20 / .1);
+  --stipple: .26;
+  color-scheme: light;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-top: 40px; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text-soft);
+  font: 500 15px/1.5 var(--font);
+  -webkit-font-smoothing: antialiased;
+  transition: background-color .35s ease, color .35s ease;
+}
+img { display: block; max-width: 100%; height: auto; }
+a { color: inherit; text-decoration: none; }
+strong, b { color: var(--text); font-weight: 500; }
+p { margin: 0 0 24px; }
+::selection { background: var(--text); color: var(--bg); }
+:focus-visible { outline: 1.5px solid var(--text); outline-offset: 3px; border-radius: 4px; }
+
+/* Inline links in copy: soft underline that firms up on hover */
+.ul {
+  color: var(--text);
+  text-decoration: underline;
+  text-decoration-color: var(--line-strong);
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+  transition: text-decoration-color .2s ease;
+}
+.ul:hover { text-decoration-color: currentColor; }
+
+/* ===== Page frame: nav column + content column ===== */
+.v3 {
+  display: grid;
+  grid-template-columns: 1fr minmax(0, var(--col)) 1fr;
+  column-gap: 40px;
+  padding: 0 24px;
+}
+.v3-main { grid-column: 2; padding: 32px 0 64px; min-width: 0; }
+
+/* ===== Left nav, spaced like directoryyy.com: a 176px column 40px off the content,
+   32px rows with 12px side padding, 14px medium labels. The list sits at the middle of
+   the screen and one dot springs along a curve to the end of the current label. ===== */
+.v3-nav {
+  grid-column: 1;
+  justify-self: end;
+  width: var(--nav);
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  padding: 40px 0;
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  font-weight: 500;
+}
+.nav-name { color: var(--text); padding: 0 12px; display: inline-block; align-self: flex-start; }
+.nav-group { position: relative; margin: 72px 0 auto; }
+.nav-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.nav-list a {
+  display: flex;
+  align-items: center;
+  height: 32px;
+  padding: 0 12px;
+  border-radius: 10px;
+  font-weight: 400;
+  color: var(--nav-ink);
+  transition: color .15s cubic-bezier(.4, 0, .2, 1);
+}
+.nav-list a:hover, .nav-list a.is-active { color: var(--text); }
+.nav-list a.is-active { font-weight: 500; }
+.nav-list a > span { display: inline-block; }
+/* The current section's mark: a small isometric cube (the Currently objects' style), its top in
+   the live green, sitting just left of the label; it springs to the next item (see v3.js) */
+.nav-dot {
+  position: absolute;
+  top: 0; left: 0;
+  width: 14px; height: 15px;
+  pointer-events: none;
+  will-change: transform;
+}
+.nav-dot svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.nav-dot polygon { stroke: color-mix(in srgb, var(--text) 60%, var(--bg)); stroke-width: .75; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.nav-dot .f-t { fill: color-mix(in srgb, var(--live) 70%, var(--bg)); }
+.nav-dot .f-l { fill: #fff; }
+.nav-dot .f-r { fill: #e2e2e2; }
+:root[data-theme="dark"] .nav-dot .f-l { fill: #2e2e2e; }
+:root[data-theme="dark"] .nav-dot .f-r { fill: #1c1c1c; }
+
+/* ===== Placeholder marking (remove the class once real content is in) ===== */
+.ph-tag {
+  display: inline-block;
+  font: 400 10px/1 var(--mono);
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: #b8860b;
+  border: 1px dashed currentColor;
+  border-radius: 4px;
+  padding: 3px 5px;
+  vertical-align: middle;
+  margin-left: 6px;
+}
+:root[data-theme="dark"] .ph-tag { color: #d9b44a; }
+
+/* ===== Mono meta + section heads ===== */
+.meta { font: 400 12px/1.4 var(--mono); color: var(--text-muted); letter-spacing: .01em; }
+.sec { margin-top: 140px; }
+.sec-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+.sec-head h2 { margin: 0; font-size: 15px; font-weight: 500; color: var(--text); }
+.sec-head a { font-size: 13px; font-weight: 500; color: var(--text-muted); transition: color .2s ease; }
+.sec-head a:hover { color: var(--text); }
+
+/* ===== Hero scene: the hills, in the visitor's time of day =====
+   A matted frame (like the case studies' video stages). It opens like a film (letterbox bars part,
+   the picture comes into focus), then drifts very slowly. Each mood is a grade on the same image:
+   Day as painted, Mid golden hour, Night dark blue with moon and stars. */
+/* The cover runs edge to edge across the top, like a page cover: a band of the picture
+   (the hills, the lake, the figure), not the whole of it */
+.cover { height: clamp(72px, 7vw, 96px); pointer-events: none; }
+/* The sky: colour from the top of the page, gone by the middle of the screen. Long, eased stops so it has no edge. */
+.sky { position: fixed; inset: 0 0 auto; height: var(--sky-h, 72vh); z-index: -1; pointer-events: none; }
+.sky i { position: absolute; inset: 0; opacity: 0; transition: opacity 1.4s ease; }
+:root[data-mood="day"] { --sky-h: 47vh; }
+.sky-day { --c: #a3d3ff; --g: #add6ff; --glow: 100%; --gs: .45; } .sky-night { --c: #1e1230; --g: #472579; --glow: 89%; --gs: 1; }
+.sky i { background: radial-gradient(calc(95% * var(--gs)) calc(80% * var(--gs)) at var(--gx, 50%) -14%, color-mix(in srgb, var(--g) var(--glow), transparent), transparent 72%), linear-gradient(to bottom,
+  var(--c) 0%,
+  color-mix(in srgb, var(--c) 80%, transparent) 11%,
+  color-mix(in srgb, var(--c) 56%, transparent) 26%,
+  color-mix(in srgb, var(--c) 32%, transparent) 44%,
+  color-mix(in srgb, var(--c) 14%, transparent) 64%,
+  color-mix(in srgb, var(--c) 4%, transparent) 84%,
+  transparent 100%); }
+/* a fine grain so the long fade doesn't show bands */
+.sky::after { content: ""; position: absolute; inset: 0; opacity: .07; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .5 0 0 0 0 .5 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E"); -webkit-mask-image: linear-gradient(#000, transparent); mask-image: linear-gradient(#000, transparent); }
+:root[data-mood="day"] .sky-day, :root[data-mood="night"] .sky-night { opacity: 1; }
+
+
+
+/* Time of day (also the theme): only the selected mode shows, as icon + name; clicking it
+   opens all three (Day, Mid, Night), and a pick closes it again */
+.time-tabs { display: flex; padding: 3px; border-radius: 99px; background: var(--bg-soft); }
+.time-tabs button {
+  height: 26px; padding: 0 10px 0 8px; display: flex; align-items: center; gap: 6px;
+  border: 0; border-radius: 99px; background: transparent; cursor: pointer; overflow: hidden;
+  font: 400 11px/1 var(--mono); color: var(--text-muted); white-space: nowrap;
+  max-width: 100px; opacity: 1;
+  transition: max-width .4s var(--ease), padding .4s var(--ease), opacity .25s ease, color .15s ease, background-color .25s ease, box-shadow .25s ease;
+}
+.time-tabs:not(.is-open) button:not([aria-pressed="true"]) { max-width: 0; padding: 0; opacity: 0; pointer-events: none; }
+.time-tabs button:hover { color: var(--text); }
+.time-tabs button[aria-pressed="true"] { background: var(--bg); color: var(--text); box-shadow: 0 1px 2px rgb(0 0 0 / .12); }
+.time-tabs svg { width: 14px; height: 14px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.3; stroke-linecap: round; stroke-linejoin: round; }
+.tab-label { display: inline-block; }
+/* On the cover: frosted, light on the picture */
+@media (prefers-reduced-motion: reduce) {
+  .sky i { transition: none; }
+}
+@keyframes fadein { to { opacity: var(--o, 1); } }
+/* Switching light/dark: the page crossfades as one (see v3.js), the new icon turns in */
+::view-transition-old(root), ::view-transition-new(root) { animation-duration: .6s; animation-timing-function: ease-in-out; }
+.mode-switching *, .mode-switching *::before, .mode-switching *::after { transition: none !important; }
+.mode-switching .time-tabs button[aria-pressed="true"] svg { animation: mode-icon .6s var(--ease); }
+@keyframes mode-icon { from { transform: rotate(-60deg) scale(.7); } }
+
+/* ===== Intro ===== */
+.intro { margin-top: 64px; }
+.status { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text-muted); margin-bottom: 24px; }
+.status i {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--live);
+  box-shadow: 0 0 0 0 color-mix(in srgb, var(--live) 50%, transparent);
+  animation: pulse 2.4s ease-out infinite;
+}
+@keyframes pulse { 70%, 100% { box-shadow: 0 0 0 7px transparent; } }
+.hey { color: var(--text-soft); }
+
+/* Juspay chip, as in the inline company tags */
+.chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 0 7px 0 5px;
+  border-radius: 6px;
+  background: var(--bg-soft);
+  border: 1px solid var(--line);
+  color: var(--text);
+  font-weight: 500;
+  line-height: 1.6;
+  transition: border-color .2s ease;
+}
+.chip:hover { border-color: var(--line-strong); }
+.chip svg { width: 14px; height: 14px; }
+
+/* Place name: hover or focus reveals coordinates + the local time */
+.place { position: relative; color: var(--text); border-bottom: 1px dashed var(--line-strong); cursor: help; }
+.place-tip {
+  position: absolute;
+  left: 50%; bottom: calc(100% + 10px);
+  transform: translate(-50%, 4px);
+  white-space: nowrap;
+  padding: 7px 10px;
+  border-radius: 8px;
+  background: var(--text);
+  color: var(--bg);
+  font: 400 11.5px/1.5 var(--mono);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .2s ease, transform .3s var(--ease);
+  z-index: 5;
+}
+.place:hover .place-tip, .place:focus .place-tip { opacity: 1; transform: translate(-50%, 0); }
+
+.links { display: flex; flex-wrap: wrap; gap: 6px 20px; font-size: 14px; }
+.links a { color: var(--text-soft); transition: color .2s ease; }
+.links a:hover { color: var(--text); }
+
+/* ===== Currently: no card, four small isometric objects on the page (see the case studies),
+   one per line, with the green "live" dot as the only colour. Each lifts a little on hover. ===== */
+.now { margin-top: 96px; }
+.now-head { display: flex; align-items: baseline; gap: 14px; margin-bottom: 18px; }
+.now h2 { margin: 0; display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 500; color: var(--text); }
+.now-note { margin: 0; font: 600 16px/1 var(--hand); color: var(--text-muted); transform: rotate(-3deg); }
+.now dl { margin: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px 20px; }
+.now dl > div { min-width: 0; position: relative; }
+.now dd a { color: inherit; text-decoration: none; }
+.now dd a::after { content: ""; position: absolute; inset: 0; }
+.now-arrow { display: inline-block; color: var(--text-muted); transition: transform .2s var(--ease), color .15s ease; }
+.now dl > div:hover .now-arrow { color: var(--text); transform: translateX(2px); }
+/* Labels up front; the specific line appears on hover or keyboard focus. Touch screens have no hover, so it stays visible there. */
+.now dl > div > dt { color: var(--text-soft); font-size: 13px; transition: color .15s ease; }
+.now dl > div:hover > dt, .now dl > div:focus-within > dt { color: var(--text); }
+.now .now-head { margin-bottom: 14px; }
+.now .now-head h2 { font: 600 20px/1 var(--hand); letter-spacing: 0; color: var(--text-soft); transform: rotate(-2deg); transform-origin: left center; gap: 6px; align-items: flex-start; }
+.now .now-head h2 svg { width: 26px; height: 20px; margin-top: 8px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.3; stroke-linecap: round; stroke-linejoin: round; }
+@media (hover: hover) and (min-width: 961px) {
+  .now dl > div > dd { position: absolute; top: 100%; left: 0; right: 0; margin-top: 2px; font-size: 13px; color: var(--text-soft); opacity: 0; transform: translateY(-3px); transition: opacity .18s ease, transform .18s var(--ease); }
+  .now dl > div:hover > dd, .now dl > div:focus-within > dd { opacity: 1; transform: none; }
+}
+.now dt { margin-top: 12px; font-size: 13px; line-height: 1.4; color: var(--text-soft); }
+.now dd { margin: 2px 0 0; font-size: 14px; line-height: 1.4; color: var(--text); }
+.now dd .ph-tag { margin: 4px 0 0; }
+.iso-now { display: block; width: 100%; max-width: 120px; height: auto; overflow: visible; }
+.iso-now polygon, .iso-now path, .iso-now ellipse { stroke: color-mix(in srgb, var(--text) 45%, transparent); stroke-width: 1; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.iso-now .f-t { fill: var(--bg); }
+.iso-now .f-l { fill: var(--bg-soft); }
+.iso-now .f-acc { fill: color-mix(in srgb, var(--live) 28%, var(--bg)); stroke: var(--live); }
+.iso-now .f-acc-fill { fill: var(--live); stroke: none; }
+.iso-now g { transition: transform .5s var(--ease); }
+.now .iso-now { max-width: 72px; }
+.now .iso-now polygon, .now .iso-now path, .now .iso-now ellipse { stroke: color-mix(in srgb, var(--text) 45%, var(--bg)); }
+.now .iso-now .f-acc { fill: color-mix(in srgb, var(--live) 70%, var(--bg)); stroke: color-mix(in srgb, var(--text) 45%, var(--bg)); }
+.now .iso-now .f-acc-fill { fill: var(--live); stroke: none; }
+/* hover acts each drawing out (script in home-v3.html); the record's spin mark */
+.iso-now .f-tick { stroke: var(--live); stroke-width: 1.4; stroke-linecap: round; fill: none; }
+
+/* ===== Work list ===== */
+.frame { position: relative; padding: 4px 0; }
+
+.group + .group { margin-top: 40px; }
+.group-head { display: flex; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
+.rows { list-style: none; margin: 0; padding: 0; }
+.row {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: baseline;
+  gap: 12px;
+  padding: 8px 0;
+  min-height: 39px;
+  font-size: 15px;
+  transition: opacity .25s ease;
+}
+.row-name { color: var(--text); font-weight: 500; white-space: nowrap; }
+.row-desc { color: var(--text-soft); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
+.row-meta { font: 400 12px/1 var(--mono); color: var(--text-muted); white-space: nowrap; transition: transform .3s var(--ease), color .2s ease; }
+.rows:hover .row { opacity: .45; }
+.rows .row:hover, .rows .row:focus-visible { opacity: 1; }
+.row:hover .row-meta { color: var(--text); transform: translateX(-3px); }
+.row-go { font: 400 15px/1 var(--font); }      /* a plain arrow: → opens the case study, ↗ leaves the site */
+.pill {
+  font: 400 11px/1 var(--mono);
+  padding: 4px 7px;
+  border-radius: 99px;
+  border: 1px solid var(--line-strong);
+  color: var(--text-muted);
+  justify-self: start;
+}
+
+/* Cover that follows the cursor over a work row (fine pointers only) */
+.peek {
+  position: fixed;
+  top: 0; left: 0;
+  width: 280px;
+  aspect-ratio: 16 / 10;
+  border-radius: 10px;
+  overflow: hidden;
+  pointer-events: none;
+  box-shadow: var(--shadow);
+  opacity: 0;
+  transform: translate3d(var(--px, 0), var(--py, 0), 0) rotate(var(--pr, 0deg)) scale(.92);
+  transition: opacity .2s ease, transform .35s var(--ease);
+  z-index: 20;
+  background: var(--bg-soft);
+}
+.peek.is-on { opacity: 1; transform: translate3d(var(--px, 0), var(--py, 0), 0) rotate(var(--pr, 0deg)) scale(1); }
+.peek img { width: 100%; height: 100%; object-fit: cover; }
+@media (hover: none), (pointer: coarse) { .peek { display: none; } }
+
+/* ===== About ===== */
+.about { display: grid; grid-template-columns: 1fr; gap: 32px; align-items: start; }
+/* The portrait: one colour print with a thin matte and a hairline, standing on an isometric plinth
+   whose top face meets its bottom edge; it sits under the heading, and lifts a touch on hover. */
+.portrait { width: 200px; margin-top: 4px; }
+.print {
+  position: relative; z-index: 1; display: block; width: 136px; margin: 0 auto;
+  padding: 6px; border-radius: 4px; background: var(--bg);
+  border: 1px solid color-mix(in srgb, var(--text) 45%, transparent);
+  box-shadow: 0 10px 18px -12px color-mix(in srgb, var(--text) 45%, transparent);   /* it stands, so it casts a little */
+  transition: transform .5s var(--ease), box-shadow .5s var(--ease);
+}
+.portrait:hover .print { box-shadow: 0 14px 22px -12px color-mix(in srgb, var(--text) 45%, transparent); }
+.print img { display: block; width: 100%; aspect-ratio: 4 / 5; height: auto; object-fit: cover; border-radius: 1px; }
+.portrait:hover .print { transform: translateY(-3px); }
+.iso-plinth { display: block; width: 100%; height: auto; margin-top: -60px; overflow: visible; }
+.iso-plinth polygon { stroke: color-mix(in srgb, var(--text) 45%, transparent); stroke-width: 1; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.iso-plinth .f-t { fill: var(--bg); }
+.iso-plinth .f-l { fill: var(--bg-soft); }
+.offclock { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 6px; }
+.offclock li {
+  list-style: none;
+  display: inline-flex; align-items: center;
+  font-size: 13px;
+  padding: 2px 10px;
+  border-radius: 99px;
+  border: 1px solid var(--line);
+  color: var(--text-soft);
+  cursor: default;
+  transition: border-color .2s ease, color .2s ease, transform .35s var(--ease);
+}
+/* each pastime's little icon tucks away at rest and pops in on hover, while the chip tips one way or the other */
+.offclock svg { width: 0; height: 14px; margin-right: 0; opacity: 0; transform: scale(.4) rotate(-20deg); flex: none;
+  fill: none; stroke: var(--live); stroke-width: 1.3; stroke-linecap: round; stroke-linejoin: round;
+  transition: width .3s var(--ease), margin .3s var(--ease), opacity .2s ease, transform .45s cubic-bezier(.34, 1.56, .64, 1); }
+.offclock li:hover { color: var(--text); border-color: var(--line-strong); transform: translateY(-2px) rotate(-2deg); }
+.offclock li:nth-child(even):hover { transform: translateY(-2px) rotate(2deg); }
+.offclock li:hover svg { width: 14px; margin-right: 6px; opacity: 1; transform: none; }
+/* the two cities in About, each with a small line drawing of its landmark (Charminar, Vidhana Soudha) */
+.city { white-space: nowrap; }
+.city svg { width: 1.05em; height: 1.05em; margin-right: .3em; vertical-align: -.17em; fill: none; stroke: var(--live); stroke-width: 1.2; stroke-linecap: round; stroke-linejoin: round; }
+@media (hover: none) { .offclock svg { width: 14px; margin-right: 6px; opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .offclock li, .offclock svg { transition: none; } }
+.offclock { padding: 0; }
+
+/* ===== Experience: roles with years, then skills and tools as plain words ===== */
+.xp { list-style: none; margin: 0; padding: 0; }
+.xp { display: grid; gap: 40px; }
+.xp-row { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; font-size: 15px; color: var(--text-soft); }
+.xp p { margin: 12px 0 0; max-width: 56ch; font-size: 14px; line-height: 1.6; color: var(--text-muted); }
+.xp strong { font-weight: 500; color: var(--text); }
+.xp-row > span:first-child { font-weight: 500; color: var(--text); }   /* role and company read as one line */
+.xp .meta { white-space: nowrap; }
+.xp-label { margin: 10px 0 12px; }
+/* Skills and tools: two columns, each under its isometric object, the words in a tidy two-up list */
+.kit { display: grid; gap: 40px; margin-top: 56px; }
+.kit .iso-kit { width: auto; height: 30px; max-width: none; }
+.kit-list { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px 24px; font-size: 14px; font-weight: 400; line-height: 1.4; color: var(--text-soft); }
+.kit-list li { transition: color .2s ease; }
+.kit-list li:hover { color: var(--text); }   /* quiet as a group; the one you point at comes forward */
+.kit-col:hover .iso-now g { transform: translateY(-3px); }
+.kit-list--tools li, .kit-list--skills li { display: flex; align-items: center; gap: 10px; }
+.skill-ic { flex: none; width: 16px; height: 16px; fill: none; stroke: var(--text); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; transition: stroke .2s ease; }
+.kit-list--skills li:hover .skill-ic { stroke: var(--live); }
+.tool-ic { flex: none; width: 16px; height: 16px; color: var(--text); }
+
+/* ===== Contact + handwritten aside ===== */
+.contact { position: relative; }
+
+.hand {
+  position: absolute;
+  right: -8px; top: -6px;
+  display: flex; align-items: flex-end; gap: 4px;
+  font: 600 22px/1 var(--hand);
+  color: var(--text-soft);
+  transform: rotate(-6deg);
+  pointer-events: none;
+}
+.hand svg { width: 44px; height: 34px; margin-bottom: -10px; }
+.hand path { fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; }
+
+/* ===== Footer ===== */
+.foot {
+  margin-top: 140px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+/* ===== Entrance: content settles in once ===== */
+.in { opacity: 0; transform: translateY(8px); animation: settle .8s var(--ease) forwards; animation-delay: var(--d, 0s); }
+@keyframes settle { to { opacity: 1; transform: none; } }
+
+/* ===== Small screens: the nav becomes a top bar ===== */
+/* ===== Top bar: Resume · theme pill (like the reference header) ===== */
+.topbar { display: flex; align-items: center; justify-content: flex-end; gap: 14px; height: 36px; }
+.topbar .status { margin-bottom: 0; }
+.tb-link {
+  background: none; border: 0; padding: 4px 2px; cursor: pointer;
+  font: 500 14px/1 var(--font); color: var(--text-soft);
+  transition: color .15s ease;
+}
+.tb-link:hover { color: var(--text); }
+.tb-rule { width: 1px; height: 16px; background: var(--line-strong); }
+/* Visitor's time · city · weather, quiet mono beside Resume */
+.here { margin: 0; display: flex; align-items: center; gap: 0; white-space: nowrap; }
+/* Phone: sits above the pills so the view stays clear */
+/* Home top bar: time, place and a quiet mode icon at the column's end */
+.topbar--home { gap: 16px; font-size: 13px; justify-content: flex-end; --top-ink: color-mix(in srgb, var(--text) 78%, transparent); color: var(--top-ink); }
+.intro { position: relative; }
+.top-info { --top-ink: color-mix(in srgb, var(--text) 78%, transparent); color: var(--top-ink); font-size: 13px; display: flex; align-items: center; gap: 8px; }
+@media (min-width: 961px) { .top-info { position: absolute; top: -4px; right: 0; z-index: 1; } }
+@media (max-width: 960px) { .top-info { margin: -48px 0 24px; } }
+.intro .top-info .here { margin: 0; color: inherit; font-size: 13px; line-height: 1; }
+.here [data-here-weather] { display: none; }
+.time-tabs--plain { padding: 0; background: none; border-radius: 0; margin-right: -8px; }
+.time-tabs--plain button { width: 32px; height: 32px; padding: 0; justify-content: center; color: var(--top-ink); border-radius: 8px; transition: color .15s ease; }
+.time-tabs--plain:not(.is-open) button:not([aria-pressed="true"]) { display: none; }
+.time-tabs--plain button:hover { color: var(--text); }
+.time-tabs--plain button[aria-pressed="true"] { background: none; box-shadow: none; color: var(--text); }
+.time-tabs--plain.is-open button:not([aria-pressed="true"]) { opacity: .6; }
+.time-tabs--plain.is-open button:hover { opacity: 1; }
+.time-tabs--plain svg { width: 16px; height: 16px; }
+.time-tabs--plain .tab-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+@media (min-width: 961px) { .stack-on .topbar.topbar--home { height: 61px; padding-top: 40px; margin-bottom: -61px; } }
+@media (min-width: 961px) { .stack-on .nav-name { visibility: hidden; } }
+@media (max-width: 960px) { .topbar--home { flex-wrap: wrap; height: auto; gap: 8px 16px; justify-content: flex-start; } }
+.here span + span::before { content: "·"; margin: 0 7px; opacity: .6; }
+
+.view svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 1.3; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ===== Work: list / grid switch ===== */
+.view { display: flex; gap: 2px; padding: 3px; border-radius: 10px; background: var(--bg-soft); }
+.view button {
+  width: 28px; height: 26px; display: grid; place-items: center;
+  border: 0; border-radius: 7px; background: transparent; color: var(--text-muted); cursor: pointer;
+  transition: color .15s ease, background-color .2s ease;
+}
+.view button:hover { color: var(--text); }
+.view button[aria-pressed="true"] { background: var(--bg); color: var(--text); box-shadow: 0 1px 2px rgb(0 0 0 / .1); }
+
+.row-cover { display: none; }
+.frame[data-layout="grid"] .rows { display: grid; grid-template-columns: 1fr 1fr; gap: 28px 20px; margin-top: 10px; }
+.frame[data-layout="grid"] .row { display: flex; flex-direction: column; align-items: stretch; gap: 0; padding: 0; min-height: 0; }
+.frame[data-layout="grid"] .rows:hover .row { opacity: 1; }
+.frame[data-layout="grid"] .row-cover {
+  display: block;
+  aspect-ratio: 16 / 10;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: var(--bg-soft);
+  margin-bottom: 12px;
+}
+.frame[data-layout="grid"] .row-cover img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s var(--ease); }
+.frame[data-layout="grid"] .row:hover .row-cover img { transform: scale(1.03); }
+.frame[data-layout="grid"] .row-desc { white-space: normal; margin-top: 2px; }
+.frame[data-layout="grid"] .row-meta { margin-top: 10px; }
+.frame[data-layout="grid"] .row:hover .row-meta { transform: translateX(3px); }
+
+/* ===== Résumé, a sheet centred on the page in the content column's width ===== */
+
+@media (max-width: 960px) {
+  .v3 { grid-template-columns: minmax(0, 1fr); column-gap: 0; padding: 0 20px; }
+  .v3-main { grid-column: 1; padding: 20px 0 56px; max-width: var(--col); width: 100%; justify-self: center; }
+  .v3-nav {
+    grid-column: 1;
+    justify-self: stretch;
+    width: auto;
+    height: auto;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    padding: 14px 0;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+    margin: 0 -20px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .nav-name { margin: 0; padding: 0; }
+  .nav-group { margin: 0; }
+  .nav-list { flex-direction: row; gap: 16px; overflow-x: auto; scrollbar-width: none; }
+  .nav-list a, .nav-list a.is-active { height: auto; padding: 0; font-weight: 400; }
+  .nav-dot { display: none; }
+}
+/* Phones: Home keeps no top nav at all, it's one scroll; on case studies only the Back link stays, pinned on top */
+@media (max-width: 960px) {
+  .v3:not(.v3-cs) .v3-nav { display: none; }
+  .v3:not(.v3-cs) .top-info { margin-top: -60px; }   /* the nav's room is gone, so the time row moves up */
+  .v3-cs .topbar {
+    position: sticky; top: 0; z-index: 10;
+    height: 52px; margin: -20px -20px 0; padding: 0 20px;
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+}
+@media (max-width: 600px) {
+  .nav-list li:nth-child(n+3) { display: none; }
+  .now dl { grid-template-columns: 1fr 1fr; }
+  .now h2 { margin-left: 0; }   /* too close to the screen edge to hang the dot */
+  .row { grid-template-columns: auto 1fr; }
+  .row-desc { grid-column: 1 / -1; grid-row: 2; white-space: normal; font-size: 14px; }
+  .hand { position: static; transform: rotate(-3deg); margin-top: 14px; }
+  .sec { margin-top: 104px; }
+  .frame[data-layout="grid"] .rows { grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; animation-delay: 0s !important; transition-duration: .01ms !important; }
+  html { scroll-behavior: auto; }
+}
+
+/* The intro's h1 reads as a paragraph, as on the reference */
+.h-reset { margin: 0 0 24px; font: inherit; color: var(--text-soft); }
+
+/* ===== Click feedback, after ch.sh: a spark canvas over the page (see v3.js), and
+   controls that press in a touch while held ===== */
+.click-spark { position: fixed; inset: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 9999; color: var(--text); }
+button:active, .row:active, .nav-list a:active, .sec-head a:active { scale: .98; }
+
+/* ===== Sections stack (desktop): one stage pins to the screen and shows a single section,
+   level with the middle of the nav. Scrolling moves through them in even steps; the next one
+   rises in from below with a small overshoot while the last fades away. ===== */
+@media (min-width: 961px) {
+  .v3-nav { padding-bottom: 72px; }
+  /* the cover, the name, the status and the nav stay put under the settled cover; only the sections change */
+  .stack-on { --cover-h: clamp(72px, 7vw, 96px); }
+  .stack-on .cover { position: sticky; top: 0; z-index: 4; }
+  .stack-on .v3-nav { top: var(--cover-h); height: calc(100vh - var(--cover-h)); }
+  .stack-on .stack-stage { position: sticky; top: var(--cover-h); height: calc(100vh - var(--cover-h)); overflow: hidden;
+    margin: 0 -32px;   /* 32px of room each side, so marks that hang in the margin (the live dot) aren't cut */
+    /* a tall section sliding up fades out before it reaches the name and status */
+    -webkit-mask-image: linear-gradient(transparent calc(var(--nav-top, 0px) - 40px), #000 calc(var(--nav-top, 0px) - 8px));
+    mask-image: linear-gradient(transparent calc(var(--nav-top, 0px) - 40px), #000 calc(var(--nav-top, 0px) - 8px)); }
+  /* the stage starts where the nav starts, so every section opens level with it; the status sits top right */
+  .stack-on .v3-main { position: relative; padding-top: 0; }
+  .stack-on .topbar { position: sticky; top: var(--cover-h); height: 0; padding-top: 32px; margin-bottom: -32px; z-index: 3; }
+  /* the footer rests at the very bottom, in the empty space under the last section */
+  .stack-on .v3-main { padding-bottom: 0; }
+  .stack-on .v3-main > .foot { position: absolute; left: 0; right: 0; bottom: 32px; margin: 0; z-index: 3; }
+  .stack-on [data-stack] {
+    position: absolute; left: 32px; right: 32px; top: var(--stack-top, 20vh); margin: 0 !important;
+    pointer-events: none; opacity: 0; transform: translateY(56px); translate: 0 var(--stack-pan, 0);
+    transition: opacity .2s ease, transform .2s ease;
+  }
+  .stack-on [data-stack].is-current { pointer-events: auto; opacity: 1; transform: none; transition: opacity .3s ease, transform .55s cubic-bezier(.34, 1.56, .64, 1); }
+  .stack-on .screen--home .intro { margin-top: 0; }
+}
+@media (min-width: 961px) and (prefers-reduced-motion: reduce) {
+  .stack-on [data-stack], .stack-on [data-stack].is-current { transform: none; transition: opacity .2s ease; }
+}
+
+/* ===== The case studies' type system, on Home (see assets/cs-v3.css):
+   section 24/500 · sub-heading 17/500 · body 14.5/1.7/400 grey · bold in body 500 dark ===== */
+.sec-head h2 { font-size: 24px; font-weight: 500; line-height: 1.35; letter-spacing: -.015em; }
+.sec-head { margin-bottom: 32px; }
+.now h2 { font-size: 17px; line-height: 1.4; letter-spacing: -.01em; }
+.hey, .h-reset, .intro p, .about p:not(.meta), .contact .big, .xp p {
+  font-size: 14.5px; font-weight: 400; line-height: 1.7; letter-spacing: 0; color: var(--text-soft);
+}
+.hey, .h-reset, .intro p, .about p:not(.meta), .contact .big { margin-bottom: 28px; }
+.row { font-size: 14.5px; }
+.row-desc { font-weight: 400; }
+
+/* Phones get a step-down type scale: desktop sizes read too large on a small screen */
+@media (max-width: 600px) {
+  .v3 .hey, .v3 .h-reset, .v3 .intro p, .v3 .about p:not(.meta), .v3 .contact .big, .v3 .xp p { font-size: 14px; line-height: 1.65; margin-bottom: 22px; }
+  .sec-head h2 { font-size: 20px; }
+  .now h2 { font-size: 15px; }
+  .now dt { font-size: 12px; }
+  .now dd { font-size: 13px; }
+  .row, .xp-row, .row-go { font-size: 13.5px; }
+  .row-desc { font-size: 13px; }
+  .meta, .foot { font-size: 11px; }
+  .kit-list { font-size: 13px; gap: 10px 20px; }
+}

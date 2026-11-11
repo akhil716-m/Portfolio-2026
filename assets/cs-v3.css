@@ -1,0 +1,723 @@
+/* ===== Case studies in the v3 language =====
+   Loaded last on work-*-v3 pages, after the page's own styles and cs-article.css. The page keeps
+   its markup and components; this file swaps the look: v3 grounds and type, the reading column
+   in the same place as the home page (centred), no left nav, no section rules. Wide visuals
+   break out of the column on both sides, centred on the page. */
+
+/* --- Tokens the case-study components read (the project colour is per theme here) --- */
+:root {
+  --accent: #3a63d8; --acc-rgb: 58 99 216;
+  --acc-soft: #dce5ff; --acc-mid: #9db4f5; --acc-ink: #0a1638; --on-accent: #ffffff;
+  --proj: #3a63d8; --proj-rgb: 58 99 216;
+  --glow: rgb(58 99 216 / .12); --tray: #eef2fd;
+  --fg-rgb: 10 10 10; --bg-rgb: 251 251 251;
+  --sh-rgb: 0 0 0; --sh-k: .3;
+  --bg-card: #ffffff;
+  --error: var(--text);
+  --r-frame: 12px;
+}
+:root[data-theme="dark"] {
+  --accent: #6f9bff; --acc-rgb: 111 155 255;
+  --acc-soft: #d6e2ff; --acc-mid: #2a4fb0; --acc-ink: #0a1638; --on-accent: #0a1638;
+  --proj: #6f9bff; --proj-rgb: 111 155 255;
+  --glow: rgb(111 155 255 / .15); --tray: #0a1638;
+  --fg-rgb: 255 255 255; --bg-rgb: 12 12 12;
+  --sh-rgb: 0 0 0; --sh-k: 1;
+  --bg-card: #151515;
+  --error: var(--text);
+}
+:root[data-theme="paper"] {
+  --accent: #3556bf; --acc-rgb: 53 86 191;
+  --acc-soft: #dde3f5; --acc-mid: #9aaee6; --acc-ink: #0a1638; --on-accent: #ffffff;
+  --proj: #3556bf; --proj-rgb: 53 86 191;
+  --glow: rgb(53 86 191 / .1); --tray: #e9e6f0;
+  --fg-rgb: 36 33 28; --bg-rgb: 244 240 232;
+  --sh-rgb: 60 45 20; --sh-k: .3;
+  --bg-card: #faf7f0;
+  --error: var(--text);
+}
+
+/* --- Page frame: the old globals (styles.css) are not loaded, so reset what they gave --- */
+.v3-cs h1, .v3-cs h2, .v3-cs h3, .v3-cs h4, .v3-cs figure, .v3-cs ul, .v3-cs ol, .v3-cs blockquote { margin: 0; }
+.v3-cs ul, .v3-cs ol { padding: 0; }
+.v3-cs button { font: inherit; }
+.v3-cs .v3-main { padding-bottom: 64px; }
+/* No left nav on case studies: the top bar carries Back and the theme */
+.v3-cs .topbar { justify-content: space-between; }
+.tb-back { font: 500 14px/1 var(--font); color: var(--text-soft); transition: color .15s ease; }
+.tb-back:hover { color: var(--text); }
+
+/* --- Reading column: the page's own wraps sit in the v3 column --- */
+.v3-cs .cs-wrap { max-width: none; margin: 0; padding: 0; }
+/* Wide visuals: up to 960px, centred on the page (the column is centred, so centring on it
+   centres them on the page too); on small screens they keep a 24px margin each side */
+.v3-cs .cs-wrap--wide, .v3-cs .cs-wrap--board,
+.v3-cs .cs-wrap--showcase { width: min(960px, calc(100vw - 48px)); max-width: none; margin-left: calc(50% - min(480px, 50vw - 24px)); }
+.v3-cs .cs-vis--wide { --vis-w: min(960px, calc(100vw - 48px)); margin-left: calc(50% - var(--vis-w) / 2) !important; }
+
+/* --- Hero: a quiet article header like the home intro --- */
+.v3-cs .cs-hero { overflow: visible; }
+.v3-cs .cs-hero.cs-hero--article { padding: 56px 0 0; }
+.v3-cs .cs-hero--article::before { display: none; }
+.v3-cs .cs-hero--article .cs-hero-eyebrow {
+  font: 400 12px/1.4 var(--mono); letter-spacing: .01em; text-transform: none; color: var(--text-muted); margin: 0 0 14px;
+}
+.v3-cs .cs-hero--article .cs-hero-title {
+  font: 500 32px/1.2 var(--font); letter-spacing: -.02em; color: var(--text);
+}
+.v3-cs .cs-hero--article .cs-hero-title em { font-weight: 500; color: inherit; }
+.v3-cs .cs-hero-facts { font: 500 14px/1.5 var(--font); color: var(--text-muted); margin-top: 14px; }
+.v3-cs .cs-hero-facts li + li::before { background: currentColor; opacity: .5; }
+.v3-cs .cs-cover { margin-top: 48px; }
+/* The cover's own rim takes the recording stages' colour: the v3 cover image has a clear rim,
+   so the stage colour behind it shows through (no extra frame) */
+.v3-cs .cs-cover .cs-shot { background: var(--stage); box-shadow: none; }
+/* The cover on a stage, as on Revenue Recovery: lots of room round the screen, centred */
+.cs-cover-stage {
+  display: flex; align-items: center; justify-content: center;
+  padding: clamp(28px, 7.5%, 80px); border-radius: 16px;
+  background: var(--stage); border: 1px solid var(--line);
+}
+.cs-cover-stage img {
+  display: block; width: 100%; height: auto; border-radius: 10px;
+  box-shadow: 0 0 0 1px var(--line), 0 0 32px rgb(var(--sh-rgb) / calc(.22 * var(--sh-k)));
+}
+@media (max-width: 700px) { .cs-cover-stage { padding: 20px; border-radius: 12px; } }
+
+/* --- Sections: no rules between them, more air (like the home page) --- */
+.v3-cs .cs-section { border-top: 0; padding: 0; margin-top: 140px; }
+.v3-cs .cs-hero--article + .cs-section { padding-top: 0; margin-top: clamp(88px, 10vw, 128px); }
+
+/* Label: mono meta, the number a step quieter */
+.v3-cs .cs-label {
+  font: 400 12px/1.4 var(--mono); letter-spacing: .01em; text-transform: none;
+  color: var(--text-muted); margin-bottom: 16px; gap: 8px;
+}
+.v3-cs .cs-label::after { display: none; }
+.v3-cs .cs-label .num { color: var(--text-muted); }
+
+/* Headings and body in the home page's type: Public Sans, grey copy, ink for what matters */
+.v3-cs .cs-display {
+  font: 500 24px/1.35 var(--font); letter-spacing: -.015em; color: var(--text);
+  max-width: 30ch; margin: 0 0 24px;
+}
+.v3-cs .cs-display em { font-weight: 500; color: inherit; }
+.v3-cs .cs-h3 { font: 500 17px/1.4 var(--font); color: var(--text); }
+.v3-cs .cs-p, .v3-cs .cs-lead, .v3-cs .cs-list li {
+  font: 500 15px/1.65 var(--font); letter-spacing: 0; color: var(--text-soft); max-width: none;
+}
+.v3-cs .cs-p, .v3-cs .cs-lead { margin: 0 0 24px; }
+.v3-cs .cs-p strong, .v3-cs .cs-lead strong, .v3-cs .cs-list li strong { color: var(--text); font-weight: 500; }
+
+/* --- Colour: v3 is monochrome. HyperSense blue stays only where it means something
+   (key numbers, active / selected states, the diagrams); labels, icons, emphasis, callouts
+   and card tints go to the v3 greys. --- */
+.v3-cs .cs-hero-eyebrow, .v3-cs .cs-module-tag, .v3-cs .cs-tip-term, .v3-cs .cs-fee-why-num,
+.v3-cs .cs-num, .v3-cs .cs-deck-label, .v3-cs .cs-challenge-tag, .v3-cs .cs-scenario-tag,
+.v3-cs .cs-outcome-next-tag, .v3-cs .cs-iter-step--active .cs-iter-tag, .v3-cs .cs-shot-url span em,
+.v3-cs .cs-arc-row--win .cs-arc-eyebrow, .v3-cs .cs-arc-row--win.is-hl .cs-arc-eyebrow,
+.v3-cs .cs-fstat--win .cs-fstat-eyebrow, .v3-cs .cs-fstat--win .cs-fstat-num .cs-fstat-sym,
+.v3-cs .cs-fstat--win .cs-fstat-num .cs-fstat-sym-pre { color: var(--text-muted); }
+.v3-cs .cs-role-icon, .v3-cs .cs-persona-icon, .v3-cs .cs-tension-icon,
+.v3-cs .cs-list li::before, .v3-cs .cs-tension-arrow, .v3-cs .cs-thanks-mark { color: var(--text-soft); }
+.v3-cs .cs-p strong, .v3-cs .cs-fstat-desc strong { color: var(--text); }
+.v3-cs .cs-gloss { border-bottom-color: var(--line-strong); }
+.v3-cs .cs-gloss:hover, .v3-cs .cs-gloss:focus-visible { color: var(--text); border-bottom-color: currentColor; }
+.v3-cs .cs-subdivider::before { background: var(--line-strong); }
+/* Side-ruled callouts: a neutral rule, no tint */
+.v3-cs .cs-quote, .v3-cs .cs-principle-callout, .v3-cs .cs-cost-callout, .v3-cs .cs-challenge,
+.v3-cs .cs-outcome, .v3-cs .cs-outcome-next, .v3-cs .cs-sim-callout, .v3-cs .cs-sim-dg {
+  border-left-color: var(--line-strong); background: none;
+}
+.v3-cs .cs-challenge, .v3-cs .cs-sim-callout, .v3-cs .cs-sim-dg { background: var(--bg-soft); }
+/* Stat cards: plain cards, no gradient or glow; the highlighted one keeps its number in blue */
+.v3-cs .cs-fstat, .v3-cs .cs-fstat--win { background: var(--bg-card); border-color: var(--line); }
+/* Outcome stats: no cards; each stat is a small isometric drawing with its words beneath,
+   like the merchant-scale figure */
+.v3-cs .cs-fstat-grid--iso { gap: 28px; margin: 40px 0 8px; }
+.v3-cs .cs-fstat-grid--iso .cs-fstat { background: none; border: 0; border-radius: 0; padding: 0; overflow: visible; align-items: center; text-align: center; gap: 6px; }
+.v3-cs .cs-fstat-grid--iso .cs-fstat-num { font: 500 32px/1 var(--font); letter-spacing: -.02em; margin-top: 10px; }
+.v3-cs .cs-fstat-grid--iso .cs-fstat-label { font: 500 15px/1.3 var(--font); color: var(--text); }
+.v3-cs .cs-fstat-grid--iso .cs-fstat-desc { font: 500 13.5px/1.55 var(--font); color: var(--text-muted); max-width: 26ch; margin: 2px auto 0; }
+.iso-stat { width: 100%; max-width: 220px; height: auto; display: block; overflow: visible; margin: 0 auto; }
+.iso-stat polygon { stroke-width: 1; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.iso-stat .f-t { fill: var(--bg); }
+.iso-stat .f-l { fill: var(--bg-soft); }
+.iso-stat .f-r { fill: color-mix(in srgb, var(--bg-soft) 70%, var(--line-strong)); }
+.iso-stat .plinth polygon { stroke: rgb(var(--fg-rgb) / .3); }
+.iso-stat .pil polygon { stroke: rgb(var(--fg-rgb) / .5); }
+.iso-stat .pil--fee polygon { stroke: var(--accent); }
+.iso-stat .pil--fee .f-t { fill: color-mix(in srgb, var(--accent) 30%, var(--bg)); }
+.iso-stat .pil--fee .f-l, .iso-stat .pil--fee .f-r { fill: color-mix(in srgb, var(--accent) 42%, var(--bg)); }
+.iso-stat .pil { transform-box: fill-box; transform-origin: 50% 100%; }
+@media (prefers-reduced-motion: no-preference) {
+  .cs-fstat-grid--iso.reveal:not(.is-visible) .pil { transform: scaleY(0); }
+  .cs-fstat-grid--iso.is-visible .pil { animation: iso-rise .8s cubic-bezier(.22, 1, .36, 1) var(--d) both; }
+}
+.v3-cs .cs-fstat::before, .v3-cs .cs-fstat--win::before { display: none; }
+.v3-cs .cs-outcome-step--win, .v3-cs .cs-iter-step--active { background: var(--bg-soft); }
+.v3-cs .cs-sim-final { background: none; border-color: var(--line-strong); }
+.v3-cs .cs-sim-stage.is-active { border-color: var(--line-strong); }
+.v3-cs .cs-journey-step:last-child .cs-journey-dot { border-color: var(--text); }
+.v3-cs .cs-journey-step:last-child .cs-journey-num { color: var(--text); }
+/* Glows are a dark-ground effect; drop them */
+.v3-cs .cs-flow-dot { box-shadow: none; }
+.v3-cs .cs-sim-rail-progress, .v3-cs .cs-sim-rail-bubble { box-shadow: none; }
+.v3-cs .cs-tl-dot--active { box-shadow: 0 0 0 4px var(--bg-soft); }
+.v3-cs .cs-cta:hover { background: var(--text); border-color: var(--text); color: var(--bg); }
+
+/* --- Recording stages: the recordings play as they are, inside a soft grey frame that follows
+   the theme (a step lighter than the page on dark, so the frame still reads). --- */
+:root { --stage: #f2f2f2; }
+:root[data-theme="paper"] { --stage: #ebe6db; }
+:root[data-theme="dark"] { --stage: #1e1e1e; }
+.v3-cs .cs-stage { background: var(--stage); border: 1px solid var(--line); }
+.v3-cs .cs-stage::before { display: none; }
+.v3-cs .cs-stage > video { mix-blend-mode: normal; }
+.v3-cs .cs-stage > video:fullscreen::backdrop { background: #101309; }
+
+/* --- Text inside components: one quieter scale. Headings keep their size; titles inside
+   cards and lists read at 16px, supporting notes at 14px, big numbers a step down. --- */
+.v3-cs .cs-tensions { margin-top: 20px; }
+.v3-cs .cs-tension-row { padding: 18px 0; gap: 0 14px; grid-template-columns: 16px 1fr; }
+.v3-cs .cs-tension-icon { width: 16px; height: 16px; margin-top: 3px; }
+.v3-cs .cs-tension-title { font: 500 16px/1.4 var(--font); letter-spacing: -.005em; gap: 4px 10px; margin-bottom: 4px; }
+.v3-cs .cs-tension-arrow { width: 14px; height: 14px; }
+.v3-cs .cs-tension-friction { font: 500 14px/1.6 var(--font); }
+.v3-cs .cs-scenario-title, .v3-cs .cs-persona-name, .v3-cs .cs-principle-statement,
+.v3-cs .cs-cost-callout-headline, .v3-cs .cs-thanks-note p, .v3-cs .cs-sim-teaser-title {
+  font: 500 16px/1.5 var(--font); letter-spacing: -.005em;
+}
+.v3-cs .cs-docs-title, .v3-cs .cs-more-title { font: 500 20px/1.35 var(--font); letter-spacing: -.01em; color: var(--text); }
+.v3-cs .cs-cost-callout-context, .v3-cs .cs-principle-context { font: 500 14px/1.6 var(--font); }
+.v3-cs .cs-quote { font: 500 17px/1.6 var(--font); font-style: normal; }
+/* Numbers */
+.v3-cs .cs-fstat-num { font-size: 40px; }
+.v3-cs .cs-cost-callout-rate { font-size: 32px; }
+.v3-cs .cs-fee-rate { font-size: 26px; }
+.v3-cs .cs-stat-num { font-size: 22px; }
+.v3-cs .cs-sim-final-amt { font-size: 20px; }
+.v3-cs .cs-sim-source-amt, .v3-cs .cs-sim-amt { font-size: 20px; }
+.v3-cs .cs-sim-stage-amt { font-size: 17px; }
+
+/* Footer: the home page's footer line */
+.v3-cs .foot { display: flex; justify-content: space-between; }
+.v3-cs .foot a { color: var(--text-muted); transition: color .2s ease; }
+.v3-cs .foot a:hover { color: var(--text); }
+
+/* Below the two-column layout the column is the full width, and so are wide visuals */
+@media (max-width: 960px) {
+  .v3-cs .cs-section { margin-top: 104px; }
+}
+@media (max-width: 600px) {
+  .v3-cs .cs-hero--article .cs-hero-title { font-size: 28px; }
+  .v3-cs .cs-display { font-size: 21px; }
+}
+
+/* ===== "Where the money goes", in Hairline's language =====
+   Isometric hairlines on flat faces in the page colours. A block of money slides from the
+   customer to the merchant over a row of tiles; the three intermediaries are faint dashed pads
+   (invisible to the merchant), and at each one a thin blue layer (the fee) lifts off the block
+   and fades. The block reaches the merchant shorter. One loop is 8s. */
+.cs-vis--iso .cs-vis-body { padding: 36px 24px 28px !important; }
+.iso-flow { width: 100%; height: auto; display: block; overflow: visible; }
+.iso-flow polygon { stroke-width: 1; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.iso-flow .f-t { fill: var(--bg); }
+.iso-flow .f-l { fill: var(--bg-soft); }
+.iso-flow .f-r { fill: color-mix(in srgb, var(--bg-soft) 70%, var(--line-strong)); }
+.iso-flow .tile polygon { stroke: rgb(var(--fg-rgb) / .22); }
+.iso-flow .pad polygon { stroke: rgb(var(--fg-rgb) / .45); }
+.iso-flow .pad--hidden polygon { fill: transparent; stroke: rgb(var(--fg-rgb) / .3); stroke-dasharray: 3 3; transition: stroke .3s ease; }
+.iso-flow .blk-base polygon { stroke: rgb(var(--fg-rgb) / .7); }
+.iso-flow .blk-fee polygon { stroke: var(--accent); }
+.iso-flow .blk-fee .f-t { fill: color-mix(in srgb, var(--accent) 16%, var(--bg)); }
+.iso-flow .blk-fee .f-l, .iso-flow .blk-fee .f-r { fill: color-mix(in srgb, var(--accent) 24%, var(--bg)); }
+.iso-flow text { font-family: var(--font); }
+.iso-cap { font: 400 10.5px/1 var(--mono); letter-spacing: .1em; fill: var(--text-muted); }
+.iso-brace { fill: none; stroke: var(--line-strong); stroke-width: 1; }
+.iso-name { font-size: 12.5px; font-weight: 500; fill: var(--text-soft); }
+.iso-name--end { fill: var(--text); }
+.iso-amt { font: 500 13px/1 var(--mono); fill: var(--text); }
+.iso-fee { font: 400 12px/1 var(--mono); fill: var(--accent); }
+
+@media (prefers-reduced-motion: no-preference) {
+  .cs-vis--iso.is-visible .blk-base { animation: iso-base 8s cubic-bezier(.45, 0, .25, 1) infinite; }
+  .cs-vis--iso.is-visible .blk-acquiring { animation: iso-peel-1 8s cubic-bezier(.45, 0, .25, 1) infinite; }
+  .cs-vis--iso.is-visible .blk-network { animation: iso-peel-2 8s cubic-bezier(.45, 0, .25, 1) infinite; }
+  .cs-vis--iso.is-visible .blk-issuing { animation: iso-peel-3 8s cubic-bezier(.45, 0, .25, 1) infinite; }
+  .cs-vis--iso.is-visible .pad1 polygon { animation: iso-pad-1 8s linear infinite; }
+  .cs-vis--iso.is-visible .pad2 polygon { animation: iso-pad-2 8s linear infinite; }
+  .cs-vis--iso.is-visible .pad3 polygon { animation: iso-pad-3 8s linear infinite; }
+  .cs-vis--iso.is-visible .iso-amt-out { animation: iso-arrive 8s ease infinite; }
+}
+/* the block: rests on the customer pad, stops at each intermediary, rests on the merchant pad */
+@keyframes iso-base {
+  0% { transform: translateX(0); opacity: 0; }
+  5%, 14% { transform: translateX(0); opacity: 1; }
+  28%, 33% { transform: translateX(210px); }
+  45%, 50% { transform: translateX(360px); }
+  62%, 67% { transform: translateX(510px); }
+  80% { transform: translateX(720px); opacity: 1; }
+  93% { transform: translateX(720px); opacity: 1; }
+  100% { transform: translateX(720px); opacity: 0; }
+}
+/* each fee layer rides along to its intermediary, then lifts away and fades */
+@keyframes iso-peel-1 {
+  0% { transform: translate(0, 0); opacity: 0; }
+  5%, 14% { transform: translate(0, 0); opacity: 1; }
+  28% { transform: translate(210px, 0); opacity: 1; }
+  40% { transform: translate(210px, -26px); opacity: 0; }
+  100% { transform: translate(210px, -26px); opacity: 0; }
+}
+@keyframes iso-peel-2 {
+  0% { transform: translate(0, 0); opacity: 0; }
+  5%, 14% { transform: translate(0, 0); opacity: 1; }
+  28%, 33% { transform: translate(210px, 0); }
+  45% { transform: translate(360px, 0); opacity: 1; }
+  57% { transform: translate(360px, -26px); opacity: 0; }
+  100% { transform: translate(360px, -26px); opacity: 0; }
+}
+@keyframes iso-peel-3 {
+  0% { transform: translate(0, 0); opacity: 0; }
+  5%, 14% { transform: translate(0, 0); opacity: 1; }
+  28%, 33% { transform: translate(210px, 0); }
+  45%, 50% { transform: translate(360px, 0); }
+  62% { transform: translate(510px, 0); opacity: 1; }
+  74% { transform: translate(510px, -26px); opacity: 0; }
+  100% { transform: translate(510px, -26px); opacity: 0; }
+}
+/* the intermediary shows itself only while it takes its cut */
+@keyframes iso-pad-1 { 0%, 24%, 40%, 100% { stroke: rgb(var(--fg-rgb) / .3); } 29%, 33% { stroke: var(--accent); } }
+@keyframes iso-pad-2 { 0%, 41%, 57%, 100% { stroke: rgb(var(--fg-rgb) / .3); } 46%, 50% { stroke: var(--accent); } }
+@keyframes iso-pad-3 { 0%, 58%, 74%, 100% { stroke: rgb(var(--fg-rgb) / .3); } 63%, 67% { stroke: var(--accent); } }
+@keyframes iso-arrive { 0%, 76% { opacity: .35; } 82%, 96% { opacity: 1; } 100% { opacity: .35; } }
+
+/* phones keep the stacked list (the original vertical version) */
+@media (max-width: 600px) { .iso-flow { display: none; } }
+
+/* ===== Merchant scale: same base, different volume, different cost =====
+   Every merchant stands on the same 10x10 base, so the three compare directly. Each pillar is
+   the same unit of yearly volume (small 1, mid 10, enterprise 100) and the blue is the fees,
+   always 2% of it. Pillars rise once as the figure comes into view; pointing at a tier
+   (pillars or words) brings it forward. */
+.cs-scale { background: var(--bg-card); border: 1px solid var(--line); border-radius: 16px; padding: 40px 32px 28px; }
+.iso-scale { width: 100%; max-width: 240px; height: auto; display: block; overflow: visible; margin: 0 auto 18px; }
+.iso-scale polygon { stroke-width: 1; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.iso-scale .f-t { fill: var(--bg); }
+.iso-scale .f-l { fill: var(--bg-soft); }
+.iso-scale .f-r { fill: color-mix(in srgb, var(--bg-soft) 70%, var(--line-strong)); }
+.iso-scale .plinth polygon { stroke: rgb(var(--fg-rgb) / .35); }
+.iso-scale .cell { fill: none; stroke: rgb(var(--fg-rgb) / .14); }
+.iso-scale .pil polygon { stroke: rgb(var(--fg-rgb) / .5); }
+.iso-scale .pil--fee polygon, .iso-scale .pil-cap polygon { stroke: var(--accent); }
+.iso-scale .pil--fee .f-t, .iso-scale .pil-cap .f-t { fill: color-mix(in srgb, var(--accent) 30%, var(--bg)); }
+.iso-scale .pil--fee .f-l, .iso-scale .pil--fee .f-r, .iso-scale .pil-cap .f-l, .iso-scale .pil-cap .f-r { fill: color-mix(in srgb, var(--accent) 42%, var(--bg)); }
+/* a partial fee is a band round the top of its pillar (sides only), so the small merchant's
+   2% of one pillar stays the hairline it is */
+.iso-scale .pil-cap .f-t { fill: var(--bg); stroke: rgb(var(--fg-rgb) / .5); }
+.iso-scale .pil { transform-box: fill-box; transform-origin: 50% 100%; }
+.iso-scale .st { transition: opacity .3s ease; }
+
+.cs-scale-cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.cs-scale-col { text-align: center; transition: opacity .3s ease; }
+.cs-scale-eyebrow { display: block; font: 400 11px/1.3 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--text-muted); }
+.cs-scale-lead { margin: 8px 0 4px; font: 500 15px/1.4 var(--font); color: var(--text); }
+.cs-scale-metric { margin: 0; font: 400 12.5px/1.5 var(--mono); color: var(--text-muted); }
+.cs-scale-metric strong { font-weight: 500; color: var(--text-soft); }
+.cs-scale-metric em { font-style: normal; color: var(--accent); }
+.cs-scale-foot { display: flex; justify-content: space-between; gap: 16px; margin-top: 26px; padding-top: 14px; border-top: 1px solid var(--line); }
+.cs-scale-foot .cs-arcs-caption, .cs-scale-foot .cs-arcs-note { margin: 0; font: 400 11px/1.3 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--text-muted); }
+
+/* point at a tier: it comes forward, the others step back */
+.cs-scale:has([data-tier="0"]:hover) [data-tier]:not([data-tier="0"]),
+.cs-scale:has([data-tier="1"]:hover) [data-tier]:not([data-tier="1"]),
+.cs-scale:has([data-tier="2"]:hover) [data-tier]:not([data-tier="2"]) { opacity: .3; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .cs-scale.reveal:not(.is-visible) .pil { transform: scaleY(0); }
+  .cs-scale.is-visible .pil { animation: iso-rise .8s cubic-bezier(.22, 1, .36, 1) var(--d) both; }
+}
+@keyframes iso-rise { from { transform: scaleY(0); } }
+
+@media (max-width: 600px) {
+  .cs-scale { padding: 24px 18px 20px; }
+  .cs-scale-cols { grid-template-columns: 1fr; gap: 32px; }
+  .iso-scale { max-width: 200px; }
+  .cs-scale-foot { flex-direction: column; gap: 4px; }
+}
+
+/* ===== "Many fragmented signals, one investigation", in Hairline's language =====
+   Left, the signals lie crooked like loose paperwork; HyperSense is one block; right, the five
+   modules lie perfectly in line. Faint threads join them. Each 8s loop: pulses run from the
+   signals into HyperSense, then the modules light up one after another, Overview to Forecast. */
+.cs-vis--conv { background: none !important; border: 0 !important; box-shadow: none !important; border-radius: 0; }
+/* no card: the title sits above the drawing as a quiet caption */
+.cs-vis--conv .cs-vis-label {
+  background: none; border: 0; padding: 0; margin: 0 0 28px; text-align: center;
+  font: 400 11px/1.3 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--text-muted);
+}
+.cs-vis--conv .cs-vis-body { padding: 0 !important; background: none; }
+.iso-conv { width: 100%; height: auto; display: block; overflow: visible; }
+.iso-conv--narrow { display: none; max-width: 400px; margin: 0 auto; }
+.iso-conv polygon, .iso-conv .src path, .iso-conv .src ellipse { stroke-width: 1; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.iso-conv .src polygon, .iso-conv .src path, .iso-conv .src ellipse { stroke: rgb(var(--fg-rgb) / .42); }
+.iso-conv .f-t { fill: var(--bg); }
+.iso-conv .f-l { fill: var(--bg-soft); }
+.iso-conv ellipse.f-t { fill: var(--bg); }
+.iso-conv .f-r { fill: color-mix(in srgb, var(--bg-soft) 70%, var(--line-strong)); }
+.iso-conv .slip polygon { stroke: rgb(var(--fg-rgb) / .38); }
+.iso-conv .slip--step polygon { stroke: rgb(var(--fg-rgb) / .55); }
+.iso-conv .hub polygon { stroke: rgb(var(--fg-rgb) / .7); }
+.iso-conv .thr { fill: none; stroke-width: 1; vector-effect: non-scaling-stroke; }
+.iso-conv .thr-in { stroke: rgb(var(--fg-rgb) / .1); }
+.iso-conv .thr-out { stroke: rgb(var(--fg-rgb) / .16); }
+.iso-conv .pulse { fill: none; stroke: rgb(var(--fg-rgb) / .5); stroke-width: 1.4; stroke-linecap: round; vector-effect: non-scaling-stroke; stroke-dasharray: .06 1; stroke-dashoffset: .06; opacity: 0; }
+.iso-conv .lit { fill: none; stroke: var(--accent); stroke-width: 1.2; vector-effect: non-scaling-stroke; stroke-dasharray: 1; stroke-dashoffset: 1; }
+.iso-conv text { font-family: var(--font); }
+.iso-conv .cap { font: 400 10.5px/1 var(--mono); letter-spacing: .1em; fill: var(--text-muted); }
+.iso-conv .sig { font-size: 12px; font-weight: 500; fill: var(--text-muted); }
+.iso-conv .sig--sm { font-size: 11px; }
+.iso-conv .hub-name { font-size: 13px; font-weight: 600; fill: var(--text); }
+.iso-conv .step-name { font-size: 13.5px; font-weight: 500; fill: var(--text); }
+.iso-conv .step-q { font-size: 12px; font-weight: 500; fill: var(--text-muted); }
+.iso-conv .step .f-t { transition: fill .3s ease; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .cs-vis--conv.is-visible .pulse { animation: conv-pulse 8s linear var(--d) infinite; }
+  .cs-vis--conv.is-visible .hub .f-t { animation: conv-hub 8s ease infinite; }
+  .cs-vis--conv.is-visible .lit { animation: conv-lit 8s ease calc(var(--k) * .45s) infinite; }
+  .cs-vis--conv.is-visible .step .slip--step polygon { animation: conv-step-line 8s ease calc(var(--k) * .45s) infinite; }
+  .cs-vis--conv.is-visible .step .slip--step .f-t { animation: conv-step-face 8s ease calc(var(--k) * .45s) infinite; }
+}
+/* static: the modules already in place, in blue */
+@media (prefers-reduced-motion: reduce) {
+  .iso-conv .lit { stroke-dashoffset: 0; }
+  .iso-conv .slip--step polygon { stroke: var(--accent); }
+}
+/* signals travel in: a short dash runs each thread to HyperSense */
+@keyframes conv-pulse {
+  0% { stroke-dashoffset: .06; opacity: 0; }
+  2% { opacity: 1; }
+  20% { stroke-dashoffset: -.96; opacity: 1; }
+  22%, 100% { stroke-dashoffset: -.96; opacity: 0; }
+}
+/* HyperSense takes them in */
+@keyframes conv-hub {
+  0%, 18% { fill: var(--bg); }
+  28%, 82% { fill: color-mix(in srgb, var(--accent) 22%, var(--bg)); }
+  94%, 100% { fill: var(--bg); }
+}
+/* and hands one investigation out, module by module */
+@keyframes conv-lit {
+  0%, 26% { stroke-dashoffset: 1; opacity: 1; }
+  33%, 84% { stroke-dashoffset: 0; opacity: 1; }
+  92%, 100% { stroke-dashoffset: 0; opacity: 0; }
+}
+@keyframes conv-step-line {
+  0%, 31% { stroke: rgb(var(--fg-rgb) / .55); }
+  35%, 84% { stroke: var(--accent); }
+  92%, 100% { stroke: rgb(var(--fg-rgb) / .55); }
+}
+@keyframes conv-step-face {
+  0%, 31% { fill: var(--bg); }
+  35%, 84% { fill: color-mix(in srgb, var(--accent) 18%, var(--bg)); }
+  92%, 100% { fill: var(--bg); }
+}
+
+@media (max-width: 600px) {
+  .iso-conv--wide { display: none; }
+  .iso-conv--narrow { display: block; }
+}
+
+/* ===== Reconciliation 1: one transaction, three records =====
+   Each system is its own object (order papers, a server block, a bank) and the transaction is one
+   slip in the project colour that lands on each in turn, at its own angle; a faint dashed line runs
+   through the three slips. Each loop is 6s. */
+.cs-sys { display: grid; grid-template-columns: repeat(3, 1fr); margin: 36px 0 32px; text-align: center; }
+.iso-sys { width: 100%; height: auto; display: block; overflow: visible; margin-bottom: 6px; }
+.iso-sys polygon { stroke-width: 1; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.iso-sys .f-t { fill: var(--bg); }
+.iso-sys .f-l { fill: var(--bg-soft); }
+.iso-sys .sys-obj polygon { stroke: rgb(var(--fg-rgb) / .5); }
+.iso-sys .sys-obj .row, .iso-cmp .sys-obj .row { fill: rgb(var(--fg-rgb) / .28); stroke: none; }
+.iso-sys .sys-slip polygon { stroke: var(--accent); }
+.iso-sys .sys-slip .f-t { fill: color-mix(in srgb, var(--accent) 18%, var(--bg)); }
+.iso-sys .sys-slip .f-l { fill: color-mix(in srgb, var(--accent) 34%, var(--bg)); }
+.iso-sys .sys-link { fill: none; stroke: color-mix(in srgb, var(--accent) 45%, transparent); stroke-width: 1; stroke-dasharray: 3 4; vector-effect: non-scaling-stroke; }
+.iso-txn { grid-column: 1 / -1; margin-bottom: -8px; }
+.cs-sys-txn-cap { grid-column: 1 / -1; font: 400 10.5px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px; }
+.cs-sys .cs-recon-node-title { font: 500 15px/1.3 var(--font); color: var(--text); }
+.cs-sys .cs-recon-node-sub { font: 500 13px/1.5 var(--font); color: var(--text-muted); margin-top: 2px; }
+@media (prefers-reduced-motion: no-preference) {
+  /* one clock for all: the token, then each record lands in turn, and all fade out together */
+  .cs-sys.is-visible .sys-slip { animation: sys-land-0 6s cubic-bezier(.22, 1, .36, 1) infinite; }
+  .cs-sys.is-visible .sys-slip[style*="--k:1"] { animation-name: sys-land-1; }
+  .cs-sys.is-visible .sys-slip[style*="--k:2"] { animation-name: sys-land-2; }
+  .cs-sys.is-visible .sys-slip[style*="--k:3"] { animation-name: sys-land-3; }
+  .cs-sys.is-visible .sys-link { animation: sys-link 6s ease infinite; }
+}
+@keyframes sys-land-0 { 0% { transform: translateY(-22px); opacity: 0; } 10%, 86% { transform: none; opacity: 1; } 96%, 100% { transform: none; opacity: 0; } }
+@keyframes sys-land-1 { 0%, 8% { transform: translateY(-22px); opacity: 0; } 18%, 86% { transform: none; opacity: 1; } 96%, 100% { transform: none; opacity: 0; } }
+@keyframes sys-land-2 { 0%, 16% { transform: translateY(-22px); opacity: 0; } 26%, 86% { transform: none; opacity: 1; } 96%, 100% { transform: none; opacity: 0; } }
+@keyframes sys-land-3 { 0%, 24% { transform: translateY(-22px); opacity: 0; } 34%, 86% { transform: none; opacity: 1; } 96%, 100% { transform: none; opacity: 0; } }
+@keyframes sys-link { 0%, 30% { opacity: 0; } 42%, 86% { opacity: 1; } 96%, 100% { opacity: 0; } }
+/* ===== Reconciliation 2: comparison layers =====
+   The same objects as visual 1, one per node, open on the page instead of in cards; the result is
+   a low pad with the two slips lying square on one another (matched). */
+.cs-recon-layers--iso { gap: 28px; }
+/* a hairline between the two layers, so they read as two separate comparisons */
+.cs-recon-layers--iso .cs-recon-layer + .cs-recon-layer { position: relative; padding-top: 28px; }
+.cs-recon-layers--iso .cs-recon-layer + .cs-recon-layer::before {
+  content: ""; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: var(--line);
+}
+.cs-recon-layers--iso .cs-recon-node,
+.cs-recon-layers--iso .cs-recon-node--result { border: 0; background: none; padding: 0; min-width: 0; flex: 1; }
+.cs-recon-layers--iso .cs-recon-node-title { font: 500 14px/1.3 var(--font); color: var(--text); margin-bottom: 2px; }
+.cs-recon-layers--iso .cs-recon-node-sub { font: 400 12px/1.5 var(--font); color: var(--text-muted); }
+.iso-cmp { width: 100%; max-width: 132px; height: auto; display: block; overflow: visible; margin: 0 auto 6px; }
+.iso-cmp polygon { stroke-width: 1; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.iso-cmp .f-t { fill: var(--bg); }
+.iso-cmp .f-l { fill: var(--bg-soft); }
+.iso-cmp .sys-obj polygon { stroke: rgb(var(--fg-rgb) / .5); }
+.iso-cmp .sys-slip polygon { stroke: var(--accent); }
+.iso-cmp .sys-slip .f-t { fill: color-mix(in srgb, var(--accent) 18%, var(--bg)); }
+.iso-cmp .sys-slip .f-l { fill: color-mix(in srgb, var(--accent) 34%, var(--bg)); }
+.cs-recon-layers--iso .cs-recon-node--exception .cs-recon-node-title { color: #e05858; }
+
+/* ===== Reconciliation /02 exception types and /03 match shapes =====
+   Records are the same orange slips; links are faint dashed lines; a missing record is a dashed
+   outline. Drawn by tools/iso/recon3.py. */
+.iso-mini { width: 100%; max-width: 160px; height: auto; display: block; overflow: visible; margin: 0 auto; }
+.iso-mini polygon { stroke-width: 1; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.iso-mini .f-t { fill: var(--bg); }
+.iso-mini .f-l { fill: var(--bg-soft); }
+.iso-mini .sys-obj polygon { stroke: rgb(var(--fg-rgb) / .5); }
+.iso-mini .sys-slip polygon { stroke: var(--accent); }
+.iso-mini .sys-slip .f-t { fill: color-mix(in srgb, var(--accent) 18%, var(--bg)); }
+.iso-mini .sys-slip .f-l { fill: color-mix(in srgb, var(--accent) 34%, var(--bg)); }
+.iso-mini .ink { fill: var(--accent); stroke: none; }
+.iso-mini .ink-diff { fill: #e05858; stroke: none; }
+.iso-mini .cmp { fill: none; stroke: rgb(var(--fg-rgb) / .45); stroke-width: 1; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.iso-mini .ghost polygon { fill: none; stroke: rgb(var(--fg-rgb) / .35); stroke-dasharray: 3 3; }
+.iso-mini .mlink { fill: none; stroke: rgb(var(--fg-rgb) / .25); stroke-width: 1; stroke-dasharray: 2 3; vector-effect: non-scaling-stroke; }
+.cs-exc-visual .iso-mini { max-width: 150px; }
+.cs-match-diagram .iso-mini { max-width: 170px; }
+/* Account and entry level, nested in one drawing: two account trays compared (⇄ over the gap),
+   their entries linked underneath; the two levels named in a key below */
+.iso-topo { width: 100%; max-width: 440px; height: auto; display: block; overflow: visible; margin: 0 auto; }
+.iso-topo polygon { stroke-width: 1; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.iso-topo .f-t { fill: var(--bg); }
+.iso-topo .f-l { fill: var(--bg-soft); }
+.iso-topo .sys-obj polygon { stroke: rgb(var(--fg-rgb) / .5); }
+.iso-topo .sys-slip polygon { stroke: var(--accent); }
+.iso-topo .sys-slip .f-t { fill: color-mix(in srgb, var(--accent) 18%, var(--bg)); }
+.iso-topo .sys-slip .f-l { fill: color-mix(in srgb, var(--accent) 34%, var(--bg)); }
+.iso-topo .mlink { fill: none; stroke: rgb(var(--fg-rgb) / .5); stroke-width: 1; stroke-dasharray: 3 3; vector-effect: non-scaling-stroke; }
+.iso-topo .cmp { fill: none; stroke: rgb(var(--fg-rgb) / .45); stroke-width: 1; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.iso-topo .iso-cap { font: 400 10.5px/1 var(--mono); letter-spacing: .1em; fill: var(--text-muted); }
+.cs-topo-key { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 24px; text-align: center; }
+.cs-topo-key .cs-topo-tag { margin-bottom: 0; }
+@media (max-width: 600px) { .cs-topo-key { grid-template-columns: 1fr; gap: 16px; } }
+
+/* open, like the visuals above: no boxes, the drawing over its words */
+.v3-cs .cs-exc-grid { gap: 40px 24px; }
+.v3-cs .cs-exc-tile, .v3-cs .cs-match-cell { border: 0; background: none; padding: 0; text-align: center; }
+.v3-cs .cs-exc-visual, .v3-cs .cs-match-diagram { height: auto; margin-bottom: 14px; }
+.v3-cs .cs-match-grid { gap: 48px 24px; background: none; border-radius: 0; overflow: visible; }
+.v3-cs .cs-match-desc { max-width: 300px; margin: 0 auto; }
+/* short hairline dividers between the cells, centred in the gaps, and air below the match grid */
+.v3-cs .cs-exc-tile, .v3-cs .cs-match-cell { position: relative; }
+.v3-cs .cs-exc-tile::before, .v3-cs .cs-exc-tile::after, .v3-cs .cs-match-cell::before, .v3-cs .cs-match-cell::after { content: none; position: absolute; background: var(--line); }
+.v3-cs .cs-exc-tile:nth-child(3n+1)::after, .v3-cs .cs-exc-tile:nth-child(3n+2)::after,
+.v3-cs .cs-match-cell:nth-child(odd)::after { content: ""; top: 18%; bottom: 18%; width: 1px; right: -12px; }
+/* the horizontal divider runs end to end: each cell draws its share, meeting across the column gaps */
+.v3-cs .cs-exc-tile:nth-child(-n+3)::before, .v3-cs .cs-match-cell:nth-child(-n+2)::before { content: ""; left: -12px; right: -12px; height: 1px; bottom: -20px; }
+.v3-cs .cs-exc-tile:nth-child(3n+1)::before, .v3-cs .cs-match-cell:nth-child(odd)::before { left: 0; }
+.v3-cs .cs-exc-tile:nth-child(3n)::before, .v3-cs .cs-match-cell:nth-child(even)::before { right: 0; }
+.v3-cs .cs-match-cell:nth-child(-n+2)::before { bottom: -24px; }
+.v3-cs .cs-match-grid { margin-bottom: 64px; }
+@media (max-width: 760px) {
+  .v3-cs .cs-exc-tile::before, .v3-cs .cs-exc-tile::after, .v3-cs .cs-match-cell::before, .v3-cs .cs-match-cell::after { content: none !important; }
+}
+.cs-topo-mini .iso-mini { width: 76px; }
+.iso-cmp--exc .sys-obj polygon { stroke: rgba(220, 70, 60, .7); }
+@media (max-width: 760px) {
+  .cs-recon-layers--iso .cs-recon-layer-flow { flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 8px 6px; }
+  .cs-recon-layers--iso .cs-recon-node { flex: 1 1 0; }
+  .cs-recon-layers--iso .cs-recon-cmp { transform: none; }
+  .cs-recon-layers--iso .cs-recon-arr { flex-basis: 100%; text-align: center; transform: rotate(90deg); }
+  .cs-recon-layers--iso .cs-recon-node--result { flex: 0 0 50%; }
+}
+@media (max-width: 600px) {
+  .cs-sys { grid-template-columns: 1fr; gap: 20px; }
+  .iso-sys { max-width: 240px; margin: 0 auto 4px; }
+  .iso-sys .sys-link { display: none; }
+  .iso-sys.iso-txn { max-width: none; margin: -12px 0 -16px; }
+}
+/* design principles: two plain statements, each under a hairline with a small line icon */
+.v3-cs .cs-principles { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 48px; }
+.v3-cs .cs-principle { border-top: 1px solid var(--line); padding-top: 24px; }
+.v3-cs .cs-principle .cs-anchor-num { margin: 20px 0 8px; }
+.v3-cs .cs-principle-title { font-size: 22px; line-height: 1.3; color: var(--text); }
+.cs-principle-icon { width: 32px; height: 32px; display: block; fill: none; stroke: var(--accent); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+@media (max-width: 600px) { .v3-cs .cs-principles { grid-template-columns: 1fr; gap: 40px; } }
+/* Parts of the story (problem, approach, product, conclusion): a quiet marker in place of the full-bleed openers */
+.v3-cs .cs-part { margin-top: clamp(96px, 12vw, 144px); padding-top: 28px; border-top: 1px solid var(--line); }
+.v3-cs .cs-part-num { font: 400 12px/1 var(--mono); letter-spacing: .1em; color: var(--accent); margin-bottom: 16px; }
+.v3-cs .cs-part-title { font-size: clamp(32px, 4.4vw, 44px); line-height: 1.1; font-weight: 500; letter-spacing: -.02em; color: var(--text); margin: 0; }
+.v3-cs .cs-part-title em { font-style: normal; color: var(--text-muted); }
+.v3-cs .cs-part + .cs-section { margin-top: 0; padding-top: 40px; }
+/* Up-skill: a scrollspy at the right edge, only where the margin has room for it */
+.cs-spy { position: fixed; right: 24px; top: 50%; transform: translateY(-50%); z-index: 20; font-size: 13px; font-weight: 500; }
+.cs-spy .nav-group { margin: 0; }
+.cs-spy .nav-list a { height: 30px; padding: 0 0 0 28px; justify-content: flex-end; }
+@media (max-width: 1240px) { .cs-spy { display: none; } }
+/* Up-skill: on Day and Mid the screen is light, so a light veil hid the highlight; darken around it instead */
+:root:not([data-theme="dark"]) .cs-phone { --dim: rgb(18 18 18 / .5); }
+:root:not([data-theme="dark"]) .cs-ring:not(.cs-ring--frame) { box-shadow: 0 0 0 1400px rgb(18 18 18 / .5), inset 0 0 0 1.5px rgb(255 255 255 / .9); }
+.cs-ring--frame, :root:not([data-theme="dark"]) .cs-ring--frame { box-shadow: none; }
+.cs-ring:not(.cs-ring--frame) { box-shadow: 0 0 0 1400px rgb(var(--bg-rgb) / 0.72), inset 0 0 0 1.5px rgb(255 255 255 / .55); }
+.cs-ring--frame { outline: none; }
+/* Up-skill spacing: the walkthroughs need the wide stage for their notes, and every visual gets air from the text above it */
+.v3-cs .cs-pin { width: min(1040px, calc(100vw - 48px)); margin-left: calc(50% - min(520px, 50vw - 24px)); margin-top: 48px; }
+.v3-cs .cs-wrap + .cs-wrap--board:not([style*="margin-top"]) { margin-top: 48px; }
+.v3-cs .cs-list + .cs-p { margin-top: 24px; }
+
+/* Up-skill spacing: problem groups and the moments timeline */
+.v3-cs .cs-pgroup-tag { margin-bottom: 40px; }
+.v3-cs .cs-pains { margin-top: 0; row-gap: 48px; }
+.v3-cs .cs-pgroup + .cs-pgroup { margin-top: 120px; }
+.v3-cs .cs-mend-who { margin-top: 20px; }
+.v3-cs .cs-mend-list { padding-top: 0; }
+.v3-cs .cs-mend-list li { padding-top: 16px; margin-top: 16px; }
+.v3-cs .cs-mend-list li:first-child { padding-top: 0; margin-top: 0; }
+.v3-cs .cs-mend-list li + li::before { top: 0; }
+.v3-cs .cs-mend-item { padding-right: 8px; }
+
+/* a static figure: no click, no hover, same stage colour as everywhere */
+.cs-fig-static, .cs-fig-static:hover { cursor: default; background: var(--stage); border-color: var(--line); transform: none; }
+.cs-fig-static img, .cs-fig-static:hover img { filter: none; }
+.cs-fig-static .cs-fig-zoom { display: none; }
+
+/* captions sit clear of the tile above them */
+.v3-cs .cs-strip-title { margin-top: 24px; }
+/* a lighter stage on this page, so the user flow's grey boxes don't melt into it */
+html:root { --stage: #f7f7f7; }
+html:root[data-theme="paper"] { --stage: #ebe6db; }
+html:root[data-theme="dark"] { --stage: #1e1e1e; }
+/* a note on a whole screen has no highlight, so no line or dot either */
+.cs-step.is-frame .cs-step-title::before, .cs-step.is-frame .cs-step-title::after { display: none; }
+/* the workers, cut out, straight on the page */
+.v3-cs .cs-users-stage .cs-fig-frame { background: none; border: 0; padding: 0; border-radius: 0; overflow: visible; }
+.v3-cs .cs-users-stage .cs-fig-frame img { border-radius: 0; width: min(100%, 1040px); margin: 0 auto; }
+.v3-cs .cs-users-stage + .cs-wrap .cs-chips { margin-top: 40px; }
+
+/* annotation pointer: a hairline that fades in from the note and lands on a pin at the highlight */
+.v3-cs .cs-step-title::before { height: 1px; background: linear-gradient(to var(--dir, left), rgb(var(--fg-rgb) / .08), rgb(var(--fg-rgb) / .45)); }
+.v3-cs .cs-step--right .cs-step-title::before { --dir: left; }
+.v3-cs .cs-step--left .cs-step-title::before { --dir: right; }
+.v3-cs .cs-step-title::after { width: 9px; height: 9px; margin-top: -4px; background: var(--accent); box-shadow: 0 0 0 3px var(--bg), 0 0 0 4px rgb(var(--acc-rgb) / .45); }
+
+/* theme switcher: a clear ring on the picked swatch in every theme, its name read as a caption above the row */
+.v3-cs .cs-swatch.is-active { box-shadow: 0 0 0 3px var(--stage), 0 0 0 4.5px var(--text); }
+.v3-cs .cs-swatch--tile:not(.is-active) { opacity: .6; }
+.v3-cs .cs-theme-type { margin: 32px 0 14px; color: var(--text); }
+.v3-cs .cs-theme-type::before { content: 'Brand colour / '; color: var(--text-muted); white-space: pre; }
+.v3-cs .cs-theme-type + .cs-swatches { margin-top: 0; }
+/* answer types: an index of everything the assessment handles, each with its own icon; the shown one marked by a short accent tick */
+.v3-cs .cs-swatches--list { display: grid; grid-template-columns: 1fr 1fr; gap: 0 24px; margin-top: 24px; }
+.v3-cs .cs-swatches--list .cs-swatch--text {
+  position: relative; display: flex; align-items: center; gap: 12px; width: 100%; height: auto; min-height: 34px; padding: 6px 0 6px 10px;
+  border-radius: 0; background: none; box-shadow: none; text-align: left;
+  font-size: 14px; font-weight: 400; color: var(--text-muted); transition: color .2s ease;
+}
+.v3-cs .cs-swatches--list .cs-swatch--text svg { flex: none; width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.3; stroke-linecap: round; stroke-linejoin: round; opacity: .8; }
+.v3-cs .cs-swatches--list .cs-swatch--text::before { content: ''; position: absolute; left: 0; top: 50%; width: 2px; height: 14px; margin-top: -7px; border-radius: 2px; background: var(--accent); transform: scaleY(0); transition: transform .25s ease; }
+.v3-cs .cs-swatches--list .cs-swatch--text:hover { color: var(--text); transform: none; }
+.v3-cs .cs-swatches--list .cs-swatch--text.is-active { color: var(--text); background: none; box-shadow: none; }
+.v3-cs .cs-swatches--list .cs-swatch--text.is-active::before { transform: none; }
+.v3-cs .cs-swatches--list .cs-swatch--text.is-active svg { color: var(--accent); opacity: 1; }
+.v3-cs .cs-swatches--list .cs-swatch--text:last-child:nth-child(odd) { grid-column: 1 / -1; }
+@media (max-width: 600px) { .v3-cs .cs-swatches--list { grid-template-columns: 1fr; } }
+/* every case-study hero: the board gets a matted frame so it holds its edge on the grey stage */
+.v3-cs .cs-cover-stage img, .v3-cs .rr-cover .rr-stage img { padding: 8px; background: var(--bg); border-radius: 14px; box-shadow: 0 0 0 1px var(--line), 0 0 32px rgb(var(--sh-rgb) / calc(.22 * var(--sh-k))); }
+
+/* dark: the hero mat is a soft grey, not black */
+:root[data-theme="dark"] .v3-cs .cs-cover-stage img, :root[data-theme="dark"] .v3-cs .rr-cover .rr-stage img { background: #2a2a2a; box-shadow: 0 0 0 1px rgb(255 255 255 / .12), 0 0 32px rgb(0 0 0 / .4); }
+/* workers fade out at their feet rather than stopping on a hard line */
+.v3-cs .cs-users-stage .cs-fig-frame img { -webkit-mask-image: linear-gradient(#000 80%, transparent); mask-image: linear-gradient(#000 80%, transparent); }
+/* annotation pin: a small frosted-glass lens with the accent dot inside */
+.v3-cs .cs-step-title::after {
+  width: 16px; height: 16px; margin-top: -8px; border-radius: 50%;
+  background: radial-gradient(circle, var(--accent) 0 3.5px, transparent 4px), rgb(255 255 255 / .16);
+  border: 1px solid rgb(255 255 255 / .4); box-shadow: 0 2px 8px rgb(0 0 0 / .25), inset 0 1px 0 rgb(255 255 255 / .35);
+  -webkit-backdrop-filter: blur(6px) saturate(1.4); backdrop-filter: blur(6px) saturate(1.4);
+}
+.v3-cs .cs-step--left .cs-step-title::after { left: calc(100% + 12px + var(--len, var(--gap)) - 8px); }
+.v3-cs .cs-step--right .cs-step-title::after { right: calc(100% + 12px + var(--len, var(--gap)) - 8px); }
+
+/* Up-skill: one paragraph style everywhere (the description style), with room between blocks */
+.cs-skilling .cs-p, .cs-skilling .cs-lead, .cs-skilling .cs-list li, .cs-skilling .cs-list-who,
+.cs-skilling .cs-force-desc, .cs-skilling .cs-pain-desc, .cs-skilling .cs-mend-desc, .cs-skilling .cs-step-desc,
+.cs-skilling .cs-strip-desc, .cs-skilling .cs-pgroup-tag, .cs-skilling .cs-theme-desc, .cs-skilling .cs-closing-line {
+  font-size: 14.5px; font-weight: 400; line-height: 1.7; letter-spacing: 0; color: var(--text-soft);
+}
+.cs-skilling .cs-p, .cs-skilling .cs-lead { margin: 0 0 28px; }
+.cs-skilling .cs-p:last-child, .cs-skilling .cs-lead:last-child { margin-bottom: 0; }
+.cs-skilling .cs-list li { padding-top: 0; margin-bottom: 8px; }
+.cs-skilling .cs-force-title, .cs-skilling .cs-pain-title, .cs-skilling .cs-mend-title, .cs-skilling .cs-step-title { margin-bottom: 12px; }
+.cs-skilling .cs-p strong, .cs-skilling .cs-lead strong { font-weight: 500; }
+
+/* Up-skill rhythm: every title sits 12px above its description; sections are spaced evenly */
+.cs-skilling .cs-strip-title, .cs-skilling .cs-theme-title, .cs-skilling .cs-force-title, .cs-skilling .cs-pain-title,
+.cs-skilling .cs-mend-title, .cs-skilling .cs-step-title { margin-bottom: 12px; }
+.cs-skilling .cs-pgroup-tag { margin-top: 12px; }
+.cs-skilling .cs-list-who { margin-bottom: 12px; }
+.cs-skilling .cs-display + .cs-lead, .cs-skilling .cs-display + .cs-p { margin-top: 16px; }
+.cs-skilling #cs-overview, .cs-skilling #cs-users, .cs-skilling #cs-challenges, .cs-skilling #cs-scope, .cs-skilling #cs-courses,
+.cs-skilling #cs-assess, .cs-skilling #cs-playlists, .cs-skilling #cs-mylearning, .cs-skilling #cs-events, .cs-skilling #cs-conclusion { margin-top: clamp(88px, 10vw, 128px); }
+
+/* moments timeline: stage name > intervention title > description */
+.cs-skilling .cs-mend-title { font-size: 15.5px; font-weight: 500; line-height: 1.35; margin-bottom: 8px; }
+.cs-skilling .cs-list { gap: 4px; }
+.cs-skilling .cs-list li { margin-bottom: 0; }
+.cs-skilling .cs-list + .cs-p { margin-top: 20px; }
+
+/* Shared rhythm for every v3 case study (matches Up-skill): even sections, 16px under a section heading, 12px under a sub-heading, 28px between paragraphs */
+.v3-cs .cs-section { margin-top: clamp(88px, 10vw, 128px); }
+.v3-cs .cs-part + .cs-section { margin-top: 0; }
+.v3-cs .cs-display { margin-bottom: 16px; }
+.v3-cs .cs-display + .cs-p, .v3-cs .cs-display + .cs-lead { margin-top: 0; }
+.v3-cs .cs-h3 { margin-bottom: 12px; }
+.v3-cs .cs-p, .v3-cs .cs-lead { margin-bottom: 28px; }
+.v3-cs .cs-p:last-child, .v3-cs .cs-lead:last-child { margin-bottom: 0; }
+/* card and caption titles: 12px above their text at 16px and up, 8px below that */
+.v3-cs .cs-proto-cap-title, .v3-cs .cs-tension-title { margin-bottom: 12px; }
+.v3-cs .cs-journey-title, .v3-cs .cs-sim-stage-name { margin-bottom: 8px; }
+.v3-cs .foot { margin-top: clamp(88px, 10vw, 128px); }
+
+/* ======================================================================
+   One type scale for every v3 case study (the Up-skill one):
+   title 32/500 · section 24/500 · sub-heading 17/500 · body 14.5/1.7/400 grey · bold in body 500 dark
+   ====================================================================== */
+.v3-cs .cs-p, .v3-cs .cs-lead, .v3-cs .cs-list li, .v3-cs .cs-facts dd,
+.v3-cs .cs-persona-desc, .v3-cs .cs-persona-meta p, .v3-cs .cs-persona-meta li,
+.v3-cs .cs-docs-body p, .v3-cs .cs-proto-cap-desc, .v3-cs .cs-closing-line, .v3-cs .cs-role-row dd, .v3-cs .cs-outcome-next p {
+  font-size: 14.5px; font-weight: 400; line-height: 1.7; letter-spacing: 0; color: var(--text-soft);
+}
+.v3-cs .cs-p strong, .v3-cs .cs-lead strong, .v3-cs .cs-list li strong, .v3-cs .cs-persona-meta strong, .v3-cs .cs-docs-body strong, .v3-cs .cs-fstat-desc strong {
+  font-weight: 500; color: var(--text);
+}
+.v3-cs .cs-display { font-size: 24px; font-weight: 500; line-height: 1.35; letter-spacing: -0.015em; color: var(--text); }
+.v3-cs .cs-h3 { font-size: 17px; font-weight: 500; line-height: 1.4; letter-spacing: -0.01em; }
+/* small component notes keep their size but share the regular weight */
+.v3-cs .cs-journey-note, .v3-cs .cs-sim-teaser-desc, .v3-cs .cs-sim-stage-role, .v3-cs .cs-challenge-lines p, .v3-cs .cs-match-desc, .v3-cs .cs-tension-friction, .v3-cs .cs-fstat-desc, .v3-cs .cs-exc-sub, .v3-cs .cs-topo-tag { font-weight: 400; }
+.v3-cs .cs-module-tag { margin-top: 72px; }
+body:not(.cs-skilling) .cs-phase-tag { margin-top: 72px; }
+
+/* figures sit 48px from the text above and below, on every case study (the Up-skill board gap) */
+.v3-cs .cs-vis:not(.cs-sim-modal-panel), .v3-cs .cs-scale, .v3-cs .cs-docs, .v3-cs .cs-recon-layers { margin-top: 48px; margin-bottom: 48px; }
+
+/* kicker labels (phase / module tags) share Up-skill's 12px mono; principle titles sit at the sub-heading size */
+.v3-cs .cs-phase-tag, .v3-cs .cs-module-tag { font-size: 12px; letter-spacing: 0.14em; }
+.v3-cs .cs-principle-title { font-size: 17px; line-height: 1.4; }
