@@ -638,6 +638,7 @@ a.cs-cta { margin-top: 28px; }
    same block so the three read as one set. */
 .cs-display { font-size: clamp(34px, 4.6vw, 56px); font-weight: 500; line-height: 1.12; letter-spacing: -0.02em; color: var(--text); max-width: 19ch; text-wrap: balance; }
 .cs-display em { font-style: normal; font-weight: 500; color: var(--text-soft); }
+.v3-cs h2.cs-display { max-width: none; }
 .cs-h3 { font-size: clamp(21px, 2.1vw, 24px); font-weight: 500; line-height: 1.25; letter-spacing: -0.01em; text-wrap: balance; }
 .cs-p { font-size: 16px; font-weight: 300; line-height: 1.85; color: var(--text-soft); max-width: 720px; }
 .cs-list li { font-size: 16px; font-weight: 300; line-height: 1.7; }
@@ -657,7 +658,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 @media (prefers-reduced-motion: reduce) { nav .logo a.cs-back { transition: none; } }
 </style>
 <link rel="stylesheet" href="assets/cs-article.css">
-<link rel="stylesheet" href="assets/cs-v3.css?v=168">
+<link rel="stylesheet" href="assets/cs-v3.css?v=173">
 <style>
 /* This project's colour, same as Hypersense: shared default in light/paper, purple in dark */
 :root[data-theme="dark"] { --accent: #a78bfa; --acc-rgb: 167 139 250; --acc-soft: #e6deff; --acc-mid: #5b3fb0; --acc-ink: #1a0f38; --on-accent: #1a0f38; --proj: #a78bfa; --proj-rgb: 167 139 250; --glow: rgb(167 139 250 / .15); --tray: #1a0f38; }
@@ -948,30 +949,13 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
   <p class="cs-p reveal">Every exception already contained the information analysts needed to make a decision. It was simply buried across accounts, entries, relationships, and metadata.</p>
   <p class="cs-p reveal">Because analysts handle exceptions repeatedly, even small amounts of reconstruction effort compound quickly at scale.</p>
 
-
-  <p class="cs-lead reveal" style="margin-top: 72px;">Before resolving an exception, analysts answered the same questions every time:</p>
+  <p class="cs-lead reveal" style="margin-top: 48px; margin-bottom: 16px;">Before they could act, analysts needed to understand four things:</p>
   <ul class="cs-list reveal">
-    <li>Which transaction is affected?</li>
-    <li>Which accounts and entries are involved?</li>
+    <li>Which transaction was affected?</li>
+    <li>Which accounts and entries were involved?</li>
+    <li>Where did the discrepancy occur?</li>
     <li>What caused the mismatch?</li>
-    <li>What needs to happen next?</li>
   </ul>
-
-  <h3 class="cs-h3 reveal" style="margin-top: 72px;">Design principles</h3>
-  <p class="cs-p reveal">Every investigation was designed around two simple principles.</p>
-
-  <div class="cs-principles reveal">
-    <div class="cs-principle">
-      <svg class="cs-principle-icon" viewBox="0 0 40 40" aria-hidden="true"><circle cx="17" cy="17" r="10"/><path d="M 24.5 24.5 L 33 33"/></svg>
-      <div class="cs-anchor-num">01</div>
-      <div class="cs-principle-title">Understand the exception</div>
-    </div>
-    <div class="cs-principle">
-      <svg class="cs-principle-icon" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="14"/><path d="M 13.5 20.5 L 18 25 L 27 15.5"/></svg>
-      <div class="cs-anchor-num">02</div>
-      <div class="cs-principle-title">Take action</div>
-    </div>
-  </div>
 
 </div>
 </section>
