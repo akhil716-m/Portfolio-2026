@@ -874,9 +874,13 @@ body:not(.cs-skilling) .cs-phase-tag { margin-top: 72px; }
 .cs-evo-mod .cs-role-row { grid-template-columns: 1fr; gap: 8px; padding: 24px 0; }
 .cs-evo-mod .cs-role dd { padding-left: 0; max-width: 72ch; }
 /* Design Evolution: explored directions as a 2-up list */
-.cs-evo-paths { list-style: none; margin: 6px 0 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 28px 40px; }
-.cs-evo-paths li { padding-top: 14px; border-top: 1px solid var(--line); }
-.cs-evo-paths h4 { margin: 0 0 6px; font-size: 15px; font-weight: 500; line-height: 1.5; color: var(--text); }
-.cs-evo-paths p { margin: 0; }
 .cs-evo-mod .cs-role dd .cs-evo-dir { font-size: 18px; line-height: 1.5; }
-@media (max-width: 600px) { .cs-evo-paths { grid-template-columns: 1fr; gap: 20px; } }
+/* Design Evolution: quieter labels, scannable explored list, prominent direction */
+.cs-evo-mod .cs-role dt { font-family: 'Geist Mono', monospace; font-size: 11px; font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); }
+.cs-evo-mod .cs-role-row { gap: 14px; }
+.cs-evo-paths { list-style: none; margin: 0; padding: 0; }
+.cs-evo-paths li { display: grid; grid-template-columns: 240px 1fr; gap: 24px; padding: 12px 0; border-top: 1px solid var(--line); }
+.cs-evo-paths li:first-child { border-top: 0; padding-top: 0; }
+.cs-evo-paths li > span { color: var(--text); font-weight: 400; }
+.cs-evo-mod .cs-role dd .cs-evo-dir { font-size: 22px; line-height: 1.4; letter-spacing: -0.01em; }
+@media (max-width: 600px) { .cs-evo-paths li { grid-template-columns: 1fr; gap: 4px; } }
