@@ -32,14 +32,45 @@ def match(n, m):
     right = ''.join(slip(R, y) for y in rows(m))
     return svg(f'{links}<g class="sys-slip">{left}</g><g class="sys-obj">{right}</g>')
 
+
+# Figures and currency marks printed on a record: strokes drawn as thin ink bars on its top face.
+# Glyph space is x along the text (a) and y up the page (b); each glyph is about 4 wide and 7 tall.
+GLYPH = {
+    '0': [[(0, 0), (4, 0), (4, 7), (0, 7), (0, 0)]],
+    '4': [[(3, 0), (3, 7), (0, 2.5), (4.4, 2.5)]],
+    '5': [[(4, 7), (0, 7), (0, 3.6), (4, 3.6), (4, 0), (0, 0)]],
+    'rupee': [[(0, 7), (4.6, 7)], [(0, 5.2), (4.6, 5.2)],
+              [(0, 7), (2.4, 7), (3.8, 6.2), (3.8, 5.6), (2.4, 3.8), (0, 3.8)], [(0.4, 3.8), (3.8, 0)]],
+    'dollar': [[(4, 5.6), (0.8, 5.6), (0, 4.8), (0, 4.1), (0.8, 3.5), (3.2, 3.5), (4, 2.9), (4, 2.2), (3.2, 1.4), (0, 1.4)],
+               [(2, 0), (2, 7)]],
+}
+def stroke(x, y, p, q, t=1.1, c="ink"):
+    (x0, y0), (x1, y1) = p, q
+    d = math.hypot(x1 - x0, y1 - y0) or 1
+    nx, ny = -(y1 - y0) / d * t / 2, (x1 - x0) / d * t / 2
+    return poly([proj(x, y, x0 + nx, y0 + ny, 1.9), proj(x, y, x1 + nx, y1 + ny, 1.9),
+                 proj(x, y, x1 - nx, y1 - ny, 1.9), proj(x, y, x0 - nx, y0 - ny, 1.9)], c)
+def glyph(x, y, g, da, db, k=1, c="ink"):
+    out = ''
+    for line in GLYPH[g]:
+        pts = [(da + u * k, db + v * k) for u, v in line]
+        out += ''.join(stroke(x, y, pts[i], pts[i + 1], 1.1 * k ** .5, c) for i in range(len(pts) - 1))
+    return out
+def text(x, y, s, red=None, k=1.1):               # a short figure, centred on the record
+    w = (4 * len(s) + 2 * (len(s) - 1)) * k
+    return ''.join(glyph(x, y, ch, -w / 2 + i * 6 * k, -3.5 * k, k, "ink-diff" if i == red else "ink") for i, ch in enumerate(s))
+def mark(x, y, g):                                # one currency mark, centred and larger
+    return glyph(x, y, g, -2.2 * 1.35, -3.5 * 1.35, 1.35)
+
 C = [(-10, -10), (10, -10), (10, 10), (-10, 10)]
 DISC = [(11 * math.cos(a / 12 * math.tau), 11 * math.sin(a / 12 * math.tau)) for a in range(12)]
 EXC = {
-    # the amounts differ: a taller stack against a shorter one
-    'amount': svg(CMP + f'<g class="sys-slip">{"".join(slip(L, 46, z * 2.6) for z in range(4))}'
-                  f'{"".join(slip(R, 46, z * 2.6) for z in range(2))}</g>'),
-    # the currencies differ: the same record in two different forms
-    'currency': svg(CMP + f'<g class="sys-slip">{slab(C, 2, 0, L, 44)}{slab(DISC, 2, 0, R, 44)}</g>'),
+    # the amounts differ: the same record, its figure not the same (500 against 400, the odd digit in red)
+    'amount': svg(CMP + f'<g class="sys-slip">{slip(L, 44)}{slip(R, 44)}</g>'
+                  f'{text(L, 44, "500")}{text(R, 44, "400", red=0)}'),
+    # the currencies differ: the same record, one marked in rupees and the other in dollars
+    'currency': svg(CMP + f'<g class="sys-slip">{slip(L, 44)}{slip(R, 44)}</g>'
+                    f'{mark(L, 44, "rupee")}{mark(R, 44, "dollar")}'),
     # the direction is flipped: the same record, its arrow pointing the other way
     'direction': svg(CMP + f'<g class="sys-slip">{slip(L, 44)}{slip(R, 44)}</g>'
                      f'{ink(L, 44, ARROW)}{ink(R, 44, [(-a, b) for a, b in ARROW])}'),
