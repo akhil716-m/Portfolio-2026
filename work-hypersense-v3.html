@@ -1253,6 +1253,7 @@ a.cs-cta { margin-top: 28px; }
 .cs-display { font-size: clamp(34px, 4.6vw, 56px); font-weight: 500; line-height: 1.12; letter-spacing: -0.02em; color: var(--text); text-wrap: balance; }
 .cs-display em { font-style: normal; font-weight: 500; color: var(--text-soft); }
 .v3-cs h2.cs-display { max-width: none; }
+.v3-cs .cs-fstat-grid--iso.cs-vis--wide .cs-fstat-desc { max-width: 34ch; }
 .cs-h3 { font-size: clamp(21px, 2.1vw, 24px); font-weight: 500; line-height: 1.25; letter-spacing: -0.01em; text-wrap: balance; }
 .cs-p { font-size: 16px; font-weight: 300; line-height: 1.85; color: var(--text-soft); max-width: 720px; }
 .cs-list li { font-size: 16px; font-weight: 300; line-height: 1.7; }
@@ -2287,8 +2288,8 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 
   <!-- Outcome, in the same isometric language: one unit per merchant, the same size in all three.
        20 flat tiles (demoed), 6 raised pillars (piloted), 2 tall blue pillars (converted). -->
-  <h3 class="cs-h3 cs-impact-head reveal">Business traction</h3>
-  <div class="cs-fstat-grid cs-fstat-grid--iso reveal">
+  <h3 class="cs-h3 cs-impact-head reveal">Business Impact</h3>
+  <div class="cs-fstat-grid cs-fstat-grid--iso cs-vis--wide reveal">
     <div class="cs-fstat">
       <svg class="iso-stat" viewBox="0 0 220 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       <g class="plinth"><polygon class="f-l" points="50.7,81.2 104.4,112.2 104.4,108.2 50.7,77.2"/><polygon class="f-r" points="104.4,112.2 169.3,74.8 169.3,70.8 104.4,108.2"/><polygon class="f-t" points="50.7,77.2 104.4,108.2 169.3,70.8 115.6,39.8"/></g>
@@ -2314,8 +2315,8 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
       <g class="pil" style="--d:0.67s"><polygon class="f-l" points="95.2,96.8 104.4,102.0 104.4,99.0 95.2,93.8"/><polygon class="f-r" points="104.4,102.0 113.6,96.8 113.6,93.8 104.4,99.0"/><polygon class="f-t" points="95.2,93.8 104.4,99.0 113.6,93.8 104.4,88.5"/></g>
       </svg>
       <div class="cs-fstat-num">20<span class="cs-fstat-sym">+</span></div>
-      <div class="cs-fstat-label">Demoed</div>
-      <p class="cs-fstat-desc">Presented to 20+ enterprise merchants, including Apple and SpaceX.</p>
+      <div class="cs-fstat-label">Enterprise demos</div>
+      <p class="cs-fstat-desc">Presented HyperSense to 20+ enterprise merchants, including Apple and SpaceX.</p>
     </div>
     <div class="cs-fstat">
       <svg class="iso-stat" viewBox="0 0 220 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -2328,8 +2329,8 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
       <g class="pil" style="--d:0.55s"><polygon class="f-l" points="95.2,83.8 104.4,89.0 104.4,69.0 95.2,63.8"/><polygon class="f-r" points="104.4,89.0 113.6,83.8 113.6,63.8 104.4,69.0"/><polygon class="f-t" points="95.2,63.8 104.4,69.0 113.6,63.8 104.4,58.5"/></g>
       </svg>
       <div class="cs-fstat-num">6</div>
-      <div class="cs-fstat-label">Piloted</div>
-      <p class="cs-fstat-desc">Piloted with 6 merchants using real payment cost data.</p>
+      <div class="cs-fstat-label">Merchant pilots</div>
+      <p class="cs-fstat-desc">Piloted the product with six merchants using real payment cost data.</p>
     </div>
     <div class="cs-fstat cs-fstat--win">
       <svg class="iso-stat" viewBox="0 0 220 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -2338,18 +2339,17 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
       <g class="pil pil--fee" style="--d:0.73s"><polygon class="f-l" points="95.2,77.2 104.4,82.5 104.4,50.5 95.2,45.2"/><polygon class="f-r" points="104.4,82.5 113.6,77.2 113.6,45.2 104.4,50.5"/><polygon class="f-t" points="95.2,45.2 104.4,50.5 113.6,45.2 104.4,40.0"/></g>
       </svg>
       <div class="cs-fstat-num">2</div>
-      <div class="cs-fstat-label">Converted</div>
-      <p class="cs-fstat-desc">Two pilot merchants moved into commercial engagements.</p>
+      <div class="cs-fstat-label">Commercial engagements</div>
+      <p class="cs-fstat-desc">Two pilot merchants progressed into commercial engagements, signalling early market traction.</p>
     </div>
   </div>
 
-  <h3 class="cs-h3 cs-impact-head reveal">What it changed for the people using it</h3>
+  <h3 class="cs-h3 cs-impact-head reveal">What changed for merchants</h3>
   <div class="cs-impact reveal">
     <div class="cs-impact-row"><div class="cs-impact-t">Observability</div><p class="cs-impact-d">Teams get one clear view of where their costs come from and why they move.</p></div>
     <div class="cs-impact-row"><div class="cs-impact-t">Same-day clarity</div><p class="cs-impact-d">Merchants understood their cost story the day they received their reports, instead of waiting on a manual audit.</p></div>
     <div class="cs-impact-row"><div class="cs-impact-t">Questions raised earlier</div><p class="cs-impact-d">Teams could go back to their PSP about a discrepancy or anomaly before the billing cycle closed.</p></div>
     <div class="cs-impact-row"><div class="cs-impact-t">Discrepancy detection</div><p class="cs-impact-d">2&ndash;3 discrepancies surfaced in pilot data, worth hundreds of dollars. An early signal at pilot scale.</p></div>
-    <div class="cs-impact-row"><div class="cs-impact-t">Cost optimisation</div><p class="cs-impact-d">Not cracked yet. It needs more data to point merchants to better channels than their current setup.</p></div>
   </div>
 
   <div class="cs-outcome-next reveal">
