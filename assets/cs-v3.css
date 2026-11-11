@@ -518,6 +518,7 @@
 .iso-topo .sys-slip .f-t { fill: color-mix(in srgb, var(--accent) 18%, var(--bg)); }
 .iso-topo .sys-slip .f-l { fill: color-mix(in srgb, var(--accent) 34%, var(--bg)); }
 .iso-topo .mlink { fill: none; stroke: rgb(var(--fg-rgb) / .25); stroke-width: 1; stroke-dasharray: 3 3; vector-effect: non-scaling-stroke; }
+.iso-topo .alink { fill: none; stroke: rgb(var(--fg-rgb) / .45); stroke-width: 1.2; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
 .iso-topo .cmp { fill: none; stroke: rgb(var(--fg-rgb) / .3); stroke-width: 1; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
 .iso-topo .iso-cap { font: 400 10.5px/1 var(--mono); letter-spacing: .1em; fill: var(--text-muted); }
 .cs-topo-key { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 24px; text-align: center; }

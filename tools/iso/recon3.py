@@ -62,6 +62,14 @@ def text(x, y, s, red=None, k=1.1):               # a short figure, centred on t
 def mark(x, y, g):                                # one currency mark, centred and larger
     return glyph(x, y, g, -2.2 * 1.35, -3.5 * 1.35, 1.35)
 
+
+def pairs(n):
+    """n accounts on each side, each linked only to its own partner: several one-to-one pairs side by side."""
+    links = ''.join(f'<path class="mlink" d="M {L + 18} {y - 1} L {R - 18} {y - 1}"/>' for y in rows(n))
+    left = ''.join(slip(L, y) for y in rows(n))
+    right = ''.join(slip(R, y) for y in rows(n))
+    return svg(f'{links}<g class="sys-slip">{left}</g><g class="sys-obj">{right}</g>')
+
 C = [(-10, -10), (10, -10), (10, 10), (-10, 10)]
 DISC = [(11 * math.cos(a / 12 * math.tau), 11 * math.sin(a / 12 * math.tau)) for a in range(12)]
 EXC = {
@@ -85,8 +93,9 @@ EXC = {
 }
 
 if __name__ == "__main__":
-    for n, m in ((1, 1), (1, 3), (3, 1), (3, 3)):
+    for n, m in ((1, 1), (1, 3), (3, 1)):
         print(f'<!-- {n} to {m} -->\n{match(n, m)}')
+    print(f'<!-- 3 to 3, as pairs -->\n{pairs(3)}')
     for k, v in EXC.items():
         print(f'<!-- {k} -->\n{v}')
 
@@ -103,11 +112,15 @@ def topology():
           for i, j in pairs]
     g.append('<g class="sys-slip">' + ''.join(prism(TX, TY, 22, 14, 0, 1.8, Z, da=a) for a in DA) + '</g>')
     g.append('<g class="sys-obj">' + ''.join(prism(TX, TY, 22, 14, 0, 1.8, Z, da=a, db=GAP) for a in DA) + '</g>')
-    # the account-level comparison: one ⇄ beyond the far ends of the trays, between the two names
+    # the account-level comparison: one link that joins the two trays themselves, at their near ends,
+    # ahead of the entry links (the same idea as grouping records in a tray: the whole account is compared)
     (lx, ly), (rx, ry) = P(-80, 0, 0), P(-80, GAP, 0)
-    mx, my = (lx + rx) / 2, (ly + ry) / 2 - 4
-    g.append(f'<path class="cmp" d="M {mx - 12:.1f} {my - 5:.1f} L {mx + 12:.1f} {my - 5:.1f} M {mx + 8:.1f} {my - 9:.1f} L {mx + 12:.1f} {my - 5:.1f} L {mx + 8:.1f} {my - 1:.1f}"/>'
-             f'<path class="cmp" d="M {mx + 12:.1f} {my + 5:.1f} L {mx - 12:.1f} {my + 5:.1f} M {mx - 8:.1f} {my + 1:.1f} L {mx - 12:.1f} {my + 5:.1f} L {mx - 8:.1f} {my + 9:.1f}"/>')
+    A, B0, B1 = -58, 18, GAP - 18                    # just before the first entry; tray edge to tray edge
+    head = lambda b, s: [P(A - 3, b - 5 * s, Z), P(A, b, Z), P(A + 3, b - 5 * s, Z)]
+    (x0, y0), (x1, y1) = P(A, B0, Z), P(A, B1, Z)
+    g.append(f'<path class="alink" d="M {x0:.1f} {y0:.1f} L {x1:.1f} {y1:.1f}"/>'
+             + ''.join('<path class="alink" d="M ' + ' L '.join(f'{x:.1f} {y:.1f}' for x, y in head(bb, sg)) + '"/>'
+                       for bb, sg in ((B1, 1), (B0, -1))))
     g.append(f'<text class="iso-cap" x="{lx:.1f}" y="{ly + 2:.1f}" text-anchor="middle">OMS</text>'
              f'<text class="iso-cap" x="{rx:.1f}" y="{ry + 2:.1f}" text-anchor="middle">PSP</text>')
     return f'<svg class="iso-topo" viewBox="110 40 270 160" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">{"".join(g)}</svg>'
