@@ -481,6 +481,9 @@
   .iso-conv--wide { display: none; }
   .iso-conv--narrow { display: block; }
 }
+/* the phone drawing's modules sit two to a row, so their words are a step smaller */
+.iso-conv--narrow .step-name { font-size: 13px; }
+.iso-conv--narrow .step-q { font-size: 11px; }
 
 /* ===== Reconciliation 1: one transaction, three records =====
    Each system is its own object (order papers, a server block, a bank) and the transaction is one
@@ -601,6 +604,16 @@
   .cs-recon-layers--iso .cs-recon-cmp { transform: none; }
   .cs-recon-layers--iso .cs-recon-arr { flex-basis: 100%; text-align: center; transform: rotate(90deg); }
   .cs-recon-layers--iso .cs-recon-node--result { flex: 0 0 50%; }
+}
+/* phones: the comparison layers are lighter: smaller objects, tighter steps between them */
+@media (max-width: 600px) {
+  .cs-recon-layers--iso { gap: 18px; }
+  .cs-recon-layers--iso .cs-recon-layer + .cs-recon-layer { padding-top: 18px; }
+  .cs-recon-layers--iso .cs-recon-layer-flow { gap: 2px 6px; }
+  .cs-recon-layers--iso .iso-cmp { max-width: 92px; margin-bottom: 2px; }
+  .cs-recon-layers--iso .cs-recon-node--result .iso-cmp { max-width: 80px; margin-top: -10px; }
+  .cs-recon-layers--iso .cs-recon-node-title { font-size: 13.5px; }
+  .cs-recon-layers--iso .cs-recon-node-sub { font-size: 11.5px; }
 }
 /* phones keep the story: one transaction on top, its three records side by side under it, the
    dashed lines joining them; everything just smaller */

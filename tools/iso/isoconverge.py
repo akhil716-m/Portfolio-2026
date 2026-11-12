@@ -116,9 +116,10 @@ def wide():
 
 def narrow():
     # Phone: the signals in two loose columns (each object crooked, its name beside it), a fan of
-    # threads into HyperSense in the middle, then the five modules in line underneath.
+    # threads into HyperSense in the middle, then a matching fan out to the five modules in a
+    # two-column grid underneath.
     random.seed(9)
-    W, H = 340, 740
+    W, H = 340, 680
     out = [f'<svg class="iso-conv iso-conv--narrow" viewBox="0 0 {W} {H}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="{TITLE}">']
     hub = (170, 392)
     hub_in, hub_out = (hub[0], hub[1] - 34), (hub[0], hub[1] + 14)
@@ -128,7 +129,6 @@ def narrow():
         x = 22 + col * 172 + (SWAY[i] - .5) * 10
         y = 64 + row * 34
         sig.append((x, y, random.choice([-1, 1]) * random.uniform(10, 32), name, kind, n))
-    steps_y = [506 + k * 52 for k in range(5)]
     for i in range(len(sig)):
         sx = 30 + i * (280 / (len(sig) - 1))
         out.append(vcurve(sx, 296, *hub_in, "thr thr-in", f' style="--d:{i * .11:.2f}s"'))
@@ -139,18 +139,16 @@ def narrow():
         out.append(text(x + 22, y + 4, name, "sig sig--sm", "start"))
     out.append(block(hub[0], hub[1] + 6, 30, 22, "hub"))
     out.append(text(hub[0] + 34, hub[1] - 4, 'HyperSense', "hub-name"))
-    spine = (f'M {hub_out[0]:.1f} {hub_out[1]:.1f} C {hub_out[0]:.1f} {hub_out[1] + 50:.1f}, 12 {hub_out[1] + 40:.1f}, 12 {steps_y[0] - 40:.1f} '
-             f'L 12 {steps_y[-1] - 3:.1f}')
-    out.append(f'<path class="thr thr-out" pathLength="1" d="{spine}"/>')
-    out.append(f'<path class="lit" pathLength="1" style="--k:0" d="{spine}"/>')
-    for k, sy in enumerate(steps_y):
-        tick = f'M 12 {sy - 3:.1f} L 22 {sy - 3:.1f}'
-        out.append(f'<path class="thr thr-out" pathLength="1" d="{tick}"/>')
-        out.append(f'<path class="lit" pathLength="1" style="--k:{k}" d="{tick}"/>')
-    out.append(text(30, steps_y[0] - 30, 'ONE INVESTIGATION', "cap"))
-    for k, ((title, q), sy) in enumerate(zip(STEPS, steps_y)):
-        out.append(f'<g class="step" style="--k:{k}">' + slip(34, sy, 22, 9, "slip slip--step") +
-                   text(58, sy - 3, title, "step-name") + text(58, sy + 15, q, "step-q") + '</g>')
+    # out: five threads fan from HyperSense down to the grid, lighting one after another
+    for k in range(len(STEPS)):
+        ex = 40 + k * (260 / (len(STEPS) - 1))
+        out.append(vcurve(*hub_out, ex, 466, "thr thr-out"))
+        out.append(vcurve(*hub_out, ex, 466, "lit", f' style="--k:{k}"'))
+    out.append(text(4, 500, 'ONE INVESTIGATION', "cap"))
+    for k, (title, q) in enumerate(STEPS):
+        x0, sy = (k % 2) * 170, 540 + (k // 2) * 58
+        out.append(f'<g class="step" style="--k:{k}">' + slip(x0 + 11, sy, 22, 9, "slip slip--step") +
+                   text(x0 + 30, sy - 3, title, "step-name") + text(x0 + 30, sy + 14, q, "step-q") + '</g>')
     out.append('</svg>')
     return '\n'.join(out)
 
