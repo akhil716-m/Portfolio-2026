@@ -634,6 +634,10 @@ button:active, .row:active, .nav-list a:active, .sec-head a:active { scale: .98;
 .hey, .h-reset, .intro p, .about p:not(.meta), .contact .big { margin-bottom: 28px; }
 .row { font-size: 14.5px; }
 .row-desc { font-weight: 400; }
+/* Selected work: the name leads and its sentence sits on the line below, with the arrow on the name's line */
+.frame:not([data-layout="grid"]) .row { grid-template-columns: 1fr auto; row-gap: 3px; }
+.frame:not([data-layout="grid"]) .row-desc { grid-column: 1; grid-row: 2; white-space: normal; max-width: 62ch; line-height: 1.7; }
+.frame:not([data-layout="grid"]) .row-go { grid-column: 2; grid-row: 1; }
 
 /* Phones get a step-down type scale: desktop sizes read too large on a small screen */
 @media (max-width: 600px) {
