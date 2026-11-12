@@ -302,8 +302,56 @@
 @keyframes iso-tag-3 { 0%, 53%, 67%, 100% { opacity: 0; } 55.5%, 65% { opacity: 1; } }
 @keyframes iso-tag-4 { 0%, 70%, 88%, 100% { opacity: 0; } 72.5%, 84% { opacity: 1; } }
 
-/* phones keep the stacked list (the original vertical version) */
-@media (max-width: 600px) { .iso-flow { display: none; } }
+/* phones: the same drawing stacked top to bottom (tools/iso/isoflow_v.py); the block moves down */
+.iso-flow--v { display: none; max-width: 340px; }
+.iso-flow--v .iso-name, .iso-flow--v .iso-amt, .iso-flow--v .iso-fee, .iso-flow--v .iso-tag { text-anchor: start; }
+.iso-flow--v .iso-name { font-size: 13.5px; }
+.iso-flow--v .iso-tag { font-size: 10.5px; }
+@media (max-width: 600px) {
+  .iso-flow:not(.iso-flow--v) { display: none; }
+  .iso-flow--v { display: block; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .cs-vis--iso.is-visible .iso-flow--v .blk-base { animation-name: iso-v-base; }
+  .cs-vis--iso.is-visible .iso-flow--v .blk-acquiring { animation-name: iso-v-peel-1; }
+  .cs-vis--iso.is-visible .iso-flow--v .blk-network { animation-name: iso-v-peel-2; }
+  .cs-vis--iso.is-visible .iso-flow--v .blk-issuing { animation-name: iso-v-peel-3; }
+}
+/* same timing as the wide figure, 104px between stops; a fee layer lifts and drifts right as it goes */
+@keyframes iso-v-base {
+  0% { transform: translateY(0); opacity: 0; }
+  5%, 14% { transform: translateY(0); opacity: 1; }
+  28%, 33% { transform: translateY(104px); }
+  45%, 50% { transform: translateY(208px); }
+  62%, 67% { transform: translateY(312px); }
+  80% { transform: translateY(416px); opacity: 1; }
+  93% { transform: translateY(416px); opacity: 1; }
+  100% { transform: translateY(416px); opacity: 0; }
+}
+@keyframes iso-v-peel-1 {
+  0% { transform: translate(0, 0); opacity: 0; }
+  5%, 14% { transform: translate(0, 0); opacity: 1; }
+  28% { transform: translate(0, 104px); opacity: 1; }
+  40% { transform: translate(14px, 82px); opacity: 0; }
+  100% { transform: translate(14px, 82px); opacity: 0; }
+}
+@keyframes iso-v-peel-2 {
+  0% { transform: translate(0, 0); opacity: 0; }
+  5%, 14% { transform: translate(0, 0); opacity: 1; }
+  28%, 33% { transform: translate(0, 104px); }
+  45% { transform: translate(0, 208px); opacity: 1; }
+  57% { transform: translate(14px, 186px); opacity: 0; }
+  100% { transform: translate(14px, 186px); opacity: 0; }
+}
+@keyframes iso-v-peel-3 {
+  0% { transform: translate(0, 0); opacity: 0; }
+  5%, 14% { transform: translate(0, 0); opacity: 1; }
+  28%, 33% { transform: translate(0, 104px); }
+  45%, 50% { transform: translate(0, 208px); }
+  62% { transform: translate(0, 312px); opacity: 1; }
+  74% { transform: translate(14px, 290px); opacity: 0; }
+  100% { transform: translate(14px, 290px); opacity: 0; }
+}
 
 /* ===== Merchant scale: same base, different volume, different cost =====
    Every merchant stands on the same 10x10 base, so the three compare directly. Each pillar is
@@ -809,7 +857,10 @@ body:not(.cs-skilling) .cs-phase-tag { margin-top: 72px; }
 .cs-impact-num span { font-size: 14px; color: var(--text-soft); margin-left: 4px; letter-spacing: 0; }
 .cs-impact-est p { margin: 0; font: 400 14.5px/1.5 var(--font); color: var(--text-soft); }
 @media (max-width: 640px) {
-  .cs-impact-row { grid-template-columns: 1fr; gap: 8px; }
+  /* stacked, so the title has to lead: firmer and larger than its line, which sits tight under it */
+  .cs-impact-row { grid-template-columns: 1fr; gap: 4px; padding: 20px 0; }
+  .cs-impact-t { font-size: 15px; font-weight: 500; }
+  .cs-impact-d { font-size: 14px; line-height: 1.6; }
   .cs-impact-est { flex-direction: column; gap: 8px; }
 }
 .v3-cs .cs-impact-head { margin: 72px 0 0; }
@@ -836,6 +887,7 @@ body:not(.cs-skilling) .cs-phase-tag { margin-top: 72px; }
 #cs-approach .cs-display + .cs-h3 { margin-top: 32px; }
 #cs-principles .cs-role { margin-top: 36px; }
 #cs-principles .cs-role-row { grid-template-columns: minmax(270px, 0.45fr) 1fr; }
+@media (max-width: 600px) { #cs-principles .cs-role-row { grid-template-columns: 1fr; } }   /* phones: the line under its title */
 .cs-gap-main { margin: 36px 0 0; border-top-color: var(--accent); }
 .cs-gap-main .cs-trio-t { color: var(--accent); }
 .cs-gap-main .cs-trio-d { max-width: 62ch; font-size: 14.5px; line-height: 1.7; }
