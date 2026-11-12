@@ -48,9 +48,7 @@
     });
     // name the new section for a moment (not on first load)
     if (ready && i >= 0) {
-      // the same soft tick the home nav plays when you scroll into a new section (assets/v3.js)
-      // (only between sections, not when the index first appears)
-      if (cur >= 0 && window.v3Sound) window.v3Sound('tick');
+      // (no sound between sections: the index only names the new section)
       if (cur >= 0 && navigator.vibrate && navigator.userActivation && navigator.userActivation.hasBeenActive) navigator.vibrate(8);
       nav.classList.add('is-telling');
       clearTimeout(hideT);
