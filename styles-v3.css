@@ -560,7 +560,7 @@ p { margin: 0 0 24px; }
   .v3:not(.v3-cs) .v3-nav { display: none; }
   .v3:not(.v3-cs) .top-info { margin-top: -60px; }   /* the nav's room is gone, so the time row moves up */
   .v3-cs .topbar {
-    position: sticky; top: 0; z-index: 10;
+    position: sticky; top: 0; z-index: 600;   /* above the case studies' 501 blocks, under the progress line and viewers (1000+) */
     height: 52px; margin: -20px -20px 0; padding: 0 20px;
     background: color-mix(in srgb, var(--bg) 88%, transparent);
     backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
@@ -651,7 +651,10 @@ button:active, .row:active, .nav-list a:active, .sec-head a:active { scale: .98;
      so whatever sits up there is on blue: quiet text and hairlines need more ink to hold up. */
   :root { --text-muted: #575757; }                       /* ≥4.5:1 on white and on the day sky */
   :root[data-theme="dark"] { --text-muted: #9a9a9a; }
-  .v3:not(.v3-cs) .top-info { margin-top: -20px; }       /* more air above the time row */
+  /* time, place and the light/dark switch sit in the top-right corner, like desktop;
+     the intro keeps its place underneath */
+  .v3:not(.v3-cs) .top-info { position: absolute; top: -112px; right: 0; margin: 0; z-index: 1; }
+  .v3:not(.v3-cs) .intro > .in { margin-top: 92px; }
   /* Selected work: name leads, its line sits tight under it, rows breathe apart */
   .group-head { margin-bottom: 4px; }
   .row { gap: 4px 10px; padding: 12px 0; }
