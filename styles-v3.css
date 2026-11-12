@@ -635,8 +635,9 @@ button:active, .row:active, .nav-list a:active, .sec-head a:active { scale: .98;
 .row { font-size: 14.5px; }
 .row-desc { font-weight: 400; }
 /* Selected work: the name leads and its sentence sits on the line below, with the arrow on the name's line */
-.frame:not([data-layout="grid"]) .row { grid-template-columns: 1fr auto; row-gap: 3px; }
-.frame:not([data-layout="grid"]) .row-desc { grid-column: 1; grid-row: 2; white-space: normal; max-width: 62ch; line-height: 1.7; }
+.frame:not([data-layout="grid"]) .row { grid-template-columns: 1fr auto; row-gap: 6px; padding: 14px 0; }
+/* a step smaller and quieter than the name, so each project reads as a title with a note under it */
+.frame:not([data-layout="grid"]) .row-desc { grid-column: 1 / -1; grid-row: 2; white-space: normal; font-size: 13.5px; line-height: 1.65; color: color-mix(in srgb, var(--text-soft) 55%, var(--text-muted)); }
 .frame:not([data-layout="grid"]) .row-go { grid-column: 2; grid-row: 1; }
 
 /* Phones get a step-down type scale: desktop sizes read too large on a small screen */
