@@ -273,7 +273,8 @@
   function setActive(id, fromScroll) {
     if (id === active) return;
     if (fromScroll && active) {
-      play('tick');
+      // the scroll tick is a desktop touch: on phones and tablets the page scrolls quietly
+      if (matchMedia('(hover: hover) and (pointer: fine)').matches) play('tick');
       if (navigator.vibrate && navigator.userActivation && navigator.userActivation.hasBeenActive) navigator.vibrate(8);
       // visual tick: a small spark where the nav mark lands
       setTimeout(function () { if (!dot) return; var r = dot.getBoundingClientRect(); if (r.width) burst(r.left + r.width / 2, r.top + r.height / 2); }, 320);

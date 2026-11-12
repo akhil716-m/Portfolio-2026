@@ -20,7 +20,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles-v3.css?v=113">
+<link rel="stylesheet" href="styles-v3.css?v=114">
 <script>
   // Time of day before first paint: the visitor's pick, or Auto from their clock
   // (Light 6 am-7 pm, Dark 7 pm-6 am). Internally day is the white theme, night the dark one.
@@ -397,7 +397,7 @@ body.cs-lb-lock { overflow: hidden; }
 /* ---------- ACT OPENERS: photo, one title, one line ---------- */
 .cs-act {
   position: relative; isolation: isolate; overflow: hidden; display: flex; align-items: flex-end;
-  min-height: 88vh; min-height: 88dvh;
+  min-height: 88vh; min-height: 88svh;
   padding: clamp(96px, 14vh, 160px) 0 clamp(48px, 9vh, 88px);
 }
 .cs-act + .cs-section { border-top: 0; }
@@ -481,7 +481,7 @@ body.cs-lb-lock { overflow: hidden; }
 .cs-ba-panel.is-active { animation: csFade 0.45s ease both; }
 @keyframes csFade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 .cs-ba-fig { margin: 0; text-align: center; min-width: 0; }
-.cs-ba-fig img { display: block; height: min(50dvh, 440px); width: auto; max-width: 100%; margin: 0 auto; object-fit: contain; filter: drop-shadow(0 18px 28px rgb(var(--sh-rgb) / calc(0.45 * var(--sh-k)))); }
+.cs-ba-fig img { display: block; height: min(50svh, 440px); width: auto; max-width: 100%; margin: 0 auto; object-fit: contain; filter: drop-shadow(0 18px 28px rgb(var(--sh-rgb) / calc(0.45 * var(--sh-k)))); }
 .cs-ba-fig:not(.cs-ba-fig--new) img { opacity: 0.9; }
 .cs-ba-fig figcaption { margin-top: 14px; font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-soft); }
 .cs-ba-fig--new figcaption { color: var(--accent); }
@@ -489,12 +489,12 @@ body.cs-lb-lock { overflow: hidden; }
 .cs-ba-note { grid-column: 1 / -1; margin: 22px 0 0; max-width: 52ch; font-family: var(--font); font-size: 14.5px; font-weight: 400; line-height: 1.65; color: var(--text-soft); }
 
 /* ---------- PINNED PHONE: the home screen holds centre stage, notes come in left and right ---------- */
-.cs-pin { position: relative; height: calc(100dvh + var(--steps, 6) * 85dvh); margin-top: 24px; }
+.cs-pin { position: relative; height: calc(100svh + var(--steps, 6) * 85svh); margin-top: 24px; }
 .cs-pin-stage {
-  --ph: min(80dvh, 700px); --pw: calc(var(--ph) * 900 / 1852); --gap: clamp(32px, 3.5vw, 56px);
-  position: sticky; top: 0; height: 100dvh; display: flex; align-items: center; justify-content: center;
+  --ph: min(80svh, 700px); --pw: calc(var(--ph) * 900 / 1852); --gap: clamp(32px, 3.5vw, 56px);
+  position: sticky; top: 0; height: 100svh; display: flex; align-items: center; justify-content: center;
 }
-.cs-annot { position: relative; height: var(--ph, min(74dvh, 640px)); aspect-ratio: 900 / 1852; flex: none; }
+.cs-annot { position: relative; height: var(--ph, min(74svh, 640px)); aspect-ratio: 900 / 1852; flex: none; }
 .cs-notes { list-style: none; margin: 0; padding: 0; }
 .cs-step {
   position: absolute; top: var(--ny, 50%); width: min(26ch, calc(50% - var(--pw) / 2 - var(--gap) - 24px));
@@ -593,7 +593,7 @@ body.cs-lb-lock { overflow: hidden; }
   position: relative; overflow: hidden; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: clamp(24px, 5vw, 72px);
   padding: clamp(24px, 4vw, 48px); border-radius: 24px; background: var(--stage); border: 1px solid var(--line);
 }
-.cs-theme-stage { position: relative; height: min(64dvh, 540px); aspect-ratio: 520 / 1071; margin: 0 auto; }
+.cs-theme-stage { position: relative; height: min(64svh, 540px); aspect-ratio: 520 / 1071; margin: 0 auto; }
 .cs-theme-glow { display: none; }
 .cs-theme-stage img {
   position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; transform: translateY(10px) scale(0.985);
@@ -616,7 +616,7 @@ body.cs-lb-lock { overflow: hidden; }
   background: linear-gradient(135deg, var(--c1), color-mix(in srgb, var(--c1) 55%, #000));
 }
 .cs-brand { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); }
-.cs-brand-stage { position: relative; width: min(100%, 540px); height: min(64dvh, 540px); margin: 0 auto; }
+.cs-brand-stage { position: relative; width: min(100%, 540px); height: min(64svh, 540px); margin: 0 auto; }
 .cs-brand-stage .cs-theme-stage { position: absolute; left: 0; top: 0; height: 100%; margin: 0; }
 .cs-brand-stage .cs-acard { position: absolute; right: 0; bottom: 2%; width: 276px; margin: 0; }
 .cs-brand-stage .cs-acard { padding: 10px 10px 12px; border-radius: 18px; box-shadow: 0 18px 44px rgb(var(--sh-rgb) / calc(0.42 * var(--sh-k))); }
@@ -663,12 +663,12 @@ body.cs-lb-lock { overflow: hidden; }
 
 /* ---------- RESPONSIVE ---------- */
 @media (max-width: 900px) {
-  .cs-act { min-height: 72dvh; }
+  .cs-act { min-height: 72svh; }
   .cs-act-copy { max-width: none; padding: 0 20px; }
   .cs-split--ba { grid-template-columns: 1fr; }
   .cs-pin { height: auto; margin-top: 40px; }
   .cs-pin-stage { position: static; height: auto; flex-direction: column; gap: 32px; }
-  .cs-annot { margin: 0 auto; height: min(62dvh, 520px); }
+  .cs-annot { margin: 0 auto; height: min(62svh, 520px); }
   .cs-notes { width: 100%; padding: 0 var(--gutter, 20px); box-sizing: border-box; }
   .cs-step, .js .cs-step, .js .cs-step.is-active { position: static; width: auto; opacity: 1; transform: none; text-align: left; padding: 18px 0; }
   .cs-step-title::before, .cs-step-title::after { content: none; }
@@ -677,17 +677,26 @@ body.cs-lb-lock { overflow: hidden; }
   .cs-phone-bar::after { content: none; }
   .cs-phone-status { display: none; }
   .cs-theme { grid-template-columns: 1fr; }
-  .cs-theme-stage { height: min(52dvh, 460px); }
+  .cs-theme-stage { height: min(52svh, 460px); }
   .cs-brand-stage { height: auto; width: 100%; }
-  .cs-brand-stage .cs-theme-stage { position: relative; height: min(52dvh, 460px); margin: 0 auto; }
+  .cs-brand-stage .cs-theme-stage { position: relative; height: min(52svh, 460px); margin: 0 auto; }
   .cs-brand-stage .cs-acard { position: relative; right: auto; bottom: auto; width: min(100%, 276px); margin: -64px auto 0; }
+  /* Brand picker, stacked: the words first, then the phone and card, then the swatches right under the
+     card they recolour, so a tap and its result are on screen together */
+  .cs-brand { gap: 0; }
+  .cs-brand .cs-theme-copy { display: contents; }
+  .cs-brand .cs-phase-tag, .cs-brand .cs-theme-title, .cs-brand .cs-theme-desc { order: -1; }
+  .cs-brand .cs-theme-desc { margin-bottom: 28px; }
+  .cs-brand .cs-theme-type { margin-top: 24px; text-align: center; }
+  .cs-brand .cs-swatches { justify-content: center; margin-top: 12px; }
+  .cs-brand-stage .cs-acard { box-shadow: 0 10px 28px rgb(var(--sh-rgb) / calc(0.22 * var(--sh-k))); }
   .cs-strip { --ph: 380px; }
 }
 @media (max-width: 760px) {
   .cs-tabs { width: 100%; }
   .cs-tab { flex: 1; padding: 0 8px; }
   .cs-ba { padding: 16px 12px 22px; }
-  .cs-ba-fig img { height: min(44dvh, 340px); }
+  .cs-ba-fig img { height: min(44svh, 340px); }
   .cs-strip-media { padding: 20px 20px; }
   .cs-strip-head { align-items: flex-start; }
 }
@@ -798,10 +807,11 @@ body.cs-lb-lock { overflow: hidden; }
 .cs-bridge span { color: var(--text); }
 
 @media (max-width: 760px) {
-  .cs-stats { grid-template-columns: 1fr; }
-  .cs-stat, .cs-stat:first-child { padding: 22px 0; border-left: 0; text-align: center; }
-  .cs-stat + .cs-stat::before { content: ''; display: block; width: 32px; height: 1px; margin: 0 auto 22px; background: var(--line); }
-  .cs-stat + .cs-stat { padding-top: 0; }
+  /* the three numbers stay on one line, split by hairlines, as on desktop, just smaller */
+  .cs-stats { margin-top: 48px; }
+  .cs-stat { padding: 4px 8px; }
+  .cs-stat-num { margin-bottom: 10px; }
+  .cs-stat-label { font-size: 9.5px; letter-spacing: .12em; line-height: 1.5; }
   .cs-facts--2, .cs-facts--3 { grid-template-columns: 1fr; gap: 28px; }
   .cs-forces { grid-template-columns: 1fr; row-gap: 28px; }
   .cs-bridge { margin-top: 72px; }
@@ -1021,7 +1031,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 @media (prefers-reduced-motion: reduce) { nav .logo a.cs-back { transition: none; } }
 </style>
 <link rel="stylesheet" href="assets/cs-article.css">
-<link rel="stylesheet" href="assets/cs-v3.css?v=173">
+<link rel="stylesheet" href="assets/cs-v3.css?v=176">
 <style>
 /* This project's colour, same as Hypersense: shared default in light/paper, purple in dark */
 :root[data-theme="dark"] { --accent: #a78bfa; --acc-rgb: 167 139 250; --acc-soft: #e6deff; --acc-mid: #5b3fb0; --acc-ink: #1a0f38; --on-accent: #1a0f38; --proj: #a78bfa; --proj-rgb: 167 139 250; --glow: rgb(167 139 250 / .15); --tray: #1a0f38; }
@@ -1092,7 +1102,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
   <div class="cs-stats">
     <div class="cs-stat"><div class="cs-stat-num">1M<span class="sym">+</span></div><div class="cs-stat-label">Users</div></div>
     <div class="cs-stat"><div class="cs-stat-num">1500<span class="sym">+</span></div><div class="cs-stat-label">Organisations</div></div>
-    <div class="cs-stat"><div class="cs-stat-num">30M<span class="sym">+</span></div><div class="cs-stat-label">Users up-skilled</div></div>
+    <div class="cs-stat"><div class="cs-stat-num">30M<span class="sym">+</span></div><div class="cs-stat-label">Users <span class="nb">up-skilled</span></div></div>
   </div>
 
   <h3 class="cs-h3" style="margin-top: 72px;">Who were we designing for?</h3>
@@ -2440,6 +2450,6 @@ var CS_REDUCE = window.matchMedia && window.matchMedia('(prefers-reduced-motion:
 
 </script>
 <script src="assets/cs-index.js?v=6"></script>
-<script src="assets/v3.js?v=51"></script>
+<script src="assets/v3.js?v=52"></script>
 </body>
 </html>

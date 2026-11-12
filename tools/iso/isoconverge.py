@@ -115,25 +115,28 @@ def wide():
     return '\n'.join(out)
 
 def narrow():
+    # Phone: the signals in two loose columns (each object crooked, its name beside it), a fan of
+    # threads into HyperSense in the middle, then the five modules in line underneath.
     random.seed(9)
-    W, H = 340, 860
+    W, H = 340, 740
     out = [f'<svg class="iso-conv iso-conv--narrow" viewBox="0 0 {W} {H}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="{TITLE}">']
-    hub = (170, 512)
+    hub = (170, 392)
     hub_in, hub_out = (hub[0], hub[1] - 34), (hub[0], hub[1] + 14)
     sig = []
     for i, (name, kind, n) in enumerate(SIGNALS):
-        x = 160 + SWAY[i] * 120
-        y = 56 + i * 27
+        col, row = i % 2, i // 2
+        x = 22 + col * 172 + (SWAY[i] - .5) * 10
+        y = 64 + row * 34
         sig.append((x, y, random.choice([-1, 1]) * random.uniform(10, 32), name, kind, n))
-    steps_y = [626 + k * 52 for k in range(5)]
+    steps_y = [506 + k * 52 for k in range(5)]
     for i in range(len(sig)):
-        sx = 40 + i * (260 / (len(sig) - 1))
-        out.append(vcurve(sx, 432, *hub_in, "thr thr-in", f' style="--d:{i * .11:.2f}s"'))
-        out.append(vcurve(sx, 432, *hub_in, "pulse", f' style="--d:{i * .11:.2f}s"'))
-    out.append(text(16, 24, 'FRAGMENTED SIGNALS', "cap"))
+        sx = 30 + i * (280 / (len(sig) - 1))
+        out.append(vcurve(sx, 296, *hub_in, "thr thr-in", f' style="--d:{i * .11:.2f}s"'))
+        out.append(vcurve(sx, 296, *hub_in, "pulse", f' style="--d:{i * .11:.2f}s"'))
+    out.append(text(4, 24, 'FRAGMENTED SIGNALS', "cap"))
     for x, y, deg, name, kind, n in sig:
         out.append(thing(kind, n, x, y, deg, .85))
-        out.append(text(x - 18, y + 4, name, "sig sig--sm", "end"))
+        out.append(text(x + 22, y + 4, name, "sig sig--sm", "start"))
     out.append(block(hub[0], hub[1] + 6, 30, 22, "hub"))
     out.append(text(hub[0] + 34, hub[1] - 4, 'HyperSense', "hub-name"))
     spine = (f'M {hub_out[0]:.1f} {hub_out[1]:.1f} C {hub_out[0]:.1f} {hub_out[1] + 50:.1f}, 12 {hub_out[1] + 40:.1f}, 12 {steps_y[0] - 40:.1f} '
@@ -144,7 +147,7 @@ def narrow():
         tick = f'M 12 {sy - 3:.1f} L 22 {sy - 3:.1f}'
         out.append(f'<path class="thr thr-out" pathLength="1" d="{tick}"/>')
         out.append(f'<path class="lit" pathLength="1" style="--k:{k}" d="{tick}"/>')
-    out.append(text(30, 596, 'ONE INVESTIGATION', "cap"))
+    out.append(text(30, steps_y[0] - 30, 'ONE INVESTIGATION', "cap"))
     for k, ((title, q), sy) in enumerate(zip(STEPS, steps_y)):
         out.append(f'<g class="step" style="--k:{k}">' + slip(34, sy, 22, 9, "slip slip--step") +
                    text(58, sy - 3, title, "step-name") + text(58, sy + 15, q, "step-q") + '</g>')

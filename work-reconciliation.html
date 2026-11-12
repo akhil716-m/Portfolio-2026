@@ -19,7 +19,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles-v3.css?v=113">
+<link rel="stylesheet" href="styles-v3.css?v=114">
 <script>
   // Time of day before first paint: the visitor's pick, or Auto from their clock
   // (Light 6 am-7 pm, Dark 7 pm-6 am). Internally day is the white theme, night the dark one.
@@ -530,6 +530,15 @@ nav .logo a.cs-back:hover { color: var(--accent); }
   cursor: pointer;
 }
 .cs-deck-dot.is-active { width: 24px; height: 8px; border-radius: 4px; background: var(--accent); }
+/* Phones: a quiet stack. A light shadow, plain sheets peeking a few px under the front card
+   (their screenshots hidden so the edges stay clean), and the label under the deck, not on it. */
+@media (max-width: 600px) {
+  .cs-deck { margin: 40px 0 0; padding-bottom: 16px; }
+  .cs-deck-card { transform-origin: 50% 100%; border-radius: 8px; border-color: var(--line); box-shadow: 0 4px 14px rgb(var(--sh-rgb) / calc(0.1 * var(--sh-k))); }
+  .cs-deck-card:not(.is-front) > * { opacity: 0; transition: opacity .2s ease; }
+  .cs-deck-label { position: static; transform: none; display: table; margin: 20px auto 0; padding: 5px 12px; }
+  .cs-deck-hint { margin-top: 14px; }
+}
 
 /* ---------- PROTOTYPE — RESOLUTION ACTIONS ---------- */
 .cs-proto-item { margin: 0 0 56px; }
@@ -658,7 +667,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 @media (prefers-reduced-motion: reduce) { nav .logo a.cs-back { transition: none; } }
 </style>
 <link rel="stylesheet" href="assets/cs-article.css">
-<link rel="stylesheet" href="assets/cs-v3.css?v=173">
+<link rel="stylesheet" href="assets/cs-v3.css?v=176">
 <style>
 /* Exception drawings: the missing record's outline in the same red as the other differences */
 .iso-mini .ghost-diff polygon { stroke: #e05858; }
@@ -1184,18 +1193,25 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
   });
   var dots = Array.from(dotsWrap.querySelectorAll('.cs-deck-dot'));
 
+  // Phones: a tighter stack (two sheets peeking 8px apart) and "Tap" in place of "Click"
+  var phone = window.matchMedia('(max-width: 600px)');
+  var hint = deck.parentNode.querySelector('.cs-deck-hint > span:last-child');
+  if (hint && window.matchMedia('(hover: none)').matches) hint.textContent = 'Tap to flip';
+
   function layout() {
+    var small = phone.matches, step = small ? 8 : 20, shrink = small ? 0.04 : 0.035, behind = small ? 2 : 3;
     cards.forEach(function(card, i) {
       var offset = (i - current + n) % n;
+      card.classList.toggle('is-front', offset === 0);
       if (offset === 0) {
         card.style.zIndex = n;
         card.style.transform = 'translateY(0) scale(1)';
         card.style.opacity = '1';
         card.style.pointerEvents = 'auto';
-      } else if (offset <= 3) {
+      } else if (offset <= behind) {
         card.style.zIndex = n - offset;
-        card.style.transform = 'translateY(' + (offset * 20) + 'px) scale(' + (1 - offset * 0.035) + ')';
-        card.style.opacity = String(1 - offset * 0.2);
+        card.style.transform = 'translateY(' + (offset * step) + 'px) scale(' + (1 - offset * shrink) + ')';
+        card.style.opacity = String(1 - offset * (small ? 0.3 : 0.2));
         card.style.pointerEvents = 'none';
       } else {
         card.style.zIndex = 0;
@@ -1211,6 +1227,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
   }
 
   layout();
+  if (phone.addEventListener) phone.addEventListener('change', layout);
 
   deck.addEventListener('click', function() {
     current = (current + 1) % n;
@@ -1251,6 +1268,6 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 
 </script>
 <script src="assets/cs-index.js?v=6"></script>
-<script src="assets/v3.js?v=51"></script>
+<script src="assets/v3.js?v=52"></script>
 </body>
 </html>

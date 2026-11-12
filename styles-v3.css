@@ -646,4 +646,19 @@ button:active, .row:active, .nav-list a:active, .sec-head a:active { scale: .98;
   .row-desc { font-size: 13px; }
   .meta, .foot { font-size: 11px; }
   .kit-list { font-size: 13px; gap: 10px 20px; }
+
+  /* Mobile tweaks. The sky stays pinned to the top of the screen while the page scrolls,
+     so whatever sits up there is on blue: quiet text and hairlines need more ink to hold up. */
+  :root { --text-muted: #575757; }                       /* ≥4.5:1 on white and on the day sky */
+  :root[data-theme="dark"] { --text-muted: #9a9a9a; }
+  .v3:not(.v3-cs) .top-info { margin-top: -20px; }       /* more air above the time row */
+  /* Selected work: name leads, its line sits tight under it, rows breathe apart */
+  .group-head { margin-bottom: 4px; }
+  .row { gap: 4px 10px; padding: 12px 0; }
+  .row-name, .row-go { font-size: 15px; }
+  .row-desc { font-size: 13.5px; line-height: 1.5; }
+  /* Off the clock chips: a solid ground and a firmer edge, so they read on the sky */
+  .offclock li { background: var(--bg); border-color: var(--line-strong); color: var(--text); }
+  /* Skills and Tools: clearly two groups */
+  .kit { gap: 64px; }
 }
