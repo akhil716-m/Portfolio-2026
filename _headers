@@ -1,0 +1,20 @@
+# Cloudflare serves every file with "max-age=0, must-revalidate", so the browser re-checks each image
+# and video on every visit and going back to a case study re-downloads or re-validates dozens of files.
+# Media files rarely change, so let the browser keep them for a week. HTML, CSS and JS are left alone
+# so edits show up straight away. If you replace an image and keep its filename, hard refresh to see it.
+/assets/*.mp4
+  Cache-Control: public, max-age=604800
+/assets/*.webp
+  Cache-Control: public, max-age=604800
+/assets/*.png
+  Cache-Control: public, max-age=604800
+/assets/*.jpg
+  Cache-Control: public, max-age=604800
+/assets/*.jpeg
+  Cache-Control: public, max-age=604800
+/assets/*.svg
+  Cache-Control: public, max-age=604800
+/assets/*.gif
+  Cache-Control: public, max-age=604800
+/assets/*.woff2
+  Cache-Control: public, max-age=604800
