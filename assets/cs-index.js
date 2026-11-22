@@ -4,7 +4,11 @@
    fills as you read through that section; names show on hover, and the new section's name shows
    briefly whenever you cross into it. Styles live in assets/cs-v3.css (.cs-index). */
 (function () {
-  var secs = [].slice.call(document.querySelectorAll('section.cs-section[id]'));
+  // only sections that open with a small label (or carry data-index) get an entry; the sections
+  // between two entries belong to the earlier one
+  var secs = [].slice.call(document.querySelectorAll('section.cs-section[id]')).filter(function (s) {
+    return s.querySelector('.cs-label') || s.dataset.index;
+  });
   if (secs.length < 3) return;
 
   var nav = document.createElement('nav');
@@ -37,7 +41,8 @@
     nav.classList.toggle('is-on', i >= 0);
     if (i >= 0) {
       var r = secs[i].getBoundingClientRect();
-      var p = atEnd ? 1 : Math.min(1, Math.max(0, (line - r.top) / Math.max(1, r.height)));
+      var end = i + 1 < secs.length ? secs[i + 1].getBoundingClientRect().top : r.bottom;
+      var p = atEnd ? 1 : Math.min(1, Math.max(0, (line - r.top) / Math.max(1, end - r.top)));
       links[i].style.setProperty('--p', p.toFixed(3));
     }
     if (i === cur) return;

@@ -230,14 +230,14 @@
 .iso-flow .blk-fee .f-t { fill: color-mix(in srgb, var(--accent) 16%, var(--bg)); }
 .iso-flow .blk-fee .f-l, .iso-flow .blk-fee .f-r { fill: color-mix(in srgb, var(--accent) 24%, var(--bg)); }
 .iso-flow text { font-family: var(--font); }
-.iso-cap { font: 400 10.5px/1 var(--mono); letter-spacing: .1em; fill: var(--text-muted); }
+.iso-cap { font: 400 11px/1 var(--mono); letter-spacing: .1em; fill: var(--text-muted); }
 .iso-brace { fill: none; stroke: var(--line-strong); stroke-width: 1; }
 .iso-name { font-size: 12.5px; font-weight: 500; fill: var(--text-soft); }
 .iso-name--end { fill: var(--text); }
 .iso-amt { font: 500 13px/1 var(--mono); fill: var(--text); }
 .iso-fee { font: 400 12px/1 var(--mono); fill: var(--accent); }
 .iso-name, .iso-amt, .iso-fee { text-anchor: middle; }
-.iso-tag { font-size: 10px; font-weight: 400; fill: var(--text-muted); text-anchor: middle; }
+.iso-tag { font-size: 11px; font-weight: 400; fill: var(--text-muted); text-anchor: middle; }
 
 @media (prefers-reduced-motion: no-preference) {
   .cs-vis--iso.is-visible .blk-base { animation: iso-base 8s cubic-bezier(.45, 0, .25, 1) infinite; }
@@ -306,7 +306,7 @@
 .iso-flow--v { display: none; max-width: 340px; }
 .iso-flow--v .iso-name, .iso-flow--v .iso-amt, .iso-flow--v .iso-fee, .iso-flow--v .iso-tag { text-anchor: start; }
 .iso-flow--v .iso-name { font-size: 13.5px; }
-.iso-flow--v .iso-tag { font-size: 10.5px; }
+.iso-flow--v .iso-tag { font-size: 11px; }
 @media (max-width: 600px) {
   .iso-flow:not(.iso-flow--v) { display: none; }
   .iso-flow--v { display: block; }
@@ -427,7 +427,7 @@
 .iso-conv .pulse { fill: none; stroke: rgb(var(--fg-rgb) / .5); stroke-width: 1.4; stroke-linecap: round; vector-effect: non-scaling-stroke; stroke-dasharray: .06 1; stroke-dashoffset: .06; opacity: 0; }
 .iso-conv .lit { fill: none; stroke: var(--accent); stroke-width: 1.2; vector-effect: non-scaling-stroke; stroke-dasharray: 1; stroke-dashoffset: 1; }
 .iso-conv text { font-family: var(--font); }
-.iso-conv .cap { font: 400 10.5px/1 var(--mono); letter-spacing: .1em; fill: var(--text-muted); }
+.iso-conv .cap { font: 400 11px/1 var(--mono); letter-spacing: .1em; fill: var(--text-muted); }
 .iso-conv .sig { font-size: 12px; font-weight: 500; fill: var(--text-muted); }
 .iso-conv .sig--sm { font-size: 11px; }
 .iso-conv .hub-name { font-size: 13px; font-weight: 600; fill: var(--text); }
@@ -501,7 +501,7 @@
 .iso-sys .sys-slip .f-l { fill: color-mix(in srgb, var(--accent) 34%, var(--bg)); }
 .iso-sys .sys-link { fill: none; stroke: color-mix(in srgb, var(--accent) 45%, transparent); stroke-width: 1; stroke-dasharray: 3 4; vector-effect: non-scaling-stroke; }
 .iso-txn { grid-column: 1 / -1; margin-bottom: -8px; }
-.cs-sys-txn-cap { grid-column: 1 / -1; font: 400 10.5px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px; }
+.cs-sys-txn-cap { grid-column: 1 / -1; font: 400 11px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px; }
 .cs-sys .cs-recon-node-title { font: 500 15px/1.3 var(--font); color: var(--text); }
 .cs-sys .cs-recon-node-sub { font: 500 13px/1.5 var(--font); color: var(--text-muted); margin-top: 2px; }
 @media (prefers-reduced-motion: no-preference) {
@@ -571,7 +571,7 @@
 .iso-topo .mlink { fill: none; stroke: rgb(var(--fg-rgb) / .25); stroke-width: 1; stroke-dasharray: 3 3; vector-effect: non-scaling-stroke; }
 .iso-topo .alink { fill: none; stroke: rgb(var(--fg-rgb) / .45); stroke-width: 1.2; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
 .iso-topo .cmp { fill: none; stroke: rgb(var(--fg-rgb) / .3); stroke-width: 1; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
-.iso-topo .iso-cap { font: 400 10.5px/1 var(--mono); letter-spacing: .1em; fill: var(--text-muted); }
+.iso-topo .iso-cap { font: 400 11px/1 var(--mono); letter-spacing: .1em; fill: var(--text-muted); }
 .cs-topo-key { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 24px; text-align: center; }
 .cs-topo-key .cs-topo-tag { margin-bottom: 0; }
 @media (max-width: 600px) { .cs-topo-key { grid-template-columns: 1fr; gap: 16px; } }
@@ -773,6 +773,11 @@ html:root[data-theme="dark"] { --stage: #1e1e1e; }
 }
 .v3-cs .cs-display { font-size: 24px; font-weight: 500; line-height: 1.35; letter-spacing: -0.015em; color: var(--text); }
 .v3-cs .cs-h3 { font-size: 17px; font-weight: 500; line-height: 1.4; letter-spacing: -0.01em; }
+/* Every sub-heading, whatever its name, is the HyperSense one: 17 / 500 / 1.4, tight tracking, ink */
+.v3-cs .cs-force-title, .v3-cs .cs-step-title, .v3-cs .cs-pain-title, .v3-cs .cs-strip-title, .v3-cs .cs-theme-title,
+.v3-cs .cs-pgroup-who, .v3-cs .cs-proto-cap-title, .v3-cs .cs-mend-title { font-size: 17px; font-weight: 500; line-height: 1.4; letter-spacing: -0.01em; color: var(--text); }
+/* phase and module tags share HyperSense's quiet grey */
+.v3-cs .cs-phase-tag { color: var(--text-muted); }
 /* small component notes keep their size but share the regular weight */
 .v3-cs .cs-journey-note, .v3-cs .cs-sim-teaser-desc, .v3-cs .cs-sim-stage-role, .v3-cs .cs-challenge-lines p, .v3-cs .cs-match-desc, .v3-cs .cs-tension-friction, .v3-cs .cs-fstat-desc, .v3-cs .cs-exc-sub, .v3-cs .cs-topo-tag { font-weight: 400; }
 .v3-cs .cs-module-tag { margin-top: 72px; }
@@ -863,6 +868,21 @@ body:not(.cs-skilling) .cs-phase-tag { margin-top: 72px; }
 .cs-fc.is-auto .cs-fc-tabs button.on::after { animation: cs-fc-fill 4s linear both; }
 @keyframes cs-fc-fill { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 
+/* Design evolution: one screen at a time in a framed stage (scrolls inside), a tick bar that fills as it advances */
+.cs-it { margin: 28px 0 36px; }
+.cs-it-stage { display: grid; aspect-ratio: var(--ar, 1.4948); transition: aspect-ratio .35s ease; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: #fff; }
+.cs-it-shot { grid-area: 1 / 1; min-height: 0; overflow-y: auto; overflow-x: hidden; opacity: 0; visibility: hidden; transition: opacity .45s ease, visibility 0s linear .45s; scrollbar-width: thin; }
+.cs-it-shot.on { opacity: 1; visibility: visible; transition: opacity .45s ease; }
+.cs-it-shot img { display: block; width: 100%; height: auto; }
+.cs-it-ticks { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 10px; margin-top: 14px; }
+.cs-it-ticks button { appearance: none; position: relative; height: 16px; padding: 0; border: 0; border-top: 1px solid var(--line-strong); background: none; cursor: pointer; }
+.cs-it-ticks button::after { content: ''; position: absolute; left: 0; right: 0; top: -1px; height: 1px; background: var(--text); transform: scaleX(0); transform-origin: left; }
+.cs-it-ticks button:hover { border-top-color: var(--text-muted); }
+.cs-it-ticks button.on::after { transform: scaleX(1); }
+.cs-it-ticks button:focus-visible { outline: 1px solid var(--text-muted); outline-offset: 2px; }
+.cs-it.is-auto .cs-it-ticks button.on::after { animation: cs-fc-fill 6s linear both; }
+@media (max-width: 640px) { .cs-it-stage { aspect-ratio: 3 / 4; } }
+
 /* ===== HyperSense impact (open rows) */
 .cs-impact { margin: 72px 0; }
 .cs-impact-row { display: grid; grid-template-columns: minmax(150px,200px) 1fr; gap: 40px; padding: 24px 0; border-top: 1px solid var(--line); }
@@ -947,7 +967,7 @@ body:not(.cs-skilling) .cs-phase-tag { margin-top: 72px; }
 /* Design Evolution: explored directions sit under the screens, behind a subtle divider */
 .cs-evo-explored { margin: 40px 0 0; padding-top: 32px; border-top: 1px solid var(--line); }
 .cs-evo-lbl { font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 18px; }
-.cs-evo-paths { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 28px 40px; }
+.cs-evo-paths { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr; gap: 28px; }
 .cs-evo-pt { display: block; font-size: 15px; font-weight: 500; line-height: 1.45; color: var(--text); margin-bottom: 4px; }
 .cs-evo-paths p { margin: 0; font-size: 14px; font-weight: 300; line-height: 1.6; color: var(--text-soft); }
 @media (max-width: 600px) { .cs-evo-paths { grid-template-columns: 1fr; gap: 22px; } }
