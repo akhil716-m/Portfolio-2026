@@ -967,7 +967,7 @@ body:not(.cs-skilling) .cs-phase-tag { margin-top: 72px; }
 /* Design Evolution: explored directions sit under the screens, behind a subtle divider */
 .cs-evo-explored { margin: 40px 0 0; padding-top: 32px; border-top: 1px solid var(--line); }
 .cs-evo-lbl { font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 18px; }
-.cs-evo-paths { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 28px 40px; }
+.cs-evo-paths { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr; gap: 28px; }
 .cs-evo-pt { display: block; font-size: 15px; font-weight: 500; line-height: 1.45; color: var(--text); margin-bottom: 4px; }
 .cs-evo-paths p { margin: 0; font-size: 14px; font-weight: 300; line-height: 1.6; color: var(--text-soft); }
 @media (max-width: 600px) { .cs-evo-paths { grid-template-columns: 1fr; gap: 22px; } }
