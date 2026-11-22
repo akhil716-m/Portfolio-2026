@@ -2708,6 +2708,13 @@ console.log('%cYou found the HyperSense case study: nine sections, start to fini
     sync();
   }, { threshold: [0, 0.25, 0.5, 0.75, 1] });
   videos.forEach(function(v) { io.observe(v); });
+  // Start downloading a video about one screen before it is reached, so it is ready on arrival
+  var near = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) { e.target.preload = 'auto'; near.unobserve(e.target); }
+    });
+  }, { rootMargin: '100% 0px' });
+  videos.forEach(function(v) { near.observe(v); });
   document.addEventListener('fullscreenchange', sync);
 })();
 </script>
