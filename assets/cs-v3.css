@@ -868,6 +868,21 @@ body:not(.cs-skilling) .cs-phase-tag { margin-top: 72px; }
 .cs-fc.is-auto .cs-fc-tabs button.on::after { animation: cs-fc-fill 4s linear both; }
 @keyframes cs-fc-fill { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 
+/* Design evolution: one screen at a time in a framed stage (scrolls inside), a tick bar that fills as it advances */
+.cs-it { margin: 28px 0 36px; }
+.cs-it-stage { display: grid; aspect-ratio: var(--ar, 1.4948); transition: aspect-ratio .35s ease; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: #fff; }
+.cs-it-shot { grid-area: 1 / 1; min-height: 0; overflow-y: auto; overflow-x: hidden; opacity: 0; visibility: hidden; transition: opacity .45s ease, visibility 0s linear .45s; scrollbar-width: thin; }
+.cs-it-shot.on { opacity: 1; visibility: visible; transition: opacity .45s ease; }
+.cs-it-shot img { display: block; width: 100%; height: auto; }
+.cs-it-ticks { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 10px; margin-top: 14px; }
+.cs-it-ticks button { appearance: none; position: relative; height: 16px; padding: 0; border: 0; border-top: 1px solid var(--line-strong); background: none; cursor: pointer; }
+.cs-it-ticks button::after { content: ''; position: absolute; left: 0; right: 0; top: -1px; height: 1px; background: var(--text); transform: scaleX(0); transform-origin: left; }
+.cs-it-ticks button:hover { border-top-color: var(--text-muted); }
+.cs-it-ticks button.on::after { transform: scaleX(1); }
+.cs-it-ticks button:focus-visible { outline: 1px solid var(--text-muted); outline-offset: 2px; }
+.cs-it.is-auto .cs-it-ticks button.on::after { animation: cs-fc-fill 6s linear both; }
+@media (max-width: 640px) { .cs-it-stage { aspect-ratio: 3 / 4; } }
+
 /* ===== HyperSense impact (open rows) */
 .cs-impact { margin: 72px 0; }
 .cs-impact-row { display: grid; grid-template-columns: minmax(150px,200px) 1fr; gap: 40px; padding: 24px 0; border-top: 1px solid var(--line); }
