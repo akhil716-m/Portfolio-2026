@@ -773,6 +773,11 @@ html:root[data-theme="dark"] { --stage: #1e1e1e; }
 }
 .v3-cs .cs-display { font-size: 24px; font-weight: 500; line-height: 1.35; letter-spacing: -0.015em; color: var(--text); }
 .v3-cs .cs-h3 { font-size: 17px; font-weight: 500; line-height: 1.4; letter-spacing: -0.01em; }
+/* Every sub-heading, whatever its name, is the HyperSense one: 17 / 500 / 1.4, tight tracking, ink */
+.v3-cs .cs-force-title, .v3-cs .cs-step-title, .v3-cs .cs-pain-title, .v3-cs .cs-strip-title, .v3-cs .cs-theme-title,
+.v3-cs .cs-pgroup-who, .v3-cs .cs-proto-cap-title, .v3-cs .cs-mend-title { font-size: 17px; font-weight: 500; line-height: 1.4; letter-spacing: -0.01em; color: var(--text); }
+/* phase and module tags share HyperSense's quiet grey */
+.v3-cs .cs-phase-tag { color: var(--text-muted); }
 /* small component notes keep their size but share the regular weight */
 .v3-cs .cs-journey-note, .v3-cs .cs-sim-teaser-desc, .v3-cs .cs-sim-stage-role, .v3-cs .cs-challenge-lines p, .v3-cs .cs-match-desc, .v3-cs .cs-tension-friction, .v3-cs .cs-fstat-desc, .v3-cs .cs-exc-sub, .v3-cs .cs-topo-tag { font-weight: 400; }
 .v3-cs .cs-module-tag { margin-top: 72px; }
