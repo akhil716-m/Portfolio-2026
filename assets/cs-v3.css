@@ -230,14 +230,14 @@
 .iso-flow .blk-fee .f-t { fill: color-mix(in srgb, var(--accent) 16%, var(--bg)); }
 .iso-flow .blk-fee .f-l, .iso-flow .blk-fee .f-r { fill: color-mix(in srgb, var(--accent) 24%, var(--bg)); }
 .iso-flow text { font-family: var(--font); }
-.iso-cap { font: 400 10.5px/1 var(--mono); letter-spacing: .1em; fill: var(--text-muted); }
+.iso-cap { font: 400 11px/1 var(--mono); letter-spacing: .1em; fill: var(--text-muted); }
 .iso-brace { fill: none; stroke: var(--line-strong); stroke-width: 1; }
 .iso-name { font-size: 12.5px; font-weight: 500; fill: var(--text-soft); }
 .iso-name--end { fill: var(--text); }
 .iso-amt { font: 500 13px/1 var(--mono); fill: var(--text); }
 .iso-fee { font: 400 12px/1 var(--mono); fill: var(--accent); }
 .iso-name, .iso-amt, .iso-fee { text-anchor: middle; }
-.iso-tag { font-size: 10px; font-weight: 400; fill: var(--text-muted); text-anchor: middle; }
+.iso-tag { font-size: 11px; font-weight: 400; fill: var(--text-muted); text-anchor: middle; }
 
 @media (prefers-reduced-motion: no-preference) {
   .cs-vis--iso.is-visible .blk-base { animation: iso-base 8s cubic-bezier(.45, 0, .25, 1) infinite; }
@@ -306,7 +306,7 @@
 .iso-flow--v { display: none; max-width: 340px; }
 .iso-flow--v .iso-name, .iso-flow--v .iso-amt, .iso-flow--v .iso-fee, .iso-flow--v .iso-tag { text-anchor: start; }
 .iso-flow--v .iso-name { font-size: 13.5px; }
-.iso-flow--v .iso-tag { font-size: 10.5px; }
+.iso-flow--v .iso-tag { font-size: 11px; }
 @media (max-width: 600px) {
   .iso-flow:not(.iso-flow--v) { display: none; }
   .iso-flow--v { display: block; }
@@ -427,7 +427,7 @@
 .iso-conv .pulse { fill: none; stroke: rgb(var(--fg-rgb) / .5); stroke-width: 1.4; stroke-linecap: round; vector-effect: non-scaling-stroke; stroke-dasharray: .06 1; stroke-dashoffset: .06; opacity: 0; }
 .iso-conv .lit { fill: none; stroke: var(--accent); stroke-width: 1.2; vector-effect: non-scaling-stroke; stroke-dasharray: 1; stroke-dashoffset: 1; }
 .iso-conv text { font-family: var(--font); }
-.iso-conv .cap { font: 400 10.5px/1 var(--mono); letter-spacing: .1em; fill: var(--text-muted); }
+.iso-conv .cap { font: 400 11px/1 var(--mono); letter-spacing: .1em; fill: var(--text-muted); }
 .iso-conv .sig { font-size: 12px; font-weight: 500; fill: var(--text-muted); }
 .iso-conv .sig--sm { font-size: 11px; }
 .iso-conv .hub-name { font-size: 13px; font-weight: 600; fill: var(--text); }
@@ -501,7 +501,7 @@
 .iso-sys .sys-slip .f-l { fill: color-mix(in srgb, var(--accent) 34%, var(--bg)); }
 .iso-sys .sys-link { fill: none; stroke: color-mix(in srgb, var(--accent) 45%, transparent); stroke-width: 1; stroke-dasharray: 3 4; vector-effect: non-scaling-stroke; }
 .iso-txn { grid-column: 1 / -1; margin-bottom: -8px; }
-.cs-sys-txn-cap { grid-column: 1 / -1; font: 400 10.5px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px; }
+.cs-sys-txn-cap { grid-column: 1 / -1; font: 400 11px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px; }
 .cs-sys .cs-recon-node-title { font: 500 15px/1.3 var(--font); color: var(--text); }
 .cs-sys .cs-recon-node-sub { font: 500 13px/1.5 var(--font); color: var(--text-muted); margin-top: 2px; }
 @media (prefers-reduced-motion: no-preference) {
@@ -571,7 +571,7 @@
 .iso-topo .mlink { fill: none; stroke: rgb(var(--fg-rgb) / .25); stroke-width: 1; stroke-dasharray: 3 3; vector-effect: non-scaling-stroke; }
 .iso-topo .alink { fill: none; stroke: rgb(var(--fg-rgb) / .45); stroke-width: 1.2; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
 .iso-topo .cmp { fill: none; stroke: rgb(var(--fg-rgb) / .3); stroke-width: 1; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
-.iso-topo .iso-cap { font: 400 10.5px/1 var(--mono); letter-spacing: .1em; fill: var(--text-muted); }
+.iso-topo .iso-cap { font: 400 11px/1 var(--mono); letter-spacing: .1em; fill: var(--text-muted); }
 .cs-topo-key { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 24px; text-align: center; }
 .cs-topo-key .cs-topo-tag { margin-bottom: 0; }
 @media (max-width: 600px) { .cs-topo-key { grid-template-columns: 1fr; gap: 16px; } }
