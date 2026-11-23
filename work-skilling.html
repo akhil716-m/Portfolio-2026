@@ -1031,7 +1031,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 @media (prefers-reduced-motion: reduce) { nav .logo a.cs-back { transition: none; } }
 </style>
 <link rel="stylesheet" href="assets/cs-article.css">
-<link rel="stylesheet" href="assets/cs-v3.css?v=183">
+<link rel="stylesheet" href="assets/cs-v3.css?v=200">
 <style>
 /* This project's colour, same as Hypersense: shared default in light/paper, purple in dark */
 :root[data-theme="dark"] { --accent: #a78bfa; --acc-rgb: 167 139 250; --acc-soft: #e6deff; --acc-mid: #5b3fb0; --acc-ink: #1a0f38; --on-accent: #1a0f38; --proj: #a78bfa; --proj-rgb: 167 139 250; --glow: rgb(167 139 250 / .15); --tray: #1a0f38; }
@@ -2078,7 +2078,10 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
     </span>
     <p>Thanks for following along.</p>
   </div>
-  <div class="cs-cta-center"><a class="cs-cta" href="/#work"><span class="arr">←</span> Back to selected work</a></div>
+  <nav class="cs-next" aria-label="Next case study">
+    <a class="cs-next-row" href="/work-hypersense"><span class="cs-next-lbl">Next case study</span><span class="cs-next-name">HyperSense</span><span class="cs-next-desc">Designed a 0&rarr;1 payment cost observability product for enterprise merchants, taking it from concept to merchant adoption and a demo to Apple.</span><span class="cs-next-go" aria-hidden="true">&rarr;</span></a>
+    <a class="cs-cta cs-next-all" href="/#work"><span class="arr">&larr;</span> All work</a>
+  </nav>
 </div>
 </section>
 
