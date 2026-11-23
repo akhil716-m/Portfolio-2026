@@ -66,7 +66,7 @@
   font: 500 32px/1.2 var(--font); letter-spacing: -.02em; color: var(--text);
 }
 .v3-cs .cs-hero--article .cs-hero-title em { font-weight: 500; color: inherit; }
-.v3-cs .cs-hero-facts { font: 500 14px/1.5 var(--font); color: var(--text-muted); margin-top: 14px; }
+.v3-cs .cs-hero-facts { font: 400 14.5px/1.7 var(--font); color: var(--text-soft); margin-top: 14px; }
 .v3-cs .cs-hero-facts li + li::before { background: currentColor; opacity: .5; }
 .v3-cs .cs-cover { margin-top: 48px; }
 /* The cover's own rim takes the recording stages' colour: the v3 cover image has a clear rim,
