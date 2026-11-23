@@ -1271,7 +1271,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 
 </style>
 <link rel="stylesheet" href="assets/cs-article.css">
-<link rel="stylesheet" href="assets/cs-v3.css?v=184">
+<link rel="stylesheet" href="assets/cs-v3.css?v=185">
 <style>
 /* This project's colour in dark mode: the purple of the night sky */
 :root[data-theme="dark"] {
@@ -2052,15 +2052,18 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 
 
 <!-- ═══════════════════════ 08 — PRODUCT EXPERIENCE ═══════════════════════ -->
-<section class="cs-section" id="cs-ui" data-section>
+<section class="cs-section cs-section--shipped" id="cs-ui" data-section>
+<!-- Chapter break: everything above is iteration; from here on it is the product as it shipped -->
+<div class="cs-wrap cs-wrap--showcase"><div class="cs-shipped-rule reveal"><span class="cs-shipped-dot" aria-hidden="true"></span>The final product</div></div>
 <div class="cs-wrap">
 
   <div class="cs-label reveal">Product Experience</div>
   <h2 class="cs-display reveal">From fragmented costs to <em>a single cost story.</em></h2>
   <p class="cs-p reveal">With the investigation flow established, the next challenge was turning it into a cohesive product experience.</p>
   <p class="cs-p reveal">Each module served a distinct purpose, but together they needed to feel like a single investigation that teams could navigate naturally every month.</p>
+  <ol class="cs-shipped-index reveal" aria-label="The five shipped modules"><li><a href="#ship-overview"><span class="n">01</span>Overview</a></li><li><a href="#ship-drill-down"><span class="n">02</span>Drill-Down</a></li><li><a href="#ship-fee-spikes"><span class="n">03</span>Fee Spikes</a></li><li><a href="#ship-audit"><span class="n">04</span>Audit</a></li><li><a href="#ship-forecast"><span class="n">05</span>Forecast</a></li></ol>
 
-  <div class="cs-module-tag reveal" style="margin-top: 72px;">Overview</div>
+  <div class="cs-module-tag cs-module-tag--final reveal" id="ship-overview" style="margin-top: 72px;"><span class="n">01</span>Overview</div>
   <h3 class="cs-h3 reveal">What's my cost story at a glance?</h3>
   <p class="cs-p reveal">Before investigating anomalies or optimising costs, teams need to understand where they stand today.</p>
   <p class="cs-p reveal">Overview brings fragmented payment cost signals into one place, giving teams a unified view of their total costs, key metrics and cost composition.</p>
@@ -2083,7 +2086,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 </div>
 <div class="cs-wrap">
 
-  <div class="cs-module-tag reveal" style="margin-top: 72px;">Drill-Down</div>
+  <div class="cs-module-tag cs-module-tag--final reveal" id="ship-drill-down" style="margin-top: 72px;"><span class="n">02</span>Drill-Down</div>
   <h3 class="cs-h3 reveal">Where is my cost coming from?</h3>
   <p class="cs-p reveal">A total cost only tells part of the story. Teams need to understand what contributes to it and where they can investigate further.</p>
   <p class="cs-p reveal">Drill-Down separates costs with available component-level data from those that cannot be broken down further. This gives analysts the flexibility to group and filter costs across processors, fee types, business units and card types, tracing the underlying drivers without implying detail that isn&rsquo;t available.</p>
@@ -2106,7 +2109,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 </div>
 <div class="cs-wrap">
 
-  <div class="cs-module-tag reveal" style="margin-top: 72px;">Fee Spikes</div>
+  <div class="cs-module-tag cs-module-tag--final reveal" id="ship-fee-spikes" style="margin-top: 72px;"><span class="n">03</span>Fee Spikes</div>
   <h3 class="cs-h3 reveal">Growth, or something worth investigating?</h3>
   <p class="cs-p reveal">Not every increase in payment cost signals a problem. Fee Spikes helps teams understand whether cost movements come from business growth, non-transactional charges, or downgrades and penalties, and identify those that may need attention.</p>
   <p class="cs-p reveal">Instead of manually scanning reports and transaction data, teams can see meaningful deviations, understand their impact and investigate the underlying reasons.</p>
@@ -2129,7 +2132,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
 
   <p class="cs-p reveal">Fee Spikes explains what changed. But teams also need to verify whether the fees they were charged match what was agreed.</p>
 
-  <div class="cs-module-tag reveal" style="margin-top: 72px;">Audit</div>
+  <div class="cs-module-tag cs-module-tag--final reveal" id="ship-audit" style="margin-top: 72px;"><span class="n">04</span>Audit</div>
   <h3 class="cs-h3 reveal">Was I charged correctly?</h3>
   <p class="cs-p reveal">Audit is the merchant&rsquo;s fee book. It lists every fee applied and sets it against what was agreed with the PSP. Processor invoices show what was charged, but rarely whether it was right.</p>
   <div class="cs-challenge reveal">
@@ -2158,7 +2161,7 @@ nav .logo a.cs-back:focus-visible { outline: 2px solid var(--accent); outline-of
   </ul>
   <p class="cs-p reveal">Instead of forcing teams to manually reconcile invoices, contracts, and transaction exports, the experience progressively moved from summary-level variances down to transaction-level evidence, making every discrepancy traceable.</p>
 
-  <div class="cs-module-tag reveal" style="margin-top: 72px;">Forecast</div>
+  <div class="cs-module-tag cs-module-tag--final reveal" id="ship-forecast" style="margin-top: 72px;"><span class="n">05</span>Forecast</div>
   <h3 class="cs-h3 reveal">What will upcoming network changes cost me?</h3>
   <p class="cs-p reveal">Card networks like Visa and Mastercard regularly introduce new fees, revise existing programs, and update qualification rules. Although these changes are published weeks in advance, they are often buried inside dense technical documentation.</p>
   <p class="cs-p reveal">For merchants, the challenge wasn't access to information. It was understanding which updates would actually affect their business and what their financial impact would be. Without that visibility, teams often discovered the impact only after it appeared on the following month's invoice.</p>

@@ -1001,3 +1001,17 @@ body:not(.cs-skilling) .cs-phase-tag { margin-top: 72px; }
 .cs-index.is-telling a.is-active .ci-name { opacity: 1; transform: translate(0, -50%); background: var(--bg); }
 @media (max-width: 1360px) { .cs-index { display: none; } }
 @media (prefers-reduced-motion: reduce) { .cs-index, .cs-index *, .cs-index::before { transition: none !important; } }
+
+/* HyperSense: Product Experience opens as its own chapter so the shipped screens read apart from the iterations above.
+   A full-width rule with a small marker, more air above it, a numbered index of the five modules, and the same numbers on each module tag. */
+.v3-cs .cs-section--shipped { margin-top: clamp(140px, 16vw, 200px); }
+.cs-shipped-rule { display: flex; align-items: center; gap: 10px; padding-top: 20px; margin-bottom: clamp(56px, 7vw, 88px); border-top: 1px solid var(--line-strong, var(--line)); font: 400 12px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--text); }
+.cs-shipped-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex: none; }
+.cs-shipped-index { list-style: none; padding: 0; margin: 40px 0 0; display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; }
+.cs-shipped-index a { display: block; padding-top: 14px; border-top: 1px solid var(--line); color: var(--text); text-decoration: none; font-size: 15px; line-height: 1.3; transition: border-color .2s ease; }
+.cs-shipped-index a:hover, .cs-shipped-index a:focus-visible { border-top-color: var(--text); }
+.cs-shipped-index .n, .cs-module-tag--final .n { display: block; font: 400 11px/1 var(--mono); letter-spacing: .1em; color: var(--text-muted); margin-bottom: 10px; }
+.cs-module-tag--final { display: flex; align-items: baseline; gap: 12px; color: var(--text); }
+.cs-module-tag--final .n { display: inline; margin: 0; }
+.cs-module-tag--final { scroll-margin-top: 120px; }
+@media (max-width: 600px) { .cs-shipped-index { grid-template-columns: 1fr 1fr; row-gap: 20px; } }
