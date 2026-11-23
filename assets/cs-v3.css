@@ -1023,3 +1023,6 @@ body:not(.cs-skilling) .cs-phase-tag { margin-top: 72px; }
 .v3-cs .cs-impact-head + .cs-impact { margin-top: 32px; }
 .v3-cs .cs-impact-head + .cs-impact .cs-impact-row:first-child { border-top: 0; padding-top: 0; }
 @media (max-width: 600px) { .v3-cs .cs-impact-head { margin-top: 88px; } }
+
+/* HyperSense: every line icon (role & contributions, design principles, the three-up cards) takes the project blue */
+.v3-cs .cs-role-icon, .v3-cs .cs-trio-icon { color: var(--accent); }
