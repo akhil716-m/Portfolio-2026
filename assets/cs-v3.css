@@ -1012,9 +1012,9 @@ body:not(.cs-skilling) .cs-phase-tag { margin-top: 72px; }
 .cs-module-tag--final .n { display: inline; margin: 0; }
 .cs-module-tag--final { scroll-margin-top: 120px; }
 
-/* Design Evolution: each module name is a real heading, a step above the "What we explored" titles,
+/* Design Evolution: each module name is a real heading (20px, a step below the section title and above the "What we explored" titles),
    so the module reads as the start of a new block rather than another small label */
-.v3-cs .cs-evo-mod > .cs-module-tag { font: 500 clamp(24px, 2.6vw, 30px)/1.2 var(--font); letter-spacing: -0.015em; text-transform: none; color: var(--text); margin-bottom: 0; }
+.v3-cs .cs-evo-mod > .cs-module-tag { font: 500 20px/1.3 var(--font); letter-spacing: -0.015em; text-transform: none; color: var(--text); margin-bottom: 0; }
 .v3-cs .cs-evo-mod > .cs-module-tag + .cs-evo-obj { margin-top: 12px; }
 
 /* Outcome: the two groups (business, merchants) open with the same rule-and-label divider as "My role & contributions" */
