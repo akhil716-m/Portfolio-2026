@@ -420,6 +420,7 @@
 .iso-conv .f-r { fill: var(--bg); }
 .iso-conv .slip polygon { stroke: rgb(var(--fg-rgb) / .24); }
 .iso-conv .slip--step polygon { stroke: rgb(var(--fg-rgb) / .3); }
+.iso-conv .slip--step path, .iso-conv .slip--step circle { stroke: rgb(var(--fg-rgb) / .3); stroke-width: .9; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
 .iso-conv .hub polygon { stroke: rgb(var(--fg-rgb) / .3); }
 .iso-conv .thr { fill: none; stroke-width: 1; vector-effect: non-scaling-stroke; }
 .iso-conv .thr-in { stroke: rgb(var(--fg-rgb) / .1); }
@@ -439,13 +440,13 @@
   .cs-vis--conv.is-visible .pulse { animation: conv-pulse 8s linear var(--d) infinite; }
   .cs-vis--conv.is-visible .hub .f-t { animation: conv-hub 8s ease infinite; }
   .cs-vis--conv.is-visible .lit { animation: conv-lit 8s ease calc(var(--k) * .45s) infinite; }
-  .cs-vis--conv.is-visible .step .slip--step polygon { animation: conv-step-line 8s ease calc(var(--k) * .45s) infinite; }
+  .cs-vis--conv.is-visible .step .slip--step > *, .cs-vis--conv.is-visible .step .slip--step polygon { animation: conv-step-line 8s ease calc(var(--k) * .45s) infinite; }
   .cs-vis--conv.is-visible .step .slip--step .f-t { animation: conv-step-face 8s ease calc(var(--k) * .45s) infinite; }
 }
 /* static: the modules already in place, in blue */
 @media (prefers-reduced-motion: reduce) {
   .iso-conv .lit { stroke-dashoffset: 0; }
-  .iso-conv .slip--step polygon { stroke: var(--accent); }
+  .iso-conv .slip--step > *, .iso-conv .slip--step polygon { stroke: var(--accent); }
 }
 /* signals travel in: a short dash runs each thread to HyperSense */
 @keyframes conv-pulse {
