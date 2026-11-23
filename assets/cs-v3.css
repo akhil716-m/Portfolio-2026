@@ -1045,3 +1045,16 @@ body:not(.cs-skilling) .cs-phase-tag { margin-top: 72px; }
 .cs-next-row:hover .cs-next-name, .cs-next-row:focus-visible .cs-next-name { color: var(--accent); }
 .v3-cs a.cs-next-all { display: flex; width: max-content; margin: 32px auto 0; font-size: 15px; }
 @media (prefers-reduced-motion: reduce) { .cs-next-go { transition: none; } .cs-next-row:hover .cs-next-go { transform: none; } }
+
+/* Users drawing (from the walkthrough): shaded plinth and highlighted gap, with the people as outlines */
+.user-vis { max-width: 560px; }
+.user-vis polygon, .user-vis path, .user-vis circle { stroke: rgb(var(--fg-rgb) / .5); stroke-width: 1; }
+.user-vis .f-t { fill: var(--bg); }
+.user-vis .f-l { fill: var(--bg-soft); }
+.user-vis .f-r { fill: color-mix(in srgb, var(--bg-soft) 70%, var(--line-strong)); }
+.user-vis .plinth polygon { stroke: rgb(var(--fg-rgb) / .35); }
+.user-vis .f-t.hot { fill: color-mix(in srgb, var(--accent) 22%, var(--bg)); }
+.user-vis .f-l.hot, .user-vis .f-r.hot { fill: color-mix(in srgb, var(--accent) 42%, var(--bg)); }
+.user-vis .dash { stroke: rgb(var(--fg-rgb) / .3); }
+.user-vis .hotline { stroke-width: 1.25; }
+.user-vis .lb-s { fill: var(--text-soft); }
