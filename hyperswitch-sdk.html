@@ -65,13 +65,30 @@
 .rr-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
 .rr-pair .rr-stage { padding: clamp(24px, 9%, 56px); }
 
-/* Web and mobile together: the web screen on the left, the same moment on a phone beside it,
-   both on one stage and lined up at the top */
-.hs-duo { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .27fr); gap: clamp(20px, 4%, 48px); align-items: start; width: 100%; }
-.rr-stage .hs-phone, .hs-ph--phone { border-radius: clamp(12px, 2vw, 24px); }
+/* Web and mobile together: the phone steps over the browser's bottom-right corner */
+.hs-duo { position: relative; width: 100%; padding: 0 6% 4% 0; }
+.hs-duo .hs-phone { position: absolute; right: 0; bottom: 0; width: 23%; }
+
+/* Web screen: cropped to one browser shape so every pair has the same footprint, however
+   tall the screenshot; a soft fade where the crop cuts the page */
+.hs-web { position: relative; aspect-ratio: 2000 / 1400; overflow: hidden; border-radius: 10px; background: #fff;
+  box-shadow: 0 0 0 1px var(--line), 0 24px 60px rgb(var(--sh-rgb) / calc(.35 * var(--sh-k))); }
+.hs-web::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 22%;
+  background: linear-gradient(to bottom, rgb(255 255 255 / 0), #fff); pointer-events: none; }
+
+/* Phone: Up-skill's bezel, with the screen set inside its cut-out */
+.hs-phone { position: relative; aspect-ratio: 900 / 1852; isolation: isolate; }
+.hs-phone::before { content: ''; position: absolute; inset: 1.5% 2.5%; z-index: -1; border-radius: 13% / 6.3%;
+  box-shadow: 0 28px 56px rgb(var(--sh-rgb) / calc(.55 * var(--sh-k))); }
+.hs-phone-screen { position: absolute; left: 4.735%; top: 1.905%; width: 90.694%; height: 96.27%;
+  border-radius: 10.62% / 4.864%; overflow: hidden; background: #fff; }
+.hs-phone-screen img { object-fit: cover; object-position: top; height: 100%; }
+.hs-phone-bezel { position: absolute; inset: 0; height: 100%; pointer-events: none; }
+/* the stage's screen frame (radius, hairline, shadow) is for plain screens, not these */
+.rr-stage .hs-web img, .rr-stage .hs-phone img { border-radius: 0; box-shadow: none; }
 
 /* Two phones side by side, for the express checkout options */
-.hs-phones { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(20px, 6vw, 72px); align-items: start; width: min(100%, 560px); }
+.hs-phones { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(20px, 6vw, 72px); align-items: start; width: min(100%, 520px); }
 
 /* A short caption over each screen: number, name, one line */
 .hs-cap { display: grid; grid-template-columns: auto 1fr; column-gap: 14px; margin: 36px 0 14px; }
@@ -89,14 +106,13 @@
   font: 400 12px/1.5 var(--mono); color: var(--text-soft);
 }
 .hs-ph--wide { aspect-ratio: 2000 / 1417; }
-.hs-ph--phone { aspect-ratio: 780 / 1688; }
+.hs-web .hs-ph, .hs-phone-screen .hs-ph { height: 100%; border: 0; border-radius: 0; background: var(--stage); }
+.hs-web:has(.hs-ph)::after { content: none; }
 
 @media (max-width: 700px) {
   .rr-pair { grid-template-columns: 1fr; }
   .rr-stage { padding: 20px; border-radius: 12px; }
-  /* on a phone the pair stacks: web first, then the phone screen, narrower and centred */
-  .hs-duo { grid-template-columns: 1fr; justify-items: center; }
-  .hs-duo > :last-child { width: 62%; }
+  .hs-duo .hs-phone { width: 30%; }
   .hs-phones { gap: 14px; }
   .hs-ph { font-size: 11px; padding: 8px; }
 }
@@ -137,8 +153,8 @@
   <figure class="cs-wrap cs-wrap--showcase cs-cover">
     <div class="rr-stage">
       <div class="hs-duo">
-        <img src="assets/hyperswitch/method-default-web.webp" width="2000" height="1417" alt="The redesigned checkout on the web: express checkout with Apple Pay, PayPal and Google Pay, payment methods in a list, and the order summary on the right" fetchpriority="high">
-        <img class="hs-phone" src="assets/hyperswitch/method-default-mobile.webp" width="780" height="1688" alt="The same checkout on a phone: express checkout on top, saved payments and more payment options below" fetchpriority="high">
+        <div class="hs-web"><img src="assets/hyperswitch/method-default-web.webp" width="2000" height="1417" alt="The redesigned checkout on the web: express checkout with Apple Pay, PayPal and Google Pay, payment methods in a list, and the order summary on the right" fetchpriority="high"></div>
+        <div class="hs-phone"><div class="hs-phone-screen"><img src="assets/hyperswitch/method-default-mobile.webp" width="780" height="1688" alt="The same checkout on a phone: express checkout on top, saved payments and more payment options below" fetchpriority="high"></div><img class="hs-phone-bezel" src="assets/skilling/ui/home-bezel.webp" alt="" width="900" height="1852" loading="lazy"></div>
       </div>
     </div>
   </figure>
@@ -162,8 +178,8 @@
   <div class="hs-cap reveal"><span class="hs-cap-n">Before</span><h3 class="hs-cap-t">The old checkout</h3></div>
   <figure class="rr-stage reveal">
     <div class="hs-duo">
-      <div class="hs-ph hs-ph--wide">Placeholder: old checkout, web</div>
-      <div class="hs-ph hs-ph--phone">Placeholder: old checkout, mobile</div>
+      <div class="hs-web"><div class="hs-ph">Placeholder: old checkout, web</div></div>
+      <div class="hs-phone"><div class="hs-phone-screen"><div class="hs-ph">Placeholder: old checkout, mobile</div></div><img class="hs-phone-bezel" src="assets/skilling/ui/home-bezel.webp" alt="" width="900" height="1852" loading="lazy"></div>
     </div>
   </figure>
 </div>
@@ -180,32 +196,32 @@
   <div class="hs-cap reveal"><span class="hs-cap-n">01</span><h3 class="hs-cap-t">Saved payments</h3><p class="hs-cap-d">Cards and wallets the shopper has used before, ready to pick in one tap.</p></div>
   <figure class="rr-stage reveal">
     <div class="hs-duo">
-      <img src="assets/hyperswitch/method-saved-web.webp" width="2000" height="2253" alt="Saved payments open on the web: two saved cards, Apple Pay, a PayPal account and Interac" loading="lazy">
-      <img class="hs-phone" src="assets/hyperswitch/method-saved-mobile.webp" width="780" height="1688" alt="Saved payments on a phone" loading="lazy">
+      <div class="hs-web"><img src="assets/hyperswitch/method-saved-web.webp" width="2000" height="2253" alt="Saved payments open on the web: two saved cards, Apple Pay, a PayPal account and Interac" loading="lazy"></div>
+      <div class="hs-phone"><div class="hs-phone-screen"><img src="assets/hyperswitch/method-saved-mobile.webp" width="780" height="1688" alt="Saved payments on a phone" loading="lazy"></div><img class="hs-phone-bezel" src="assets/skilling/ui/home-bezel.webp" alt="" width="900" height="1852" loading="lazy"></div>
     </div>
   </figure>
 
   <div class="hs-cap reveal"><span class="hs-cap-n">02</span><h3 class="hs-cap-t">Add new card</h3><p class="hs-cap-d">The flow almost every merchant turns on: card details, name, and the option to save it for next time.</p></div>
   <figure class="rr-stage reveal">
     <div class="hs-duo">
-      <img src="assets/hyperswitch/method-card-web.webp" width="2000" height="2006" alt="Adding a new card on the web: card number, expiry and CVC, name on the card, and save this card" loading="lazy">
-      <img class="hs-phone" src="assets/hyperswitch/method-card-mobile.webp" width="780" height="1688" alt="Adding a new card on a phone, in a sheet over the checkout" loading="lazy">
+      <div class="hs-web"><img src="assets/hyperswitch/method-card-web.webp" width="2000" height="2006" alt="Adding a new card on the web: card number, expiry and CVC, name on the card, and save this card" loading="lazy"></div>
+      <div class="hs-phone"><div class="hs-phone-screen"><img src="assets/hyperswitch/method-card-mobile.webp" width="780" height="1688" alt="Adding a new card on a phone, in a sheet over the checkout" loading="lazy"></div><img class="hs-phone-bezel" src="assets/skilling/ui/home-bezel.webp" alt="" width="900" height="1852" loading="lazy"></div>
     </div>
   </figure>
 
   <div class="hs-cap reveal"><span class="hs-cap-n">03</span><h3 class="hs-cap-t">Wallets</h3><p class="hs-cap-d">Apple Pay, PayPal and Interac, with any surcharge and the redirect called out before paying.</p></div>
   <figure class="rr-stage reveal">
     <div class="hs-duo">
-      <img src="assets/hyperswitch/method-wallets-web.webp" width="2000" height="2153" alt="Wallets on the web: a note about the secure redirect, the surcharge, and Apple Pay, PayPal and Interac to choose from" loading="lazy">
-      <img class="hs-phone" src="assets/hyperswitch/method-wallets-mobile.webp" width="780" height="1688" alt="Wallets on a phone, in a sheet over the checkout" loading="lazy">
+      <div class="hs-web"><img src="assets/hyperswitch/method-wallets-web.webp" width="2000" height="2153" alt="Wallets on the web: a note about the secure redirect, the surcharge, and Apple Pay, PayPal and Interac to choose from" loading="lazy"></div>
+      <div class="hs-phone"><div class="hs-phone-screen"><img src="assets/hyperswitch/method-wallets-mobile.webp" width="780" height="1688" alt="Wallets on a phone, in a sheet over the checkout" loading="lazy"></div><img class="hs-phone-bezel" src="assets/skilling/ui/home-bezel.webp" alt="" width="900" height="1852" loading="lazy"></div>
     </div>
   </figure>
 
   <div class="hs-cap reveal"><span class="hs-cap-n">04</span><h3 class="hs-cap-t">Bank transfer (ACH)</h3><p class="hs-cap-d">The bank details to transfer to, with a clear warning that they can't be shown again.</p></div>
   <figure class="rr-stage reveal">
     <div class="hs-duo">
-      <img src="assets/hyperswitch/method-bank-debit-web.webp" width="2000" height="3575" alt="ACH bank transfer on the web: the bank name, account, routing and Swift details, and a warning to note them down" loading="lazy">
-      <img class="hs-phone" src="assets/hyperswitch/method-bank-debit-mobile.webp" width="780" height="1688" alt="ACH bank transfer on a phone, in a sheet over the checkout" loading="lazy">
+      <div class="hs-web"><img src="assets/hyperswitch/method-bank-debit-web.webp" width="2000" height="3575" alt="ACH bank transfer on the web: the bank name, account, routing and Swift details, and a warning to note them down" loading="lazy"></div>
+      <div class="hs-phone"><div class="hs-phone-screen"><img src="assets/hyperswitch/method-bank-debit-mobile.webp" width="780" height="1688" alt="ACH bank transfer on a phone, in a sheet over the checkout" loading="lazy"></div><img class="hs-phone-bezel" src="assets/skilling/ui/home-bezel.webp" alt="" width="900" height="1852" loading="lazy"></div>
     </div>
   </figure>
 </div>
@@ -246,8 +262,8 @@
 <div class="cs-wrap cs-wrap--wide rr-show" aria-label="Express checkout options on mobile">
   <div class="rr-stage reveal">
     <div class="hs-phones">
-      <figure><img class="hs-phone" src="assets/hyperswitch/mobile-express-2.webp" width="780" height="1688" alt="Mobile checkout with two express buttons, Apple Pay and PayPal" loading="lazy"><figcaption>Two express buttons</figcaption></figure>
-      <figure><img class="hs-phone" src="assets/hyperswitch/mobile-express-3.webp" width="780" height="1688" alt="Mobile checkout with three express buttons, Apple Pay, Google Pay and PayPal" loading="lazy"><figcaption>Three express buttons</figcaption></figure>
+      <figure><div class="hs-phone"><div class="hs-phone-screen"><img src="assets/hyperswitch/mobile-express-2.webp" width="780" height="1688" alt="Mobile checkout with two express buttons, Apple Pay and PayPal" loading="lazy"></div><img class="hs-phone-bezel" src="assets/skilling/ui/home-bezel.webp" alt="" width="900" height="1852" loading="lazy"></div><figcaption>Two express buttons</figcaption></figure>
+      <figure><div class="hs-phone"><div class="hs-phone-screen"><img src="assets/hyperswitch/mobile-express-3.webp" width="780" height="1688" alt="Mobile checkout with three express buttons, Apple Pay, Google Pay and PayPal" loading="lazy"></div><img class="hs-phone-bezel" src="assets/skilling/ui/home-bezel.webp" alt="" width="900" height="1852" loading="lazy"></div><figcaption>Three express buttons</figcaption></figure>
     </div>
   </div>
 </div>
