@@ -69,7 +69,7 @@
 .up-receipts .up-receipt img { filter: drop-shadow(0 1px 2px rgb(var(--sh-rgb) / calc(.10 * var(--sh-k)))) drop-shadow(0 8px 16px rgb(var(--sh-rgb) / calc(.12 * var(--sh-k)))); }
 
 /* The summary cards side by side */
-.up-receipts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(28px, 4vw, 48px) clamp(14px, 3vw, 36px); align-items: start; width: 100%; }
+.up-receipts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(40px, 6vw, 72px) clamp(16px, 3.4vw, 40px); align-items: center; width: 100%; }
 .up-receipts figure { margin: 0; }
 
 
@@ -99,7 +99,7 @@
 
 @media (max-width: 700px) {
   .rr-stage { padding: 20px; border-radius: 12px; }
-  .up-receipts { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 14px; }
+  .up-receipts { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px 14px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .hs-tick.is-on::before { animation: none; transform: none; }
