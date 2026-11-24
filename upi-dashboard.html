@@ -178,9 +178,16 @@
   </figure>
 
   <div class="hs-cap reveal"><span class="hs-cap-n">02</span><h3 class="hs-cap-t">Order details</h3></div>
-  <figure class="rr-stage reveal">
-    <div class="up-web"><img src="assets/upi/order-detail.webp" width="2000" height="1207" alt="One order: the order value, last transaction, refund status with a Create Refund button, the order's transactions, and the order summary" loading="lazy"></div>
+  <figure class="rr-stage reveal hs-show">
+    <div class="hs-slides">
+      <img class="hs-slide is-on" src="assets/upi/order-detail.webp" width="2000" height="1207" alt="One order: the order value, last transaction, refund status with a Create Refund button, the order's transactions, and the order summary" data-title="Default">
+      <img class="hs-slide" src="assets/upi/order-mandate.webp" width="2000" height="1207" alt="The same order when it has become a mandate: a banner says the mandate is active, with a link to view it" data-title="Mandate active" loading="lazy">
+      <img class="hs-slide" src="assets/upi/order-refunds.webp" width="2000" height="1207" alt="The same order after a partial refund: a bar splits what is still available to refund from what is refunded, with the last transaction and last refund side by side" data-title="Refunds" loading="lazy">
+      <img class="hs-slide" src="assets/upi/order-partial.webp" width="2000" height="1207" alt="The same order while it is only partly collected: a bar shows ₹400 collected and ₹1,000 remaining" data-title="Partially collected" loading="lazy">
+      <img class="hs-slide" src="assets/upi/order-dispute.webp" width="2000" height="1207" alt="The same order with an active dispute: a banner says a chargeback is pending and when to respond, and the affected transaction is flagged" data-title="Active dispute" loading="lazy">
+    </div>
   </figure>
+  <div class="hs-show-cap"><span class="hs-show-t">Default</span><div class="hs-ticks" role="tablist" aria-label="Order states"><button class="hs-tick is-on" aria-label="Default"></button><button class="hs-tick" aria-label="Mandate active"></button><button class="hs-tick" aria-label="Refunds"></button><button class="hs-tick" aria-label="Partially collected"></button><button class="hs-tick" aria-label="Active dispute"></button></div></div>
 </div>
 </section>
 
@@ -196,8 +203,8 @@
     <div class="up-receipts">
       <figure><div class="up-receipt"><img src="assets/upi/receipt-order.webp" width="730" height="946" alt="Order summary: ORD-55668401, Success, ₹1,400, one-time payment, last update Amount Settled" loading="lazy"></div><figcaption>Order</figcaption></figure>
       <figure><div class="up-receipt"><img src="assets/upi/receipt-mandate.webp" width="730" height="946" alt="Mandate summary: MND-55668401, Active, ₹1,400 max amount, as presented, valid until 2050, last update Mandate Activated" loading="lazy"></div><figcaption>Mandate</figcaption></figure>
-      <figure><div class="up-receipt"><img src="assets/upi/receipt-dispute.webp" width="730" height="892" alt="Dispute summary: DSP-10482, Action Required, requested adjustment ₹1,400, response reason, submitted evidence to download, and Take Action" loading="lazy"></div><figcaption>Dispute</figcaption></figure>
-      <figure><div class="up-receipt"><img src="assets/upi/receipt-user.webp" width="730" height="834" alt="User summary: Ankita Verma, created by, status, access to merchant IDs, team and role, with View Permissions, edit and revoke buttons" loading="lazy"></div><figcaption>User</figcaption></figure>
+      <figure><div class="up-receipt"><img src="assets/upi/receipt-dispute.webp" width="730" height="944" alt="Dispute summary: DSP-10482, Action Required, requested adjustment ₹1,400, response reason, submitted evidence to download, and Take Action" loading="lazy"></div><figcaption>Dispute</figcaption></figure>
+      <figure><div class="up-receipt"><img src="assets/upi/receipt-user.webp" width="730" height="946" alt="User summary: Ankita Verma, created by, status, access to merchant IDs, team and role, with View Permissions, edit and revoke buttons" loading="lazy"></div><figcaption>User</figcaption></figure>
     </div>
   </div>
 
@@ -249,11 +256,12 @@
   <figure class="rr-stage reveal hs-show">
     <div class="hs-slides">
       <img class="hs-slide is-on" src="assets/upi/tickets.webp" width="2000" height="1207" alt="Tickets as a board: pending, success, failed and declined columns, with failed tickets grouped by reason" data-title="Tickets" loading="lazy">
+      <img class="hs-slide" src="assets/upi/tickets-2.webp" width="2000" height="1207" alt="A ticket opened over the board: a merchant config change with the previous and new values side by side, and Cancel Ticket and Approve Ticket" data-title="Ticket review" loading="lazy">
       <img class="hs-slide" src="assets/upi/mails.webp" width="2000" height="1207" alt="Mails: sent mails in a list, split into success, failed and bounced, with the chosen mail opening beside it" data-title="Mails" loading="lazy">
       <img class="hs-slide" src="assets/upi/rule-config.webp" width="2000" height="1207" alt="Configuring a risk rule: conditions and groups joined with AND, and the rule it generates shown underneath" data-title="Risk rule configuration" loading="lazy">
     </div>
   </figure>
-  <div class="hs-show-cap"><span class="hs-show-t">Tickets</span><div class="hs-ticks" role="tablist" aria-label="Modules"><button class="hs-tick is-on" aria-label="Tickets"></button><button class="hs-tick" aria-label="Mails"></button><button class="hs-tick" aria-label="Risk rule configuration"></button></div></div>
+  <div class="hs-show-cap"><span class="hs-show-t">Tickets</span><div class="hs-ticks" role="tablist" aria-label="Modules"><button class="hs-tick is-on" aria-label="Tickets"></button><button class="hs-tick" aria-label="Ticket review"></button><button class="hs-tick" aria-label="Mails"></button><button class="hs-tick" aria-label="Risk rule configuration"></button></div></div>
 </div>
 </section>
 
@@ -291,17 +299,21 @@
 })();
 </script>
 <script>
-/* More modules slideshow: advances by itself, pauses on hover */
+/* Carousels (order states, more modules): each advances by itself and pauses on hover */
 (function () {
-  var box = document.querySelector('.hs-slides'); if (!box) return;
-  var slides = box.querySelectorAll('.hs-slide'), ticks = document.querySelectorAll('.hs-tick'), t = document.querySelector('.hs-show-t'), i = 0, hold = false;
-  function go(k) { slides[i].classList.remove('is-on'); ticks[i].classList.remove('is-on'); i = k % slides.length; slides[i].classList.add('is-on'); ticks[i].classList.add('is-on'); t.textContent = slides[i].dataset.title; }
-  ticks.forEach(function (b, k) { b.addEventListener('click', function () { go(k); }); });
-  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  var wrap = box.closest('.rr-show');
-  wrap.addEventListener('mouseenter', function () { hold = true; });
-  wrap.addEventListener('mouseleave', function () { hold = false; });
-  setInterval(function () { if (!hold && !document.hidden) go(i + 1); }, 3500);
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll('.hs-slides').forEach(function (box, n) {
+    var fig = box.closest('figure'), cap = fig.nextElementSibling;
+    var slides = box.querySelectorAll('.hs-slide'), ticks = cap.querySelectorAll('.hs-tick'), t = cap.querySelector('.hs-show-t'), i = 0, hold = false;
+    function go(k) { slides[i].classList.remove('is-on'); ticks[i].classList.remove('is-on'); i = k % slides.length; slides[i].classList.add('is-on'); ticks[i].classList.add('is-on'); t.textContent = slides[i].dataset.title; }
+    ticks.forEach(function (b, k) { b.addEventListener('click', function () { go(k); }); });
+    if (reduce) return;
+    [fig, cap].forEach(function (el) {
+      el.addEventListener('mouseenter', function () { hold = true; });
+      el.addEventListener('mouseleave', function () { hold = false; });
+    });
+    setInterval(function () { if (!hold && !document.hidden) go(i + 1); }, 3500 + n * 500);
+  });
 })();
 </script>
 <script src="assets/v3.js?v=52"></script>
