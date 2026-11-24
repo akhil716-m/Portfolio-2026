@@ -81,14 +81,14 @@
 /* A short caption over each screen: number and name */
 .hs-cap { display: grid; margin: 64px 0 -8px; }  /* the grid's 20px gap is added to these: ~12px from title to screen, ~84px between blocks */
 .hs-cap:first-child { margin-top: 0; }
-.hs-cap-t { margin: 0; font: 500 16px/1.5 var(--sans, inherit); color: var(--text); }
+.hs-cap-t { margin: 0; font-size: 16px; font-weight: 500; line-height: 1.5; color: var(--text); }
 
 /* More modules, shown one after another */
 .hs-slides { position: relative; width: 100%; aspect-ratio: 2800 / 1689; border-radius: 10px; overflow: hidden; background: #fff; box-shadow: 0 0 0 1px var(--line), 0 24px 60px rgb(var(--sh-rgb) / calc(.35 * var(--sh-k))); }
 .hs-slide { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top left; opacity: 0; transition: opacity .7s ease; }
 .hs-slide.is-on { opacity: 1; }
 .hs-show-cap { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: -4px; }
-.hs-show-t { font: 500 16px/1.5 var(--sans, inherit); color: var(--text); }
+.hs-show-t { font-size: 14px; font-weight: 400; line-height: 1.5; color: var(--text-soft); }
 .hs-ticks { display: flex; gap: 6px; }
 .hs-tick { width: 30px; height: 12px; padding: 0; border: 0; background: none; cursor: pointer; position: relative; }
 .hs-tick::after { content: ''; position: absolute; left: 0; right: 0; top: 5px; height: 2px; border-radius: 2px; background: var(--line-strong); transition: background .3s ease; }
