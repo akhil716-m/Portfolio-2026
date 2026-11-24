@@ -62,7 +62,6 @@
 /* A dashboard screen: the whole browser window, never cropped */
 .up-web { position: relative; width: 100%; aspect-ratio: 2800 / 1689; overflow: hidden; border-radius: 10px; background: #fff;
   box-shadow: 0 0 0 1px var(--line), 0 24px 60px rgb(var(--sh-rgb) / calc(.35 * var(--sh-k))); }
-.up-web--bare { aspect-ratio: 2800 / 1558; }
 .up-web img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top left; }
 
 /* Screen and receipt together: the summary card steps over the browser's bottom-right corner,
@@ -86,8 +85,6 @@
 
 /* More modules, shown one after another */
 .hs-slides { position: relative; width: 100%; aspect-ratio: 2800 / 1689; border-radius: 10px; overflow: hidden; background: #fff; box-shadow: 0 0 0 1px var(--line), 0 24px 60px rgb(var(--sh-rgb) / calc(.35 * var(--sh-k))); }
-/* the user management screens have no browser frame, so a shorter box shows them whole */
-.hs-slides--bare { aspect-ratio: 2800 / 1558; }
 .hs-slide { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top left; opacity: 0; transition: opacity .7s ease; }
 .hs-slide.is-on { opacity: 1; }
 .hs-show-cap { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: -4px; }
@@ -254,9 +251,9 @@
 <div class="cs-wrap cs-wrap--wide rr-show" aria-label="User management, reports, tickets, mails and risk rules">
   <div class="hs-cap reveal"><h3 class="hs-cap-t">User management</h3></div>
   <figure class="rr-stage reveal hs-show">
-    <div class="hs-slides hs-slides--bare">
-      <img class="hs-slide is-on" src="assets/upi/user-management.webp" width="2800" height="1558" alt="User management: a table of users with role, team and status, filters above it, and the selected user's summary in a side panel" data-title="Users" loading="lazy">
-      <img class="hs-slide" src="assets/upi/user-management-2.webp" width="2800" height="1558" alt="The permission overview for one user: modules down the left, and read, write and checker rights for each sub-module with checkboxes" data-title="Permissions" loading="lazy">
+    <div class="hs-slides">
+      <img class="hs-slide is-on" src="assets/upi/user-list.webp" width="2800" height="1689" alt="User management: a table of users with role, team and status, filters above it, and the selected user's summary in a side panel" data-title="Users" loading="lazy">
+      <img class="hs-slide" src="assets/upi/user-permissions.webp" width="2800" height="1689" alt="The permission overview for one user: modules down the left, and read, write and checker rights for each sub-module with checkboxes" data-title="Permissions" loading="lazy">
     </div>
   </figure>
   <div class="hs-show-cap"><span class="hs-show-t">Users</span><div class="hs-ticks" role="tablist" aria-label="User management screens"><button class="hs-tick is-on" aria-label="Users"></button><button class="hs-tick" aria-label="Permissions"></button></div></div>
