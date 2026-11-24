@@ -64,10 +64,6 @@
   box-shadow: 0 0 0 1px var(--line), 0 24px 60px rgb(var(--sh-rgb) / calc(.35 * var(--sh-k))); }
 .up-web img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top left; }
 
-/* Screen and receipt together: the summary card steps over the browser's bottom-right corner,
-   the way the phone does on Hyperswitch SDK */
-.up-duo { position: relative; width: 100%; padding: 0 7% 8% 0; }
-.up-duo .up-receipt { position: absolute; right: 0; bottom: 0; width: 25%; }
 .up-receipt img { display: block; width: 100%; height: auto; filter: drop-shadow(0 22px 40px rgb(var(--sh-rgb) / calc(.45 * var(--sh-k)))); }
 /* in the row of four the cards sit side by side, so a tight lift instead of the cover's deep shadow */
 .up-receipts .up-receipt img { filter: drop-shadow(0 1px 2px rgb(var(--sh-rgb) / calc(.10 * var(--sh-k)))) drop-shadow(0 8px 16px rgb(var(--sh-rgb) / calc(.12 * var(--sh-k)))); }
@@ -102,8 +98,6 @@
 
 @media (max-width: 700px) {
   .rr-stage { padding: 20px; border-radius: 12px; }
-  .up-duo { padding: 0 8% 14% 0; }
-  .up-duo .up-receipt { width: 32%; }
   .up-receipts { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 14px; }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -142,11 +136,8 @@
     </ul>
   </div>
   <figure class="cs-wrap cs-wrap--showcase cs-cover">
-    <div class="rr-stage">
-      <div class="up-duo">
-        <div class="up-web"><img src="assets/upi/order-detail.webp" width="2800" height="1689" alt="An order in the dashboard: the order value up top, the last transaction and refund status, every transaction listed below, and the order summary on the right" fetchpriority="high"></div>
-        <div class="up-receipt"><img src="assets/upi/receipt-order.webp" width="1000" height="1296" alt="The order summary card on its own, shaped like a receipt: order ID, status, amount, type, merchant reference and the latest update" fetchpriority="high"></div>
-      </div>
+    <div class="cs-cover-stage">
+      <img src="assets/upi/order-detail.webp" width="2800" height="1689" alt="An order in the dashboard: the order value up top, the last transaction and refund status, every transaction listed below, and the order summary on the right" fetchpriority="high">
     </div>
   </figure>
 </header>
