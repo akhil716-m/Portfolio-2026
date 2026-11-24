@@ -81,6 +81,8 @@
 /* A short caption over each screen: number and name */
 .hs-cap { display: grid; margin: 64px 0 -8px; }  /* the grid's 20px gap is added to these: ~12px from title to screen, ~84px between blocks */
 .hs-cap:first-child { margin-top: 0; }
+/* modules that follow each other sit the same distance apart as the ones inside a group (64px margin + 20px gap) */
+.v3-cs .cs-section.up-flow { margin-top: 84px; }
 .hs-cap-t { margin: 0; font-size: 16px; font-weight: 500; line-height: 1.5; color: var(--text); }
 
 /* More modules, shown one after another */
@@ -192,7 +194,7 @@
 </div>
 </section>
 
-<section class="cs-section">
+<section class="cs-section up-flow">
 <div class="cs-wrap cs-wrap--wide rr-show" aria-label="Refunds, mandates and disputes">
   <div class="hs-cap reveal"><h3 class="hs-cap-t">Refund details</h3></div>
   <figure class="rr-stage reveal hs-show">
@@ -224,7 +226,7 @@
 </div>
 </section>
 
-<section class="cs-section">
+<section class="cs-section up-flow">
 <div class="cs-wrap">
   <div class="cs-label reveal">Summary card</div>
   <h2 class="cs-display reveal">One receipt, in every module</h2>
@@ -245,7 +247,7 @@
 </div>
 </section>
 
-<section class="cs-section">
+<section class="cs-section up-flow">
 <div class="cs-wrap cs-wrap--wide rr-show" aria-label="User management, reports, tickets, mails and risk rules">
   <div class="hs-cap reveal"><h3 class="hs-cap-t">User management</h3></div>
   <figure class="rr-stage reveal hs-show">
