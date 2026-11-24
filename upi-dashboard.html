@@ -73,12 +73,9 @@
 
 /* The summary cards side by side */
 .up-receipts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(14px, 3vw, 36px); align-items: start; width: 100%; }
-.up-receipts figure, .up-folders figure { margin: 0; }
-.up-receipts figcaption, .up-folders figcaption { margin-top: 14px; text-align: center; font: 400 12px/1.5 var(--mono); color: var(--text-soft); }
+.up-receipts figure { margin: 0; }
+.up-receipts figcaption { margin-top: 14px; text-align: center; font: 400 12px/1.5 var(--mono); color: var(--text-soft); }
 
-/* Report folders: merchant and month, each as it is and with new reports waiting */
-.up-folders { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(16px, 4vw, 40px); align-items: end; width: 100%; }
-.up-folders img { display: block; width: 100%; height: auto; filter: drop-shadow(0 14px 28px rgb(var(--sh-rgb) / calc(.25 * var(--sh-k)))); }
 
 /* A short caption over each screen: number and name */
 .hs-cap { display: grid; grid-template-columns: auto 1fr; column-gap: 14px; margin: 64px 0 -8px; }  /* the grid's 20px gap is added to these: ~12px from title to screen, ~84px between blocks */
@@ -102,7 +99,6 @@
   .up-duo { padding: 0 8% 14% 0; }
   .up-duo .up-receipt { width: 32%; }
   .up-receipts { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 14px; }
-  .up-folders { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 24px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .cs-hero-title { opacity: 1; animation: none; }
@@ -229,7 +225,7 @@
 <div class="cs-wrap">
   <div class="cs-label reveal">Beyond transactions</div>
   <h2 class="cs-display reveal">The rest of the work, in the same place</h2>
-  <p class="cs-p reveal">User management, reports, tickets, mails and risk rules sit in the same dashboard. Reports are filed in <strong>a folder per merchant, then per month</strong>, and a folder says when new reports are waiting inside.</p>
+  <p class="cs-p reveal">User management, reports, tickets, mails and risk rules sit in the same dashboard. Reports are filed in <strong>a folder per merchant, then per month</strong>.</p>
 </div>
 
 <div class="cs-wrap cs-wrap--wide rr-show" aria-label="Reports and other modules">
@@ -242,14 +238,6 @@
   <figure class="rr-stage reveal">
     <div class="up-web"><img src="assets/upi/reports.webp" width="2000" height="1207" alt="Reports overview: a folder for each merchant, some marked with new reports, and a switch between issuer and acquirer" loading="lazy"></div>
   </figure>
-  <div class="rr-stage reveal">
-    <div class="up-folders">
-      <figure><img src="assets/upi/folder-merchant.webp" width="808" height="668" alt="A merchant folder with its last report date" loading="lazy"><figcaption>Merchant</figcaption></figure>
-      <figure><img src="assets/upi/folder-merchant-new.webp" width="808" height="668" alt="A merchant folder showing six new reports" loading="lazy"><figcaption>New reports</figcaption></figure>
-      <figure><img src="assets/upi/folder-month.webp" width="808" height="536" alt="A month folder with its last report date" loading="lazy"><figcaption>Month</figcaption></figure>
-      <figure><img src="assets/upi/folder-month-new.webp" width="808" height="536" alt="A month folder showing new reports" loading="lazy"><figcaption>New reports</figcaption></figure>
-    </div>
-  </div>
 </div>
 
 <div class="cs-wrap cs-wrap--wide rr-show" aria-label="More modules, shown one after another">
