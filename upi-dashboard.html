@@ -62,6 +62,7 @@
 /* A dashboard screen: the whole browser window, never cropped */
 .up-web { position: relative; width: 100%; aspect-ratio: 2000 / 1207; overflow: hidden; border-radius: 10px; background: #fff;
   box-shadow: 0 0 0 1px var(--line), 0 24px 60px rgb(var(--sh-rgb) / calc(.35 * var(--sh-k))); }
+.up-web--bare { aspect-ratio: 2000 / 1113; }
 .up-web img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top left; }
 
 /* Screen and receipt together: the summary card steps over the browser's bottom-right corner,
@@ -71,7 +72,7 @@
 .up-receipt img { display: block; width: 100%; height: auto; filter: drop-shadow(0 22px 40px rgb(var(--sh-rgb) / calc(.45 * var(--sh-k)))); }
 
 /* The summary cards side by side */
-.up-receipts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(20px, 6vw, 64px); width: min(100%, 600px); }
+.up-receipts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(14px, 3vw, 36px); align-items: start; width: 100%; }
 .up-receipts figure, .up-folders figure { margin: 0; }
 .up-receipts figcaption, .up-folders figcaption { margin-top: 14px; text-align: center; font: 400 12px/1.5 var(--mono); color: var(--text-soft); }
 
@@ -100,7 +101,7 @@
   .rr-stage { padding: 20px; border-radius: 12px; }
   .up-duo { padding: 0 8% 14% 0; }
   .up-duo .up-receipt { width: 32%; }
-  .up-receipts { gap: 14px; }
+  .up-receipts { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 14px; }
   .up-folders { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 24px; }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -187,7 +188,7 @@
 <div class="cs-wrap">
   <div class="cs-label reveal">Summary card</div>
   <h2 class="cs-display reveal">One receipt, in every module</h2>
-  <p class="cs-p reveal">Every record gets a summary card on the right, <strong>shaped like a receipt</strong>: its ID, when it was created and its status, the few numbers that matter, and the latest update with a link to the full timeline. Orders, mandates and refunds all share it, so moving from one module to the next feels familiar.</p>
+  <p class="cs-p reveal">Every record gets a summary card on the right, <strong>shaped like a receipt</strong>: its ID, when it was created and its status, the few numbers that matter, and the latest update with a link to the full timeline. Orders, mandates, disputes and users all share it, so moving from one module to the next feels familiar.</p>
 </div>
 
 <div class="cs-wrap cs-wrap--wide rr-show" aria-label="The summary card and the screens it sits on">
@@ -195,6 +196,8 @@
     <div class="up-receipts">
       <figure><div class="up-receipt"><img src="assets/upi/receipt-order.webp" width="730" height="946" alt="Order summary: ORD-55668401, Success, ₹1,400, one-time payment, last update Amount Settled" loading="lazy"></div><figcaption>Order</figcaption></figure>
       <figure><div class="up-receipt"><img src="assets/upi/receipt-mandate.webp" width="730" height="946" alt="Mandate summary: MND-55668401, Active, ₹1,400 max amount, as presented, valid until 2050, last update Mandate Activated" loading="lazy"></div><figcaption>Mandate</figcaption></figure>
+      <figure><div class="up-receipt"><img src="assets/upi/receipt-dispute.webp" width="730" height="892" alt="Dispute summary: DSP-10482, Action Required, requested adjustment ₹1,400, response reason, submitted evidence to download, and Take Action" loading="lazy"></div><figcaption>Dispute</figcaption></figure>
+      <figure><div class="up-receipt"><img src="assets/upi/receipt-user.webp" width="730" height="834" alt="User summary: Ankita Verma, created by, status, access to merchant IDs, team and role, with View Permissions, edit and revoke buttons" loading="lazy"></div><figcaption>User</figcaption></figure>
     </div>
   </div>
 
@@ -219,11 +222,16 @@
 <div class="cs-wrap">
   <div class="cs-label reveal">Beyond transactions</div>
   <h2 class="cs-display reveal">The rest of the work, in the same place</h2>
-  <p class="cs-p reveal">Reports, tickets, mails and risk rules sit in the same dashboard. Reports are filed in <strong>a folder per merchant, then per month</strong>, and a folder says when new reports are waiting inside.</p>
+  <p class="cs-p reveal">User management, reports, tickets, mails and risk rules sit in the same dashboard. Reports are filed in <strong>a folder per merchant, then per month</strong>, and a folder says when new reports are waiting inside.</p>
 </div>
 
 <div class="cs-wrap cs-wrap--wide rr-show" aria-label="Reports and other modules">
-  <div class="hs-cap reveal"><span class="hs-cap-n">01</span><h3 class="hs-cap-t">Reports</h3></div>
+  <div class="hs-cap reveal"><span class="hs-cap-n">01</span><h3 class="hs-cap-t">User management</h3></div>
+  <figure class="rr-stage reveal">
+    <div class="up-web up-web--bare"><img src="assets/upi/user-management.webp" width="2000" height="1113" alt="User management: a table of users with role, team and status, filters above it, and the selected user's summary in a side panel" loading="lazy"></div>
+  </figure>
+
+  <div class="hs-cap reveal"><span class="hs-cap-n">02</span><h3 class="hs-cap-t">Reports</h3></div>
   <figure class="rr-stage reveal">
     <div class="up-web"><img src="assets/upi/reports.webp" width="2000" height="1207" alt="Reports overview: a folder for each merchant, some marked with new reports, and a switch between issuer and acquirer" loading="lazy"></div>
   </figure>
