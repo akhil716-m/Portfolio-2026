@@ -90,9 +90,13 @@
 .hs-show-cap { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: -4px; }
 .hs-show-t { font: 500 16px/1.5 var(--sans, inherit); color: var(--text); }
 .hs-ticks { display: flex; gap: 6px; }
-.hs-tick { width: 22px; height: 12px; padding: 0; border: 0; background: none; cursor: pointer; position: relative; }
+.hs-tick { width: 30px; height: 12px; padding: 0; border: 0; background: none; cursor: pointer; position: relative; }
 .hs-tick::after { content: ''; position: absolute; left: 0; right: 0; top: 5px; height: 2px; border-radius: 2px; background: var(--line-strong); transition: background .3s ease; }
-.hs-tick.is-on::after { background: var(--text); }
+.hs-tick::before { content: ''; position: absolute; left: 0; top: 5px; width: 100%; height: 2px; border-radius: 2px; background: var(--text); transform: scaleX(0); transform-origin: left; z-index: 1; }
+/* the active line fills over the time the slide stays, so the bar shows what is left */
+.hs-tick.is-on::before { animation: hsFill var(--dur, 3.5s) linear forwards; }
+.hs-show-cap.is-held .hs-tick.is-on::before { animation-play-state: paused; }
+@keyframes hsFill { to { transform: scaleX(1); } }
 
 @media (max-width: 700px) {
   .rr-stage { padding: 20px; border-radius: 12px; }
@@ -101,6 +105,7 @@
   .up-receipts { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 14px; }
 }
 @media (prefers-reduced-motion: reduce) {
+  .hs-tick.is-on::before { animation: none; transform: none; }
   .cs-hero-title { opacity: 1; animation: none; }
   .reveal { opacity: 1; transform: none; transition: none; }
 }
@@ -292,15 +297,17 @@
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   document.querySelectorAll('.hs-slides').forEach(function (box, n) {
     var fig = box.closest('figure'), cap = fig.nextElementSibling;
-    var slides = box.querySelectorAll('.hs-slide'), ticks = cap.querySelectorAll('.hs-tick'), t = cap.querySelector('.hs-show-t'), i = 0, hold = false;
-    function go(k) { slides[i].classList.remove('is-on'); ticks[i].classList.remove('is-on'); i = k % slides.length; slides[i].classList.add('is-on'); ticks[i].classList.add('is-on'); t.textContent = slides[i].dataset.title; }
+    var slides = box.querySelectorAll('.hs-slide'), ticks = cap.querySelectorAll('.hs-tick'), t = cap.querySelector('.hs-show-t'), i = 0;
+    function go(k) { slides[i].classList.remove('is-on'); ticks[i].classList.remove('is-on'); void ticks[i].offsetWidth; i = k % slides.length; slides[i].classList.add('is-on'); ticks[i].classList.add('is-on'); t.textContent = slides[i].dataset.title; }
     ticks.forEach(function (b, k) { b.addEventListener('click', function () { go(k); }); });
     if (reduce) return;
+    cap.style.setProperty('--dur', (3.5 + n * 0.5) + 's');
     [fig, cap].forEach(function (el) {
-      el.addEventListener('mouseenter', function () { hold = true; });
-      el.addEventListener('mouseleave', function () { hold = false; });
+      el.addEventListener('mouseenter', function () { cap.classList.add('is-held'); });
+      el.addEventListener('mouseleave', function () { cap.classList.remove('is-held'); });
     });
-    setInterval(function () { if (!hold && !document.hidden) go(i + 1); }, 3500 + n * 500);
+    /* the slide changes when its bar is full, so hovering (which pauses the bar) pauses the slide */
+    cap.addEventListener('animationend', function (e) { if (e.animationName === 'hsFill') go(i + 1); });
   });
 })();
 </script>
