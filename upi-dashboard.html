@@ -70,6 +70,8 @@
 .up-duo { position: relative; width: 100%; padding: 0 7% 8% 0; }
 .up-duo .up-receipt { position: absolute; right: 0; bottom: 0; width: 25%; }
 .up-receipt img { display: block; width: 100%; height: auto; filter: drop-shadow(0 22px 40px rgb(var(--sh-rgb) / calc(.45 * var(--sh-k)))); }
+/* in the row of four the cards sit side by side, so a tight lift instead of the cover's deep shadow */
+.up-receipts .up-receipt img { filter: drop-shadow(0 1px 2px rgb(var(--sh-rgb) / calc(.10 * var(--sh-k)))) drop-shadow(0 8px 16px rgb(var(--sh-rgb) / calc(.12 * var(--sh-k)))); }
 
 /* The summary cards side by side */
 .up-receipts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(14px, 3vw, 36px); align-items: start; width: 100%; }
