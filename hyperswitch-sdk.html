@@ -91,7 +91,7 @@
 .hs-phones { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(20px, 6vw, 72px); align-items: start; width: min(100%, 520px); }
 
 /* A short caption over each screen: number, name, one line */
-.hs-cap { display: grid; grid-template-columns: auto 1fr; column-gap: 14px; margin: 36px 0 14px; }
+.hs-cap { display: grid; grid-template-columns: auto 1fr; column-gap: 14px; margin: 64px 0 -8px; }  /* the grid's 20px gap is added to these: ~12px from title to screen, ~84px between blocks */
 .hs-cap:first-child { margin-top: 0; }
 .hs-cap-n { font: 400 12px/1.9 var(--mono); color: var(--text-soft); }
 .hs-cap-t { margin: 0; font: 500 16px/1.5 var(--sans, inherit); color: var(--text); }
