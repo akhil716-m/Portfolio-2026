@@ -60,9 +60,9 @@
 }
 
 /* A dashboard screen: the whole browser window, never cropped */
-.up-web { position: relative; width: 100%; aspect-ratio: 2000 / 1207; overflow: hidden; border-radius: 10px; background: #fff;
+.up-web { position: relative; width: 100%; aspect-ratio: 2800 / 1689; overflow: hidden; border-radius: 10px; background: #fff;
   box-shadow: 0 0 0 1px var(--line), 0 24px 60px rgb(var(--sh-rgb) / calc(.35 * var(--sh-k))); }
-.up-web--bare { aspect-ratio: 2000 / 1113; }
+.up-web--bare { aspect-ratio: 2800 / 1558; }
 .up-web img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top left; }
 
 /* Screen and receipt together: the summary card steps over the browser's bottom-right corner,
@@ -86,7 +86,7 @@
 .hs-cap-t { margin: 0; font: 500 16px/1.5 var(--sans, inherit); color: var(--text); }
 
 /* More modules, shown one after another */
-.hs-slides { position: relative; width: 100%; aspect-ratio: 2000 / 1207; border-radius: 10px; overflow: hidden; background: #fff; box-shadow: 0 0 0 1px var(--line), 0 24px 60px rgb(var(--sh-rgb) / calc(.35 * var(--sh-k))); }
+.hs-slides { position: relative; width: 100%; aspect-ratio: 2800 / 1689; border-radius: 10px; overflow: hidden; background: #fff; box-shadow: 0 0 0 1px var(--line), 0 24px 60px rgb(var(--sh-rgb) / calc(.35 * var(--sh-k))); }
 .hs-slide { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top left; opacity: 0; transition: opacity .7s ease; }
 .hs-slide.is-on { opacity: 1; }
 .hs-show-cap { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: -4px; }
@@ -144,8 +144,8 @@
   <figure class="cs-wrap cs-wrap--showcase cs-cover">
     <div class="rr-stage">
       <div class="up-duo">
-        <div class="up-web"><img src="assets/upi/order-detail.webp" width="2000" height="1207" alt="An order in the dashboard: the order value up top, the last transaction and refund status, every transaction listed below, and the order summary on the right" fetchpriority="high"></div>
-        <div class="up-receipt"><img src="assets/upi/receipt-order.webp" width="730" height="946" alt="The order summary card on its own, shaped like a receipt: order ID, status, amount, type, merchant reference and the latest update" fetchpriority="high"></div>
+        <div class="up-web"><img src="assets/upi/order-detail.webp" width="2800" height="1689" alt="An order in the dashboard: the order value up top, the last transaction and refund status, every transaction listed below, and the order summary on the right" fetchpriority="high"></div>
+        <div class="up-receipt"><img src="assets/upi/receipt-order.webp" width="1000" height="1296" alt="The order summary card on its own, shaped like a receipt: order ID, status, amount, type, merchant reference and the latest update" fetchpriority="high"></div>
       </div>
     </div>
   </figure>
@@ -177,17 +177,17 @@
 <div class="cs-wrap cs-wrap--wide rr-show" aria-label="Orders: the list and one order">
   <div class="hs-cap reveal"><span class="hs-cap-n">01</span><h3 class="hs-cap-t">Orders</h3></div>
   <figure class="rr-stage reveal">
-    <div class="up-web"><img src="assets/upi/orders-list.webp" width="2000" height="1207" alt="The orders list: filters for order ID, date, merchant and status above a table of orders with status, created and modified times and amount" loading="lazy"></div>
+    <div class="up-web"><img src="assets/upi/orders-list.webp" width="2800" height="1689" alt="The orders list: filters for order ID, date, merchant and status above a table of orders with status, created and modified times and amount" loading="lazy"></div>
   </figure>
 
   <div class="hs-cap reveal"><span class="hs-cap-n">02</span><h3 class="hs-cap-t">Order details</h3></div>
   <figure class="rr-stage reveal hs-show">
     <div class="hs-slides">
-      <img class="hs-slide is-on" src="assets/upi/order-detail.webp" width="2000" height="1207" alt="One order: the order value, last transaction, refund status with a Create Refund button, the order's transactions, and the order summary" data-title="Default">
-      <img class="hs-slide" src="assets/upi/order-refunds.webp" width="2000" height="1207" alt="The same order after a partial refund: a bar splits what is still available to refund from what is refunded, with the last transaction and last refund side by side" data-title="Refunds" loading="lazy">
-      <img class="hs-slide" src="assets/upi/order-mandate.webp" width="2000" height="1207" alt="The same order when it has become a mandate: a banner says the mandate is active, with a link to view it" data-title="Mandate active" loading="lazy">
-      <img class="hs-slide" src="assets/upi/order-dispute.webp" width="2000" height="1207" alt="The same order with an active dispute: a banner says a chargeback is pending and when to respond, and the affected transaction is flagged" data-title="Active dispute" loading="lazy">
-      <img class="hs-slide" src="assets/upi/order-partial.webp" width="2000" height="1207" alt="The same order while it is only partly collected: a bar shows ₹400 collected and ₹1,000 remaining" data-title="Partially collected" loading="lazy">
+      <img class="hs-slide is-on" src="assets/upi/order-detail.webp" width="2800" height="1689" alt="One order: the order value, last transaction, refund status with a Create Refund button, the order's transactions, and the order summary" data-title="Default">
+      <img class="hs-slide" src="assets/upi/order-refunds.webp" width="2800" height="1689" alt="The same order after a partial refund: a bar splits what is still available to refund from what is refunded, with the last transaction and last refund side by side" data-title="Refunds" loading="lazy">
+      <img class="hs-slide" src="assets/upi/order-mandate.webp" width="2800" height="1689" alt="The same order when it has become a mandate: a banner says the mandate is active, with a link to view it" data-title="Mandate active" loading="lazy">
+      <img class="hs-slide" src="assets/upi/order-dispute.webp" width="2800" height="1689" alt="The same order with an active dispute: a banner says a chargeback is pending and when to respond, and the affected transaction is flagged" data-title="Active dispute" loading="lazy">
+      <img class="hs-slide" src="assets/upi/order-partial.webp" width="2800" height="1689" alt="The same order while it is only partly collected: a bar shows ₹400 collected and ₹1,000 remaining" data-title="Partially collected" loading="lazy">
     </div>
   </figure>
   <div class="hs-show-cap"><span class="hs-show-t">Default</span><div class="hs-ticks" role="tablist" aria-label="Order states"><button class="hs-tick is-on" aria-label="Default"></button><button class="hs-tick" aria-label="Refunds"></button><button class="hs-tick" aria-label="Mandate active"></button><button class="hs-tick" aria-label="Active dispute"></button><button class="hs-tick" aria-label="Partially collected"></button></div></div>
@@ -204,26 +204,26 @@
 <div class="cs-wrap cs-wrap--wide rr-show" aria-label="The summary card and the screens it sits on">
   <div class="rr-stage reveal">
     <div class="up-receipts">
-      <figure><div class="up-receipt"><img src="assets/upi/receipt-order.webp" width="730" height="946" alt="Order summary: ORD-55668401, Success, ₹1,400, one-time payment, last update Amount Settled" loading="lazy"></div><figcaption>Order</figcaption></figure>
-      <figure><div class="up-receipt"><img src="assets/upi/receipt-mandate.webp" width="730" height="946" alt="Mandate summary: MND-55668401, Active, ₹1,400 max amount, as presented, valid until 2050, last update Mandate Activated" loading="lazy"></div><figcaption>Mandate</figcaption></figure>
-      <figure><div class="up-receipt"><img src="assets/upi/receipt-dispute.webp" width="730" height="944" alt="Dispute summary: DSP-10482, Action Required, requested adjustment ₹1,400, response reason, submitted evidence to download, and Take Action" loading="lazy"></div><figcaption>Dispute</figcaption></figure>
-      <figure><div class="up-receipt"><img src="assets/upi/receipt-user.webp" width="730" height="946" alt="User summary: Ankita Verma, created by, status, access to merchant IDs, team and role, with View Permissions, edit and revoke buttons" loading="lazy"></div><figcaption>User</figcaption></figure>
+      <figure><div class="up-receipt"><img src="assets/upi/receipt-order.webp" width="1000" height="1296" alt="Order summary: ORD-55668401, Success, ₹1,400, one-time payment, last update Amount Settled" loading="lazy"></div><figcaption>Order</figcaption></figure>
+      <figure><div class="up-receipt"><img src="assets/upi/receipt-mandate.webp" width="1000" height="1296" alt="Mandate summary: MND-55668401, Active, ₹1,400 max amount, as presented, valid until 2050, last update Mandate Activated" loading="lazy"></div><figcaption>Mandate</figcaption></figure>
+      <figure><div class="up-receipt"><img src="assets/upi/receipt-dispute.webp" width="1000" height="1293" alt="Dispute summary: DSP-10482, Action Required, requested adjustment ₹1,400, response reason, submitted evidence to download, and Take Action" loading="lazy"></div><figcaption>Dispute</figcaption></figure>
+      <figure><div class="up-receipt"><img src="assets/upi/receipt-user.webp" width="1000" height="1296" alt="User summary: Ankita Verma, created by, status, access to merchant IDs, team and role, with View Permissions, edit and revoke buttons" loading="lazy"></div><figcaption>User</figcaption></figure>
     </div>
   </div>
 
   <div class="hs-cap reveal"><span class="hs-cap-n">01</span><h3 class="hs-cap-t">Refund details</h3></div>
   <figure class="rr-stage reveal">
-    <div class="up-web"><img src="assets/upi/refund-detail.webp" width="2000" height="1207" alt="One refund: ₹400 of ₹1,400 refunded shown as a bar, the original payment, refund details, and the related order's summary" loading="lazy"></div>
+    <div class="up-web"><img src="assets/upi/refund-detail.webp" width="2800" height="1689" alt="One refund: ₹400 of ₹1,400 refunded shown as a bar, the original payment, refund details, and the related order's summary" loading="lazy"></div>
   </figure>
 
   <div class="hs-cap reveal"><span class="hs-cap-n">02</span><h3 class="hs-cap-t">Mandates</h3></div>
   <figure class="rr-stage reveal">
-    <div class="up-web"><img src="assets/upi/mandate-detail.webp" width="2000" height="1207" alt="One mandate: the amount, last transaction and last update, its transactions, notifications and history in tabs, and the mandate summary" loading="lazy"></div>
+    <div class="up-web"><img src="assets/upi/mandate-detail.webp" width="2800" height="1689" alt="One mandate: the amount, last transaction and last update, its transactions, notifications and history in tabs, and the mandate summary" loading="lazy"></div>
   </figure>
 
   <div class="hs-cap reveal"><span class="hs-cap-n">03</span><h3 class="hs-cap-t">Disputes</h3></div>
   <figure class="rr-stage reveal">
-    <div class="up-web"><img src="assets/upi/dispute.webp" width="2000" height="1207" alt="Chargeback records for a merchant, with status and response due, and the selected dispute's details and Take Action in a side panel" loading="lazy"></div>
+    <div class="up-web"><img src="assets/upi/dispute.webp" width="2800" height="1689" alt="Chargeback records for a merchant, with status and response due, and the selected dispute's details and Take Action in a side panel" loading="lazy"></div>
   </figure>
 </div>
 </section>
@@ -238,22 +238,22 @@
 <div class="cs-wrap cs-wrap--wide rr-show" aria-label="Reports and other modules">
   <div class="hs-cap reveal"><span class="hs-cap-n">01</span><h3 class="hs-cap-t">User management</h3></div>
   <figure class="rr-stage reveal">
-    <div class="up-web up-web--bare"><img src="assets/upi/user-management.webp" width="2000" height="1113" alt="User management: a table of users with role, team and status, filters above it, and the selected user's summary in a side panel" loading="lazy"></div>
+    <div class="up-web up-web--bare"><img src="assets/upi/user-management.webp" width="2800" height="1558" alt="User management: a table of users with role, team and status, filters above it, and the selected user's summary in a side panel" loading="lazy"></div>
   </figure>
 
   <div class="hs-cap reveal"><span class="hs-cap-n">02</span><h3 class="hs-cap-t">Reports</h3></div>
   <figure class="rr-stage reveal">
-    <div class="up-web"><img src="assets/upi/reports.webp" width="2000" height="1207" alt="Reports overview: a folder for each merchant, some marked with new reports, and a switch between issuer and acquirer" loading="lazy"></div>
+    <div class="up-web"><img src="assets/upi/reports.webp" width="2800" height="1689" alt="Reports overview: a folder for each merchant, some marked with new reports, and a switch between issuer and acquirer" loading="lazy"></div>
   </figure>
 </div>
 
 <div class="cs-wrap cs-wrap--wide rr-show" aria-label="More modules, shown one after another">
   <figure class="rr-stage reveal hs-show">
     <div class="hs-slides">
-      <img class="hs-slide is-on" src="assets/upi/tickets.webp" width="2000" height="1207" alt="Tickets as a board: pending, success, failed and declined columns, with failed tickets grouped by reason" data-title="Tickets" loading="lazy">
-      <img class="hs-slide" src="assets/upi/tickets-2.webp" width="2000" height="1207" alt="A ticket opened over the board: a merchant config change with the previous and new values side by side, and Cancel Ticket and Approve Ticket" data-title="Ticket review" loading="lazy">
-      <img class="hs-slide" src="assets/upi/mails.webp" width="2000" height="1207" alt="Mails: sent mails in a list, split into success, failed and bounced, with the chosen mail opening beside it" data-title="Mails" loading="lazy">
-      <img class="hs-slide" src="assets/upi/rule-config.webp" width="2000" height="1207" alt="Configuring a risk rule: conditions and groups joined with AND, and the rule it generates shown underneath" data-title="Risk rule configuration" loading="lazy">
+      <img class="hs-slide is-on" src="assets/upi/tickets.webp" width="2800" height="1689" alt="Tickets as a board: pending, success, failed and declined columns, with failed tickets grouped by reason" data-title="Tickets" loading="lazy">
+      <img class="hs-slide" src="assets/upi/tickets-2.webp" width="2800" height="1689" alt="A ticket opened over the board: a merchant config change with the previous and new values side by side, and Cancel Ticket and Approve Ticket" data-title="Ticket review" loading="lazy">
+      <img class="hs-slide" src="assets/upi/mails.webp" width="2800" height="1689" alt="Mails: sent mails in a list, split into success, failed and bounced, with the chosen mail opening beside it" data-title="Mails" loading="lazy">
+      <img class="hs-slide" src="assets/upi/rule-config.webp" width="2800" height="1689" alt="Configuring a risk rule: conditions and groups joined with AND, and the rule it generates shown underneath" data-title="Risk rule configuration" loading="lazy">
     </div>
   </figure>
   <div class="hs-show-cap"><span class="hs-show-t">Tickets</span><div class="hs-ticks" role="tablist" aria-label="Modules"><button class="hs-tick is-on" aria-label="Tickets"></button><button class="hs-tick" aria-label="Ticket review"></button><button class="hs-tick" aria-label="Mails"></button><button class="hs-tick" aria-label="Risk rule configuration"></button></div></div>
