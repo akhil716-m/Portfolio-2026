@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="white" data-inside="project">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Lab — Hyperswitch web + mobile</title>
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Akhil Male — Hyperswitch SDK">
+<meta property="og:description" content="An end-to-end redesign of the Hyperswitch payment SDK: the checkout merchants drop into their store, on desktop and mobile.">
+<meta property="og:url" content="https://akhilmale.in/hyperswitch-sdk">
+<meta property="og:image" content="https://akhilmale.in/assets/og-image.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Akhil Male — Hyperswitch SDK">
+<meta name="twitter:description" content="An end-to-end redesign of the Hyperswitch payment SDK: the checkout merchants drop into their store, on desktop and mobile.">
+<meta name="twitter:image" content="https://akhilmale.in/assets/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles-v3.css?v=116">
+<script>
+  // Time of day before first paint: the visitor's pick, or Auto from their clock
+  // (Light 6 am-7 pm, Dark 7 pm-6 am). Internally day is the white theme, night the dark one.
+  (function () {
+    var r = document.documentElement, c = null, h = new Date().getHours();
+    try { c = localStorage.getItem('v3-time'); } catch (e) {}
+    if (['day', 'night'].indexOf(c) < 0) c = 'auto';
+    var m = c !== 'auto' ? c : h >= 6 && h < 19 ? 'day' : 'night';
+    r.dataset.timeChoice = c; r.dataset.mood = m;
+    r.dataset.theme = { day: 'white', night: 'dark' }[m];
+  })();
+</script>
+<script type="text/javascript">
+  (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+  })(window, document, "clarity", "script", "ykaez3m42c");
+</script>
+<style>
+/* Hyperswitch SDK: a light, mostly-UI case study on the Revenue Recovery template.
+   Base rules first; cs-article.css and cs-v3.css then set the v3 look. */
+@keyframes csFadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+.cs-hero { position: relative; }
+.cs-hero-title { margin: 0; opacity: 0; animation: csFadeUp .9s ease forwards .35s; }
+.cs-hero-title em { font-style: normal; }
+.cs-label { display: flex; align-items: center; }
+.reveal { opacity: 0; transform: translateY(26px); transition: opacity .7s ease, transform .7s ease; }
+.reveal.is-visible { opacity: 1; transform: none; }
+
+/* Screens on a grey stage, as on Revenue Recovery */
+.rr-show { display: grid; gap: 20px; }
+.v3-cs .cs-wrap.rr-show { margin-top: 56px; }
+.rr-stage {
+  display: flex; align-items: center; justify-content: center; margin: 0;
+  padding: clamp(28px, 7.5%, 80px); border-radius: 16px;
+  background: var(--stage); border: 1px solid var(--line);
+}
+.rr-stage img {
+  display: block; width: 100%; height: auto; border-radius: 10px;
+  box-shadow: 0 0 0 1px var(--line), 0 0 32px rgb(var(--sh-rgb) / calc(.22 * var(--sh-k)));
+}
+.rr-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.rr-pair .rr-stage { padding: clamp(24px, 9%, 56px); }
+
+/* Web and mobile together: the web screen on the left, the same moment on a phone beside it,
+   both on one stage and lined up at the top */
+.hs-duo { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .27fr); gap: clamp(20px, 4%, 48px); align-items: start; width: 100%; }
+.rr-stage .hs-phone, .hs-ph--phone { border-radius: clamp(12px, 2vw, 24px); }
+
+/* Two phones side by side, for the express checkout options */
+.hs-phones { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(20px, 6vw, 72px); align-items: start; width: min(100%, 560px); }
+
+/* A short caption over each screen: number, name, one line */
+.hs-cap { display: grid; grid-template-columns: auto 1fr; column-gap: 14px; margin: 36px 0 14px; }
+.hs-cap:first-child { margin-top: 0; }
+.hs-cap-n { font: 400 12px/1.9 var(--mono); color: var(--text-soft); }
+.hs-cap-t { margin: 0; font: 500 16px/1.5 var(--sans, inherit); color: var(--text); }
+.hs-cap-d { grid-column: 2; margin: 2px 0 0; font-size: 14px; line-height: 1.55; color: var(--text-soft); }
+.hs-phones figcaption { margin-top: 12px; text-align: center; font: 400 12px/1.5 var(--mono); color: var(--text-soft); }
+.hs-phones figure { margin: 0; }
+
+/* Placeholders: a dashed box with a mono note, until the real screen goes in */
+.hs-ph {
+  display: flex; align-items: center; justify-content: center; text-align: center; width: 100%;
+  padding: 16px; border: 1px dashed var(--line-strong); border-radius: 10px;
+  font: 400 12px/1.5 var(--mono); color: var(--text-soft);
+}
+.hs-ph--wide { aspect-ratio: 2000 / 1417; }
+.hs-ph--phone { aspect-ratio: 780 / 1688; }
+
+@media (max-width: 700px) {
+  .rr-pair { grid-template-columns: 1fr; }
+  .rr-stage { padding: 20px; border-radius: 12px; }
+  /* on a phone the pair stacks: web first, then the phone screen, narrower and centred */
+  .hs-duo { grid-template-columns: 1fr; justify-items: center; }
+  .hs-duo > :last-child { width: 62%; }
+  .hs-phones { gap: 14px; }
+  .hs-ph { font-size: 11px; padding: 8px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cs-hero-title { opacity: 1; animation: none; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+}
+</style>
+<link rel="stylesheet" href="assets/cs-article.css">
+<link rel="stylesheet" href="assets/cs-v3.css?v=200">
+<style>
+/* This project's colour, per theme: the checkout's Pay button blue */
+:root { --accent: #1f6fe5; --acc-rgb: 31 111 229; --proj: #1f6fe5; --proj-rgb: 31 111 229; }
+:root[data-theme="paper"] { --accent: #1a5fc8; --acc-rgb: 26 95 200; --proj: #1a5fc8; --proj-rgb: 26 95 200; }
+:root[data-theme="dark"] { --accent: #78a9ff; --acc-rgb: 120 169 255; --proj: #78a9ff; --proj-rgb: 120 169 255; }
+</style>
+  <script src="/assets/visits.js" defer></script>
+</head>
+<body>
+
+<div class="v3 v3-cs">
+
+  <main class="v3-main" id="top">
+
+    <header class="topbar">
+      <a class="tb-back" href="/"><span aria-hidden="true">←</span> Back</a>
+    </header>
+
+<style>
+/* ---- Lab: three ways to show a web screen and its phone screen together ---- */
+
+/* Web screen: cropped to a browser-window shape so every pair has the same footprint,
+   whatever the screenshot's height. --crop sets how much of the page shows. */
+.hx-web { position: relative; aspect-ratio: var(--crop, 2000 / 1400); overflow: hidden; border-radius: 10px;
+  background: #fff; box-shadow: 0 0 0 1px var(--line), 0 24px 60px rgb(var(--sh-rgb) / calc(.35 * var(--sh-k))); }
+.hx-web img { display: block; width: 100%; height: auto; }
+/* a soft fade at the bottom where the crop cuts the page */
+.hx-web--fade::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 22%;
+  background: linear-gradient(to bottom, rgb(255 255 255 / 0), #fff); pointer-events: none; }
+
+/* Phone: Up-skill's bezel with the screen set inside its cut-out */
+.hx-phone { position: relative; aspect-ratio: 900 / 1852; isolation: isolate; }
+.hx-phone::before { content: ''; position: absolute; inset: 1.5% 2.5%; z-index: -1; border-radius: 13% / 6.3%;
+  box-shadow: 0 28px 56px rgb(var(--sh-rgb) / calc(.55 * var(--sh-k))); }
+.hx-phone-screen { position: absolute; left: 4.735%; top: 1.905%; width: 90.694%; height: 96.27%;
+  border-radius: 10.62% / 4.864%; overflow: hidden; background: #fff; }
+.hx-phone-screen img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top; }
+.hx-phone-bezel { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+
+.hx-stage { margin: 0; border-radius: 16px; background: var(--stage); border: 1px solid var(--line);
+  padding: clamp(28px, 7%, 80px); overflow: hidden; }
+.hx-row { display: grid; gap: 20px; }
+
+/* A — Corner overlap: the phone steps over the browser's bottom-right corner */
+.hx-a { position: relative; padding: 0 10% 7% 0; }
+.hx-a .hx-phone { position: absolute; right: 0; bottom: 0; width: 23%; }
+
+/* B — Phone in front: the browser fills the stage, the phone stands over its order summary */
+.hx-b { position: relative; }
+.hx-b .hx-phone { position: absolute; right: 7%; top: 9%; width: 24%; }
+
+/* C — Staggered: the phone leads on the left, the browser sits behind it, set back and lower */
+.hx-c { position: relative; padding: 0 0 0 16%; }
+.hx-c .hx-web { margin-top: 9%; }
+.hx-c .hx-phone { position: absolute; left: 0; top: 0; width: 25%; }
+
+.hx-dir { margin-top: 96px; }
+.hx-dir:first-of-type { margin-top: 40px; }
+.hx-dir .cs-p { margin-bottom: 28px; }
+
+@media (max-width: 700px) {
+  .hx-stage { padding: 18px; border-radius: 12px; }
+  .hx-a .hx-phone { width: 30%; }
+  .hx-b .hx-phone { width: 30%; top: 6%; }
+  .hx-c .hx-phone { width: 32%; }
+}
+</style>
+
+<header class="cs-hero cs-hero--article">
+  <div class="cs-wrap">
+    <h1 class="cs-hero-title">Web + mobile, three ways</h1>
+    <p class="cs-p">Lab page. The same three screen pairs (default, saved payments, ACH bank transfer) shown three different ways. The phone uses Up-skill's mockup. The web screen is cropped to one browser shape so tall pages don't stretch the layout.</p>
+  </div>
+</header>
+
+<section class="cs-section hx-dir">
+<div class="cs-wrap">
+  <div class="cs-label">Direction A</div>
+  <h2 class="cs-display">Corner overlap</h2>
+  <p class="cs-p">The phone steps over the browser's bottom-right corner. The browser stays the hero; the phone reads as "and on mobile".</p>
+</div>
+<div class="cs-wrap cs-wrap--wide hx-row">
+    <figure class="hx-stage reveal"><div class="hx-a">
+      <div class="hx-web hx-web--fade" style="--crop:2000 / 1400"><img src="assets/hyperswitch/method-default-web.webp" width="2000" alt="" loading="lazy"></div>
+      <div class="hx-phone"><div class="hx-phone-screen"><img src="assets/hyperswitch/method-default-mobile.webp" alt="" loading="lazy"></div><img class="hx-phone-bezel" src="assets/skilling/ui/home-bezel.webp" alt="" width="900" height="1852"></div>
+    </div></figure>
+    <figure class="hx-stage reveal"><div class="hx-a">
+      <div class="hx-web hx-web--fade" style="--crop:2000 / 1400"><img src="assets/hyperswitch/method-saved-web.webp" width="2000" alt="" loading="lazy"></div>
+      <div class="hx-phone"><div class="hx-phone-screen"><img src="assets/hyperswitch/method-saved-mobile.webp" alt="" loading="lazy"></div><img class="hx-phone-bezel" src="assets/skilling/ui/home-bezel.webp" alt="" width="900" height="1852"></div>
+    </div></figure>
+    <figure class="hx-stage reveal"><div class="hx-a">
+      <div class="hx-web hx-web--fade" style="--crop:2000 / 1400"><img src="assets/hyperswitch/method-bank-debit-web.webp" width="2000" alt="" loading="lazy"></div>
+      <div class="hx-phone"><div class="hx-phone-screen"><img src="assets/hyperswitch/method-bank-debit-mobile.webp" alt="" loading="lazy"></div><img class="hx-phone-bezel" src="assets/skilling/ui/home-bezel.webp" alt="" width="900" height="1852"></div>
+    </div></figure>
+</div>
+</section>
+<section class="cs-section hx-dir">
+<div class="cs-wrap">
+  <div class="cs-label">Direction B</div>
+  <h2 class="cs-display">Phone in front</h2>
+  <p class="cs-p">The browser fills the stage and the phone stands over its order summary, the part of the page that matters least here.</p>
+</div>
+<div class="cs-wrap cs-wrap--wide hx-row">
+    <figure class="hx-stage reveal"><div class="hx-b">
+      <div class="hx-web hx-web--fade" style="--crop:2000 / 1400"><img src="assets/hyperswitch/method-default-web.webp" width="2000" alt="" loading="lazy"></div>
+      <div class="hx-phone"><div class="hx-phone-screen"><img src="assets/hyperswitch/method-default-mobile.webp" alt="" loading="lazy"></div><img class="hx-phone-bezel" src="assets/skilling/ui/home-bezel.webp" alt="" width="900" height="1852"></div>
+    </div></figure>
+    <figure class="hx-stage reveal"><div class="hx-b">
+      <div class="hx-web hx-web--fade" style="--crop:2000 / 1400"><img src="assets/hyperswitch/method-saved-web.webp" width="2000" alt="" loading="lazy"></div>
+      <div class="hx-phone"><div class="hx-phone-screen"><img src="assets/hyperswitch/method-saved-mobile.webp" alt="" loading="lazy"></div><img class="hx-phone-bezel" src="assets/skilling/ui/home-bezel.webp" alt="" width="900" height="1852"></div>
+    </div></figure>
+    <figure class="hx-stage reveal"><div class="hx-b">
+      <div class="hx-web hx-web--fade" style="--crop:2000 / 1400"><img src="assets/hyperswitch/method-bank-debit-web.webp" width="2000" alt="" loading="lazy"></div>
+      <div class="hx-phone"><div class="hx-phone-screen"><img src="assets/hyperswitch/method-bank-debit-mobile.webp" alt="" loading="lazy"></div><img class="hx-phone-bezel" src="assets/skilling/ui/home-bezel.webp" alt="" width="900" height="1852"></div>
+    </div></figure>
+</div>
+</section>
+<section class="cs-section hx-dir">
+<div class="cs-wrap">
+  <div class="cs-label">Direction C</div>
+  <h2 class="cs-display">Staggered</h2>
+  <p class="cs-p">The phone leads on the left and the browser sits behind it, set back and lower. More editorial, gives mobile equal weight.</p>
+</div>
+<div class="cs-wrap cs-wrap--wide hx-row">
+    <figure class="hx-stage reveal"><div class="hx-c">
+      <div class="hx-web hx-web--fade" style="--crop:2000 / 1400"><img src="assets/hyperswitch/method-default-web.webp" width="2000" alt="" loading="lazy"></div>
+      <div class="hx-phone"><div class="hx-phone-screen"><img src="assets/hyperswitch/method-default-mobile.webp" alt="" loading="lazy"></div><img class="hx-phone-bezel" src="assets/skilling/ui/home-bezel.webp" alt="" width="900" height="1852"></div>
+    </div></figure>
+    <figure class="hx-stage reveal"><div class="hx-c">
+      <div class="hx-web hx-web--fade" style="--crop:2000 / 1400"><img src="assets/hyperswitch/method-saved-web.webp" width="2000" alt="" loading="lazy"></div>
+      <div class="hx-phone"><div class="hx-phone-screen"><img src="assets/hyperswitch/method-saved-mobile.webp" alt="" loading="lazy"></div><img class="hx-phone-bezel" src="assets/skilling/ui/home-bezel.webp" alt="" width="900" height="1852"></div>
+    </div></figure>
+    <figure class="hx-stage reveal"><div class="hx-c">
+      <div class="hx-web hx-web--fade" style="--crop:2000 / 1400"><img src="assets/hyperswitch/method-bank-debit-web.webp" width="2000" alt="" loading="lazy"></div>
+      <div class="hx-phone"><div class="hx-phone-screen"><img src="assets/hyperswitch/method-bank-debit-mobile.webp" alt="" loading="lazy"></div><img class="hx-phone-bezel" src="assets/skilling/ui/home-bezel.webp" alt="" width="900" height="1852"></div>
+    </div></figure>
+</div>
+</section>
+
+
+<footer class="foot meta">
+  <div>Lab · not linked from the site</div>
+  <div class="right"><a href="/hyperswitch-sdk">Back to the case study</a></div>
+</footer>
+</main>
+</div>
+
+<script>
+/* Reveal on scroll, as on the other case studies */
+(function () {
+  var items = document.querySelectorAll('.reveal');
+  if (!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) { items.forEach(function (el) { el.classList.add('is-visible'); }); return; }
+  var obs = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('is-visible'); obs.unobserve(e.target); } }); }, { threshold: 0.08 });
+  items.forEach(function (el) { obs.observe(el); });
+  setTimeout(function () { items.forEach(function (el) { el.classList.add('is-visible'); }); }, 2500);
+})();
+</script>
+<script src="assets/v3.js?v=54"></script>
+</body>
+</html>

@@ -380,6 +380,21 @@
   }
   stackLayout();
   spy();
+  // Arriving with a section in the address (/#work from a case study's "All work"): the stacked
+  // sections move the browser's own jump off target, so go there once the layout has settled
+  function goHash() {
+    var id = location.hash.slice(1);
+    if (!id || !document.getElementById(id)) return;
+    var i = stack.map(function (s) { return s.getAttribute('data-stack'); }).indexOf(id);
+    if (stackMode && i >= 0) { window.scrollTo({ top: stageStart() + starts[i], behavior: 'instant' }); stackUpdate(); }
+    else document.getElementById(id).scrollIntoView({ behavior: 'instant', block: 'start' });
+    if (links[id]) setActive(id);   // the nav marks the section we landed on, quietly
+  }
+  if (location.hash.length > 1) {
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+    window.addEventListener('load', function () { requestAnimationFrame(goHash); setTimeout(goHash, 400); });
+  }
+  window.addEventListener('hashchange', goHash);
 })();
 
 /* Home cover: the ambient sound of whichever time of day is showing.

@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="white" data-inside="project">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Akhil Male — Hyperswitch Checkout</title>
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Akhil Male — Hyperswitch Checkout">
+<meta property="og:description" content="An end-to-end redesign of Hyperswitch Checkout: the checkout merchants drop into their store, on desktop and mobile.">
+<meta property="og:url" content="https://akhilmale.in/hyperswitch-sdk">
+<meta property="og:image" content="https://akhilmale.in/assets/og-image.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Akhil Male — Hyperswitch Checkout">
+<meta name="twitter:description" content="An end-to-end redesign of Hyperswitch Checkout: the checkout merchants drop into their store, on desktop and mobile.">
+<meta name="twitter:image" content="https://akhilmale.in/assets/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles-v3.css?v=116">
+<script>
+  // Time of day before first paint: the visitor's pick, or Auto from their clock
+  // (Light 6 am-7 pm, Dark 7 pm-6 am). Internally day is the white theme, night the dark one.
+  (function () {
+    var r = document.documentElement, c = null, h = new Date().getHours();
+    try { c = localStorage.getItem('v3-time'); } catch (e) {}
+    if (['day', 'night'].indexOf(c) < 0) c = 'auto';
+    var m = c !== 'auto' ? c : h >= 6 && h < 19 ? 'day' : 'night';
+    r.dataset.timeChoice = c; r.dataset.mood = m;
+    r.dataset.theme = { day: 'white', night: 'dark' }[m];
+  })();
+</script>
+<script type="text/javascript">
+  (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+  })(window, document, "clarity", "script", "ykaez3m42c");
+</script>
+<style>
+/* Hyperswitch SDK: a light, mostly-UI case study on the Revenue Recovery template.
+   Base rules first; cs-article.css and cs-v3.css then set the v3 look. */
+@keyframes csFadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+.cs-hero { position: relative; }
+.cs-hero-title { margin: 0; opacity: 0; animation: csFadeUp .9s ease forwards .35s; }
+.cs-hero-title em { font-style: normal; }
+.cs-label { display: flex; align-items: center; }
+.reveal { opacity: 0; transform: translateY(26px); transition: opacity .7s ease, transform .7s ease; }
+.reveal.is-visible { opacity: 1; transform: none; }
+
+/* Screens on a grey stage, as on Revenue Recovery */
+.rr-show { display: grid; gap: 20px; }
+.v3-cs .cs-wrap.rr-show { margin-top: 56px; }
+.rr-stage {
+  display: flex; align-items: center; justify-content: center; margin: 0;
+  padding: clamp(28px, 7.5%, 80px); border-radius: 16px;
+  background: var(--stage); border: 1px solid var(--line);
+}
+.rr-stage img {
+  display: block; width: 100%; height: auto; border-radius: 10px;
+  box-shadow: 0 0 0 1px var(--line), 0 0 32px rgb(var(--sh-rgb) / calc(.22 * var(--sh-k)));
+}
+.rr-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.rr-pair .rr-stage { padding: clamp(24px, 9%, 56px); }
+
+/* Web and mobile together: the phone steps over the browser's bottom-right corner */
+.hs-duo { position: relative; width: 100%; padding: 0 6% 4% 0; }
+.hs-duo .hs-phone { position: absolute; right: 0; bottom: 0; width: 23%; }
+
+/* Web screen: cropped to one browser shape so every pair has the same footprint, however
+   tall the screenshot; a soft fade where the crop cuts the page */
+.hs-web { position: relative; aspect-ratio: 2000 / 1400; overflow: hidden; border-radius: 10px; background: #fff;
+  box-shadow: 0 0 0 1px var(--line), 0 24px 60px rgb(var(--sh-rgb) / calc(.35 * var(--sh-k))); }
+.hs-web::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 22%;
+  background: linear-gradient(to bottom, rgb(255 255 255 / 0), #fff); pointer-events: none; }
+
+/* Phone: Up-skill's bezel, with the screen set inside its cut-out */
+.hs-phone { position: relative; aspect-ratio: 900 / 1852; isolation: isolate; }
+.hs-phone::before { content: ''; position: absolute; inset: 1.5% 2.5%; z-index: -1; border-radius: 13% / 6.3%;
+  box-shadow: 0 28px 56px rgb(var(--sh-rgb) / calc(.55 * var(--sh-k))); }
+.hs-phone-screen { position: absolute; left: 4.735%; top: 1.905%; width: 90.694%; height: 96.27%;
+  border-radius: 10.62% / 4.864%; overflow: hidden; background: #fff; }
+.hs-phone-screen img { object-fit: cover; object-position: top; height: 100%; }
+.hs-phone-bezel { position: absolute; inset: 0; height: 100%; pointer-events: none; }
+/* the stage's screen frame (radius, hairline, shadow) is for plain screens, not these */
+.rr-stage .hs-web img, .rr-stage .hs-phone img { border-radius: 0; box-shadow: none; }
+
+/* Two phones side by side, for the express checkout options */
+.hs-phones { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(20px, 6vw, 72px); align-items: start; width: min(100%, 520px); }
+
+/* A short caption over each screen: number, name, one line */
+.hs-cap { display: grid; grid-template-columns: auto 1fr; column-gap: 14px; margin: 64px 0 -8px; }  /* the grid's 20px gap is added to these: ~12px from title to screen, ~84px between blocks */
+.hs-cap:first-child { margin-top: 0; }
+.hs-cap-n { font: 400 12px/1.9 var(--mono); color: var(--text-soft); }
+.hs-cap-t { margin: 0; font: 500 16px/1.5 var(--sans, inherit); color: var(--text); }
+.hs-cap-d { grid-column: 2; margin: 2px 0 0; font-size: 14px; line-height: 1.55; color: var(--text-soft); }
+.v3-cs .cs-hero--article + .cs-section.hs-intro { margin-top: 64px; }
+.hs-slides { position: relative; width: 100%; aspect-ratio: 2000 / 1417; border-radius: 10px; overflow: hidden; background: #fff; box-shadow: 0 0 0 1px var(--line), 0 24px 60px rgb(var(--sh-rgb) / calc(.35 * var(--sh-k))); }
+.hs-slide { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .7s ease; }
+.hs-slides--old { aspect-ratio: 2000 / 1511; }
+.hs-slide.is-on { opacity: 1; }
+.hs-show-cap { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: -4px; }
+.hs-show-t { font: 500 16px/1.5 var(--sans, inherit); color: var(--text); }
+.hs-ticks { display: flex; gap: 6px; }
+.hs-tick { width: 22px; height: 12px; padding: 0; border: 0; background: none; cursor: pointer; position: relative; }
+.hs-tick::after { content: ''; position: absolute; left: 0; right: 0; top: 5px; height: 2px; border-radius: 2px; background: var(--line-strong); transition: background .3s ease; }
+.hs-tick.is-on::after { background: var(--text); }
+.hs-phones figcaption { margin-top: 12px; text-align: center; font: 400 12px/1.5 var(--mono); color: var(--text-soft); }
+.hs-phones figure { margin: 0; }
+
+/* Placeholders: a dashed box with a mono note, until the real screen goes in */
+.hs-ph {
+  display: flex; align-items: center; justify-content: center; text-align: center; width: 100%;
+  padding: 16px; border: 1px dashed var(--line-strong); border-radius: 10px;
+  font: 400 12px/1.5 var(--mono); color: var(--text-soft);
+}
+.hs-ph--wide { aspect-ratio: 2000 / 1417; }
+.hs-web .hs-ph, .hs-phone-screen .hs-ph { height: 100%; border: 0; border-radius: 0; background: var(--stage); }
+.hs-web:has(.hs-ph)::after { content: none; }
+
+@media (max-width: 700px) {
+  .rr-pair { grid-template-columns: 1fr; }
+  .rr-stage { padding: 20px; border-radius: 12px; }
+  .hs-duo .hs-phone { width: 30%; }
+  .hs-phones { gap: 14px; }
+  .hs-ph { font-size: 11px; padding: 8px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cs-hero-title { opacity: 1; animation: none; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+}
+</style>
+<link rel="stylesheet" href="assets/cs-article.css">
+<link rel="stylesheet" href="assets/cs-v3.css?v=200">
+<style>
+/* This project's colour, per theme: the checkout's Pay button blue */
+:root { --accent: #1f6fe5; --acc-rgb: 31 111 229; --proj: #1f6fe5; --proj-rgb: 31 111 229; }
+:root[data-theme="paper"] { --accent: #1a5fc8; --acc-rgb: 26 95 200; --proj: #1a5fc8; --proj-rgb: 26 95 200; }
+:root[data-theme="dark"] { --accent: #78a9ff; --acc-rgb: 120 169 255; --proj: #78a9ff; --proj-rgb: 120 169 255; }
+</style>
+  <script src="/assets/visits.js" defer></script>
+</head>
+<body>
+
+<div class="v3 v3-cs">
+
+  <main class="v3-main" id="top">
+
+    <header class="topbar">
+      <a class="tb-back" href="/#work"><span aria-hidden="true">←</span> Back</a>
+    </header>
+
+<header class="cs-hero cs-hero--article">
+  <div class="cs-wrap">
+    <h1 class="cs-hero-title">Hyperswitch <em>Checkout</em></h1>
+    <ul class="cs-hero-facts" aria-label="Project facts">
+      <li>Solo Product Designer</li>
+      <li>Juspay Hyperswitch</li>
+      <li>End-to-end revamp</li>
+    </ul>
+  </div>
+  <figure class="cs-wrap cs-wrap--showcase cs-cover">
+    <div class="rr-stage">
+      <div class="hs-duo">
+        <div class="hs-web"><img src="assets/hyperswitch/method-default-web.webp" width="2000" height="1417" alt="The redesigned checkout on the web: express checkout with Apple Pay, PayPal and Google Pay, payment methods in a list, and the order summary on the right" fetchpriority="high"></div>
+        <div class="hs-phone"><div class="hs-phone-screen"><img src="assets/hyperswitch/method-default-mobile.webp" width="780" height="1688" alt="The same checkout on a phone: express checkout on top, saved payments and more payment options below" fetchpriority="high"></div><img class="hs-phone-bezel" src="assets/skilling/ui/home-bezel.webp" alt="" width="900" height="1852" loading="lazy"></div>
+      </div>
+    </div>
+  </figure>
+</header>
+
+<section class="cs-section hs-intro">
+<div class="cs-wrap">
+  <p class="cs-p reveal">Led the <strong>end-to-end redesign of the Hyperswitch Checkout</strong> as the sole designer, rethinking how payment methods are organised, presented and customised across web and mobile. Focused on creating a more consistent, flexible checkout experience for merchants and their customers.</p>
+</div>
+</section>
+
+<section class="cs-section">
+<div class="cs-wrap">
+  <div class="cs-label reveal">Product context</div>
+  <h2 class="cs-display reveal">What is the Hyperswitch Checkout?</h2>
+  <p class="cs-p reveal">Hyperswitch Checkout is an embeddable checkout experience that merchants integrate into their websites and apps. It brings multiple payment methods, including cards, wallets, Buy Now Pay Later and gift cards, together in one place, allowing customers to choose how they pay.</p>
+  <p class="cs-p reveal">As checkout expectations evolved, the existing experience began to fall behind in terms of usability, consistency and merchant customisation. The challenge was to rethink how payment methods were grouped and presented, create a <strong>cohesive experience across web and mobile</strong>, and offer merchants flexibility without making the experience inconsistent or overwhelming.</p>
+</div>
+
+</section>
+
+<section class="cs-section">
+<div class="cs-wrap cs-wrap--wide rr-show" aria-label="The old checkout, shown one after another">
+  <div class="hs-cap reveal"><span class="hs-cap-n">Before</span><h3 class="hs-cap-t">The previous checkout</h3></div>
+  <figure class="rr-stage reveal hs-show">
+    <div class="hs-duo">
+    <div class="hs-slides hs-slides--old">
+        <img class="hs-slide is-on" src="assets/hyperswitch/old-tabs.webp" width="2000" height="1511" alt="The old checkout: Google Pay and PayPal on top, payment methods as tabs, then the card form and Pay button" data-title="Payment method tabs">
+        <img class="hs-slide" src="assets/hyperswitch/old-saved.webp" width="2000" height="1511" alt="The old checkout showing a long list of saved cards, each with its expiry date" data-title="Saved cards list" loading="lazy">
+      </div>
+      <div class="hs-phone"><div class="hs-phone-screen"><img src="assets/hyperswitch/old-mobile.webp" width="780" height="1704" alt="The old checkout on a phone: Apple Pay and PayPal on top, payment methods as tabs, then the card form and Pay button" loading="lazy"></div><img class="hs-phone-bezel" src="assets/skilling/ui/home-bezel.webp" alt="" width="900" height="1852" loading="lazy"></div>
+    </div>
+  </figure>
+  <div class="hs-show-cap"><span class="hs-show-t">Payment method tabs</span><div class="hs-ticks" aria-label="Old designs"><button class="hs-tick is-on" aria-label="Payment method tabs"></button><button class="hs-tick" aria-label="Saved cards list"></button></div></div>
+</div>
+</section>
+
+<section class="cs-section">
+<div class="cs-wrap">
+  <h2 class="cs-display reveal">New checkout experience</h2>
+  <p class="cs-p reveal">Most merchants enable only a few payment methods, but the checkout needs to accommodate many more. The redesign makes <strong>commonly used options easy to find</strong> while keeping the experience clear and organised as payment choices grow, across both web and mobile.</p>
+</div>
+
+<div class="cs-wrap cs-wrap--wide rr-show" aria-label="Five payment methods, web and mobile">
+  <div class="hs-cap reveal"><h3 class="hs-cap-t">Saved payments</h3></div>
+  <figure class="rr-stage reveal">
+    <div class="hs-duo">
+      <div class="hs-web"><img src="assets/hyperswitch/method-saved-web.webp" width="2000" height="2253" alt="Saved payments open on the web: two saved cards, Apple Pay, a PayPal account and Interac" loading="lazy"></div>
+      <div class="hs-phone"><div class="hs-phone-screen"><img src="assets/hyperswitch/method-saved-mobile.webp" width="780" height="1688" alt="Saved payments on a phone" loading="lazy"></div><img class="hs-phone-bezel" src="assets/skilling/ui/home-bezel.webp" alt="" width="900" height="1852" loading="lazy"></div>
+    </div>
+  </figure>
+
+  <div class="hs-cap reveal"><h3 class="hs-cap-t">Add new card</h3></div>
+  <figure class="rr-stage reveal">
+    <div class="hs-duo">
+      <div class="hs-web"><img src="assets/hyperswitch/method-card-web.webp" width="2000" height="2006" alt="Adding a new card on the web: card number, expiry and CVC, name on the card, and save this card" loading="lazy"></div>
+      <div class="hs-phone"><div class="hs-phone-screen"><img src="assets/hyperswitch/method-card-mobile.webp" width="780" height="1688" alt="Adding a new card on a phone, in a sheet over the checkout" loading="lazy"></div><img class="hs-phone-bezel" src="assets/skilling/ui/home-bezel.webp" alt="" width="900" height="1852" loading="lazy"></div>
+    </div>
+  </figure>
+
+  <div class="hs-cap reveal"><h3 class="hs-cap-t">Bank transfer (ACH)</h3></div>
+  <figure class="rr-stage reveal">
+    <div class="hs-duo">
+      <div class="hs-web"><img src="assets/hyperswitch/method-bank-debit-web.webp" width="2000" height="3575" alt="ACH bank transfer on the web: the bank name, account, routing and Swift details, and a warning to note them down" loading="lazy"></div>
+      <div class="hs-phone"><div class="hs-phone-screen"><img src="assets/hyperswitch/method-bank-debit-mobile.webp" width="780" height="1688" alt="ACH bank transfer on a phone, in a sheet over the checkout" loading="lazy"></div><img class="hs-phone-bezel" src="assets/skilling/ui/home-bezel.webp" alt="" width="900" height="1852" loading="lazy"></div>
+    </div>
+  </figure>
+  <div class="hs-cap reveal"><h3 class="hs-cap-t">Wallets</h3></div>
+  <figure class="rr-stage reveal">
+    <div class="hs-duo">
+      <div class="hs-web"><img src="assets/hyperswitch/method-wallets-web.webp" width="2000" height="2153" alt="Wallets on the web: a note about the secure redirect, the surcharge, and Apple Pay, PayPal and Interac to choose from" loading="lazy"></div>
+      <div class="hs-phone"><div class="hs-phone-screen"><img src="assets/hyperswitch/method-wallets-mobile.webp" width="780" height="1688" alt="Wallets on a phone, in a sheet over the checkout" loading="lazy"></div><img class="hs-phone-bezel" src="assets/skilling/ui/home-bezel.webp" alt="" width="900" height="1852" loading="lazy"></div>
+    </div>
+  </figure>
+
+  <div class="hs-cap reveal"><h3 class="hs-cap-t">Gift cards</h3></div>
+  <figure class="rr-stage reveal">
+    <div class="hs-duo">
+      <div class="hs-web"><img src="assets/hyperswitch/method-gift-cards-web.webp" width="2000" height="1417" alt="Gift card open on the web: $200 applied, $209 remaining to pay, a redeemed Givex gift card, and a form to add another" loading="lazy"></div>
+      <div class="hs-phone"><div class="hs-phone-screen"><img src="assets/hyperswitch/method-gift-cards-mobile.webp" width="780" height="1688" alt="Gift card on a phone: a redeemed card, an add another gift card link, and a banner showing the remaining amount" loading="lazy"></div><img class="hs-phone-bezel" src="assets/skilling/ui/home-bezel.webp" alt="" width="900" height="1852" loading="lazy"></div>
+    </div>
+  </figure>
+
+</div>
+</section>
+
+<section class="cs-section">
+<div class="cs-wrap">
+  <h2 class="cs-display reveal">Flexibility, without over-customisation</h2>
+  <p class="cs-p reveal">The goal was to give merchants a few meaningful customisation options without making the checkout complex. From payment button placement to order summary layouts, each option stays <strong>within defined design boundaries</strong>. This keeps the checkout clean and consistent across merchants, while giving them the flexibility they actually need.</p>
+</div>
+
+<div class="cs-wrap cs-wrap--wide rr-show" aria-label="Payment page layouts, shown one after another">
+  <figure class="rr-stage reveal hs-show">
+    <div class="hs-slides">
+      <img class="hs-slide is-on" src="assets/hyperswitch/slide-default.webp" width="2000" height="1417" alt="The default payment page: payment methods with the order summary beside them" data-title="Default">
+      <img class="hs-slide" src="assets/hyperswitch/slide-ratio.webp" width="2000" height="1417" alt="The payment page with a 60:40 split between payment methods and the order summary" data-title="60:40 ratio" loading="lazy">
+      <img class="hs-slide" src="assets/hyperswitch/slide-full.webp" width="2000" height="1417" alt="The full payment page: payment methods in a list on the left and the chosen one beside it, with no order summary" data-title="Full payment page" loading="lazy">
+      <img class="hs-slide" src="assets/hyperswitch/slide-merchant.webp" width="2000" height="1417" alt="The payment page with the Pay button placed under the merchant's order summary" data-title="Pay button with the merchant" loading="lazy">
+    </div>
+  </figure>
+  <div class="hs-show-cap"><span class="hs-show-t">Default</span><div class="hs-ticks" role="tablist" aria-label="Layouts"><button class="hs-tick is-on" aria-label="Default"></button><button class="hs-tick" aria-label="60:40 ratio"></button><button class="hs-tick" aria-label="Full payment page"></button><button class="hs-tick" aria-label="Pay button with the merchant"></button></div></div>
+</div>
+</section>
+
+<section class="cs-section">
+<div class="cs-wrap">
+  <h2 class="cs-display reveal">Express checkout, designed for mobile</h2>
+  <p class="cs-p reveal">On mobile, express payment options can appear in two layouts: two prominent, full-width buttons or three compact buttons in a row. Both keep the <strong>most used payment methods easy to access</strong> while making efficient use of limited screen space.</p>
+</div>
+
+<div class="cs-wrap cs-wrap--wide rr-show" aria-label="Express checkout options on mobile">
+  <div class="rr-stage reveal">
+    <div class="hs-phones">
+      <figure><div class="hs-phone"><div class="hs-phone-screen"><img src="assets/hyperswitch/mobile-express-2.webp" width="780" height="1688" alt="Mobile checkout with two express buttons, Apple Pay and PayPal" loading="lazy"></div><img class="hs-phone-bezel" src="assets/skilling/ui/home-bezel.webp" alt="" width="900" height="1852" loading="lazy"></div></figure>
+      <figure><div class="hs-phone"><div class="hs-phone-screen"><img src="assets/hyperswitch/mobile-express-3.webp" width="780" height="1688" alt="Mobile checkout with three express buttons, Apple Pay, Google Pay and PayPal" loading="lazy"></div><img class="hs-phone-bezel" src="assets/skilling/ui/home-bezel.webp" alt="" width="900" height="1852" loading="lazy"></div></figure>
+    </div>
+  </div>
+</div>
+</section>
+
+<section class="cs-section">
+<div class="cs-wrap">
+  <div class="cs-label reveal">Where we landed</div>
+  <p class="cs-p reveal">A more <strong>consistent, scalable and intuitive checkout</strong>, bringing web and mobile together under one experience. It makes frequently used payment methods easier to access while accommodating a wider range of payment options without adding complexity.</p>
+</div>
+</section>
+
+<section class="cs-section">
+<div class="cs-wrap">
+  <nav class="cs-next reveal" aria-label="Next case study">
+    <a class="cs-next-row" href="/work-skilling"><span class="cs-next-lbl">Next case study</span><span class="cs-next-name">Up-skill</span><span class="cs-next-desc">Crafted an engaging learning experience for frontline workers with low digital literacy, making upskilling more guided, relevant, and engaging.</span><span class="cs-next-go" aria-hidden="true">&rarr;</span></a>
+    <a class="cs-cta cs-next-all" href="/#work"><span class="arr">&larr;</span> All work</a>
+  </nav>
+</div>
+</section>
+
+<footer class="foot meta">
+  <div>© 2026 Akhil Male</div>
+  <div class="right"><a href="#">Back to top ↑</a></div>
+</footer>
+  </main>
+</div>
+
+<script>
+/* Reveal on scroll, as on the other case studies */
+(function () {
+  var items = document.querySelectorAll('.reveal');
+  if (!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) { items.forEach(function (el) { el.classList.add('is-visible'); }); return; }
+  var obs = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('is-visible'); obs.unobserve(e.target); } }); }, { threshold: 0.08 });
+  items.forEach(function (el) { obs.observe(el); });
+  setTimeout(function () { items.forEach(function (el) { el.classList.add('is-visible'); }); }, 2500);
+})();
+</script>
+<script>
+/* Slideshows: advance by themselves, pause on hover, lines jump to a slide */
+document.querySelectorAll('.rr-show').forEach(function (wrap) {
+  var box = wrap.querySelector('.hs-slides'); if (!box) return;
+  var slides = box.querySelectorAll('.hs-slide'), ticks = wrap.querySelectorAll('.hs-tick'), t = wrap.querySelector('.hs-show-t'), i = 0, hold = false;
+  function go(k) { slides[i].classList.remove('is-on'); ticks[i].classList.remove('is-on'); i = k % slides.length; slides[i].classList.add('is-on'); ticks[i].classList.add('is-on'); t.textContent = slides[i].dataset.title; }
+  ticks.forEach(function (b, k) { b.addEventListener('click', function () { go(k); }); });
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  wrap.addEventListener('mouseenter', function () { hold = true; });
+  wrap.addEventListener('mouseleave', function () { hold = false; });
+  setInterval(function () { if (!hold && !document.hidden) go(i + 1); }, 3500);
+});
+</script>
+<script src="assets/v3.js?v=54"></script>
+</body>
+</html>
