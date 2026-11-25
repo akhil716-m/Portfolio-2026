@@ -98,6 +98,8 @@
 .hs-cap-d { grid-column: 2; margin: 2px 0 0; font-size: 14px; line-height: 1.55; color: var(--text-soft); }
 .hs-slides { position: relative; width: 100%; aspect-ratio: 2000 / 1417; border-radius: 10px; overflow: hidden; background: #fff; box-shadow: 0 0 0 1px var(--line), 0 24px 60px rgb(var(--sh-rgb) / calc(.35 * var(--sh-k))); }
 .hs-slide { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .7s ease; }
+.hs-slides--old { aspect-ratio: 4488 / 3452; background: none; box-shadow: none; overflow: visible; }
+.hs-slides--old .hs-slide { object-fit: contain; object-position: top; }
 .hs-slide.is-on { opacity: 1; }
 .hs-show-cap { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: -4px; }
 .hs-show-t { font: 500 16px/1.5 var(--sans, inherit); color: var(--text); }
@@ -193,13 +195,16 @@
   <p class="cs-p reveal">The experience was <strong>inconsistent between mobile and web</strong>. On top of that, unnecessary asks kept finding their way into the SDK, and each one weakened the overall experience. The new version keeps both in check.</p>
 </div>
 
-<div class="cs-wrap cs-wrap--wide rr-show" aria-label="The old checkout">
-  <figure class="rr-stage reveal">
-    <div class="hs-duo">
-      <div class="hs-web"><div class="hs-ph">Placeholder: old checkout, web</div></div>
-      <div class="hs-phone"><div class="hs-phone-screen"><div class="hs-ph">Placeholder: old checkout, mobile</div></div><img class="hs-phone-bezel" src="assets/skilling/ui/home-bezel.webp" alt="" width="900" height="1852" loading="lazy"></div>
+<div class="cs-wrap cs-wrap--wide rr-show" aria-label="The old checkout, shown one after another">
+  <figure class="rr-stage reveal hs-show">
+    <div class="hs-slides hs-slides--old">
+      <img class="hs-slide is-on" src="assets/hyperswitch/old-01.webp" width="2000" height="1421" alt="The old checkout: Google Pay and PayPal on top, then a card form with Klarna, Affirm and After Pay listed below" data-title="Card form and express buttons">
+      <img class="hs-slide" src="assets/hyperswitch/old-02.webp" width="2000" height="1496" alt="The old checkout with payment methods as tabs: Card, Klarna and a menu for more, above the card form and Pay button" data-title="Payment method tabs" loading="lazy">
+      <img class="hs-slide" src="assets/hyperswitch/old-03.webp" width="2000" height="1539" alt="The old checkout showing a long list of saved cards, each with its expiry date" data-title="Saved cards list" loading="lazy">
+      <img class="hs-slide" src="assets/hyperswitch/old-04.webp" width="2000" height="1539" alt="The old checkout showing the end of the saved list, then Google Pay, PayPal, a new payment methods link and the Pay button" data-title="Saved cards and wallets" loading="lazy">
     </div>
   </figure>
+  <div class="hs-show-cap"><span class="hs-show-t">Card form and express buttons</span><div class="hs-ticks" aria-label="Old designs"><button class="hs-tick is-on" aria-label="Card form and express buttons"></button><button class="hs-tick" aria-label="Payment method tabs"></button><button class="hs-tick" aria-label="Saved cards list"></button><button class="hs-tick" aria-label="Saved cards and wallets"></button></div></div>
 </div>
 </section>
 
@@ -324,18 +329,17 @@
 })();
 </script>
 <script>
-/* Payment page slideshow: advances by itself, pauses on hover */
-(function () {
-  var box = document.querySelector('.hs-slides'); if (!box) return;
-  var slides = box.querySelectorAll('.hs-slide'), ticks = document.querySelectorAll('.hs-tick'), t = document.querySelector('.hs-show-t'), i = 0, hold = false;
+/* Slideshows: advance by themselves, pause on hover, lines jump to a slide */
+document.querySelectorAll('.rr-show').forEach(function (wrap) {
+  var box = wrap.querySelector('.hs-slides'); if (!box) return;
+  var slides = box.querySelectorAll('.hs-slide'), ticks = wrap.querySelectorAll('.hs-tick'), t = wrap.querySelector('.hs-show-t'), i = 0, hold = false;
   function go(k) { slides[i].classList.remove('is-on'); ticks[i].classList.remove('is-on'); i = k % slides.length; slides[i].classList.add('is-on'); ticks[i].classList.add('is-on'); t.textContent = slides[i].dataset.title; }
   ticks.forEach(function (b, k) { b.addEventListener('click', function () { go(k); }); });
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  var wrap = box.closest('.rr-show');
   wrap.addEventListener('mouseenter', function () { hold = true; });
   wrap.addEventListener('mouseleave', function () { hold = false; });
   setInterval(function () { if (!hold && !document.hidden) go(i + 1); }, 3500);
-})();
+});
 </script>
 <script src="assets/v3.js?v=52"></script>
 </body>
