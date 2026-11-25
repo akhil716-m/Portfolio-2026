@@ -307,6 +307,9 @@
   function stackLayout(keep) {
     if (!stage || !stack.length) return;
     var root = document.documentElement;
+    // clearing the height to re-measure makes the page briefly too short to scroll, so the browser
+    // snaps back to the top (landing on /#work, then the fonts load): put the reader back after
+    var keepY = window.scrollY;
     root.classList.add('stack-on');
     mainEl.style.height = '';
     if (!matchMedia('(min-width: 961px)').matches) {
@@ -331,6 +334,7 @@
     stage.style.position = '';
     var last = stack.length - 1;
     mainEl.style.height = Math.round(stageOffset + stage.offsetHeight + starts[last] + extra[last]) + 'px';
+    if (window.scrollY !== keepY) window.scrollTo({ top: keepY, behavior: 'instant' });
     stackMode = true;
     if (keep !== true) shown = -1;
     stackUpdate();

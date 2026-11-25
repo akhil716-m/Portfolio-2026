@@ -600,7 +600,9 @@ button:active, .row:active, .nav-list a:active, .sec-head a:active { scale: .98;
   .stack-on { --cover-h: clamp(72px, 7vw, 96px); }
   .stack-on .cover { position: sticky; top: 0; z-index: 4; }
   .stack-on .v3-nav { top: var(--cover-h); height: calc(100vh - var(--cover-h)); }
-  .stack-on .stack-stage { position: sticky; top: var(--cover-h); height: calc(100vh - var(--cover-h)); overflow: hidden;
+  /* clip, not just hidden: a hidden box can still be scrolled by the browser's own jump to /#work,
+     which slid the section up under the fade and cut off its heading */
+  .stack-on .stack-stage { position: sticky; top: var(--cover-h); height: calc(100vh - var(--cover-h)); overflow: hidden; overflow: clip;
     margin: 0 -32px;   /* 32px of room each side, so marks that hang in the margin (the live dot) aren't cut */
     /* a tall section sliding up fades out before it reaches the name and status */
     -webkit-mask-image: linear-gradient(transparent calc(var(--nav-top, 0px) - 40px), #000 calc(var(--nav-top, 0px) - 8px));

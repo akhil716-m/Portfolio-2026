@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="white" data-inside="project">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Akhil Male — UPI Orders Management</title>
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Akhil Male — UPI Orders Management">
+<meta property="og:description" content="A 0→1 operations dashboard for Juspay's UPI services, where merchants and banks track orders, refunds, mandates and disputes in one place.">
+<meta property="og:url" content="https://akhilmale.in/upi-dashboard">
+<meta property="og:image" content="https://akhilmale.in/assets/og-image.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Akhil Male — UPI Orders Management">
+<meta name="twitter:description" content="A 0→1 operations dashboard for Juspay's UPI services, where merchants and banks track orders, refunds, mandates and disputes in one place.">
+<meta name="twitter:image" content="https://akhilmale.in/assets/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles-v3.css?v=116">
+<script>
+  // Time of day before first paint: the visitor's pick, or Auto from their clock
+  // (Light 6 am-7 pm, Dark 7 pm-6 am). Internally day is the white theme, night the dark one.
+  (function () {
+    var r = document.documentElement, c = null, h = new Date().getHours();
+    try { c = localStorage.getItem('v3-time'); } catch (e) {}
+    if (['day', 'night'].indexOf(c) < 0) c = 'auto';
+    var m = c !== 'auto' ? c : h >= 6 && h < 19 ? 'day' : 'night';
+    r.dataset.timeChoice = c; r.dataset.mood = m;
+    r.dataset.theme = { day: 'white', night: 'dark' }[m];
+  })();
+</script>
+<script type="text/javascript">
+  (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+  })(window, document, "clarity", "script", "ykaez3m42c");
+</script>
+<style>
+/* UPI Dashboard: a light, mostly-UI case study on the Hyperswitch SDK template.
+   Base rules first; cs-article.css and cs-v3.css then set the v3 look. */
+@keyframes csFadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+.cs-hero { position: relative; }
+.cs-hero-title { margin: 0; opacity: 0; animation: csFadeUp .9s ease forwards .35s; }
+.cs-hero-title em { font-style: normal; }
+.cs-label { display: flex; align-items: center; }
+.reveal { opacity: 0; transform: translateY(26px); transition: opacity .7s ease, transform .7s ease; }
+.reveal.is-visible { opacity: 1; transform: none; }
+
+/* Screens on a grey stage, as on Revenue Recovery and Hyperswitch SDK */
+.rr-show { display: grid; gap: 20px; }
+.v3-cs .cs-wrap.rr-show { margin-top: 56px; }
+.rr-stage {
+  display: flex; align-items: center; justify-content: center; margin: 0;
+  padding: clamp(28px, 7.5%, 80px); border-radius: 16px;
+  background: var(--stage); border: 1px solid var(--line);
+}
+
+/* A dashboard screen: the whole browser window, never cropped */
+.up-web { position: relative; width: 100%; aspect-ratio: 2800 / 1689; overflow: hidden; border-radius: 10px; background: #fff;
+  box-shadow: 0 0 0 1px var(--line), 0 24px 60px rgb(var(--sh-rgb) / calc(.35 * var(--sh-k))); }
+.up-web img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top left; }
+
+.up-receipt img { display: block; width: 100%; height: auto; filter: drop-shadow(0 22px 40px rgb(var(--sh-rgb) / calc(.45 * var(--sh-k)))); }
+/* in the row of four the cards sit side by side, so a tight lift instead of the cover's deep shadow */
+.up-receipts .up-receipt img { filter: drop-shadow(0 1px 2px rgb(var(--sh-rgb) / calc(.10 * var(--sh-k)))) drop-shadow(0 8px 16px rgb(var(--sh-rgb) / calc(.12 * var(--sh-k)))); }
+
+/* The summary cards side by side */
+.up-receipts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(40px, 6vw, 72px) clamp(16px, 3.4vw, 40px); align-items: center; width: 100%; }
+.up-receipts figure { margin: 0; }
+
+
+/* A short caption over each screen: number and name */
+.hs-cap { display: grid; margin: 64px 0 -8px; }  /* the grid's 20px gap is added to these: ~12px from title to screen, ~84px between blocks */
+.hs-cap:first-child { margin-top: 0; }
+/* modules that follow each other sit the same distance apart as the ones inside a group (64px margin + 20px gap) */
+.v3-cs .cs-section.up-flow { margin-top: 84px; }
+/* the contribution is the opening line under the hero, so it sits close to it */
+.v3-cs .cs-hero--article + .cs-section.up-intro { margin-top: 64px; }
+.hs-cap-t { margin: 0; font-size: 16px; font-weight: 500; line-height: 1.5; color: var(--text); }
+
+/* More modules, shown one after another */
+.hs-slides { position: relative; width: 100%; aspect-ratio: 2800 / 1689; border-radius: 10px; overflow: hidden; background: #fff; box-shadow: 0 0 0 1px var(--line), 0 24px 60px rgb(var(--sh-rgb) / calc(.35 * var(--sh-k))); }
+.hs-slide { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top left; opacity: 0; transition: opacity .7s ease; }
+.hs-slide.is-on { opacity: 1; }
+.hs-show-cap { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: -4px; }
+.hs-show-t { font-size: 14px; font-weight: 400; line-height: 1.5; color: var(--text-soft); }
+.hs-ticks { display: flex; gap: 6px; }
+.hs-tick { width: 30px; height: 12px; padding: 0; border: 0; background: none; cursor: pointer; position: relative; }
+.hs-tick::after { content: ''; position: absolute; left: 0; right: 0; top: 5px; height: 2px; border-radius: 2px; background: var(--line-strong); transition: background .3s ease; }
+.hs-tick::before { content: ''; position: absolute; left: 0; top: 5px; width: 100%; height: 2px; border-radius: 2px; background: var(--text); transform: scaleX(0); transform-origin: left; z-index: 1; }
+/* the active line fills over the time the slide stays, so the bar shows what is left */
+.hs-tick.is-on::before { animation: hsFill var(--dur, 3.5s) linear forwards; }
+.hs-show-cap.is-held .hs-tick.is-on::before { animation-play-state: paused; }
+@keyframes hsFill { to { transform: scaleX(1); } }
+
+@media (max-width: 700px) {
+  .rr-stage { padding: 20px; border-radius: 12px; }
+  .up-receipts { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px 14px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hs-tick.is-on::before { animation: none; transform: none; }
+  .cs-hero-title { opacity: 1; animation: none; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+}
+</style>
+<link rel="stylesheet" href="assets/cs-article.css">
+<link rel="stylesheet" href="assets/cs-v3.css?v=200">
+<style>
+/* This project's colour, per theme: the dashboard's primary button blue */
+:root { --accent: #1a6cf0; --acc-rgb: 26 108 240; --proj: #1a6cf0; --proj-rgb: 26 108 240; }
+:root[data-theme="paper"] { --accent: #155ccc; --acc-rgb: 21 92 204; --proj: #155ccc; --proj-rgb: 21 92 204; }
+:root[data-theme="dark"] { --accent: #7aaaff; --acc-rgb: 122 170 255; --proj: #7aaaff; --proj-rgb: 122 170 255; }
+</style>
+  <script src="/assets/visits.js" defer></script>
+</head>
+<body>
+
+<div class="v3 v3-cs">
+
+  <main class="v3-main" id="top">
+
+    <header class="topbar">
+      <a class="tb-back" href="/"><span aria-hidden="true">←</span> Back</a>
+    </header>
+
+<header class="cs-hero cs-hero--article">
+  <div class="cs-wrap">
+    <h1 class="cs-hero-title">UPI Orders <em>Management</em></h1>
+    <ul class="cs-hero-facts" aria-label="Project facts">
+      <li>Solo Product Designer</li>
+      <li>Juspay UPI</li>
+      <li>0→1, end to end</li>
+    </ul>
+  </div>
+  <figure class="cs-wrap cs-wrap--showcase cs-cover">
+    <div class="cs-cover-stage">
+      <img src="assets/upi/order-detail.webp" width="2800" height="1689" alt="An order in the dashboard: the order value up top, the last transaction and refund status, every transaction listed below, and the order summary on the right" fetchpriority="high">
+    </div>
+  </figure>
+</header>
+
+<section class="cs-section up-intro">
+<div class="cs-wrap">
+  <p class="cs-p reveal">Designed Juspay's UPI operations dashboard <strong>from scratch as the sole designer</strong>, owning the end-to-end product experience across key workflows including order management, refunds, mandates and dispute resolution. Brought these interconnected operations together into a unified experience for merchants, banks and internal teams.</p>
+</div>
+</section>
+
+<section class="cs-section">
+<div class="cs-wrap">
+  <div class="cs-label reveal">Product context</div>
+  <h2 class="cs-display reveal">What is the UPI Dashboard?</h2>
+  <p class="cs-p reveal">Juspay powers UPI payments for merchants and banks. The dashboard brings the operational side of these payments <strong>into one place</strong>, helping teams manage orders, process refunds, track mandates and handle disputes.</p>
+  <p class="cs-p reveal">It serves three user groups: merchants, banks and Juspay's internal teams. Each uses the dashboard for different operational needs, from managing payments and merchant accounts to monitoring disputes and settlements.</p>
+</div>
+</section>
+
+<section class="cs-section">
+<div class="cs-wrap">
+  <div class="cs-label reveal">Orders</div>
+  <h2 class="cs-display reveal">The starting point for payment investigation</h2>
+  <p class="cs-p reveal">Orders is the starting point for understanding a payment. Since each order connects to multiple things like transactions, refunds, settlements and disputes, the challenge was to <strong>bring relevant information together</strong> in a clear, structured view. Users can quickly understand an order's status, spot potential issues and navigate to the details they need.</p>
+</div>
+
+<div class="cs-wrap cs-wrap--wide rr-show" aria-label="Orders: the list and one order">
+  <div class="hs-cap reveal"><h3 class="hs-cap-t">Orders</h3></div>
+  <figure class="rr-stage reveal">
+    <div class="up-web"><img src="assets/upi/orders-list.webp" width="2800" height="1689" alt="The orders list: filters for order ID, date, merchant and status above a table of orders with status, created and modified times and amount" loading="lazy"></div>
+  </figure>
+
+  <div class="hs-cap reveal"><h3 class="hs-cap-t">Order details</h3></div>
+  <figure class="rr-stage reveal hs-show">
+    <div class="hs-slides">
+      <img class="hs-slide is-on" src="assets/upi/order-detail.webp" width="2800" height="1689" alt="One order: the order value, last transaction, refund status with a Create Refund button, the order's transactions, and the order summary" data-title="Default">
+      <img class="hs-slide" src="assets/upi/order-refunds.webp" width="2800" height="1689" alt="The same order after a partial refund: a bar splits what is still available to refund from what is refunded, with the last transaction and last refund side by side" data-title="Has refunds" loading="lazy">
+      <img class="hs-slide" src="assets/upi/order-mandate.webp" width="2800" height="1689" alt="The same order when it has become a mandate: a banner says the mandate is active, with a link to view it" data-title="Mandate active" loading="lazy">
+      <img class="hs-slide" src="assets/upi/order-dispute.webp" width="2800" height="1689" alt="The same order with an active dispute: a banner says a chargeback is pending and when to respond, and the affected transaction is flagged" data-title="Active dispute" loading="lazy">
+      <img class="hs-slide" src="assets/upi/order-partial.webp" width="2800" height="1689" alt="The same order while it is only partly collected: a bar shows ₹400 collected and ₹1,000 remaining" data-title="Partially collected" loading="lazy">
+    </div>
+  </figure>
+  <div class="hs-show-cap"><span class="hs-show-t">Default</span><div class="hs-ticks" role="tablist" aria-label="Order states"><button class="hs-tick is-on" aria-label="Default"></button><button class="hs-tick" aria-label="Has refunds"></button><button class="hs-tick" aria-label="Mandate active"></button><button class="hs-tick" aria-label="Active dispute"></button><button class="hs-tick" aria-label="Partially collected"></button></div></div>
+</div>
+</section>
+
+<section class="cs-section up-flow">
+<div class="cs-wrap cs-wrap--wide rr-show" aria-label="Refunds, mandates and disputes">
+  <div class="hs-cap reveal"><h3 class="hs-cap-t">Refund details</h3></div>
+  <figure class="rr-stage reveal hs-show">
+    <div class="hs-slides">
+      <img class="hs-slide is-on" src="assets/upi/refund-detail.webp" width="2800" height="1689" alt="A partial refund: ₹400 of ₹1,400 refunded shown as a bar, the original payment, refund details, and the related order's summary" data-title="Partial refund" loading="lazy">
+      <img class="hs-slide" src="assets/upi/refund-detail-2.webp" width="2800" height="1689" alt="A full refund: ₹1,400 refunded, a banner saying the full order amount was refunded, the original payment, refund details, and the related order's summary" data-title="Full refund" loading="lazy">
+    </div>
+  </figure>
+  <div class="hs-show-cap"><span class="hs-show-t">Partial refund</span><div class="hs-ticks" role="tablist" aria-label="Refund states"><button class="hs-tick is-on" aria-label="Partial refund"></button><button class="hs-tick" aria-label="Full refund"></button></div></div>
+
+  <div class="hs-cap reveal"><h3 class="hs-cap-t">Mandates</h3></div>
+  <figure class="rr-stage reveal hs-show">
+    <div class="hs-slides">
+      <img class="hs-slide is-on" src="assets/upi/mandate-detail.webp" width="2800" height="1689" alt="An active mandate: the amount, last transaction and last update, its attempts in tabs, and the mandate summary" data-title="Active" loading="lazy">
+      <img class="hs-slide" src="assets/upi/mandate-detail-2.webp" width="2800" height="1689" alt="A mandate seen through its attempts: the last transaction, and each attempt with its gateway and whether the callback was delivered or is pending" data-title="No updates" loading="lazy">
+      <img class="hs-slide" src="assets/upi/mandate-detail-3.webp" width="2800" height="1689" alt="A revoked mandate: the same details, with the status in the summary changed to Revoked" data-title="Revoked" loading="lazy">
+    </div>
+  </figure>
+  <div class="hs-show-cap"><span class="hs-show-t">Active</span><div class="hs-ticks" role="tablist" aria-label="Mandate states"><button class="hs-tick is-on" aria-label="Active"></button><button class="hs-tick" aria-label="No updates"></button><button class="hs-tick" aria-label="Revoked"></button></div></div>
+
+  <div class="hs-cap reveal"><h3 class="hs-cap-t">Disputes</h3></div>
+  <figure class="rr-stage reveal hs-show">
+    <div class="hs-slides">
+      <img class="hs-slide is-on" src="assets/upi/dispute.webp" width="2800" height="1689" alt="Chargeback records for a merchant, with status and response due, and the selected dispute's details and Take Action in a side panel" data-title="Chargeback records" loading="lazy">
+      <img class="hs-slide" src="assets/upi/dispute-2.webp" width="2800" height="1689" alt="One dispute opened in a drawer: dispute ID and status, amount, reason, submitted evidence, the disputed transaction's details in sections, and Take Action" data-title="Dispute details" loading="lazy">
+    </div>
+  </figure>
+  <div class="hs-show-cap"><span class="hs-show-t">Chargeback records</span><div class="hs-ticks" role="tablist" aria-label="Dispute screens"><button class="hs-tick is-on" aria-label="Chargeback records"></button><button class="hs-tick" aria-label="Dispute details"></button></div></div>
+</div>
+</section>
+
+<section class="cs-section up-flow">
+<div class="cs-wrap">
+  <div class="cs-label reveal">Summary card</div>
+  <h2 class="cs-display reveal">The essentials, at a glance</h2>
+  <p class="cs-p reveal">Each module contains its own terminology, data and operational details, making it difficult for users to quickly understand a record. To reduce that effort, I introduced <strong>a consistent summary card across modules</strong>.</p>
+  <p class="cs-p reveal">Designed to bring the most relevant information — key identifiers, status, important metrics and latest updates — into one glance. This gives users a quick understanding of each record before they dive into the details, while keeping the experience familiar as they move between modules.</p>
+</div>
+
+<div class="cs-wrap cs-wrap--wide rr-show" aria-label="The summary card and the screens it sits on">
+  <div class="rr-stage reveal">
+    <div class="up-receipts">
+      <figure><div class="up-receipt"><img src="assets/upi/receipt-order.webp" width="1000" height="1296" alt="Order summary: ORD-55668401, Success, ₹1,400, one-time payment, last update Amount Settled" loading="lazy"></div></figure>
+      <figure><div class="up-receipt"><img src="assets/upi/receipt-mandate.webp" width="1000" height="1296" alt="Mandate summary: MND-55668401, Active, ₹1,400 max amount, as presented, valid until 2050, last update Mandate Activated" loading="lazy"></div></figure>
+      <figure><div class="up-receipt"><img src="assets/upi/receipt-dispute.webp" width="1000" height="1222" alt="Dispute summary: DSP-10482, Action Required, requested adjustment ₹1,400, response reason, submitted evidence to download, and Take Action" loading="lazy"></div></figure>
+      <figure><div class="up-receipt"><img src="assets/upi/receipt-user.webp" width="1000" height="1143" alt="User summary: Ankita Verma, created by, status, access to merchant IDs, team and role, with View Permissions, edit and revoke buttons" loading="lazy"></div></figure>
+      <figure><div class="up-receipt"><img src="assets/upi/receipt-program.webp" width="1000" height="1140" alt="Program details: High-Risk Transaction Screening, its description, program ID and status, fail fast and rollback settings, and an Edit Details button" loading="lazy"></div></figure>
+      <figure><div class="up-receipt"><img src="assets/upi/receipt-rule.webp" width="1000" height="1238" alt="Rule details: High-Value Transaction, its description, rule ID and status, stagger percentage, validity dates, identifier, and an Edit Details button" loading="lazy"></div></figure>
+    </div>
+  </div>
+</div>
+</section>
+
+<section class="cs-section up-flow">
+<div class="cs-wrap cs-wrap--wide rr-show" aria-label="User management, reports, tickets, mails and risk rules">
+  <div class="hs-cap reveal"><h3 class="hs-cap-t">User management</h3></div>
+  <figure class="rr-stage reveal hs-show">
+    <div class="hs-slides">
+      <img class="hs-slide is-on" src="assets/upi/user-list.webp" width="2800" height="1689" alt="User management: a table of users with role, team and status, filters above it, and the selected user's summary in a side panel" data-title="Users" loading="lazy">
+      <img class="hs-slide" src="assets/upi/user-permissions.webp" width="2800" height="1689" alt="The permission overview for one user: modules down the left, and read, write and checker rights for each sub-module with checkboxes" data-title="Permissions" loading="lazy">
+    </div>
+  </figure>
+  <div class="hs-show-cap"><span class="hs-show-t">Users</span><div class="hs-ticks" role="tablist" aria-label="User management screens"><button class="hs-tick is-on" aria-label="Users"></button><button class="hs-tick" aria-label="Permissions"></button></div></div>
+
+  <div class="hs-cap reveal"><h3 class="hs-cap-t">Reports</h3></div>
+  <figure class="rr-stage reveal hs-show">
+    <div class="hs-slides">
+      <img class="hs-slide is-on" src="assets/upi/reports.webp" width="2800" height="1689" alt="Reports overview: a folder for each merchant, some marked with new reports, and a switch between issuer and acquirer" data-title="Merchants" loading="lazy">
+      <img class="hs-slide" src="assets/upi/reports-2.webp" width="2800" height="1689" alt="One merchant's reports: a folder for each month of the year, the latest marked with new reports, and a link to previous downloads" data-title="Months" loading="lazy">
+    </div>
+  </figure>
+  <div class="hs-show-cap"><span class="hs-show-t">Merchants</span><div class="hs-ticks" role="tablist" aria-label="Reports screens"><button class="hs-tick is-on" aria-label="Merchants"></button><button class="hs-tick" aria-label="Months"></button></div></div>
+
+  <div class="hs-cap reveal"><h3 class="hs-cap-t">Tickets</h3></div>
+  <figure class="rr-stage reveal hs-show">
+    <div class="hs-slides">
+      <img class="hs-slide is-on" src="assets/upi/tickets.webp" width="2800" height="1689" alt="Tickets as a board: pending, success, failed and declined columns, with failed tickets grouped by reason" data-title="Board" loading="lazy">
+      <img class="hs-slide" src="assets/upi/tickets-2.webp" width="2800" height="1689" alt="A ticket opened over the board: a merchant config change with the previous and new values side by side, and Cancel Ticket and Approve Ticket" data-title="Ticket review" loading="lazy">
+      <img class="hs-slide" src="assets/upi/tickets-3.webp" width="2800" height="1689" alt="The board with the success column folded away to make room, and the filter set to creator" data-title="Collapsible columns" loading="lazy">
+    </div>
+  </figure>
+  <div class="hs-show-cap"><span class="hs-show-t">Board</span><div class="hs-ticks" role="tablist" aria-label="Tickets screens"><button class="hs-tick is-on" aria-label="Board"></button><button class="hs-tick" aria-label="Ticket review"></button><button class="hs-tick" aria-label="Collapsible columns"></button></div></div>
+
+  <div class="hs-cap reveal"><h3 class="hs-cap-t">Mails</h3></div>
+  <figure class="rr-stage reveal hs-show">
+    <div class="hs-slides">
+      <img class="hs-slide is-on" src="assets/upi/mails.webp" width="2800" height="1689" alt="Mails: sent mails in a list, split into success, failed and bounced, with the chosen mail's recipients and details beside it" data-title="Mail details" loading="lazy">
+      <img class="hs-slide" src="assets/upi/mails-2.webp" width="2800" height="1689" alt="Mails with nothing chosen yet: the list of sent mails and an empty state asking to pick one" data-title="Nothing selected" loading="lazy">
+    </div>
+  </figure>
+  <div class="hs-show-cap"><span class="hs-show-t">Mail details</span><div class="hs-ticks" role="tablist" aria-label="Mails screens"><button class="hs-tick is-on" aria-label="Mail details"></button><button class="hs-tick" aria-label="Nothing selected"></button></div></div>
+
+  <div class="hs-cap reveal"><h3 class="hs-cap-t">Risk rules</h3></div>
+  <figure class="rr-stage reveal hs-show">
+    <div class="hs-slides">
+      <img class="hs-slide is-on" src="assets/upi/rule-1.webp" width="2800" height="1689" alt="Rules configured for a program: a table of rules with status and validity, and the program's details in a side panel" data-title="Rules" loading="lazy">
+      <img class="hs-slide" src="assets/upi/rule-2.webp" width="2800" height="1689" alt="Configuring a rule: conditions and groups joined with AND, and the rule it generates shown underneath" data-title="Configure rule" loading="lazy">
+      <img class="hs-slide" src="assets/upi/rule-3.webp" width="2800" height="1689" alt="One rule's details: the same conditions read-only, the generated rule, and the rule's summary in a side panel" data-title="Rule details" loading="lazy">
+    </div>
+  </figure>
+  <div class="hs-show-cap"><span class="hs-show-t">Rules</span><div class="hs-ticks" role="tablist" aria-label="Risk rule screens"><button class="hs-tick is-on" aria-label="Rules"></button><button class="hs-tick" aria-label="Configure rule"></button><button class="hs-tick" aria-label="Rule details"></button></div></div>
+</div>
+</section>
+
+<section class="cs-section">
+<div class="cs-wrap">
+  <div class="cs-label reveal">Where we landed</div>
+  <p class="cs-p reveal">Brought the entire payment operations journey into <strong>one unified dashboard</strong>, helping merchants and banks track orders, refunds, mandates and disputes through a consistent experience.</p>
+</div>
+</section>
+
+<section class="cs-section">
+<div class="cs-wrap">
+  <nav class="cs-next reveal" aria-label="Next case study">
+    <a class="cs-next-row" href="/work-skilling"><span class="cs-next-lbl">Next case study</span><span class="cs-next-name">Up-skill</span><span class="cs-next-desc">Crafted an engaging learning experience for frontline workers with low digital literacy, making upskilling more guided, relevant, and engaging.</span><span class="cs-next-go" aria-hidden="true">&rarr;</span></a>
+    <a class="cs-cta cs-next-all" href="/#work"><span class="arr">&larr;</span> All work</a>
+  </nav>
+</div>
+</section>
+
+<footer class="foot meta">
+  <div>© 2026 Akhil Male</div>
+  <div class="right"><a href="#">Back to top ↑</a></div>
+</footer>
+  </main>
+</div>
+
+<script>
+/* Reveal on scroll, as on the other case studies */
+(function () {
+  var items = document.querySelectorAll('.reveal');
+  if (!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) { items.forEach(function (el) { el.classList.add('is-visible'); }); return; }
+  var obs = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('is-visible'); obs.unobserve(e.target); } }); }, { threshold: 0.08 });
+  items.forEach(function (el) { obs.observe(el); });
+  setTimeout(function () { items.forEach(function (el) { el.classList.add('is-visible'); }); }, 2500);
+})();
+</script>
+<script>
+/* Carousels (order states, more modules): each advances by itself and pauses on hover */
+(function () {
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll('.hs-slides').forEach(function (box, n) {
+    var fig = box.closest('figure'), cap = fig.nextElementSibling;
+    var slides = box.querySelectorAll('.hs-slide'), ticks = cap.querySelectorAll('.hs-tick'), t = cap.querySelector('.hs-show-t'), i = 0;
+    function go(k) { slides[i].classList.remove('is-on'); ticks[i].classList.remove('is-on'); void ticks[i].offsetWidth; i = k % slides.length; slides[i].classList.add('is-on'); ticks[i].classList.add('is-on'); t.textContent = slides[i].dataset.title; }
+    ticks.forEach(function (b, k) { b.addEventListener('click', function () { go(k); }); });
+    if (reduce) return;
+    cap.style.setProperty('--dur', (3.5 + n * 0.5) + 's');
+    [fig, cap].forEach(function (el) {
+      el.addEventListener('mouseenter', function () { cap.classList.add('is-held'); });
+      el.addEventListener('mouseleave', function () { cap.classList.remove('is-held'); });
+    });
+    /* the slide changes when its bar is full, so hovering (which pauses the bar) pauses the slide */
+    cap.addEventListener('animationend', function (e) { if (e.animationName === 'hsFill') go(i + 1); });
+  });
+})();
+</script>
+<script src="assets/v3.js?v=55"></script>
+</body>
+</html>
