@@ -98,8 +98,7 @@
 .hs-cap-d { grid-column: 2; margin: 2px 0 0; font-size: 14px; line-height: 1.55; color: var(--text-soft); }
 .hs-slides { position: relative; width: 100%; aspect-ratio: 2000 / 1417; border-radius: 10px; overflow: hidden; background: #fff; box-shadow: 0 0 0 1px var(--line), 0 24px 60px rgb(var(--sh-rgb) / calc(.35 * var(--sh-k))); }
 .hs-slide { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .7s ease; }
-.hs-slides--old { aspect-ratio: 4488 / 3452; background: none; box-shadow: none; overflow: visible; }
-.hs-slides--old .hs-slide { object-fit: contain; object-position: top; }
+.hs-slides--old { aspect-ratio: 2000 / 1511; }
 .hs-slide.is-on { opacity: 1; }
 .hs-show-cap { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: -4px; }
 .hs-show-t { font: 500 16px/1.5 var(--sans, inherit); color: var(--text); }
@@ -198,13 +197,11 @@
 <div class="cs-wrap cs-wrap--wide rr-show" aria-label="The old checkout, shown one after another">
   <figure class="rr-stage reveal hs-show">
     <div class="hs-slides hs-slides--old">
-      <img class="hs-slide is-on" src="assets/hyperswitch/old-01.webp" width="2000" height="1421" alt="The old checkout: Google Pay and PayPal on top, then a card form with Klarna, Affirm and After Pay listed below" data-title="Card form and express buttons">
-      <img class="hs-slide" src="assets/hyperswitch/old-02.webp" width="2000" height="1496" alt="The old checkout with payment methods as tabs: Card, Klarna and a menu for more, above the card form and Pay button" data-title="Payment method tabs" loading="lazy">
-      <img class="hs-slide" src="assets/hyperswitch/old-03.webp" width="2000" height="1539" alt="The old checkout showing a long list of saved cards, each with its expiry date" data-title="Saved cards list" loading="lazy">
-      <img class="hs-slide" src="assets/hyperswitch/old-04.webp" width="2000" height="1539" alt="The old checkout showing the end of the saved list, then Google Pay, PayPal, a new payment methods link and the Pay button" data-title="Saved cards and wallets" loading="lazy">
+      <img class="hs-slide is-on" src="assets/hyperswitch/old-tabs.webp" width="2000" height="1511" alt="The old checkout: Google Pay and PayPal on top, payment methods as tabs, then the card form and Pay button" data-title="Payment method tabs">
+      <img class="hs-slide" src="assets/hyperswitch/old-saved.webp" width="2000" height="1511" alt="The old checkout showing a long list of saved cards, each with its expiry date" data-title="Saved cards list" loading="lazy">
     </div>
   </figure>
-  <div class="hs-show-cap"><span class="hs-show-t">Card form and express buttons</span><div class="hs-ticks" aria-label="Old designs"><button class="hs-tick is-on" aria-label="Card form and express buttons"></button><button class="hs-tick" aria-label="Payment method tabs"></button><button class="hs-tick" aria-label="Saved cards list"></button><button class="hs-tick" aria-label="Saved cards and wallets"></button></div></div>
+  <div class="hs-show-cap"><span class="hs-show-t">Payment method tabs</span><div class="hs-ticks" aria-label="Old designs"><button class="hs-tick is-on" aria-label="Payment method tabs"></button><button class="hs-tick" aria-label="Saved cards list"></button></div></div>
 </div>
 </section>
 
